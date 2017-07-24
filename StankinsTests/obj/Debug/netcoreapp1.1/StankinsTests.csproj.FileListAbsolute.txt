@@ -1,0 +1,44 @@
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.deps.json
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.runtimeconfig.json
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.runtimeconfig.dev.json
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\obj\Debug\netcoreapp1.1\StankinsTests.csprojResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\obj\Debug\netcoreapp1.1\StankinsTests.AssemblyInfo.cs
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\ReceiverDBSQLite.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\ReceiverDBSQLite.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\obj\Debug\netcoreapp1.1\StankinsTests.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsTests\obj\Debug\netcoreapp1.1\StankinsTests.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\SenderCSV.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\SenderCSV.pdb
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.deps.json
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.runtimeconfig.json
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.runtimeconfig.dev.json
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsTests.pdb
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\ReceiverDBSQLite.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\SenderCSV.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\ReceiverDBSQLite.pdb
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\SenderCSV.pdb
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+E:\Stankins\StankinsTests\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+E:\Stankins\StankinsTests\obj\Debug\netcoreapp1.1\StankinsTests.csprojResolveAssemblyReference.cache
+E:\Stankins\StankinsTests\obj\Debug\netcoreapp1.1\StankinsTests.AssemblyInfo.cs
+E:\Stankins\StankinsTests\obj\Debug\netcoreapp1.1\StankinsTests.dll
+E:\Stankins\StankinsTests\obj\Debug\netcoreapp1.1\StankinsTests.pdb

@@ -1,0 +1,18 @@
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.deps.json
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.AssemblyInfo.cs
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.pdb
+E:\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.deps.json
+E:\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.dll
+E:\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.pdb
+E:\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+E:\Stankins\SenderCSV\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+E:\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.csprojResolveAssemblyReference.cache
+E:\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.AssemblyInfo.cs
+E:\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.dll
+E:\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.pdb

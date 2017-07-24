@@ -1,0 +1,3 @@
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.5\StanskinsImplementation.deps.json
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.5\StanskinsImplementation.csprojResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.5\StanskinsImplementation.AssemblyInfo.cs

@@ -1,0 +1,18 @@
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.deps.json
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.AssemblyInfo.cs
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.pdb
+E:\Stankins\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.deps.json
+E:\Stankins\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.dll
+E:\Stankins\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.pdb
+E:\Stankins\SenderXML\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+E:\Stankins\SenderXML\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+E:\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.csprojResolveAssemblyReference.cache
+E:\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.AssemblyInfo.cs
+E:\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.dll
+E:\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.pdb

@@ -1,0 +1,10 @@
+1. IReceive pentru CSV
+2. ReceiverProceduraStocata
+3. ISend pentru CSV
+4. ISend pentru tabela
+5. Serializare pe disc pentru ReceiverTable
+6. Implementare JOB ca sa preia date de la IReceiver si sa le dea la IFilter
+7. logging - nlog 
+8. jenkins
+9. adaugat loguri peste tot de forma
+//LOG: before retrieving latest value

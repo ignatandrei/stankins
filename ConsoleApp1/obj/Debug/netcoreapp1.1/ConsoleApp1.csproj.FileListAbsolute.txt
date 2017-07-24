@@ -1,0 +1,46 @@
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.deps.json
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.runtimeconfig.json
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.runtimeconfig.dev.json
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.dll
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\obj\Debug\netcoreapp1.1\ConsoleApp1.csprojResolveAssemblyReference.cache
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\obj\Debug\netcoreapp1.1\ConsoleApp1.AssemblyInfo.cs
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\obj\Debug\netcoreapp1.1\ConsoleApp1.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\ConsoleApp1\obj\Debug\netcoreapp1.1\ConsoleApp1.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderCSV.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderCSV.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderXML.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderXML.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderJSON.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderJSON.pdb
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.deps.json
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.runtimeconfig.json
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.runtimeconfig.dev.json
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.dll
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ConsoleApp1.pdb
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderCSV.dll
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderJSON.dll
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderXML.dll
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderCSV.pdb
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderJSON.pdb
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\SenderXML.pdb
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+E:\Stankins\ConsoleApp1\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+E:\Stankins\ConsoleApp1\obj\Debug\netcoreapp1.1\ConsoleApp1.csprojResolveAssemblyReference.cache
+E:\Stankins\ConsoleApp1\obj\Debug\netcoreapp1.1\ConsoleApp1.AssemblyInfo.cs
+E:\Stankins\ConsoleApp1\obj\Debug\netcoreapp1.1\ConsoleApp1.dll
+E:\Stankins\ConsoleApp1\obj\Debug\netcoreapp1.1\ConsoleApp1.pdb

@@ -1,0 +1,18 @@
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.deps.json
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.csprojResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.AssemblyInfo.cs
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StankinsInterfaces.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StankinsInterfaces.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.dll
+C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.pdb
+E:\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.deps.json
+E:\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.dll
+E:\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.pdb
+E:\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StankinsInterfaces.dll
+E:\Stankins\StanskinsImplementation\bin\Debug\netstandard1.6\StankinsInterfaces.pdb
+E:\Stankins\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.csprojResolveAssemblyReference.cache
+E:\Stankins\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.AssemblyInfo.cs
+E:\Stankins\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.dll
+E:\Stankins\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.pdb

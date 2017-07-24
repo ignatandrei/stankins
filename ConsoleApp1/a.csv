@@ -1,0 +1,1765 @@
+id,collection_id,collection_timestamp,is_empty_collection,machine_name,instance_name,instance_type,blocking_hierarchy,blocking_desc,session_id,status,last_request_start_time,open_transaction_count,transaction_isolation_level_desc,wait_type,wait_resource,last_wait_type,database_name,sql_object_name,sql_statement,last_sql_batch,logical_reads,logical_writes,physical_reads,total_elapsed_time_ms,cpu_time_ms,client_hostname,client_app_name,login_name,sql_handle,plan_handle,request_id,first_time_collected_id
+433,31db789e-eb1e-43f2-b9c5-f188e915118f,6/25/2017 4:15:44 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+432,e8a74ce1-bdc4-4eea-8ebb-f7641ff4ef65,6/25/2017 4:15:39 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+431,a953994d-9ef6-4f61-88e9-d5adee05c4fc,6/25/2017 4:15:34 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+430,10fa0439-fca4-4a11-a58c-bb5e4a3386b0,6/25/2017 4:15:29 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+429,7b07dde5-bb6c-4d64-899e-fe35428ee8a3,6/25/2017 4:15:24 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+428,e7493e82-cbac-40cf-a617-bb1e57ee7543,6/25/2017 4:15:18 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15179480,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+427,e7493e82-cbac-40cf-a617-bb1e57ee7543,6/25/2017 4:15:18 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15207649,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+426,e7493e82-cbac-40cf-a617-bb1e57ee7543,6/25/2017 4:15:18 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+425,d365f509-5d77-45ba-8a39-13443938cd19,6/25/2017 4:15:13 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15174473,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+424,d365f509-5d77-45ba-8a39-13443938cd19,6/25/2017 4:15:13 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15202642,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+423,d365f509-5d77-45ba-8a39-13443938cd19,6/25/2017 4:15:13 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+422,e4f22720-b13b-432a-a501-f3944fdb204e,6/25/2017 4:15:08 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15169466,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+421,e4f22720-b13b-432a-a501-f3944fdb204e,6/25/2017 4:15:08 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15197636,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+420,e4f22720-b13b-432a-a501-f3944fdb204e,6/25/2017 4:15:08 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+419,189b76a4-608c-487e-a976-ded38487dd4c,6/25/2017 4:15:03 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15164459,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+418,189b76a4-608c-487e-a976-ded38487dd4c,6/25/2017 4:15:03 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15192628,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+417,189b76a4-608c-487e-a976-ded38487dd4c,6/25/2017 4:15:03 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+416,5b23ce11-6d04-4d58-b663-25dca335d80a,6/25/2017 4:14:58 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15159411,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+415,5b23ce11-6d04-4d58-b663-25dca335d80a,6/25/2017 4:14:58 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15187581,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+414,5b23ce11-6d04-4d58-b663-25dca335d80a,6/25/2017 4:14:58 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+413,aa25669b-e3ba-4f7d-82a6-a32fef9804eb,6/25/2017 4:14:53 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15154404,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+412,aa25669b-e3ba-4f7d-82a6-a32fef9804eb,6/25/2017 4:14:53 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15182573,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+411,aa25669b-e3ba-4f7d-82a6-a32fef9804eb,6/25/2017 4:14:53 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+410,8615d667-3cd5-4d0f-908b-07aacd73de73,6/25/2017 4:14:48 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15149397,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+409,8615d667-3cd5-4d0f-908b-07aacd73de73,6/25/2017 4:14:48 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15177567,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+408,8615d667-3cd5-4d0f-908b-07aacd73de73,6/25/2017 4:14:48 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+407,481018e7-666b-4467-8ce2-6df1919c1d5f,6/25/2017 4:14:43 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15144392,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+406,481018e7-666b-4467-8ce2-6df1919c1d5f,6/25/2017 4:14:43 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15172561,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+405,481018e7-666b-4467-8ce2-6df1919c1d5f,6/25/2017 4:14:43 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+404,675d1fa9-5c2d-43f7-a100-dc6311274a5c,6/25/2017 4:14:38 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15139385,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+403,675d1fa9-5c2d-43f7-a100-dc6311274a5c,6/25/2017 4:14:38 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15167554,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+402,675d1fa9-5c2d-43f7-a100-dc6311274a5c,6/25/2017 4:14:38 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+401,bdca0669-8cd5-44c2-b6e8-42dac125d02f,6/25/2017 4:14:33 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15134376,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+400,bdca0669-8cd5-44c2-b6e8-42dac125d02f,6/25/2017 4:14:33 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15162545,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+399,bdca0669-8cd5-44c2-b6e8-42dac125d02f,6/25/2017 4:14:33 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+398,e6ebc6a5-de4d-49a0-9e83-cc4fca6fd3ec,6/25/2017 4:14:28 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15129368,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+397,e6ebc6a5-de4d-49a0-9e83-cc4fca6fd3ec,6/25/2017 4:14:28 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15157538,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+396,e6ebc6a5-de4d-49a0-9e83-cc4fca6fd3ec,6/25/2017 4:14:28 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+395,a2b992aa-c493-498e-b8af-059350d1e536,6/25/2017 4:14:23 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15124259,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+394,a2b992aa-c493-498e-b8af-059350d1e536,6/25/2017 4:14:23 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15152429,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+393,a2b992aa-c493-498e-b8af-059350d1e536,6/25/2017 4:14:23 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+392,e32bd49f-919d-41b7-9963-b6a493861f9a,6/25/2017 4:14:18 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15119039,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+391,e32bd49f-919d-41b7-9963-b6a493861f9a,6/25/2017 4:14:18 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15147209,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+390,e32bd49f-919d-41b7-9963-b6a493861f9a,6/25/2017 4:14:18 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+389,cb34f063-6641-44ba-ab79-db0adf3c51ae,6/25/2017 4:14:13 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15113772,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+388,cb34f063-6641-44ba-ab79-db0adf3c51ae,6/25/2017 4:14:13 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15141942,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+387,cb34f063-6641-44ba-ab79-db0adf3c51ae,6/25/2017 4:14:13 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+386,0414f4c3-4ffa-4397-9f44-20e001ada551,6/25/2017 4:14:08 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15108767,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+385,0414f4c3-4ffa-4397-9f44-20e001ada551,6/25/2017 4:14:08 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15136936,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+384,0414f4c3-4ffa-4397-9f44-20e001ada551,6/25/2017 4:14:08 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+383,ba6d995a-dd70-46de-9a9b-35e85ec3cd14,6/25/2017 4:14:03 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15103760,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+382,ba6d995a-dd70-46de-9a9b-35e85ec3cd14,6/25/2017 4:14:03 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15131930,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+381,ba6d995a-dd70-46de-9a9b-35e85ec3cd14,6/25/2017 4:14:03 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+380,aeca8c4c-6ffd-44fb-b59c-8b76deccff41,6/25/2017 4:13:58 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15098751,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,377
+379,aeca8c4c-6ffd-44fb-b59c-8b76deccff41,6/25/2017 4:13:58 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15126921,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,376
+378,aeca8c4c-6ffd-44fb-b59c-8b76deccff41,6/25/2017 4:13:58 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,375
+377,bc8dbf2c-4bb9-49a4-a8a8-a7afde5c6743,6/25/2017 4:13:53 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 4:13:52 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,86,0,0,15093744,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+376,bc8dbf2c-4bb9-49a4-a8a8-a7afde5c6743,6/25/2017 4:13:53 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:48 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,292,8,7,15121914,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+375,bc8dbf2c-4bb9-49a4-a8a8-a7afde5c6743,6/25/2017 4:13:53 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:43 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,445,4,4,663,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,
+374,6714b746-a842-4fae-855c-cbf055e46bcc,6/25/2017 4:13:48 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+373,ab9f08ff-5feb-4a8c-bfd2-e68d92812379,6/25/2017 4:13:43 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+372,6e47f8c1-fd4a-4ca0-89f7-611038d8f576,6/25/2017 4:13:38 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+371,8c09f558-8ac4-4b3a-8016-b9b24445b640,6/25/2017 4:13:33 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:12 PM,0,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,257,7,6,15117242,4,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,363
+370,8c09f558-8ac4-4b3a-8016-b9b24445b640,6/25/2017 4:13:33 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:08 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,413,4,4,660,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,364
+369,2b14524b-a3e1-4e54-8dcd-1924e644ca18,6/25/2017 4:13:28 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:12 PM,0,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,257,7,6,15112202,4,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,363
+368,2b14524b-a3e1-4e54-8dcd-1924e644ca18,6/25/2017 4:13:28 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:08 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,413,4,4,660,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,364
+367,44fb1976-82a0-4dc8-a849-92e441d7f4e8,6/25/2017 4:13:23 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:12 PM,0,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,257,7,6,15107195,4,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,363
+366,44fb1976-82a0-4dc8-a849-92e441d7f4e8,6/25/2017 4:13:23 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:08 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,413,4,4,660,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,364
+365,ea02e093-1a43-4b43-8a21-2d25db3da8bc,6/25/2017 4:13:17 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 4:13:12 PM,0,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,257,7,6,15102097,4,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,363
+364,ea02e093-1a43-4b43-8a21-2d25db3da8bc,6/25/2017 4:13:17 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 4:13:08 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,413,4,4,660,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,
+363,6104e24f-2b49-44ad-a3ea-92cb86e59d39,6/25/2017 4:13:12 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/55/,,55,suspended,6/25/2017 4:13:12 PM,2,ReadCommitted,SLEEP_TASK,,SLEEP_TASK,FGRestore,,UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1,
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,248,6,5,15096864,4,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+362,6dfb826f-7a1c-4f99-be45-fbdbaf1d57b9,6/25/2017 4:13:07 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+361,24e05b9f-25ca-41cf-8b58-d6cb84483b31,6/25/2017 4:13:02 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+360,316cdb79-3148-47e0-8194-13c87145bd43,6/25/2017 4:12:57 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+359,8e4d6367-09ed-4af7-bc87-4e6f346b411d,6/25/2017 4:12:52 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+358,0cec3d95-5344-4d41-bc45-5b54e3ebf519,6/25/2017 4:12:47 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+357,e8e3d857-19d4-487e-84bb-c9d8adf959bc,6/25/2017 4:12:42 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+356,fdc437a6-7f2e-4099-ab00-5caf89f8dffe,6/25/2017 4:12:37 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+355,8ee9a7f8-3732-4033-8dd4-183dfb7907a1,6/25/2017 4:12:32 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+354,5c5f481f-959e-4bce-bf04-80a80450c9ab,6/25/2017 4:12:27 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+353,eb6d6267-6b5c-4cc2-a5a2-78c5bc6b0c6e,6/25/2017 4:12:22 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+352,65caad75-b5ce-40ae-8b95-5ffc57fec683,6/25/2017 4:12:17 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+351,f483ecf9-b9a4-4089-8136-9cb15368a9ce,6/25/2017 4:12:12 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+350,7959002e-08cb-4aa6-a73d-bd681303dc7c,6/25/2017 4:12:07 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+349,1c9c6834-d58b-4c21-9059-9a0abd6f3710,6/25/2017 4:12:00 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+348,450419d8-0a71-4fc4-9949-a84e94535dc9,6/25/2017 4:11:55 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+347,1b5cc447-c536-4122-97b9-d967ebb44017,6/25/2017 4:11:50 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+346,ccf9c2c1-7030-4b06-a0f2-17dd36e16f2e,6/25/2017 4:11:45 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+345,858e02e4-bcf3-4244-a911-f7fa1621e362,6/25/2017 4:11:40 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+344,c146bfb6-b0b1-45cf-9371-3d3a333ea781,6/25/2017 4:11:35 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+343,4cdf48ee-79ee-40ec-a89b-8abc9ad47c7a,6/25/2017 4:11:30 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+342,d90af3f8-ae33-4e49-923f-6352de71db3b,6/25/2017 4:11:25 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+341,17379e3a-8dd1-45af-bcef-edf8f78eccd2,6/25/2017 4:11:20 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+340,6dd69bb1-9ac0-42ef-bc18-291a03bcff9b,6/25/2017 4:11:15 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+339,00dc8888-4b7b-4111-8a2e-72a3c8a37533,6/25/2017 4:11:10 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+338,fc1d5eda-6128-44c0-af37-3e68aa1da8b2,6/25/2017 4:11:05 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+337,eabca941-79a5-4eb5-9880-f776088ad44f,6/25/2017 4:11:00 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+336,2b762f65-6830-428c-b0fb-5086370bedbd,6/25/2017 4:10:55 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+335,3afd2a3e-9da5-4ee6-aee3-152a9cad087b,6/25/2017 4:10:49 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+334,1f27cf15-e889-4476-a78b-0796f424c176,6/25/2017 4:10:44 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+333,9546d85c-dc9a-435f-9744-a22fca766a2c,6/25/2017 4:10:39 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+332,b4084012-0bc2-4ef7-91ee-a63d02b7de5d,6/25/2017 4:10:34 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+331,d9923568-a635-4b61-a5da-651b919535a4,6/25/2017 4:10:29 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+330,4733833e-b1ca-4813-9a79-9b1de3ff3466,6/25/2017 4:10:24 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+329,de95ce3e-7c80-48b6-aabf-3bc26d93085b,6/25/2017 4:10:19 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+328,1c7991fa-910f-477a-8415-363f9e538da3,6/25/2017 4:10:14 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+327,cf4aa3e1-b0cf-4c43-9c53-3d0a36ac603e,6/25/2017 4:10:09 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+326,726bcbd6-330d-4ab2-a45b-76ca76e6fff9,6/25/2017 4:10:04 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+325,1c163534-6100-465e-865e-dcea1fed807f,6/25/2017 4:09:59 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+324,b4f686ae-222e-43b0-8c0c-92c1658827c3,6/25/2017 4:09:54 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+323,cf86eb78-7648-4c59-8b5d-6b43b33e1ec0,6/25/2017 4:09:49 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+322,f6ab90fb-150f-42f0-bffb-4ccc391558c7,6/25/2017 4:09:44 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+321,86a71c92-6cbc-4f9b-98e8-09552726e1b8,6/25/2017 4:09:39 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+320,5927c044-74ea-4784-a7f4-c1b788dc14ce,6/25/2017 4:09:34 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+319,ea2f9c31-8628-4649-9b14-30d5b718e996,6/25/2017 4:09:29 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+318,aece5f50-fbbf-4e16-816f-fd4b7f2f5f62,6/25/2017 4:09:24 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+317,7cf22be2-ec08-44db-a7a3-8893214f4a06,6/25/2017 4:09:19 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+316,ec270732-3618-4283-9b16-17c5c6707272,6/25/2017 4:09:14 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+315,d7454eb5-70e7-404d-88bc-7b7fa481b939,6/25/2017 4:09:09 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+314,a0587b6a-b747-4ae1-abe2-f62cd9b66bec,6/25/2017 4:09:04 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+313,303759ae-c63f-4c13-a769-4c46da3ae1ec,6/25/2017 4:08:59 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+312,0cde3169-cae3-4e2d-be26-4b1a0d73dc36,6/25/2017 4:08:54 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+311,adc1fa86-e7c0-4e92-8eee-a8f855912c42,6/25/2017 4:08:49 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+310,896d8444-f0b0-45ec-bc55-d75213209cf8,6/25/2017 4:08:44 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+309,8e747042-6d67-43d5-9cec-a1de92b77479,6/25/2017 4:08:39 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+308,4ce11688-27e9-4491-8206-4359dca2574d,6/25/2017 4:08:34 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+307,1913601a-b07d-4160-a6e5-2153bffe002b,6/25/2017 4:08:29 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+306,654b9985-799e-4705-8232-c6700f791cc0,6/25/2017 4:08:24 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+305,68b22388-8c14-422b-90fe-85ba6823322e,6/25/2017 4:08:19 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+304,431f184f-a0ae-49d4-b9b9-f81344120a93,6/25/2017 4:08:14 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+303,9aef8ca2-9025-46f8-8714-14533b25fdfe,6/25/2017 4:08:09 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+302,6d3d822d-0959-4113-a6df-771cb69af11e,6/25/2017 4:08:04 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+301,1752608d-eb94-4f10-9e90-6f6c5253a443,6/25/2017 4:07:59 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+300,489c03c4-1f07-4ad7-a027-f79d78fc7c36,6/25/2017 4:07:54 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+299,bf3bb614-e2a6-4eaf-bf1e-aceba71a10a4,6/25/2017 4:07:49 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+298,6dcb412d-2639-4b60-aafc-1b0f4d66292a,6/25/2017 4:07:44 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+297,5a15c463-559f-4ea1-9bb5-f749ba6013a3,6/25/2017 4:07:39 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+296,4eea0fec-69e7-48ed-b9a0-624f8fc6dd3f,6/25/2017 4:07:34 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+295,ed26f6bd-641a-48e8-a9b2-517d229b16f4,6/25/2017 4:07:29 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+294,ac6ff610-f89a-469a-8bce-5b7880d54118,6/25/2017 4:07:24 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+293,08210cb9-0b2b-4d71-903b-32f95c2f2723,6/25/2017 4:07:19 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+292,9e4505ae-94e9-4c9b-9f4f-a3e1359dff12,6/25/2017 4:07:14 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+291,09b67de8-9122-427c-8ef7-23b1c06a64db,6/25/2017 4:07:09 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+290,b69f7230-fbf6-4abf-8348-2530bd9dcf27,6/25/2017 4:07:04 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+289,dc9ce7c0-0957-4867-af06-81279859a462,6/25/2017 4:06:59 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+288,c0026770-c696-43ad-9ce0-4c8b62120420,6/25/2017 4:06:54 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+287,9eac7a50-407e-4c2a-8bec-6ef36437c4b7,6/25/2017 4:06:49 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+286,71ebdcf2-20d3-436b-9635-09e964f847dd,6/25/2017 4:06:44 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+285,b194351f-0747-460b-845d-af45b4e4d0a6,6/25/2017 4:06:39 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+284,2d910f2a-538e-418b-b465-db38be8ede2f,6/25/2017 4:06:34 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+283,7cfaa19b-38e9-4ffb-90e0-31ec1cadc096,6/25/2017 4:06:29 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+282,a2060b87-79c2-4f45-a959-a5b93c6bf422,6/25/2017 4:06:24 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+281,747c8e99-97bd-455d-9785-e79932ca314a,6/25/2017 4:06:19 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+280,0229c82c-92d9-4aeb-a4c0-3cb5b0da2df9,6/25/2017 4:06:14 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+279,a4fb150d-fa36-4d41-8b5a-8afeee6c4329,6/25/2017 4:06:09 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+278,76369915-3ba7-4833-b1f3-03898e39beb1,6/25/2017 4:06:04 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+277,7d241573-5948-4df0-8455-3fbb7f84bf9d,6/25/2017 4:05:59 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+276,56ab6bad-71ff-4b59-8b72-626ff5414b0d,6/25/2017 4:05:54 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+275,cf2ded5f-c34e-46fb-9408-e9a4500ba209,6/25/2017 4:05:49 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+274,360a624f-d3d6-4962-9d2d-6896088136c2,6/25/2017 4:05:44 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+273,1ad38c7f-c541-415f-8e4c-2777ce08ae2c,6/25/2017 4:05:39 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+272,cce8e027-0eed-4347-8386-4405ed111c2c,6/25/2017 4:05:34 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+271,be778db0-255c-4837-a61c-47e2ee7a8ff9,6/25/2017 4:05:29 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+270,d86220a1-f1ba-42b8-85a9-9c89529186fa,6/25/2017 4:05:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15091981,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+269,d86220a1-f1ba-42b8-85a9-9c89529186fa,6/25/2017 4:05:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/55/,,55,sleeping,6/25/2017 3:58:40 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,5,15096636,0,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,12
+268,e8bc393b-6459-427e-92c9-2001ebeae9ff,6/25/2017 4:05:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15086975,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+267,e8bc393b-6459-427e-92c9-2001ebeae9ff,6/25/2017 4:05:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15094072,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+266,e8bc393b-6459-427e-92c9-2001ebeae9ff,6/25/2017 4:05:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+265,737376df-3d30-4a7b-850c-5062335d7d2b,6/25/2017 4:05:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15081968,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+264,737376df-3d30-4a7b-850c-5062335d7d2b,6/25/2017 4:05:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15089065,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+263,737376df-3d30-4a7b-850c-5062335d7d2b,6/25/2017 4:05:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+262,7565540f-336c-4898-bff2-ef0102334acc,6/25/2017 4:05:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15076962,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+261,7565540f-336c-4898-bff2-ef0102334acc,6/25/2017 4:05:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15084058,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+260,7565540f-336c-4898-bff2-ef0102334acc,6/25/2017 4:05:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+259,da256032-160e-461d-8ec1-828f79554a4c,6/25/2017 4:05:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15071955,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+258,da256032-160e-461d-8ec1-828f79554a4c,6/25/2017 4:05:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15079052,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+257,da256032-160e-461d-8ec1-828f79554a4c,6/25/2017 4:05:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+256,ac6d5464-54e4-40ad-b666-f7365db934ae,6/25/2017 4:04:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15066945,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+255,ac6d5464-54e4-40ad-b666-f7365db934ae,6/25/2017 4:04:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15074041,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+254,ac6d5464-54e4-40ad-b666-f7365db934ae,6/25/2017 4:04:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+253,59a7501d-daab-40f9-9f09-c1f7ed67d2d1,6/25/2017 4:04:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15061936,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+252,59a7501d-daab-40f9-9f09-c1f7ed67d2d1,6/25/2017 4:04:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15069033,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+251,59a7501d-daab-40f9-9f09-c1f7ed67d2d1,6/25/2017 4:04:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+250,fd4f6d07-2035-4df2-b69c-1dd95cf2cc05,6/25/2017 4:04:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15056931,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+249,fd4f6d07-2035-4df2-b69c-1dd95cf2cc05,6/25/2017 4:04:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15064027,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+248,fd4f6d07-2035-4df2-b69c-1dd95cf2cc05,6/25/2017 4:04:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+247,8a217e02-6e68-4e3d-8da4-f960f605de57,6/25/2017 4:04:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15051925,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+246,8a217e02-6e68-4e3d-8da4-f960f605de57,6/25/2017 4:04:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15059022,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+245,8a217e02-6e68-4e3d-8da4-f960f605de57,6/25/2017 4:04:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+244,72d032ad-6c2e-424e-9018-87bf38bd912d,6/25/2017 4:04:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15046918,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+243,72d032ad-6c2e-424e-9018-87bf38bd912d,6/25/2017 4:04:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15054015,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+242,72d032ad-6c2e-424e-9018-87bf38bd912d,6/25/2017 4:04:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+241,10c41079-7c26-43f6-9acd-e5ecb1822bcc,6/25/2017 4:04:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15041912,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+240,10c41079-7c26-43f6-9acd-e5ecb1822bcc,6/25/2017 4:04:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15049009,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+239,10c41079-7c26-43f6-9acd-e5ecb1822bcc,6/25/2017 4:04:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+238,504d2798-4e75-4f9f-b2d9-fa0e286bfea5,6/25/2017 4:04:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15036906,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+237,504d2798-4e75-4f9f-b2d9-fa0e286bfea5,6/25/2017 4:04:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15044003,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+236,504d2798-4e75-4f9f-b2d9-fa0e286bfea5,6/25/2017 4:04:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+235,3722535b-fb13-4fa9-97db-994a036de149,6/25/2017 4:04:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15031900,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+234,3722535b-fb13-4fa9-97db-994a036de149,6/25/2017 4:04:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15038997,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+233,3722535b-fb13-4fa9-97db-994a036de149,6/25/2017 4:04:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+232,724d7013-ac1f-4fe5-b459-b6e8a749833c,6/25/2017 4:04:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15026894,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+231,724d7013-ac1f-4fe5-b459-b6e8a749833c,6/25/2017 4:04:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15033990,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+230,724d7013-ac1f-4fe5-b459-b6e8a749833c,6/25/2017 4:04:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+229,edeefe12-854c-4d08-9b5b-f9b1c712a712,6/25/2017 4:04:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15021886,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+228,edeefe12-854c-4d08-9b5b-f9b1c712a712,6/25/2017 4:04:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15028983,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+227,edeefe12-854c-4d08-9b5b-f9b1c712a712,6/25/2017 4:04:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+226,b6ded21f-4e3b-48ae-93fa-a793919dcdab,6/25/2017 4:04:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15016879,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+225,b6ded21f-4e3b-48ae-93fa-a793919dcdab,6/25/2017 4:04:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15023975,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+224,b6ded21f-4e3b-48ae-93fa-a793919dcdab,6/25/2017 4:04:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+223,85a34d24-dc87-4091-a7f9-9eada8ce7065,6/25/2017 4:04:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15011872,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+222,85a34d24-dc87-4091-a7f9-9eada8ce7065,6/25/2017 4:04:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15018969,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+221,85a34d24-dc87-4091-a7f9-9eada8ce7065,6/25/2017 4:04:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+220,e9a3c320-89fe-4a2b-8362-8f03afea0876,6/25/2017 4:03:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15006864,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+219,e9a3c320-89fe-4a2b-8362-8f03afea0876,6/25/2017 4:03:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15013961,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+218,e9a3c320-89fe-4a2b-8362-8f03afea0876,6/25/2017 4:03:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+217,9cbf8d73-92fe-4f0f-8a63-dbe469d5bb27,6/25/2017 4:03:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,15001855,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+216,9cbf8d73-92fe-4f0f-8a63-dbe469d5bb27,6/25/2017 4:03:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15008951,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+215,9cbf8d73-92fe-4f0f-8a63-dbe469d5bb27,6/25/2017 4:03:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+214,0090a149-01fb-4bbf-a63d-8505b2c5a177,6/25/2017 4:03:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14996847,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+213,0090a149-01fb-4bbf-a63d-8505b2c5a177,6/25/2017 4:03:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,15003944,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+212,0090a149-01fb-4bbf-a63d-8505b2c5a177,6/25/2017 4:03:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+211,d6d6a4ab-53b1-4a53-9ec7-f87c0bbcf627,6/25/2017 4:03:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14991841,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+210,d6d6a4ab-53b1-4a53-9ec7-f87c0bbcf627,6/25/2017 4:03:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14998938,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+209,d6d6a4ab-53b1-4a53-9ec7-f87c0bbcf627,6/25/2017 4:03:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+208,0d4c23f3-0008-435f-9d7b-7b2cecb3598c,6/25/2017 4:03:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14986834,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+207,0d4c23f3-0008-435f-9d7b-7b2cecb3598c,6/25/2017 4:03:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14993930,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+206,0d4c23f3-0008-435f-9d7b-7b2cecb3598c,6/25/2017 4:03:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+205,0d18fdaf-384d-4471-b3a9-11b159a3d0b5,6/25/2017 4:03:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14981827,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+204,0d18fdaf-384d-4471-b3a9-11b159a3d0b5,6/25/2017 4:03:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14988923,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+203,0d18fdaf-384d-4471-b3a9-11b159a3d0b5,6/25/2017 4:03:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+202,f28557f3-389c-4ad1-adbd-5b52bfd346a2,6/25/2017 4:03:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14976821,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+201,f28557f3-389c-4ad1-adbd-5b52bfd346a2,6/25/2017 4:03:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14983917,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+200,f28557f3-389c-4ad1-adbd-5b52bfd346a2,6/25/2017 4:03:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+199,e8b9da68-b9f8-405c-a16a-b899b6ac70b5,6/25/2017 4:03:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14971814,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+198,e8b9da68-b9f8-405c-a16a-b899b6ac70b5,6/25/2017 4:03:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14978910,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+197,e8b9da68-b9f8-405c-a16a-b899b6ac70b5,6/25/2017 4:03:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+196,64e84be2-c86b-4da2-ada0-f2d23fd4105d,6/25/2017 4:03:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14966807,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+195,64e84be2-c86b-4da2-ada0-f2d23fd4105d,6/25/2017 4:03:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14973904,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+194,64e84be2-c86b-4da2-ada0-f2d23fd4105d,6/25/2017 4:03:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+193,8e24c3e1-99f1-4ca9-81aa-9734e76169b1,6/25/2017 4:03:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14961798,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+192,8e24c3e1-99f1-4ca9-81aa-9734e76169b1,6/25/2017 4:03:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14968895,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+191,8e24c3e1-99f1-4ca9-81aa-9734e76169b1,6/25/2017 4:03:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+190,13d0790f-df61-4e37-96ea-644de91f6c79,6/25/2017 4:03:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14956792,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+189,13d0790f-df61-4e37-96ea-644de91f6c79,6/25/2017 4:03:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14963889,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+188,13d0790f-df61-4e37-96ea-644de91f6c79,6/25/2017 4:03:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+187,87f3f3c6-a8dd-41ca-a712-042d7fe5aead,6/25/2017 4:03:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14951786,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+186,87f3f3c6-a8dd-41ca-a712-042d7fe5aead,6/25/2017 4:03:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14958883,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+185,87f3f3c6-a8dd-41ca-a712-042d7fe5aead,6/25/2017 4:03:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+184,8f2a15ac-ce38-4009-a2d1-f555324dcc2d,6/25/2017 4:02:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14946777,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+183,8f2a15ac-ce38-4009-a2d1-f555324dcc2d,6/25/2017 4:02:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14953874,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+182,8f2a15ac-ce38-4009-a2d1-f555324dcc2d,6/25/2017 4:02:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+181,981685ec-c36e-44e0-8975-805ac6fc85ab,6/25/2017 4:02:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14941772,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+180,981685ec-c36e-44e0-8975-805ac6fc85ab,6/25/2017 4:02:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14948868,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+179,981685ec-c36e-44e0-8975-805ac6fc85ab,6/25/2017 4:02:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+178,8b8ee5af-f44c-43c3-9962-50c3c438ca56,6/25/2017 4:02:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14936766,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+177,8b8ee5af-f44c-43c3-9962-50c3c438ca56,6/25/2017 4:02:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14943863,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+176,8b8ee5af-f44c-43c3-9962-50c3c438ca56,6/25/2017 4:02:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+175,4bcbc580-a35e-4d4f-8d1d-9cbd88425406,6/25/2017 4:02:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14931759,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+174,4bcbc580-a35e-4d4f-8d1d-9cbd88425406,6/25/2017 4:02:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14938856,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+173,4bcbc580-a35e-4d4f-8d1d-9cbd88425406,6/25/2017 4:02:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+172,75a8bbf6-f541-4e1e-b147-6966fb57b1bb,6/25/2017 4:02:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14926753,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+171,75a8bbf6-f541-4e1e-b147-6966fb57b1bb,6/25/2017 4:02:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14933850,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+170,75a8bbf6-f541-4e1e-b147-6966fb57b1bb,6/25/2017 4:02:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+169,69a59669-ba60-4448-9b1d-c5df6b3e48ec,6/25/2017 4:02:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14921747,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+168,69a59669-ba60-4448-9b1d-c5df6b3e48ec,6/25/2017 4:02:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14928843,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+167,69a59669-ba60-4448-9b1d-c5df6b3e48ec,6/25/2017 4:02:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+166,52245e46-3b38-431d-bbb1-88d5c2ee14c9,6/25/2017 4:02:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14916740,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+165,52245e46-3b38-431d-bbb1-88d5c2ee14c9,6/25/2017 4:02:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14923837,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+164,52245e46-3b38-431d-bbb1-88d5c2ee14c9,6/25/2017 4:02:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+163,2b637b65-84e9-49e7-a8a5-7bda653deee9,6/25/2017 4:02:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14911734,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+162,2b637b65-84e9-49e7-a8a5-7bda653deee9,6/25/2017 4:02:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14918830,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+161,2b637b65-84e9-49e7-a8a5-7bda653deee9,6/25/2017 4:02:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+160,6624a302-84db-46ac-b48f-d02fb9007563,6/25/2017 4:02:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14906726,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+159,6624a302-84db-46ac-b48f-d02fb9007563,6/25/2017 4:02:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14913822,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+158,6624a302-84db-46ac-b48f-d02fb9007563,6/25/2017 4:02:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+157,426a8bea-481f-4b02-b3dc-def758dc3d2a,6/25/2017 4:02:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14901719,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+156,426a8bea-481f-4b02-b3dc-def758dc3d2a,6/25/2017 4:02:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14908816,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+155,426a8bea-481f-4b02-b3dc-def758dc3d2a,6/25/2017 4:02:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+154,92a171e2-9201-450a-91e7-c8d63a86f085,6/25/2017 4:02:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14896709,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+153,92a171e2-9201-450a-91e7-c8d63a86f085,6/25/2017 4:02:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14903806,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+152,92a171e2-9201-450a-91e7-c8d63a86f085,6/25/2017 4:02:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+151,0965cf0c-a0df-4c51-81bb-052a344082ba,6/25/2017 4:02:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14891703,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+150,0965cf0c-a0df-4c51-81bb-052a344082ba,6/25/2017 4:02:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14898799,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+149,0965cf0c-a0df-4c51-81bb-052a344082ba,6/25/2017 4:02:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+148,31c07c55-9335-419e-b63f-97c98fc76a87,6/25/2017 4:01:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14886696,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+147,31c07c55-9335-419e-b63f-97c98fc76a87,6/25/2017 4:01:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14893793,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+146,31c07c55-9335-419e-b63f-97c98fc76a87,6/25/2017 4:01:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+145,06dd216a-530a-4da3-bcad-7c7d91efc488,6/25/2017 4:01:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14881691,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+144,06dd216a-530a-4da3-bcad-7c7d91efc488,6/25/2017 4:01:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14888788,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+143,06dd216a-530a-4da3-bcad-7c7d91efc488,6/25/2017 4:01:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+142,64682516-a75e-4065-a718-b0237f0276b0,6/25/2017 4:01:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14876683,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+141,64682516-a75e-4065-a718-b0237f0276b0,6/25/2017 4:01:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14883780,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+140,64682516-a75e-4065-a718-b0237f0276b0,6/25/2017 4:01:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+139,5a9d1229-d391-4b79-beaa-448c2762da06,6/25/2017 4:01:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14871677,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+138,5a9d1229-d391-4b79-beaa-448c2762da06,6/25/2017 4:01:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14878774,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+137,5a9d1229-d391-4b79-beaa-448c2762da06,6/25/2017 4:01:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+136,c427c218-ee14-4c4a-aa1f-de9cd2f95fa7,6/25/2017 4:01:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14866670,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+135,c427c218-ee14-4c4a-aa1f-de9cd2f95fa7,6/25/2017 4:01:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14873766,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+134,c427c218-ee14-4c4a-aa1f-de9cd2f95fa7,6/25/2017 4:01:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+133,2af819c5-ed42-4fc9-aeb2-d94a255d7df7,6/25/2017 4:01:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14861662,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+132,2af819c5-ed42-4fc9-aeb2-d94a255d7df7,6/25/2017 4:01:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14868759,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+131,2af819c5-ed42-4fc9-aeb2-d94a255d7df7,6/25/2017 4:01:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+130,c0cc9a52-a8fd-42db-960f-994145c66dcc,6/25/2017 4:01:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14856656,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+129,c0cc9a52-a8fd-42db-960f-994145c66dcc,6/25/2017 4:01:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14863753,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+128,c0cc9a52-a8fd-42db-960f-994145c66dcc,6/25/2017 4:01:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+127,d5e5cbca-c3ff-4b20-ad8f-18c3445e9854,6/25/2017 4:01:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14851649,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+126,d5e5cbca-c3ff-4b20-ad8f-18c3445e9854,6/25/2017 4:01:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14858745,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+125,d5e5cbca-c3ff-4b20-ad8f-18c3445e9854,6/25/2017 4:01:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+124,260ece59-2c0c-4f30-94d6-d08082d88a6c,6/25/2017 4:01:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14846643,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+123,260ece59-2c0c-4f30-94d6-d08082d88a6c,6/25/2017 4:01:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14853740,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+122,260ece59-2c0c-4f30-94d6-d08082d88a6c,6/25/2017 4:01:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+121,08c2a7e0-bf8c-47ac-85cf-f0752c8c502d,6/25/2017 4:01:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14841636,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+120,08c2a7e0-bf8c-47ac-85cf-f0752c8c502d,6/25/2017 4:01:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14848733,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+119,08c2a7e0-bf8c-47ac-85cf-f0752c8c502d,6/25/2017 4:01:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+118,623019c9-00f9-415b-95e2-a80cb76553ca,6/25/2017 4:01:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14836628,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+117,623019c9-00f9-415b-95e2-a80cb76553ca,6/25/2017 4:01:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14843725,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+116,623019c9-00f9-415b-95e2-a80cb76553ca,6/25/2017 4:01:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+115,808b0bfb-2ebd-4a36-af70-f0ab456c36e9,6/25/2017 4:01:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14831622,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+114,808b0bfb-2ebd-4a36-af70-f0ab456c36e9,6/25/2017 4:01:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14838718,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+113,808b0bfb-2ebd-4a36-af70-f0ab456c36e9,6/25/2017 4:01:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+112,2d2d53cd-e8ac-4b18-b1a2-194704c8a5db,6/25/2017 4:00:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14826615,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+111,2d2d53cd-e8ac-4b18-b1a2-194704c8a5db,6/25/2017 4:00:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14833712,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+110,2d2d53cd-e8ac-4b18-b1a2-194704c8a5db,6/25/2017 4:00:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+109,bcdb6318-b1fb-4253-a246-1615ab5f20a7,6/25/2017 4:00:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14821610,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+108,bcdb6318-b1fb-4253-a246-1615ab5f20a7,6/25/2017 4:00:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14828706,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+107,bcdb6318-b1fb-4253-a246-1615ab5f20a7,6/25/2017 4:00:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+106,26ee015d-bdb4-454f-8215-ec80d4b9078c,6/25/2017 4:00:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14816602,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+105,26ee015d-bdb4-454f-8215-ec80d4b9078c,6/25/2017 4:00:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14823699,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+104,26ee015d-bdb4-454f-8215-ec80d4b9078c,6/25/2017 4:00:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+103,526218bc-1c87-47a4-b081-695910e3e3d7,6/25/2017 4:00:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14811593,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+102,526218bc-1c87-47a4-b081-695910e3e3d7,6/25/2017 4:00:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14818689,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+101,526218bc-1c87-47a4-b081-695910e3e3d7,6/25/2017 4:00:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+100,4915def1-8273-470e-bc6d-eed3ea7bd502,6/25/2017 4:00:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14806587,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+99,4915def1-8273-470e-bc6d-eed3ea7bd502,6/25/2017 4:00:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14813684,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+98,4915def1-8273-470e-bc6d-eed3ea7bd502,6/25/2017 4:00:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+97,c475ca8e-57d6-4184-ae81-bed2130614a8,6/25/2017 4:00:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14801582,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+96,c475ca8e-57d6-4184-ae81-bed2130614a8,6/25/2017 4:00:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14808678,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+95,c475ca8e-57d6-4184-ae81-bed2130614a8,6/25/2017 4:00:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+94,e4cf0ca7-1598-40a5-b6c0-a14f74468629,6/25/2017 4:00:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14796575,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+93,e4cf0ca7-1598-40a5-b6c0-a14f74468629,6/25/2017 4:00:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14803672,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+92,e4cf0ca7-1598-40a5-b6c0-a14f74468629,6/25/2017 4:00:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+91,8bc15cc5-4523-45b2-b47b-059422bd486f,6/25/2017 4:00:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14791569,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+90,8bc15cc5-4523-45b2-b47b-059422bd486f,6/25/2017 4:00:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14798666,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+89,8bc15cc5-4523-45b2-b47b-059422bd486f,6/25/2017 4:00:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+88,9c3071c4-694b-436a-8035-9de1bdd102a5,6/25/2017 4:00:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14786564,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+87,9c3071c4-694b-436a-8035-9de1bdd102a5,6/25/2017 4:00:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14793660,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+86,9c3071c4-694b-436a-8035-9de1bdd102a5,6/25/2017 4:00:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+85,1d09e07e-6285-4251-b303-495b08047c5c,6/25/2017 4:00:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14781559,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+84,1d09e07e-6285-4251-b303-495b08047c5c,6/25/2017 4:00:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14788655,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+83,1d09e07e-6285-4251-b303-495b08047c5c,6/25/2017 4:00:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+82,0742f202-6456-48cf-b8cf-17f1f1c075fc,6/25/2017 4:00:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 4:00:09 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,682537,0,0,117009,9267,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+81,0742f202-6456-48cf-b8cf-17f1f1c075fc,6/25/2017 4:00:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14776549,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+80,0742f202-6456-48cf-b8cf-17f1f1c075fc,6/25/2017 4:00:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14783646,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+79,0742f202-6456-48cf-b8cf-17f1f1c075fc,6/25/2017 4:00:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+78,7a062780-056a-4ec6-a13c-ddb1e186f7c5,6/25/2017 4:00:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 4:00:04 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,653194,0,0,112070,8844,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+77,7a062780-056a-4ec6-a13c-ddb1e186f7c5,6/25/2017 4:00:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14771540,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+76,7a062780-056a-4ec6-a13c-ddb1e186f7c5,6/25/2017 4:00:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14778636,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+75,7a062780-056a-4ec6-a13c-ddb1e186f7c5,6/25/2017 4:00:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+74,0b0652b3-16b9-4add-bda3-d605c46b9a21,6/25/2017 3:59:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:59 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,624215,0,0,107127,8407,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+73,0b0652b3-16b9-4add-bda3-d605c46b9a21,6/25/2017 3:59:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14766533,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+72,0b0652b3-16b9-4add-bda3-d605c46b9a21,6/25/2017 3:59:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14773630,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+71,0b0652b3-16b9-4add-bda3-d605c46b9a21,6/25/2017 3:59:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+70,2bb37064-3685-4a8e-9f95-3d453afc4be7,6/25/2017 3:59:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:54 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,594643,0,0,102187,7957,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+69,2bb37064-3685-4a8e-9f95-3d453afc4be7,6/25/2017 3:59:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14761523,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+68,2bb37064-3685-4a8e-9f95-3d453afc4be7,6/25/2017 3:59:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14768620,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+67,2bb37064-3685-4a8e-9f95-3d453afc4be7,6/25/2017 3:59:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+66,e10075b4-4b64-4463-8525-8632e044a687,6/25/2017 3:59:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:49 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,565638,0,0,97255,7503,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+65,e10075b4-4b64-4463-8525-8632e044a687,6/25/2017 3:59:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14756514,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+64,e10075b4-4b64-4463-8525-8632e044a687,6/25/2017 3:59:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14763611,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+63,e10075b4-4b64-4463-8525-8632e044a687,6/25/2017 3:59:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+62,273879c7-0c97-42fd-a8ab-40315be2c3c0,6/25/2017 3:59:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:44 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,536754,0,0,92311,6988,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+61,273879c7-0c97-42fd-a8ab-40315be2c3c0,6/25/2017 3:59:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14751504,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+60,273879c7-0c97-42fd-a8ab-40315be2c3c0,6/25/2017 3:59:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14758601,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+59,273879c7-0c97-42fd-a8ab-40315be2c3c0,6/25/2017 3:59:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+58,0c9dcdd2-fbdf-4822-92fb-30a1b7463cb1,6/25/2017 3:59:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:39 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,507456,0,0,87373,6487,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+57,0c9dcdd2-fbdf-4822-92fb-30a1b7463cb1,6/25/2017 3:59:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14746496,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+56,0c9dcdd2-fbdf-4822-92fb-30a1b7463cb1,6/25/2017 3:59:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14753593,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+55,0c9dcdd2-fbdf-4822-92fb-30a1b7463cb1,6/25/2017 3:59:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+54,3c76922b-6bdb-4ebf-8b4f-430e1a68f969,6/25/2017 3:59:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:34 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,478104,0,0,82433,6158,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+53,3c76922b-6bdb-4ebf-8b4f-430e1a68f969,6/25/2017 3:59:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14741488,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+52,3c76922b-6bdb-4ebf-8b4f-430e1a68f969,6/25/2017 3:59:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14748585,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+51,3c76922b-6bdb-4ebf-8b4f-430e1a68f969,6/25/2017 3:59:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+50,d063d756-00fd-43c9-9c7b-514d0b0adef9,6/25/2017 3:59:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:29 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,448740,0,0,77496,5753,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+49,d063d756-00fd-43c9-9c7b-514d0b0adef9,6/25/2017 3:59:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14736482,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+48,d063d756-00fd-43c9-9c7b-514d0b0adef9,6/25/2017 3:59:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14743578,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+47,d063d756-00fd-43c9-9c7b-514d0b0adef9,6/25/2017 3:59:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+46,4d58a01f-6e39-42f6-b641-c0e2691bb889,6/25/2017 3:59:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:24 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,419237,0,0,72556,5300,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+45,4d58a01f-6e39-42f6-b641-c0e2691bb889,6/25/2017 3:59:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14731474,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+44,4d58a01f-6e39-42f6-b641-c0e2691bb889,6/25/2017 3:59:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14738571,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+43,4d58a01f-6e39-42f6-b641-c0e2691bb889,6/25/2017 3:59:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+42,222632d4-5634-41fb-8d41-860816c21d01,6/25/2017 3:59:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,runnable,6/25/2017 3:59:19 PM,0,ReadCommitted,,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,389964,0,0,67613,4893,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+41,222632d4-5634-41fb-8d41-860816c21d01,6/25/2017 3:59:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14726466,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+40,222632d4-5634-41fb-8d41-860816c21d01,6/25/2017 3:59:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14733563,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+39,222632d4-5634-41fb-8d41-860816c21d01,6/25/2017 3:59:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+38,a386406a-a068-4fe4-8adb-3d6b9b8f1b0e,6/25/2017 3:59:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:14 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,361084,0,0,62676,4614,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+37,a386406a-a068-4fe4-8adb-3d6b9b8f1b0e,6/25/2017 3:59:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14721456,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+36,a386406a-a068-4fe4-8adb-3d6b9b8f1b0e,6/25/2017 3:59:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14728553,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+35,a386406a-a068-4fe4-8adb-3d6b9b8f1b0e,6/25/2017 3:59:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+34,e703c157-51f9-4f07-bf78-077bd9e9bf39,6/25/2017 3:59:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:09 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,332450,0,0,57852,4251,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+33,e703c157-51f9-4f07-bf78-077bd9e9bf39,6/25/2017 3:59:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14716447,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+32,e703c157-51f9-4f07-bf78-077bd9e9bf39,6/25/2017 3:59:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14723543,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+31,e703c157-51f9-4f07-bf78-077bd9e9bf39,6/25/2017 3:59:09 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+30,66d37c33-f6b1-48cc-b8a8-05738c79cb06,6/25/2017 3:59:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:59:04 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,303148,0,0,52914,3894,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+29,66d37c33-f6b1-48cc-b8a8-05738c79cb06,6/25/2017 3:59:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14711438,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+28,66d37c33-f6b1-48cc-b8a8-05738c79cb06,6/25/2017 3:59:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14718534,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+27,66d37c33-f6b1-48cc-b8a8-05738c79cb06,6/25/2017 3:59:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+26,59436289-9ec7-4a42-9c07-9935d4f58c73,6/25/2017 3:58:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,running,6/25/2017 3:58:59 PM,0,ReadCommitted,,,MEMORY_ALLOCATION_EXT,sqlworkshops,,,
+select c1, c2, c3 from tab72 where c1 < 1000
+,274180,0,0,47982,3593,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+25,59436289-9ec7-4a42-9c07-9935d4f58c73,6/25/2017 3:58:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14706430,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+24,59436289-9ec7-4a42-9c07-9935d4f58c73,6/25/2017 3:58:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14713526,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+23,59436289-9ec7-4a42-9c07-9935d4f58c73,6/25/2017 3:58:59 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+22,b1961d77-2a07-4ce3-abbe-750fed2a335a,6/25/2017 3:58:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,running,6/25/2017 3:58:54 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,244569,0,0,43041,3158,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+21,b1961d77-2a07-4ce3-abbe-750fed2a335a,6/25/2017 3:58:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14701422,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+20,b1961d77-2a07-4ce3-abbe-750fed2a335a,6/25/2017 3:58:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14708519,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+19,b1961d77-2a07-4ce3-abbe-750fed2a335a,6/25/2017 3:58:54 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+18,bd514ccc-cd81-4fa0-bcfc-d257665302f2,6/25/2017 3:58:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:58:49 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,215189,0,0,38099,2785,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+17,bd514ccc-cd81-4fa0-bcfc-d257665302f2,6/25/2017 3:58:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14696414,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,13
+16,bd514ccc-cd81-4fa0-bcfc-d257665302f2,6/25/2017 3:58:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14703510,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,12
+15,bd514ccc-cd81-4fa0-bcfc-d257665302f2,6/25/2017 3:58:49 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,11
+14,a83dc816-1a08-43a9-84da-77f1b957e48d,6/25/2017 3:58:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:58:44 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,186015,0,0,33161,2422,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+13,a83dc816-1a08-43a9-84da-77f1b957e48d,6/25/2017 3:58:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/56/,,56,suspended,6/25/2017 3:58:43 PM,0,ReadCommitted,LCK_M_S,KEY: 5:72057594041270272 (8194443284a0),LCK_M_S,FGRestore,,SELECT * FROM dbo.TablePK,-- Con #2
+SELECT * FROM dbo.TablePK
+,11,0,0,14691404,16,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+12,a83dc816-1a08-43a9-84da-77f1b957e48d,6/25/2017 3:58:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/55/,,55,suspended,6/25/2017 3:58:40 PM,1,ReadCommitted,LCK_M_S,RID: 5:4:8:0,LCK_M_S,FGRestore,,SELECT * FROM dbo.TableFK,-- Con #1
+BEGIN TRAN
+UPDATE	dbo.TablePK
+SET		ID = ID + 1
+WHERE	ID = 1
+SELECT * FROM dbo.TableFK;
+-- ROLLBACK,146,5,10,14698500,2,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+11,a83dc816-1a08-43a9-84da-77f1b957e48d,6/25/2017 3:58:44 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/54/,,54,sleeping,6/25/2017 3:58:37 PM,1,ReadCommitted,,,,FGRestore,,,-- Con #0
+BEGIN TRAN
+UPDATE	dbo.TableFK
+SET		ID = ID + 1
+WHERE	ID = 1
+-- ROLLBACK,264,3,3,241,31,DESKTOP-MIJ41VA,Microsoft SQL Server Management Studio - Query,DESKTOP-MIJ41VA\RootBogdan,,,0,
+10,cf09cbf5-d08d-4e7f-8a27-022315c95e9b,6/25/2017 3:58:39 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,runnable,6/25/2017 3:58:39 PM,0,ReadCommitted,,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,158065,0,0,28223,2157,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+9,0e2b3f73-99e8-4391-bbb1-e97710c861f2,6/25/2017 3:58:34 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:58:34 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,130300,0,0,23282,1781,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+8,a4541b51-e4d3-4ce8-8c0d-0626eef0bea8,6/25/2017 3:58:29 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:58:29 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,103631,0,0,18347,1391,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+7,4a11aa6f-c2ff-4f14-81e0-e25332c197bf,6/25/2017 3:58:24 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:58:24 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,75776,0,0,13413,1049,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+6,2548b5b7-3494-4a01-af17-2bdda7fe6043,6/25/2017 3:58:19 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:58:19 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,47908,0,0,8480,609,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+5,5e07ec15-41ae-46bd-ad63-1b9b3a807b60,6/25/2017 3:58:14 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,suspended,6/25/2017 3:58:14 PM,0,ReadCommitted,ASYNC_NETWORK_IO,,ASYNC_NETWORK_IO,sqlworkshops,,SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,(@1 smallint)SELECT [c1],[c2],[c3] FROM [tab72] WHERE [c1]<@1,20237,0,0,3542,251,DESKTOP-MIJ41VA,SQLTest Workload: 1 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+4,819707e9-b6c4-4ba4-aef3-51b35a529c39,6/25/2017 3:58:09 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+3,880a72f6-2411-46df-8577-16db42be27f2,6/25/2017 3:58:04 PM +03:00,False,DESKTOP-MIJ41VA,SQL2016,DBE,/60/,,60,running,6/25/2017 3:58:04 PM,0,ReadCommitted,,,MEMORY_ALLOCATION_EXT,sqlworkshops,,,,1563,21,29,147,3,DESKTOP-MIJ41VA,SQLTest Workload: 4 Connection: 1 ((local)\sql2016) Thread: 1,DESKTOP-MIJ41VA\RootBogdan,System.Byte[],System.Byte[],0,
+2,ca554ce1-0e4c-4521-94dd-7e296bac9dd4,6/25/2017 3:57:58 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,
+1,2c7f549e-bf73-4467-8aa3-a65618baa5fa,6/25/2017 3:57:53 PM +03:00,True,DESKTOP-MIJ41VA,SQL2016,DBE,,,,,,,,,,,,,,,,,,,,,,,,,,

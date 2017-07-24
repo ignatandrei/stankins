@@ -1,0 +1,22 @@
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.deps.json
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.AssemblyInfo.cs
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.pdb
+E:\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.deps.json
+E:\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+E:\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+E:\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+E:\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+E:\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+E:\Stankins\ReceiverDB\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+E:\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.csprojResolveAssemblyReference.cache
+E:\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.AssemblyInfo.cs
+E:\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.dll
+E:\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.pdb

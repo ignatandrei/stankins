@@ -1,0 +1,9 @@
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.4\StanskinsImplementation.deps.json
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.4\StanskinsImplementation.dll
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.4\StanskinsImplementation.pdb
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.4\StankinsInterfaces.dll
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\bin\Debug\netstandard1.4\StankinsInterfaces.pdb
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.4\StanskinsImplementation.csprojResolveAssemblyReference.cache
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.4\StanskinsImplementation.AssemblyInfo.cs
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.4\StanskinsImplementation.dll
+c:\users\admin\documents\visual studio 2017\Projects\Stankins\StanskinsImplementation\obj\Debug\netstandard1.4\StanskinsImplementation.pdb

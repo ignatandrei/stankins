@@ -1,0 +1,26 @@
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.deps.json
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.AssemblyInfo.cs
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.deps.json
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+E:\Stankins\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+E:\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.csprojResolveAssemblyReference.cache
+E:\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.AssemblyInfo.cs
+E:\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
+E:\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb

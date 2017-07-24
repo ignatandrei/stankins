@@ -1,0 +1,18 @@
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\SenderJSON.deps.json
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\obj\Debug\netcoreapp1.1\SenderJSON.csprojResolveAssemblyReference.cache
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\obj\Debug\netcoreapp1.1\SenderJSON.AssemblyInfo.cs
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\SenderJSON.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\SenderJSON.pdb
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\obj\Debug\netcoreapp1.1\SenderJSON.dll
+C:\Users\admin\Documents\Visual Studio 2017\Projects\Stankins\SenderJSON\obj\Debug\netcoreapp1.1\SenderJSON.pdb
+E:\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\SenderJSON.deps.json
+E:\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\SenderJSON.dll
+E:\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\SenderJSON.pdb
+E:\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+E:\Stankins\SenderJSON\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+E:\Stankins\SenderJSON\obj\Debug\netcoreapp1.1\SenderJSON.csprojResolveAssemblyReference.cache
+E:\Stankins\SenderJSON\obj\Debug\netcoreapp1.1\SenderJSON.AssemblyInfo.cs
+E:\Stankins\SenderJSON\obj\Debug\netcoreapp1.1\SenderJSON.dll
+E:\Stankins\SenderJSON\obj\Debug\netcoreapp1.1\SenderJSON.pdb
