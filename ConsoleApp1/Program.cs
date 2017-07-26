@@ -23,6 +23,7 @@ using System.Reflection;
 using Transformers;
 using ReceiverBookmarkExportChrome;
 using SenderHTML;
+using SenderElasticSearch;
 //using Microsoft.Data.Sqlite;
 namespace ConsoleApp1
 {
@@ -31,6 +32,7 @@ namespace ConsoleApp1
         
         static void Main(string[] args)
         {
+            brrbrrrr();return;//sgbd pseudo-tests
 
             var receiver = new BKExportChrome(@"C:\Users\admin\Documents\bookmarks_7_25_17.html");
             var tr = new TransformAddField<string, DateTime>(
@@ -148,6 +150,27 @@ namespace ConsoleApp1
             //}
             //var n = Thread.CurrentThread.Name;
             //Console.WriteLine("ASD");
+        }
+
+        private static void brrbrrrr()
+        {
+            ISerializeData sd = new SerializeDataInMemory();
+
+            var data = new DBTableData<int, SqlConnection>(sd)
+            {
+                ConnectionString = @"Server=(local)\SQL2016;Database=DatePtAndrei;Trusted_Connection=True;",
+                FieldNameToMark = "id",
+                TableName = "active_slowquery_test"
+            };
+            IReceive r = new ReceiverTableSQLServerInt(data);
+
+            ISend esExport = new SenderToElasticSearch(@"http://localhost:9200", "ix004", "type007", "id");
+
+            ISimpleJob job = new SimpleJob();
+            job.Receivers.Add(0, r);
+            job.Senders.Add(0, esExport);
+
+            job.Execute().Wait();
         }
 
         private static void HandleDeserializationError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)

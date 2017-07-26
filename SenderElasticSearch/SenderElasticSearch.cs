@@ -7,24 +7,44 @@ namespace SenderElasticSearch
 {
     public class SenderToElasticSearch : ISend
     {
-        public string URL { get; set; }
+        public string Uri { get; set; }
         public string IndexName { get; set; }
-        
-        public SenderToElasticSearch(string url, string indexName)
+        //Hack: added TypeName and Id properties
+        //Hack: next version should define a new interface IRowTyped (:IRow) having two more props (TypeName and Id)
+        public string TypeName { get; set; }
+        public string Id { get; set; }
+
+        public SenderToElasticSearch(string uri, string indexName, string typeName, string id)
         {
-            this.URL = url;
+            this.Uri = uri;
             this.IndexName = indexName;
+            this.TypeName = typeName;
+            this.Id = id;
         }
 
         public IRow[] valuesToBeSent { set; get; }
 
         public async Task Send()
         {
-            var settings = new ConnectionSettings(new Uri("http://localhost:9200")).DefaultIndex("ix004");
+            var settings = new ConnectionSettings(new Uri(this.Uri));
             var client = new ElasticClient(settings);
-            foreach(var item in valuesToBeSent)
+
+            foreach(IRow item in valuesToBeSent)
             {
-                await client.IndexAsync(item.Values);
+                IndexRequest<object> request;
+
+                if (string.IsNullOrWhiteSpace(this.Id))
+                {
+                    request = new IndexRequest<object>(this.IndexName, this.TypeName);
+                }
+                else
+                {
+                    string idValue = item.Values[this.Id].ToString(); //TODO: better solution ? (API Nest.Id string/long/Document)
+                    request = new IndexRequest<object>(this.IndexName, this.TypeName, idValue);
+                }
+
+                request.Document = item;
+                IIndexResponse resp = await client.IndexAsync(request);
             }
         }
 

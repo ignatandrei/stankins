@@ -18,6 +18,7 @@
     <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
     <ProjectReference Include="..\SenderCSV\SenderCSV.csproj" />
     <ProjectReference Include="..\SenderDBInflux\SenderDBInflux.csproj" />
+    <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
     <ProjectReference Include="..\SenderJSON\SenderJSON.csproj" />
     <ProjectReference Include="..\SenderXML\SenderXML.csproj" />

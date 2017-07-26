@@ -23,6 +23,24 @@
           "lib/netstandard1.3/Castle.Core.dll": {}
         }
       },
+      "Elasticsearch.Net/5.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CSharp": "4.3.0",
+          "NETStandard.Library": "1.6.0",
+          "System.Collections.Specialized": "4.3.0",
+          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime.Serialization.Primitives": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Elasticsearch.Net.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Elasticsearch.Net.dll": {}
+        }
+      },
       "Libuv/1.9.1": {
         "type": "package",
         "dependencies": {
@@ -1620,6 +1638,23 @@
         "runtime": {
           "lib/netcoreapp1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll": {},
           "lib/netcoreapp1.0/Microsoft.VisualStudio.TestPlatform.TestFramework.dll": {}
+        }
+      },
+      "NEST/5.5.0": {
+        "type": "package",
+        "dependencies": {
+          "Elasticsearch.Net": "[5.5.0, 6.0.0)",
+          "NETStandard.Library": "1.6.0",
+          "Newtonsoft.Json": "[10.0.0, 11.0.0)",
+          "System.Collections.Specialized": "4.3.0",
+          "System.Linq.Queryable": "4.0.1",
+          "System.Reflection.TypeExtensions": "4.3.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/Nest.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/Nest.dll": {}
         }
       },
       "NETStandard.Library/1.6.1": {
@@ -4024,6 +4059,15 @@
           "StankinsInterfaces": "1.0.0"
         }
       },
+      "SenderElasticSearch/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v1.1",
+        "dependencies": {
+          "Microsoft.NETCore.App": "1.1.2",
+          "NEST": "5.5.0",
+          "StankinsInterfaces": "1.0.0"
+        }
+      },
       "SenderHTML/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v1.1",
@@ -4068,6 +4112,21 @@
         "lib/net45/Castle.Core.dll",
         "lib/netstandard1.3/Castle.Core.dll",
         "readme.txt"
+      ]
+    },
+    "Elasticsearch.Net/5.5.0": {
+      "sha512": "AS/kE59g2AgnW3TBIMXQEjBr1EwxGxT+wOJK/btXSCPmwnkC4FaT6Sv/4GW+2MriTE7FfWokzSUY3HtHMoob+Q==",
+      "type": "package",
+      "path": "elasticsearch.net/5.5.0",
+      "files": [
+        "elasticsearch.net.5.5.0.nupkg.sha512",
+        "elasticsearch.net.nuspec",
+        "lib/net45/Elasticsearch.Net.dll",
+        "lib/net45/Elasticsearch.Net.xml",
+        "lib/net46/Elasticsearch.Net.dll",
+        "lib/net46/Elasticsearch.Net.xml",
+        "lib/netstandard1.3/Elasticsearch.Net.dll",
+        "lib/netstandard1.3/Elasticsearch.Net.xml"
       ]
     },
     "Libuv/1.9.1": {
@@ -5563,6 +5622,21 @@
         "lib/uap10.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.TestFramework.XML",
         "mstest.testframework.1.1.11.nupkg.sha512",
         "mstest.testframework.nuspec"
+      ]
+    },
+    "NEST/5.5.0": {
+      "sha512": "KWETb7Y4r5YYvEJALBZgYUhnUUgHZdt6DmDWbu1kKpVEM6o8PXOkC3/Q/D0npLue6UKZDT6FWX8ygZobnbK0Qw==",
+      "type": "package",
+      "path": "nest/5.5.0",
+      "files": [
+        "lib/net45/Nest.dll",
+        "lib/net45/Nest.xml",
+        "lib/net46/Nest.dll",
+        "lib/net46/Nest.xml",
+        "lib/netstandard1.3/Nest.dll",
+        "lib/netstandard1.3/Nest.xml",
+        "nest.5.5.0.nupkg.sha512",
+        "nest.nuspec"
       ]
     },
     "NETStandard.Library/1.6.1": {
@@ -10806,6 +10880,11 @@
       "path": "../SenderCSV/SenderCSV.csproj",
       "msbuildProject": "../SenderCSV/SenderCSV.csproj"
     },
+    "SenderElasticSearch/1.0.0": {
+      "type": "project",
+      "path": "../SenderElasticSearch/SenderElasticSearch.csproj",
+      "msbuildProject": "../SenderElasticSearch/SenderElasticSearch.csproj"
+    },
     "SenderHTML/1.0.0": {
       "type": "project",
       "path": "../SenderHTML/SenderHTML.csproj",
@@ -10829,8 +10908,10 @@
       "Microsoft.EntityFrameworkCore.Sqlite >= 1.1.2",
       "Microsoft.NET.Test.Sdk >= 15.0.0",
       "Microsoft.NETCore.App >= 1.1.2",
+      "NEST >= 5.5.0",
       "ReceiverDBSQLite >= 1.0.0",
       "SenderCSV >= 1.0.0",
+      "SenderElasticSearch >= 1.0.0",
       "SenderHTML >= 1.0.0",
       "StankinsInterfaces >= 1.0.0",
       "StanskinsImplementation >= 1.0.0"
@@ -10858,6 +10939,9 @@
             },
             "E:\\VisualStudioOnline\\StanskinsImplementation\\StanskinsImplementation.csproj": {
               "projectPath": "E:\\VisualStudioOnline\\StanskinsImplementation\\StanskinsImplementation.csproj"
+            },
+            "E:\\VisualStudioOnline\\SenderElasticSearch\\SenderElasticSearch.csproj": {
+              "projectPath": "E:\\VisualStudioOnline\\SenderElasticSearch\\SenderElasticSearch.csproj"
             },
             "E:\\VisualStudioOnline\\SenderCSV\\SenderCSV.csproj": {
               "projectPath": "E:\\VisualStudioOnline\\SenderCSV\\SenderCSV.csproj"
@@ -10895,6 +10979,10 @@
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
             "version": "15.0.0"
+          },
+          "NEST": {
+            "target": "Package",
+            "version": "5.5.0"
           }
         }
       }
