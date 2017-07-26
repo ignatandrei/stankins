@@ -11,7 +11,7 @@ namespace ReceiverDB
         where Connection : DbConnection, new()
 
     {
-        private ISerializeData data { get; set; }
+        public ISerializeData data { get; set; }
         public DBTableData(ISerializeData data)
         {
             this.data = data;
@@ -23,6 +23,8 @@ namespace ReceiverDB
         //TODO: add multiple fields - lastcreated or modified
         public string FieldNameToMark { get; set; }
 
+        public long MaxRecordsToRead = long.MaxValue;
+        //public long PageNumber=1;
         public T lastValue
         {
             get

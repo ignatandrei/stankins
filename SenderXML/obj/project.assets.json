@@ -7050,15 +7050,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\RootBogdan\\.nuget\\packages\\": {}
+    "C:\\Users\\admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\TFSServices\\Stankins\\SenderXML\\SenderXML.csproj",
+      "projectUniqueName": "D:\\tfs\\stankinsBogdan\\SenderXML\\SenderXML.csproj",
       "projectName": "SenderXML",
-      "projectPath": "E:\\TFSServices\\Stankins\\SenderXML\\SenderXML.csproj",
-      "outputPath": "E:\\TFSServices\\Stankins\\SenderXML\\obj\\",
+      "projectPath": "D:\\tfs\\stankinsBogdan\\SenderXML\\SenderXML.csproj",
+      "outputPath": "D:\\tfs\\stankinsBogdan\\SenderXML\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -7066,8 +7066,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "E:\\TFSServices\\Stankins\\StankinsInterfaces\\StankinsInterfaces.csproj": {
-              "projectPath": "E:\\TFSServices\\Stankins\\StankinsInterfaces\\StankinsInterfaces.csproj"
+            "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj": {
+              "projectPath": "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj"
             }
           }
         }

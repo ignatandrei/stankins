@@ -13,13 +13,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ReceiverBookmarkExportChrome\ReceiverBookmarkExportChrome.csproj" />
     <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
     <ProjectReference Include="..\SenderCSV\SenderCSV.csproj" />
+    <ProjectReference Include="..\SenderDBInflux\SenderDBInflux.csproj" />
+    <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
     <ProjectReference Include="..\SenderJSON\SenderJSON.csproj" />
     <ProjectReference Include="..\SenderXML\SenderXML.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+    <ProjectReference Include="..\Transformers\Transformers.csproj" />
   </ItemGroup>
 
 </Project>

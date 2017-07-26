@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.16
+VisualStudioVersion = 15.0.26430.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsInterfaces", "StankinsInterfaces\StankinsInterfaces.csproj", "{A8FD3C16-D79D-478C-9BC3-6E44F9684553}"
 EndProject
@@ -23,7 +23,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderXML", "SenderXML\Send
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderJSON", "SenderJSON\SenderJSON.csproj", "{B09184AF-484C-4B06-A629-3FE9F0175B9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderElasticSearch", "SenderElasticSearch\SenderElasticSearch.csproj", "{61817849-19B8-4A5F-8B41-14AB279CADE9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderElasticSearch", "SenderElasticSearch\SenderElasticSearch.csproj", "{61817849-19B8-4A5F-8B41-14AB279CADE9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorCompile", "RazorCompile\RazorCompile.csproj", "{144231F1-60F3-4B7A-9DFB-BA26DC4A71C6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverBookmarkExportChrome", "ReceiverBookmarkExportChrome\ReceiverBookmarkExportChrome.csproj", "{F725DA3D-5BB7-4689-9400-C2FC712D4343}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverFile", "ReceiverFile\ReceiverFile.csproj", "{E8020EF2-A945-4780-8E8E-50423A662177}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderDBInflux", "SenderDBInflux\SenderDBInflux.csproj", "{19DD0C36-3553-49E5-A2FF-E8A44DA39653}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderHTML", "SenderHTML\SenderHTML.csproj", "{BAF69281-A936-438C-9246-549097A237DC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsSimpleFactory", "StankinsSimpleFactory\StankinsSimpleFactory.csproj", "{E0D603B5-2ABB-4907-BD2B-C9A90C09A7A4}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsSimpleJob", "StankinsSimpleJob\StankinsSimpleJob.csproj", "{B21EAEB4-5C58-42E8-B608-FB28CFC558D1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transformers", "Transformers\Transformers.csproj", "{4161B15B-6EA7-42D3-ADC4-BC93D17386B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +91,38 @@ Global
 		{61817849-19B8-4A5F-8B41-14AB279CADE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61817849-19B8-4A5F-8B41-14AB279CADE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61817849-19B8-4A5F-8B41-14AB279CADE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{144231F1-60F3-4B7A-9DFB-BA26DC4A71C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{144231F1-60F3-4B7A-9DFB-BA26DC4A71C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{144231F1-60F3-4B7A-9DFB-BA26DC4A71C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{144231F1-60F3-4B7A-9DFB-BA26DC4A71C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F725DA3D-5BB7-4689-9400-C2FC712D4343}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F725DA3D-5BB7-4689-9400-C2FC712D4343}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F725DA3D-5BB7-4689-9400-C2FC712D4343}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F725DA3D-5BB7-4689-9400-C2FC712D4343}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8020EF2-A945-4780-8E8E-50423A662177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8020EF2-A945-4780-8E8E-50423A662177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8020EF2-A945-4780-8E8E-50423A662177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8020EF2-A945-4780-8E8E-50423A662177}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19DD0C36-3553-49E5-A2FF-E8A44DA39653}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19DD0C36-3553-49E5-A2FF-E8A44DA39653}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19DD0C36-3553-49E5-A2FF-E8A44DA39653}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19DD0C36-3553-49E5-A2FF-E8A44DA39653}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAF69281-A936-438C-9246-549097A237DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAF69281-A936-438C-9246-549097A237DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAF69281-A936-438C-9246-549097A237DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAF69281-A936-438C-9246-549097A237DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E0D603B5-2ABB-4907-BD2B-C9A90C09A7A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E0D603B5-2ABB-4907-BD2B-C9A90C09A7A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E0D603B5-2ABB-4907-BD2B-C9A90C09A7A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E0D603B5-2ABB-4907-BD2B-C9A90C09A7A4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B21EAEB4-5C58-42E8-B608-FB28CFC558D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21EAEB4-5C58-42E8-B608-FB28CFC558D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21EAEB4-5C58-42E8-B608-FB28CFC558D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21EAEB4-5C58-42E8-B608-FB28CFC558D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4161B15B-6EA7-42D3-ADC4-BC93D17386B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4161B15B-6EA7-42D3-ADC4-BC93D17386B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4161B15B-6EA7-42D3-ADC4-BC93D17386B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4161B15B-6EA7-42D3-ADC4-BC93D17386B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

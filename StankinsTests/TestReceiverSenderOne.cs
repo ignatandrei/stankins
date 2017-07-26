@@ -25,7 +25,7 @@ namespace StankinsTests
             string filename = Path.Combine(dir, "a.csv");
             if (File.Exists(filename))
                 File.Delete(filename);
-            ISend csvExport = new Sender_CSV(filename);
+            ISend csvExport = new SenderToCSV(filename);
 
             //ADD A DATABASE AND PUT nrPostsToAdd data into table
             ISerializeData sd = new SerializeDataInMemory();
@@ -65,7 +65,7 @@ namespace StankinsTests
                 #endregion
                 #region act
                 IReceive r = new ReceiverTableSQLiteInt(dt);
-                IJob job = new SimpleJob();
+                ISimpleJob job = new SimpleJob();
                 job.Receivers.Add(0,r);
                 job.Senders.Add(0,csvExport);
                 await job.Execute();

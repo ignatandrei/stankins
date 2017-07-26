@@ -34,7 +34,10 @@ namespace ReceiverDB
            
             this.tableData = dtd;
         }
-
+        protected virtual string MaxRowsToLoad()
+        {
+            return "";
+        }
         public async Task LoadData()
         {
             //LOG: before retrieving latest value
@@ -55,7 +58,8 @@ namespace ReceiverDB
                     param.Value = tableData.lastValue;
                     cmd.Parameters.Add(param);
                 }
-                cmd.CommandText += $" order by {tableData.FieldNameToMark} desc";
+                cmd.CommandText += $" order by {tableData.FieldNameToMark} asc";
+                cmd.CommandText += MaxRowsToLoad();
                 var reader = await cmd.ExecuteReaderAsync();
                 //TODO: replace with datatable
                 var nrFields = reader.FieldCount;
@@ -65,28 +69,34 @@ namespace ReceiverDB
                     FieldNameToMarks.Add(i, reader.GetName(i));
                 }
                 var values = new List<RowRead>();
-                bool first = true;
+                
+                RowRead valLoop=null;
                 while (await reader.ReadAsync())
                 {
-                    if (first)
-                    {
-                        var valRead = reader[tableData.FieldNameToMark];
-                        if (valRead != null && valRead != DBNull.Value)
-                        {
-                            tableData.lastValue = (T)Convert.ChangeType(valRead, typeof(T));                            
-                        }
-                        first = false;
-
-                    }
-                    var valLoop = new RowRead();
+                    
+                    valLoop = new RowRead();
                     for (int i = 0; i < nrFields; i++)
                     {
-                        valLoop.Values.Add(FieldNameToMarks[i], reader.GetValue(i));
+                        var val = reader.GetValue(i);
+                        //transform DBNull.Value into null
+                        if (val != null && val == DBNull.Value)
+                        {
+                            val = null;
+                        }
+                        valLoop.Values.Add(FieldNameToMarks[i],val );
                     }
                     values.Add(valLoop);
                 }
-                valuesRead = values.ToArray();
 
+                valuesRead = values.ToArray();
+                if (values.Count > 0 )
+                {
+                    var lastVal = valLoop.Values[tableData.FieldNameToMark];
+                    if (lastVal != null && lastVal != DBNull.Value)
+                    {
+                        tableData.lastValue = (T)Convert.ChangeType(lastVal, typeof(T));
+                    }
+                }
 
 
             }

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "StankinsSimpleJob": {
+      "commandName": "Project",
+      "commandLineArgs": "generate "
+    }
+  }
+}

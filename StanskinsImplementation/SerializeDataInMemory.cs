@@ -7,7 +7,7 @@ namespace StanskinsImplementation
 {
     public class SerializeDataInMemory : ISerializeData
     {
-        Dictionary<string, object> data;
+        protected Dictionary<string, object> data;
         public SerializeDataInMemory()
         {
             data = new Dictionary<string, object>();

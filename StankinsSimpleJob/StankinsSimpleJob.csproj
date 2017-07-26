@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="a.csv" />
+    <None Remove="a.json" />
+    <None Remove="a.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.CommandLineUtils" Version="1.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
+    <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
+    <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
+    <ProjectReference Include="..\SenderCSV\SenderCSV.csproj" />
+    <ProjectReference Include="..\SenderJSON\SenderJSON.csproj" />
+    <ProjectReference Include="..\SenderXML\SenderXML.csproj" />
+    <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
+    <ProjectReference Include="..\StankinsSimpleFactory\StankinsSimpleFactory.csproj" />
+    <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+  </ItemGroup>
+
+</Project>

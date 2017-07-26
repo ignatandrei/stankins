@@ -34,9 +34,16 @@ namespace SenderJSON
             var dict = valuesToBeSent
                 //.SelectMany(it => it.Values).ToArray();
                 .Select(it => it.Values).ToArray();
-            
-            
-            var data = JsonConvert.SerializeObject(dict);
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                Formatting = Formatting.Indented,
+                //Error = HandleDeserializationError
+                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+
+            };
+
+            var data = JsonConvert.SerializeObject(dict, settings);
             File.WriteAllText(JSONFileName, data);
 
         }

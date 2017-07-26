@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace StanskinsImplementation
 {
-    public class SimpleJob : IJob
+    public class SimpleJob : ISimpleJob
     {
         public OrderedList<IReceive> Receivers { get; set; }
 
@@ -21,6 +21,7 @@ namespace StanskinsImplementation
             Senders = new OrderedList<ISend>();
 
         }
+
         public async Task<IRow[]> DataFromReceivers()
         {
             List<IRow> data = new List<IRow>();
@@ -86,6 +87,12 @@ namespace StanskinsImplementation
         {
             var data = await DataFromReceivers();
             //TODO: filters and transformers
+            foreach (var item in FiltersAndTransformers)
+            {
+                item.Value.valuesRead = data;
+                await item.Value.Run();
+                data = item.Value.valuesTransformed;
+            }
             await SenderData(data);
         }
     }

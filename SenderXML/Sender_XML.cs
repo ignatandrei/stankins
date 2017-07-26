@@ -14,9 +14,11 @@ namespace SenderXML
 
         public IRow[] valuesToBeSent { private get; set; }
         public string XMLFileName { get; set; }
-        public Sender_XML(string fileName)
+        public string RootName { get; set; }
+        public Sender_XML(string fileName, string rootName)
         {
             this.XMLFileName = fileName;
+            this.RootName = rootName;
         }
 
 
@@ -43,9 +45,7 @@ namespace SenderXML
             using (var writer = XmlWriter.Create(sb,settings))
             {
                 writer.WriteStartDocument();
-                writer.WriteStartElement("values");
-
-
+                writer.WriteStartElement(RootName??"values");
                 for (var i = 0; i < nrValues; i++)
                 {
                     var row = valuesToBeSent[i];
@@ -69,9 +69,9 @@ namespace SenderXML
                 writer.WriteEndDocument();
                 writer.Flush();
             }
-
+            //TODO: make async
             File.WriteAllText(XMLFileName, sb.ToString());
-
+            await Task.CompletedTask;
         }
     }
 }

@@ -14,13 +14,13 @@ namespace SenderCSV
     /// 3. For null what to write?
     /// 4. For big data - to write in chunks  - size
     /// </summary>
-    public class Sender_CSV : ISend
+    public class SenderToCSV : ISend
     {
 
         
         public IRow[] valuesToBeSent { private get; set; }
         public string CSVFileName{ get; set; }
-        public Sender_CSV(string fileName)
+        public SenderToCSV(string fileName)
         {
             this.CSVFileName = fileName;
         }

@@ -48,7 +48,7 @@ namespace StankinsTests
 
             #endregion
             #region act
-            ISend csvExport = new Sender_CSV(filename);
+            ISend csvExport = new SenderToCSV(filename);
             csvExport.valuesToBeSent = rows.ToArray();
             await csvExport.Send();
             #endregion

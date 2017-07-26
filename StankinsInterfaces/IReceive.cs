@@ -7,6 +7,7 @@ namespace StankinsInterfaces
     public interface IReceive
     {
         Task LoadData();
+
         IRowReceive[] valuesRead { get; }
     }
     public interface IReceive<T>:IReceive

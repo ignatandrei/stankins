@@ -16,15 +16,41 @@ using System.Diagnostics;
 using System.IO;
 using System.Security.Claims;
 using System.Threading;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using SenderDBInflux;
+using System.Reflection;
+using Transformers;
+using ReceiverBookmarkExportChrome;
+using SenderHTML;
 //using Microsoft.Data.Sqlite;
 namespace ConsoleApp1
 {
     class Program
     {
+        
         static void Main(string[] args)
         {
+
+            var receiver = new BKExportChrome(@"C:\Users\admin\Documents\bookmarks_7_25_17.html");
+            var tr = new TransformAddField<string, DateTime>(
+                (addDate) =>
+                {
+                    var secs = double.Parse(addDate);
+                    return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(secs);
+                }
+                , "ADD_DATE", "realDate");
+
+            var sender = new SenderToHTML("BKChrome.cshtml", "b.html");
+
+            SimpleJob sj = new SimpleJob();
+            sj.Receivers.Add(0, receiver);
+            sj.FiltersAndTransformers.Add(0, tr);
+            sj.Senders.Add(0, sender);
+            sj.Execute().Wait();
+            return;
             //var x = MemoryMappedFile.CreateNew("testmap", 2);
-            
+
             //using (var writer = x.CreateViewAccessor(0,200, MemoryMappedFileAccess.Write))
             //{
             //    // Write to MMF
@@ -47,10 +73,10 @@ namespace ConsoleApp1
             //return;
 
             ISerializeData sd = new SerializeDataInMemory();
-            ISend csvExport = new Sender_CSV("a.csv");
-            ISend xmlExport = new Sender_XML("a.xml");
+            ISend csvExport = new SenderToCSV("a.csv");
+            ISend xmlExport = new Sender_XML("a.xml","values");
             ISend jsonExport = new Sender_JSON("a.json");
-
+            //ISend influx = new SenderDB_Influx("http://localhost:8086", "mydb", "logical_reads", "cpu_time_ms", "total_elapsed_time_ms");
 
 
             var data = new DBTableData<int, SqlConnection>(sd)
@@ -63,12 +89,31 @@ namespace ConsoleApp1
 
             IReceive r = new ReceiverTableSQLServerInt(data);
             
-            IJob job = new SimpleJob();
+            ISimpleJob job = new SimpleJob();
             job.Receivers.Add(0, r);
             job.Senders.Add(0, csvExport);
             job.Senders.Add(1, xmlExport);
             job.Senders.Add(2, jsonExport);
+            //job.Senders.Add(3, influx);
+
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                Formatting=Formatting.Indented,
+                Error = HandleDeserializationError
+                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+
+            };
+
+            //var serialized = JsonConvert.SerializeObject(job, settings);
+            //var deserialized = JsonConvert.DeserializeObject(File.ReadAllText("c.txt"), settings);
+            
+
+            ////File.WriteAllText("a.txt", serialized);
+            //File.WriteAllText("b.txt",JsonConvert.SerializeObject(deserialized as IJob, settings));
+            //return; 
             job.Execute().Wait();
+            return;
             Process.Start("notepad.exe","a.json");
             //var connection = new SqliteConnection();
             //connection.ConnectionString = "DataSource=:memory:";
@@ -103,6 +148,13 @@ namespace ConsoleApp1
             //}
             //var n = Thread.CurrentThread.Name;
             //Console.WriteLine("ASD");
+        }
+
+        private static void HandleDeserializationError(object sender, Newtonsoft.Json.Serialization.ErrorEventArgs e)
+        {
+            var currentError = e.ErrorContext.Error.Message;
+            e.ErrorContext.Handled = true;
+
         }
     }
 }
