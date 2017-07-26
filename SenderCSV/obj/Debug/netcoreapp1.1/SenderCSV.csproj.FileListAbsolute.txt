@@ -16,3 +16,12 @@ E:\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.csprojResolveAssemblyRef
 E:\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.AssemblyInfo.cs
 E:\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.dll
 E:\Stankins\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.pdb
+D:\tfs\stankinsBogdan\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.deps.json
+D:\tfs\stankinsBogdan\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.dll
+D:\tfs\stankinsBogdan\SenderCSV\bin\Debug\netcoreapp1.1\SenderCSV.pdb
+D:\tfs\stankinsBogdan\SenderCSV\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+D:\tfs\stankinsBogdan\SenderCSV\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+D:\tfs\stankinsBogdan\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.csprojResolveAssemblyReference.cache
+D:\tfs\stankinsBogdan\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.AssemblyInfo.cs
+D:\tfs\stankinsBogdan\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.dll
+D:\tfs\stankinsBogdan\SenderCSV\obj\Debug\netcoreapp1.1\SenderCSV.pdb

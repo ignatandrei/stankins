@@ -24,3 +24,16 @@ E:\Stankins\ReceiverDBSQLite\obj\Debug\netcoreapp1.1\ReceiverDBSQLite.csprojReso
 E:\Stankins\ReceiverDBSQLite\obj\Debug\netcoreapp1.1\ReceiverDBSQLite.AssemblyInfo.cs
 E:\Stankins\ReceiverDBSQLite\obj\Debug\netcoreapp1.1\ReceiverDBSQLite.dll
 E:\Stankins\ReceiverDBSQLite\obj\Debug\netcoreapp1.1\ReceiverDBSQLite.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\ReceiverDBSQLite.deps.json
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\ReceiverDBSQLite.dll
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\ReceiverDBSQLite.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\obj\Debug\netcoreapp1.1\ReceiverDBSQLite.csprojResolveAssemblyReference.cache
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\obj\Debug\netcoreapp1.1\ReceiverDBSQLite.AssemblyInfo.cs
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\obj\Debug\netcoreapp1.1\ReceiverDBSQLite.dll
+D:\tfs\stankinsBogdan\ReceiverDBSQLite\obj\Debug\netcoreapp1.1\ReceiverDBSQLite.pdb

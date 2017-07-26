@@ -16,3 +16,12 @@ E:\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.csprojResolveAssemblyRef
 E:\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.AssemblyInfo.cs
 E:\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.dll
 E:\Stankins\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.pdb
+D:\tfs\stankinsBogdan\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.deps.json
+D:\tfs\stankinsBogdan\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.dll
+D:\tfs\stankinsBogdan\SenderXML\bin\Debug\netcoreapp1.1\SenderXML.pdb
+D:\tfs\stankinsBogdan\SenderXML\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+D:\tfs\stankinsBogdan\SenderXML\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+D:\tfs\stankinsBogdan\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.csprojResolveAssemblyReference.cache
+D:\tfs\stankinsBogdan\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.AssemblyInfo.cs
+D:\tfs\stankinsBogdan\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.dll
+D:\tfs\stankinsBogdan\SenderXML\obj\Debug\netcoreapp1.1\SenderXML.pdb

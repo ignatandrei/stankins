@@ -24,3 +24,16 @@ E:\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.cspr
 E:\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.AssemblyInfo.cs
 E:\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
 E:\Stankins\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.deps.json
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.csprojResolveAssemblyReference.cache
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.AssemblyInfo.cs
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.dll
+D:\tfs\stankinsBogdan\ReceiverDBSqlServer\obj\Debug\netcoreapp1.1\ReceiverDBSqlServer.pdb

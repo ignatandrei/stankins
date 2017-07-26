@@ -12,3 +12,9 @@ E:\Stankins\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.dll
 E:\Stankins\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.pdb
 E:\Stankins\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterfaces.dll
 E:\Stankins\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterfaces.pdb
+D:\tfs\stankinsBogdan\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterfaces.deps.json
+D:\tfs\stankinsBogdan\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterfaces.dll
+D:\tfs\stankinsBogdan\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterfaces.pdb
+D:\tfs\stankinsBogdan\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.AssemblyInfo.cs
+D:\tfs\stankinsBogdan\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.dll
+D:\tfs\stankinsBogdan\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.pdb

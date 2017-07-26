@@ -20,3 +20,14 @@ E:\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.csprojResolveAssemblyR
 E:\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.AssemblyInfo.cs
 E:\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.dll
 E:\Stankins\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.pdb
+D:\tfs\stankinsBogdan\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.deps.json
+D:\tfs\stankinsBogdan\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.dll
+D:\tfs\stankinsBogdan\ReceiverDB\bin\Debug\netcoreapp1.1\ReceiverDB.pdb
+D:\tfs\stankinsBogdan\ReceiverDB\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+D:\tfs\stankinsBogdan\ReceiverDB\bin\Debug\netcoreapp1.1\StanskinsImplementation.dll
+D:\tfs\stankinsBogdan\ReceiverDB\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+D:\tfs\stankinsBogdan\ReceiverDB\bin\Debug\netcoreapp1.1\StanskinsImplementation.pdb
+D:\tfs\stankinsBogdan\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.csprojResolveAssemblyReference.cache
+D:\tfs\stankinsBogdan\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.AssemblyInfo.cs
+D:\tfs\stankinsBogdan\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.dll
+D:\tfs\stankinsBogdan\ReceiverDB\obj\Debug\netcoreapp1.1\ReceiverDB.pdb

@@ -7,3 +7,12 @@ E:\Stankins\SenderElasticSearch\obj\Debug\netcoreapp1.1\SenderElasticSearch.Asse
 E:\Stankins\SenderElasticSearch\bin\Debug\netcoreapp1.1\SenderElasticSearch.pdb
 E:\Stankins\SenderElasticSearch\obj\Debug\netcoreapp1.1\SenderElasticSearch.dll
 E:\Stankins\SenderElasticSearch\obj\Debug\netcoreapp1.1\SenderElasticSearch.pdb
+D:\tfs\stankinsBogdan\SenderElasticSearch\bin\Debug\netcoreapp1.1\SenderElasticSearch.deps.json
+D:\tfs\stankinsBogdan\SenderElasticSearch\bin\Debug\netcoreapp1.1\SenderElasticSearch.dll
+D:\tfs\stankinsBogdan\SenderElasticSearch\bin\Debug\netcoreapp1.1\SenderElasticSearch.pdb
+D:\tfs\stankinsBogdan\SenderElasticSearch\bin\Debug\netcoreapp1.1\StankinsInterfaces.dll
+D:\tfs\stankinsBogdan\SenderElasticSearch\bin\Debug\netcoreapp1.1\StankinsInterfaces.pdb
+D:\tfs\stankinsBogdan\SenderElasticSearch\obj\Debug\netcoreapp1.1\SenderElasticSearch.csprojResolveAssemblyReference.cache
+D:\tfs\stankinsBogdan\SenderElasticSearch\obj\Debug\netcoreapp1.1\SenderElasticSearch.AssemblyInfo.cs
+D:\tfs\stankinsBogdan\SenderElasticSearch\obj\Debug\netcoreapp1.1\SenderElasticSearch.dll
+D:\tfs\stankinsBogdan\SenderElasticSearch\obj\Debug\netcoreapp1.1\SenderElasticSearch.pdb
