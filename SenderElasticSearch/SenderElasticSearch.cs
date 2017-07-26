@@ -5,12 +5,12 @@ using System.Threading.Tasks;
 
 namespace SenderElasticSearch
 {
-    public class SenderSearch : ISend
+    public class SenderToElasticSearch : ISend
     {
         public string URL { get; set; }
         public string IndexName { get; set; }
         
-        public SenderSearch(string url, string indexName)
+        public SenderToElasticSearch(string url, string indexName)
         {
             this.URL = url;
             this.IndexName = indexName;

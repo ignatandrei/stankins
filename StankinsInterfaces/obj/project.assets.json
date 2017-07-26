@@ -4328,15 +4328,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {}
+    "C:\\Users\\RootBogdan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj",
+      "projectUniqueName": "E:\\VisualStudioOnline\\StankinsInterfaces\\StankinsInterfaces.csproj",
       "projectName": "StankinsInterfaces",
-      "projectPath": "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj",
-      "outputPath": "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\obj\\",
+      "projectPath": "E:\\VisualStudioOnline\\StankinsInterfaces\\StankinsInterfaces.csproj",
+      "outputPath": "E:\\VisualStudioOnline\\StankinsInterfaces\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netstandard1.6"

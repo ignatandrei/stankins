@@ -4692,7 +4692,7 @@
       ]
     },
     "Microsoft.DotNet.PlatformAbstractions/1.1.2": {
-      "sha512": "R1BV4p6dJQHjqPSiU3Kb8otyC0pVbk3HWVMx8yi4zQ/eZyQRQ6vli1Ron2GwXVK7+g0RELs2chy+v+v8gTAnmw==",
+      "sha512": "z4CSzQKBFokkmcJgeEGC0n6RNpxHs6/kMpzFPwIh0U6zQN4/wZqK4r96IU9e7yRMTm3kFah9k4LEn3/Ecz6/5A==",
       "type": "package",
       "path": "microsoft.dotnet.platformabstractions/1.1.2",
       "files": [
@@ -4823,7 +4823,7 @@
       ]
     },
     "Microsoft.Extensions.DependencyModel/1.1.2": {
-      "sha512": "v/Y38U1tsdr8s5SLpTzbiwsugSFV+JNtm2lGb0agKDt/IwmWFbAqOR/rLr/ER1u4X5cHRv/J2dU6acUzYA0MFQ==",
+      "sha512": "k1dsqK0Xy3jqCr4+1rzKdA94ki3AmYDQm3kExtyJR2SgJyF1vcDPuDhsYw0S0OhffDTlA2RF2B6EaiFIuP6QaQ==",
       "type": "package",
       "path": "microsoft.extensions.dependencymodel/1.1.2",
       "files": [
@@ -5838,7 +5838,7 @@
       ]
     },
     "SQLite/3.13.0": {
-      "sha512": "+iukGwio5rJfkN8kPSpmmVlqqkqoLx2xoEPLWokb/YlpS0iefxnHrb40IWwYxiLo0ywwvy4a5nPc0m0EiEfWnw==",
+      "sha512": "MJfRiz2p6aMVOxrxGMdVzhpzI0oxTgZSwC8eVuOpV8L7yYaFUu8q/OFYwv9P0/aZ/pdEu24O6gma6wZJMTun9A==",
       "type": "package",
       "path": "sqlite/3.13.0",
       "files": [
@@ -7224,16 +7224,16 @@
       ]
     },
     "System.Interactive.Async/3.0.0": {
-      "sha512": "UEM+WmG1Oq0bNbPx/E1jaIQ83QOrPfVDUyuYBtG6D6DpB77ytv9flPterMujumpHuoRjSc0ilSB8w41fQc05dw==",
+      "sha512": "iyrgkZz9Dzm0fiPouQszFC3SO/46k6AYd/jG9bu+/o0AoDMaRXtlo3TIuWVNtOuJFd1noL963QouroJ0T3rImw==",
       "type": "package",
       "path": "system.interactive.async/3.0.0",
       "files": [
-        "System.Interactive.Async.3.0.0.nupkg.sha512",
-        "System.Interactive.Async.nuspec",
         "lib/net45/System.Interactive.Async.dll",
         "lib/net45/System.Interactive.Async.xml",
         "lib/netstandard1.0/System.Interactive.Async.dll",
-        "lib/netstandard1.0/System.Interactive.Async.xml"
+        "lib/netstandard1.0/System.Interactive.Async.xml",
+        "system.interactive.async.3.0.0.nupkg.sha512",
+        "system.interactive.async.nuspec"
       ]
     },
     "System.IO/4.3.0": {
@@ -10837,15 +10837,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {}
+    "C:\\Users\\RootBogdan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\tfs\\stankinsBogdan\\StankinsTests\\StankinsTests.csproj",
+      "projectUniqueName": "E:\\VisualStudioOnline\\StankinsTests\\StankinsTests.csproj",
       "projectName": "StankinsTests",
-      "projectPath": "D:\\tfs\\stankinsBogdan\\StankinsTests\\StankinsTests.csproj",
-      "outputPath": "D:\\tfs\\stankinsBogdan\\StankinsTests\\obj\\",
+      "projectPath": "E:\\VisualStudioOnline\\StankinsTests\\StankinsTests.csproj",
+      "outputPath": "E:\\VisualStudioOnline\\StankinsTests\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -10853,20 +10853,20 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj": {
-              "projectPath": "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj"
+            "E:\\VisualStudioOnline\\StankinsInterfaces\\StankinsInterfaces.csproj": {
+              "projectPath": "E:\\VisualStudioOnline\\StankinsInterfaces\\StankinsInterfaces.csproj"
             },
-            "D:\\tfs\\stankinsBogdan\\StanskinsImplementation\\StanskinsImplementation.csproj": {
-              "projectPath": "D:\\tfs\\stankinsBogdan\\StanskinsImplementation\\StanskinsImplementation.csproj"
+            "E:\\VisualStudioOnline\\StanskinsImplementation\\StanskinsImplementation.csproj": {
+              "projectPath": "E:\\VisualStudioOnline\\StanskinsImplementation\\StanskinsImplementation.csproj"
             },
-            "D:\\tfs\\stankinsBogdan\\SenderCSV\\SenderCSV.csproj": {
-              "projectPath": "D:\\tfs\\stankinsBogdan\\SenderCSV\\SenderCSV.csproj"
+            "E:\\VisualStudioOnline\\SenderCSV\\SenderCSV.csproj": {
+              "projectPath": "E:\\VisualStudioOnline\\SenderCSV\\SenderCSV.csproj"
             },
-            "D:\\tfs\\stankinsBogdan\\SenderHTML\\SenderHTML.csproj": {
-              "projectPath": "D:\\tfs\\stankinsBogdan\\SenderHTML\\SenderHTML.csproj"
+            "E:\\VisualStudioOnline\\SenderHTML\\SenderHTML.csproj": {
+              "projectPath": "E:\\VisualStudioOnline\\SenderHTML\\SenderHTML.csproj"
             },
-            "D:\\tfs\\stankinsBogdan\\ReceiverDBSQLite\\ReceiverDBSQLite.csproj": {
-              "projectPath": "D:\\tfs\\stankinsBogdan\\ReceiverDBSQLite\\ReceiverDBSQLite.csproj"
+            "E:\\VisualStudioOnline\\ReceiverDBSQLite\\ReceiverDBSQLite.csproj": {
+              "projectPath": "E:\\VisualStudioOnline\\ReceiverDBSQLite\\ReceiverDBSQLite.csproj"
             }
           }
         }

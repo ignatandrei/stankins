@@ -7459,15 +7459,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {}
+    "C:\\Users\\RootBogdan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\tfs\\stankinsBogdan\\SenderJSON\\SenderJSON.csproj",
+      "projectUniqueName": "E:\\VisualStudioOnline\\SenderJSON\\SenderJSON.csproj",
       "projectName": "SenderJSON",
-      "projectPath": "D:\\tfs\\stankinsBogdan\\SenderJSON\\SenderJSON.csproj",
-      "outputPath": "D:\\tfs\\stankinsBogdan\\SenderJSON\\obj\\",
+      "projectPath": "E:\\VisualStudioOnline\\SenderJSON\\SenderJSON.csproj",
+      "outputPath": "E:\\VisualStudioOnline\\SenderJSON\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netcoreapp1.1"
@@ -7475,8 +7475,8 @@
       "frameworks": {
         "netcoreapp1.1": {
           "projectReferences": {
-            "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj": {
-              "projectPath": "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj"
+            "E:\\VisualStudioOnline\\StankinsInterfaces\\StankinsInterfaces.csproj": {
+              "projectPath": "E:\\VisualStudioOnline\\StankinsInterfaces\\StankinsInterfaces.csproj"
             }
           }
         }

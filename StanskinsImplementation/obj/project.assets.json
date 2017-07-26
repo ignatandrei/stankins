@@ -5264,15 +5264,15 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\admin\\.nuget\\packages\\": {}
+    "C:\\Users\\RootBogdan\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\tfs\\stankinsBogdan\\StanskinsImplementation\\StanskinsImplementation.csproj",
+      "projectUniqueName": "E:\\VisualStudioOnline\\StanskinsImplementation\\StanskinsImplementation.csproj",
       "projectName": "StanskinsImplementation",
-      "projectPath": "D:\\tfs\\stankinsBogdan\\StanskinsImplementation\\StanskinsImplementation.csproj",
-      "outputPath": "D:\\tfs\\stankinsBogdan\\StanskinsImplementation\\obj\\",
+      "projectPath": "E:\\VisualStudioOnline\\StanskinsImplementation\\StanskinsImplementation.csproj",
+      "outputPath": "E:\\VisualStudioOnline\\StanskinsImplementation\\obj\\",
       "projectStyle": "PackageReference",
       "originalTargetFrameworks": [
         "netstandard1.6"
@@ -5280,8 +5280,8 @@
       "frameworks": {
         "netstandard1.6": {
           "projectReferences": {
-            "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj": {
-              "projectPath": "D:\\tfs\\stankinsBogdan\\StankinsInterfaces\\StankinsInterfaces.csproj"
+            "E:\\VisualStudioOnline\\StankinsInterfaces\\StankinsInterfaces.csproj": {
+              "projectPath": "E:\\VisualStudioOnline\\StankinsInterfaces\\StankinsInterfaces.csproj"
             }
           }
         }
