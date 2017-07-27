@@ -25,3 +25,12 @@ D:\tfs\stankinsBogdan\StanskinsImplementation\obj\Debug\netstandard1.6\Stanskins
 D:\tfs\stankinsBogdan\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.AssemblyInfo.cs
 D:\tfs\stankinsBogdan\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.dll
 D:\tfs\stankinsBogdan\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.pdb
+E:\VisualStudioOnline\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.deps.json
+E:\VisualStudioOnline\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.dll
+E:\VisualStudioOnline\StanskinsImplementation\bin\Debug\netstandard1.6\StanskinsImplementation.pdb
+E:\VisualStudioOnline\StanskinsImplementation\bin\Debug\netstandard1.6\StankinsInterfaces.dll
+E:\VisualStudioOnline\StanskinsImplementation\bin\Debug\netstandard1.6\StankinsInterfaces.pdb
+E:\VisualStudioOnline\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.csprojResolveAssemblyReference.cache
+E:\VisualStudioOnline\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.AssemblyInfo.cs
+E:\VisualStudioOnline\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.dll
+E:\VisualStudioOnline\StanskinsImplementation\obj\Debug\netstandard1.6\StanskinsImplementation.pdb

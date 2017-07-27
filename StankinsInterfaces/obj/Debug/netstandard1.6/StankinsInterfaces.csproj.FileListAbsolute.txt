@@ -18,3 +18,10 @@ D:\tfs\stankinsBogdan\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterf
 D:\tfs\stankinsBogdan\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.AssemblyInfo.cs
 D:\tfs\stankinsBogdan\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.dll
 D:\tfs\stankinsBogdan\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.pdb
+E:\VisualStudioOnline\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterfaces.deps.json
+E:\VisualStudioOnline\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterfaces.dll
+E:\VisualStudioOnline\StankinsInterfaces\bin\Debug\netstandard1.6\StankinsInterfaces.pdb
+E:\VisualStudioOnline\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.csprojResolveAssemblyReference.cache
+E:\VisualStudioOnline\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.AssemblyInfo.cs
+E:\VisualStudioOnline\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.dll
+E:\VisualStudioOnline\StankinsInterfaces\obj\Debug\netstandard1.6\StankinsInterfaces.pdb
