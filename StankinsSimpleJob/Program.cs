@@ -53,14 +53,36 @@ namespace StankinsSimpleJob
         {
             var factory = new SimpleJobFactory();
             int i = 1;
-            foreach (var item in factory.JobNames())
+            var jobNames = factory.JobNames();
+            foreach (var jobName in jobNames)
             {
-                Console.WriteLine($"{i}){item}");
+                Console.WriteLine($"{i++}){jobName}");
             }
             Console.Write("Please enter job id");
             var nrJob = int.Parse(Console.ReadLine());
-            var jobName = factory.JobNames()[nrJob - 1];
+            var jobNameSelected= jobNames[nrJob - 1];
+            var job = factory.GetJob(jobNameSelected);
+            i = 1;
+            foreach (var receiver in factory.ReceiverNames())
+            {
+                Console.WriteLine($"{i++}){receiver}");
+            }
+            Console.Write("Please enter receiver id");
+            var nrReceiver = int.Parse(Console.ReadLine());
+            var receiverNameSelected = factory.ReceiverNames()[nrReceiver - 1];
+            var rec = factory.GetReceiver(receiverNameSelected);
+            job.Receivers.Add(0,rec);
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                Formatting = Formatting.Indented,
+                Error = HandleDeserializationError
+                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
+            };
+            //TODO: use .NET Dependency injection for ISerializeData and other parameters
+            var serialized = JsonConvert.SerializeObject(job, settings);
+            File.WriteAllText("a.txt", serialized);
             return 0;
         }
 
