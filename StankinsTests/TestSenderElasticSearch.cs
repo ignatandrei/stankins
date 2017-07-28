@@ -17,6 +17,7 @@ namespace StankinsTests
         //public TestContext TestContext { get; set; }
 
         [TestMethod]
+        [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestSendElasticSearchData()
         {
             const string url = "http://localhost:9200";
