@@ -1,7 +1,0 @@
-C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsInterfaces\bin\Debug\netstandard1.5\StankinsInterfaces.deps.json
-C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsInterfaces\bin\Debug\netstandard1.5\StankinsInterfaces.dll
-C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsInterfaces\bin\Debug\netstandard1.5\StankinsInterfaces.pdb
-C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsInterfaces\obj\Debug\netstandard1.5\StankinsInterfaces.csprojResolveAssemblyReference.cache
-C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsInterfaces\obj\Debug\netstandard1.5\StankinsInterfaces.AssemblyInfo.cs
-C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsInterfaces\obj\Debug\netstandard1.5\StankinsInterfaces.dll
-C:\Users\admin\documents\visual studio 2017\Projects\Stankins\StankinsInterfaces\obj\Debug\netstandard1.5\StankinsInterfaces.pdb
