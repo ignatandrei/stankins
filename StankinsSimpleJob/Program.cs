@@ -13,6 +13,10 @@ namespace StankinsSimpleJob
     {
         static void Main(string[] args)
         {
+            if (args?.Length == 0)
+            {
+                args = new string[] { "-h" };
+            }
             //TODO: load assemblies on demand
             var app = new CommandLineApplication(throwOnUnexpectedArg: true);
             app.Name = Assembly.GetEntryAssembly().GetName().Name;
