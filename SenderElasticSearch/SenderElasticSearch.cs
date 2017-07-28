@@ -43,7 +43,7 @@ namespace SenderElasticSearch
                     request = new IndexRequest<object>(this.IndexName, this.TypeName, idValue);
                 }
 
-                request.Document = item;
+                request.Document = item.Values;
                 IIndexResponse resp = await client.IndexAsync(request);
             }
         }
