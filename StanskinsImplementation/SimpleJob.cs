@@ -89,9 +89,15 @@ namespace StanskinsImplementation
             //TODO: filters and transformers
             foreach (var item in FiltersAndTransformers)
             {
-                item.Value.valuesRead = data;
+                var itemData = item.Value as ITransform;
+                if (itemData != null)
+                {
+                    itemData.valuesRead = data;
+                }
                 await item.Value.Run();
-                data = item.Value.valuesTransformed;
+                if (itemData != null) { 
+                    data = itemData.valuesTransformed;
+                }
             }
             await SenderData(data);
         }
