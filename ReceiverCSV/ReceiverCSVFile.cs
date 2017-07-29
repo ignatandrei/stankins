@@ -1,48 +1,49 @@
-﻿using StankinsInterfaces;
+﻿using ReceiverFile;
+using StankinsInterfaces;
 using StanskinsImplementation;
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ReceiverCSV
 {
-    public class ReceiverCSVFile : IReceive
+    public class ReceiverCSVFile<T> : ReceiverFileFromStorage<T>
+         where T : IEquatable<T>
     {
-        public string FileName { get; set; }
-        public ReceiverCSVFile(string fileName)
+        
+        public ReceiverCSVFile(string fileName, Encoding encoding): base(fileName,false,encoding)
         {
-            FileName = fileName;
+            listOfData = new List<IRowReceive>();
+            this.EndReadFile += ReceiverCSVFile_EndReadFile;
         }
 
+        private void ReceiverCSVFile_EndReadFile(object sender, EventArgs e)
+        {
+            valuesRead = listOfData.ToArray();
+        }
+
+        string[] CSVHeaderLine;
+        
         public IRowReceive[] valuesRead { get; set; }
-
-        public async Task LoadData()
+        List<IRowReceive> listOfData;
+        protected override Task ProcessText(string text)
         {
-            string[] CSVlines = System.IO.File.ReadAllLines(FileName);
-            if (CSVlines?.Length == 0)
+            if(CSVHeaderLine == null)
             {
-                //LOG: there are no data 
-                return;
+                CSVHeaderLine=text.Split(new string[] { "," }, StringSplitOptions.None);
+                return Task.CompletedTask;
             }
-            var CSVHeaderLine = CSVlines[0].Split(new string[] {  "," }, StringSplitOptions.None);
-            IRowReceive[] valuesToBeRead = new IRowReceive[CSVlines.Length - 1];
-            
-
-           
-            for (int nrLine = 1; nrLine < CSVlines.Length; nrLine++)
+            var row = text.Split(new string[] { "," }, StringSplitOptions.None);
+            RowRead obj = new RowRead();
+            for (int columns = 0; columns < row.Length; columns++)
             {
-                var line = CSVlines[nrLine];
-                var row = line.Split(new string[] {  "," }, StringSplitOptions.None);
-                RowRead obj = new RowRead();
-                for (int columns = 0; columns < row.Length; columns++)
-                {
-                    obj.Values.Add(CSVHeaderLine[columns], row[columns]);
-
-                }
-                valuesToBeRead[nrLine-1] = obj;
-                
+                obj.Values.Add(CSVHeaderLine[columns], row[columns]);
             }
-            valuesRead = valuesToBeRead;
-
+            listOfData.Add(obj);
+            return Task.CompletedTask;
         }
+        
     }
 }
