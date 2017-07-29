@@ -4,6 +4,7 @@ using StankinsInterfaces;
 using StankinsSimpleFactory;
 using StanskinsImplementation;
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 
@@ -11,6 +12,14 @@ namespace StankinsSimpleJob
 {
     class Program
     {
+        enum AddDataSimpleJob
+        {
+            ExitChoice= 0,
+            AddReceiver=1,
+            AddTransformer=2,
+            AddSender=3
+        }
+
         static void Main(string[] args)
         {
             if (args?.Length == 0)
@@ -52,7 +61,19 @@ namespace StankinsSimpleJob
             app.Execute(args);
             
         }
+        private static IReceive GetReceiver(SimpleJobFactory factory)
+        {
+            int i = 1;
+            foreach (var receiver in factory.ReceiverNames())
+            {
+                Console.WriteLine($"{i++}){receiver}");
+            }
+            Console.Write("Please enter receiver id");
+            var nrReceiver = int.Parse(Console.ReadLine());
 
+            var receiverNameSelected = factory.ReceiverNames()[nrReceiver - 1];
+            return factory.GetReceiver(receiverNameSelected);
+        }
         private static int GenerateJobDefinition()
         {
             var factory = new SimpleJobFactory();
@@ -65,17 +86,36 @@ namespace StankinsSimpleJob
             Console.Write("Please enter job id");
             var nrJob = int.Parse(Console.ReadLine());
             var jobNameSelected= jobNames[nrJob - 1];
-            var job = factory.GetJob(jobNameSelected);
+            //
             i = 1;
-            foreach (var receiver in factory.ReceiverNames())
+            
+            var job = factory.GetJob(jobNameSelected);
+            var choice = AddDataSimpleJob.ExitChoice;
+            do
             {
-                Console.WriteLine($"{i++}){receiver}");
-            }
-            Console.Write("Please enter receiver id");
-            var nrReceiver = int.Parse(Console.ReadLine());
-            var receiverNameSelected = factory.ReceiverNames()[nrReceiver - 1];
-            var rec = factory.GetReceiver(receiverNameSelected);
-            job.Receivers.Add(0,rec);
+                Console.WriteLine($"{(int)AddDataSimpleJob.ExitChoice}. Exit");
+                Console.WriteLine($"{(int)AddDataSimpleJob.AddReceiver}. Add Receiver");
+                Console.WriteLine($"{(int)AddDataSimpleJob.AddTransformer}. Add transformer");
+                Console.WriteLine($"{(int)AddDataSimpleJob.AddSender}. Add Sender");
+                choice = (AddDataSimpleJob)int.Parse(Console.ReadLine());
+
+                switch (choice)
+                {
+                    case AddDataSimpleJob.ExitChoice:
+                        break;
+                    case AddDataSimpleJob.AddReceiver:
+                        var rec = GetReceiver(factory);
+                        job.Receivers.Add(job.Receivers.Count, rec);
+                        //TODO: choice for receiver properties: connection string , ...
+                        break;
+                    default:
+                        Console.WriteLine("not yet implemented");
+                        break;
+                }
+            } while (choice != AddDataSimpleJob.ExitChoice);
+
+
+
             var settings = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.Objects,
@@ -84,9 +124,10 @@ namespace StankinsSimpleJob
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
-            //TODO: use .NET Dependency injection for ISerializeData and other parameters
+            
             var serialized = JsonConvert.SerializeObject(job, settings);
             File.WriteAllText("a.txt", serialized);
+            Process.Start("notepad.exe", "a.txt");
             return 0;
         }
 

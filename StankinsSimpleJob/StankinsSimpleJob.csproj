@@ -9,6 +9,7 @@
   <ItemGroup>
     <None Remove="a.csv" />
     <None Remove="a.json" />
+    <None Remove="a.txt" />
     <None Remove="a.xml" />
   </ItemGroup>
 
