@@ -5,6 +5,7 @@ using SenderElasticSearch;
 using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Threading.Tasks;
@@ -71,16 +72,16 @@ namespace StankinsTests
 
             #region assert
             //Same count ?
-            var responseAll = client.Search<SimpleRow>(s => s.Size(10).Index(indexName).Type(typeName));
+            var responseAll = client.Search<Dictionary<string, string>>(s => s.Size(10).Index(indexName).Type(typeName));
             int countAll = responseAll.Documents.Count;
             Assert.AreEqual(countAll, 5, $"Inserted documents: 5, Read documents {countAll}");
 
-            //Same values ? (assuption: [1] both count are equals,  [2] rows is already sorted by Values["PersonID
-            List<IHit<SimpleRow>> itemsReadFromES = new List<IHit<SimpleRow>>(responseAll.Hits);
-            for(int i = 0; i < countAll; i++)
+            //Same values ? (assuption: [1] both count are equals,  [2] rows is already sorted by id)
+            var itemsReadFromESOrdered = (new List<Dictionary<string, string>>(responseAll.Documents)).OrderBy(ord => ord[id]).ToList<Dictionary<string, string>>();
+            for (int i = 0; i < countAll; i++)
             {
                 SimpleRow r1 = (SimpleRow)rows[i];
-                SimpleRow r2 = itemsReadFromES.Find(f => f.Id == i.ToString()).Source; // .ToString() ugly but it works (it's a unit test)
+                SimpleRow r2 = new SimpleRow() { Values = itemsReadFromESOrdered[i].ToDictionary(k => k.Key, v => (object)v.Value) };
                 Assert.IsTrue(r1.Equals(r1, r2));
             }
             #endregion
