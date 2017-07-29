@@ -32,7 +32,7 @@ namespace ConsoleApp1
         
         static void Main(string[] args)
         {
-            brrbrrrr();return;//sgbd pseudo-tests
+            brrbrrrr();return;
 
             var receiver = new BKExportChrome(@"C:\Users\admin\Documents\bookmarks_7_25_17.html");
             var tr = new TransformAddField<string, DateTime>(
