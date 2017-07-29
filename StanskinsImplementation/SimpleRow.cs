@@ -8,6 +8,10 @@ namespace StankinsInterfaces
     
     public class SimpleRow : IRow, IEqualityComparer<SimpleRow>
     {
+        public SimpleRow()
+        {
+            Values = new Dictionary<string, object>();
+        }
         public Dictionary<string, object> Values { get; set; }
 
         public bool Equals(SimpleRow x, SimpleRow y) //I'm expecting Equals method to be static

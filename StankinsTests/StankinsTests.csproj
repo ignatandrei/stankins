@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
     <ProjectReference Include="..\SenderCSV\SenderCSV.csproj" />
     <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
