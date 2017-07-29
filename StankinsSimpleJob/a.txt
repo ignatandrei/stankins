@@ -1,0 +1,52 @@
+{
+  "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
+  "Receivers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "ReceiverDBSqlServer.ReceiverTableSQLServerInt, ReceiverDBSqlServer",
+      "tableData": {
+        "$type": "ReceiverDB.DBTableData`2[[System.Int32, System.Private.CoreLib],[System.Data.SqlClient.SqlConnection, System.Data.SqlClient]], ReceiverDB",
+        "MaxRecordsToRead": 9223372036854775807,
+        "data": {
+          "$type": "StanskinsImplementation.SerializeDataOnFile, StanskinsImplementation",
+          "FileName": "StankinsData.txt"
+        },
+        "ConnectionString": null,
+        "TableName": null,
+        "Fields": [
+          "*"
+        ],
+        "FieldNameToMark": null,
+        "lastValue": 0
+      },
+      "valuesRead": null,
+      "LastValue": 0
+    },
+    "1": {
+      "$type": "ReceiverDBSQLite.ReceiverTableSQLiteInt, ReceiverDBSQLite",
+      "tableData": {
+        "$type": "ReceiverDB.DBTableData`2[[System.Int32, System.Private.CoreLib],[Microsoft.Data.Sqlite.SqliteConnection, Microsoft.Data.Sqlite]], ReceiverDB",
+        "MaxRecordsToRead": 9223372036854775807,
+        "data": {
+          "$type": "StanskinsImplementation.SerializeDataOnFile, StanskinsImplementation",
+          "FileName": "StankinsData.txt"
+        },
+        "ConnectionString": null,
+        "TableName": null,
+        "Fields": [
+          "*"
+        ],
+        "FieldNameToMark": null,
+        "lastValue": 0
+      },
+      "valuesRead": null,
+      "LastValue": 0
+    }
+  },
+  "FiltersAndTransformers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces"
+  },
+  "Senders": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces"
+  }
+}
