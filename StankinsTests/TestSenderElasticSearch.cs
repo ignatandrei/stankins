@@ -3,6 +3,7 @@ using Moq;
 using Nest;
 using SenderElasticSearch;
 using StankinsInterfaces;
+using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,29 +38,41 @@ namespace StankinsTests
             }
 
             //Prepare source data: 4 rows {ID, FirstName, LastName} + 5th row {ID, FirstName}
+            var m = new Mock<IRow>();
             var rows = new List<IRow>();
             int nrRows = 4;
+
             for (int i = 0; i < nrRows; i++)
             {
-                var row = new SimpleRow();
-                row.Values = new Dictionary<string, object>();
-                row.Values["PersonID"] = i;
-                row.Values["FirstName"] = "John " + i;
-                row.Values["LastName"] = "Doe " + i;
+                var row = new Mock<IRow>();
+                row.SetupProperty
+                ( 
+                    obj => obj.Values,
+                    new Dictionary<string, object>()
+                    {
+                        ["PersonID"] = i,
+                        ["FirstName"] = "John " + i,
+                        ["LastName"] = "Doe " + i
+                    }
+                );
 
-                rows.Add(row);
+                rows.Add(row.Object);
             }
             //5th row (no LastName)
             {
-                var row = new SimpleRow();
-                var i = 4;
+                int i = 4;
+                var row = new Mock<IRow>();
+                row.SetupProperty
+                (
+                    obj => obj.Values,
+                    new Dictionary<string, object>()
+                    {
+                        ["PersonID"] = i,
+                        ["FirstName"] = "John " + i
+                    }
+                );
 
-                row.Values = new Dictionary<string, object>();
-                row.Values["PersonID"] = i;
-                row.Values["FirstName"] = "John " + i;
-                row.Values["LastName"] = "Doe " + i;
-
-                rows.Add(row);
+                rows.Add(row.Object);
             }
             #endregion
 
@@ -80,9 +93,9 @@ namespace StankinsTests
             var itemsReadFromESOrdered = (new List<Dictionary<string, string>>(responseAll.Documents)).OrderBy(ord => ord[id]).ToList<Dictionary<string, string>>();
             for (int i = 0; i < countAll; i++)
             {
-                SimpleRow r1 = (SimpleRow)rows[i];
-                SimpleRow r2 = new SimpleRow() { Values = itemsReadFromESOrdered[i].ToDictionary(k => k.Key, v => (object)v.Value) };
-                Assert.IsTrue(r1.Equals(r1, r2));
+                var r1 = rows[i].Values;
+                var r2 = itemsReadFromESOrdered[i].ToDictionary(k => k.Key, v => (object)v.Value);
+                Assert.IsTrue(Utils.CompareDictionary(r1, r2));
             }
             #endregion
         }

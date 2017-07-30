@@ -116,13 +116,9 @@ namespace StankinsTests
             Assert.AreEqual(countAll, 2, $"Inserted documents: 2, Read documents {countAll}");
 
             //Same values ? (assuption: [1] both count are equals,  [2] rows is already sorted by id)
-            var itemsReadFromESOrdered = (new List<Dictionary<string, string>>(responseAll.Documents)).OrderBy(ord => ord[id]).ToList<Dictionary<string, string>>();
-            for (int i = 0; i < countAll; i++)
-            {
-                SimpleRow r1 = new SimpleRow() { Values = rcvr.valuesRead[i].Values };
-                SimpleRow r2 = new SimpleRow() { Values = itemsReadFromESOrdered[i].ToDictionary(k => k.Key, v => (object)v.Value) };
-                Assert.IsTrue(r1.Equals(r1, r2));
-            }
+            Dictionary<string, object>[] valuesReadFromESOrdered = (new List<Dictionary<string, string>>(responseAll.Documents)).OrderBy(ord => ord[id]).ToList<Dictionary<string, string>>().ToDictionaryStringObject().ToArray();
+            Assert.IsTrue(Utils.CompareDictionary(rcvr.valuesRead[0].Values, valuesReadFromESOrdered[0]));
+            Assert.IsTrue(Utils.CompareDictionary(rcvr.valuesRead[1].Values, valuesReadFromESOrdered[1]));
             #endregion
         }
     }

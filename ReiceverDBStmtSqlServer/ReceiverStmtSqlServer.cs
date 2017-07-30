@@ -8,9 +8,8 @@ using StanskinsImplementation;
 
 namespace ReiceverDBStmtSqlServer
 {
-    //Note: Initial version will include support only for SPs calls (CommandType.StoredProcedure
+    //Note: Initial version will include support only for SPs calls (CommandType.StoredProcedure)
     //TODO: Add param; Map params (one or more) to LastValue/LastRow; Serialize LastVal/LastRow
-    //public enum StmtType : byte {ReadSqlScript, ExecStoredProcedure } 
 
     public class ReceiverStmtSqlServer : IReceive
     {
