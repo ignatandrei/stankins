@@ -24,8 +24,8 @@ using Transformers;
 using ReceiverBookmarkExportChrome;
 using SenderHTML;
 using SenderElasticSearch;
-using Transformers.BasicTransformersType;
-using Aq.ExpressionJsonSerializer;
+//using Transformers.BasicTransformersType;
+//using Aq.ExpressionJsonSerializer;
 //using Microsoft.Data.Sqlite;
 namespace ConsoleApp1
 {
