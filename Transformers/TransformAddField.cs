@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 
 namespace Transformers
 {
+    //replace with
+    //https://github.com/davideicardi/DynamicExpresso
     public class TransformAddField<T,U> : ITransform
     {
         Func<T, U> transformFunc { get; set; }
@@ -21,15 +23,23 @@ namespace Transformers
 
         public async Task Run()
         {
-            var newVals = new List<IRow>();
+            //var newVals = new List<IRow>();
             foreach (var item in valuesRead)
             {
                 var data = item.Values[OldField];
                 T convert = (T)Convert.ChangeType(data, typeof(T));
-                item.Values.Add(NewField, transformFunc(convert));
-                newVals.Add(item);
+                var val = transformFunc(convert);
+                if (item.Values.ContainsKey(NewField))
+                {
+                    item.Values[NewField] = val;
+                }
+                else
+                {
+                    item.Values.Add(NewField, val);
+                }
+                //newVals.Add(item);
             }
-            valuesTransformed = newVals.ToArray();
+            valuesTransformed = valuesRead;
         }
     }
 }
