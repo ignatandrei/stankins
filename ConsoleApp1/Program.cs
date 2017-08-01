@@ -24,6 +24,8 @@ using Transformers;
 using ReceiverBookmarkExportChrome;
 using SenderHTML;
 using SenderElasticSearch;
+using Transformers.BasicTransformersType;
+using Aq.ExpressionJsonSerializer;
 //using Microsoft.Data.Sqlite;
 namespace ConsoleApp1
 {
@@ -32,17 +34,36 @@ namespace ConsoleApp1
         
         static void Main(string[] args)
         {
+            
+            //var f = new TransformerIntString("asd", "bas");
+
+            //var settings1 = new JsonSerializerSettings()
+            //{
+            //    TypeNameHandling = TypeNameHandling.Objects,
+            //    Formatting = Formatting.Indented,
+            //    Error = HandleDeserializationError
+            //    //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+
+            //};
+            //settings1.Converters.Add(new ExpressionJsonConverter(Assembly.GetEntryAssembly()));
+            //var x = JsonConvert.SerializeObject(f,settings1);
+            //Console.WriteLine(x);
+            //return;
             brrbrrrr();return;
 
             var receiver = new BKExportChrome(@"C:\Users\admin\Documents\bookmarks_7_25_17.html");
+            //var tr = new TransformAddField<string, DateTime>(
+            //    (addDate) =>
+            //    {
+            //        var secs = double.Parse(addDate);
+            //        return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(secs);
+            //    }
+            //    , "ADD_DATE", "realDate");
             var tr = new TransformAddField<string, DateTime>(
-                (addDate) =>
-                {
-                    var secs = double.Parse(addDate);
-                    return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(secs);
-                }
-                , "ADD_DATE", "realDate");
-
+                (addDate) => 
+                new DateTime(1970, 1, 1, 0, 0, 0, 0)
+                .AddSeconds(double.Parse(addDate))
+                    , "ADD_DATE", "realDate");
             var sender = new SenderToHTML("BKChrome.cshtml", "b.html");
 
             SimpleJob sj = new SimpleJob();

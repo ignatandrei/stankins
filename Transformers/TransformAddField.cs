@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace Transformers
 {
-    //replace with
-    //https://github.com/davideicardi/DynamicExpresso
+    [Obsolete]
     public class TransformAddField<T,U> : ITransform
     {
-        Expression<Func<T, U>> transformFunc { get; set; }
+        public Expression<Func<T, U>> transformFunc { get; set; }
         public string OldField { get; set; }
         public string NewField { get; set; }
         public TransformAddField(Expression<Func<T,U>> func, string oldField, string newField)

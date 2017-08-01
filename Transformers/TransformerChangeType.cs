@@ -4,6 +4,7 @@ using System.Text;
 
 namespace Transformers
 {
+    [Obsolete]
     public class TransformerChangeType<T, U> : TransformAddField<T, U>
     {
         public TransformerChangeType(string oldField, string newField)

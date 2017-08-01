@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using Transformers;
 using Transformers.BasicTransformersType;
 
 namespace StankinsTests
@@ -39,7 +40,10 @@ namespace StankinsTests
 
             #endregion
             #region act
-            var transform = new TransformerIntString("ID", "NewStringID");
+            //var transform = new TransformerIntString("ID", "NewStringID");
+            var transform = new TransformWithStringGeneral("(oldValue??0).ToString()", "ID", "NewStringID");
+            transform.valuesRead = rows.ToArray();
+            await transform.Run();
             transform.valuesRead = rows.ToArray();
             await transform.Run();
             #endregion
@@ -81,7 +85,8 @@ namespace StankinsTests
 
             #endregion
             #region act
-            var transform = new TransformerStringInt("ID", "NewIntID");
+            //var transform = new TransformerStringInt("ID", "NewIntID");
+            var transform = new TransformWithStringGeneral("int.Parse((oldValue??0).ToString())", "ID", "NewIntID");
             transform.valuesRead = rows.ToArray();
             await transform.Run();
             #endregion
