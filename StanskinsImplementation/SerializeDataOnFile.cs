@@ -14,7 +14,11 @@ namespace StanskinsImplementation
         public SerializeDataOnFile(string fileName)
         {
             FileName = fileName;
-            
+
+            if (!File.Exists(FileName))
+            {
+                using (StreamWriter sw = File.CreateText(FileName)) { } //It creates and close file used for testing
+            }
         }
         void ReadAllFile()
         {
@@ -37,14 +41,31 @@ namespace StanskinsImplementation
 
         public new void SetValue(string key, object value)
         {
-
             if (!haveReadFile)
             {
                 ReadAllFile();
             }
             base.SetValue(key,value);
         }
-        
+
+        public Dictionary<string, object> GetDictionary()
+        {
+            if (!haveReadFile)
+            {
+                ReadAllFile();
+            }
+            return this.data;
+        }
+
+        public void SetDictionary(Dictionary<string, object> obj)
+        {
+            if (!haveReadFile)
+            {
+                ReadAllFile();
+            }
+            this.data = obj;
+        }
+
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 

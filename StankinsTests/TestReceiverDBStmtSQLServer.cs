@@ -10,6 +10,7 @@ using StankinsInterfaces;
 using StanskinsImplementation;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 
 namespace StankinsTests
 {
@@ -18,13 +19,19 @@ namespace StankinsTests
     {
         const string connectionString = @"Server=(local)\SQL2016;Database=tempdb;Trusted_Connection=True;";
         const CommandType commandType = CommandType.StoredProcedure;
-
+        
         [TestMethod]
         [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestReiceverDBExecuteStoredProcedure()
         {
             #region arange
             string commandText = "dbo.TestReiceverDBExecuteStoredProcedure";
+            const string fileNameSerilizeLastRow = "TestExecStoredProcedure1.txt";
+
+            if (File.Exists(fileNameSerilizeLastRow))
+            {
+                File.Delete(fileNameSerilizeLastRow);
+            }
 
             using (var conn = new SqlConnection(connectionString))
             {
@@ -34,14 +41,14 @@ namespace StankinsTests
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = "IF OBJECT_ID('tempdb.dbo.TestReiceverDBExecuteStoredProcedure') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure;";
                     await cmd.ExecuteNonQueryAsync();
-                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joahne', 'Doe' ORDER BY PersonID";
+                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joanna', 'Doe' ORDER BY PersonID";
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
             
-            ReceiverStmtSqlServer rcvr = new ReceiverStmtSqlServer(connectionString, commandType, commandText);
+            ReceiverStmtSqlServer rcvr = new ReceiverStmtSqlServer(connectionString, commandType, commandText, fileNameSerilizeLastRow);
             #endregion
-
+            
             #region act
             await rcvr.LoadData();
             #endregion
@@ -55,8 +62,17 @@ namespace StankinsTests
             Assert.AreEqual("John", results[0].Values["FirstName"]);
             Assert.AreEqual("Doe", results[0].Values["LastName"]);
             Assert.AreEqual(11, results[1].Values["PersonID"]);
-            Assert.AreEqual("Joahne", results[1].Values["FirstName"]);
+            Assert.AreEqual("Joanna", results[1].Values["FirstName"]);
             Assert.AreEqual("Doe", results[1].Values["LastName"]);
+            //lastRow ?
+            SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
+            Dictionary<string, object> lastRowRead = sdf.GetDictionary();
+            //lastRow Count ? 
+            Assert.AreEqual(3, lastRowRead.Count);
+            //lastRow data ?
+            Assert.AreEqual(11, (long)lastRowRead["PersonID"]);
+            Assert.AreEqual("Joanna", lastRowRead["FirstName"]);
+            Assert.AreEqual("Doe", lastRowRead["LastName"]);
             #endregion
         }
 
@@ -69,6 +85,7 @@ namespace StankinsTests
             const string indexName = "ixtestsenderelasticsearch2";
             const string typeName = "Person";
             const string id = "PersonID";
+            const string fileNameSerilizeLastRow = "TestExecStoredProcedure2.txt";
 
             #region arange
             //Arange receiver
@@ -80,12 +97,12 @@ namespace StankinsTests
                     cmd.CommandType = CommandType.Text;
                     cmd.CommandText = "IF OBJECT_ID('tempdb.dbo.TestReiceverDBExecuteStoredProcedure2') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure2;";
                     await cmd.ExecuteNonQueryAsync();
-                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure2 AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joahne', 'Doe' ORDER BY PersonID";
+                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure2 AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joanna', 'Doe' ORDER BY PersonID";
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
 
-            ReceiverStmtSqlServer rcvr = new ReceiverStmtSqlServer(connectionString, commandType, commandText);
+            ReceiverStmtSqlServer rcvr = new ReceiverStmtSqlServer(connectionString, commandType, commandText, fileNameSerilizeLastRow);
 
             //Arange sender
             var settings = new ConnectionSettings(new Uri(url));

@@ -16,8 +16,9 @@ namespace ReiceverDBStmtSqlServer
         public string ConnectionString { get; set; }
         public CommandType CommandType { get; set; }
         public string CommandText { get; set; }
+        public string FileNameSerializeLastRow { get; set; }
 
-        public ReceiverStmtSqlServer(string connectionString, CommandType commandType, string commandText)
+        public ReceiverStmtSqlServer(string connectionString, CommandType commandType, string commandText, string fileNameSerializeLastRow)
         {
             if (commandType != CommandType.StoredProcedure)
                 throw new NotImplementedException();
@@ -25,9 +26,12 @@ namespace ReiceverDBStmtSqlServer
             this.ConnectionString = connectionString;
             this.CommandType = commandType;
             this.CommandText = commandText;
+            this.FileNameSerializeLastRow = fileNameSerializeLastRow;
         }
 
         public IRowReceive[] valuesRead { get; private set; }
+
+        public IRowReceive lastRow;
 
         public async Task LoadData()
         {
@@ -51,11 +55,19 @@ namespace ReiceverDBStmtSqlServer
                             row.Values.Add(key, value);
                         }
                         receivedRows.Add(row);
+
+                        lastRow = row;
                     }
                 }
             }
 
             valuesRead = receivedRows.ToArray();
+
+            //Serialize last received row
+            using (SerializeDataOnFile sdf = new SerializeDataOnFile(this.FileNameSerializeLastRow))
+            {
+                sdf.SetDictionary(lastRow.Values);
+            }
         }
     }
 }
