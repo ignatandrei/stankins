@@ -22,6 +22,7 @@
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+    <ProjectReference Include="..\Transformers\Transformers.csproj" />
   </ItemGroup>
 
   <ItemGroup>
