@@ -28,6 +28,7 @@
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
     <ProjectReference Include="..\StankinsSimpleFactory\StankinsSimpleFactory.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+    <ProjectReference Include="..\Transformers\Transformers.csproj" />
   </ItemGroup>
 
 </Project>

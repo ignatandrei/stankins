@@ -24,6 +24,7 @@ namespace StankinsSimpleFactory
             sc = new ServiceCollection();
             sc.AddSingleton<ISerializeData>(new SerializeDataOnFile("StankinsData.txt"));
             sc.AddScoped(typeof(DBTableData <, >));
+            sc.AddSingleton("");
 
         }
         public SimpleJobFactory()
@@ -97,6 +98,28 @@ namespace StankinsSimpleFactory
             return ret;
         }
 
+        public ISend GetSender(string nameSelected)
+        {
+            var obj = senders.First(it => it.Name == nameSelected);
+            sc.AddSingleton(typeof(ISend), obj);
+
+            var ret = sc.BuildServiceProvider().GetRequiredService<ISend>();
+            var service = sc.First(it => it.ServiceType == typeof(ISend));
+            sc.Remove(service);
+            return ret;
+        }
+
+        public IFilterTransformer GetTransformFilter(string nameSelected)
+        {
+            var obj = filterTransformers.First(it => it.Name == nameSelected);
+            sc.AddSingleton(typeof(IFilterTransformer), obj);
+
+            var ret = sc.BuildServiceProvider().GetRequiredService<IFilterTransformer>();
+            var service = sc.First(it => it.ServiceType == typeof(IFilterTransformer));
+            sc.Remove(service);
+            return ret;
+        }
+
         public string[] JobNames()
         {
             if (jobs == null) {
@@ -121,6 +144,7 @@ namespace StankinsSimpleFactory
             }
             return senders.Select(it => it.Name).ToArray();
         }
+        
         public string[] FilterTransformerNames()
         {
             if (filterTransformers == null)

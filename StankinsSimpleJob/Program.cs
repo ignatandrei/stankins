@@ -74,6 +74,34 @@ namespace StankinsSimpleJob
             var receiverNameSelected = factory.ReceiverNames()[nrReceiver - 1];
             return factory.GetReceiver(receiverNameSelected);
         }
+
+        private static IFilterTransformer GetTransformer(SimpleJobFactory factory)
+        {
+            int i = 1;
+            foreach (var name in factory.FilterTransformerNames())
+            {
+                Console.WriteLine($"{i++}){name}");
+            }
+            Console.Write("Please enter filter/transformer id");
+            var nr= int.Parse(Console.ReadLine());
+
+            var nameSelected = factory.FilterTransformerNames()[nr- 1];
+            return factory.GetTransformFilter(nameSelected);
+        }
+
+        private static ISend GetSender(SimpleJobFactory factory)
+        {
+            int i = 1;
+            foreach (var name in factory.SenderNames())
+            {
+                Console.WriteLine($"{i++}){name}");
+            }
+            Console.Write("Please enter filter/transformer id");
+            var nr = int.Parse(Console.ReadLine());
+
+            var nameSelected = factory.SenderNames()[nr- 1];
+            return factory.GetSender(nameSelected);
+        }
         private static int GenerateJobDefinition()
         {
             var factory = new SimpleJobFactory();
@@ -108,6 +136,14 @@ namespace StankinsSimpleJob
                         job.Receivers.Add(job.Receivers.Count, rec);
                         //TODO: choice for receiver properties: connection string , ...
                         break;
+                    case AddDataSimpleJob.AddTransformer:
+                        var tr = GetTransformer(factory);
+                        job.FiltersAndTransformers.Add(job.FiltersAndTransformers.Count, tr);
+                        break;
+                    case AddDataSimpleJob.AddSender:
+                        var s = GetSender(factory);
+                        job.Senders.Add(job.Senders.Count, s);
+                        break;
                     default:
                         Console.WriteLine("not yet implemented");
                         break;
@@ -116,16 +152,9 @@ namespace StankinsSimpleJob
 
 
 
-            var settings = new JsonSerializerSettings()
-            {
-                TypeNameHandling = TypeNameHandling.Objects,
-                Formatting = Formatting.Indented,
-                Error = HandleDeserializationError
-                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
-            };
-            
-            var serialized = JsonConvert.SerializeObject(job, settings);
+
+            var serialized = job.SerializeMe();
             File.WriteAllText("a.txt", serialized);
             Process.Start("notepad.exe", "a.txt");
             return 0;
