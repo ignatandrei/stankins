@@ -26,7 +26,7 @@ namespace StankinsTests
                 "val";
 
 
-            var transform = new TransformOneValueWithStringGeneral(transformExpression, "ADD_DATE", "realDate");
+            var transform = new TransformOneValueGeneral(transformExpression, "ADD_DATE", "realDate");
             #endregion
             #region ACT
             ISimpleJob job = new SimpleJob();

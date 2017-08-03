@@ -16,18 +16,18 @@ namespace Transformers
     {
         public T oldValue;
     }
-    public class TransformOneValueWithStringGeneral : TransformOneValueWithString<object, object>
+    public class TransformOneValueGeneral : TransformOneValue<object, object>
     {
-        public TransformOneValueWithStringGeneral(string expression, string oldField, string newField) : base(expression, oldField, newField)
+        public TransformOneValueGeneral(string expression, string oldField, string newField) : base(expression, oldField, newField)
         {
         }
     }
-    public class TransformOneValueWithString<T, U> : ITransform
+    public class TransformOneValue<T, U> : ITransform
     {
         public string TheExpression { get; set; }
         public string OldField { get; set; }
         public string NewField { get; set; }
-        public TransformOneValueWithString(string expression, string oldField, string newField)
+        public TransformOneValue(string expression, string oldField, string newField)
         {
             TheExpression = expression;
             OldField = oldField;

@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace StanskinsImplementation
 {
@@ -100,6 +101,36 @@ namespace StanskinsImplementation
                 }
             }
             await SenderData(data);
+        }
+
+        public string SerializeMe()
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                Formatting = Formatting.Indented,
+                //Error = HandleDeserializationError
+                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+
+            };
+            return JsonConvert.SerializeObject(this, settings);
+        }
+
+        public void UnSerialize(string serializeData)
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                Formatting = Formatting.Indented,
+                //Error = HandleDeserializationError
+                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+
+            };
+            var sj=(SimpleJob) JsonConvert.DeserializeObject(serializeData, settings);
+            this.FiltersAndTransformers = sj.FiltersAndTransformers;
+            this.Receivers = sj.Receivers;
+            this.Senders = sj.Senders;
+
         }
     }
 }

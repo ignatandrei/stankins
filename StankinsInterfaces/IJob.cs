@@ -6,6 +6,10 @@ namespace StankinsInterfaces
     public interface IJob
     {
         Task Execute();
+        string SerializeMe();
+
+        void UnSerialize(string serializeData);
+
     }
     public interface ISimpleJob    :IJob   
     {
@@ -14,6 +18,6 @@ namespace StankinsInterfaces
 
         OrderedList<ISend> Senders { get;  }
 
-     
+        
     }
 }

@@ -59,11 +59,19 @@ namespace ConsoleApp1
             //        return new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(secs);
             //    }
             //    , "ADD_DATE", "realDate");
-            var tr = new TransformAddField<string, DateTime>(
-                (addDate) => 
-                new DateTime(1970, 1, 1, 0, 0, 0, 0)
-                .AddSeconds(double.Parse(addDate))
-                    , "ADD_DATE", "realDate");
+            //var tr = new TransformAddField<string, DateTime>(
+            //    (addDate) => 
+            //    new DateTime(1970, 1, 1, 0, 0, 0, 0)
+            //    .AddSeconds(double.Parse(addDate))
+            //        , "ADD_DATE", "realDate");
+            string transformExpression =
+                "var secs = double.Parse((oldValue??null).ToString());" +
+                "var val=new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(secs);" +
+                "val";
+
+
+            var tr = new TransformOneValueGeneral(transformExpression, "ADD_DATE", "realDate");
+
             var sender = new SenderToHTML("BKChrome.cshtml", "b.html");
 
             SimpleJob sj = new SimpleJob();
