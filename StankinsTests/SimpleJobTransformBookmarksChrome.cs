@@ -18,8 +18,13 @@ namespace StankinsTests
         [TestMethod]
         public async Task Test_ReceiverBookmarkFileChrome()
         {
+            var dir = AppContext.BaseDirectory;
             #region ARRANGE
-            var receiver = new ReceiverBookmarkFileChrome(@"bookmarks_7_25_17.html");
+            string pathFile = Path.Combine(dir, "bookmarks_7_25_17.html");
+            if (!File.Exists(pathFile))
+                throw new ArgumentException($"not found {pathFile}");
+
+            var receiver = new ReceiverBookmarkFileChrome(pathFile);
             string transformExpression =
                 "var secs = double.Parse((oldValue??null).ToString());" +
                 "var val=new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(secs);" +

@@ -38,14 +38,12 @@ namespace StankinsTests
 
             #endregion
             #region act            
-            var addField= "var s=new StanskinsImplementation.RowRead();" +
-                "s.Values.Add(\"FullName\",Values[\"LastName\"]?.ToString() +Values[\"FirstName\"]?.ToString());" +
-                "s";
+            var addField= 
+                "Values.Add(\"FullName\",Values[\"LastName\"]?.ToString() +Values[\"FirstName\"]?.ToString());" +
+                "Values";
             var transform = new TransformRow(addField);
             transform.valuesRead = rows.ToArray();
-            await transform.Run();
-            transform.valuesRead = rows.ToArray();
-            await transform.Run();
+            await transform.Run();           
             #endregion
             #region assert
             for (int i = 0; i < transform.valuesTransformed.Length; i++)
