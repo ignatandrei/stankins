@@ -51,7 +51,7 @@ namespace ConsoleApp1
             //return;
             brrbrrrr();return;
 
-            var receiver = new BKExportChrome(@"C:\Users\admin\Documents\bookmarks_7_25_17.html");
+            var receiver = new ReceiverBookmarkFileChrome(@"C:\Users\admin\Documents\bookmarks_7_25_17.html");
             //var tr = new TransformAddField<string, DateTime>(
             //    (addDate) =>
             //    {

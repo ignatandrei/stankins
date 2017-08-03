@@ -1,6 +1,7 @@
 ﻿using Microsoft.CodeAnalysis.CSharp.Scripting;
 using Microsoft.CodeAnalysis.Scripting;
 using StankinsInterfaces;
+using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.Dynamic;
@@ -41,7 +42,11 @@ namespace Transformers
             var val = new WithT<T>();
             val.oldValue = default(T);
             var script = CSharpScript.Create<U>(TheExpression,               
-                globalsType: typeof(WithT<T>)
+                globalsType: typeof(WithT<T>),
+                options: ScriptOptions.Default.AddReferences(
+                    //todo: load at serialize time
+                    typeof(RowRead).GetTypeInfo().Assembly
+                    ).AddImports("System")
                 );
             script.Compile();
             foreach (var item in valuesRead)

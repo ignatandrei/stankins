@@ -26,10 +26,11 @@ namespace Transformers
                 globalsType: typeof(IRow),
                 options:ScriptOptions.Default.AddReferences(
                     //todo: load at serialize time
-                    typeof(RowRead).GetTypeInfo().Assembly
-                    )
-                );
+                    typeof(RowRead).GetTypeInfo().Assembly                    
+                    ).AddImports("System")
 
+                );
+            
             script.Compile();
             valuesTransformed = new IRow[valuesRead.Length];
             int i = 0;
