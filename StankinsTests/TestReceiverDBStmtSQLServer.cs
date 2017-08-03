@@ -22,11 +22,11 @@ namespace StankinsTests
         
         [TestMethod]
         [TestCategory("ExternalProgramsToBeRun")]
-        public async Task TestReiceverDBExecuteStoredProcedure()
+        public async Task TestReiceverDBExecuteStoredProcedureNoParams()
         {
             #region arange
-            string commandText = "dbo.TestReiceverDBExecuteStoredProcedure";
-            const string fileNameSerilizeLastRow = "TestExecStoredProcedure1.txt";
+            string commandText = "dbo.TestReiceverDBExecuteStoredProcedureNoParams";
+            const string fileNameSerilizeLastRow = "TestReiceverDBExecuteStoredProcedureNoParams_LastRow.txt";
 
             if (File.Exists(fileNameSerilizeLastRow))
             {
@@ -39,9 +39,10 @@ namespace StankinsTests
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "IF OBJECT_ID('tempdb.dbo.TestReiceverDBExecuteStoredProcedure') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure;";
+
+                    cmd.CommandText = "IF OBJECT_ID('dbo.TestReiceverDBExecuteStoredProcedureNoParams') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureNoParams;";
                     await cmd.ExecuteNonQueryAsync();
-                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joanna', 'Doe' ORDER BY PersonID";
+                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureNoParams AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joanna', 'Doe' ORDER BY PersonID";
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
@@ -78,6 +79,103 @@ namespace StankinsTests
 
         [TestMethod]
         [TestCategory("ExternalProgramsToBeRun")]
+        public async Task TestReiceverDBExecuteStoredProcedureWithParams()
+        {
+            //First call
+            #region arange
+            string commandText = "dbo.TestReiceverDBExecuteStoredProcedureWithParam";
+            const string fileNameSerilizeLastRow = "TestReiceverDBExecuteStoredProcedureWithParam_LastRow.txt";
+            string parameters = "@pid=PersonID;@p2=FirstName";
+
+            if (File.Exists(fileNameSerilizeLastRow))
+            {
+                File.Delete(fileNameSerilizeLastRow);
+            }
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.CommandText = "IF OBJECT_ID('dbo.TestingTestReiceverDBExecuteStoredProcedureWithParam') IS NOT NULL DROP TABLE dbo.TestingTestReiceverDBExecuteStoredProcedureWithParam; CREATE TABLE dbo.TestingTestReiceverDBExecuteStoredProcedureWithParam (PersonID INT NOT NULL PRIMARY KEY, FirstName VARCHAR(50), LastName VARCHAR(50)); INSERT dbo.TestingTestReiceverDBExecuteStoredProcedureWithParam VALUES (1, 'John', 'Doe'), (11, 'Joanna', 'Doe');";
+                    await cmd.ExecuteNonQueryAsync();
+                    cmd.CommandText = "IF OBJECT_ID('dbo.TestReiceverDBExecuteStoredProcedureWithParam') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureWithParam;";
+                    await cmd.ExecuteNonQueryAsync();
+                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureWithParam (@pid INT, @p2 VARCHAR(50)) AS SELECT * FROM dbo.TestingTestReiceverDBExecuteStoredProcedureWithParam x WHERE x.PersonID > ISNULL(@pid,0) ORDER BY PersonID";
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+
+            ReceiverStmtSqlServer rcvr = new ReceiverStmtSqlServer(connectionString, commandType, commandText, fileNameSerilizeLastRow, parameters);
+            #endregion
+
+            #region act
+            await rcvr.LoadData();
+            #endregion
+
+            #region assert
+            var results = rcvr.valuesRead;
+            //Same number of rows ?
+            Assert.AreEqual(2, results.Length);
+            //Same data ?
+            Assert.AreEqual(1, results[0].Values["PersonID"]);
+            Assert.AreEqual("John", results[0].Values["FirstName"]);
+            Assert.AreEqual("Doe", results[0].Values["LastName"]);
+            Assert.AreEqual(11, results[1].Values["PersonID"]);
+            Assert.AreEqual("Joanna", results[1].Values["FirstName"]);
+            Assert.AreEqual("Doe", results[1].Values["LastName"]);
+            //lastRow ?
+            SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
+            Dictionary<string, object> lastRowRead = sdf.GetDictionary();
+            //lastRow data ?
+            Assert.AreEqual(11, (long)lastRowRead["PersonID"]);
+            Assert.AreEqual("Joanna", lastRowRead["FirstName"]);
+            Assert.AreEqual("Doe", lastRowRead["LastName"]);
+            #endregion
+
+            //Second call (we just calling twice the same stored procedure)
+            #region arrage
+            using (var conn = new SqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+                    cmd.CommandText = "INSERT dbo.TestingTestReiceverDBExecuteStoredProcedureWithParam VALUES (111, 'Ion', 'Ion'),(1111, 'Ioan', 'Ioan');";
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            #endregion
+
+            #region act
+            await rcvr.LoadData();
+            #endregion
+
+            #region assert
+            results = rcvr.valuesRead;
+            //Same number of rows ?
+            Assert.AreEqual(2, results.Length);
+            //Same data ?
+            Assert.AreEqual(111, results[0].Values["PersonID"]);
+            Assert.AreEqual("Ion", results[0].Values["FirstName"]);
+            Assert.AreEqual("Ion", results[0].Values["LastName"]);
+            Assert.AreEqual(1111, results[1].Values["PersonID"]);
+            Assert.AreEqual("Ioan", results[1].Values["FirstName"]);
+            Assert.AreEqual("Ioan", results[1].Values["LastName"]);
+            //lastRow ?
+            sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
+            lastRowRead = sdf.GetDictionary();
+            //lastRow data ?
+            Assert.AreEqual(1111, (long)lastRowRead["PersonID"]);
+            Assert.AreEqual("Ioan", lastRowRead["FirstName"]);
+            Assert.AreEqual("Ioan", lastRowRead["LastName"]);
+            #endregion
+        }
+
+        [TestMethod]
+        [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestSimpleJobReceiverDBExecuteStoredProcedureToSenderElasticSearch()
         {
             const string commandText = "dbo.TestReiceverDBExecuteStoredProcedure2";
@@ -95,7 +193,7 @@ namespace StankinsTests
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = "IF OBJECT_ID('tempdb.dbo.TestReiceverDBExecuteStoredProcedure2') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure2;";
+                    cmd.CommandText = "IF OBJECT_ID('dbo.TestReiceverDBExecuteStoredProcedure2') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure2;";
                     await cmd.ExecuteNonQueryAsync();
                     cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedure2 AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joanna', 'Doe' ORDER BY PersonID";
                     await cmd.ExecuteNonQueryAsync();
