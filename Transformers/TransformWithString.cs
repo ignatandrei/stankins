@@ -51,6 +51,10 @@ namespace Transformers
             script.Compile();
             foreach (var item in valuesRead)
             {
+                if (!item.Values.ContainsKey(OldField))
+                {
+                    throw new ArgumentException($"values does not contain {OldField}");
+                }
                 var data = item.Values[OldField];
                 T oldValue = (T)Convert.ChangeType(data, typeof(T));
                 val.oldValue = oldValue;

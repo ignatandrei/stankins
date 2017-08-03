@@ -25,7 +25,7 @@ namespace StankinsTests
             if (File.Exists(filename))
                 File.Delete(filename);
 
-            var receiver = new ReceiverBookmarkFileChrome(@"C:\Users\admin\Documents\bookmarks_7_25_17.html");
+            var receiver = new ReceiverBookmarkFileChrome(@"bookmarks_7_25_17.html");
 
             string transformExpression =
                 "var secs = double.Parse((oldValue??null).ToString());" +

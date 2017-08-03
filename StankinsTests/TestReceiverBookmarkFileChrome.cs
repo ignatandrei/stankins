@@ -16,7 +16,7 @@ namespace StankinsTests
         public async Task Test_ReceiverBookmarkFileChrome()
         {
             #region ARRANGE
-            var receiver = new ReceiverBookmarkFileChrome(@"C:\Users\admin\Documents\bookmarks_7_25_17.html");
+            var receiver = new ReceiverBookmarkFileChrome(@"bookmarks_7_25_17.html");
             #endregion
             #region ACT
             

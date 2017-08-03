@@ -22,7 +22,7 @@ namespace Transformers
 
         public async Task Run()
         {
-            var script = CSharpScript.Create<IRow>(TheExpression,
+            var script = CSharpScript.Create<Dictionary<string,object>>(TheExpression,
                 globalsType: typeof(IRow),
                 options:ScriptOptions.Default.AddReferences(
                     //todo: load at serialize time
@@ -38,7 +38,8 @@ namespace Transformers
             {
                 var state = await script.RunAsync(item);
                 var returnValue = state.ReturnValue;
-                valuesTransformed[i++] = returnValue;
+                valuesTransformed[i] = item;
+                valuesTransformed[i++].Values = returnValue;
             }
         }
     }
