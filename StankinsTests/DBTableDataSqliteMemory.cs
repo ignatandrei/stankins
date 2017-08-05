@@ -10,7 +10,7 @@ using StankinsInterfaces;
 namespace StankinsTests
 {
     public class DBTableDataSqliteMemory<T>:DBTableData<T, SqliteConnection>
-        where T:IEquatable<T>
+        where T:IComparable<T>
     {
         SqliteConnection cn;
         public DBTableDataSqliteMemory(SqliteConnection cn, ISerializeData data) :base(data)

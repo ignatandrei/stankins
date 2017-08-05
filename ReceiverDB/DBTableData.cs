@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ReceiverDB
 {
     public class DBTableData<T, Connection> : IDisposable
-        where T : IEquatable<T>
+        where T : IComparable<T>
         where Connection : DbConnection, new()
 
     {

@@ -10,7 +10,7 @@ namespace ReceiverFile
     /// override process line
     /// </summary>    
     public abstract class ReceiverFileFromStorage<T> : IReceive<T>
-        where T:IEquatable<T>
+        where T:IComparable<T>
         
     {
 

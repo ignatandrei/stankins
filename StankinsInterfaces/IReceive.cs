@@ -11,7 +11,7 @@ namespace StankinsInterfaces
         IRowReceive[] valuesRead { get; }
     }
     public interface IReceive<T>:IReceive
-        where T : IEquatable<T>
+        where T : IComparable<T>
     {
        
 

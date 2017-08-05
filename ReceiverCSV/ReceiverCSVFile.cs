@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace ReceiverCSV
 {
     public class ReceiverCSVFile<T> : ReceiverFileFromStorage<T>
-         where T : IEquatable<T>
+         where T : IComparable<T>
     {
         
         public ReceiverCSVFile(string fileName, Encoding encoding): base(fileName,false,encoding)

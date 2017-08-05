@@ -6,7 +6,7 @@ using StankinsInterfaces;
 namespace ReceiverDBSQLite
 {
     public abstract class ReceiverTableSQLite<T> : ReceiverTable<T, SqliteConnection>
-        where T:IEquatable<T>
+        where T:IComparable<T>
     {
         public ReceiverTableSQLite(DBTableData<T,SqliteConnection> dtd) : base(dtd)
         {

@@ -9,7 +9,7 @@ namespace ReceiverDB
 {
     //TODO: modify IEquatable with IComparable
     public abstract class ReceiverTable<T, Connection> : IReceive<T>
-         where T : IEquatable<T>
+         where T : IComparable<T>
          where Connection : DbConnection, new()
     {
         

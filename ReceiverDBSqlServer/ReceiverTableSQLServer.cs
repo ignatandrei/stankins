@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 namespace ReceiverDBSqlServer
 {
     public abstract class ReceiverTableSQLServer<T> : ReceiverTable<T, SqlConnection>
-        where T : IEquatable<T>
+        where T : IComparable<T>
     {
         public  ReceiverTableSQLServer(DBTableData<T, SqlConnection> dtd) : base(dtd)
         {
