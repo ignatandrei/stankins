@@ -1,15 +1,18 @@
 ﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 using StankinsInterfaces;
 using System.Text;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MailKit.Security;
+using CsvHelper;
 
 namespace SenderSMTP
 {
     public class SenderToSMTP : ISend
     {
+        public string From { get; private set; }
         public string To { get; private set; }
         public string Cc { get; set; }
         public string Bcc { get; private set; }
@@ -26,8 +29,9 @@ namespace SenderSMTP
 
         public IRow[] valuesToBeSent { set; get; }
 
-        public SenderToSMTP(string to, string cc, string bcc, string subject, string body, bool isBodyHtml, string smtpServer, int smtpPort = 25, bool enableSsl = false, bool requiresAuthentication = true, string user = "", string password = "")
+        public SenderToSMTP(string from, string to, string cc, string bcc, string subject, string body, bool isBodyHtml, string smtpServer, int smtpPort = 25, bool enableSsl = false, bool requiresAuthentication = true, string user = "", string password = "")
         {
+            this.From = from;
             this.To = to;
             this.Cc = cc;
             this.Bcc = bcc;
@@ -54,34 +58,32 @@ namespace SenderSMTP
         public async Task Send()
         {
             //Generate email body
-            const string csvDelimiter = ",";
             bool hasHeader = false;
-            StringBuilder data = new StringBuilder();
 
-            foreach (var row in valuesToBeSent)
+            TextWriter writer = new StringWriter();
+            using (var csv = new CsvWriter(writer))
             {
-                bool firstValue = true;
-                if(!hasHeader)
+                foreach (var row in valuesToBeSent)
                 {
-                    foreach (var value in row.Values)
+                    if (!hasHeader)
                     {
-                        data.Append((firstValue ? string.Empty : csvDelimiter)).Append(value.Key);
-                        firstValue = false;
+                        foreach(var item in row.Values.Keys)
+                        {
+                            csv.WriteField<string>(item);
+                        }
+                        csv.NextRecord();
+                        hasHeader = true;
                     }
-                    data.AppendLine();
-                    hasHeader = true;
+                    
+                    foreach (var item in row.Values.Values)
+                    {
+                        csv.WriteField<object>(item);
+                    }
+                    csv.NextRecord();
                 }
-
-                firstValue = true;
-                foreach (var value in row.Values)
-                {
-                    data.Append((firstValue ? string.Empty : csvDelimiter)).Append(value.Value);
-                    firstValue = false;
-                }
-                data.AppendLine();
             }
 
-            this.Body = this.Body + data;
+            this.Body = this.Body + writer.ToString();
 
             //Send email
             //Using MailKit 
@@ -90,8 +92,15 @@ namespace SenderSMTP
             //TODO: In .Net Core 2.0 replace MailKit with MailMessage
             var message = new MimeMessage();
 
-            message.From.Add(new MailboxAddress("me@localhost"));
-            foreach(var emailAddress in this.To.Split(';'))
+            foreach (var emailAddress in this.From.Split(';'))
+            {
+                if (string.IsNullOrEmpty(emailAddress))
+                {
+                    break;
+                }
+                message.From.Add(new MailboxAddress(emailAddress));
+            }
+            foreach (var emailAddress in this.To.Split(';'))
             {
                 if (string.IsNullOrEmpty(emailAddress))
                 {
