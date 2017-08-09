@@ -10,6 +10,15 @@ using CsvHelper;
 
 namespace SenderSMTP
 {
+
+
+
+
+    /// <summary>
+    /// TODO :
+    /// make generic and let
+    /// implementation be CSV or attachment or...
+    /// </summary>
     public class SenderToSMTP : ISend
     {
         public string From { get; private set; }

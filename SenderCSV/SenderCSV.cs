@@ -13,6 +13,7 @@ namespace SenderCSV
     /// 2. File.Write or File.Append
     /// 3. For null what to write?
     /// 4. For big data - to write in chunks  - size
+    /// 5. encoding
     /// </summary>
     public class SenderToCSV : ISend
     {

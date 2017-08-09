@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 namespace StankinsSimpleFactory
 {
@@ -15,17 +16,14 @@ namespace StankinsSimpleFactory
     {
         ServiceCollection sc;
         Assembly[] assemblies;
-        Type[] jobs;
-        Type[] receivers;
-        Type[] senders;
-        Type[] filterTransformers;
+        Dictionary<Type, Type[]> names;
         void ConfigureDI()
         {
             sc = new ServiceCollection();
             sc.AddSingleton<ISerializeData>(new SerializeDataOnFile("StankinsData.txt"));
-            sc.AddScoped(typeof(DBTableData <, >));
-            sc.AddSingleton("");
-
+            sc.AddTransient(typeof(DBTableData <, >));
+            sc.AddSingleton(Encoding.UTF8);
+            names = new Dictionary<Type, Type[]>();
         }
         public SimpleJobFactory()
         {
@@ -52,15 +50,7 @@ namespace StankinsSimpleFactory
 
             return types.Where(it => !it.GetTypeInfo().IsInterface).ToArray();
         }
-        public ISimpleJob  GetJob(string jobName)
-        {
-            var job = jobs.First(it => it.Name == jobName);
-            sc.AddSingleton(typeof(ISimpleJob), job);
-            return sc.BuildServiceProvider().GetRequiredService<ISimpleJob>();
-            
-            //var obj = Activator.CreateInstance(job) as ISimpleJob;
-            
-        }
+        
         //static Type BaseSubclassOfRawGeneric(Type generic, Type toCheck)
         //{
         //    while (toCheck != null && toCheck != typeof(object))
@@ -75,85 +65,73 @@ namespace StankinsSimpleFactory
         //    }
         //    return null;
         //}
-        public IReceive GetReceiver(string receiverNameSelected)
+       
+        
+       
+        T GetObject<T>(string nameSelected, object[] vals)
         {
-            var receiver =receivers.First(it => it.Name == receiverNameSelected);
-            //var baseReceiverTable = BaseSubclassOfRawGeneric(typeof(ReceiverTable<,>), receiver);
-            //if(baseReceiverTable != null)
-            //{
-            //    var args = baseReceiverTable.GetGenericArguments();
-            //    var t = baseReceiverTable.GetGenericTypeDefinition();
-            //    var t1 = t.GetGenericArguments();
-
-            //    var s = "";
-                
-            //    //return sc.BuildServiceProvider().GetRequiredService(typeof(IReceive<,>)) as IReceive;
-
-            //}
-            sc.AddSingleton(typeof(IReceive), receiver);
-
-            var ret= sc.BuildServiceProvider().GetRequiredService<IReceive>();
-            var service = sc.First(it => it.ServiceType == typeof(IReceive));
-            sc.Remove(service);
-            return ret;
+            var type = typeof(T);
+            return (T)GetObject(type, nameSelected, vals) ;
         }
-
-        public ISend GetSender(string nameSelected)
+        public object GetObject(Type type,string nameSelected,  object[] vals)
         {
-            var obj = senders.First(it => it.Name == nameSelected);
-            sc.AddSingleton(typeof(ISend), obj);
-
-            var ret = sc.BuildServiceProvider().GetRequiredService<ISend>();
-            var service = sc.First(it => it.ServiceType == typeof(ISend));
-            sc.Remove(service);
-            return ret;
-        }
-
-        public IFilterTransformer GetTransformFilter(string nameSelected)
-        {
-            var obj = filterTransformers.First(it => it.Name == nameSelected);
-            sc.AddSingleton(typeof(IFilterTransformer), obj);
-
-            var ret = sc.BuildServiceProvider().GetRequiredService<IFilterTransformer>();
-            var service = sc.First(it => it.ServiceType == typeof(IFilterTransformer));
-            sc.Remove(service);
-            return ret;
-        }
-
-        public string[] JobNames()
-        {
-            if (jobs == null) {
-                jobs = Implementation(typeof(IJob));
-            }
-            return jobs.Select(it => it.Name).ToArray();
-        }
-
-        public string[] ReceiverNames()
-        {
-            if (receivers == null)
+           
+            var obj = Names(type).First(it => it.Name == nameSelected);
+            sc.AddSingleton(type, (sp) =>
             {
-                receivers = Implementation(typeof(IReceive));
-            }
-            return receivers.Select(it => it.Name).ToArray();
+                return Activator.CreateInstance(obj, vals);
+            });
+
+            var ret = sc.BuildServiceProvider().GetRequiredService(type);
+            var service = sc.First(it => it.ServiceType == type);
+            sc.Remove(service);
+            return ret;
         }
-        public string[] SenderNames()
+        public  object ConstructedObject(Type t)
         {
-            if (senders == null)
+            try
             {
-                senders = Implementation(typeof(ISend));
+                var ret = sc.BuildServiceProvider().GetRequiredService(t);
+                return ret;
             }
-            return senders.Select(it => it.Name).ToArray();
+            catch(Exception ex)
+            {
+                return null;
+            }
+        }
+
+
+
+
+
+        public string[] NamesOfObjects(Type t)
+        {
+            return Names(t).Select(it => it.Name).ToArray();
         }
         
-        public string[] FilterTransformerNames()
+       
+        private Type[] Names(Type t)
         {
-            if (filterTransformers == null)
+            if (!names.ContainsKey(t))
             {
-                filterTransformers = Implementation(typeof(IFilterTransformer));
+                names.Add(t, Implementation(t));
             }
-            return filterTransformers.Select(it => it.Name).ToArray();
+            return names[t];
         }
-
+        ParameterInfo[] GetOwnProperties<T>(string nameSelected)
+        {
+            //Type t = (Type)x.GetType();
+            return GetOwnProperties(typeof(T), nameSelected);
+        }
+        public ParameterInfo[] GetOwnProperties(Type type,string nameSelected)
+        {
+            //Type t = (Type)x.GetType();
+            var t = Names(type).First(it => it.Name == nameSelected);
+            var ctors = t.GetConstructors();
+            var max = ctors.Max(it => it.GetParameters().Length);
+            var first = ctors.First(it => it.GetParameters().Length == max);
+            return first.GetParameters();   
+        }
         
     }
 }
