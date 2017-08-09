@@ -66,8 +66,11 @@ namespace StankinsTests
             Assert.AreEqual("Joanna", results[1].Values["FirstName"]);
             Assert.AreEqual("Doe", results[1].Values["LastName"]);
             //lastRow ?
-            SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
-            Dictionary<string, object> lastRowRead = sdf.GetDictionary();
+            Dictionary<string, object> lastRowRead;
+            using (SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow))
+            {
+                lastRowRead = sdf.GetDictionary();
+            }
             //lastRow Count ? 
             Assert.AreEqual(3, lastRowRead.Count);
             //lastRow data ?
@@ -127,8 +130,11 @@ namespace StankinsTests
             Assert.AreEqual("Joanna", results[1].Values["FirstName"]);
             Assert.AreEqual("Doe", results[1].Values["LastName"]);
             //lastRow ?
-            SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
-            Dictionary<string, object> lastRowRead = sdf.GetDictionary();
+            Dictionary<string, object> lastRowRead;
+            using (SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow))
+            {
+                lastRowRead = sdf.GetDictionary();
+            }
             //lastRow data ?
             Assert.AreEqual(11, (long)lastRowRead["PersonID"]);
             Assert.AreEqual("Joanna", lastRowRead["FirstName"]);
@@ -165,8 +171,10 @@ namespace StankinsTests
             Assert.AreEqual("Ioan", results[1].Values["FirstName"]);
             Assert.AreEqual("Ioan", results[1].Values["LastName"]);
             //lastRow ?
-            sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
-            lastRowRead = sdf.GetDictionary();
+            using (SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow))
+            {
+                lastRowRead = sdf.GetDictionary();
+            }
             //lastRow data ?
             Assert.AreEqual(1111, (long)lastRowRead["PersonID"]);
             Assert.AreEqual("Ioan", lastRowRead["FirstName"]);
