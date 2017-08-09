@@ -61,63 +61,58 @@ namespace StankinsSimpleJob
             app.Execute(args);
             
         }
-        private static IReceive GetReceiver(SimpleJobFactory factory)
-        {
-            int i = 1;
-            foreach (var receiver in factory.ReceiverNames())
-            {
-                Console.WriteLine($"{i++}){receiver}");
-            }
-            Console.Write("Please enter receiver id");
-            var nrReceiver = int.Parse(Console.ReadLine());
+       
+        
 
-            var receiverNameSelected = factory.ReceiverNames()[nrReceiver - 1];
-            return factory.GetReceiver(receiverNameSelected);
-        }
-
-        private static IFilterTransformer GetTransformer(SimpleJobFactory factory)
+        private static T GetFullObject<T>(SimpleJobFactory factory)
         {
+            var t = typeof(T);
             int i = 1;
-            foreach (var name in factory.FilterTransformerNames())
+            foreach (var name in factory.NamesOfObjects(t))
             {
                 Console.WriteLine($"{i++}){name}");
             }
-            Console.Write("Please enter filter/transformer id");
-            var nr= int.Parse(Console.ReadLine());
-
-            var nameSelected = factory.FilterTransformerNames()[nr- 1];
-            return factory.GetTransformFilter(nameSelected);
-        }
-
-        private static ISend GetSender(SimpleJobFactory factory)
-        {
-            int i = 1;
-            foreach (var name in factory.SenderNames())
-            {
-                Console.WriteLine($"{i++}){name}");
-            }
-            Console.Write("Please enter filter/transformer id");
+            Console.Write($"Please enter {t.Name} id");
             var nr = int.Parse(Console.ReadLine());
 
-            var nameSelected = factory.SenderNames()[nr- 1];
-            return factory.GetSender(nameSelected);
+            var nameSelected = factory.NamesOfObjects(t)[nr - 1];
+
+
+            var pars = factory.GetOwnProperties  (t,nameSelected);
+            var vals = GetValues(factory,pars);
+            var obj = factory.GetObject(t,nameSelected,vals);
+
+            return (T)obj;
+        }
+        private static object[] GetValues(SimpleJobFactory factory, ParameterInfo[] pars)
+        {
+            var vals = new  object[pars.Length];
+            int i = 0;
+            foreach (var item in pars)
+            {
+                var paramType = item.ParameterType;
+                //TODO: what if paramtype is array/ienumerable??
+                if (paramType != typeof(string) && paramType.GetTypeInfo().IsClass)
+                {
+                    
+                    vals[i++] = factory.ConstructedObject(paramType);
+                    //TODO: add propertied for this object
+                    //e.g DBTableData
+                }
+                else
+                {
+                    //todo: add optional and default value
+                    Console.WriteLine($"please give value for ({item.ParameterType.Name}){item.Name} ");
+                    vals[i++] = Convert.ChangeType(Console.ReadLine(), item.ParameterType);
+                }
+            }
+            return vals;
         }
         private static int GenerateJobDefinition()
         {
             var factory = new SimpleJobFactory();
-            int i = 1;
-            var jobNames = factory.JobNames();
-            foreach (var jobName in jobNames)
-            {
-                Console.WriteLine($"{i++}){jobName}");
-            }
-            Console.Write("Please enter job id");
-            var nrJob = int.Parse(Console.ReadLine());
-            var jobNameSelected= jobNames[nrJob - 1];
-            //
-            i = 1;
             
-            var job = factory.GetJob(jobNameSelected);
+            var job = GetFullObject<ISimpleJob>(factory);
             var choice = AddDataSimpleJob.ExitChoice;
             do
             {
@@ -132,16 +127,16 @@ namespace StankinsSimpleJob
                     case AddDataSimpleJob.ExitChoice:
                         break;
                     case AddDataSimpleJob.AddReceiver:
-                        var rec = GetReceiver(factory);
+                        var rec = GetFullObject<IReceive>(factory);
                         job.Receivers.Add(job.Receivers.Count, rec);
                         //TODO: choice for receiver properties: connection string , ...
                         break;
                     case AddDataSimpleJob.AddTransformer:
-                        var tr = GetTransformer(factory);
+                        var tr = GetFullObject<IFilterTransformer>(factory);
                         job.FiltersAndTransformers.Add(job.FiltersAndTransformers.Count, tr);
                         break;
                     case AddDataSimpleJob.AddSender:
-                        var s = GetSender(factory);
+                        var s = GetFullObject<ISend>(factory);
                         job.Senders.Add(job.Senders.Count, s);
                         break;
                     default:

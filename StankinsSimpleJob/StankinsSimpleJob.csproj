@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
     <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />

@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 
 namespace ReceiverCSV
 {
+    /// <summary>
+    /// todo: make abstract and implement datetime+int
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class ReceiverCSVFile<T> : ReceiverFileFromStorage<T>
          where T : IComparable<T>
     {
