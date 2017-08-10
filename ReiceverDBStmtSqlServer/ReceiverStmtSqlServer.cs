@@ -5,20 +5,29 @@ using System.Threading.Tasks;
 using StankinsInterfaces;
 using System.Collections.Generic;
 using StanskinsImplementation;
+using System.Linq;
 
 namespace ReiceverDBStmtSqlServer
 {
-    //Note: Initial version will include support only for SPs calls (CommandType.StoredProcedure)
-    //TODO: Replace cmd.Parameters.AddWithValue with something else to avoid SQL Server plan cache pollution
-    //TODO: Refactor Dictionary<string, string> Parameters into a separate class
+    /// <summary>
+    /// Note: Initial version will include support only for SPs calls (CommandType.StoredProcedure)
+    /// TODO: Replace cmd.Parameters.AddWithValue with something else to avoid SQL Server plan cache pollution
+    /// TODO: Refactor Dictionary<string, string> Parameters into a separate class
+    /// Stored procedure (SP) with parameters (Dictionary<string, string> Parameters Parameters: Key is @sqlParamter, Value is columnName from SP resultset):
+    ///     For the first call, we are call SP with default value of every paramter -> SP should be designed with this in mind; SP could be executed without parameters
+    ///     When reading SP results, we are serializing values of the last row (we are serializing only values of columns from this.Parameters)
+    ///     Next calls of the same SP will be made with values of the last row -> SP should be designed with this in mind
+    ///     If resultset is empty then next SP call will be made with default values
+    /// </summary>
     public class ReceiverStmtSqlServer : IReceive
     {
-        public string ConnectionString { get; set; }
-        public CommandType CommandType { get; set; }
-        public string CommandText { get; set; }
-        public string FileNameSerializeLastRow { get; set; }
-        public Dictionary<string, string> Parameters { get; private set; }
+        public string ConnectionString { get; private set; }
+        public CommandType CommandType { get; private set; }
+        public string CommandText { get; private set; }
+        public string FileNameSerializeLastRow { get; private set; }
+        public Dictionary<string, string> Parameters { get; private set; } 
         public bool HasParameters { get { return (this.Parameters != null && this.Parameters.Count > 0); } }
+        public bool SerializeLastRow { get { return (!string.IsNullOrEmpty(this.FileNameSerializeLastRow)); } }
 
         public ReceiverStmtSqlServer(string connectionString, CommandType commandType, string commandText, string fileNameSerializeLastRow, string parameters = "")
         {
@@ -58,31 +67,37 @@ namespace ReiceverDBStmtSqlServer
         public async Task LoadData()
         {
             //Deserialize last received row
-            using (SerializeDataOnFile sdf = new SerializeDataOnFile(this.FileNameSerializeLastRow))
+            if(this.SerializeLastRow)
             {
-                lastRowValues = sdf.GetDictionary();
+                using (SerializeDataOnFile sdf = new SerializeDataOnFile(this.FileNameSerializeLastRow))
+                {
+                    lastRowValues = sdf.GetDictionary();
+                }
             }
 
             List<RowRead> receivedRows = new List<RowRead>();
 
             using (var conn = new SqlConnection(this.ConnectionString))
             {
-                conn.Open();
+                await conn.OpenAsync();
 
                 using (var cmd = conn.CreateCommand())
                 {
+                    cmd.CommandType = this.CommandType;
                     cmd.CommandText = this.CommandText;
                     if(this.HasParameters)
                     {
                         foreach(var param in this.Parameters)
                         {
-                            object paramValue = (lastRowValues.ContainsKey(param.Value) ? lastRowValues[param.Value] : DBNull.Value);
-                            cmd.Parameters.AddWithValue(param.Key, paramValue);
+                            if(lastRowValues.ContainsKey(param.Value))
+                            {
+                                cmd.Parameters.AddWithValue(param.Key, lastRowValues[param.Value]);
+                            }
                         }
-
-                        cmd.CommandText += (' ' + string.Join(",", this.Parameters.Keys));
                     }
+
                     var rdr = await cmd.ExecuteReaderAsync();
+
                     while(rdr.Read())
                     {
                         RowRead row = new RowRead();
@@ -94,7 +109,7 @@ namespace ReiceverDBStmtSqlServer
                         }
                         receivedRows.Add(row);
 
-                        lastRowValues = row.Values;
+                        lastRowValues = row.Values; //For simplicity we are storing all column/values: no filter on columns from this.Parameters
                     }
                 }
             }
@@ -102,9 +117,14 @@ namespace ReiceverDBStmtSqlServer
             valuesRead = receivedRows.ToArray();
 
             //Serialize last received row
-            using (SerializeDataOnFile sdf = new SerializeDataOnFile(this.FileNameSerializeLastRow))
+            if (this.SerializeLastRow)
             {
-                sdf.SetDictionary(lastRowValues);
+                using (SerializeDataOnFile sdf = new SerializeDataOnFile(this.FileNameSerializeLastRow))
+                {
+                    //Only columns from this.Parameters are going to be serialized
+                    Dictionary<string, object> selectedLastRowValues = this.HasParameters ? (lastRowValues.Where(filter => this.Parameters.Values.Contains(filter.Key)).ToDictionary(kvp => kvp.Key, kvp => kvp.Value)) : lastRowValues;
+                    sdf.SetDictionary(selectedLastRowValues);
+                }
             }
         }
     }

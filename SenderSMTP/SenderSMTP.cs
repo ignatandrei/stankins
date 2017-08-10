@@ -10,10 +10,6 @@ using CsvHelper;
 
 namespace SenderSMTP
 {
-
-
-
-
     /// <summary>
     /// TODO :
     /// make generic and let
