@@ -1,0 +1,27 @@
+ {
+  "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
+  "Receivers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+        "$type": "ReiceverDBStmtSqlServer.ReceiverStmtSqlServer, ReiceverDBStmtSqlServer",
+        "ConnectionString": "Server=(local)\\SQL2016;Database=msdb;Trusted_Connection=True;",
+        "CommandType": 4,
+        "CommandText": "dbo.IronSQLDBA_wait_type_local_select",
+        "FileNameSerializeLastRow": "IronSQLDBA_wait_type_local_select_last_row.json",
+        "ParametersMappings": "@file_name=file_name;@file_offset=file_offset"
+    }
+  },
+  "FiltersAndTransformers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces"
+  },
+  "Senders": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+        "$type": "SenderDBStmtSqlServer.SenderToDBStmtSqlServer, SenderDBStmtSqlServer",
+        "ConnectionString": "Server=(local)\\SQL2016;Database=IronSQLDBA;Trusted_Connection=True;",
+        "CommandType": 4,
+        "CommandText": "dbo.IronSQLDBA_wait_type_central_insert",
+        "ParametersMappings": "@collection_timestamp=collection_timestamp;@sqlserver_start_time=sqlserver_start_time;@is_empty_collection=is_empty_collection;@machine_name=machine_name;@instance_name=instance_name;@file_name=file_name;@file_offset=file_offset;@event_data_as_xml=event_data_as_xml;@sql_statement_text=sql_statement_text"
+    }
+  }
+}

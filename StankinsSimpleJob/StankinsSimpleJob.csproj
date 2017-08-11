@@ -23,8 +23,12 @@
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
     <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
+    <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderCSV\SenderCSV.csproj" />
+    <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
+    <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
     <ProjectReference Include="..\SenderJSON\SenderJSON.csproj" />
+    <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
     <ProjectReference Include="..\SenderXML\SenderXML.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
     <ProjectReference Include="..\StankinsSimpleFactory\StankinsSimpleFactory.csproj" />

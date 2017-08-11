@@ -21,33 +21,38 @@ namespace ReiceverDBStmtSqlServer
     /// </summary>
     public class ReceiverStmtSqlServer : IReceive
     {
-        public string ConnectionString { get; private set; }
-        public CommandType CommandType { get; private set; }
-        public string CommandText { get; private set; }
-        public string FileNameSerializeLastRow { get; private set; }
-        public Dictionary<string, string> Parameters { get; private set; } 
+        public string ConnectionString { get; set; }
+        public CommandType CommandType { get; set; }
+        public string CommandText { get; set; }
+        public string FileNameSerializeLastRow { get; set; }
+        public string ParametersMappings { get; set; }
+        private Dictionary<string, string> Parameters { get; set; } 
         public bool HasParameters { get { return (this.Parameters != null && this.Parameters.Count > 0); } }
         public bool SerializeLastRow { get { return (!string.IsNullOrEmpty(this.FileNameSerializeLastRow)); } }
 
-        public ReceiverStmtSqlServer(string connectionString, CommandType commandType, string commandText, string fileNameSerializeLastRow, string parameters = "")
+        public ReceiverStmtSqlServer(string connectionString, CommandType commandType, string commandText, string fileNameSerializeLastRow, string parametersMappings = "")
         {
-            if (commandType != CommandType.StoredProcedure)
-                throw new NotImplementedException();
-
             this.ConnectionString = connectionString;
             this.CommandType = commandType;
             this.CommandText = commandText;
-            
             this.FileNameSerializeLastRow = fileNameSerializeLastRow;
+            this.ParametersMappings = parametersMappings;
+        }
+
+        private void Initialization()
+        {
+            if (this.CommandType != CommandType.StoredProcedure)
+                throw new NotImplementedException();
+
             //Example value for parameters: @param1=Col1;@param2=Col2;@param3=Col3
             //Where:
             //@param1,...   = {stored procedure|query} parameters
             //Col1,...      = columns serialized within lastRow
-            if (!string.IsNullOrEmpty(parameters))
+            if (!string.IsNullOrEmpty(this.ParametersMappings))
             {
-                string[] parameters2 = parameters.Split(';');
+                string[] parameters2 = this.ParametersMappings.Split(';');
                 this.Parameters = new Dictionary<string, string>(parameters2.Length);
-                for (int i=0; i < parameters2.Length; i++)
+                for (int i = 0; i < parameters2.Length; i++)
                 {
                     string paramName = parameters2[i].Split('=')[0];
                     string columnName = parameters2[i].Split('=')[1];
@@ -66,8 +71,11 @@ namespace ReiceverDBStmtSqlServer
 
         public async Task LoadData()
         {
+            //Initialization
+            Initialization();
+
             //Deserialize last received row
-            if(this.SerializeLastRow)
+            if (this.SerializeLastRow)
             {
                 using (SerializeDataOnFile sdf = new SerializeDataOnFile(this.FileNameSerializeLastRow))
                 {
@@ -109,7 +117,7 @@ namespace ReiceverDBStmtSqlServer
                         }
                         receivedRows.Add(row);
 
-                        lastRowValues = row.Values; //For simplicity we are storing all column/values: no filter on columns from this.Parameters
+                        lastRowValues = row.Values; //For simplicity we are storing all column/values: now, we are not filtering only those columns from this.Parameters 
                     }
                 }
             }

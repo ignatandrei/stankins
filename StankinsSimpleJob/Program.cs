@@ -160,7 +160,7 @@ namespace StankinsSimpleJob
         {
             var currentError = e.ErrorContext.Error.Message;
             e.ErrorContext.Handled = true;
-
+            Console.WriteLine($"Deserialization error {currentError}");
         }
     }
 }
