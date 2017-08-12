@@ -45,6 +45,10 @@ namespace SenderElasticSearch
 
                 request.Document = item.Values;
                 IIndexResponse resp = await client.IndexAsync(request);
+                if(!resp.ApiCall.Success)
+                {
+                    throw new Exception(resp.ApiCall.DebugInformation);
+                }
             }
         }
 
