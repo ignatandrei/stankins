@@ -28,7 +28,7 @@ namespace StankinsTests
 
             #endregion
             #region ACT
-            ReceiverCSVFile<int> CSVfile = new ReceiverCSVFile<int>(filename,Encoding.ASCII);
+            var CSVfile = new ReceiverCSVFileInt(filename,Encoding.ASCII);
             await CSVfile.LoadData();
 
             #endregion
