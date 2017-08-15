@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace MediaTransform
 {
+    /// <summary>
+    /// TODO: add media transform json + xml
+    /// +html + pdf + word +excel
+    /// TODO: Remove projects that have sendercsv, sender html, sender json
+    /// sender xml and replace with implementation for
+    /// file with Media Transform
+    /// </summary>
     public class MediaTransformCSV : IFilterTransformer
     {
         public IRow[] valuesToBeSent { private get; set; }
