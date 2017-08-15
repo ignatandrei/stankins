@@ -7,6 +7,7 @@ using MailKit.Net.Smtp;
 using MimeKit;
 using MailKit.Security;
 using CsvHelper;
+using MediaTransform;
 
 namespace SenderSMTP
 {
@@ -64,31 +65,33 @@ namespace SenderSMTP
         {
             //Generate email body
             bool hasHeader = false;
+            var mediaCSV = new MediaTransformCSV();
+            mediaCSV.valuesToBeSent = valuesToBeSent;
+            await mediaCSV.Run();
+            //TextWriter writer = new StringWriter();
+            //using (var csv = new CsvWriter(writer))
+            //{
+            //    foreach (var row in valuesToBeSent)
+            //    {
+            //        if (!hasHeader)
+            //        {
+            //            foreach(var item in row.Values.Keys)
+            //            {
+            //                csv.WriteField<string>(item);
+            //            }
+            //            csv.NextRecord();
+            //            hasHeader = true;
+            //        }
 
-            TextWriter writer = new StringWriter();
-            using (var csv = new CsvWriter(writer))
-            {
-                foreach (var row in valuesToBeSent)
-                {
-                    if (!hasHeader)
-                    {
-                        foreach(var item in row.Values.Keys)
-                        {
-                            csv.WriteField<string>(item);
-                        }
-                        csv.NextRecord();
-                        hasHeader = true;
-                    }
-                    
-                    foreach (var item in row.Values.Values)
-                    {
-                        csv.WriteField<object>(item);
-                    }
-                    csv.NextRecord();
-                }
-            }
+            //        foreach (var item in row.Values.Values)
+            //        {
+            //            csv.WriteField<object>(item);
+            //        }
+            //        csv.NextRecord();
+            //    }
+            //}
 
-            this.Body = this.Body + writer.ToString();
+            this.Body = this.Body + mediaCSV.Result;
 
             //Send email
             //Using MailKit 

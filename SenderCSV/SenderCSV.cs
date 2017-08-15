@@ -1,4 +1,5 @@
-﻿using StankinsInterfaces;
+﻿using MediaTransform;
+using StankinsInterfaces;
 using System;
 using System.IO;
 using System.Linq;
@@ -29,31 +30,12 @@ namespace SenderCSV
         
         public async Task Send()
         {
-            
 
-            if(valuesToBeSent?.Length == 0)
-            {
-                //LOG: there are no data 
-                return;
-            }
-            var sb = new StringBuilder();
-            var FieldNameToMarks = valuesToBeSent[0]
-                .Values
-                .Select(it => it.Key).ToArray();
 
-            sb.AppendLine(string.Join(",", FieldNameToMarks));
-            var nrValues = valuesToBeSent.LongCount();
-
-            for(var i = 0; i < nrValues; i++)
-            {
-                var row = valuesToBeSent[i];
-
-                sb.AppendLine(
-                    string.Join(",",
-                        row.Values.Select(it => it.Value?.ToString()).ToArray())
-                    );
-            }
-            var buffer = Encoding.UTF8.GetBytes(sb.ToString());
+            var csvMedia = new MediaTransformCSV();
+            csvMedia.valuesToBeSent = this.valuesToBeSent;
+            await csvMedia.Run();
+            var buffer = Encoding.UTF8.GetBytes(csvMedia.Result);
 
             using (var fs = new FileStream(CSVFileName, FileMode.OpenOrCreate,
                 FileAccess.Write, FileShare.None, buffer.Length, true))
