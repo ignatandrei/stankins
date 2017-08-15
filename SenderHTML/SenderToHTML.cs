@@ -24,6 +24,7 @@ namespace SenderHTML
             IRazorRenderer c = new ConfigureRazor();
             
             var data= await c.RenderToString(content, valuesToBeSent);
+            //todo: make async
             File.WriteAllText(OutputFile, data);
         }
     }

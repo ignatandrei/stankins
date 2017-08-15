@@ -42,13 +42,22 @@ namespace StankinsSimpleFactory
         }
         Type[] Implementation(Type interfaceTo)
         {
-            var types = assemblies.SelectMany(it => it.ExportedTypes)
-                    .Where(it => it.GetInterfaces().Contains(interfaceTo))
-                    .ToArray()
-                    .Where(it => !it.GetTypeInfo().IsAbstract)
-                    .ToArray();
+            if (interfaceTo.GetTypeInfo().IsInterface)
+            {
+                var types = assemblies.SelectMany(it => it.ExportedTypes)
+                        .Where(it => it.GetInterfaces().Contains(interfaceTo))
+                        .ToArray()
+                        .Where(it => !it.GetTypeInfo().IsAbstract)
+                        .ToArray();
 
-            return types.Where(it => !it.GetTypeInfo().IsInterface).ToArray();
+                return types.Where(it => !it.GetTypeInfo().IsInterface).ToArray();
+
+            }
+            else
+            {
+                //is not interface
+                return new Type[1] { interfaceTo };
+            }
         }
         
         //static Type BaseSubclassOfRawGeneric(Type generic, Type toCheck)

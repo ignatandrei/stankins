@@ -53,7 +53,7 @@ namespace SenderCSV
                         row.Values.Select(it => it.Value?.ToString()).ToArray())
                     );
             }
-            
+            //todo:make async
             File.WriteAllText(CSVFileName, sb.ToString());
 
         }

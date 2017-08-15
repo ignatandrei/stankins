@@ -76,8 +76,7 @@ namespace StankinsSimpleJob
             var nr = int.Parse(Console.ReadLine());
 
             var nameSelected = factory.NamesOfObjects(t)[nr - 1];
-
-
+            
             var pars = factory.GetOwnProperties  (t,nameSelected);
             var vals = GetValues(factory,pars);
             var obj = factory.GetObject(t,nameSelected,vals);
@@ -94,8 +93,14 @@ namespace StankinsSimpleJob
                 //TODO: what if paramtype is array/ienumerable??
                 if (paramType != typeof(string) && paramType.GetTypeInfo().IsClass)
                 {
-                    
-                    vals[i++] = factory.ConstructedObject(paramType);
+                    var itemClass= factory.ConstructedObject(paramType);
+                    var t = itemClass.GetType();
+                    var propsClass= factory.GetOwnProperties(t, t.Name);
+                    foreach(var prClass in propsClass)
+                    {
+                        Console.WriteLine($"{prClass.Name} ({prClass.ParameterType.Name})");
+                    }
+                    vals[i++] = itemClass;
                     //TODO: add propertied for this object
                     //e.g DBTableData
                 }
@@ -129,7 +134,6 @@ namespace StankinsSimpleJob
                     case AddDataSimpleJob.AddReceiver:
                         var rec = GetFullObject<IReceive>(factory);
                         job.Receivers.Add(job.Receivers.Count, rec);
-                        //TODO: choice for receiver properties: connection string , ...
                         break;
                     case AddDataSimpleJob.AddTransformer:
                         var tr = GetFullObject<IFilterTransformer>(factory);

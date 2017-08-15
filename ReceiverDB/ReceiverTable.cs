@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ReceiverDB
 {
-    //TODO: modify IEquatable with IComparable
+    
     public abstract class ReceiverTable<T, Connection> : IReceive<T>
          where T : IComparable<T>
          where Connection : DbConnection, new()
