@@ -66,8 +66,11 @@ namespace StankinsTests
             Assert.AreEqual("Joanna", results[1].Values["FirstName"]);
             Assert.AreEqual("Doe", results[1].Values["LastName"]);
             //lastRow ?
-            SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
-            Dictionary<string, object> lastRowRead = sdf.GetDictionary();
+            Dictionary<string, object> lastRowRead;
+            using (SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow))
+            {
+                lastRowRead = sdf.GetDictionary();
+            }
             //lastRow Count ? 
             Assert.AreEqual(3, lastRowRead.Count);
             //lastRow data ?
@@ -103,7 +106,7 @@ namespace StankinsTests
                     await cmd.ExecuteNonQueryAsync();
                     cmd.CommandText = "IF OBJECT_ID('dbo.TestReiceverDBExecuteStoredProcedureWithParam') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureWithParam;";
                     await cmd.ExecuteNonQueryAsync();
-                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureWithParam (@pid INT, @p2 VARCHAR(50)) AS SELECT * FROM dbo.TestingTestReiceverDBExecuteStoredProcedureWithParam x WHERE x.PersonID > ISNULL(@pid,0) ORDER BY PersonID";
+                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureWithParam (@pid INT = NULL, @p2 VARCHAR(50) = 'NULL') AS SELECT * FROM dbo.TestingTestReiceverDBExecuteStoredProcedureWithParam x WHERE x.PersonID > ISNULL(@pid,0) ORDER BY PersonID";
                     await cmd.ExecuteNonQueryAsync();
                 }
             }
@@ -127,12 +130,14 @@ namespace StankinsTests
             Assert.AreEqual("Joanna", results[1].Values["FirstName"]);
             Assert.AreEqual("Doe", results[1].Values["LastName"]);
             //lastRow ?
-            SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
-            Dictionary<string, object> lastRowRead = sdf.GetDictionary();
-            //lastRow data ?
+            Dictionary<string, object> lastRowRead;
+            using (SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow))
+            {
+                lastRowRead = sdf.GetDictionary();
+            }
+            //lastRow data (only columns mapped to SP parameters) ?
             Assert.AreEqual(11, (long)lastRowRead["PersonID"]);
             Assert.AreEqual("Joanna", lastRowRead["FirstName"]);
-            Assert.AreEqual("Doe", lastRowRead["LastName"]);
             #endregion
 
             //Second call (we just calling twice the same stored procedure)
@@ -165,12 +170,13 @@ namespace StankinsTests
             Assert.AreEqual("Ioan", results[1].Values["FirstName"]);
             Assert.AreEqual("Ioan", results[1].Values["LastName"]);
             //lastRow ?
-            sdf = new SerializeDataOnFile(fileNameSerilizeLastRow);
-            lastRowRead = sdf.GetDictionary();
+            using (SerializeDataOnFile sdf = new SerializeDataOnFile(fileNameSerilizeLastRow))
+            {
+                lastRowRead = sdf.GetDictionary();
+            }
             //lastRow data ?
             Assert.AreEqual(1111, (long)lastRowRead["PersonID"]);
             Assert.AreEqual("Ioan", lastRowRead["FirstName"]);
-            Assert.AreEqual("Ioan", lastRowRead["LastName"]);
             #endregion
         }
 
@@ -220,8 +226,8 @@ namespace StankinsTests
             #endregion
 
             #region act
-            job.Execute().Wait();
-            await Task.Delay(5000); //Missing of await keyword is indentional (Thread.Sleep(5000)). 5s shoudl be more than enough to insert 2 documents.
+            job.Execute().Wait(-1);
+            await Task.Delay(5000); //Missing of await keyword is intentional (Thread.Sleep(5000)). 5s shoudl be more than enough to insert 2 documents.
             #endregion
 
             #region assert
