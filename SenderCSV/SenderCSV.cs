@@ -53,8 +53,14 @@ namespace SenderCSV
                         row.Values.Select(it => it.Value?.ToString()).ToArray())
                     );
             }
-            //todo:make async
-            File.WriteAllText(CSVFileName, sb.ToString());
+            var buffer = Encoding.UTF8.GetBytes(sb.ToString());
+
+            using (var fs = new FileStream(CSVFileName, FileMode.OpenOrCreate,
+                FileAccess.Write, FileShare.None, buffer.Length, true))
+            {
+                await fs.WriteAsync(buffer, 0, buffer.Length);
+            }
+
 
         }
     }

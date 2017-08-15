@@ -87,7 +87,6 @@ namespace StanskinsImplementation
         public async Task Execute()
         {
             var data = await DataFromReceivers();
-            //TODO: filters and transformers
             foreach (var item in FiltersAndTransformers)
             {
                 var itemData = item.Value as ITransform;

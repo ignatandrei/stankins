@@ -46,7 +46,7 @@ namespace StankinsTests
                 rows.Add(rowAndrei.Object);
             }
             
-            //TODO: put in root
+            
             var folder = Path.Combine(AppContext.BaseDirectory);
 
             var fileRazor = Path.Combine(folder, "my.cshtml");

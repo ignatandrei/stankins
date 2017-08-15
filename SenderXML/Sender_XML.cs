@@ -69,8 +69,13 @@ namespace SenderXML
                 writer.WriteEndDocument();
                 writer.Flush();
             }
-            //TODO: make async
-            File.WriteAllText(XMLFileName, sb.ToString());
+            var buffer = Encoding.UTF8.GetBytes(sb.ToString());
+
+            using (var fs = new FileStream(XMLFileName, FileMode.OpenOrCreate,
+                FileAccess.Write, FileShare.None, buffer.Length, true))
+            {
+                await fs.WriteAsync(buffer, 0, buffer.Length);
+            }
             await Task.CompletedTask;
         }
     }
