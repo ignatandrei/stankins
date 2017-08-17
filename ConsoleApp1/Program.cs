@@ -4,9 +4,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure.Internal;
 using System.IO.MemoryMappedFiles;
 using ReceiverDB;
 using ReceiverDBSqlServer;
-using SenderCSV;
-using SenderJSON;
-using SenderXML;
+
 using StankinsInterfaces;
 using StanskinsImplementation;
 using System;
@@ -24,6 +22,7 @@ using Transformers;
 using ReceiverBookmarkExportChrome;
 using SenderHTML;
 using SenderElasticSearch;
+using SenderToFile;
 //using Transformers.BasicTransformersType;
 //using Aq.ExpressionJsonSerializer;
 //using Microsoft.Data.Sqlite;
@@ -104,7 +103,7 @@ namespace ConsoleApp1
             //return;
 
             ISerializeData sd = new SerializeDataInMemory();
-            ISend csvExport = new SenderToCSV("a.csv");
+            ISend csvExport = new Sender_CSV("a.csv");
             ISend xmlExport = new Sender_XML("a.xml","values");
             ISend jsonExport = new Sender_JSON("a.json");
             //ISend influx = new SenderDB_Influx("http://localhost:8086", "mydb", "logical_reads", "cpu_time_ms", "total_elapsed_time_ms");

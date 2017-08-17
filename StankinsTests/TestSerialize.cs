@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ReceiverBookmarkExportChrome;
-using SenderCSV;
+//using SenderCSV;
+using SenderToFile;
 using StankinsInterfaces;
 using StanskinsImplementation;
 using System;
@@ -35,7 +36,7 @@ namespace StankinsTests
 
             var transform = new TransformOneValueGeneral(transformExpression, "ADD_DATE", "realDate");
 
-            var sender = new SenderToCSV(filename);
+            var sender = new Sender_CSV(filename);
             ISimpleJob job = new SimpleJob();
             job.Receivers.Add(0, receiver);
             job.FiltersAndTransformers.Add(0, transform);

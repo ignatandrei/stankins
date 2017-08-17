@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SenderCSV;
 using SenderHTML;
 using StankinsInterfaces;
 using System;

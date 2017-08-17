@@ -10,7 +10,7 @@ namespace SenderCSV
 {
     /// <summary>
     /// TODO:
-    /// 1. CSV separator : ,  or any other
+    /// 
     /// 2. File.Write or File.Append
     /// 3. For null what to write?
     /// 4. For big data - to write in chunks  - size

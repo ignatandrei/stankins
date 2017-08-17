@@ -1,11 +1,11 @@
-﻿using StankinsInterfaces;
-using System;
+﻿using System;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MediaTransform
 {
+
     /// <summary>
     /// TODO: add media transform json + xml
     /// +html + pdf + word +excel
@@ -13,11 +13,10 @@ namespace MediaTransform
     /// sender xml and replace with implementation for
     /// file with Media Transform
     /// </summary>
-    public class MediaTransformCSV : IFilterTransformer
+    public class MediaTransformCSV : MediaTransformString
     {
-        public IRow[] valuesToBeSent { private get; set; }
-        public string Result { get; set; }
-        public async Task Run()
+        
+        public override async Task Run()
         {
             if (valuesToBeSent?.Length == 0)
             {

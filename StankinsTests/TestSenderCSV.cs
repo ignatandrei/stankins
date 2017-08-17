@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using SenderCSV;
+//using SenderCSV;
+using SenderToFile;
 using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
@@ -48,7 +49,7 @@ namespace StankinsTests
 
             #endregion
             #region act
-            ISend csvExport = new SenderToCSV(filename);
+            ISend csvExport = new Sender_CSV(filename);
             csvExport.valuesToBeSent = rows.ToArray();
             await csvExport.Send();
             #endregion

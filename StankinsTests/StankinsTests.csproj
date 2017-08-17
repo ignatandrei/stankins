@@ -18,11 +18,11 @@
     <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
-    <ProjectReference Include="..\SenderCSV\SenderCSV.csproj" />
     <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
     <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
+    <ProjectReference Include="..\SenderToFile\SenderToFile.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
     <ProjectReference Include="..\Transformers\Transformers.csproj" />

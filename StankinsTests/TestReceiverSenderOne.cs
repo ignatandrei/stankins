@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ReceiverDBSQLite;
-using SenderCSV;
+//using SenderCSV;
+using SenderToFile;
 using StankinsInterfaces;
 using StanskinsImplementation;
 using System;
@@ -25,7 +26,7 @@ namespace StankinsTests
             string filename = Path.Combine(dir, "a.csv");
             if (File.Exists(filename))
                 File.Delete(filename);
-            ISend csvExport = new SenderToCSV(filename);
+            ISend csvExport = new Sender_CSV(filename);
 
             //ADD A DATABASE AND PUT nrPostsToAdd data into table
             ISerializeData sd = new SerializeDataInMemory();
