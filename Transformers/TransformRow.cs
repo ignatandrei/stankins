@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Transformers
 {
-    public class TransformRow
+    public class TransformRow: ITransform
     {
         public string TheExpression { get; set; }
         public TransformRow(string expression)
