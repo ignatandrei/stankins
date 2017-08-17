@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using MediaTransform;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Hosting.Internal;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,7 @@ using Microsoft.Extensions.ObjectPool;
 using Microsoft.Extensions.PlatformAbstractions;
 using RazorLight;
 using RazorLight.Extensions;
+using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -16,6 +18,29 @@ using System.Threading.Tasks;
 
 namespace RazorCompile
 {
+    public class MediaTransformRazor : MediaTransformString
+    {
+        public string ContentFileName { get; set; }
+        public MediaTransformRazor(string contentFileName)
+        {
+            this.ContentFileName = contentFileName;
+        }
+
+        public override async Task Run()
+        {
+            var contentView = File.ReadAllText(ContentFileName);
+            var engine = EngineFactory.CreatePhysical(AppContext.BaseDirectory);
+            try
+            {
+                Result= engine.ParseString<IRow[]>(contentView, valuesToBeSent);
+            }
+            catch (Exception ex)
+            {
+                //TODO: log
+                throw;
+            }
+        }
+    }
 
     public class ConfigureRazor: IRazorRenderer
     {

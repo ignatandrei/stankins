@@ -94,7 +94,7 @@ Number Rows: @Model.Length
 
             #endregion
             #region act
-            ISend sender = new SenderToHTML(fileRazor, filename);
+            ISend sender = new Sender_HTML(fileRazor, filename);
             sender.valuesToBeSent = rows.ToArray();
             await sender.Send();
             #endregion
