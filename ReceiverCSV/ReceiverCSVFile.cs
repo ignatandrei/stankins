@@ -30,7 +30,6 @@ namespace ReceiverCSV
 
         string[] CSVHeaderLine;
         
-        public IRowReceive[] valuesRead { get; set; }
         List<IRowReceive> listOfData;
         protected override Task ProcessText(string text)
         {
