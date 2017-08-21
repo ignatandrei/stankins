@@ -112,7 +112,7 @@ namespace StankinsTests
 
             Assert.IsTrue(File.Exists("my2000.csv"));
             lines = File.ReadAllLines("my2000.csv");
-            Assert.AreEqual(4, lines.Length);
+            Assert.AreEqual(4, lines.Length,"there are 4 years bigger than 2000");
 
             Assert.IsTrue(File.Exists("my2000.js"));
 
