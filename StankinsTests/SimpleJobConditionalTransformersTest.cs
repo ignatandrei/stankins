@@ -37,6 +37,13 @@ namespace StankinsTests
             }
             return rows.ToArray();
         }
+        string DeleteFileIfExists(string fileName)
+        {
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+
+            return fileName;
+        }
         [TestMethod]
         public async Task SimpleJobConditionalTransformersTestSimpleReadCSV()
         {
@@ -56,13 +63,13 @@ namespace StankinsTests
             var receiverCSV = new ReceiverCSVFileInt(filename, Encoding.ASCII);
 
             //define a sender to csv for all records
-            var senderAllToCSV = new Sender_CSV("myAll.csv");
+            var senderAllToCSV = new Sender_CSV(DeleteFileIfExists("myAll.csv"));
 
 
             //define a filter for audi 
             var filterAudi = new FilterComparableEqual(typeof(string), "Audi", "model");
             //define a sender just for audi
-            var senderCSVAudi = new Sender_CSV("myAudi.csv");
+            var senderCSVAudi = new Sender_CSV(DeleteFileIfExists("myAudi.csv"));
 
             //define a filter to transform the buyYear to string
             
@@ -70,9 +77,15 @@ namespace StankinsTests
             //define a filter for year>2000
             var filterYear2000 = new FilterComparableGreat(typeof(int), 2000, "NewBuyYear");
             //define a sender the year > 2000 to csv
-            var sender2000CSV = new Sender_CSV("my2000.csv");
+            var sender2000CSV = new Sender_CSV(DeleteFileIfExists("my2000.csv"));
             //define a sender the year > 2000 to json
-            var sender2000JSon = new Sender_JSON("my2000.js");
+            var sender2000JSon = new Sender_JSON(DeleteFileIfExists("my2000.js"));
+
+            //define a filter for Ford
+            var filterFord = new FilterComparableEqual(typeof(string), "Ford", "model");
+            //define a sender just for ford
+            var senderCSVFord= new Sender_CSV(DeleteFileIfExists("myFord.csv"));
+
             #endregion
             #region ACT
 
@@ -86,9 +99,7 @@ namespace StankinsTests
             //add a sender to csv for all records
             cond.AddSender(senderAllToCSV);
 
-            //add a filter for audi and a sender just for audi
-            cond.Add(filterAudi, senderCSVAudi);
-
+          
 
             //add a filter to transform the buyYear to string
             //and then fiter for year>2000
@@ -97,6 +108,13 @@ namespace StankinsTests
             cond.Add(filterYear2000, sender2000CSV);
             //send the year >2000 to json
             cond.Add(filterYear2000, sender2000JSon);
+
+
+            //add a filter for audi and a sender just for audi
+            cond.Add(filterAudi, senderCSVAudi);
+
+            //add a filter for ford and a sender just for ford
+            cond.Add(filterFord, senderCSVFord);
 
             await cond.Execute();
             #endregion
@@ -116,6 +134,9 @@ namespace StankinsTests
 
             Assert.IsTrue(File.Exists("my2000.js"));
 
+            //Ford does not exists because the filter for 2000
+            //does not contain ford
+            Assert.IsFalse(File.Exists("myFord.csv"));
 
             #endregion
 
