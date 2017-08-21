@@ -48,23 +48,29 @@ namespace SenderSMTP
             this.SmtpPort = smtpPort;
             this.EnableSsl = enableSsl;
             this.RequiresAuthentication = requiresAuthentication;
-            if (!this.RequiresAuthentication && (!string.IsNullOrEmpty(user) || !string.IsNullOrEmpty(password)))
-            {
-                throw new Exception("If RequiresAuthentication is false then user and password should be empty");
-            }
-            if (this.RequiresAuthentication && (string.IsNullOrEmpty(user) || string.IsNullOrEmpty(password)))
-            {
-                //throw new Exception("If RequiresAuthentication is true then user and password are mandatory");
-                throw new NotImplementedException();
-            }
             this.User = user;
             this.Password = password;
         }
 
+        private void Validation()
+        {
+            if (!this.RequiresAuthentication && (!string.IsNullOrEmpty(this.User) || !string.IsNullOrEmpty(this.Password)))
+            {
+                throw new Exception("If RequiresAuthentication is false then user and password should be empty");
+            }
+            if (this.RequiresAuthentication && (string.IsNullOrEmpty(this.User) || string.IsNullOrEmpty(this.Password)))
+            {
+                //throw new Exception("If RequiresAuthentication is true then user and password are mandatory");
+                throw new NotImplementedException();
+            }
+        }
+
         public async Task Send()
         {
+            //Initialization
+            Validation();
+
             //Generate email body
-            bool hasHeader = false;
             var mediaCSV = new MediaTransformCSV();
             mediaCSV.valuesToBeSent = valuesToBeSent;
             await mediaCSV.Run();

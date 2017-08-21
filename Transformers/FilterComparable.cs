@@ -42,14 +42,18 @@ namespace Transformers
                     case CompareValues.Less:
                         add = (res > 0);
                         break;
+                    case CompareValues.LessOrEqual:
+                        add = (res >= 0);
+                        break;
                     case CompareValues.Greater:
                         add = (res < 0);
+                        break;
+                    case CompareValues.GreaterOrEqual:
+                        add = (res <= 0);
                         break;
                     default:
                         //TODO: add implementation for LessOrEqual or GreaterOrEqual
                         throw new ArgumentException("This is not implemented :" + HowToCompareValues);
-                        
-
                 }
                 if (!add)
                     continue;
