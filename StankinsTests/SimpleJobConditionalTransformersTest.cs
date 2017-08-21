@@ -52,16 +52,27 @@ namespace StankinsTests
             string filename = "mycsv.csv";
 
             File.WriteAllText(filename, sb.ToString());
-
+            //define a receiver
             var receiverCSV = new ReceiverCSVFileInt(filename, Encoding.ASCII);
-            var filterAudi = new FilterComparableEqual(typeof(string), "Audi", "model");
-            var senderCSVAudi = new Sender_CSV("myAudi.csv");
+
+            //define a sender to csv for all records
             var senderAllToCSV = new Sender_CSV("myAll.csv");
 
+
+            //define a filter for audi 
+            var filterAudi = new FilterComparableEqual(typeof(string), "Audi", "model");
+            //define a sender just for audi
+            var senderCSVAudi = new Sender_CSV("myAudi.csv");
+
+            //define a filter to transform the buyYear to string
+            
             var buyYearTOString = new TransformerFieldStringInt("buyYear", "NewBuyYear");
+            //define a filter for year>2000
             var filterYear2000 = new FilterComparableGreat(typeof(int), 2000, "NewBuyYear");
+            //define a sender the year > 2000 to csv
             var sender2000CSV = new Sender_CSV("my2000.csv");
-            var sender2000JSon= new Sender_JSON("my2000.js");
+            //define a sender the year > 2000 to json
+            var sender2000JSon = new Sender_JSON("my2000.js");
             #endregion
             #region ACT
 
@@ -82,9 +93,9 @@ namespace StankinsTests
             //add a filter to transform the buyYear to string
             //and then fiter for year>2000
             cond.Add(buyYearTOString, filterYear2000);
-            //send the year 2000 to csv
+            //send the year> 2000 to csv
             cond.Add(filterYear2000, sender2000CSV);
-            //send the year 2000 to json
+            //send the year >2000 to json
             cond.Add(filterYear2000, sender2000JSon);
 
             await cond.Execute();
