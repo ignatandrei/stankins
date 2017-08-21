@@ -2,7 +2,7 @@
 
 namespace StankinsInterfaces
 {
-    public interface ISend
+    public interface ISend : IBaseObjects
     {
         IRow[] valuesToBeSent{ set; }
         Task Send();

@@ -13,6 +13,8 @@ namespace StankinsTests
     [TestClass]
     public class TestTransformerBasic
     {
+        
+        
         [TestMethod]
         public async Task TestTransformInt2String()
         {
@@ -40,8 +42,9 @@ namespace StankinsTests
 
             #endregion
             #region act
-            //var transform = new TransformerIntString("ID", "NewStringID");
-            var transform = new TransformOneValueGeneral("(oldValue??0).ToString()", "ID", "NewStringID");
+            
+            var transform = new TransformerFieldIntString("ID", "NewStringID");
+            //var transform = new TransformOneValueGeneral("(oldValue??0).ToString()", "ID", "NewStringID");
             transform.valuesRead = rows.ToArray();
             await transform.Run();
             transform.valuesRead = rows.ToArray();
@@ -85,8 +88,8 @@ namespace StankinsTests
 
             #endregion
             #region act
-            //var transform = new TransformerStringInt("ID", "NewIntID");
-            var transform = new TransformOneValueGeneral("int.Parse((oldValue??0).ToString())", "ID", "NewIntID");
+            var transform = new TransformerFieldStringInt("ID", "NewIntID");
+            //var transform = new TransformOneValueGeneral("int.Parse((oldValue??0).ToString())", "ID", "NewIntID");
             transform.valuesRead = rows.ToArray();
             await transform.Run();
             #endregion

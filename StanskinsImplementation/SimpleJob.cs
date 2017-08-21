@@ -7,22 +7,15 @@ using Newtonsoft.Json;
 
 namespace StanskinsImplementation
 {
-    public class SimpleJob : ISimpleJob
+    public abstract class SimpleJobReceiverTransformer : IJob
     {
-        public OrderedList<IReceive> Receivers { get; set; }
-
-        public OrderedList<IFilterTransformer> FiltersAndTransformers { get; set; }
-
-        public OrderedList<ISend> Senders { get; set; }
-
-        public SimpleJob()
+        public SimpleJobReceiverTransformer()
         {
             Receivers = new OrderedList<IReceive>();
-            FiltersAndTransformers = new OrderedList<IFilterTransformer>();
-            Senders = new OrderedList<ISend>();
-
         }
-
+        public OrderedList<IReceive> Receivers { get; set; }
+        
+        public abstract Task Execute();
         public async Task<IRow[]> DataFromReceivers()
         {
             List<IRow> data = new List<IRow>();
@@ -56,6 +49,37 @@ namespace StanskinsImplementation
             }
             return data.ToArray();
         }
+        public virtual string SerializeMe()
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                Formatting = Formatting.Indented,
+                //Error = HandleDeserializationError
+                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+
+            };
+            return JsonConvert.SerializeObject(this, settings);
+        }
+
+        public abstract void UnSerialize(string serializeData);
+        
+    }
+
+    public class SimpleJob : SimpleJobReceiverTransformer, ISimpleJob
+    {
+               
+        public OrderedList<ISend> Senders { get; set; }
+        public OrderedList<IFilterTransformer> FiltersAndTransformers { get; set; }
+        public SimpleJob():base()
+        {
+            
+            FiltersAndTransformers = new OrderedList<IFilterTransformer>();
+            Senders = new OrderedList<ISend>();
+
+        }
+
+       
         public async Task SenderData(IRow[] dataToSend)
         {
             List<IRow> data = new List<IRow>();
@@ -84,38 +108,28 @@ namespace StanskinsImplementation
 
 
         }
-        public async Task Execute()
+        public override async Task Execute()
         {
             var data = await DataFromReceivers();
-            foreach (var item in FiltersAndTransformers)
+            foreach (var filterKV in FiltersAndTransformers)
             {
-                var itemData = item.Value as ITransform;
-                if (itemData != null)
+                var filter = filterKV.Value as ITransform;
+                if (filter == null)
                 {
-                    itemData.valuesRead = data;
+                    //TODO: log
+                    continue;
                 }
-                await item.Value.Run();
-                if (itemData != null) { 
-                    data = itemData.valuesTransformed;
-                }
+
+                filter.valuesRead = data;
+                await filter.Run();
+                data = filter.valuesTransformed;                
             }
             await SenderData(data);
         }
 
-        public string SerializeMe()
-        {
-            var settings = new JsonSerializerSettings()
-            {
-                TypeNameHandling = TypeNameHandling.Objects,
-                Formatting = Formatting.Indented,
-                //Error = HandleDeserializationError
-                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+        
 
-            };
-            return JsonConvert.SerializeObject(this, settings);
-        }
-
-        public void UnSerialize(string serializeData)
+        public override void UnSerialize(string serializeData)
         {
             var settings = new JsonSerializerSettings()
             {

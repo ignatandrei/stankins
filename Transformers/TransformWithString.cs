@@ -16,6 +16,13 @@ namespace Transformers
     {
         public T oldValue;
     }
+    public class TransformerFieldStringInt : TransformOneValueGeneral
+    {
+        public TransformerFieldStringInt(string oldField, string newField) : base("int.Parse((oldValue??\"0\").ToString())", oldField, newField)
+        {
+
+        }
+    }
     public class TransformOneValueGeneral : TransformOneValue<object, object>
     {
         public TransformOneValueGeneral(string expression, string oldField, string newField) : base(expression, oldField, newField)

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace StankinsInterfaces
 {
-    public interface IFilterTransformer
+    public interface IFilterTransformer : IBaseObjects
     {      
         Task Run();
     }

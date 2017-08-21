@@ -25,9 +25,13 @@ namespace SenderToFile
         public async Task Send()
         {
 
+            if (valuesToBeSent == null || valuesToBeSent.Length == 0)
+                return;
 
             media.valuesToBeSent = this.valuesToBeSent;
             await media.Run();
+            if (media.Result == null || media.Result.Length == 0)
+                return;
             var buffer = Encoding.UTF8.GetBytes(media.Result);
 
             using (var fs = new FileStream(FileName, FileMode.OpenOrCreate,

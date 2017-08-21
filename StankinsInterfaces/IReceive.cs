@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace StankinsInterfaces
 {
-    public interface IReceive
+    public interface IReceive: IBaseObjects
     {
         Task LoadData();
 
