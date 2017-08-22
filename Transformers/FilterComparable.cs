@@ -121,7 +121,29 @@ namespace Transformers
         {
             if( destinationType == typeof(string) )
             {
-                return $"{value.GetType().ToString()} {this.FieldName} {this.HowToCompareValues} {(string)value}";
+                var filter = (FilterComparable)value;
+                string filterOperator = string.Empty;
+                switch (filter.HowToCompareValues)
+                {
+                    case CompareValues.Equal:
+                        filterOperator = "=";
+                        break;
+                    case CompareValues.Less:
+                        filterOperator = "<";
+                        break;
+                    case CompareValues.LessOrEqual:
+                        filterOperator = "<=";
+                        break;
+                    case CompareValues.Greater:
+                        filterOperator = ">";
+                        break;
+                    case CompareValues.GreaterOrEqual:
+                        filterOperator = ">=";
+                        break;
+                    default:
+                        throw new ArgumentException("This is not implemented :" + filter.HowToCompareValues);
+                }
+                return $"{filter.ComparableType} {filter.FieldName} {filterOperator} {filter.Value}";
             }
             return base.ConvertTo(context, culture, value, destinationType);
         }
