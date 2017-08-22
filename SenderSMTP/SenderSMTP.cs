@@ -35,11 +35,6 @@ namespace SenderSMTP
 
         public IRow[] valuesToBeSent { set; get; }
 
-        public SenderToSMTP()
-        {
-
-        }
-
         public SenderToSMTP(string from, string to, string cc, string bcc, string subject, string body, bool isBodyHtml, string smtpServer, int smtpPort = 25, bool enableSsl = false, bool requiresAuthentication = true, string user = "", string password = "")
         {
             this.From = from;

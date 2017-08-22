@@ -166,9 +166,15 @@ namespace StankinsTests
             job.Senders.Add(0, sndAll);
             job.Senders.Add(1, sndSMTPFiltered);
 
-            //var j = job.SerializeMe();
-            //File.WriteAllText("j.json", j);
-            //Process.Start("Notepad.exe", "j.json");
+            /*
+            var job = new SimpleJob();
+            job.Receivers.Add(0, rcvr);
+            job.Senders.Add(0, sndSMTP);
+
+            var j = job.SerializeMe();
+            File.WriteAllText("j.json", j);
+            Process.Start("Notepad.exe", "j.json");
+            */
             #endregion
 
             #region act
