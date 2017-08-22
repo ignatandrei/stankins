@@ -20,6 +20,7 @@
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
+    <ProjectReference Include="..\SenderFilter\SenderFilter.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
     <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
     <ProjectReference Include="..\SenderToFile\SenderToFile.csproj" />
