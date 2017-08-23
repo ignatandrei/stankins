@@ -49,7 +49,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderToFile", "SenderToFil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderFilter", "SenderFilter\SenderFilter.csproj", "{1AD5B0B8-7111-4440-A143-926CA69AD45D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverFileSystem", "ReceiverFileSystem\ReceiverFileSystem.csproj", "{46BEA921-B6C5-42C2-8D9C-1DFC8AF567EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverFileSystem", "ReceiverFileSystem\ReceiverFileSystem.csproj", "{46BEA921-B6C5-42C2-8D9C-1DFC8AF567EE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

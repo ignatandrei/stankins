@@ -8,12 +8,15 @@ namespace StanskinsImplementation
 {
     public class RowReadHierarchical: RowRead, IRowReceiveHierarchical
     {
+        static int idH = 1;
         public RowReadHierarchical([CallerMemberName]string receiverName = ""):base(receiverName)
         {
-            
+            ID = idH++;
         }
 
-        public IRow Parent { get ; set ; }
+        public IRowReceiveHierarchical Parent { get ; set ; }
+        public long ID { get; set; }
+        
     }
     public class RowRead : IRowReceive
     {

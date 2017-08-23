@@ -2,6 +2,7 @@
 {
     public interface IRowReceiveHierarchical : IRowReceive
     {
-        IRow Parent { get; set; }
+        long ID { get; set; }
+        IRowReceiveHierarchical Parent { get; set; }
     }
 }

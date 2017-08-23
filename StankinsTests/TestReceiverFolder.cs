@@ -18,8 +18,14 @@ namespace StankinsTests
         {
             #region arrange
             var dir = AppContext.BaseDirectory;
-            string fileName =  Guid.NewGuid().ToString("N") + ".txt";
-            string fullNameFile = Path.Combine(dir, fileName);
+
+            string filename = Path.Combine(dir, "a.html");
+            if (File.Exists(filename))
+                File.Delete(filename);
+
+
+            string fileNameToWrite =  Guid.NewGuid().ToString("N") + ".txt";
+            string fullNameFile = Path.Combine(dir, fileNameToWrite);
             File.WriteAllText(fullNameFile, "andrei ignat");
 
             #endregion

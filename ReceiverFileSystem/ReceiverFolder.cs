@@ -58,7 +58,7 @@ namespace ReceiverFileSystem
                 var item = new RowReadHierarchical();
                 item.Values.Add("Name", file.Name);
                 item.Values.Add("FullName", file.FullName);
-                item.Parent = parent;
+                item.Parent = parent as IRowReceiveHierarchical;
                 ret.Add(item);
             }
             return ret.ToArray();

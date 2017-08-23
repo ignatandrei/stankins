@@ -17,9 +17,9 @@ namespace SenderToFile
         public IRow[] valuesToBeSent { private get; set; }
         public string FileName { get; set; }
         public IFilterTransformToString media { get; set; }
-        public SenderMediaToFile(IFilterTransformToString media, string fileName)
+        public SenderMediaToFile(IFilterTransformToString media, string outputFileName)
         {
-            this.FileName= fileName;
+            this.FileName= outputFileName;
             this.media = media;
         }
         public async Task Send()
