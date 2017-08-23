@@ -10,7 +10,7 @@ namespace Transformers
     public class TransformRowMergeFields : TransformRow
     {
         public TransformRowMergeFields(string nameField1 , string NameField2,string nameFieldOutput, string separator="")
-            : base($"Values.Add(\"{nameFieldOutput}\",Values[\"{nameField1}\"]?.ToString() + \" {separator} +\"+Values[\"{NameField2}\"]?.ToString());" +
+            : base($"Values.Add(\"{nameFieldOutput}\",Values[\"{nameField1}\"]?.ToString() + \"{separator}\"+Values[\"{NameField2}\"]?.ToString());" +
                 "Values")
         {
 

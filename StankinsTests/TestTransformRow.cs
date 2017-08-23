@@ -38,18 +38,18 @@ namespace StankinsTests
 
             #endregion
             #region act            
-            var addField= 
-                "Values.Add(\"FullName\",Values[\"LastName\"]?.ToString() +Values[\"FirstName\"]?.ToString());" +
-                "Values";
-            var transform = new TransformRow(addField);
+            //var addField= 
+            //    "Values.Add(\"FullName\",Values[\"LastName\"]?.ToString() +Values[\"FirstName\"]?.ToString());" +
+            //    "Values";
+            var transform = new TransformRowMergeFields("LastName", "FirstName", "FullName","=>");
             transform.valuesRead = rows.ToArray();
             await transform.Run();           
             #endregion
             #region assert
             for (int i = 0; i < transform.valuesTransformed.Length; i++)
             {
-                Assert.AreEqual(transform.valuesTransformed[i].Values["FullName"].ToString(),
-                    transform.valuesRead[i].Values["LastName"].ToString() + transform.valuesRead[i].Values["FirstName"].ToString());
+                Assert.AreEqual(transform.valuesRead[i].Values["LastName"].ToString() + "=>"+transform.valuesRead[i].Values["FirstName"].ToString(),
+                    transform.valuesTransformed[i].Values["FullName"].ToString());
             }
            
 
