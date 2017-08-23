@@ -160,7 +160,7 @@ namespace StankinsTests
             var cond = GetJobCSV();
 
             var str = cond.SerializeMe();
-            
+            cond = null;
             var newJob = new SimpleJobConditionalTransformers();
             newJob.UnSerialize(str);
             await newJob.Execute();
