@@ -40,7 +40,7 @@ namespace StankinsTests
         const int pop3Port = 9950; // 1100 or 9950
 
         [TestMethod]
-        public async Task TestSenderWithFilterSimple()
+        public async Task TestSenderWithFilterSimpleNonEmptyData()
         {
             var dir = AppContext.BaseDirectory;
 
@@ -84,6 +84,48 @@ namespace StankinsTests
             Assert.AreEqual(lineNames[0], "PersonID");
             Assert.AreEqual(lineNames[1], "FirstName");
             Assert.AreEqual(lineNames[2], "LastName");
+            #endregion
+        }
+
+        [TestMethod]
+        public async Task TestSenderWithFilterSimpleEmptyData()
+        {
+            var dir = AppContext.BaseDirectory;
+
+            #region arange
+            string filename = Path.Combine(dir, "b.csv");
+            if (File.Exists(filename))
+                File.Delete(filename);
+
+            var rows = new List<IRow>();
+            int nrRows = 3;
+            for (int i = 0; i < nrRows; i++)
+            {
+                var rowAndrei = new Mock<IRow>();
+
+                rowAndrei.SetupProperty(it => it.Values,
+                    new Dictionary<string, object>()
+                    {
+                        ["PersonID"] = i,
+                        ["FirstName"] = "John" + i,
+                        ["LastName"] = "Doe" + i
+                    }
+                );
+
+                rows.Add(rowAndrei.Object);
+            }
+            #endregion
+
+            #region act
+            ISend csvExport = new Sender_CSV(filename);
+            ISend filteredCsvExport = new SenderWithFilter("System.Int32 PersonID >= 10", csvExport);
+            filteredCsvExport.valuesToBeSent = rows.ToArray();
+
+            await filteredCsvExport.Send();
+            #endregion
+
+            #region assert
+            Assert.IsFalse(File.Exists(filename), $"file {filename} must not exists because default behaviour is to not execute real sender when filter doesn't produce at least one row");
             #endregion
         }
 

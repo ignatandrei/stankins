@@ -10,13 +10,15 @@ namespace SenderFilter
     {
         public string Filter { get; set; } //Syntax: "DataType FieldName Operator ConstValue"  (ex. "System.Int32 ElapsedTime >= 3000")
         public ISend Sender { get; set; }
+        public bool ExecuteSenderWhenEmptyData = false;
         public IRow[] valuesToBeSent { set; get; }
 
         public SenderWithFilter() { }
 
-        public SenderWithFilter(string filter, ISend sender) {
+        public SenderWithFilter(string filter, ISend sender, bool executeSenderWhenEmptyData = false) {
             this.Filter = filter;
             this.Sender = sender;
+            this.ExecuteSenderWhenEmptyData = executeSenderWhenEmptyData;
         }
 
         public async Task Send()
@@ -29,8 +31,11 @@ namespace SenderFilter
             this.valuesToBeSent = filterAsObject.valuesTransformed;
 
             //Send data to real sender
-            this.Sender.valuesToBeSent = this.valuesToBeSent;
-            await this.Sender.Send();
+            if(this.valuesToBeSent.Length > 0 || this.valuesToBeSent.Length == 0 && this.ExecuteSenderWhenEmptyData)
+            {
+                this.Sender.valuesToBeSent = this.valuesToBeSent;
+                await this.Sender.Send();
+            }
         }
     }
 }
