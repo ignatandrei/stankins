@@ -2,7 +2,7 @@
   "profiles": {
     "StankinsSimpleJob": {
       "commandName": "Project",
-      "commandLineArgs": "generate"
+      "commandLineArgs": "execute \"E:\\IronSQLDBA\\stankins\\job003swf.json\""
     }
   }
 }
