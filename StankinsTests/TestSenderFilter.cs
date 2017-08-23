@@ -69,8 +69,9 @@ namespace StankinsTests
             #endregion
 
             #region act
+            FilterComparable fltPerson = new FilterComparableGreaterOrEqual(typeof(Int32), 1, "PersonID");
             ISend csvExport = new Sender_CSV(filename);
-            ISend filteredCsvExport = new SenderWithFilter("System.Int32 PersonID >= 1", csvExport);
+            ISend filteredCsvExport = new SenderWithFilterComparable(fltPerson, csvExport);
             filteredCsvExport.valuesToBeSent = rows.ToArray();
 
             await filteredCsvExport.Send();
@@ -117,8 +118,9 @@ namespace StankinsTests
             #endregion
 
             #region act
+            FilterComparable fltPerson = new FilterComparableGreaterOrEqual(typeof(Int32), 10, "PersonID");
             ISend csvExport = new Sender_CSV(filename);
-            ISend filteredCsvExport = new SenderWithFilter("System.Int32 PersonID >= 10", csvExport);
+            ISend filteredCsvExport = new SenderWithFilterComparable(fltPerson, csvExport);
             filteredCsvExport.valuesToBeSent = rows.ToArray();
 
             await filteredCsvExport.Send();
@@ -201,7 +203,8 @@ namespace StankinsTests
             //It's not the real sender being used by sndSMTPFiltered
             var sndSMTP = new SenderToSMTP(from, to, string.Empty, string.Empty, subject, string.Empty, false, smtpServer, smtpPort, false, requiresAuthentication, user, password);
             //Real sender
-            ISend sndSMTPFiltered = new SenderWithFilter("System.Int32 PersonID >= 1", sndSMTP);
+            FilterComparable fltPerson = new FilterComparableGreaterOrEqual(typeof(Int32), 1, "PersonID");
+            ISend sndSMTPFiltered = new SenderWithFilterComparable(fltPerson, sndSMTP);
 
             var job = new SimpleJob();
             job.Receivers.Add(0, rcvr);
