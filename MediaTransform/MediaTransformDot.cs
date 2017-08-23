@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MediaTransform
 {
+    /// <summary>
+    /// https://en.wikipedia.org/wiki/DOT_(graph_description_language)
+    /// </summary>
     public class MediaTransformDot : MediaTransformString
     {
         public MediaTransformDot(string labelField):base()
@@ -21,7 +24,7 @@ namespace MediaTransform
                 return "";
 
             var sb = new StringBuilder();
-            sb.AppendLine($"Node{parent.ID} [label=\"{parent.Values[label]}\"]");
+            sb.AppendLine($"Node{parent.ID} [label=\"{parent.Values[label]}\"];");
             foreach (var item in children)
             {
                 sb.AppendLine($"Node{item.ID} [label=\"{item.Values[label]}\"];");

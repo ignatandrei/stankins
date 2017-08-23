@@ -133,11 +133,15 @@ Number Rows: @Model.Length
                 File.Delete(item);
             }
 
-            string fileNameToWrite = Guid.NewGuid().ToString("N") + ".txt";
+            string fileNameToWrite = "andrei.txt";
             string fullNameFile = Path.Combine(dir, fileNameToWrite);
             File.WriteAllText(fullNameFile, "andrei ignat");
 
-         
+            fileNameToWrite = "ignat.txt";
+            fullNameFile = Path.Combine(dir, fileNameToWrite);
+            File.WriteAllText(fullNameFile, "andrei ignat");
+
+
             IReceive r = new ReceiverFolder(dir, "*.txt");
             await r.LoadData();
 
@@ -176,7 +180,7 @@ Number Rows: @Model.Length
 }
 <td>Parent</td>
 </thead>
-</tr>
+
 <tbody>
 @foreach(var item in Model){
     var m=item as IRowReceiveHierarchical;
@@ -201,13 +205,14 @@ Number Rows: @Model.Length
 
             #endregion
             #region act
-            ISend sender = new Sender_HTML(fileRazor, filename);           
+            ISend sender = new Sender_HTMLHierarchicalViz(fileRazor, filename,"Name");           
             sender.valuesToBeSent = r.valuesRead;
             await sender.Send();
             #endregion
             #region assert
             Assert.IsTrue(File.Exists(filename), $"file {filename} must exists in export hierarchical");
             Assert.IsTrue(File.ReadAllText(filename).Contains(fileNameToWrite), "must contain data");
+            Assert.IsTrue(File.ReadAllText(filename).Contains("Viz("), "must contain viz ...");
             System.Diagnostics.Process.Start("explorer.exe", filename);
             #endregion
         }

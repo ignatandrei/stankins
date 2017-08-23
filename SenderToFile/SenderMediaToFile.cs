@@ -14,7 +14,7 @@ namespace SenderToFile
     /// </summary>
     public abstract class SenderMediaToFile: ISend
     {
-        public IRow[] valuesToBeSent { private get; set; }
+        public IRow[] valuesToBeSent { protected get; set; }
         public string FileName { get; set; }
         public IFilterTransformToString media { get; set; }
         public SenderMediaToFile(IFilterTransformToString media, string outputFileName)
@@ -22,7 +22,7 @@ namespace SenderToFile
             this.FileName= outputFileName;
             this.media = media;
         }
-        public async Task Send()
+        public virtual async Task Send()
         {
 
             if (valuesToBeSent == null || valuesToBeSent.Length == 0)
