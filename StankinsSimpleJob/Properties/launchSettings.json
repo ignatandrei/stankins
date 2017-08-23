@@ -2,7 +2,7 @@
   "profiles": {
     "StankinsSimpleJob": {
       "commandName": "Project",
-      "commandLineArgs": "execute \"job2.json\""
+      "commandLineArgs": "generate"
     }
   }
 }

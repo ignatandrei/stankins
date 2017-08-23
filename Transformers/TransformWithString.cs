@@ -56,6 +56,11 @@ namespace Transformers
                     ).AddImports("System")
                 );
             script.Compile();
+            if (valuesRead == null)
+            {
+                //TODO: log
+                return;
+            }
             foreach (var item in valuesRead)
             {
                 if (!item.Values.ContainsKey(OldField))

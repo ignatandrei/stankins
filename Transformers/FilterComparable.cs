@@ -32,7 +32,8 @@ namespace Transformers
 
         public async Task Run()
         {
-            IComparable v = (IComparable)Value;
+            var original= Convert.ChangeType(Value, ComparableType);
+            IComparable v = (IComparable)original;
             var returnValues = new List<IRow>();
             foreach(var item in valuesRead)
             {

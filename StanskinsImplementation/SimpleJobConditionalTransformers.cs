@@ -2,23 +2,62 @@
 using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace StanskinsImplementation
 {
-    public class SimpleTree<K, V> : Dictionary<K, SimpleTree<K, V>>
+    public class SimpleContainObjects
     {
-        public V Value { get; set; }
+        public SimpleContainObjects()
+        {
+            Children = new List<IBaseObjects>();
+        }
+        public IBaseObjects Key { get; set; }
+        public List<IBaseObjects> Children { get; set; }
+        public SimpleTree Childs()
+        {
+            var ret = new SimpleTree();
+            foreach (var item in Children)
+            {
+                ret.Add(item);
+            }
+            return ret;
+        }
     }
+    public class SimpleTree: List<SimpleContainObjects>
+    {
+        public SimpleContainObjects KeyFor(IBaseObjects key)
+        {
+            return this.FirstOrDefault(it => it.Key == key);
+        }
+        public bool ContainsKey(IBaseObjects key)
+        {
+            return KeyFor(key) != null;
+        }
+        public void Add(IBaseObjects key, IBaseObjects child=null)
+        {
+            var childKey = KeyFor(key);
+            if(childKey == null)
+            {
+                childKey = new SimpleContainObjects();
+                childKey.Key = key;
+                this.Add(childKey);
+            }
 
+            if (child != null)
+                childKey.Children.Add(child);
+        }
+        
+    }
     public class SimpleJobConditionalTransformers : SimpleJobReceiverTransformer
     {
         public SimpleJobConditionalTransformers():base()
         {
-            this.association = new SimpleTree<IBaseObjects, IBaseObjects>();
+            this.association = new SimpleTree();
         }
-        public SimpleTree<IBaseObjects, IBaseObjects> association { get; set; }
+        public SimpleTree association { get; set; }
         
         public void AddSender(ISend send)
         {
@@ -29,13 +68,13 @@ namespace StanskinsImplementation
         {
             if (!association.ContainsKey(transformParentNode))
             {                
-                association.Add(transformParentNode, new SimpleTree<IBaseObjects, IBaseObjects>());
+                association.Add(transformParentNode);
             }
             if (senderORTransform != null)
             {
-                var val = association[transformParentNode];
+                var val = association.KeyFor(transformParentNode);
             
-                val.Add(senderORTransform, new SimpleTree<IBaseObjects, IBaseObjects>());
+                val.Children.Add(senderORTransform);
             }
         }
 
@@ -54,12 +93,14 @@ namespace StanskinsImplementation
             await filter.Run();
             return filter.valuesTransformed;
         }
-        async Task TransformAndSendData(SimpleTree<IBaseObjects, IBaseObjects> tree, IRow[] data)
+        async Task TransformAndSendData(SimpleTree tree, IRow[] data)
         {
             if (tree == null || tree.Count == 0)
                 return;
-            foreach (var transformOrFilter in tree)
+            //foreach (var transformOrFilter in tree)
+            for(int i=0;i<tree.Count;i++)
             {
+                var transformOrFilter = tree[i];
                 var sender = transformOrFilter.Key as ISend;
                 if(sender != null)
                 {
@@ -72,7 +113,7 @@ namespace StanskinsImplementation
                 {
                     filter.valuesRead = data;
                     var newData = await GetDataFromFilter(filter);
-                    await TransformAndSendData(transformOrFilter.Value, newData);
+                    await TransformAndSendData(transformOrFilter.Childs(), newData);
                     data = newData;//pass data to the next filter
                 }
 
@@ -93,6 +134,7 @@ namespace StanskinsImplementation
             };
             var sj = (SimpleJobConditionalTransformers)JsonConvert.DeserializeObject(serializeData, settings);
             this.association = sj.association;
+            this.Receivers = sj.Receivers;
            
         }
 

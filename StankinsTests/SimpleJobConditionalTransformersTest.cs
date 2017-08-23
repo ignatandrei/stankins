@@ -44,10 +44,8 @@ namespace StankinsTests
 
             return fileName;
         }
-        [TestMethod]
-        public async Task SimpleJobConditionalTransformersTestSimpleReadCSV()
+        SimpleJobConditionalTransformers GetJobCSV()
         {
-
             #region ARRANGE
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("model,Track_number,buyYear");
@@ -72,7 +70,7 @@ namespace StankinsTests
             var senderCSVAudi = new Sender_CSV(DeleteFileIfExists("myAudi.csv"));
 
             //define a filter to transform the buyYear to string
-            
+
             var buyYearTOString = new TransformerFieldStringInt("buyYear", "NewBuyYear");
             //define a filter for year>2000
             var filterYear2000 = new FilterComparableGreat(typeof(int), 2000, "NewBuyYear");
@@ -84,22 +82,16 @@ namespace StankinsTests
             //define a filter for Ford
             var filterFord = new FilterComparableEqual(typeof(string), "Ford", "model");
             //define a sender just for ford
-            var senderCSVFord= new Sender_CSV(DeleteFileIfExists("myFord.csv"));
-
-            #endregion
-            #region ACT
-
-
-
+            var senderCSVFord = new Sender_CSV(DeleteFileIfExists("myFord.csv"));
 
             var cond = new SimpleJobConditionalTransformers();
             //add a receiver
             cond.Receivers.Add(0, receiverCSV);
-           
+
             //add a sender to csv for all records
             cond.AddSender(senderAllToCSV);
 
-          
+
 
             //add a filter to transform the buyYear to string
             //and then fiter for year>2000
@@ -116,8 +108,11 @@ namespace StankinsTests
             //add a filter for ford and a sender just for ford
             cond.Add(filterFord, senderCSVFord);
 
-            await cond.Execute();
+            return cond;
             #endregion
+        }
+        void AssertJobCSV()
+        {
             #region ASSERT
             Assert.IsTrue(File.Exists("myAudi.csv"));
             var lines = File.ReadAllLines("myAudi.csv");
@@ -130,7 +125,7 @@ namespace StankinsTests
 
             Assert.IsTrue(File.Exists("my2000.csv"));
             lines = File.ReadAllLines("my2000.csv");
-            Assert.AreEqual(4, lines.Length,"there are 4 years bigger than 2000");
+            Assert.AreEqual(4, lines.Length, "there are 4 years bigger than 2000");
 
             Assert.IsTrue(File.Exists("my2000.js"));
 
@@ -139,7 +134,42 @@ namespace StankinsTests
             Assert.IsFalse(File.Exists("myFord.csv"));
 
             #endregion
+        }
+        [TestMethod]
+        public async Task SimpleJobConditionalTransformersTestSimpleReadCSV()
+        {
 
+
+            #region ACT
+
+            var cond = GetJobCSV();
+            await cond.Execute();
+            #endregion
+
+            #region ASSERT
+            AssertJobCSV();
+
+            #endregion
+
+        }
+        [TestMethod]
+        public async Task SerializeSimpleJobConditionalTransformersTestSimpleReadCSV()
+        {
+            #region ACT
+
+            var cond = GetJobCSV();
+
+            var str = cond.SerializeMe();
+            
+            var newJob = new SimpleJobConditionalTransformers();
+            newJob.UnSerialize(str);
+            await newJob.Execute();
+            #endregion
+
+            #region ASSERT
+            AssertJobCSV();
+
+            #endregion
         }
     }
 }
