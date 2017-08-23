@@ -6,6 +6,15 @@ using System.Text;
 
 namespace StanskinsImplementation
 {
+    public class RowReadHierarchical: RowRead, IRowReceiveHierarchical
+    {
+        public RowReadHierarchical([CallerMemberName]string receiverName = ""):base(receiverName)
+        {
+            
+        }
+
+        public IRow Parent { get ; set ; }
+    }
     public class RowRead : IRowReceive
     {
         public RowRead([CallerMemberName]string receiverName="")
