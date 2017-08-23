@@ -28,6 +28,10 @@ namespace StankinsTests
             if (File.Exists(filename))
                 File.Delete(filename);
 
+            foreach( var item in Directory.GetFiles(dir, "*.txt", SearchOption.AllDirectories))
+            {
+                File.Delete(item);
+            }
             //TODO:more files
             string fileNameToWrite = Guid.NewGuid().ToString("N") + ".txt";
             string fullNameFile = Path.Combine(dir, fileNameToWrite);
@@ -123,6 +127,11 @@ Number Rows: @Model.Length
             string filename = Path.Combine(dir, "a.html");
             if (File.Exists(filename))
                 File.Delete(filename);
+
+            foreach (var item in Directory.GetFiles(dir, "*.txt", SearchOption.AllDirectories))
+            {
+                File.Delete(item);
+            }
 
             string fileNameToWrite = Guid.NewGuid().ToString("N") + ".txt";
             string fullNameFile = Path.Combine(dir, fileNameToWrite);
