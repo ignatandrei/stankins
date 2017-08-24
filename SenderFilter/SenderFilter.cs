@@ -8,6 +8,7 @@ namespace SenderFilter
 {
     public class SenderWithFilterComparable : ISend
     {
+        public string Name { get; set; }
         public FilterComparable Transformer { get; set; }
         public ISend Sender { get; set; }
         public bool ExecuteSenderWhenEmptyData = false;

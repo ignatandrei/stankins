@@ -15,6 +15,7 @@ namespace SenderDBInflux
 {
     public class SenderDB_Influx : ISend
     {
+        public string Name { get; set; }
         public string url { get; set; }
 
         public IRow[] valuesToBeSent { set; private get; }

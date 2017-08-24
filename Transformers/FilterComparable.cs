@@ -11,6 +11,7 @@ namespace Transformers
     public class FilterComparable : TypeConverter, ITransform
 
     {
+        public string Name { get; set; }
         public IRow[] valuesRead { get; set ; }
         public IRow[] valuesTransformed { get ; set ; }
         public Type ComparableType { get; set; }

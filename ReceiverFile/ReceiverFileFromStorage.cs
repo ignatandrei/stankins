@@ -13,7 +13,7 @@ namespace ReceiverFile
         where T:IComparable<T>
         
     {
-
+        public string Name { get; set; }
         public string FileToRead { get; set; }
         public Encoding FileEnconding { get; set; }
         public T LastValue { get; set; }

@@ -12,6 +12,7 @@ namespace Transformers
 {
     public class TransformRow: ITransform
     {
+        public string Name { get; set; }
         public string TheExpression { get; set; }
         public TransformRow(string expression)
         {

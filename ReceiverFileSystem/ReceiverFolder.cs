@@ -12,6 +12,7 @@ namespace ReceiverFileSystem
     /// </summary>
     public class ReceiverFolder : IReceive
     {
+        public string Name { get; set; }
         public ReceiverFolder(string folderName, string searchPattern="*")
         {
             FolderName = folderName;

@@ -18,6 +18,7 @@ namespace SenderSMTP
     /// </summary>
     public class SenderToSMTP : ISend
     {
+        public string Name { get; set; }
         public string From { get; private set; }
         public string To { get; private set; }
         public string Cc { get; set; }

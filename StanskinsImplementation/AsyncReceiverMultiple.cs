@@ -12,6 +12,7 @@ namespace StanskinsImplementation
     /// </summary>
     public class AsyncReceiverMultiple: IReceive
     {
+        public string Name { get; set; }
         public IReceive[] Receivers { get; set; }
 
         public IRowReceive[] valuesRead { get; set; }

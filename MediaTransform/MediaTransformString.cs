@@ -10,6 +10,6 @@ namespace MediaTransform
         public string Result { get; protected set; }
 
         public abstract  Task Run();
-        
+        public string Name { get; set; }
     }
 }

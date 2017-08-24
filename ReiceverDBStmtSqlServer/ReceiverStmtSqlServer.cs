@@ -21,6 +21,7 @@ namespace ReiceverDBStmtSqlServer
     /// </summary>
     public class ReceiverStmtSqlServer : IReceive
     {
+        public string Name { get; set; }
         public string ConnectionString { get; set; }
         public CommandType CommandType { get; set; }
         public string CommandText { get; set; }

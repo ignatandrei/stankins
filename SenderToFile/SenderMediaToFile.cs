@@ -14,6 +14,7 @@ namespace SenderToFile
     /// </summary>
     public abstract class SenderMediaToFile: ISend
     {
+        public string Name { get; set; }
         public IRow[] valuesToBeSent { protected get; set; }
         public string FileName { get; set; }
         public IFilterTransformToString media { get; set; }

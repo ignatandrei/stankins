@@ -7,6 +7,7 @@ namespace SenderElasticSearch
 {
     public class SenderToElasticSearch : ISend
     {
+        public string Name { get; set; }
         public string Uri { get; set; }
         public string IndexName { get; set; }
         //Hack: added TypeName and Id properties

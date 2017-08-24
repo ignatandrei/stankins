@@ -12,8 +12,8 @@ namespace ReceiverDB
          where T : IComparable<T>
          where Connection : DbConnection, new()
     {
-        
-        
+
+        public string Name { get; set; }
         public DBTableData<T, Connection> tableData { get; set; }
         public IRowReceive[] valuesRead { get; private set; }
         

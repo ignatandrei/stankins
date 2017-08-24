@@ -17,6 +17,7 @@ namespace SenderDBStmtSqlServer
     /// </summary>
     public class SenderToDBStmtSqlServer : ISend
     {
+        public string Name { get; set; }
         public string ConnectionString { get; set; }
         public CommandType CommandType { get; set; }
         public string CommandText { get; set; }

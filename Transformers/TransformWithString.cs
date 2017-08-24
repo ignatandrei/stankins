@@ -31,6 +31,7 @@ namespace Transformers
     }
     public class TransformOneValue<T, U> : ITransform
     {
+        public string Name { get; set; }
         public string TheExpression { get; set; }
         public string OldField { get; set; }
         public string NewField { get; set; }
