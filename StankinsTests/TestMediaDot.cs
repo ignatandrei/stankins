@@ -14,7 +14,7 @@ namespace StankinsTests
     public class TestMediaDot
     {
         [TestMethod]
-        public async Task TestSampleData()
+        public async Task TestSampleDataMediaDot()
         {
             #region arrange
             var dir = AppContext.BaseDirectory;

@@ -76,9 +76,18 @@ namespace StanskinsImplementation
 
 
         }
+        public bool AllReceiversAsync { get; set; }
         public override async Task Execute()
         {
-            var arv = new SyncReceiverMultiple(Receivers.Select(it=>it.Value).ToArray());
+            IReceive arv;
+            if (AllReceiversAsync)
+            {
+                arv = new SyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+            }
+            else
+            {
+                arv=new AsyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+            }
             await arv.LoadData();
             IRow[] data = arv.valuesRead;
             foreach (var filterKV in FiltersAndTransformers)
