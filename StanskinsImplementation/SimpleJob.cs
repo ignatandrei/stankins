@@ -16,39 +16,7 @@ namespace StanskinsImplementation
         public OrderedList<IReceive> Receivers { get; set; }
         
         public abstract Task Execute();
-        public async Task<IRow[]> DataFromReceivers()
-        {
-            List<IRow> data = new List<IRow>();
-            var rec = new TaskExecutedList();
-            for (int i = 0; i < Receivers.Count; i++)
-            {
-                var te = new TaskExecuted(Receivers[i].LoadData());
-                rec.Add(te);
-
-            }
-            await Task.WhenAll(rec.AllTasksWithErrors());
-            if (!rec.Exists(it => it.IsSuccess()))
-            {
-                //LOG: no data
-                return null;
-            }
-            var failed = rec.Select(it => !it.IsSuccess()).ToArray();
-
-            foreach (var item in failed)
-            {
-                //LOG: exception why failed
-            }
-
-            for (int i = 0; i < Receivers.Count; i++)
-            {
-                var item = Receivers[i];
-                if (item.valuesRead?.Length == 0)
-                    continue;
-                data.AddRange(item.valuesRead);
-
-            }
-            return data.ToArray();
-        }
+        
         public virtual string SerializeMe()
         {
             var settings = new JsonSerializerSettings()
@@ -110,7 +78,9 @@ namespace StanskinsImplementation
         }
         public override async Task Execute()
         {
-            var data = await DataFromReceivers();
+            var arv = new AsyncReceiverMultiple(Receivers.Select(it=>it.Value).ToArray());
+            await arv.LoadData();
+            IRow[] data = arv.valuesRead;
             foreach (var filterKV in FiltersAndTransformers)
             {
                 var filter = filterKV.Value as ITransform;

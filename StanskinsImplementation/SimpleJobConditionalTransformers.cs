@@ -80,13 +80,11 @@ namespace StanskinsImplementation
 
         public override async Task Execute()
         {
-            var data = await DataFromReceivers();
 
+            var arv = new AsyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+            await arv.LoadData();
+            IRow[] data = arv.valuesRead;
             await TransformAndSendData(association, data);
-
-
-
-
         }
         async Task<IRow[]> GetDataFromFilter(ITransform filter)
         {
