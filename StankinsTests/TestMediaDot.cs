@@ -36,7 +36,7 @@ namespace StankinsTests
             await m.Run();
             #endregion
             #region assert
-            Assert.IsTrue(m.Result.Contains("Node2 [label=\"andrei.txt\"];"));
+            Assert.IsTrue(m.Result.Contains("Node2 [label=\"andrei.txt\"];"),"result should contain node2" +m.Result);
             Assert.IsTrue(m.Result.Contains("Node1 -> Node2;"));
             #endregion
 
