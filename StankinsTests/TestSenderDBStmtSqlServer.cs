@@ -167,7 +167,7 @@ namespace StankinsTests
         public async Task TestSenderDBExecuteStoredProcedureWithParamsVSTS()
         {
             #region arrange
-            connectionString = @"Server=(localdb)\ERROR;Trusted_Connection=True;";
+            connectionString = @"Server=(localdb)\MSSQLLocalDB;Trusted_Connection=True;";
             string commandText = "dbo.TestSenderDBExecuteStoredProcedureWithParams";
             string parameters = "@p1=PersonID;@p2=FirstName;@p3=LastName";
 
