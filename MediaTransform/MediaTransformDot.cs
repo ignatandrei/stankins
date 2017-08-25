@@ -19,12 +19,19 @@ namespace MediaTransform
         public string LabelField { get; set; }
         string AppendDataForParent(IRowReceiveHierarchical[] col, IRowReceiveHierarchical parent, string label)
         {
+            if (parent == null)
+                return null;
+            var sb = new StringBuilder();
+            if (parent.Parent == null)
+            {
+                sb.AppendLine($"Node{parent.ID} [label=\"{parent.Values[label]}\"];");
+            }
+
             var children = col.Where(it => it.Parent == parent).ToArray();
             if (children?.Length == 0)
                 return "";
 
-            var sb = new StringBuilder();
-            sb.AppendLine($"Node{parent.ID} [label=\"{parent.Values[label]}\"];");
+            
             foreach (var item in children)
             {
                 sb.AppendLine($"Node{item.ID} [label=\"{item.Values[label]}\"];");

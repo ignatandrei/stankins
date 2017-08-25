@@ -25,6 +25,7 @@ namespace Transformers
             Value = value;
             FieldName = fieldName;
             HowToCompareValues = compareValues;
+            this.Name = $"{fieldName} {compareValues} {value ?? ""}";
         }
 
         public FilterComparable()

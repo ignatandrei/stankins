@@ -24,6 +24,7 @@ namespace ReceiverFile
             FileToRead = fileToRead;
             FileEnconding = fileEnconding;
             ReadAllFirstTime = readAllFirstTime;
+            Name=$"read file {Path.GetFileName(fileToRead)}";
         }
         public IRowReceive[] valuesRead { get; protected set; }
         protected abstract Task ProcessText(string text);

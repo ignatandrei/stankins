@@ -18,6 +18,7 @@
     <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
+    <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />

@@ -16,7 +16,7 @@ namespace Transformers
     {
         public T oldValue;
     }
-    public class TransformerFieldStringInt : TransformOneValueGeneral
+    public class TransformerFieldStringInt : TransformOneValue<string,int>
     {
         public TransformerFieldStringInt(string oldField, string newField) : base("int.Parse((oldValue??\"0\").ToString())", oldField, newField)
         {
@@ -40,6 +40,7 @@ namespace Transformers
             TheExpression = expression;
             OldField = oldField;
             NewField = newField;
+            this.Name = $"transform {oldField}:{typeof(T).Name} to {newField}:{typeof(U).Name}";
         }
         public IRow[] valuesRead { get; set; }
         public IRow[] valuesTransformed { get; set; }

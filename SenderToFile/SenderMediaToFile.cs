@@ -22,6 +22,7 @@ namespace SenderToFile
         {
             this.FileName= outputFileName;
             this.media = media;
+            this.Name = $"send to {Path.GetFileName(outputFileName)} ";
         }
         public virtual async Task Send()
         {

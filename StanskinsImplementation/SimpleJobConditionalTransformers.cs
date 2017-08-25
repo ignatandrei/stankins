@@ -12,18 +12,21 @@ namespace StanskinsImplementation
     {
         public SimpleContainObjects()
         {
-            Children = new List<IBaseObjects>();
+            //Children = new List<IBaseObjects>();
+            Childs = new SimpleTree();
         }
         public IBaseObjects Key { get; set; }
-        public List<IBaseObjects> Children { get; set; }
-        public SimpleTree Childs()
+        //List<IBaseObjects> Children { get; set; }
+        //SimpleTree childs;
+        public SimpleTree Childs
         {
-            var ret = new SimpleTree();
-            foreach (var item in Children)
-            {
-                ret.Add(item);
-            }
-            return ret;
+            get;set;
+            //foreach (var item in Children)
+            //{
+            //    if(!childs.ContainsKey(item) )
+            //        childs.Add(item);
+            //}
+            //return childs;
         }
     }
     public class SimpleTree: List<SimpleContainObjects>
@@ -31,6 +34,20 @@ namespace StanskinsImplementation
         public SimpleContainObjects KeyFor(IBaseObjects key)
         {
             return this.FirstOrDefault(it => it.Key == key);
+        }
+        public SimpleContainObjects RecursiveKeyFor(IBaseObjects key)
+        {
+            var data = KeyFor(key);
+            if (data != null)
+                return data;
+            var items = this.Select(it => it.Childs).ToArray();
+            foreach (var item in items)
+            {
+                data = item.RecursiveKeyFor(key);
+                if (data != null)
+                    return data;
+            }
+            return null;
         }
         public bool ContainsKey(IBaseObjects key)
         {
@@ -47,7 +64,10 @@ namespace StanskinsImplementation
             }
 
             if (child != null)
-                childKey.Children.Add(child);
+            {
+                //childKey.Children.Add(child);
+                childKey.Childs.Add(child);
+            }
         }
         
     }
@@ -64,18 +84,24 @@ namespace StanskinsImplementation
             association.Add(send, null);
         }
         
-        public void Add(IBaseObjects transformParentNode, IBaseObjects senderORTransform=null)
+        public SimpleContainObjects Add(IBaseObjects transformParentNode, IBaseObjects senderORTransform=null)
         {
-            if (!association.ContainsKey(transformParentNode))
-            {                
+            //if (!association.ContainsKey(transformParentNode))
+            //{                
+            //    association.Add(transformParentNode);
+            //}
+            var val = association.RecursiveKeyFor(transformParentNode);
+            if (val == null)
+            {
                 association.Add(transformParentNode);
+                val = association.RecursiveKeyFor(transformParentNode);
             }
             if (senderORTransform != null)
             {
-                var val = association.KeyFor(transformParentNode);
-            
-                val.Children.Add(senderORTransform);
+                //val.Children.Add(senderORTransform);
+                val.Childs.Add(senderORTransform);
             }
+            return val;
         }
 
         public override async Task Execute()
@@ -111,7 +137,7 @@ namespace StanskinsImplementation
                 {
                     filter.valuesRead = data;
                     var newData = await GetDataFromFilter(filter);
-                    await TransformAndSendData(transformOrFilter.Childs(), newData);
+                    await TransformAndSendData(transformOrFilter.Childs, newData);
                     data = newData;//pass data to the next filter
                 }
 
