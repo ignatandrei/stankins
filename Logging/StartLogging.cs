@@ -39,7 +39,7 @@ namespace Logging
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {            
             //TODO: use serilog
-            Console.WriteLine($"{logLevel} {eventId} {state}");
+            Console.WriteLine($"{logLevel}  {state}");
         }
 
         public bool IsEnabled(LogLevel logLevel)
