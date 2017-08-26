@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Extensions.Logging.LoggerExtensions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ReceiverCSV;
 using SenderToFile;
@@ -46,7 +47,8 @@ namespace StankinsTests
                 //Microsoft.Extensions.Logging.LoggerExtensions.LogDebug(@class, $"file {fileName} existed");
                 File.Delete(fileName);
             }
-
+            //if you put already using Microsoft.Extensions.Logging.LoggerExtensions
+            //@class.LogDebug($"file {fileName} exists: {File.Exists(fileName)}");
             return fileName;
         }
         public static SimpleJobConditionalTransformers GetJobCSV()
