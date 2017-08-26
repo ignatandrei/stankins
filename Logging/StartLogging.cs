@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -7,7 +8,7 @@ using System.Text;
 namespace Logging
 {
 
-    public class StartLogging :  IDisposable
+    public class StartLogging : ILogger, IDisposable
     {
         public static ConcurrentBag<DebugInfo> cd = new ConcurrentBag<DebugInfo>();
         Stopwatch sw = new Stopwatch();
@@ -23,10 +24,7 @@ namespace Logging
             text = methodName + " from " + className;
             Console.WriteLine("start " + text + lineNumber);
         }
-        public void LogDebug(string text)
-        {
-
-        }
+        
         public void Dispose()
         {
             Debug.WriteLine("test debug");
@@ -36,6 +34,22 @@ namespace Logging
             cd.Add(dt);
             Console.WriteLine("end " + text + "duration:" + dt.duration.TotalMilliseconds);
             
+        }
+
+        public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+        {            
+            //TODO: use serilog
+            Console.WriteLine($"{logLevel} {eventId} {state}");
+        }
+
+        public bool IsEnabled(LogLevel logLevel)
+        {
+            return true;
+        }
+
+        public IDisposable BeginScope<TState>(TState state)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -40,6 +40,7 @@ namespace StankinsTests
         }
         public static string DeleteFileIfExists(string fileName)
         {
+            //@class.Log(LogLevel.Debug, $"{fileName} exists:{File.Exists(fileName)} ":, null, (Func<TState, Exception, string>)null);
             if (File.Exists(fileName))
                 File.Delete(fileName);
 
