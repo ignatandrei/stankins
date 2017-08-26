@@ -25,7 +25,7 @@ namespace StankinsTests
             var time= data.GroupBy(it => it.Key).Select(it => new { it.Key, MilliSeconds = it.Sum(t => t.duration.TotalMilliseconds)/it.Count() }).OrderByDescending(s=>s.MilliSeconds).Take(10).ToArray();
             foreach(var item in time)
             {
-                Console.WriteLine($"!!!!!Method {item.Key} duration seconds {item.MilliSeconds}");
+                Console.WriteLine($"!!!!!Method {item.Key} duration seconds {item.MilliSeconds/1000}");
             }
             string x = "";
         }
