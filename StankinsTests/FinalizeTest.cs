@@ -19,7 +19,7 @@ namespace StankinsTests
         [AssemblyCleanup]
         public static void FinishAllTest()
         {
-            Console.WriteLine("finished test!")
+            Console.WriteLine("finished test!");
             string x = "";
         }
     }
