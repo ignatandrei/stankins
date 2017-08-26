@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging.LoggerExtensions;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using ReceiverCSV;
