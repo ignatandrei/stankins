@@ -10,6 +10,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />

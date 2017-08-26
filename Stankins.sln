@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{CFFDC8EB-BCD8-46C2-B316-3B615738B543}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverDB", "ReceiverDB\ReceiverDB.csproj", "{683B8B47-28A6-4CDB-A2C9-2620DDAD7E06}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9} = {68199586-1576-4C30-9CE6-0FFCAAD820C9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverDBSQLite", "ReceiverDBSQLite\ReceiverDBSQLite.csproj", "{B0563678-25C3-492B-9B70-7AAC03DC5228}"
 EndProject
@@ -20,8 +23,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderElasticSearch", "SenderElasticSearch\SenderElasticSearch.csproj", "{61817849-19B8-4A5F-8B41-14AB279CADE9}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RazorCompile", "RazorCompile\RazorCompile.csproj", "{144231F1-60F3-4B7A-9DFB-BA26DC4A71C6}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9} = {68199586-1576-4C30-9CE6-0FFCAAD820C9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverBookmarkExportChrome", "ReceiverBookmarkExportChrome\ReceiverBookmarkExportChrome.csproj", "{F725DA3D-5BB7-4689-9400-C2FC712D4343}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9} = {68199586-1576-4C30-9CE6-0FFCAAD820C9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverFile", "ReceiverFile\ReceiverFile.csproj", "{E8020EF2-A945-4780-8E8E-50423A662177}"
 EndProject
@@ -36,6 +45,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Transformers", "Transformers\Transformers.csproj", "{4161B15B-6EA7-42D3-ADC4-BC93D17386B0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverCSV", "ReceiverCSV\ReceiverCSV.csproj", "{FB949DD7-4F01-4607-A679-A6E7220A5C63}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9} = {68199586-1576-4C30-9CE6-0FFCAAD820C9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReiceverDBStmtSqlServer", "ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj", "{B5FC4445-94ED-49BB-AC51-59D8EECB83F2}"
 EndProject
@@ -44,6 +56,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderDBStmtSqlServer", "SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj", "{BD8AF64B-502A-41B5-9F8D-A3E332C87B09}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaTransform", "MediaTransform\MediaTransform.csproj", "{6B1A50B3-BE83-4441-81B7-84CD46AF10C1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9} = {68199586-1576-4C30-9CE6-0FFCAAD820C9}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderToFile", "SenderToFile\SenderToFile.csproj", "{FD5CF7D7-C47A-4D8E-B341-D2B76B591FCF}"
 EndProject
@@ -51,7 +66,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderFilter", "SenderFilte
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverFileSystem", "ReceiverFileSystem\ReceiverFileSystem.csproj", "{46BEA921-B6C5-42C2-8D9C-1DFC8AF567EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverJob", "ReceiverJob\ReceiverJob.csproj", "{2031F3BA-0A1E-4B3C-84DC-ACA2B0D49516}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverJob", "ReceiverJob\ReceiverJob.csproj", "{2031F3BA-0A1E-4B3C-84DC-ACA2B0D49516}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{68199586-1576-4C30-9CE6-0FFCAAD820C9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -159,6 +176,10 @@ Global
 		{2031F3BA-0A1E-4B3C-84DC-ACA2B0D49516}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2031F3BA-0A1E-4B3C-84DC-ACA2B0D49516}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2031F3BA-0A1E-4B3C-84DC-ACA2B0D49516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68199586-1576-4C30-9CE6-0FFCAAD820C9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
