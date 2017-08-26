@@ -22,10 +22,17 @@ namespace StankinsTests
         {
             Console.WriteLine("finished test!");
             var data = Logging.StartLogging.cd.Select(it => new { Key=it.Key(), it.duration }).ToArray();
-            var time= data.GroupBy(it => it.Key).Select(it => new { it.Key, MilliSeconds = it.Sum(t => t.duration.TotalMilliseconds)/it.Count() }).OrderByDescending(s=>s.MilliSeconds).Take(10).ToArray();
-            foreach(var item in time)
+            var g = data.GroupBy(it => it.Key).ToArray();
+            var meanTime= g.Select(it => new { it.Key, MilliSeconds = it.Sum(t => t.duration.TotalMilliseconds)/it.Count() }).OrderByDescending(s=>s.MilliSeconds).Take(10).ToArray();
+            foreach(var item in meanTime)
             {
-                Console.WriteLine($"!!!!!Method {item.Key} duration seconds {item.MilliSeconds/1000}");
+                Console.WriteLine($"!!!!!Method {item.Key} mean duration seconds {item.MilliSeconds/1000}");
+            }
+
+            var totalTime= g.Select(it => new { it.Key, MilliSeconds = it.Sum(t => t.duration.TotalMilliseconds) }).OrderByDescending(s => s.MilliSeconds).Take(10).ToArray();
+            foreach (var item in totalTime)
+            {
+                Console.WriteLine($"!!!!!Method {item.Key} total duration seconds {item.MilliSeconds / 1000}");
             }
             string x = "";
         }
