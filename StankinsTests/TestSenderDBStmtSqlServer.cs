@@ -11,6 +11,8 @@ using System.Data.SqlClient;
 using System.IO;
 using ReiceverDBStmtSqlServer;
 using StanskinsImplementation;
+using Microsoft.Extensions.Configuration;
+using System.Linq;
 
 namespace StankinsTests
 {
@@ -167,7 +169,10 @@ namespace StankinsTests
         public async Task TestSenderDBExecuteStoredProcedureWithParamsVSTS()
         {
             #region arrange
-            connectionString = @"Server=(localdb)\MSSQLLocalDB;Trusted_Connection=True;";
+            IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
+            IConfigurationRoot configuration = builder.Build();
+            
+            connectionString = configuration["SqlServerConnectionString"]; //VSTS SQL Server connection string "(localdb)\MSSQLLocalDB;Trusted_Connection=True;"
             string commandText = "dbo.TestSenderDBExecuteStoredProcedureWithParams";
             string parameters = "@p1=PersonID;@p2=FirstName;@p3=LastName";
 
