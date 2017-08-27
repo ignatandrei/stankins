@@ -11,20 +11,29 @@ using StanskinsImplementation;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace StankinsTests
 {
     [TestClass]
     public class TestReceiverDBStmtSqlServer
     {
-        const string connectionString = @"Server=(local)\SQL2016;Database=tempdb;Trusted_Connection=True;";
         const CommandType commandType = CommandType.StoredProcedure;
-        
+
+        private string GetSqlServerConnectionString()
+        {
+            IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
+            IConfigurationRoot configuration = builder.Build();
+            return configuration["SqlServerConnectionString"]; //VSTS SQL Server connection string "(localdb)\MSSQLLocalDB;Trusted_Connection=True;"
+        }
+
+
         [TestMethod]
-        [TestCategory("ExternalProgramsToBeRun")]
+        [TestCategory("RequiresSQLServer")]
         public async Task TestReiceverDBExecuteStoredProcedureNoParams()
         {
             #region arange
+            string connectionString = GetSqlServerConnectionString();
             string commandText = "dbo.TestReiceverDBExecuteStoredProcedureNoParams";
             const string fileNameSerilizeLastRow = "TestReiceverDBExecuteStoredProcedureNoParams_LastRow.txt";
 
@@ -81,11 +90,12 @@ namespace StankinsTests
         }
 
         [TestMethod]
-        [TestCategory("ExternalProgramsToBeRun")]
+        [TestCategory("RequiresSQLServer")]
         public async Task TestReiceverDBExecuteStoredProcedureWithParams()
         {
             //First call
             #region arange
+            string connectionString = GetSqlServerConnectionString();
             string commandText = "dbo.TestReiceverDBExecuteStoredProcedureWithParam";
             const string fileNameSerilizeLastRow = "TestReiceverDBExecuteStoredProcedureWithParam_LastRow.txt";
             string parameters = "@pid=PersonID;@p2=FirstName";
@@ -184,12 +194,13 @@ namespace StankinsTests
         [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestSimpleJobReceiverDBExecuteStoredProcedureToSenderElasticSearch()
         {
-            const string commandText = "dbo.TestReiceverDBExecuteStoredProcedure2";
-            const string url = "http://localhost:9200";
-            const string indexName = "ixtestsenderelasticsearch2";
-            const string typeName = "Person";
-            const string id = "PersonID";
-            const string fileNameSerilizeLastRow = "TestExecStoredProcedure2.txt";
+            string connectionString = GetSqlServerConnectionString();
+            string commandText = "dbo.TestReiceverDBExecuteStoredProcedure2";
+            string url = "http://localhost:9200";
+            string indexName = "ixtestsenderelasticsearch2";
+            string typeName = "Person";
+            string id = "PersonID";
+            string fileNameSerilizeLastRow = "TestExecStoredProcedure2.txt";
 
             #region arange
             //Arange receiver

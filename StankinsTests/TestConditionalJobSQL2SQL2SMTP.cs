@@ -14,6 +14,7 @@ using StanskinsImplementation;
 using SenderSMTP;
 using Transformers;
 using MailKit.Net.Pop3;
+using Microsoft.Extensions.Configuration;
 
 namespace StankinsTests
 {
@@ -21,7 +22,6 @@ namespace StankinsTests
     public class TestConditionalJobSQL2SQL2SMTP
     {
         //SQL Server general settings
-        const string connectionString = @"Server=(local)\SQL2016;Database=tempdb;Trusted_Connection=True;";
         const CommandType commandType = CommandType.StoredProcedure;
         //SMTP general settings
         const string from = "666def2ad8-a3dd31@inbox.mailtrap.io";
@@ -36,11 +36,19 @@ namespace StankinsTests
         const string pop3Server = "mailtrap.io";
         const int pop3Port = 9950; // 1100 or 9950
 
+        private string GetSqlServerConnectionString()
+        {
+            IConfigurationBuilder builder = new ConfigurationBuilder().AddJsonFile(Path.Combine(AppContext.BaseDirectory, "appsettings.json"));
+            IConfigurationRoot configuration = builder.Build();
+            return configuration["SqlServerConnectionString"]; //VSTS SQL Server connection string "(localdb)\MSSQLLocalDB;Trusted_Connection=True;"
+        }
+
         [TestMethod]
-        [TestCategory("ExternalProgramsToBeRun")]
+        [TestCategory("RequiresSQLServer")]
         public async Task TestConditionalJobSQLServer2SQLServerAndFilter2SMTP()
         {
             #region arrange
+            string connectionString = GetSqlServerConnectionString();
             string commandText1 = "dbo.TestReiceverDBExecuteStoredProcedureNoParam2"; // Receiver SP (Source)
             string fileNameSerilizeLastRow = string.Empty;
             string parameters1 = string.Empty;
