@@ -173,8 +173,9 @@ namespace StankinsTests
             IConfigurationRoot configuration = builder.Build();
             
             connectionString = configuration["SqlServerConnectionString"]; //VSTS SQL Server connection string "(localdb)\MSSQLLocalDB;Trusted_Connection=True;"
-            string commandText = "dbo.TestSenderDBExecuteStoredProcedureWithParams";
+            Console.WriteLine($"SQL Server connection string={connectionString}");
             string parameters = "@p1=PersonID;@p2=FirstName;@p3=LastName";
+            string commandText = "dbo.TestSenderDBExecuteStoredProcedureWithParams";
 
             //Prepare source data: 2 rows {ID, FirstName, LastName}
             var rows = new List<IRow>();
