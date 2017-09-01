@@ -45,6 +45,7 @@ namespace StankinsTests
 
         [TestMethod]
         [TestCategory("RequiresSQLServer")]
+        [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestConditionalJobSQLServer2SQLServerAndFilter2SMTP()
         {
             #region arrange
