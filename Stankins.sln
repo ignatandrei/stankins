@@ -68,7 +68,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverFileSystem", "Recei
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverJob", "ReceiverJob\ReceiverJob.csproj", "{2031F3BA-0A1E-4B3C-84DC-ACA2B0D49516}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logging", "Logging\Logging.csproj", "{68199586-1576-4C30-9CE6-0FFCAAD820C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Logging", "Logging\Logging.csproj", "{68199586-1576-4C30-9CE6-0FFCAAD820C9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsSimpleJobNET", "StankinsSimpleJobNET\StankinsSimpleJobNET.csproj", "{F79F1749-8671-4624-83A5-F6365D293495}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -180,6 +182,10 @@ Global
 		{68199586-1576-4C30-9CE6-0FFCAAD820C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68199586-1576-4C30-9CE6-0FFCAAD820C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68199586-1576-4C30-9CE6-0FFCAAD820C9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F79F1749-8671-4624-83A5-F6365D293495}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F79F1749-8671-4624-83A5-F6365D293495}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F79F1749-8671-4624-83A5-F6365D293495}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F79F1749-8671-4624-83A5-F6365D293495}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
