@@ -219,6 +219,10 @@
       <Project>{2031f3ba-0a1e-4b3c-84dc-aca2b0d49516}</Project>
       <Name>ReceiverJob</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ReceiverOLEDB\ReceiverOLEDB.csproj">
+      <Project>{3c1f83fb-779d-4688-9e62-e44f728d3644}</Project>
+      <Name>ReceiverOLEDB</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj">
       <Project>{b5fc4445-94ed-49bb-ac51-59d8eecb83f2}</Project>
       <Name>ReiceverDBStmtSqlServer</Name>

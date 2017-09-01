@@ -55,6 +55,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsSimpleJobNET", "Sta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsSimpleFactoryNet", "StankinsSimpleFactoryNet\StankinsSimpleFactoryNet.csproj", "{2F6BE28C-CD17-4211-A759-6E4FF3FC9015}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverOLEDB", "ReceiverOLEDB\ReceiverOLEDB.csproj", "{3C1F83FB-779D-4688-9E62-E44F728D3644}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,6 +143,10 @@ Global
 		{2F6BE28C-CD17-4211-A759-6E4FF3FC9015}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F6BE28C-CD17-4211-A759-6E4FF3FC9015}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F6BE28C-CD17-4211-A759-6E4FF3FC9015}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C1F83FB-779D-4688-9E62-E44F728D3644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C1F83FB-779D-4688-9E62-E44F728D3644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C1F83FB-779D-4688-9E62-E44F728D3644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C1F83FB-779D-4688-9E62-E44F728D3644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
