@@ -22,9 +22,9 @@ namespace StankinsTests
             sb.AppendLine("BMW,B325DFH");
             sb.AppendLine("Ford,B325IYS");
              
-            string filename = "mycsv.csv";
+            string filename = SimpleJobConditionalTransformersTest.DeleteFileIfExists( "mycsv.csv");
 
-            File.WriteAllText(filename, sb.ToString());
+            File.WriteAllText( filename, sb.ToString());
 
             #endregion
             #region ACT

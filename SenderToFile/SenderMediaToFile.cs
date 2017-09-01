@@ -18,10 +18,19 @@ namespace SenderToFile
         public IRow[] valuesToBeSent { protected get; set; }
         public string FileName { get; set; }
         public IFilterTransformToString media { get; set; }
+        public IFilterTransformToByteArray MediaArray { get;set; }
+
         public SenderMediaToFile(IFilterTransformToString media, string outputFileName)
         {
             this.FileName= outputFileName;
             this.media = media;
+            this.Name = $"send to {Path.GetFileName(outputFileName)} ";
+        }
+        public SenderMediaToFile(IFilterTransformToByteArray transform, string outputFileName)
+        {
+            this.FileName = outputFileName;
+            
+            MediaArray = transform;
             this.Name = $"send to {Path.GetFileName(outputFileName)} ";
         }
         public virtual async Task Send()
@@ -29,12 +38,25 @@ namespace SenderToFile
 
             if (valuesToBeSent == null || valuesToBeSent.Length == 0)
                 return;
-
-            media.valuesToBeSent = this.valuesToBeSent;
-            await media.Run();
-            if (media.Result == null || media.Result.Length == 0)
+            if (media == null && MediaArray == null)
                 return;
-            var buffer = Encoding.UTF8.GetBytes(media.Result);
+            byte[] buffer=null;
+            if (media != null)
+            {
+                media.valuesToBeSent = this.valuesToBeSent;
+                await media.Run();
+                if (media.Result == null || media.Result.Length == 0)
+                    return;
+                buffer = Encoding.UTF8.GetBytes(media.Result);
+            }
+            if (MediaArray != null)
+            {
+                MediaArray.valuesToBeSent = this.valuesToBeSent;
+                await MediaArray.Run();
+                if (MediaArray.Result == null || MediaArray.Result.Length == 0)
+                    return;
+                buffer = MediaArray.Result;
+            }
 
             using (var fs = new FileStream(FileName, FileMode.OpenOrCreate,
                 FileAccess.Write, FileShare.None, buffer.Length, true))
