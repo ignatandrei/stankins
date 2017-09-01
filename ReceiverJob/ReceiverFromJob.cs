@@ -21,7 +21,7 @@ namespace ReceiverJob
         public IJob Job { get; }
         IRowReceive[] FromSimpleJob(ISimpleJob sj)
         {
-            var li = new List<IRowReceiveHierarchical>();
+            var li = new List<IRowReceiveHierarchicalParent>();
             for (int i = 0; i < sj.Receivers.Count; i++)
             {
                 var item = sj.Receivers[i];
@@ -81,9 +81,9 @@ namespace ReceiverJob
             //TODO:log
             await Task.CompletedTask;
         }
-        IRowReceiveHierarchical[]  FromSimpleTree(SimpleTree st,IRowReceiveHierarchical parent)
+        IRowReceiveHierarchicalParent[]  FromSimpleTree(SimpleTree st,IRowReceiveHierarchicalParent parent)
         {
-            var li = new List<IRowReceiveHierarchical>();
+            var li = new List<IRowReceiveHierarchicalParent>();
             foreach(var node in st)
             {
                 var item = node.Key;
@@ -99,7 +99,7 @@ namespace ReceiverJob
         }
         private IRowReceive[] FromSimpleJobConditionalTransformers(SimpleJobConditionalTransformers sj)
         {
-            var li = new List<IRowReceiveHierarchical>();
+            var li = new List<IRowReceiveHierarchicalParent>();
             for (int i = 0; i < sj.Receivers.Count; i++)
             {
                 var item = sj.Receivers[i];

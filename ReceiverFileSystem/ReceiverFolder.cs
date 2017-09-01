@@ -32,9 +32,9 @@ namespace ReceiverFileSystem
             await Task.CompletedTask;
         }
 
-        IRowReceiveHierarchical[] RecursiveFromDirectory(DirectoryInfo di)
+        IRowReceiveHierarchicalParent[] RecursiveFromDirectory(DirectoryInfo di)
         {
-            var ret = new List<IRowReceiveHierarchical>();
+            var ret = new List<IRowReceiveHierarchicalParent>();
             //var di = new DirectoryInfo(FolderName);
             var rh=DirectoryRow(di);
             ret.Add(rh);
@@ -59,7 +59,7 @@ namespace ReceiverFileSystem
                 var item = new RowReadHierarchical();
                 item.Values.Add("Name", file.Name);
                 item.Values.Add("FullName", file.FullName);
-                item.Parent = parent as IRowReceiveHierarchical;
+                item.Parent = parent as IRowReceiveHierarchicalParent;
                 ret.Add(item);
             }
             return ret.ToArray();

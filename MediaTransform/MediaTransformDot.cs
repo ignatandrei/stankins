@@ -17,7 +17,7 @@ namespace MediaTransform
             this.LabelField = labelField;
         }
         public string LabelField { get; set; }
-        string AppendDataForParent(IRowReceiveHierarchical[] col, IRowReceiveHierarchical parent, string label)
+        string AppendDataForParent(IRowReceiveHierarchicalParent[] col, IRowReceiveHierarchicalParent parent, string label)
         {
             if (parent == null)
                 return null;
@@ -42,7 +42,7 @@ namespace MediaTransform
         }
         public override async Task Run()
         {
-            var data=valuesToBeSent.Select(it => it as IRowReceiveHierarchical).Where(it=>it!=null).ToArray();
+            var data=valuesToBeSent.Select(it => it as IRowReceiveHierarchicalParent).Where(it=>it!=null).ToArray();
             var sb = new StringBuilder();
             sb.AppendLine($"digraph {LabelField}");
             sb.AppendLine("{");

@@ -75,7 +75,7 @@ Number Rows: @Model.Length
 
 <tbody>
 @foreach(var item in Model){
-    var m=item as IRowReceiveHierarchical;
+    var m=item as IRowReceiveHierarchicalParent;
 
 <tr>
 <td>@m.ID</td>

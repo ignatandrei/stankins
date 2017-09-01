@@ -14,6 +14,7 @@ public class TestSenderSMTP
     //public TestContext TestContext { get; set; }
 
     [TestMethod]
+    [TestCategory("ExternalProgramsToBeRun")]
     public async Task TestSendEmail()
     {
         string from = "666def2ad8-a3dd31@inbox.mailtrap.io";

@@ -22,7 +22,7 @@ namespace StankinsSimpleJob
 
         static void Main(string[] args)
         {
-            AddCompiolationReferencesForRuntime();
+            AddCompilationReferencesForRuntime();
             if (args?.Length == 0)
             {
                 args = new string[] { "-h" };
@@ -63,7 +63,7 @@ namespace StankinsSimpleJob
             
         }
 
-        private static void AddCompiolationReferencesForRuntime()
+        private static void AddCompilationReferencesForRuntime()
         {
             
             var j = new SimpleJob();

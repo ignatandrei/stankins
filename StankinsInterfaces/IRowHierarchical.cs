@@ -1,8 +1,8 @@
 ﻿namespace StankinsInterfaces
 {
-    public interface IRowReceiveHierarchical : IRowReceive
+    public interface IRowReceiveHierarchicalParent : IRowReceive
     {
         long ID { get; set; }
-        IRowReceiveHierarchical Parent { get; set; }
+        IRowReceiveHierarchicalParent Parent { get; set; }
     }
 }

@@ -39,7 +39,7 @@ namespace StankinsTests
             Assert.IsNotNull(rowDir);
             var rowFile= r.valuesRead.FirstOrDefault(it => it.Values["FullName"]?.ToString() == fullNameFile);
             Assert.IsNotNull(rowFile);
-            var rh = rowFile as IRowReceiveHierarchical;
+            var rh = rowFile as IRowReceiveHierarchicalParent;
             Assert.IsNotNull(rh);
             Assert.AreEqual(rh.Parent, rowDir);
             #endregion

@@ -6,7 +6,7 @@ using System.Text;
 
 namespace StanskinsImplementation
 {
-    public class RowReadHierarchical: RowRead, IRowReceiveHierarchical
+    public class RowReadHierarchical: RowRead, IRowReceiveHierarchicalParent
     {
         static int idH = 1;
         public RowReadHierarchical([CallerMemberName]string receiverName = ""):base(receiverName)
@@ -14,7 +14,7 @@ namespace StanskinsImplementation
             ID = idH++;
         }
 
-        public IRowReceiveHierarchical Parent { get ; set ; }
+        public IRowReceiveHierarchicalParent Parent { get ; set ; }
         public long ID { get; set; }
         
     }
