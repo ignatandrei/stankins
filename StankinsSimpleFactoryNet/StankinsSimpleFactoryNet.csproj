@@ -5,19 +5,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F79F1749-8671-4624-83A5-F6365D293495}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>StankinsSimpleJobNET</RootNamespace>
-    <AssemblyName>StankinsSimpleJobNET</AssemblyName>
+    <ProjectGuid>{2F6BE28C-CD17-4211-A759-6E4FF3FC9015}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>StankinsSimpleFactoryNet</RootNamespace>
+    <AssemblyName>StankinsSimpleFactoryNet</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,7 +26,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -39,27 +37,15 @@
     <Reference Include="Microsoft.Data.Sqlite, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Data.Sqlite.1.1.1\lib\net451\Microsoft.Data.Sqlite.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DotNet.PlatformAbstractions, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.DotNet.PlatformAbstractions.1.1.2\lib\net451\Microsoft.DotNet.PlatformAbstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.CommandLineUtils, Version=1.1.1.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.CommandLineUtils.1.1.1\lib\net451\Microsoft.Extensions.CommandLineUtils.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.0.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyModel, Version=1.1.2.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyModel.1.1.2\lib\net451\Microsoft.Extensions.DependencyModel.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Win32.Primitives">
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.AppContext">
@@ -167,16 +153,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\StankinsSimpleJob\Program.cs">
-      <Link>Program.cs</Link>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SimpleJobFactory.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj">
@@ -204,7 +185,7 @@
       <Name>ReceiverDBSqlServer</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj">
-      <Project>{683b8b47-28a6-4cdb-a2c9-2620ddad7e06}</Project>
+      <Project>{683B8B47-28A6-4CDB-A2C9-2620DDAD7E06}</Project>
       <Name>ReceiverDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj">
@@ -240,15 +221,11 @@
       <Name>SenderToFile</Name>
     </ProjectReference>
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj">
-      <Project>{a8fd3c16-d79d-478c-9bc3-6e44f9684553}</Project>
+      <Project>{A8FD3C16-D79D-478C-9BC3-6E44F9684553}</Project>
       <Name>StankinsInterfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\StankinsSimpleFactoryNet\StankinsSimpleFactoryNet.csproj">
-      <Project>{2f6be28c-cd17-4211-a759-6e4ff3fc9015}</Project>
-      <Name>StankinsSimpleFactoryNet</Name>
-    </ProjectReference>
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj">
-      <Project>{e14dd57c-8e88-4e76-88e5-0ad3bbb4899d}</Project>
+      <Project>{E14DD57C-8E88-4E76-88E5-0AD3BBB4899D}</Project>
       <Name>StanskinsImplementation</Name>
     </ProjectReference>
     <ProjectReference Include="..\Transformers\Transformers.csproj">

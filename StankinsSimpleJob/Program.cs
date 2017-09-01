@@ -22,6 +22,7 @@ namespace StankinsSimpleJob
 
         static void Main(string[] args)
         {
+            AddCompiolationReferencesForRuntime();
             if (args?.Length == 0)
             {
                 args = new string[] { "-h" };
@@ -61,8 +62,17 @@ namespace StankinsSimpleJob
             app.Execute(args);
             
         }
-       
-        
+
+        private static void AddCompiolationReferencesForRuntime()
+        {
+            
+            var j = new SimpleJob();
+            var x = (Microsoft.Extensions.DependencyModel.Resolution.ICompilationAssemblyResolver)null;
+            var RvCSV = new ReceiverCSV.ReceiverCSVFileInt("ASdsa",System.Text.Encoding.UTF8);
+            var rvSql = new ReceiverDBSqlServer.ReceiverTableSQLServerInt((ReceiverDB.DBTableData<int, System.Data.SqlClient.SqlConnection>)null);
+            var rvSqlIte=new ReceiverDBSQLite.ReceiverTableSQLiteInt((ReceiverDB.DBTableData<int, Microsoft.Data.Sqlite.SqliteConnection>)null);
+            var rvBinary = new ReceiverFile.ReceiverFileFromStorageBinary(null);           
+        }
 
         private static T GetFullObject<T>(SimpleJobFactory factory)
         {
