@@ -30,7 +30,7 @@
           "$type": "StanskinsImplementation.SerializeDataOnFile, StanskinsImplementation",
           "FileName": "StankinsDataoleDB.txt"
         },
-        "ConnectionString": "provider=sqloledb;Data Source=.;Initial Catalog=master;Integrated Security=SSPI;",
+        "ConnectionString": "provider=sqloledb;Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=master;Integrated Security=SSPI;",
         "TableName": "sys.all_objects",
         "Fields": [
           "*"

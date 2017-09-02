@@ -49,7 +49,7 @@ namespace StankinsNetConsoleForTest
                 return v;
                 
             }
-            Console.WriteLine("Test :" + fileNameWithJob + "has an error");
+            Console.WriteLine("Test :" + fileNameWithJob + " has an error");
             return false;
         }
     }
