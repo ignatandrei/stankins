@@ -84,7 +84,9 @@ namespace StankinsSimpleJob
             var rvBinary = new ReceiverFile.ReceiverFileFromStorageBinary(null);
             var sender = new Sender_CSV(null);
 #if !NETSTANDARD1_6
+#if !NETCOREAPP1_1
             var ole = new ReceiverOLEDB.ReceiverOleDBDatabaseInt(null);
+#endif
 #endif
         }
 
