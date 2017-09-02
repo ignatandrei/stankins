@@ -80,14 +80,15 @@ namespace StankinsSimpleJob
             var x = (Microsoft.Extensions.DependencyModel.Resolution.ICompilationAssemblyResolver)null;
             var RvCSV = new ReceiverCSV.ReceiverCSVFileInt("ASdsa",System.Text.Encoding.UTF8);
             var rvSql = new ReceiverDBSqlServer.ReceiverTableSQLServerInt((ReceiverDB.DBTableData<int, System.Data.SqlClient.SqlConnection>)null);
-            var rvSqlIte=new ReceiverDBSQLite.ReceiverTableSQLiteInt((ReceiverDB.DBTableData<int, Microsoft.Data.Sqlite.SqliteConnection>)null);
-            var rvBinary = new ReceiverFile.ReceiverFileFromStorageBinary(null);
-            var sender = new Sender_CSV(null);
 #if !NETSTANDARD1_6
 #if !NETCOREAPP1_1
             var ole = new ReceiverOLEDB.ReceiverOleDBDatabaseInt(null);
 #endif
 #endif
+            var rvSqlIte =new ReceiverDBSQLite.ReceiverTableSQLiteInt((ReceiverDB.DBTableData<int, Microsoft.Data.Sqlite.SqliteConnection>)null);
+            var rvBinary = new ReceiverFile.ReceiverFileFromStorageBinary(null);
+            var sender = new Sender_CSV(null);
+
         }
 
         private static T GetFullObject<T>(SimpleJobFactory factory)
