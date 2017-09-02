@@ -57,6 +57,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsSimpleFactoryNet", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverOLEDB", "ReceiverOLEDB\ReceiverOLEDB.csproj", "{3C1F83FB-779D-4688-9E62-E44F728D3644}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsNetConsoleForTest", "StankinsNetConsoleForTest\StankinsNetConsoleForTest.csproj", "{58450D57-F4C9-466F-983C-CA980998E472}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +149,10 @@ Global
 		{3C1F83FB-779D-4688-9E62-E44F728D3644}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3C1F83FB-779D-4688-9E62-E44F728D3644}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3C1F83FB-779D-4688-9E62-E44F728D3644}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58450D57-F4C9-466F-983C-CA980998E472}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58450D57-F4C9-466F-983C-CA980998E472}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58450D57-F4C9-466F-983C-CA980998E472}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58450D57-F4C9-466F-983C-CA980998E472}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

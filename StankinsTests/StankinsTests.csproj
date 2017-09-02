@@ -23,6 +23,8 @@
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
+    <ProjectReference Include="..\SenderAction\SenderAction.csproj" />
+    <ProjectReference Include="..\SenderDBInflux\SenderDBInflux.csproj" />
     <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
     <ProjectReference Include="..\SenderFilter\SenderFilter.csproj" />

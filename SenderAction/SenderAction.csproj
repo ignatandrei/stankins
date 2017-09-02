@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.5</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
+  </ItemGroup>
+
+</Project>

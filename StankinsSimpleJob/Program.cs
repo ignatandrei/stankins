@@ -55,8 +55,17 @@ namespace StankinsSimpleJob
                     var valSerialized = File.ReadAllText(file.Value);
                     var deserialized = JsonConvert.DeserializeObject(valSerialized, settings) as ISimpleJob;
                     //TODO:log
-                    deserialized.Execute().Wait();
-                    return 0;
+                    try
+                    {
+                        deserialized.Execute().Wait();
+                        return 0;
+                    }
+                    catch(Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return -1;
+                    }
+                   
                 });
             });
             app.Execute(args);

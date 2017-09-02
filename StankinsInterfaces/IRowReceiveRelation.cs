@@ -5,6 +5,6 @@ namespace StankinsInterfaces
     public interface IRowReceiveRelation : IRowReceive
     {
         long ID { get; set; }
-        Dictionary<string, IRowReceiveRelation> Relations { get; set; }
+        Dictionary<string, List<IRowReceiveRelation>> Relations { get; set; }
     }
 }

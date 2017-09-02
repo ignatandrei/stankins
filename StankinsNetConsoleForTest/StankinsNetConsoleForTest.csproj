@@ -4,15 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3C1F83FB-779D-4688-9E62-E44F728D3644}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ReceiverOLEDB</RootNamespace>
-    <AssemblyName>ReceiverOLEDB</AssemblyName>
+    <ProjectGuid>{58450D57-F4C9-466F-983C-CA980998E472}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>StankinsNetConsoleForTest</RootNamespace>
+    <AssemblyName>StankinsNetConsoleForTest</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +23,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -40,21 +42,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ReceiverOleDBDatabase.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj">
       <Project>{68199586-1576-4c30-9ce6-0ffcaad820c9}</Project>
       <Name>Logging</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj">
-      <Project>{683B8B47-28A6-4CDB-A2C9-2620DDAD7E06}</Project>
-      <Name>ReceiverDB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj">
-      <Project>{A8FD3C16-D79D-478C-9BC3-6E44F9684553}</Project>
-      <Name>StankinsInterfaces</Name>
+    <ProjectReference Include="..\StankinsSimpleJobNET\StankinsSimpleJobNET.csproj">
+      <Project>{f79f1749-8671-4624-83a5-f6365d293495}</Project>
+      <Name>StankinsSimpleJobNET</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
