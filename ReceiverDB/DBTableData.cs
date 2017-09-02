@@ -76,7 +76,14 @@ namespace ReceiverDB
                 }
                 if (cn != null)
                 {
-                    cn.Close();
+                    try
+                    {
+                        cn.Close();
+                    }
+                    catch 
+                    {
+                        //do nothing...
+                    }
                 }
                 cn = null;
                 

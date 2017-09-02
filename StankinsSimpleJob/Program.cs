@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
 using Newtonsoft.Json;
+using SenderToFile;
 using StankinsInterfaces;
 using StankinsSimpleFactory;
 using StanskinsImplementation;
@@ -80,7 +81,11 @@ namespace StankinsSimpleJob
             var RvCSV = new ReceiverCSV.ReceiverCSVFileInt("ASdsa",System.Text.Encoding.UTF8);
             var rvSql = new ReceiverDBSqlServer.ReceiverTableSQLServerInt((ReceiverDB.DBTableData<int, System.Data.SqlClient.SqlConnection>)null);
             var rvSqlIte=new ReceiverDBSQLite.ReceiverTableSQLiteInt((ReceiverDB.DBTableData<int, Microsoft.Data.Sqlite.SqliteConnection>)null);
-            var rvBinary = new ReceiverFile.ReceiverFileFromStorageBinary(null);           
+            var rvBinary = new ReceiverFile.ReceiverFileFromStorageBinary(null);
+            var sender = new Sender_CSV(null);
+#if !NETSTANDARD1_6
+            var ole = new ReceiverOLEDB.ReceiverOleDBDatabaseInt(null);
+#endif
         }
 
         private static T GetFullObject<T>(SimpleJobFactory factory)

@@ -1,0 +1,45 @@
+{
+  "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
+  "Senders": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "SenderToFile.Sender_CSV, SenderToFile",
+      "Name": "send to fileWithData.csv ",
+      "FileName": "fileWithData.csv",
+      "media": {
+        "$type": "MediaTransform.MediaTransformCSV, MediaTransform",
+        "Result": null,
+        "Name": null
+      },
+      "MediaArray": null
+    }
+  },
+  "FiltersAndTransformers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces"
+  },
+  "AllReceiversAsync": false,
+  "Receivers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "ReceiverOLEDB.ReceiverOleDBDatabaseInt, ReceiverOLEDB",
+      "Name": "OleDbReceiver from sql server",
+      "tableData": {
+        "$type": "ReceiverDB.DBTableData`2[[System.Int32, mscorlib],[System.Data.OleDb.OleDbConnection, System.Data]], ReceiverDB",
+        "MaxRecordsToRead": 9223372036854775807,
+        "data": {
+          "$type": "StanskinsImplementation.SerializeDataOnFile, StanskinsImplementation",
+          "FileName": "StankinsDataoleDB.txt"
+        },
+        "ConnectionString": "provider=sqloledb;Data Source=.;Initial Catalog=master;Integrated Security=SSPI;",
+        "TableName": "sys.all_objects",
+        "Fields": [
+          "*"
+        ],
+        "FieldNameToMark": "object_id",
+        "lastValue": 0
+      },
+      "valuesRead": null,
+      "LastValue": 0
+    }
+  }
+}

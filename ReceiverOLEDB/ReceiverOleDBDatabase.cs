@@ -17,12 +17,12 @@ namespace ReceiverOLEDB
 
         }
     }
-    public class ReceiverOleDBDatabase<T> : ReceiverTable<T, OleDbConnection>
+    public abstract class ReceiverOleDBDatabase<T> : ReceiverTable<T, OleDbConnection>
          where T : IComparable<T>         
     {
         public ReceiverOleDBDatabase(DBTableData<T, OleDbConnection> dtd):base(dtd)
         {
-            
+            this.Name = "OleDbReceiver";
         }
     }
 }
