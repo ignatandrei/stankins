@@ -11,7 +11,7 @@ using System.Reflection;
 
 namespace StankinsSimpleJob
 {
-    class Program
+    public class Program
     {
         enum AddDataSimpleJob
         {
@@ -45,32 +45,37 @@ namespace StankinsSimpleJob
                 var file = cmd.Argument("fileWithSimpleJob", "file serialized as simple job");
                 cmd.OnExecute(() =>
                 {
-                    var settings = new JsonSerializerSettings()
-                    {
-                        TypeNameHandling = TypeNameHandling.Objects,
-                        Formatting = Formatting.Indented,
-                        Error = HandleDeserializationError
-                        //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
-
-                    };
-                    var valSerialized = File.ReadAllText(file.Value);
-                    var deserialized = JsonConvert.DeserializeObject(valSerialized, settings) as ISimpleJob;
-                    //TODO:log
-                    try
-                    {
-                        deserialized.Execute().Wait();
-                        return 0;
-                    }
-                    catch(Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        return -1;
-                    }
+                    return ExecuteJob(file.Value);
                    
                 });
             });
             app.Execute(args);
             
+        }
+
+        public static int ExecuteJob(string fileName)
+        {
+            var settings = new JsonSerializerSettings()
+            {
+                TypeNameHandling = TypeNameHandling.Objects,
+                Formatting = Formatting.Indented,
+                Error = HandleDeserializationError
+                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+
+            };
+            var valSerialized = File.ReadAllText(value);
+            var deserialized = JsonConvert.DeserializeObject(valSerialized, settings) as ISimpleJob;
+            //TODO:log
+            try
+            {
+                deserialized.Execute().Wait();
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return -1;
+            }
         }
 
         private static void AddCompilationReferencesForRuntime()

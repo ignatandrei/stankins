@@ -37,9 +37,11 @@ namespace StankinsNetConsoleForTest
         }
         static bool SuccessRunFile(string fileNameWithJob, Func<bool> VerifyAnswers)
         {
-            var p = Process.Start("StankinsSimpleJobNET.exe", "execute " + fileNameWithJob);
-            p.WaitForExit();
-            if (p.ExitCode == 0)
+            //var p = Process.Start("StankinsSimpleJobNET.exe", "execute " + fileNameWithJob);
+            //p.WaitForExit();
+            var exitCode = StankinsSimpleJob.Program.ExecuteJob(fileNameWithJob);
+            //if (p.ExitCode == 0)
+            if(exitCode == 0)
             {
                 Console.WriteLine("executed successfully");
                 var v= VerifyAnswers();
