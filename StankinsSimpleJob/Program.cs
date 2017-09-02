@@ -63,7 +63,7 @@ namespace StankinsSimpleJob
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
-            var valSerialized = File.ReadAllText(value);
+            var valSerialized = File.ReadAllText(fileName);
             var deserialized = JsonConvert.DeserializeObject(valSerialized, settings) as ISimpleJob;
             //TODO:log
             try
