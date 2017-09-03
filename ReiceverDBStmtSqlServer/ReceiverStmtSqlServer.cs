@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using StanskinsImplementation;
 using System.Linq;
 
-namespace ReiceverDBStmtSqlServer
+namespace ReceiverDBStmtSqlServer
 {
     /// <summary>
     /// Note: Initial version will include support only for SPs calls (CommandType.StoredProcedure)
