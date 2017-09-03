@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using StankinsInterfaces;
+using StringInterpreter;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -156,7 +157,9 @@ namespace StanskinsImplementation
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
-            var sj = (SimpleJobConditionalTransformers)JsonConvert.DeserializeObject(serializeData, settings);
+            var i = new Interpret();
+            var newText = i.InterpretText(serializeData);
+            var sj = (SimpleJobConditionalTransformers)JsonConvert.DeserializeObject(newText, settings);
             this.association = sj.association;
             this.Receivers = sj.Receivers;
            

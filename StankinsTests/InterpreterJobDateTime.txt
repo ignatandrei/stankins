@@ -1,11 +1,11 @@
-{
+﻿{
   "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
   "Senders": {
     "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
     "0": {
       "$type": "SenderToFile.Sender_CSV, SenderToFile",
       "Name": "send to yyyyMMdd.csv ",
-      "FileName": "now:yyyyMMdd.csv",
+      "FileName": "SendTo#now:yyyyMMdd#.csv",
       "media": {
         "$type": "MediaTransform.MediaTransformCSV, MediaTransform",
         "Result": null,

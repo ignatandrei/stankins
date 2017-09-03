@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
+    <ProjectReference Include="..\StringInterpreter\StringInterpreter.csproj" />
   </ItemGroup>
 
 </Project>

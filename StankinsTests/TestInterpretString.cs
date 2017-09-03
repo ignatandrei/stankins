@@ -8,6 +8,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.IO;
 using System.Data.SqlClient;
 using System.Data;
+using StanskinsImplementation;
+using StankinsInterfaces;
 
 namespace StankinsTests
 {
@@ -105,19 +107,29 @@ namespace StankinsTests
         {
             #region arrange
             var dir = AppContext.BaseDirectory;
-            File.WriteAllText(Path.Combine(dir, "a.csv"), "asdasdasd");
-            Assert.IsTrue(File.Exists(Path.Combine(dir, "a.csv")));
             foreach (var item in Directory.EnumerateFiles(dir, "*.csv"))
             {
                 File.Delete(item);
             }
-            Assert.IsFalse(File.Exists(Path.Combine(dir, "a.csv")));
-            #endregion
-            //#region act
 
-            //#endregion
-            //#region assert
-            //#endregion
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("1,model,Track_number");
+            sb.AppendLine("2,Ford,B325ROS");
+            sb.AppendLine("3,Audi,PL654CSM");
+            sb.AppendLine("4,BMW,B325DFH");
+            sb.AppendLine("5,Ford,B325IYS");
+            File.WriteAllText(Path.Combine(dir, "cars.csv"), sb.ToString());
+            var textJob = File.ReadAllText(Path.Combine(dir, "InterpreterJobDateTime.txt"));
+            #endregion
+            #region act
+            IJob j = new SimpleJob();
+            j.UnSerialize(textJob);
+            await j.Execute();
+            #endregion
+            #region assert
+            Assert.IsTrue(File.Exists("SendTo" + DateTime.Now.ToString("yyyyMMdd") + ".csv"));
+               
+            #endregion
 
         }
     }

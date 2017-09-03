@@ -4,6 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using StringInterpreter;
 
 namespace StanskinsImplementation
 {
@@ -118,7 +119,9 @@ namespace StanskinsImplementation
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
-            var sj=(SimpleJob) JsonConvert.DeserializeObject(serializeData, settings);
+            var i = new Interpret();
+            var newText= i.InterpretText(serializeData);
+            var sj=(SimpleJob) JsonConvert.DeserializeObject(newText, settings);
             this.FiltersAndTransformers = sj.FiltersAndTransformers;
             this.Receivers = sj.Receivers;
             this.Senders = sj.Senders;
