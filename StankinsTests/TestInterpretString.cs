@@ -84,46 +84,38 @@ namespace StankinsTests
             
 
         }
+        [TestMethod]
+        public void InterpretDateTime()
+        {
+            #region arrange
+            string textToInterpret = "this is from #now:yyyyMMddHHmmss#";
+            #endregion
+            #region act
+
+            var i = new Interpret();
+            var str = i.InterpretText(textToInterpret);
+            #endregion
+            #region assert
+            Console.WriteLine("interpreted: " + str);
+            Assert.IsTrue(str.Contains("this is from "+ DateTime.Now.ToString("yyyyMMdd")), "should contain date");            
+            #endregion
+        }
 
         public async Task RunJobInterpreted()
         {
-            //    #region arrange
-            //    var dir = AppContext.BaseDirectory;
-            //    foreach( var item in Directory.EnumerateFiles(dir,"*.csv"))
-            //    {
-            //        File.Delete(item);
-            //    }
-            //    #region arange
-            //    string connectionString = GetSqlServerConnectionString();
-            //    string commandText = "dbo.TestReiceverDBExecuteStoredProcedureNoParams";
-            //    const string fileNameSerilizeLastRow = "TestReiceverDBExecuteStoredProcedureNoParams_LastRow.txt";
+            //#region arrange
+            //var dir = AppContext.BaseDirectory;
+            //foreach (var item in Directory.EnumerateFiles(dir, "*.csv"))
+            //{
+            //    File.Delete(item);
+            //}
+            //#endregion
+            //#region act
 
-            //    if (File.Exists(fileNameSerilizeLastRow))
-            //    {
-            //        File.Delete(fileNameSerilizeLastRow);
-            //    }
+            //#endregion
+            //#region assert
+            //#endregion
 
-            //    using (var conn = new SqlConnection(connectionString))
-            //    {
-            //        await conn.OpenAsync();
-            //        using (var cmd = conn.CreateCommand())
-            //        {
-            //            cmd.CommandType = CommandType.Text;
-
-            //            cmd.CommandText = "IF OBJECT_ID('dbo.TestReiceverDBExecuteStoredProcedureNoParams') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureNoParams;";
-            //            await cmd.ExecuteNonQueryAsync();
-            //            cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureNoParams AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joanna', 'Doe' ORDER BY PersonID";
-            //            await cmd.ExecuteNonQueryAsync();
-            //        }
-            //    }
-
-            //    #endregion
-            //    #region act
-
-            //    #endregion
-            //    #region assert
-            //    #endregion
-            //
         }
     }
 }

@@ -68,6 +68,7 @@ namespace StringInterpreter
         {
             var env = new List<ValuesToTranslate>();
             var appSettings = new List<ValuesToTranslate>();
+            var expressions = new List<ValuesToTranslate>();
             var options = RegexOptions.Multiline ;
             //# separator
             string regex = @"^.+?\#(?<myExpression>.+?)\#.+?$";
@@ -95,6 +96,13 @@ namespace StringInterpreter
                     case "env":
                         env.Add(p);
                         break;
+                    case "now":
+                        expressions.Add(new ValuesToTranslate()
+                        {
+                            ValueToTranslate = toInterpret,
+                            ValueTranslated = DateTime.Now.ToString(kv[1])
+                        });
+                        break;
                     default:
                         throw new ArgumentException("do not interpret " +kv[0]);
                 }
@@ -118,6 +126,10 @@ namespace StringInterpreter
             foreach (var item in appSettings)
             {
                 sb.Replace($"#file:{item.ValueToTranslate}#", item.ValueTranslated);
+            }
+            foreach (var item in expressions)
+            {
+                sb.Replace($"#{item.ValueToTranslate}#", item.ValueTranslated);
             }
 
             return sb.ToString();
