@@ -10,7 +10,7 @@ namespace SenderDBStmtSqlServer
 {
     /// <summary>
     /// TODO :
-    /// Refactor ReceiverToDBStmtSqlServer and SenderToDBStmtSqlServer into a single class ExecuteDBStmtSqlServer
+    ///  Refactor ReceiverToDBStmtSqlServer and SenderToDBStmtSqlServer into a single class ExecuteDBStmtSqlServer
     /// Add XML transformer (rows -> XML scalar value) + map XML scalar value to a SP parameter
     /// Use SqlBulkCopy for high speed INSERTs
     /// Use table partitioning + partition SWITCH to import data (concurent INSERTs)
