@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverOLEDB", "ReceiverOL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsNetConsoleForTest", "StankinsNetConsoleForTest\StankinsNetConsoleForTest.csproj", "{58450D57-F4C9-466F-983C-CA980998E472}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverAzureIoTHub", "ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj", "{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -153,6 +155,10 @@ Global
 		{58450D57-F4C9-466F-983C-CA980998E472}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58450D57-F4C9-466F-983C-CA980998E472}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58450D57-F4C9-466F-983C-CA980998E472}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
