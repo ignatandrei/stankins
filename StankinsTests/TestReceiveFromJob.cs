@@ -35,7 +35,7 @@ namespace StankinsTests
             #endregion
             #region assert
             Assert.IsTrue(File.Exists(file));
-            System.Diagnostics.Process.Start("explorer", file);
+            //System.Diagnostics.Process.Start("explorer.exe", file);
 
 #endregion
 

@@ -100,16 +100,19 @@ namespace StankinsTests
             Assert.IsTrue(str.Contains("this is from "+ DateTime.Now.ToString("yyyyMMdd")), "should contain date");            
             #endregion
         }
-
+        [TestMethod]
         public async Task RunJobInterpreted()
         {
-            //#region arrange
-            //var dir = AppContext.BaseDirectory;
-            //foreach (var item in Directory.EnumerateFiles(dir, "*.csv"))
-            //{
-            //    File.Delete(item);
-            //}
-            //#endregion
+            #region arrange
+            var dir = AppContext.BaseDirectory;
+            File.WriteAllText(Path.Combine(dir, "a.csv"), "asdasdasd");
+            Assert.IsTrue(File.Exists(Path.Combine(dir, "a.csv")));
+            foreach (var item in Directory.EnumerateFiles(dir, "*.csv"))
+            {
+                File.Delete(item);
+            }
+            Assert.IsFalse(File.Exists(Path.Combine(dir, "a.csv")));
+            #endregion
             //#region act
 
             //#endregion
