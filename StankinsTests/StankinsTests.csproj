@@ -30,6 +30,7 @@
     <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
     <ProjectReference Include="..\SenderFilter\SenderFilter.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
+    <ProjectReference Include="..\SenderHttp\SenderHttp.csproj" />
     <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
     <ProjectReference Include="..\SenderToFile\SenderToFile.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
