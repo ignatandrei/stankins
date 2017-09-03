@@ -213,7 +213,7 @@ Number Rows: @Model.Length
             Assert.IsTrue(File.Exists(filename), $"file {filename} must exists in export hierarchical");
             Assert.IsTrue(File.ReadAllText(filename).Contains(fileNameToWrite), "must contain data");
             Assert.IsTrue(File.ReadAllText(filename).Contains("Viz("), "must contain viz ...");
-            //System.Diagnostics.Process.Start("explorer.exe", filename);
+            System.Diagnostics.Process.Start("explorer.exe", filename);
             #endregion
         }
     }
