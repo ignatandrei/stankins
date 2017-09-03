@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using StringInterpreter;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.IO;
+using System.Data.SqlClient;
+using System.Data;
 
 namespace StankinsTests
 {
@@ -20,33 +23,45 @@ namespace StankinsTests
               .Select(s => s[random.Next(s.Length)]).ToArray());
         }
         [TestMethod]
-        public async Task InterpretTextNone()
+        public void InterpretTextNone()
         {
+            #region arrange
             string textToInterpret = RandomString(22);
+            #endregion
+            #region act
 
             var i = new Interpret();
             var str = i.InterpretText(textToInterpret);
+            #endregion
+            #region assert
             Assert.AreEqual(textToInterpret, str);
-
+            #endregion
         }
         [TestMethod]
-        public async Task InterpretSettingsFile()
+        public void InterpretSettingsFile()
         {
+            #region arrange
             string textToInterpret = "this is from #file:SqlServerConnectionString#";
-            
+            #endregion
+            #region act
+
             var i = new Interpret();
             var str = i.InterpretText(textToInterpret);
-            Assert.IsFalse(str.Contains("#"));
-            Assert.IsTrue(str.Contains("this is from"));
-            Assert.IsTrue(str.Contains("Database"));
-            Assert.IsTrue(str.Contains("Trusted_Connection"));
-            await Task.CompletedTask;
+            #endregion
+            #region assert
+            Console.WriteLine("interpreted: " + str);
+            Assert.IsFalse(str.Contains("#"),"should be interpreted");
+            Assert.IsTrue(str.Contains("this is from"),"should contain first chars");
+            Assert.IsTrue(str.Contains("atabase"),"should contain database");
+            Assert.IsTrue(str.Contains("rusted"),"should containt trusted connection");
+            #endregion
+            
 
         }
         [TestMethod]
-        public async Task InterpretEnv()
+        public void InterpretEnv()
         {
-            
+            #region arrange
             string textToInterpret = "";
             string textInterpreted = "";
             var var = Environment.GetEnvironmentVariables();
@@ -57,13 +72,58 @@ namespace StankinsTests
                 textInterpreted += randomString + var[item]  + Environment.NewLine;
                 continue;
             }
+            #endregion
+            #region act
             var i = new Interpret();
             var str = i.InterpretText(textToInterpret);
+            #endregion
+            #region assert
             Assert.AreEqual(textInterpreted, str);
-            await Task.CompletedTask;
-
+            
+            #endregion
+            
 
         }
+
+        public async Task RunJobInterpreted()
+        {
+        //    #region arrange
+        //    var dir = AppContext.BaseDirectory;
+        //    foreach( var item in Directory.EnumerateFiles(dir,"*.csv"))
+        //    {
+        //        File.Delete(item);
+        //    }
+        //    #region arange
+        //    string connectionString = GetSqlServerConnectionString();
+        //    string commandText = "dbo.TestReiceverDBExecuteStoredProcedureNoParams";
+        //    const string fileNameSerilizeLastRow = "TestReiceverDBExecuteStoredProcedureNoParams_LastRow.txt";
+
+        //    if (File.Exists(fileNameSerilizeLastRow))
+        //    {
+        //        File.Delete(fileNameSerilizeLastRow);
+        //    }
+
+        //    using (var conn = new SqlConnection(connectionString))
+        //    {
+        //        await conn.OpenAsync();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
+        //            cmd.CommandType = CommandType.Text;
+
+        //            cmd.CommandText = "IF OBJECT_ID('dbo.TestReiceverDBExecuteStoredProcedureNoParams') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureNoParams;";
+        //            await cmd.ExecuteNonQueryAsync();
+        //            cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureNoParams AS SELECT 1 AS PersonID, 'John' AS FirstName , 'Doe' AS LastName UNION ALL SELECT 11, 'Joanna', 'Doe' ORDER BY PersonID";
+        //            await cmd.ExecuteNonQueryAsync();
+        //        }
+        //    }
+
+        //    #endregion
+        //    #region act
+
+        //    #endregion
+        //    #region assert
+        //    #endregion
+        //}
     }
 }
 
