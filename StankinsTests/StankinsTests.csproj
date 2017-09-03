@@ -28,11 +28,13 @@
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderAction\SenderAction.csproj" />
+    <ProjectReference Include="..\SenderAzureIoTHub\SenderAzureIoTHub.csproj" />
     <ProjectReference Include="..\SenderDBInflux\SenderDBInflux.csproj" />
     <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
     <ProjectReference Include="..\SenderFilter\SenderFilter.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
+    <ProjectReference Include="..\SenderHttp\SenderHttp.csproj" />
     <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
     <ProjectReference Include="..\SenderToFile\SenderToFile.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />

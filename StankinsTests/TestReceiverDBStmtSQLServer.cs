@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ReiceverDBStmtSqlServer;
+using ReceiverDBStmtSqlServer;
 using System.Threading.Tasks;
 using Nest;
 using SenderElasticSearch;

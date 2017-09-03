@@ -9,7 +9,7 @@ using SenderDBStmtSqlServer;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
-using ReiceverDBStmtSqlServer;
+using ReceiverDBStmtSqlServer;
 using StanskinsImplementation;
 using SenderSMTP;
 using Transformers;
