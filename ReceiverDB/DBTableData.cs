@@ -1,25 +1,22 @@
-﻿using StankinsInterfaces;
+﻿using CommonDB;
+using StankinsInterfaces;
 using System;
 using System.Collections;
 using System.Data.Common;
-using System.Threading.Tasks;
 
 namespace ReceiverDB
 {
-    public class DBTableData<T, Connection> : IDisposable
+    public class DBTableData<T, Connection> : DBTableDataConnection<Connection>
         where T : IComparable<T>
         where Connection : DbConnection, new()
 
     {
-        public ISerializeData data { get; set; }
-        public DBTableData(ISerializeData data)
+        
+        public DBTableData(ISerializeData data):base(data)
         {
-            this.data = data;
+            
             this.Fields = new string[1] { "*" };
         }
-        public string ConnectionString { get; set; }
-        public string TableName { get; set; }
-        public string[] Fields { get; set; }
         //TODO: add multiple fields - lastcreated or modified
         public string FieldNameToMark { get; set; }
 
@@ -41,69 +38,13 @@ namespace ReceiverDB
                 
             }
         }
-        public IDictionary Keys()
+        public override IDictionary Keys()
         {
-            var c = new DbConnectionStringBuilder();
-            c.ConnectionString = ConnectionString;
-            
+            var c = base.Keys();
             c.Add($"{nameof(FieldNameToMark)}", $"{FieldNameToMark}");
             c.Add($"{nameof(TableName)}", $"{TableName}");
             return c;
         }
-        private DbConnection cn;
-        public virtual async Task<DbConnection> GetConnection()
-        {
-            //you do not multithread connections
-            if (cn == null)
-            {
-                cn = new Connection();
-                cn.ConnectionString = ConnectionString;
-                await cn.OpenAsync();
-            }
-            return cn;
-        }
-
-        #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!disposedValue)
-            {
-                if (disposing)
-                {
-                    // dispose managed state (managed objects).
-                }
-                if (cn != null)
-                {
-                    try
-                    {
-                        cn.Close();
-                    }
-                    catch 
-                    {
-                        //do nothing...
-                    }
-                }
-                cn = null;
-                
-                disposedValue = true;
-            }
-        }
-
         
-         ~DBTableData() {
-           // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-           Dispose(false);
-         }
-
-        // This code added to correctly implement the disposable pattern.
-        public void Dispose()
-        {
-            // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-        #endregion
     }
 }
