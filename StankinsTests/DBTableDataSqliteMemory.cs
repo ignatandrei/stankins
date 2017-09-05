@@ -17,7 +17,7 @@ namespace StankinsTests
         {
             this.cn = cn;
         }
-        public override async Task<DbConnection> GetConnection()
+        public override async Task<SqliteConnection> GetConnection()
         {
             return cn;
         }

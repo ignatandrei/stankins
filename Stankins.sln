@@ -78,7 +78,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderHttp", "SenderHttp\Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringInterpreter", "StringInterpreter\StringInterpreter.csproj", "{B9801BC6-465B-4BEB-BD66-EA74BC0F3A8F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonDB", "CommonDB\CommonDB.csproj", "{A2315DC7-EEAF-4FCF-98E4-0289D70A2BA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonDB", "CommonDB\CommonDB.csproj", "{A2315DC7-EEAF-4FCF-98E4-0289D70A2BA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderBulkCopy", "SenderBulkCopy\SenderBulkCopy.csproj", "{EBB5AD99-7EE6-4088-A3CD-83A94DD19FB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -210,6 +212,10 @@ Global
 		{A2315DC7-EEAF-4FCF-98E4-0289D70A2BA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2315DC7-EEAF-4FCF-98E4-0289D70A2BA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2315DC7-EEAF-4FCF-98E4-0289D70A2BA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBB5AD99-7EE6-4088-A3CD-83A94DD19FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBB5AD99-7EE6-4088-A3CD-83A94DD19FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBB5AD99-7EE6-4088-A3CD-83A94DD19FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBB5AD99-7EE6-4088-A3CD-83A94DD19FB3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

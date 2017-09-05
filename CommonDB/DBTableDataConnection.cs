@@ -26,8 +26,8 @@ namespace CommonDB
 
             return c;
         }
-        private DbConnection cn;
-        public virtual async Task<DbConnection> GetConnection()
+        private Connection cn;
+        public virtual async Task<Connection> GetConnection()
         {
             //you do not multithread connections
             if (cn == null)

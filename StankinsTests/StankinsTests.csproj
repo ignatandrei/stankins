@@ -42,6 +42,7 @@
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderAction\SenderAction.csproj" />
     <ProjectReference Include="..\SenderAzureIoTHub\SenderAzureIoTHub.csproj" />
+    <ProjectReference Include="..\SenderBulkCopy\SenderBulkCopy.csproj" />
     <ProjectReference Include="..\SenderDBInflux\SenderDBInflux.csproj" />
     <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
