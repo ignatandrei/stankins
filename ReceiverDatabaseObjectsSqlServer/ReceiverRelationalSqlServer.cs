@@ -16,12 +16,13 @@ namespace ReceiverDatabaseObjects
         {
             var ret = new List<KeyValuePair<string, object>>();
             var sb = new SqlConnectionStringBuilder(ConnectionString);
-            ret.Add(new KeyValuePair<string, object>( "name", sb.DataSource));
+            ret.Add(new KeyValuePair<string, object>( "Name", sb.DataSource));
+            ret.Add(new KeyValuePair<string, object>("ID", sb.DataSource));
             return await Task.FromResult(ret.ToArray());
         }
         protected override async Task<KeyValuePair<string, string>[]> GetDatabases()
         {
-            return await FromCmd("SELECT dbid as id,name FROM master.dbo.sysdatabases");
+            return await FromCmd("SELECT dbid as id,name FROM master.dbo.sysdatabases order by name");
         }
         async Task<KeyValuePair<string,string>[]> FromCmd(string commandText, string parametersMappings = null)
         {
@@ -58,6 +59,12 @@ namespace ReceiverDatabaseObjects
                     {
                         while (ir.Read())
                         {
+                            var id = ir["ID"];
+                            if(id== null || id == DBNull.Value)
+                            {
+                                //TODO: log
+                                continue;
+                            }
                             ret.Add(new KeyValuePair<string, string>(ir["id"].ToString(), ir["name"].ToString()));
                         }
                     }
@@ -68,19 +75,21 @@ namespace ReceiverDatabaseObjects
         protected override async Task<KeyValuePair<string, string>[]> GetTables(KeyValuePair<string, string> database)
         {
             string parameters = $"@tableName={database.Value}";
-            string commandText = @"
-                SELECT TABLE_NAME as name , Object_id(TABLE_NAME) as id 
+            string commandText = $"use {database.Value}"+@"
+                SELECT TABLE_SCHEMA + '.'+TABLE_NAME as name , Object_id(TABLE_SCHEMA+'.'+TABLE_NAME) as id 
                 FROM INFORMATION_SCHEMA.TABLES 
-                WHERE TABLE_TYPE = 'BASE TABLE' and TABLE_CATALOG = @tableName";
+                WHERE TABLE_TYPE = 'BASE TABLE' and TABLE_CATALOG = @tableName
+                order by TABLE_SCHEMA + '.'+TABLE_NAME";
             return await FromCmd(commandText,parameters);
         }
-        protected override async Task<KeyValuePair<string, string>[]> GetColumns(KeyValuePair<string, string> table)
+        protected override async Task<KeyValuePair<string, string>[]> GetColumns(KeyValuePair<string, string> table, KeyValuePair<string, string> database)
         {
             string parameters = $"@tableId={table.Key}";
-            string commandText = @"            
+            string commandText = $"use {database.Value}" + @"          
                 SELECT column_id as id ,name
                 FROM sys.columns
-                where object_id= @tableId";
+                where object_id= @tableId
+                order by name";
             return await FromCmd(commandText, parameters);
         }
 

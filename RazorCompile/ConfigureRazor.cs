@@ -15,10 +15,39 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-
+/// <summary>
+/// TODO: replace with https://github.com/aspnet/Entropy/blob/master/samples/Mvc.RenderViewToString/Program.cs
+/// </summary>
 namespace RazorCompile
-{
-    public class MediaTransformRazor : MediaTransformString
+{    
+
+    public class MediaTransformRazorTuple : MediaTransformString
+    {
+        public string ContentFileName { get; set; }
+        public object O { get; set; }
+
+        public MediaTransformRazorTuple(string contentFileName,object o)
+        {
+            this.ContentFileName = contentFileName;
+            O = o;
+        }
+
+        public override async Task Run()
+        {
+            var contentView = File.ReadAllText(ContentFileName);
+            var engine = EngineFactory.CreatePhysical(AppContext.BaseDirectory);
+            try
+            {
+                Result = engine.ParseString<Tuple<object,IRow[]>>(contentView,new Tuple<object, IRow[]>(O, valuesToBeSent));
+            }
+            catch (Exception ex)
+            {
+                //TODO: log
+                throw;
+            }
+        }
+    }
+        public class MediaTransformRazor : MediaTransformString
     {
         public string ContentFileName { get; set; }
         public MediaTransformRazor(string contentFileName)
