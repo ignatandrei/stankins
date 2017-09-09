@@ -28,7 +28,7 @@ namespace StankinsTests
             string file = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir,"a.html"));
             string view = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir, "view.cshtml"));
             
-            var sender = new Sender_HTMLHierarchicalViz(Path.GetFileName(view),file,"Name");
+            var sender = new Sender_HTMLHierarchicalViz("1/"+Path.GetFileName(view),file,"Name");
             File.WriteAllText(view, sender.DefaultExport());
             var newJob = new SimpleJob();
             newJob.Receivers.Add(0,receiver);

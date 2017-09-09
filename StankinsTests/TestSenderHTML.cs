@@ -110,7 +110,7 @@ Number Rows: @Model.Length
 
             #endregion
             #region act
-            ISend sender = new Sender_HTML(Path.GetFileName(fileRazor), filename);
+            ISend sender = new Sender_HTML("1/"+Path.GetFileName(fileRazor), filename);
             sender.valuesToBeSent = rows.ToArray();
             await sender.Send();
             #endregion
