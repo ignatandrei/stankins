@@ -14,12 +14,17 @@ namespace StankinsTests
     [TestClass]
     public class TestAsyncReceiverMultiple
     {
+
         [TestMethod]
         public async Task Test2Receivers()
         {
 
             #region arrange
             var dir = AppContext.BaseDirectory;
+            dir = Path.Combine(dir, "1");
+            if (Directory.Exists(dir))
+                Directory.Delete(dir, true);
+            Directory.CreateDirectory(dir);
             string fileNameToWrite = "andrei.txt";
             string fullNameFile = Path.Combine(dir, fileNameToWrite);
             if (File.Exists(fullNameFile))

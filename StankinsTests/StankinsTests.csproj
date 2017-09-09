@@ -1,8 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>    
-    <TargetFramework>netcoreapp1.1</TargetFramework>
-  <PreserveCompilationContext>true</PreserveCompilationContext>
+  <PropertyGroup>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+
   </PropertyGroup>
 
   <ItemGroup>

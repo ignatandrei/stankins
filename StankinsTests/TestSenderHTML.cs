@@ -22,8 +22,13 @@ namespace StankinsTests
         [TestMethod]
         public async Task TestSendHTMLData()
         {
-            var dir = AppContext.BaseDirectory;
+
             #region arange
+            var dir = AppContext.BaseDirectory;
+            dir = Path.Combine(dir, "1");
+            if (Directory.Exists(dir))
+                Directory.Delete(dir, true);
+            Directory.CreateDirectory(dir);
             string filename =Path.Combine(dir, "a.html");
             if (File.Exists(filename))
                 File.Delete(filename);
@@ -55,14 +60,14 @@ namespace StankinsTests
 
                 rows.Add(rowAndrei.Object);
             }
-            
-            
-            var folder = Path.Combine(AppContext.BaseDirectory);
 
-            var fileRazor = Path.Combine(folder, "my.cshtml");
 
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
+            
+
+            var fileRazor = Path.Combine(dir, "my.cshtml");
+
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
 
             File.WriteAllText(fileRazor,
  @"@using System.Linq;
@@ -105,7 +110,7 @@ Number Rows: @Model.Length
 
             #endregion
             #region act
-            ISend sender = new Sender_HTML(fileRazor, filename);
+            ISend sender = new Sender_HTML(Path.GetFileName(fileRazor), filename);
             sender.valuesToBeSent = rows.ToArray();
             await sender.Send();
             #endregion
@@ -124,6 +129,11 @@ Number Rows: @Model.Length
 
             
             var dir = AppContext.BaseDirectory;
+            dir = Path.Combine(dir, "1");
+            if (Directory.Exists(dir))
+                Directory.Delete(dir, true);
+            Directory.CreateDirectory(dir);
+
             string filename = Path.Combine(dir, "a.html");
             if (File.Exists(filename))
                 File.Delete(filename);
@@ -205,7 +215,7 @@ Number Rows: @Model.Length
 
             #endregion
             #region act
-            ISend sender = new Sender_HTMLHierarchicalViz(fileRazor, filename,"Name");           
+            ISend sender = new Sender_HTMLHierarchicalViz(Path.GetFileName(fileRazor), filename,"Name");           
             sender.valuesToBeSent = r.valuesRead;
             await sender.Send();
             #endregion

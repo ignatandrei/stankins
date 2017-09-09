@@ -1,22 +1,26 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewEngines;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Routing;
-using System;
-using System.IO;
-using System.Threading.Tasks;
 
 namespace RazorCompile
 {
-    class RazorViewToStringRenderer : IRazorViewToStringRenderer
+
+
+    internal class RazorViewToStringRenderer
     {
-        private readonly IRazorViewEngine _viewEngine;
-        private readonly ITempDataProvider _tempDataProvider;
-        private readonly IServiceProvider _serviceProvider;
+        private IRazorViewEngine _viewEngine;
+        private ITempDataProvider _tempDataProvider;
+        private IServiceProvider _serviceProvider;
 
         public RazorViewToStringRenderer(
             IRazorViewEngine viewEngine,
@@ -28,18 +32,10 @@ namespace RazorCompile
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<string> RenderViewToString<TModel>(string nameView, TModel model)
+        public async Task<string> RenderViewToStringAsync<TModel>(string viewName, TModel model)
         {
             var actionContext = GetActionContext();
-            
-            var viewEngineResult = _viewEngine.FindView(actionContext, nameView, false);
-
-            if (!viewEngineResult.Success)
-            {
-                throw new InvalidOperationException($"Couldn't find view '{nameView}'");
-            }
-            
-            var view = viewEngineResult.View;
+            var view = FindView(actionContext, viewName);
 
             using (var output = new StringWriter())
             {
@@ -64,15 +60,33 @@ namespace RazorCompile
             }
         }
 
+        private IView FindView(ActionContext actionContext, string viewName)
+        {
+            var getViewResult = _viewEngine.GetView(executingFilePath: null, viewPath: viewName, isMainPage: true);
+            if (getViewResult.Success)
+            {
+                return getViewResult.View;
+            }
+
+            var findViewResult = _viewEngine.FindView(actionContext, viewName, isMainPage: true);
+            if (findViewResult.Success)
+            {
+                return findViewResult.View;
+            }
+
+            var searchedLocations = getViewResult.SearchedLocations.Concat(findViewResult.SearchedLocations);
+            var errorMessage = string.Join(
+                Environment.NewLine,
+                new[] { $"Unable to find view '{viewName}'. The following locations were searched:" }.Concat(searchedLocations)); ;
+
+            throw new InvalidOperationException(errorMessage);
+        }
+
         private ActionContext GetActionContext()
         {
-            var httpContext = new DefaultHttpContext
-            {
-                RequestServices = _serviceProvider
-            };
-
+            var httpContext = new DefaultHttpContext();
+            httpContext.RequestServices = _serviceProvider;
             return new ActionContext(httpContext, new RouteData(), new ActionDescriptor());
         }
     }
 }
-

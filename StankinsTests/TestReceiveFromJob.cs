@@ -17,13 +17,18 @@ namespace StankinsTests
         public async Task TestReceiveFromJobConditional()
         {
             #region arrange
-            string dir = AppContext.BaseDirectory;
+            
+            var dir = AppContext.BaseDirectory;
+            dir = Path.Combine(dir, "1");
+            if (Directory.Exists(dir))
+                Directory.Delete(dir, true);
+            Directory.CreateDirectory(dir);
             var job = SimpleJobConditionalTransformersTest.GetJobCSV();
             var receiver = new ReceiverFromJob(job);
             string file = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir,"a.html"));
             string view = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir, "view.cshtml"));
             
-            var sender = new Sender_HTMLHierarchicalViz(view,file,"Name");
+            var sender = new Sender_HTMLHierarchicalViz(Path.GetFileName(view),file,"Name");
             File.WriteAllText(view, sender.DefaultExport());
             var newJob = new SimpleJob();
             newJob.Receivers.Add(0,receiver);

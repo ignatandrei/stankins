@@ -22,29 +22,46 @@ namespace StankinsTests
             IConfigurationRoot configuration = builder.Build();
             return configuration["SqlServerConnectionString"]; //VSTS SQL Server connection string "(localdb)\MSSQLLocalDB;Trusted_Connection=True;"
         }
-        void CreateExportFilesSqlServer(string folderRoot)
+        void CreateExportFilesSqlServer(string folderTo)
         {
-            string root = @"@using System.Linq;
+            if (!Directory.Exists(folderTo))
+                Directory.CreateDirectory(folderTo);
+            string sqlserver = @"@using System.Linq;
             @using StankinsInterfaces;
             @model StankinsInterfaces.IRow[]
 
             <h1> Servers Number Rows: @Model.Length</h1>
 <table border='1' id='server'>
 <tr><th>Nr</th><th>Name</th></tr>
-
-@foreach(var root in Model){
+@{
+int idRow=1;
+}
+@foreach(var server in Model){
     
-    <tr id='server_@root.Values[" + "\"PathID\"" + @"]'>
-<td>1</td>
+    <tr id='server_@server.Values[" + "\"PathID\"" + @"]'>
+<td>@(idRow++)</td>
     <td>
-        @root.Values[" + "\"Name\""+@"]
+        @server.Values[" + "\"Name\""+ @"]
+        <table>
+            <tr>
+            <td>
+            @{ 
+            var item= server as IRowReceiveRelation;            
+            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations[" + "\"databases\"].ToArray());"+
+            @"Html.RenderPartial(" + "\"databases.cshtml\"" + @",child); 
+
+            }
+            
+            </td>
+            <tr>
+        </table>
     </td>
     </tr>
 }
 </table>
 ";
-            string rootFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderRoot, "root.cshtml"));
-            File.WriteAllText(rootFile, root);
+            string sqlserverFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "sqlserver.cshtml"));
+            File.WriteAllText(sqlserverFile, sqlserver);
 
             string databases= @"@using System.Linq;
             @using StankinsInterfaces;
@@ -53,25 +70,37 @@ namespace StankinsTests
 IRow parent =Model.Item1 as IRow;
 int idRow=1;
 }
-            <h1> databases for server @parent.Values[" + "\"PathID\"" + @"] ;
+            <h1> databases for server @parent.Values[" + "\"Name\"" + @"] ;
 
 <table border='1' id='databases'>
 <tr><th>Nr</th><th>Name</th></tr>
 
-@foreach(var item in Model.Item2){
+@foreach(var database in Model.Item2){
 
-    <tr id='database_@item.Values[" + "\"PathID\"" + @"]'>
+    <tr id='database_@database.Values[" + "\"PathID\"" + @"]'>
 <td>@(idRow++)</td>
     <td>
-<a href='#tables_@item.Values[" + "\"PathID\"" + @"]'>
-        @item.Values[" + "\"Name\"" + @"]</a>
+<a href='#tables_@database.Values[" + "\"PathID\"" + @"]'>
+        @database.Values[" + "\"Name\"" + @"]</a>
+
+        <table>
+            <tr>
+            <td>
+            @{ 
+            var item= database as IRowReceiveRelation;            
+            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations[" + "\"tables\"].ToArray());" +
+            @"Html.RenderPartial(" + "\"tables.cshtml\"" + @",child); 
+            }
+            </td>
+            <tr>
+        </table>
     </td>
     </tr>
 }
 </table>
 
 ";
-            string databaseFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderRoot, "databases.cshtml"));
+            string databaseFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "databases.cshtml"));
             File.WriteAllText(databaseFile, databases);
 
             string tables = @"@using System.Linq;
@@ -89,19 +118,30 @@ int idRow=1;
 <th>Nr</th>
 <th>Name</th></tr>
 
-@foreach(var item in Model.Item2){
+@foreach(var table in Model.Item2){
 
-    <tr id='table_@item.Values[" + "\"PathID\"" + @"]'>
+    <tr id='table_@table.Values[" + "\"PathID\"" + @"]'>
 <td>@(idRow++)</td>
     <td>
-        @item.Values[" + "\"Name\"" + @"]
+        @table.Values[" + "\"Name\"" + @"]
+ <table>
+            <tr>
+            <td>
+            @{ 
+            var item= table as IRowReceiveRelation;            
+            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations[" + "\"columns\"].ToArray());" +
+            @"Html.RenderPartial(" + "\"columns.cshtml\"" + @",child); 
+            }
+            </td>
+            <tr>
+        </table>
     </td>
     </tr>
 }
 </table>
 
 ";
-            string tableFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderRoot, "tables.cshtml"));
+            string tableFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "tables.cshtml"));
             File.WriteAllText(tableFile, tables);
 
             string columns = @"@using System.Linq;
@@ -129,7 +169,7 @@ int idRow=1;
 </table>
 
 ";
-            string columnFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderRoot, "columns.cshtml"));
+            string columnFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "columns.cshtml"));
             File.WriteAllText(columnFile, columns);
             
         }
@@ -139,7 +179,7 @@ int idRow=1;
         {
             #region arrange
             string folderName = AppContext.BaseDirectory;
-            CreateExportFilesSqlServer(folderName);
+            CreateExportFilesSqlServer(Path.Combine(folderName,"Views"));
             var connectionString = GetSqlServerConnectionString();
             
             using (var conn = new SqlConnection(connectionString))
@@ -163,7 +203,7 @@ IF OBJECT_ID('dbo.TestAndrei', 'U') IS NOT NULL
             var rr = new ReceiverRelationalSqlServer();
             rr.ConnectionString = connectionString;
             string OutputFileName = SimpleJobConditionalTransformersTest.DeleteFileIfExists( Path.Combine(folderName, "a.html"));
-            var sender = new Sender_HTMLRelationViz(folderName,"sqlserver", OutputFileName);
+            var sender = new Sender_HTMLRelationViz("Views/sqlserver.cshtml","sqlserver", OutputFileName);
             var job = new SimpleJob();
             job.Receivers.Add(0, rr);
             job.Senders.Add(0, sender);

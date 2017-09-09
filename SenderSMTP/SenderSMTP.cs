@@ -6,7 +6,7 @@ using System.Text;
 using MailKit.Net.Smtp;
 using MimeKit;
 using MailKit.Security;
-using CsvHelper;
+
 using MediaTransform;
 
 namespace SenderSMTP
@@ -105,6 +105,7 @@ namespace SenderSMTP
             //https://www.stevejgordon.co.uk/how-to-send-emails-in-asp-net-core-1-0
             //https://www.joeaudette.com/blog/2016/05/08/sending-smtp-email-on-aspnet-core-with-mailkit
             //TODO: In .Net Core 2.0 replace MailKit with MailMessage
+            
             var message = new MimeMessage();
 
             foreach (var emailAddress in this.From.Split(';'))
@@ -141,7 +142,7 @@ namespace SenderSMTP
             }
             message.Subject = this.Subject;
             message.Body = new TextPart((this.IsBodyHtml ? "html" : "plain")) { Text = this.Body };
-
+            
             using (var client = new SmtpClient())
             {
                 await client.ConnectAsync(this.SmtpServer, this.SmtpPort, (this.EnableSsl ? SecureSocketOptions.Auto : SecureSocketOptions.None) ).ConfigureAwait(false);

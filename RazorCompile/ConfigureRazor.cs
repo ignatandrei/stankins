@@ -6,8 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.ObjectPool;
 using Microsoft.Extensions.PlatformAbstractions;
-using RazorLight;
-using RazorLight.Extensions;
 using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
@@ -34,11 +32,12 @@ namespace RazorCompile
 
         public override async Task Run()
         {
-            var contentView = File.ReadAllText(ContentFileName);
-            var engine = EngineFactory.CreatePhysical(AppContext.BaseDirectory);
+            
+            //var contentView = File.ReadAllText(ContentFileName);
+            var engine = EngineFactory.CreatePhysical();
             try
             {
-                Result = engine.ParseString<Tuple<object,IRow[]>>(contentView,new Tuple<object, IRow[]>(O, valuesToBeSent));
+                Result = await engine.ParseString<Tuple<object,IRow[]>>(ContentFileName, new Tuple<object, IRow[]>(O, valuesToBeSent));
             }
             catch (Exception ex)
             {
@@ -57,11 +56,11 @@ namespace RazorCompile
 
         public override async Task Run()
         {
-            var contentView = File.ReadAllText(ContentFileName);
-            var engine = EngineFactory.CreatePhysical(AppContext.BaseDirectory);
+            //var contentView = File.ReadAllText(ContentFileName);
+            var engine = EngineFactory.CreatePhysical();
             try
             {
-                Result= engine.ParseString<IRow[]>(contentView, valuesToBeSent);
+                Result= await engine.ParseString<IRow[]>(ContentFileName, valuesToBeSent);
             }
             catch (Exception ex)
             {
@@ -71,26 +70,26 @@ namespace RazorCompile
         }
     }
 
-    public class ConfigureRazor: IRazorRenderer
-    {
-        public ConfigureRazor()
-        {
+    //public class ConfigureRazor: IRazorRenderer
+    //{
+    //    public ConfigureRazor()
+    //    {
                         
-        }
+    //    }
 
-        public async Task<string> RenderToString<TModel>(string contentView, TModel model)
-        {
-            var engine = EngineFactory.CreatePhysical(AppContext.BaseDirectory);
-            try
-            {
-                return engine.ParseString<TModel>(contentView, model);
-            }
-            catch (Exception ex)
-            {
-                //TODO: log
-                throw;
-            }
+    //    public async Task<string> RenderToString<TModel>(string contentView, TModel model)
+    //    {
+    //        var engine = EngineFactory.CreatePhysical();
+    //        try
+    //        {
+    //            return await engine.ParseString<TModel>(contentView, model);
+    //        }
+    //        catch (Exception ex)
+    //        {
+    //            //TODO: log
+    //            throw;
+    //        }
 
-        }
-    }
+    //    }
+    //}
 }
