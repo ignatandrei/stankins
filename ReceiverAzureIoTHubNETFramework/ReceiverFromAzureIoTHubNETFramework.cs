@@ -10,7 +10,7 @@ using StanskinsImplementation;
 
 namespace ReceiverAzureIoTHub
 {
-    public class ReceiverFromAzureIoTHub : IReceive
+    public class ReceiverFromAzureIoTHubNETFramework : IReceive
     {
         public string Name { set; get; }
         public string ConnectionString { get; set; }
@@ -21,7 +21,7 @@ namespace ReceiverAzureIoTHub
         public IRowReceive[] valuesRead { set; get; }
         private Dictionary<string, object> lastRowValues;
 
-        public ReceiverFromAzureIoTHub(string connectionString, string endpoint, string fileNameSerializeLastOffset)
+        public ReceiverFromAzureIoTHubNETFramework(string connectionString, string endpoint, string fileNameSerializeLastOffset)
         {
             this.ConnectionString = connectionString;
             this.Endpoint = endpoint;

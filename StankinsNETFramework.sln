@@ -59,8 +59,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverOLEDB", "ReceiverOL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsNetConsoleForTest", "StankinsNetConsoleForTest\StankinsNetConsoleForTest.csproj", "{58450D57-F4C9-466F-983C-CA980998E472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverAzureIoTHub", "ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj", "{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonDB", "CommonDB\CommonDB.csproj", "{017BCD65-3E96-4849-B28A-4AA1EAB59DAD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StringInterpreter", "StringInterpreter\StringInterpreter.csproj", "{E362E2BA-D5F9-4E72-A406-B0F7D689BF14}"
@@ -68,6 +66,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderBulkCopy", "SenderBulkCopy\SenderBulkCopy.csproj", "{7927CF05-AD82-48D7-A810-E5ADBDF23D4F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverSolution", "ReceiverSolution\ReceiverSolution.csproj", "{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverAzureIoTHubNETFramework", "ReceiverAzureIoTHubNETFramework\ReceiverAzureIoTHubNETFramework.csproj", "{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -163,10 +163,6 @@ Global
 		{58450D57-F4C9-466F-983C-CA980998E472}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{58450D57-F4C9-466F-983C-CA980998E472}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{58450D57-F4C9-466F-983C-CA980998E472}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Release|Any CPU.Build.0 = Release|Any CPU
 		{017BCD65-3E96-4849-B28A-4AA1EAB59DAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{017BCD65-3E96-4849-B28A-4AA1EAB59DAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{017BCD65-3E96-4849-B28A-4AA1EAB59DAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -183,6 +179,10 @@ Global
 		{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
