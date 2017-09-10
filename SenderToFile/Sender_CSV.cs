@@ -10,7 +10,7 @@ namespace SenderToFile
     /// </summary>
     public class Sender_CSV : SenderMediaToFile
     {
-        public Sender_CSV(string fileName):base(new MediaTransformCSV(), fileName)
+        public Sender_CSV(string fileName):base(fileName, new MediaTransformCSV())
         {
 
         }

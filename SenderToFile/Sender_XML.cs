@@ -9,7 +9,7 @@ namespace SenderToFile
     {
         public string RootName { get; set; }
 
-        public Sender_XML(string fileName, string rootName) :base(new MediaTransformXML(rootName), fileName)
+        public Sender_XML(string fileName, string rootName) :base( fileName, new MediaTransformXML(rootName))
         {
             this.RootName = rootName;
         }

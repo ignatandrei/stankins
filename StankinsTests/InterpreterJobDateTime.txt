@@ -6,11 +6,13 @@
       "$type": "SenderToFile.Sender_CSV, SenderToFile",
       "Name": "send to yyyyMMdd.csv ",
       "FileName": "SendTo#now:yyyyMMdd#.csv",
-      "media": {
+      "media": [
+		{
         "$type": "MediaTransform.MediaTransformCSV, MediaTransform",
         "Result": null,
         "Name": null
-      },
+		}
+      ],
       "MediaArray": null
     }
   },

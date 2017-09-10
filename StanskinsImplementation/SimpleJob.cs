@@ -78,16 +78,17 @@ namespace StanskinsImplementation
 
         }
         public bool AllReceiversAsync { get; set; }
+        public bool AllSendersAsync{ get; set; }
         public override async Task Execute()
         {
             IReceive arv;
             if (AllReceiversAsync)
             {
-                arv = new SyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                arv = new AsyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
             }
             else
             {
-                arv=new AsyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                arv=new SyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
             }
             await arv.LoadData();
             IRow[] data = arv.valuesRead;
@@ -104,7 +105,18 @@ namespace StanskinsImplementation
                 await filter.Run();
                 data = filter.valuesTransformed;                
             }
-            await SenderData(data);
+            //await SenderData(data);
+            ISend send;
+            if (AllSendersAsync)
+            {
+                send = new ASyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+            }
+            else
+            {
+                send = new SyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+            }
+            send.valuesToBeSent = data;
+            await send.Send();
         }
 
         

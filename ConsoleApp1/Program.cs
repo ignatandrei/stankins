@@ -71,7 +71,7 @@ namespace ConsoleApp1
 
             var tr = new TransformOneValueGeneral(transformExpression, "ADD_DATE", "realDate");
 
-            var sender = new Sender_HTML("BKChrome.cshtml", "b.html");
+            var sender = new Sender_HTMLRazor("BKChrome.cshtml", "b.html");
 
             SimpleJob sj = new SimpleJob();
             sj.Receivers.Add(0, receiver);

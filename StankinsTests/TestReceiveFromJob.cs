@@ -1,9 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using MediaTransform;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ReceiverJob;
 using SenderHTML;
+using SenderToFile;
 using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,17 +22,27 @@ namespace StankinsTests
             #region arrange
             
             var dir = AppContext.BaseDirectory;
-            dir = Path.Combine(dir, "1");
+            dir = Path.Combine(dir, "TestReceiveFromJobConditional");
             if (Directory.Exists(dir))
                 Directory.Delete(dir, true);
             Directory.CreateDirectory(dir);
             var job = SimpleJobConditionalTransformersTest.GetJobCSV();
             var receiver = new ReceiverFromJob(job);
-            string file = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir,"a.html"));
-            string view = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir, "view.cshtml"));
-            
-            var sender = new Sender_HTMLHierarchicalViz("1/"+Path.GetFileName(view),file,"Name");
-            File.WriteAllText(view, sender.DefaultExport());
+            string file = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir,"job.html"));
+            //var sender = new Sender_HierarchicalVizJob(file,"Name");
+            //var sender = new SenderMediaToFile(file,
+            //    new MediaTransformStringToText("<html><body>"),
+            //    new MediaTransformDotJob(),
+            //    new MediaTransformStringToText("</body></html>")
+            //    );
+            var export= SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir, "export.cshtml"));
+            File.WriteAllText(export, Sender_HTMLRazor.DefaultExport());
+            var sender = new SyncSenderMultiple(
+                new Sender_HTMLText(file, "<html><body>"),
+                new Sender_HTMLRazor("TestReceiveFromJobConditional/"+Path.GetFileName(export), file),
+                new Sender_HierarchicalVizJob(file, "Name"),
+                new Sender_HTMLText(file, "</body></html>")
+                );
             var newJob = new SimpleJob();
             newJob.Receivers.Add(0,receiver);
             //newJob.Receivers.Add(1, new ReceiverFromJob(newJob));

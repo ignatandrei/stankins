@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 
 namespace SenderHTML
 {
-    public class Sender_HTMLRelationViz : ISend
+    public class Sender_HTMLRelation: ISend
     {
-        public string VizUrl { get; set; }
-        public Sender_HTMLRelationViz(string rootFileName,string label, string outputFileName)
+        
+        public Sender_HTMLRelation(string rootFileName,string label, string outputFileName)
         {
             this.Name = "sender html viz";
             
             OutputFileName = outputFileName;
             RootFileName = rootFileName;
             Label = label;
-            VizUrl = "https://github.com/mdaines/viz.js/releases/download/v1.8.0/viz.js";
+            
         }
 
         
@@ -58,7 +58,7 @@ namespace SenderHTML
             //    }
             //}
             var bytes = buffer.ToArray();
-            using (var fs = new FileStream(OutputFileName, FileMode.OpenOrCreate,
+            using (var fs = new FileStream(OutputFileName, FileMode.Append,
               FileAccess.Write, FileShare.None, bytes.Length, true))
             {
                 await fs.WriteAsync(bytes, 0, bytes.Length);
