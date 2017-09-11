@@ -82,9 +82,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonDB", "CommonDB\Common
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderBulkCopy", "SenderBulkCopy\SenderBulkCopy.csproj", "{EBB5AD99-7EE6-4088-A3CD-83A94DD19FB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverDatabaseObjects", "ReceiverDatabaseObjects\ReceiverDatabaseObjects.csproj", "{C44D22E0-EF6A-46BD-B71A-E655FC166745}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverDatabaseObjects", "ReceiverDatabaseObjects\ReceiverDatabaseObjects.csproj", "{C44D22E0-EF6A-46BD-B71A-E655FC166745}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverDatabaseObjectsSqlServer", "ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj", "{7BCC74E7-1F9E-4FD5-A8A5-DF1EF4253305}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverDatabaseObjectsSqlServer", "ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj", "{7BCC74E7-1F9E-4FD5-A8A5-DF1EF4253305}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsDemos", "StankinsDemos\StankinsDemos.csproj", "{CCEDE31E-DF68-40FC-9491-F9AAC8C33F93}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -228,6 +230,10 @@ Global
 		{7BCC74E7-1F9E-4FD5-A8A5-DF1EF4253305}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BCC74E7-1F9E-4FD5-A8A5-DF1EF4253305}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BCC74E7-1F9E-4FD5-A8A5-DF1EF4253305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCEDE31E-DF68-40FC-9491-F9AAC8C33F93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCEDE31E-DF68-40FC-9491-F9AAC8C33F93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCEDE31E-DF68-40FC-9491-F9AAC8C33F93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCEDE31E-DF68-40FC-9491-F9AAC8C33F93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

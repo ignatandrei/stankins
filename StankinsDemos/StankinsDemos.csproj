@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\RazorHierarchical.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\RazorHierarchical.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
+    <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
+    <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+  </ItemGroup>
+
+</Project>

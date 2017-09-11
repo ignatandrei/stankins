@@ -3,6 +3,7 @@ using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ReceiverFileSystem
@@ -18,7 +19,7 @@ namespace ReceiverFileSystem
             FolderName = folderName;
             SearchPattern = searchPattern;
         }
-
+        public string[] ExcludeFolderNames { get; set; }
         public string FolderName { get; set; }
         public string SearchPattern { get; set; }
         
@@ -34,6 +35,13 @@ namespace ReceiverFileSystem
 
         IRowReceiveHierarchicalParent[] RecursiveFromDirectory(DirectoryInfo di,IRowReceive parent)
         {
+            if(ExcludeFolderNames?.Length>0)
+            {
+                //TODO: case insensitive
+                if (ExcludeFolderNames.Contains(di.Name)) 
+                    return null;
+            }
+            
             var ret = new List<IRowReceiveHierarchicalParent>();
             //var di = new DirectoryInfo(FolderName);
             var rh=DirectoryRow(di);
@@ -50,8 +58,8 @@ namespace ReceiverFileSystem
             foreach(var dir in di.EnumerateDirectories())
             {
                 var filesFolders = RecursiveFromDirectory(dir,rh);
-                
-                ret.AddRange(filesFolders);
+                if(filesFolders?.Length>0)
+                    ret.AddRange(filesFolders.Where(it=>it!=null).ToArray());
             }
             return ret.ToArray();
         }
