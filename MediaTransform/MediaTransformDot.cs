@@ -97,7 +97,7 @@ namespace MediaTransform
 
             var children = col.Where(it => it.Parent == parent).ToArray();
             if (children?.Length == 0)
-                return "";
+                return sb.ToString();
 
             
             foreach (var item in children)

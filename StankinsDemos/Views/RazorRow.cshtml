@@ -1,0 +1,37 @@
+@using System.Linq;
+@model StankinsInterfaces.IRow[]
+
+Number Rows: @Model.Length
+@{
+	bool showTable=(Model.Length>0);
+	if(!showTable){
+		return;
+    };
+	var FieldNames= Model[0]
+                .Values
+                .Select(it => it.Key).ToArray();
+}
+<table>
+<thead>
+<tr>
+@foreach(var col in FieldNames){
+
+<td>
+@col
+</td>
+
+}
+</thead>
+</tr>
+<tbody>
+@foreach(var item in Model){
+<tr>
+@foreach(var col in FieldNames){
+<td>
+@item.Values[col]
+</td>
+}
+</tr>
+}
+<tbody>
+</table>

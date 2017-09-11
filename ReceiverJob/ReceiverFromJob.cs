@@ -3,10 +3,67 @@ using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace ReceiverJob
 {
+    public class ReceiverFromJobFile : ReceiverFromJob
+    {
+        public ReceiverFromJobFile(string fileName):base(null)
+        {
+            FileName = fileName;
+        }
+
+        public string FileName { get; set; }
+        public override Task LoadData()
+        {
+            var text = File.ReadAllText(FileName);
+            if (!TryGetSimpleJobConditionalTransformers(text))
+            {
+                if (!TryGetSimpleJob(text))
+                {
+                    throw new ArgumentException($"cannot deserialize from file : {FileName}");
+                }
+            }
+            return base.LoadData();
+        }
+        bool TryGetSimpleJobConditionalTransformers(string text)
+        {
+            try
+            {
+                var sj = new SimpleJobConditionalTransformers();
+                sj.UnSerialize(text);
+                Job = sj;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                
+            }
+            
+
+        }
+        bool TryGetSimpleJob(string text)
+        {
+            try
+            {
+                var sj = new SimpleJob();
+                sj.UnSerialize(text);
+                Job = sj;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
+
+
+        }
+
+    }
     public class ReceiverFromJob:IReceive
     {
         public ReceiverFromJob(IJob job)
@@ -19,7 +76,7 @@ namespace ReceiverJob
         public IRowReceive[] valuesRead { get; set; }
 
         public string Name { get ; set ; }
-        public IJob Job { get; }
+        public IJob Job;
         IRowReceive[] FromSimpleJob(ISimpleJob sj)
         {
             var li = new List<IRowReceiveHierarchicalParent>();
@@ -47,7 +104,7 @@ namespace ReceiverJob
                 li.Add(newRow);
                 if (li.Count > 1)
                 {
-                    newRow.Parent = li[li.Count - 1];
+                    newRow.Parent = li[li.Count - 2];
                 }
             }
             for (int i = 0; i < sj.Senders.Count; i++)
@@ -60,12 +117,12 @@ namespace ReceiverJob
                 li.Add(newRow);
                 if (li.Count > 1)
                 {
-                    newRow.Parent = li[li.Count - 1];
+                    newRow.Parent = li[li.Count - 2];
                 }
             }
             return li.ToArray();
         }
-        public async Task LoadData()
+        public virtual async Task LoadData()
         {
             var job = Job as SimpleJobConditionalTransformers;
             if (job != null)

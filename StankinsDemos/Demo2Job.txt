@@ -1,0 +1,80 @@
+{
+  "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
+  "Senders": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "SenderHTML.Sender_HTMLText, SenderHTML",
+      "Name": "send to Demo2SimpleJobView.html ",
+      "FileName": "Demo2SimpleJobView.html",
+      "media": [
+        {
+          "$type": "MediaTransform.MediaTransformStringToText, MediaTransform",
+          "Text": "<html><body><h1>Job visualization</h1>",
+          "Result": null,
+          "Name": null
+        }
+      ],
+      "MediaArray": null
+    },
+    "1": {
+      "$type": "SenderHTML.Sender_HTMLRazor, SenderHTML",
+      "ViewFileName": "Views/RazorRow.cshtml",
+      "Name": "send to Demo2SimpleJobView.html ",
+      "FileName": "Demo2SimpleJobView.html",
+      "media": [
+        {
+          "$type": "RazorCompile.MediaTransformRazor, RazorCompile",
+          "ContentFileName": "Views/RazorRow.cshtml",
+          "Result": null,
+          "Name": null
+        }
+      ],
+      "MediaArray": null
+    },
+    "2": {
+      "$type": "SenderHTML.Sender_HierarchicalVizJob, SenderHTML",
+      "VizUrl": "https://github.com/mdaines/viz.js/releases/download/v1.8.0/viz.js",
+      "Label": "Name",
+      "Name": "send to Demo2SimpleJobView.html ",
+      "FileName": "Demo2SimpleJobView.html",
+      "media": [
+        {
+          "$type": "MediaTransform.MediaTransformDotJob, MediaTransform",
+          "LabelField": "Name",
+          "Result": null,
+          "Name": null
+        }
+      ],
+      "MediaArray": null
+    },
+    "3": {
+      "$type": "SenderHTML.Sender_HTMLText, SenderHTML",
+      "Name": "send to Demo2SimpleJobView.html ",
+      "FileName": "Demo2SimpleJobView.html",
+      "media": [
+        {
+          "$type": "MediaTransform.MediaTransformStringToText, MediaTransform",
+          "Text": "</body></html>",
+          "Result": null,
+          "Name": null
+        }
+      ],
+      "MediaArray": null
+    }
+  },
+  "FiltersAndTransformers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces"
+  },
+  "AllReceiversAsync": false,
+  "AllSendersAsync": false,
+  "Receivers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "ReceiverJob.ReceiverFromJobFile, ReceiverJob",
+      "Job": null,
+      "FileName": "jobDefinition.txt",
+      "valuesRead": null,
+      "Name": null
+    }
+  }
+}

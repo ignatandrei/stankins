@@ -1,4 +1,5 @@
 ﻿using ReceiverFileSystem;
+using ReceiverJob;
 using SenderHTML;
 using StankinsInterfaces;
 using StanskinsImplementation;
@@ -14,26 +15,58 @@ namespace StankinsDemos
         {
             Console.WriteLine(Directory.GetCurrentDirectory());
             string dir = Directory.GetCurrentDirectory();
-            
-            var strJobFolders = SimpleJobFolders();
+
+
             //if you want you can execute with StankinsSimpleJob
             //string file = Path.Combine(dir,"jobFolders.txt");
             //File.WriteAllText(file, SimpleJobFolders());
             //Console.WriteLine($"executing file {file}");
 
-            var si = new SimpleJob();
-            si.UnSerialize(strJobFolders);
-            si.Execute().GetAwaiter().GetResult();
+            //var strDemo1 = SimpleJobFolders();
+            //File.WriteAllText("Demo1Job.txt", strDemo2);
+            //var si = new SimpleJob();
+            //si.UnSerialize(strDemo1);
+            //si.Execute().GetAwaiter().GetResult();
             //Process.Start("StankinsSimpleJob.exe", "execute -fileWithSimpleJob " + file).WaitForExit();
-            
-            
+
+            var strDemo2 = SimpleJobView();
+            File.WriteAllText("Demo2Job.txt", strDemo2);
+            var si = new SimpleJob();
+            si.UnSerialize(strDemo2);
+            si.Execute().GetAwaiter().GetResult();
 
         }
-        
+        static string DeleteFileIfExists(string fileName)
+        {
+            if (File.Exists(fileName))
+                File.Delete(fileName);
+            return fileName;
+        }
+        static string SimpleJobView()
+        {
+            var si = new SimpleJob();
+
+            string fileName = DeleteFileIfExists("Demo2SimpleJobView.html");
+            File.WriteAllText("jobDefinition.txt", SimpleJobFolders());
+            var receiver = new ReceiverFromJobFile("jobDefinition.txt");
+            si.Receivers.Add(0,receiver);
+            si.Senders.Add(0, new Sender_HTMLText(fileName, "<html><body><h1>Job visualization</h1>"));
+            si.Senders.Add(1, new Sender_HTMLRazor("Views/RazorRow.cshtml", fileName));
+            si.Senders.Add(2, new Sender_HierarchicalVizJob(fileName, "Name"));
+            si.Senders.Add(3, new Sender_HTMLText(fileName, "</body></html>"));
+            //or you can add SyncSenderMultiple , but for now let's do it line by line
+            //ISend sender = new SyncSenderMultiple(
+            //    new Sender...
+            //    new Sender...
+            //    new Sender...
+            //    new Sender...
+            //    );
+            return si.SerializeMe();
+        }
         static string SimpleJobFolders()
         {
-            string fileName = "Demo1Folder.html";
-            //TODO: put this on interpret string , like env
+            string fileName = DeleteFileIfExists("Demo1SimpleJobFolders.html");
+            //TODO: put current dir on interpret string , like env
             
             var folderSolution= new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.FullName;
             var receiveFolder = new ReceiverFolder(folderSolution, "*.csproj");
