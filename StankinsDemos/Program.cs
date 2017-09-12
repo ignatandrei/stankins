@@ -21,17 +21,16 @@ namespace StankinsDemos
             //string file = Path.Combine(dir,"jobFolders.txt");
             //File.WriteAllText(file, SimpleJobFolders());
             //Console.WriteLine($"executing file {file}");
-
-            //var strDemo1 = SimpleJobFolders();
-            //File.WriteAllText("Demo1Job.txt", strDemo2);
-            //var si = new SimpleJob();
-            //si.UnSerialize(strDemo1);
-            //si.Execute().GetAwaiter().GetResult();
-            //Process.Start("StankinsSimpleJob.exe", "execute -fileWithSimpleJob " + file).WaitForExit();
-
+            IJob si;
+            var strDemo1 = SimpleJobFolders();
+            File.WriteAllText("Demo1JobFolders.txt", strDemo1);
+            si = new SimpleJob();
+            si.UnSerialize(strDemo1);
+            si.Execute().GetAwaiter().GetResult();
+            
             var strDemo2 = SimpleJobView();
-            File.WriteAllText("Demo2Job.txt", strDemo2);
-            var si = new SimpleJob();
+            File.WriteAllText("Demo2JobView.txt", strDemo2);
+            si = new SimpleJob();
             si.UnSerialize(strDemo2);
             si.Execute().GetAwaiter().GetResult();
 

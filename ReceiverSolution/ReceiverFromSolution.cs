@@ -10,27 +10,31 @@ using System.Threading.Tasks;
 
 namespace ReceiverSolution
 {
-    public class ReceiverFromSolution : ISend
+    public class ReceiverFromSolution : IReceive
     {
-        public IRow[] valuesToBeSent { get; set ; }
+        public IRowReceive[] valuesRead { get; set; }
         public string Name { get ; set ; }
         public string SolutionFileName { get; set; }
-        public ReceiverFromSolution()
+        public ReceiverFromSolution(string solutionFileName)
         {
-
+            SolutionFileName = solutionFileName;
         }
-        public async Task Send()
+        public async Task LoadData()
         {
+            int x =(int) Microsoft.CodeAnalysis.CSharp.Formatting.BinaryOperatorSpacingOptions.Ignore;
+            var _ = typeof(Microsoft.CodeAnalysis.CSharp.Formatting.CSharpFormattingOptions);
             var rr = new Dictionary<Guid, RowReadRelation>();
             var dictAssemblyNames = new Dictionary<string, List<RowReadRelation>>();
             var msWorkspace = MSBuildWorkspace.Create();
-
+            
             //var sol = msWorkspace.OpenSolutionAsync(@"D:\TFS\stankins\stankins.sln").Result;
-            var sol = msWorkspace.OpenSolutionAsync(@"D:\TFS\stankins\stankins.sln").Result;
+            var sol = await msWorkspace.OpenSolutionAsync(SolutionFileName);
             var rrhSol = new RowReadRelation();
             rrhSol.Values.Add("Name", Path.GetFileNameWithoutExtension(sol.FilePath));
             rrhSol.Values.Add("FilePath", sol.FilePath);
             rrhSol.Values.Add("Type", sol.GetType().Name);
+            var listProjects = new List<IRowReceiveRelation>();
+            rrhSol.Relations.Add("projects", listProjects);
             rr.Add(sol.Id.Id, rrhSol);
 
 
@@ -41,12 +45,12 @@ namespace ReceiverSolution
             {
                 var project = sol.GetProject(projectId);
                 var rrProject = new RowReadRelation();
+                listProjects.Add(rrProject);
                 rrProject.Values.Add("ID", projectId.Id);
                 rrProject.Values.Add("Name", project.Name);
                 rrProject.Values.Add("FilePath", project.FilePath);
                 rrProject.Values.Add("Type", project.GetType().Name);
-
-                rrProject.Add("Solution", rrhSol);
+                //rrProject.Add("Solution", rrhSol);
                 rr.Add(projectId.Id, rrProject);
                 var refProjects = projectGraph.GetProjectsThatThisProjectDirectlyDependsOn(projectId);
                 var listRefProjects = new List<IRowReceiveRelation>();
@@ -85,7 +89,7 @@ namespace ReceiverSolution
                 }
                 //var x = project.MetadataReferences.ToArray();
                 //var y = x.Length;
-                valuesToBeSent = new IRow[] { rrhSol };
+                valuesRead= new IRowReceive[] { rrhSol };
             }
         }
     }

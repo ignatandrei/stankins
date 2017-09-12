@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Demo1JobFolders.txt" />
+    <None Remove="Demo2Job.txt" />
+    <None Remove="Demo2JobView.txt" />
+    <None Remove="Demo2SimpleJobView.html" />
+    <None Remove="jobDefinition.txt" />
     <None Remove="Views\RazorHierarchical.cshtml" />
   </ItemGroup>
 

@@ -17,9 +17,9 @@ namespace MediaTransform
                 return;
             }
             var nrValues = valuesToBeSent.LongCount();
-            var dict = valuesToBeSent
+            var dict = valuesToBeSent;
                 //.SelectMany(it => it.Values).ToArray();
-                .Select(it => it.Values).ToArray();
+                //.Select(it => it.Values).ToArray();
             var settings = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.Objects,
