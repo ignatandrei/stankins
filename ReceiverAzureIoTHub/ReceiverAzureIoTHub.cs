@@ -96,7 +96,7 @@ namespace ReceiverAzureIoTHub
         {
             while (true)
             {
-                var eventData = /*await*/ receiver.ReceiveAsync(10, new TimeSpan(0, 0, 30)); //Timeout for receiving messages = 30 seconds
+                var eventData = /*await*/ receiver.ReceiveAsync(10, new TimeSpan(0, 0, 10)); //Timeout for receiving messages = 30 seconds
 
                 int count = 0;
                 if (eventData != null)
