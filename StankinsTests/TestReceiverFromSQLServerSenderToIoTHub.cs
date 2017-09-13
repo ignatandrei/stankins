@@ -14,6 +14,7 @@ using System.IO;
 using Microsoft.Extensions.Configuration;
 using SenderAzureIoTHub;
 using ReceiverAzureIoTHub;
+using System.Diagnostics;
 
 namespace StankinsTests
 {
@@ -72,7 +73,8 @@ namespace StankinsTests
 
             #region act
             await job.Execute();
-
+            //var j = job.SerializeMe();
+            //File.WriteAllText(@"e:\j.json", j);
             #endregion
 
             #region assert
