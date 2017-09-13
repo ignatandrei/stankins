@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderBulkCopy", "SenderBul
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverSolution", "ReceiverSolution\ReceiverSolution.csproj", "{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverAzureIoTHubNETFramework", "ReceiverAzureIoTHubNETFramework\ReceiverAzureIoTHubNETFramework.csproj", "{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverAzureIoTHub", "ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj", "{F95E6003-FB51-40EB-9820-2920B54109DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -179,10 +179,10 @@ Global
 		{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2FE3E7F3-A832-4CCA-80C9-D576F1D8EF53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F95E6003-FB51-40EB-9820-2920B54109DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F95E6003-FB51-40EB-9820-2920B54109DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F95E6003-FB51-40EB-9820-2920B54109DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F95E6003-FB51-40EB-9820-2920B54109DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
