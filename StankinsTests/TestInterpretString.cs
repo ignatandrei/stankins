@@ -12,6 +12,7 @@ using StanskinsImplementation;
 using StankinsInterfaces;
 using SenderToFile;
 using System.Diagnostics;
+using Shouldly;
 
 namespace StankinsTests
 {
@@ -101,7 +102,25 @@ namespace StankinsTests
             #endregion
             #region assert
             Console.WriteLine("interpreted: " + str);
-            Assert.IsTrue(str.Contains("this is from "+ DateTime.Now.ToString("yyyyMMdd")), "should contain date");            
+            str.ShouldContain($"this is from {DateTime.Now.ToString("yyyyMMdd")}");            
+            #endregion
+        }
+        [TestMethod]
+        public void InterpretStatic()
+        {
+            #region arrange
+            string textToInterpret = "this is from #static:DateTime.Today#";
+            textToInterpret += " and #static:Directory.GetCurrentDirectory()#";
+                
+            #endregion
+            #region act
+
+            var i = new Interpret();
+            var str = i.InterpretText(textToInterpret);
+            #endregion
+            #region assert
+            Console.WriteLine("interpreted: " + str);
+            str.ShouldBe($"this is from {DateTime.Today.ToString()} and {Directory.GetCurrentDirectory()}");
             #endregion
         }
         [TestMethod]
