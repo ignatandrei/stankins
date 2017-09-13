@@ -264,3 +264,5 @@ __pycache__/
 /StankinsSimpleJob/IronSQLDBA_wait_type_local2central_job_stankins.json
 /StankinsSimpleJob/IronSQLDBA_overall_status_select_last_row.json
 /StankinsSimpleJob/IronSQLDBA_overall_status_central2es_job_stankins.json
+/StankinsTests/TestReceiverAzureIoTHub.cs
+/ReceiverAzureIoTHub/LastReceivedMessage.cs

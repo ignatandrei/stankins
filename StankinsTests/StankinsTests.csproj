@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj" />
     <ProjectReference Include="..\ReceiverBookmarkExportChrome\ReceiverBookmarkExportChrome.csproj" />
     <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
     <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
