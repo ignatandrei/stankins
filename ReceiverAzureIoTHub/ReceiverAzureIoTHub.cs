@@ -18,6 +18,7 @@ namespace ReceiverAzureIoTHub
         public string EntityEventHubCompatible { get; set; }
         public int StartTimeInHours { get; set; }
         public string FileNameSerializeLastOffset { get; set; }
+        public object MessageType { get; set; }
 
         public IRowReceive[] valuesRead { get; set; }
         public Dictionary<string, LastReceivedMessage> lastRowValues { get; set; }
@@ -25,11 +26,12 @@ namespace ReceiverAzureIoTHub
         private EventHubClient eventHubClient;
         private List<RowRead> receivedRows;
 
-        public ReceiverFromAzureIoTHub(string connectionStringEventHubCompatible, string entityEventHubCompatible, string fileNameSerializeLastOffset, int startTimeInHours = -24)
+        public ReceiverFromAzureIoTHub(string connectionStringEventHubCompatible, string entityEventHubCompatible, string fileNameSerializeLastOffset, string messageType, int startTimeInHours = -24)
         {
             this.ConnectionStringEventHubCompatible = connectionStringEventHubCompatible;
             this.EntityEventHubCompatible = entityEventHubCompatible;
             this.FileNameSerializeLastOffset = fileNameSerializeLastOffset;
+            this.MessageType = messageType;
             this.StartTimeInHours = startTimeInHours;
         }
 
@@ -108,21 +110,22 @@ namespace ReceiverAzureIoTHub
 
                             if(item.SystemProperties.EnqueuedTimeUtc >= lastRowValues[receiver.PartitionId].EnqueuedTimeUtc && Convert.ToInt64(item.SystemProperties.Offset) > lastRowValues[receiver.PartitionId].EnqueuedOffset)
                             {
-                                string data = UnicodeEncoding.UTF8.GetString(item.Body.Array);
-                                List<Dictionary<string, object>> results = new List<Dictionary<string, object>>();
-                                try
+                                if(item.Properties.ContainsKey("MessageType") && item.Properties.ContainsKey("UnicodeEncoding"))
                                 {
-                                    results = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(data);
-                                }
-                                catch (Exception)
-                                {
-                                    //I don't have other idea now
-                                }
-                                foreach(var r in results)
-                                {
-                                    RowRead row = new RowRead();
-                                    row.Values = r;
-                                    receivedRows.Add(row);
+                                    if (this.MessageType.Equals(item.Properties["MessageType"]))
+                                    {
+                                        //Assert ? item.Properties["UnicodeEncoding"] == "UTF8"
+                                        string data = UnicodeEncoding.UTF8.GetString(item.Body.Array);
+                                        List<Dictionary<string, object>> results = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(data);
+
+                                        foreach(var r in results)
+                                        {
+                                            RowRead row = new RowRead();
+                                            row.Values = r;
+                                            receivedRows.Add(row);
+                                        }
+
+                                    }
                                 }
 
                                 LastReceivedMessage lastReceivedMessage;

@@ -88,7 +88,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverDatabaseObjectsSqlS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsDemos", "StankinsDemos\StankinsDemos.csproj", "{CCEDE31E-DF68-40FC-9491-F9AAC8C33F93}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverJSON", "ReceiverJSON\ReceiverJSON.csproj", "{483806BB-4C0B-4FDB-BAA2-2FD47FB0F82E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverJSON", "ReceiverJSON\ReceiverJSON.csproj", "{483806BB-4C0B-4FDB-BAA2-2FD47FB0F82E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverAzureIoTHub", "ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj", "{57A0CB9B-41A0-4DE3-A8EC-4F6180E2E328}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -240,6 +242,10 @@ Global
 		{483806BB-4C0B-4FDB-BAA2-2FD47FB0F82E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{483806BB-4C0B-4FDB-BAA2-2FD47FB0F82E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{483806BB-4C0B-4FDB-BAA2-2FD47FB0F82E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57A0CB9B-41A0-4DE3-A8EC-4F6180E2E328}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57A0CB9B-41A0-4DE3-A8EC-4F6180E2E328}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57A0CB9B-41A0-4DE3-A8EC-4F6180E2E328}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57A0CB9B-41A0-4DE3-A8EC-4F6180E2E328}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -20,8 +20,9 @@ namespace StankinsTests
             string iotHubUri = "AzBogdanStankinsIoTHub.azure-devices.net";
             string deviceId = "DeviceTest01-ACD3688D";
             string deviceKey = "oXJiz/W9Ta4dNM6s6FTmm2K14RxuFjbrKHXbxteYoRs=";
+            string dataType = "UnitTest";
 
-            var snd = new SenderToAzureIoTHub(iotHubUri, deviceId, deviceKey);
+            var snd = new SenderToAzureIoTHub(iotHubUri, deviceId, deviceKey, dataType);
 
             //Data to be sent
             var m = new Mock<IRow>();
