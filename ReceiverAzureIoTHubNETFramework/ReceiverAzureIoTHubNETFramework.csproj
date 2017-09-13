@@ -52,6 +52,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj">
+      <Project>{68199586-1576-4c30-9ce6-0ffcaad820c9}</Project>
+      <Name>Logging</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj">
       <Project>{a8fd3c16-d79d-478c-9bc3-6e44f9684553}</Project>
       <Name>StankinsInterfaces</Name>
