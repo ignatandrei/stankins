@@ -75,10 +75,16 @@ namespace RazorCompile
             using (var serviceScope = scopeFactory.CreateScope())
             {
                 var helper = serviceScope.ServiceProvider.GetRequiredService<RazorViewToStringRenderer>();
-                
 
 
-                return await helper.RenderViewToStringAsync(contentView, model);
+                try
+                {
+                    return await helper.RenderViewToStringAsync(contentView, model);
+                }
+                catch(Exception ex)
+                {
+                    throw;
+                }
             }
         }
     }

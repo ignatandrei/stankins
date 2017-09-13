@@ -31,12 +31,12 @@ namespace StankinsTests
             #region arrange
             IReceive r = new ReceiverFolder(dir, "*.txt");
             await r.LoadData();
-            var m = new MediaTransformDot("Name");
+            var m = new MediaTransformDotFolderAndFiles();
             m.valuesToBeSent = r.valuesRead;
             await m.Run();
             #endregion
             #region assert
-            Assert.IsTrue(m.Result.Contains("[label=\"andrei.txt\"];"),"result should contain node2" +m.Result);
+            Assert.IsTrue(m.Result.Contains("[label=\"andrei.txt"),"result should contain " +m.Result);
             Assert.IsTrue(m.Result.Contains(" -> "));
             #endregion
 

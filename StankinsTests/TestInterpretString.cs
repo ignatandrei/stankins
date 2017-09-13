@@ -10,6 +10,8 @@ using System.Data.SqlClient;
 using System.Data;
 using StanskinsImplementation;
 using StankinsInterfaces;
+using SenderToFile;
+using System.Diagnostics;
 
 namespace StankinsTests
 {
@@ -120,6 +122,10 @@ namespace StankinsTests
             sb.AppendLine("5,Ford,B325IYS");
             File.WriteAllText(Path.Combine(dir, "cars.csv"), sb.ToString());
             var textJob = File.ReadAllText(Path.Combine(dir, "InterpreterJobDateTime.txt"));
+            //var j1 = new SimpleJob();
+            //j1.Senders.Add(0, new Sender_CSV(":ASDAS"));
+            //File.WriteAllText("aaa.txt", j1.SerializeMe());
+            //Process.Start("notepad.exe", "aaa.txt");
             #endregion
             #region act
             IJob j = new SimpleJob();

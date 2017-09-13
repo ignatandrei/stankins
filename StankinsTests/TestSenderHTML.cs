@@ -3,6 +3,7 @@ using Moq;
 using ReceiverFileSystem;
 using SenderHTML;
 using StankinsInterfaces;
+using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -25,7 +26,7 @@ namespace StankinsTests
 
             #region arange
             var dir = AppContext.BaseDirectory;
-            dir = Path.Combine(dir, "1");
+            dir = Path.Combine(dir, "TestSendHtmlData");
             if (Directory.Exists(dir))
                 Directory.Delete(dir, true);
             Directory.CreateDirectory(dir);
@@ -110,7 +111,7 @@ Number Rows: @Model.Length
 
             #endregion
             #region act
-            ISend sender = new Sender_HTML("1/"+Path.GetFileName(fileRazor), filename);
+            ISend sender = new Sender_HTMLRazor("TestSendHtmlData/" + Path.GetFileName(fileRazor), filename);
             sender.valuesToBeSent = rows.ToArray();
             await sender.Send();
             #endregion
@@ -129,12 +130,12 @@ Number Rows: @Model.Length
 
             
             var dir = AppContext.BaseDirectory;
-            dir = Path.Combine(dir, "1");
+            dir = Path.Combine(dir, "TestSendDataHierarchical");
             if (Directory.Exists(dir))
                 Directory.Delete(dir, true);
             Directory.CreateDirectory(dir);
 
-            string filename = Path.Combine(dir, "a.html");
+            string filename = Path.Combine(dir, "senderhtml.html");
             if (File.Exists(filename))
                 File.Delete(filename);
 
@@ -151,16 +152,22 @@ Number Rows: @Model.Length
             fullNameFile = Path.Combine(dir, fileNameToWrite);
             File.WriteAllText(fullNameFile, "andrei ignat");
 
+            var di=Directory.CreateDirectory(Path.Combine(dir, "2"));
+            File.WriteAllText(Path.Combine(di.FullName, "2childfile.txt"), "test");
+
+            di = Directory.CreateDirectory(Path.Combine(dir, "3"));
+            File.WriteAllText(Path.Combine(di.FullName, "3childfile.txt"), "test");
+
+            di = Directory.CreateDirectory(Path.Combine(di.FullName, "3childFolder"));
 
             IReceive r = new ReceiverFolder(dir, "*.txt");
             await r.LoadData();
 
-            var folder = Path.Combine(AppContext.BaseDirectory);
+            
 
-            var fileRazor = Path.Combine(folder, "my.cshtml");
+            var fileRazor = Path.Combine(dir, "my.cshtml");
 
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
+           
 
             File.WriteAllText(fileRazor,
  @"@using System.Linq;
@@ -215,7 +222,14 @@ Number Rows: @Model.Length
 
             #endregion
             #region act
-            ISend sender = new Sender_HTMLHierarchicalViz(Path.GetFileName(fileRazor), filename,"Name");           
+            ISend sender = new SyncSenderMultiple(
+                new Sender_HTMLText(filename, "<html><body>"),
+                new Sender_HTMLRazor("TestSendDataHierarchical/" + Path.GetFileName(fileRazor), filename),
+                new Sender_HierarchicalVizFolder(filename, "Name"),
+                new Sender_HTMLText(filename, "</body></html>")
+                );
+
+            
             sender.valuesToBeSent = r.valuesRead;
             await sender.Send();
             #endregion

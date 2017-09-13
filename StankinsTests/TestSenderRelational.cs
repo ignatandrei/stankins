@@ -59,6 +59,18 @@ int idRow=1;
     </tr>
 }
 </table>
+
+	<script language='javascript'> 
+function toggle(elementId) {
+	var ele = document.getElementById(elementId);
+	if(ele.style.display == 'block') {
+    		ele.style.display = 'none';
+  	}
+	else {
+		ele.style.display = 'block';
+	}
+} 
+</script>
 ";
             string sqlserverFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "sqlserver.cshtml"));
             File.WriteAllText(sqlserverFile, sqlserver);
@@ -76,14 +88,14 @@ int idRow=1;
 <tr><th>Nr</th><th>Name</th></tr>
 
 @foreach(var database in Model.Item2){
+var pathId=database.Values[" + "\"PathID\"" + @"];
 
-    <tr id='database_@database.Values[" + "\"PathID\"" + @"]'>
+    <tr id='database_@pathId'>
 <td>@(idRow++)</td>
     <td>
-<a href='#tables_@database.Values[" + "\"PathID\"" + @"]'>
-        @database.Values[" + "\"Name\"" + @"]</a>
-
-        <table>
+        @database.Values[" + "\"Name\"" + @"]"+
+"<a href='javascript:toggle(" + "\"@string.Format(" + "\"tablesfor_{0}\"" + ",pathId)\")'>Tables</a>" + @"
+        <table style='display:none' id='tablesfor_@pathId'>
             <tr>
             <td>
             @{ 
@@ -110,7 +122,7 @@ int idRow=1;
 IRow parent =Model.Item1 as IRow;
 int idRow=1;
 }
-            <h1> tables for database <a href='#database_@parent.Values[" + "\"PathID\"" + @"]'> @parent.Values[" + "\"Name\"" + @"]</a>
+            <!--<h1> tables for database <a href='#database_@parent.Values[" + "\"PathID\"" + @"]'> @parent.Values[" + "\"Name\"" + @"]</a>-->
 
 <table border='1' id='tables_@parent.Values[" + "\"PathID\"" + @"]'> 
 
@@ -119,12 +131,15 @@ int idRow=1;
 <th>Name</th></tr>
 
 @foreach(var table in Model.Item2){
-
-    <tr id='table_@table.Values[" + "\"PathID\"" + @"]'>
+var pathId=table.Values[" + "\"PathID\"" + @"];
+    <tr id='table_@pathId'>
 <td>@(idRow++)</td>
     <td>
-        @table.Values[" + "\"Name\"" + @"]
- <table>
+        @table.Values[" + "\"Name\"" + @"] 
+
+"+
+"<a href = 'javascript:toggle(" + "\"@string.Format(" + "\"columnsfor_{0}\"" + ",pathId)\")' > Columns </a> " + @"
+   <table id='columnsfor_@pathId' style='display:none'>
             <tr>
             <td>
             @{ 
@@ -152,9 +167,9 @@ IRow parent =Model.Item1 as IRow;
 int idRow=1;
 }
 
-            <h1> columns for table <a href='#table_@parent.Values[" + "\"PathID\"" + @"]'> @parent.Values[" + "\"Name\"" + @"]</a>
+            <!--<h1> columns for table <a href='#table_@parent.Values[" + "\"PathID\"" + @"]'> @parent.Values[" + "\"Name\"" + @"]</a>-->
 
-<table border='1' id='columns'>
+<table  border='1' id='columns'>
 <tr><th>Nr</th><th>Name</th></tr>
 
 @foreach(var item in Model.Item2){
@@ -202,8 +217,8 @@ IF OBJECT_ID('dbo.TestAndrei', 'U') IS NOT NULL
 
             var rr = new ReceiverRelationalSqlServer();
             rr.ConnectionString = connectionString;
-            string OutputFileName = SimpleJobConditionalTransformersTest.DeleteFileIfExists( Path.Combine(folderName, "a.html"));
-            var sender = new Sender_HTMLRelationViz("Views/sqlserver.cshtml","sqlserver", OutputFileName);
+            string OutputFileName = SimpleJobConditionalTransformersTest.DeleteFileIfExists( Path.Combine(folderName, "relationalSqlServer.html"));
+            var sender = new Sender_HTMLRelation("Views/sqlserver.cshtml","sqlserver", OutputFileName);
             var job = new SimpleJob();
             job.Receivers.Add(0, rr);
             job.Senders.Add(0, sender);

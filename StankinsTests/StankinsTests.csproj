@@ -31,6 +31,7 @@
     <PackageReference Include="MSTest.TestAdapter" Version="1.1.11" />
     <PackageReference Include="MSTest.TestFramework" Version="1.1.11" />
     <PackageReference Include="NEST" Version="5.5.0" />
+    <PackageReference Include="shouldly" Version="2.8.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +43,7 @@
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
+    <ProjectReference Include="..\ReceiverJSON\ReceiverJSON.csproj" />
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
     <ProjectReference Include="..\SenderAction\SenderAction.csproj" />
     <ProjectReference Include="..\SenderAzureIoTHub\SenderAzureIoTHub.csproj" />

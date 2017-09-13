@@ -2,10 +2,68 @@
 using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace ReceiverJob
 {
+    public class ReceiverFromJobFile : ReceiverFromJob
+    {
+        public ReceiverFromJobFile(string fileName):base(null)
+        {
+            FileName = fileName;
+        }
+
+        public string FileName { get; set; }
+        public override Task LoadData()
+        {
+            var text = File.ReadAllText(FileName);
+            if (!TryGetSimpleJobConditionalTransformers(text))
+            {
+                if (!TryGetSimpleJob(text))
+                {
+                    throw new ArgumentException($"cannot deserialize from file : {FileName}");
+                }
+            }
+            return base.LoadData();
+        }
+        bool TryGetSimpleJobConditionalTransformers(string text)
+        {
+            try
+            {
+                var sj = new SimpleJobConditionalTransformers();
+                sj.UnSerialize(text);
+                Job = sj;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+                
+            }
+            
+
+        }
+        bool TryGetSimpleJob(string text)
+        {
+            try
+            {
+                var sj = new SimpleJob();
+                sj.UnSerialize(text);
+                Job = sj;
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
+
+
+        }
+
+    }
     public class ReceiverFromJob:IReceive
     {
         public ReceiverFromJob(IJob job)
@@ -18,7 +76,7 @@ namespace ReceiverJob
         public IRowReceive[] valuesRead { get; set; }
 
         public string Name { get ; set ; }
-        public IJob Job { get; }
+        public IJob Job;
         IRowReceive[] FromSimpleJob(ISimpleJob sj)
         {
             var li = new List<IRowReceiveHierarchicalParent>();
@@ -28,6 +86,7 @@ namespace ReceiverJob
                 var newRow = new RowReadHierarchical();
                 newRow.Values.Add("Name", item.Name ?? item.GetType().Name);
                 newRow.Values.Add("Type", item.GetType().Name);
+                newRow.Values.Add("RowType", "Receiver");
                 li.Add(newRow);//TODO: Add parents!
                 if (li.Count > 1)
                 {
@@ -41,10 +100,11 @@ namespace ReceiverJob
                 var newRow = new RowReadHierarchical();
                 newRow.Values.Add("Name", Name ?? item.GetType().Name);
                 newRow.Values.Add("Type", item.GetType().Name);
+                newRow.Values.Add("RowType", "Filter_Transformer");
                 li.Add(newRow);
                 if (li.Count > 1)
                 {
-                    newRow.Parent = li[li.Count - 1];
+                    newRow.Parent = li[li.Count - 2];
                 }
             }
             for (int i = 0; i < sj.Senders.Count; i++)
@@ -53,15 +113,16 @@ namespace ReceiverJob
                 var newRow = new RowReadHierarchical();
                 newRow.Values.Add("Name", Name ?? item.GetType().Name);
                 newRow.Values.Add("Type", item.GetType().Name);
+                newRow.Values.Add("RowType", "Sender");
                 li.Add(newRow);
                 if (li.Count > 1)
                 {
-                    newRow.Parent = li[li.Count - 1];
+                    newRow.Parent = li[li.Count - 2];
                 }
             }
             return li.ToArray();
         }
-        public async Task LoadData()
+        public virtual async Task LoadData()
         {
             var job = Job as SimpleJobConditionalTransformers;
             if (job != null)
@@ -90,8 +151,29 @@ namespace ReceiverJob
                 var newRow = new RowReadHierarchical();
                 newRow.Values.Add("Name", item.Name ?? item.GetType().Name);
                 newRow.Values.Add("Type", item.GetType().Name);
+                ISend send = item as ISend;
+                if (send != null)
+                    newRow.Values.Add("RowType", "Sender");
+                else
+                {
+                    ITransform tr = item as ITransform;
+                    if (tr != null)
+                        newRow.Values.Add("RowType", "Filter_Transformer");
+                    else
+                    {
+                        IReceive r = item as IReceive;
+                        if (r != null)
+                            newRow.Values.Add("RowType", "Receiver");
+                        else
+                        {
+                            //TODO:log
+                            Debug.Assert(false);
+                        }
+                    }
+
+                }
                 newRow.Parent = parent;
-                li.Add(newRow);//TODO: Add parents!
+                li.Add(newRow);
                 var childs = node.Childs;
                 li.AddRange(FromSimpleTree(childs, newRow));
             }
@@ -106,7 +188,8 @@ namespace ReceiverJob
                 var newRow = new RowReadHierarchical();
                 newRow.Values.Add("Name", item.Name ?? item.GetType().Name);
                 newRow.Values.Add("Type", item.GetType().Name);
-                li.Add(newRow);//TODO: Add parents!
+                newRow.Values.Add("RowType", "Receiver");
+                li.Add(newRow);
                 if (li.Count > 1)
                 {
                     newRow.Parent = li[li.Count - 2];

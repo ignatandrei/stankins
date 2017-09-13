@@ -21,7 +21,7 @@ namespace StankinsTests
 
             #region arrange
             var dir = AppContext.BaseDirectory;
-            dir = Path.Combine(dir, "1");
+            dir = Path.Combine(dir, "Test2Receivers");
             if (Directory.Exists(dir))
                 Directory.Delete(dir, true);
             Directory.CreateDirectory(dir);

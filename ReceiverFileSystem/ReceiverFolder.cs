@@ -3,6 +3,7 @@ using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ReceiverFileSystem
@@ -18,7 +19,7 @@ namespace ReceiverFileSystem
             FolderName = folderName;
             SearchPattern = searchPattern;
         }
-
+        public string[] ExcludeFolderNames { get; set; }
         public string FolderName { get; set; }
         public string SearchPattern { get; set; }
         
@@ -28,15 +29,25 @@ namespace ReceiverFileSystem
         {
            
             
-            valuesRead= RecursiveFromDirectory(new DirectoryInfo(FolderName));
+            valuesRead= RecursiveFromDirectory(new DirectoryInfo(FolderName),null);
             await Task.CompletedTask;
         }
 
-        IRowReceiveHierarchicalParent[] RecursiveFromDirectory(DirectoryInfo di)
+        IRowReceiveHierarchicalParent[] RecursiveFromDirectory(DirectoryInfo di,IRowReceive parent)
         {
+            if(ExcludeFolderNames?.Length>0)
+            {
+                //TODO: case insensitive
+                if (ExcludeFolderNames.Contains(di.Name)) 
+                    return null;
+            }
+            
             var ret = new List<IRowReceiveHierarchicalParent>();
             //var di = new DirectoryInfo(FolderName);
             var rh=DirectoryRow(di);
+            if(parent != null)
+                rh.Parent = parent as IRowReceiveHierarchicalParent; 
+
             ret.Add(rh);
 
             var files = Files(di, rh);
@@ -46,7 +57,9 @@ namespace ReceiverFileSystem
 
             foreach(var dir in di.EnumerateDirectories())
             {
-                ret.AddRange(RecursiveFromDirectory(dir));
+                var filesFolders = RecursiveFromDirectory(dir,rh);
+                if(filesFolders?.Length>0)
+                    ret.AddRange(filesFolders.Where(it=>it!=null).ToArray());
             }
             return ret.ToArray();
         }
@@ -59,6 +72,7 @@ namespace ReceiverFileSystem
                 var item = new RowReadHierarchical();
                 item.Values.Add("Name", file.Name);
                 item.Values.Add("FullName", file.FullName);
+                item.Values.Add("RowType", "file");
                 item.Parent = parent as IRowReceiveHierarchicalParent;
                 ret.Add(item);
             }
@@ -70,6 +84,7 @@ namespace ReceiverFileSystem
             //DirectoryInfo di = new DirectoryInfo(FolderName);
             item.Values.Add("Name", di.Name);
             item.Values.Add("FullName", di.FullName);
+            item.Values.Add("RowType", "folder");
             return item;
         }
         

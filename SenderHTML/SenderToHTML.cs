@@ -3,22 +3,29 @@ using SenderToFile;
 using StankinsInterfaces;
 using System;
 using System.Text;
-
+using MediaTransform;
 namespace SenderHTML
 {
-    public class Sender_HTML : SenderMediaToFile
+    public class Sender_HTMLText: SenderMediaToFile
+    {
+        public Sender_HTMLText(string outputFileName, string text) :base(outputFileName,new MediaTransformStringToText(text))
+        {
+            
+        }
+    }
+    public class Sender_HTMLRazor : SenderMediaToFile
     {
         public string ViewFileName { get; set; }
         
-        public Sender_HTML(string viewFileName,string outputFileName) 
-            : base(new MediaTransformRazor(viewFileName), outputFileName)
+        public Sender_HTMLRazor(string viewFileName,string outputFileName) 
+            : base(outputFileName, new MediaTransformRazor(viewFileName))
         {
             this.ViewFileName = viewFileName;
         
         }
        
 
-        public virtual string DefaultExport()=> @"@using System.Linq;
+        public static string DefaultExport()=> @"@using System.Linq;
 @model StankinsInterfaces.IRow[]
 
 Number Rows: @Model.Length

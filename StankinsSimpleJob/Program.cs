@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.CommandLineUtils;
 using Newtonsoft.Json;
+
 using SenderToFile;
 using StankinsInterfaces;
 using StankinsSimpleFactory;
@@ -89,13 +90,16 @@ namespace StankinsSimpleJob
 #if !NETCOREAPP1_1
 #if !NETCOREAPP1_0
             var ole = new ReceiverOLEDB.ReceiverOleDBDatabaseInt(null);
+            var receiver = new ReceiverSolution.ReceiverFromSolution(null);
 #endif
 #endif
 #endif
             var rvSqlIte =new ReceiverDBSQLite.ReceiverTableSQLiteInt((ReceiverDB.DBTableData<int, Microsoft.Data.Sqlite.SqliteConnection>)null);
             var rvBinary = new ReceiverFile.ReceiverFileFromStorageBinary(null);
-            var sender = new Sender_CSV(null);
+            var senderCSV = new Sender_CSV(null);
 
+
+            var senderJson = new Sender_JSON(null);
         }
 
         private static T GetFullObject<T>(SimpleJobFactory factory)
