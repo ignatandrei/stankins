@@ -33,7 +33,8 @@ namespace SenderAzureIoTHub
             foreach (var row in this.valuesToBeSent)
             {
                 string data = JsonConvert.SerializeObject(row.Values);
-                var message = new Message(Encoding.Unicode.GetBytes(data)); 
+                var message = new Message(Encoding.Unicode.GetBytes(data));
+                message.MessageId = DateTime.UtcNow.Ticks.ToString();
 
                 await deviceClient.SendEventAsync(message);
             }
