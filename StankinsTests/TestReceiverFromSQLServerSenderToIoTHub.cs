@@ -72,6 +72,7 @@ namespace StankinsTests
 
             #region act
             await job.Execute();
+
             #endregion
 
             #region assert
