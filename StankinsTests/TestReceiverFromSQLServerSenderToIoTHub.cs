@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using SenderAzureIoTHub;
 using ReceiverAzureIoTHub;
 using System.Diagnostics;
+using SenderDBStmtSqlServer;
 
 namespace StankinsTests
 {
@@ -97,6 +98,76 @@ namespace StankinsTests
             }
             Assert.IsTrue(hasFirstRow);
             Assert.IsTrue(hasSecondRow);
+            #endregion
+        }
+
+        [TestMethod]
+        [TestCategory("RequiresSQLServer")]
+        public async Task TestSimpleJobReceiverFromIoTHub2SenderToSQLServer()
+        {
+            #region arrange
+            //Receiver settings
+            string iotHubConnectionStringEventHubCompatible = "Endpoint=sb://iothub-ns-azbogdanst-208965-a24331514f.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=pPQtX7pSbtNM1cUngtgsdRJIopXGF/jfHZPRVtlcebg=";
+            string iotHubMessageEntityEventHubCompatible = "azbogdanstankinsiothub";
+            string fileNameLastRow = "TestReceiveAzureIoTHubSimple_LastRow.json";
+            string messageType = "UnitTest";
+
+            //Receiver
+            string connectionString = GetSqlServerConnectionString();
+            string commandText2 = "dbo.TestReiceverDBExecuteStoredProcedureNoParam4"; // Sender SP (Destination)
+            string parameters2 = "@p1=PersonID;@p2=FirstName;@p3=LastName";
+
+            //Source
+            if (File.Exists(fileNameLastRow))
+            {
+                File.Delete(fileNameLastRow);
+            }
+
+            var rcv = new ReceiverFromAzureIoTHub(iotHubConnectionStringEventHubCompatible, iotHubMessageEntityEventHubCompatible, fileNameLastRow, messageType, -4);
+
+            //Destination
+            using (var conn = new SqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.CommandText = "IF OBJECT_ID('dbo.TestingTestReiceverDBExecuteStoredProcedureNoParam4') IS NOT NULL DROP TABLE dbo.TestingTestReiceverDBExecuteStoredProcedureNoParam4; CREATE TABLE dbo.TestingTestReiceverDBExecuteStoredProcedureNoParam4 (PersonID INT NOT NULL /*PRIMARY KEY*/, FirstName VARCHAR(50), LastName VARCHAR(50));";
+                    await cmd.ExecuteNonQueryAsync();
+                    cmd.CommandText = "IF OBJECT_ID('dbo.TestReiceverDBExecuteStoredProcedureNoParam4') IS NOT NULL DROP PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureNoParam4;";
+                    await cmd.ExecuteNonQueryAsync();
+                    cmd.CommandText = "CREATE PROCEDURE dbo.TestReiceverDBExecuteStoredProcedureNoParam4 (@p1 INT, @p2 VARCHAR(50), @p3 VARCHAR(50)) AS INSERT dbo.TestingTestReiceverDBExecuteStoredProcedureNoParam4 (PersonID, FirstName, LastName) VALUES (@p1, @p2, @p3)";
+                    await cmd.ExecuteNonQueryAsync();
+                }
+            }
+            var snd = new SenderToDBStmtSqlServer(connectionString, commandType, commandText2, parameters2);
+
+            //Job
+            ISimpleJob job = new SimpleJob();
+            job.Receivers.Add(0, rcv);
+            job.Senders.Add(0, snd);
+            var j = job.SerializeMe();
+            File.WriteAllText(@"E:\j2.json", j);
+            #endregion
+
+            #region act
+            await job.Execute();
+            #endregion
+
+            #region assert
+            using (var conn = new SqlConnection(connectionString))
+            {
+                await conn.OpenAsync();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandType = CommandType.Text;
+
+                    cmd.CommandText = "SELECT COUNT(*) AS Cnt FROM TestingTestReiceverDBExecuteStoredProcedureNoParam4;";
+                    var cnt = (int)await cmd.ExecuteScalarAsync();
+                    //Assert.IsTrue(cnt > 0); // It requires a sender in arrange region
+                }
+            }
             #endregion
         }
     }

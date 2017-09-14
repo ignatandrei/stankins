@@ -15,4 +15,10 @@
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="jrcv.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
