@@ -97,7 +97,9 @@ namespace ReceiverFile
                             }
                             catch (Exception ex)
                             {
-                                //todo: log
+                                string s = ex.Message;
+                                //@class.Log(LogLevel.Error,0,"end send data ERROR",ex,null);
+                                throw;
                             }
                         }
                     }

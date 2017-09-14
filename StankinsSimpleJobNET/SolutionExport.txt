@@ -26,8 +26,8 @@
     "0": {
       "$type": "ReceiverSolution.ReceiverFromSolution, ReceiverSolution",
       "valuesRead": null,
-      "Name": "receiver #static:Directory.GetCurrentDirectory()#/../#env:solution#.sln",
-      "SolutionFileName": "#static:Directory.GetCurrentDirectory()#/../#env:solution#.sln"
+      "Name": "receiver #static:Directory.GetCurrentDirectory()#/../../../#env:solution#.sln",
+      "SolutionFileName": "#static:Directory.GetCurrentDirectory()#/../../../#env:solution#.sln"
     }
   }
 }

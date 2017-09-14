@@ -29,7 +29,9 @@ namespace StanskinsImplementation
                 }
                 catch(Exception ex)
                 {
-                    //TODO:log
+                    string s = ex.Message;
+                    //@class.Log(LogLevel.Error,0,"end send data ERROR",ex,null);
+                    throw;
                 }
 
             }
