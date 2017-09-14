@@ -31,6 +31,7 @@ namespace MediaTransform
 
             var data = JsonConvert.SerializeObject(dict, settings);
             Result = data;
+            await Task.CompletedTask;
         }
     }
 }

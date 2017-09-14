@@ -17,7 +17,7 @@ namespace StankinsTests
         [TestMethod]
         public async Task TestSendHttp()
         {
-            const string UrlGet = "https://requestb.in/pli6q3pl";
+            //const string UrlGet = "https://requestb.in/pli6q3pl";
             const string UrlPost = "http://httpbin.org/post";
             HttpMethod Verb = HttpMethod.Post;
             const string MediaType = "application/json";

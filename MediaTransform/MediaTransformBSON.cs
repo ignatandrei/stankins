@@ -41,7 +41,7 @@ namespace MediaTransform
                 Result = ms.ToArray();
             }
             //var data = JsonConvert.SerializeObject(valuesToBeSent, settings);
-            
+            await Task.CompletedTask;
         }
     }
 }

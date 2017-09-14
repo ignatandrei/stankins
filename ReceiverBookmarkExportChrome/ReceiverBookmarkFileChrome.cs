@@ -36,6 +36,7 @@ namespace ReceiverBookmarkExportChrome
                 returns.Add(rr);
             }
             valuesRead = returns.ToArray();
+            await Task.CompletedTask;
         }
     }
 }

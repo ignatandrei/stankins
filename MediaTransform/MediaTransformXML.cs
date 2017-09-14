@@ -59,6 +59,7 @@ namespace MediaTransform
                 writer.Flush();
             }
             Result = sb.ToString();
+            await Task.CompletedTask;
         }
     }
 }

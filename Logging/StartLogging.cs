@@ -40,6 +40,19 @@ namespace Logging
         {            
             //TODO: use serilog
             Console.WriteLine($"{logLevel}  {state}");
+            if(exception != null)
+            {
+                var x = exception.Message;
+                if(formatter != null)
+                {
+                    x = formatter(state, exception);
+                }
+                var cc = Console.ForegroundColor;
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(x);
+                Console.ForegroundColor = cc;
+
+            }
         }
 
         public bool IsEnabled(LogLevel logLevel)

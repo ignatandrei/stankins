@@ -35,7 +35,7 @@ namespace StankinsTests
             {
                 Console.WriteLine($"!!!!!Method {item.Key} total duration seconds {item.MilliSeconds / 1000} number runs: {item.nr}");
             }
-            string x = "";
+            //string x = "";
         }
     }
 }

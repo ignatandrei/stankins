@@ -14,7 +14,7 @@ namespace MediaTransform
     {
         public override async Task Run()
         {
-            
+            await Task.CompletedTask;
         }
     }
     public class MediaTransformDotFolderAndFiles : MediaTransformDotHierarchical
@@ -123,7 +123,7 @@ namespace MediaTransform
 
             sb.AppendLine("}");
             Result = sb.ToString();
-
+            await Task.CompletedTask;
         }
     }
 }

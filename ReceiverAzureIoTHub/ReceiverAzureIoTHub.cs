@@ -101,6 +101,7 @@ namespace ReceiverAzureIoTHub
                 int count = 0;
                 if (eventData != null)
                 {
+                    //TODO: use here await eventData
                     var result = eventData.Result;
                     if (result != null)
                     {
@@ -141,6 +142,7 @@ namespace ReceiverAzureIoTHub
                     break;
                 }
             }
+            await Task.CompletedTask;
         }
     }
 }

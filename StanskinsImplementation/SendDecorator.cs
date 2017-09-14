@@ -43,7 +43,7 @@ namespace StanskinsImplementation
             catch(Exception ex)
             {
                 string s = ex.Message;
-                //@class.Log(LogLevel.Trace,0,$"end send data ERROR {Name} ",ex,null);
+                //@class.Log(LogLevel.Error,0,$"end send data ERROR {Name} ",ex,null);
                 throw;
             }
 

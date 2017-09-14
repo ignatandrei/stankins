@@ -42,8 +42,8 @@ namespace MediaTransform
                     );
             }
             Result = sb.ToString();
+            await Task.CompletedTask;
 
-            
         }
     }
 }

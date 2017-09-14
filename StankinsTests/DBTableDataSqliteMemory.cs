@@ -19,6 +19,7 @@ namespace StankinsTests
         }
         public override async Task<SqliteConnection> GetConnection()
         {
+            await Task.CompletedTask;
             return cn;
         }
     }
