@@ -165,7 +165,7 @@ namespace StankinsTests
 
                     cmd.CommandText = "SELECT COUNT(*) AS Cnt FROM TestingTestReiceverDBExecuteStoredProcedureNoParam4;";
                     var cnt = (int)await cmd.ExecuteScalarAsync();
-                    //Assert.IsTrue(cnt > 0); // It requires a sender in arrange region
+                    Assert.IsTrue(cnt > 0); // It requires a sender in arrange region
                 }
             }
             #endregion
