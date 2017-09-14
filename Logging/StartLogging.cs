@@ -22,7 +22,7 @@ namespace Logging
             dt.LineNumber = lineNumber;
             sw.Start();
             text = methodName + " from " + className;
-            Console.WriteLine("start " + text + lineNumber);
+            Console.WriteLine(DateTime.UtcNow.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffzzz") + " start " + text + lineNumber);
         }
         
         public void Dispose()
