@@ -147,8 +147,8 @@ namespace StankinsTests
             ISimpleJob job = new SimpleJob();
             job.Receivers.Add(0, rcv);
             job.Senders.Add(0, snd);
-            var j = job.SerializeMe();
-            File.WriteAllText(@"E:\j2.json", j);
+            //var j = job.SerializeMe();
+            //File.WriteAllText(@"E:\j2.json", j);
             #endregion
 
             #region act
