@@ -34,11 +34,18 @@ namespace StanskinsImplementation
 
         public async Task Send()
         {
-            var x = 1;//trivia not detected
-            //@class.Log(LogLevel.Trace,0,$"send data {Name} ",null,null);
-            await Sendor.Send();
-            //@class.Log(LogLevel.Trace,0,$"end send data {Name} ",null,null);
-            x++;
+            try
+            {
+                //@class.Log(LogLevel.Trace,0,$"send data {Name} ",null,null);
+                await Sendor.Send();
+                //@class.Log(LogLevel.Trace,0,$"end send data {Name} ",null,null);
+            }
+            catch(Exception ex)
+            {
+                string s = ex.Message;
+                //@class.Log(LogLevel.Trace,0,$"end send data ERROR {Name} ",ex,null);
+                throw;
+            }
 
         }
     }

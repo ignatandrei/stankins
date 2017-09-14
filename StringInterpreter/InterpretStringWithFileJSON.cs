@@ -138,7 +138,7 @@ namespace StringInterpreter
             var appSettings = new List<ValuesToTranslate>();
             var expressions = new List<ValuesToTranslate>();
             var staticClass = new List<ValuesToTranslate>();
-            var options = RegexOptions.Multiline | RegexOptions.Singleline;
+            //var options = RegexOptions.Multiline | RegexOptions.Singleline;
             //# separator
             //string regex = @"^.+?\#(?<myExpression>.+?)\#.+?$";
             //string regex = @"\#(?=<myExpression>.*)\#";

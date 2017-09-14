@@ -26,6 +26,7 @@ namespace ReceiverJSON
             };
             var data = JsonConvert.DeserializeObject<IRowReceive[]>(text, settings);
             valuesRead = data;
+            await Task.CompletedTask;
 
         }
     }

@@ -34,11 +34,18 @@ namespace StanskinsImplementation
 
         public async Task LoadData()
         {
-            var x = 1;//trivia not detected
-            //@class.Log(LogLevel.Trace,0,$"start load data {Name}",null,null);
-            await Receive.LoadData();
-            //@class.Log(LogLevel.Trace,0,$"end load data {Name} records: {Receive.valuesRead?.Length}",null,null);
-            x++;
+            try
+            {
+                //@class.Log(LogLevel.Trace,0,$"start load data {Name}",null,null);
+                await Receive.LoadData();
+                //@class.Log(LogLevel.Trace,0,$"end load data {Name} records: {Receive.valuesRead?.Length}",null,null);
+            }
+            catch(Exception ex)
+            {
+                string s = ex.Message;
+                //@class.Log(LogLevel.Trace,0,$"end load data ERROR {Name} records: {Receive.valuesRead?.Length}",ex,null);
+                throw;
+            }
 
         }
     }
