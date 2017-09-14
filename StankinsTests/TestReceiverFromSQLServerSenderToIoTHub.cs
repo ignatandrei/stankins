@@ -16,6 +16,7 @@ using SenderAzureIoTHub;
 using ReceiverAzureIoTHub;
 using System.Diagnostics;
 using SenderDBStmtSqlServer;
+using Moq;
 
 namespace StankinsTests
 {
@@ -106,11 +107,41 @@ namespace StankinsTests
         public async Task TestSimpleJobReceiverFromIoTHub2SenderToSQLServer()
         {
             #region arrange
+            //Send test message
+            string iotHubUri = "AzBogdanStankinsIoTHub.azure-devices.net";
+            string deviceId = "DeviceTest01-ACD3688D";
+            string deviceKey = "oXJiz/W9Ta4dNM6s6FTmm2K14RxuFjbrKHXbxteYoRs=";
+            string messageType = "UnitTestSimpleJobReceiverFromIoTHub2SenderToSQLServer" + DateTime.Now.ToString();
+
+            var sndToIoTHub = new SenderToAzureIoTHub(iotHubUri, deviceId, deviceKey, messageType);
+            var m = new Mock<IRow>();
+            var rows = new List<IRow>();
+            int nrRows = 2;
+
+            for (int i = 0; i < nrRows; i++)
+            {
+                var row = new Mock<IRow>();
+                row.SetupProperty
+                (
+                    obj => obj.Values,
+                    new Dictionary<string, object>()
+                    {
+                        ["PersonID"] = i,
+                        ["FirstName"] = "John " + i,
+                        ["LastName"] = "Doe " + i
+                    }
+                );
+
+                rows.Add(row.Object);
+            }
+            sndToIoTHub.valuesToBeSent = rows.ToArray();
+            await sndToIoTHub.Send();
+            //End of Send test message
+
             //Receiver settings
             string iotHubConnectionStringEventHubCompatible = "Endpoint=sb://iothub-ns-azbogdanst-208965-a24331514f.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=pPQtX7pSbtNM1cUngtgsdRJIopXGF/jfHZPRVtlcebg=";
             string iotHubMessageEntityEventHubCompatible = "azbogdanstankinsiothub";
             string fileNameLastRow = "TestReceiveAzureIoTHubSimple_LastRow.json";
-            string messageType = "UnitTest";
 
             //Receiver
             string connectionString = GetSqlServerConnectionString();
@@ -165,7 +196,7 @@ namespace StankinsTests
 
                     cmd.CommandText = "SELECT COUNT(*) AS Cnt FROM TestingTestReiceverDBExecuteStoredProcedureNoParam4;";
                     var cnt = (int)await cmd.ExecuteScalarAsync();
-                    Assert.IsTrue(cnt > 0); // It requires a sender in arrange region
+                    Assert.IsTrue(cnt >= 2); // It requires a sender in arrange region
                 }
             }
             #endregion
