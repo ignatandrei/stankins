@@ -262,6 +262,10 @@
       <Project>{e14dd57c-8e88-4e76-88e5-0ad3bbb4899d}</Project>
       <Name>StanskinsImplementation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\StringInterpreter\StringInterpreter.csproj">
+      <Project>{E362E2BA-D5F9-4E72-A406-B0F7D689BF14}</Project>
+      <Name>StringInterpreter</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Transformers\Transformers.csproj">
       <Project>{4161b15b-6ea7-42d3-adc4-bc93d17386b0}</Project>
       <Name>Transformers</Name>
@@ -279,4 +283,8 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\SQLite.3.13.0\build\net45\SQLite.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SQLite.3.13.0\build\net45\SQLite.props'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -131,7 +131,7 @@ namespace StringInterpreter
                 
             
         }
-        
+        public bool TwoSlashes = true;
         public string InterpretText(string text)
         {
             var env = new List<ValuesToTranslate>();
@@ -157,7 +157,7 @@ namespace StringInterpreter
             Match matchObj = regexObj.Match(text);
             while (matchObj.Success)
             {
-                Console.WriteLine(matchObj.Groups["myExpression"]);
+                //Console.WriteLine(matchObj.Groups["myExpression"]);
 
                 var toInterpret = matchObj.Groups["myExpression"].Value;
 
@@ -210,27 +210,30 @@ namespace StringInterpreter
             {
                 InterpretStatic(staticClass);
             }
+            Func<string, string> replace = (it) =>
+             {
+                 if (!TwoSlashes)
+                     return it;
+                 return it.Replace(@"\", @"\\");
+             };
             //TODO: use Regex.Replace instead of this...
             var sb = new StringBuilder(text);
             foreach (var item in env)
             {
-                sb.Replace($"#env:{item.ValueToTranslate}#", item.ValueTranslated);
+                sb.Replace($"#env:{item.ValueToTranslate}#", replace(item.ValueTranslated));
             }
             foreach (var item in appSettings)
             {
-                sb.Replace($"#file:{item.ValueToTranslate}#", item.ValueTranslated);
+                sb.Replace($"#file:{item.ValueToTranslate}#", replace(item.ValueTranslated));
             }
-            foreach (var item in appSettings)
-            {
-                sb.Replace($"#file:{item.ValueToTranslate}#", item.ValueTranslated);
-            }
+            
             foreach (var item in staticClass)
             {
-                sb.Replace($"#static:{item.ValueToTranslate}#", item.ValueTranslated);
+                sb.Replace($"#static:{item.ValueToTranslate}#", replace(item.ValueTranslated));
             }
             foreach (var item in expressions)
             {
-                sb.Replace($"#{item.ValueToTranslate}#", item.ValueTranslated);
+                sb.Replace($"#{item.ValueToTranslate}#", replace(item.ValueTranslated));
             }
             return sb.ToString();
             

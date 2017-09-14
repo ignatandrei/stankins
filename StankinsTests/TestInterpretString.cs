@@ -80,6 +80,7 @@ namespace StankinsTests
             #endregion
             #region act
             var i = new Interpret();
+            i.TwoSlashes = false;
             var str = i.InterpretText(textToInterpret);
             #endregion
             #region assert
@@ -98,6 +99,7 @@ namespace StankinsTests
             #region act
 
             var i = new Interpret();
+            i.TwoSlashes = false;
             var str = i.InterpretText(textToInterpret);
             #endregion
             #region assert
@@ -116,6 +118,7 @@ namespace StankinsTests
             #region act
 
             var i = new Interpret();
+            i.TwoSlashes = false;
             var str = i.InterpretText(textToInterpret);
             #endregion
             #region assert
