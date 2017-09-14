@@ -5,6 +5,7 @@ using SenderToFile;
 using StankinsInterfaces;
 using StankinsSimpleFactory;
 using StanskinsImplementation;
+using StringInterpreter;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -65,11 +66,54 @@ namespace StankinsSimpleJob
 
             };
             var valSerialized = File.ReadAllText(fileName);
-            var deserialized = JsonConvert.DeserializeObject(valSerialized, settings) as ISimpleJob;
-            //TODO:log
+            IJob job=null;
             try
             {
-                deserialized.Execute().Wait();
+                var newJob = new SimpleJob();
+                newJob.UnSerialize(valSerialized);
+                for (int nr = 0; nr < newJob.Receivers?.Count; nr++)
+                {
+                    newJob.Receivers[nr] = new ReceiverDecorator(newJob.Receivers[nr]);
+                }
+                for (int nr = 0; nr < newJob.Senders?.Count; nr++)
+                {
+                    newJob.Senders[nr] = new SendDecorator(newJob.Senders[nr]);
+                }
+                job = newJob;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                job = null;
+                //TODO:log
+            }
+            if (job == null)
+            {
+                try
+                {
+                    //TODO: add decorators
+                    job = new SimpleJobConditionalTransformers();
+                    job.UnSerialize(valSerialized);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    job = null;
+                    //TODO:log
+                }
+            }
+            if(job == null)
+            {
+                throw new ArgumentException($"cannot deserialize {fileName}");
+            };
+            //var deserialized = JsonConvert.DeserializeObject(valSerialized, settings) as ISimpleJob;
+            Console.WriteLine($"execute {job.GetType().FullName}");
+            
+            
+            try
+            {
+                job.Execute().Wait();
+                Console.WriteLine("OK");
                 return 0;
             }
             catch (Exception ex)

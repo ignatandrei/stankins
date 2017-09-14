@@ -5,7 +5,7 @@
     "0": {
       "$type": "SenderToFile.Sender_JSON, SenderToFile",
       "Name": "send to Stankins",
-      "FileName": "#static:Directory.GetCurrentDirectory()#\Stankins.json",
+      "FileName": "#static:Directory.GetCurrentDirectory()#/Stankins.json",
       "media": [
         {
           "$type": "MediaTransform.MediaTransformJSON, MediaTransform",
@@ -27,7 +27,7 @@
       "$type": "ReceiverSolution.ReceiverFromSolution, ReceiverSolution",
       "valuesRead": null,
       "Name": null,
-      "SolutionFileName": "#static:Directory.GetCurrentDirectory()#\..\#env:solution#.sln"
+      "SolutionFileName": "#static:Directory.GetCurrentDirectory()#/../#env:solution#.sln"
     }
   }
 }
