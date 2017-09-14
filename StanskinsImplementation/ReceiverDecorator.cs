@@ -1,4 +1,4 @@
-﻿using StankinsInterfaces;
+using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -34,12 +34,12 @@ namespace StanskinsImplementation
 
         public async Task LoadData()
         {
-
-            
+            var x = 1;//trivia not detected
             //@class.Log(LogLevel.Trace,0,$"start load data {Name}",null,null);
             await Receive.LoadData();
             //@class.Log(LogLevel.Trace,0,$"end load data {Name} records: {Receive.valuesRead?.Length}",null,null);
-            
+            x++;//trivia not detected
+
         }
     }
 }

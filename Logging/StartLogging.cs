@@ -32,7 +32,7 @@ namespace Logging
             sw.Stop();
             dt.duration = sw.Elapsed;
             cd.Add(dt);
-            Console.WriteLine(DateTime.UtcNow.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffzzz") + " end " + text + "duration:" + dt.duration.TotalMilliseconds);
+            Console.WriteLine((DateTime.UtcNow.ToString("yyyy-MM-ddTHH\\:mm\\:ss.fffzzz") + " end " + text + "duration:" + dt.duration.TotalMilliseconds));
             
         }
 
