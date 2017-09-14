@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace ReceiverFile
 {
     public class ReceiverFileFromStorageBinary : IReceive

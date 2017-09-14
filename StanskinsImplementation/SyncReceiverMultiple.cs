@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace StanskinsImplementation
 {
     public class SyncReceiverMultiple : IReceive
