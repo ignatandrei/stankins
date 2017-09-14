@@ -12,4 +12,10 @@
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="jsnd.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

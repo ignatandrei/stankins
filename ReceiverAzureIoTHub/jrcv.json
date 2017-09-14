@@ -1,0 +1,35 @@
+{
+  "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
+  "Senders": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "SenderDBStmtSqlServer.SenderToDBStmtSqlServer, SenderDBStmtSqlServer",
+      "Name": null,
+      "ConnectionString": "Server=(local)\\SQL2016;Database=tempdb;Trusted_Connection=True;",
+      "CommandType": 4,
+      "CommandText": "dbo.TestReiceverDBExecuteStoredProcedureNoParam4",
+      "ParametersMappings": "@p1=PersonID;@p2=FirstName;@p3=LastName",
+      "HasParameters": false,
+      "valuesToBeSent": null
+    }
+  },
+  "FiltersAndTransformers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces"
+  },
+  "AllReceiversAsync": false,
+  "AllSendersAsync": false,
+  "Receivers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "ReceiverAzureIoTHub.ReceiverFromAzureIoTHub, ReceiverAzureIoTHub",
+      "Name": null,
+      "ConnectionStringEventHubCompatible": "Endpoint=sb://iothub-ns-azbogdanst-208965-a24331514f.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=pPQtX7pSbtNM1cUngtgsdRJIopXGF/jfHZPRVtlcebg=",
+      "EntityEventHubCompatible": "azbogdanstankinsiothub",
+      "StartTimeInHours": -4,
+      "FileNameSerializeLastOffset": "TestReceiveAzureIoTHubSimple_LastRow.json",
+      "MessageType": "UnitTest",
+      "valuesRead": null,
+      "lastRowValues": null
+    }
+  }
+}

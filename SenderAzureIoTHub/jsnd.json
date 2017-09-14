@@ -1,0 +1,28 @@
+{
+  "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
+  "Senders": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "SenderAzureIoTHub.SenderToAzureIoTHub, SenderAzureIoTHub",
+      "IoTHubUri": "AzBogdanStankinsIoTHub.azure-devices.net",
+      "DeviceId": "DeviceTest01-ACD3688D",
+      "DeviceKey": "oXJiz/W9Ta4dNM6s6FTmm2K14RxuFjbrKHXbxteYoRs=",
+      "Name": "A",
+      "MessageType": "UnitTest"
+    }
+  },
+  "AllReceiversAsync": false,
+  "AllSendersAsync": false,  
+  "Receivers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "ReceiverDBStmtSqlServer.ReceiverStmtSqlServer, ReiceverDBStmtSqlServer",
+      "Name": "B",
+      "ConnectionString": "Server=(local)\\SQL2016;Database=tempdb;Trusted_Connection=True;",
+      "CommandText": "dbo.TestReiceverDBExecuteStoredProcedureNoParam3",
+      "FileNameSerializeLastRow": "",
+      "ParametersMappings": "",
+	  "CommandType": 4
+    }
+  }
+}
