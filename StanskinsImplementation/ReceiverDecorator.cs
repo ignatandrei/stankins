@@ -38,7 +38,7 @@ namespace StanskinsImplementation
             //@class.Log(LogLevel.Trace,0,$"start load data {Name}",null,null);
             await Receive.LoadData();
             //@class.Log(LogLevel.Trace,0,$"end load data {Name} records: {Receive.valuesRead?.Length}",null,null);
-            x++;//trivia not detected
+            x++;
 
         }
     }

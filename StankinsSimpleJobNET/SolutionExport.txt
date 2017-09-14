@@ -4,7 +4,7 @@
     "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
     "0": {
       "$type": "SenderToFile.Sender_JSON, SenderToFile",
-      "Name": "send to Stankins",
+      "Name": "send to #static:Directory.GetCurrentDirectory()#/Stankins.json",
       "FileName": "#static:Directory.GetCurrentDirectory()#/Stankins.json",
       "media": [
         {
@@ -26,7 +26,7 @@
     "0": {
       "$type": "ReceiverSolution.ReceiverFromSolution, ReceiverSolution",
       "valuesRead": null,
-      "Name": null,
+      "Name": "receiver #static:Directory.GetCurrentDirectory()#/../#env:solution#.sln",
       "SolutionFileName": "#static:Directory.GetCurrentDirectory()#/../#env:solution#.sln"
     }
   }
