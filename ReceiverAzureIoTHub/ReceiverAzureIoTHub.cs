@@ -68,7 +68,7 @@ namespace ReceiverAzureIoTHub
                 if( !lastRowValues.ContainsKey(partition) )
                 {
                     LastReceivedMessage lastReceivedMessage;
-                    lastReceivedMessage.EnqueuedTimeUtc = this.StartTimeInHours == 0 ? DateTime.Now.AddHours(-24) : DateTime.UtcNow.AddHours(this.StartTimeInHours);
+                    lastReceivedMessage.EnqueuedTimeUtc = this.StartTimeInHours == 0 ? DateTime.UtcNow.AddHours(-24) : DateTime.UtcNow.AddHours(this.StartTimeInHours);
                     lastReceivedMessage.EnqueuedOffset = -1; //Starting offset for EventHub. Note: For IoT Hub, starting offset is 0.
                     lastRowValues.Add(partition, lastReceivedMessage);
                 }
