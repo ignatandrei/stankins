@@ -275,7 +275,7 @@ namespace StankinsTests
         [TestMethod]
         public async Task TestSendHTMLDataRelational()
         {
-            return;
+            
             #region arange            
             var dir = AppContext.BaseDirectory;
             dir = Path.Combine(dir, "TestSendHTMLDataRelational");
@@ -295,7 +295,7 @@ namespace StankinsTests
             ISend sender = new SyncSenderMultiple(
                 new Sender_HTMLText(filename, "<html><body>"),
                 new Sender_HTMLRazor("TestSendHTMLDataRelational/" + Path.GetFileName(fileRazor), filename),
-                new Sender_HTMLRelationViz(filename, "Name"),
+                new Sender_HTMLRelationViz( "Name", filename),
                 new Sender_HTMLText(filename, "</body></html>")
                 );
 
@@ -308,7 +308,7 @@ namespace StankinsTests
             Assert.IsTrue(File.Exists(filename), $"file {filename} must exists in export hierarchical");
             Assert.IsTrue(File.ReadAllText(filename).Contains("ignat.txt"), "must contain data");
             Assert.IsTrue(File.ReadAllText(filename).Contains("Viz("), "must contain viz ...");
-            System.Diagnostics.Process.Start("explorer.exe", filename);
+            //System.Diagnostics.Process.Start("explorer.exe", filename);
             #endregion
         }
     }
