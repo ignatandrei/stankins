@@ -9,7 +9,6 @@
   <ItemGroup>
     <None Remove="bookmarks_7_25_17.html" />
     <None Remove="InterpreterJobDateTime.txt" />
-    <None Remove="Views\my.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +21,10 @@
     <Content Include="bookmarks_7_25_17.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Views\my.cshtml">
+    <Content Include="Views\relationalFolder.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\hierarFolder.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

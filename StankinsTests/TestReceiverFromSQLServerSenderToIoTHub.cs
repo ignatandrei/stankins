@@ -17,6 +17,7 @@ using ReceiverAzureIoTHub;
 using System.Diagnostics;
 using SenderDBStmtSqlServer;
 using Moq;
+using Shouldly;
 
 namespace StankinsTests
 {
@@ -34,6 +35,7 @@ namespace StankinsTests
 
         [TestMethod]
         [TestCategory("RequiresSQLServer")]
+        [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestSimpleJobReceiverFromSQLServer2SenderToIoTHub()
         {
             #region arrange
@@ -80,6 +82,7 @@ namespace StankinsTests
             #endregion
 
             #region assert
+            rcvr.valuesRead.Length.ShouldBe(2);
             //Assert Receiver IoT Hub settings
             string iotHubConnectionStringEventHubCompatible = "Endpoint=sb://iothub-ns-azbogdanst-208965-a24331514f.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=pPQtX7pSbtNM1cUngtgsdRJIopXGF/jfHZPRVtlcebg=";
             string iotHubMessageEntityEventHubCompatible = "azbogdanstankinsiothub";
@@ -89,6 +92,8 @@ namespace StankinsTests
             await rcv.LoadData();
             bool hasFirstRow = false;
             bool hasSecondRow = false;
+            rcv.valuesRead.ShouldNotBeNull();
+            rcv.valuesRead.Length.ShouldBeGreaterThanOrEqualTo(2);
             foreach(var row in rcv.valuesRead)
             {
                 if(row.Values.ContainsKey("PersonID") && row.Values.ContainsKey("FirstName") && row.Values.ContainsKey("LastName"))
@@ -97,8 +102,8 @@ namespace StankinsTests
                     hasSecondRow = ((long)row.Values["PersonID"] == 11 && (string)row.Values["FirstName"] == "John 01" && (string)row.Values["LastName"] == "Doe 01") ? true : hasSecondRow;
                 }
             }
-            Assert.IsTrue(hasFirstRow);
-            Assert.IsTrue(hasSecondRow);
+            Assert.IsTrue(hasFirstRow,"must have first row");
+            Assert.IsTrue(hasSecondRow,"must have second row");
             #endregion
         }
 

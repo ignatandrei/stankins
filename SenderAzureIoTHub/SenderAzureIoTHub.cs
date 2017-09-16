@@ -27,11 +27,7 @@ namespace SenderAzureIoTHub
 
         public async Task Send()
         {
-            var deviceClient = DeviceClient.Create(
-                this.IoTHubUri,
-                AuthenticationMethodFactory.CreateAuthenticationWithRegistrySymmetricKey(this.DeviceId, this.DeviceKey),
-                Microsoft.Azure.Devices.Client.TransportType.Http1
-            );
+            
 
             List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
             foreach (var row in this.valuesToBeSent)
@@ -39,11 +35,21 @@ namespace SenderAzureIoTHub
                 rows.Add(row.Values);
             }
             string data = JsonConvert.SerializeObject(rows);
-            var message = new Message(UnicodeEncoding.UTF8.GetBytes(data));
-            message.Properties["MessageType"] = this.MessageType;
-            message.Properties["UnicodeEncoding"] = "UTF8";
-
-            await deviceClient.SendEventAsync(message);
+            using (var message = new Message(UnicodeEncoding.UTF8.GetBytes(data)))
+            {
+                message.Properties["MessageType"] = this.MessageType;
+                message.Properties["UnicodeEncoding"] = "UTF8";
+                //open latest
+                using (var deviceClient = DeviceClient.Create(
+                    this.IoTHubUri,
+                    AuthenticationMethodFactory.CreateAuthenticationWithRegistrySymmetricKey(this.DeviceId, this.DeviceKey),
+                    Microsoft.Azure.Devices.Client.TransportType.Http1
+                ))
+                {
+                    await deviceClient.SendEventAsync(message);
+                }
+            }
+            
         }
     }
 }

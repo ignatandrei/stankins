@@ -267,5 +267,46 @@ Number Rows: @Model.Length
             System.Diagnostics.Process.Start("explorer.exe", filename);
             #endregion
         }
+
+        [TestMethod]
+        public async Task TestSendHTMLDataRelational()
+        {
+            #region arange            
+            var dir = AppContext.BaseDirectory;
+            dir = Path.Combine(dir, "TestSendHTMLDataRelational");
+            if (Directory.Exists(dir))
+                Directory.Delete(dir, true);
+            Directory.CreateDirectory(dir);
+            CreateFilesAndFolders(dir);
+            string filename = Path.Combine(dir, "senderhtml.html");
+            if (File.Exists(filename))
+                File.Delete(filename);
+            IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
+            await r.LoadData();
+            var fileRazor = Path.Combine(dir, "hierarFolder.cshtml");
+            File.Copy(@"Views\hierarFolder.cshtml", fileRazor, true);
+
+
+         
+            #endregion
+            #region act
+            ISend sender = new SyncSenderMultiple(
+                new Sender_HTMLText(filename, "<html><body>"),
+                new Sender_HTMLRazor("TestSendDataHierarchical/" + Path.GetFileName(fileRazor), filename),
+                new Sender_HierarchicalVizFolder(filename, "Name"),
+                new Sender_HTMLText(filename, "</body></html>")
+                );
+
+
+            sender.valuesToBeSent = r.valuesRead;
+            await sender.Send();
+            #endregion
+            #region assert
+            Assert.IsTrue(File.Exists(filename), $"file {filename} must exists in export hierarchical");
+            Assert.IsTrue(File.ReadAllText(filename).Contains("ignat.txt"), "must contain data");
+            Assert.IsTrue(File.ReadAllText(filename).Contains("Viz("), "must contain viz ...");
+            System.Diagnostics.Process.Start("explorer.exe", filename);
+            #endregion
+        }
     }
 }
