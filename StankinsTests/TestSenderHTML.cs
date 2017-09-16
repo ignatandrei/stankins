@@ -292,7 +292,7 @@ namespace StankinsTests
             #region act
             ISend sender = new SyncSenderMultiple(
                 new Sender_HTMLText(filename, "<html><body>"),
-                new Sender_HTMLRazor("TestSendDataHierarchical/" + Path.GetFileName(fileRazor), filename),
+                new Sender_HTMLRazor("TestSendHTMLDataRelational/" + Path.GetFileName(fileRazor), filename),
                 new Sender_HierarchicalVizFolder(filename, "Name"),
                 new Sender_HTMLText(filename, "</body></html>")
                 );

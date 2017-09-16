@@ -109,6 +109,7 @@ namespace StankinsTests
 
         [TestMethod]
         [TestCategory("RequiresSQLServer")]
+        [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestSimpleJobReceiverFromIoTHub2SenderToSQLServer()
         {
             #region arrange
