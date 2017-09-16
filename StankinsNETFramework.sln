@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.8
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsInterfaces", "StankinsInterfaces\StankinsInterfaces.csproj", "{A8FD3C16-D79D-478C-9BC3-6E44F9684553}"
 EndProject
@@ -68,6 +68,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverSolution", "ReceiverSolution\ReceiverSolution.csproj", "{3EEE2BF4-E349-425C-9BAB-95FB3FA37679}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverAzureIoTHub", "ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj", "{F95E6003-FB51-40EB-9820-2920B54109DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderUnzipFiles", "SenderUnzipFiles\SenderUnzipFiles.csproj", "{1454A306-FCAB-44B7-A068-E9E3551F7AE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -183,6 +185,10 @@ Global
 		{F95E6003-FB51-40EB-9820-2920B54109DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F95E6003-FB51-40EB-9820-2920B54109DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F95E6003-FB51-40EB-9820-2920B54109DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1454A306-FCAB-44B7-A068-E9E3551F7AE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1454A306-FCAB-44B7-A068-E9E3551F7AE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1454A306-FCAB-44B7-A068-E9E3551F7AE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1454A306-FCAB-44B7-A068-E9E3551F7AE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
