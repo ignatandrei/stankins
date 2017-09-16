@@ -193,59 +193,59 @@ Number Rows: @Model.Length
             IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
             await r.LoadData();
             var fileRazor = Path.Combine(dir, "my.cshtml");
-
+            File.Copy(@"Views\my.cshtml", fileRazor, true);
            
 
-            File.WriteAllText(fileRazor,
- @"@using System.Linq;
-@using StankinsInterfaces;
-@model StankinsInterfaces.IRow[]
+//            File.WriteAllText(fileRazor,
+// @"@using System.Linq;
+//@using StankinsInterfaces;
+//@model StankinsInterfaces.IRow[]
 
-Number Rows: @Model.Length
-@{
-	bool showTable=(Model.Length>0);
-	if(!showTable){
-		return;
-    };
-	var FieldNames= Model[0]
-                .Values
-                .Select(it => it.Key).ToArray();
-}
-<table>
-<thead>
-<tr>
-<td>ID</td>
-@foreach(var col in FieldNames){
+//Number Rows: @Model.Length
+//@{
+//	bool showTable=(Model.Length>0);
+//	if(!showTable){
+//		return;
+//    };
+//	var FieldNames= Model[0]
+//                .Values
+//                .Select(it => it.Key).ToArray();
+//}
+//<table>
+//<thead>
+//<tr>
+//<td>ID</td>
+//@foreach(var col in FieldNames){
 
-<td>
-@col
-</td>
+//<td>
+//@col
+//</td>
 
-}
-<td>Parent</td>
-</thead>
+//}
+//<td>Parent</td>
+//</thead>
 
-<tbody>
-@foreach(var item in Model){
-    var m=item as IRowReceiveHierarchicalParent;
+//<tbody>
+//@foreach(var item in Model){
+//    var m=item as IRowReceiveHierarchicalParent;
 
-<tr>
-<td>@m.ID</td>
-@foreach(var col in FieldNames){
-<td>
-@item.Values[col]
-</td>
-}
-<td>
-@if(m.Parent != null){
-    <text>@m.Parent.ID</text>
-}
-</td>
-</tr>
+//<tr>
+//<td>@m.ID</td>
+//@foreach(var col in FieldNames){
+//<td>
+//@item.Values[col]
+//</td>
+//}
+//<td>
+//@if(m.Parent != null){
+//    <text>@m.Parent.ID</text>
+//}
+//</td>
+//</tr>
 
-}
-<tbody>
-</table>");
+//}
+//<tbody>
+//</table>");
 
             #endregion
             #region act

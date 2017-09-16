@@ -113,7 +113,9 @@ namespace StankinsSimpleFactory
             catch(Exception ex)
             {
                 string x = ex.Message;
+#if NETSTANDARD1_6
                 //@class.Log(LogLevel.Trace,0,$"construct object failed {t.FullName}",ex,null);
+#endif
                 return null;
             }
         }
