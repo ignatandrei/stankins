@@ -17,6 +17,11 @@ namespace MediaTransform
             await Task.CompletedTask;
         }
     }
+    public abstract class MediaTransformDot: MediaTransformString
+    {
+        public string LabelField { get; set; }
+        
+    }
     public abstract class MediaTransformString : IFilterTransformToString
     {
         public IRow[] valuesToBeSent { set; protected get; }

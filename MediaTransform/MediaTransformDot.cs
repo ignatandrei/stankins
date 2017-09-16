@@ -10,7 +10,7 @@ namespace MediaTransform
     /// <summary>
     /// https://en.wikipedia.org/wiki/DOT_(graph_description_language)
     /// </summary>
-    public class MediaTransformDotRelational : MediaTransformString
+    public class MediaTransformDotRelational : MediaTransformDot
     {
         public override async Task Run()
         {
@@ -72,7 +72,7 @@ namespace MediaTransform
     /// <summary>
     /// https://en.wikipedia.org/wiki/DOT_(graph_description_language)
     /// </summary>
-    public class MediaTransformDotHierarchical : MediaTransformString
+    public class MediaTransformDotHierarchical : MediaTransformDot
     {
         public MediaTransformDotHierarchical(string labelField):base()
         {

@@ -1,0 +1,47 @@
+@using System.Linq;
+@using StankinsInterfaces
+@using System.Collections.Generic;
+@model List<StankinsInterfaces.IRowReceiveRelation>
+
+Number Rows: @Model.Count
+@{
+    int nr = 0;
+    bool showTable=(Model.Count > 0);
+    if(!showTable){
+        return;
+    };
+    var FieldNames= Model[0]
+                .Values
+                .Select(it => it.Key).ToArray();
+}
+<table>
+<thead>
+<tr>
+<td>ID</td>
+@foreach(var col in FieldNames){
+
+<td>
+@col
+</td>
+
+}
+
+</thead>
+
+<tbody>
+@foreach(var item in Model){
+    nr++;
+
+<tr>
+<td  id="file_@item.ID">@nr</td>
+@foreach(var col in FieldNames){
+<td>
+@item.Values[col]
+</td>
+}
+
+</tr>
+
+}
+<tbody>
+</table>

@@ -1,6 +1,6 @@
 @using System.Linq;
 @using StankinsInterfaces;
-@model StankinsInterfaces.IRow[]
+@model StankinsInterfaces.IRowReceive[]
 
 Number Rows: @Model.Length
 @{
@@ -23,12 +23,12 @@ Number Rows: @Model.Length
 </td>
 
 }
-<td>Parent</td>
+<td>Files</td>
 </thead>
 
 <tbody>
 @foreach(var item in Model){
-    var m=item as IRowReceiveHierarchicalParent;
+    var m = item as IRowReceiveRelation;
 
 <tr>
 <td>@m.ID</td>
@@ -38,12 +38,18 @@ Number Rows: @Model.Length
 </td>
 }
 <td>
-@if(m.Parent != null){
-    <text>@m.Parent.ID</text>
-}
+    @Html.Partial("relationalFile", m.Relations["files"]);
+
+    
 </td>
 </tr>
 
 }
 <tbody>
 </table>
+@foreach (var item in Model)
+{
+    var m = item as IRowReceiveRelation;
+    <h2>Folders @item.Values["FullName"]</h2>
+    @Html.Partial("relationalFolder", m.Relations["folders"].ToArray());
+}

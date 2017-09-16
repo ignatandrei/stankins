@@ -218,7 +218,7 @@ IF OBJECT_ID('dbo.TestAndrei', 'U') IS NOT NULL
             var rr = new ReceiverRelationalSqlServer();
             rr.ConnectionString = connectionString;
             string OutputFileName = SimpleJobConditionalTransformersTest.DeleteFileIfExists( Path.Combine(folderName, "relationalSqlServer.html"));
-            var sender = new Sender_HTMLRelation("Views/sqlserver.cshtml","sqlserver", OutputFileName);
+            var sender = new Sender_HTMLRazor("Views/sqlserver.cshtml", OutputFileName);
             var job = new SimpleJob();
             job.Receivers.Add(0, rr);
             job.Senders.Add(0, sender);

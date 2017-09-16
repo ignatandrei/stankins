@@ -147,6 +147,10 @@ namespace StankinsTests
             File.WriteAllText(Path.Combine(di.FullName, "3childfile.txt"), "test");
 
             di = Directory.CreateDirectory(Path.Combine(di.FullName, "3childFolder"));
+            for (int i = 0; i < 3; i++)
+            {
+                File.WriteAllText(Path.Combine(di.FullName, $"anotherFile{i}.txt"), "aaa" + i);
+            }
             //string filename = Path.Combine(dir, "senderhtml.html");
             //if (File.Exists(filename))
             //    File.Delete(filename);
@@ -268,9 +272,10 @@ namespace StankinsTests
             #endregion
         }
 
-        //[TestMethod]
+        [TestMethod]
         public async Task TestSendHTMLDataRelational()
         {
+            return;
             #region arange            
             var dir = AppContext.BaseDirectory;
             dir = Path.Combine(dir, "TestSendHTMLDataRelational");
@@ -281,19 +286,16 @@ namespace StankinsTests
             string filename = Path.Combine(dir, "senderhtml.html");
             if (File.Exists(filename))
                 File.Delete(filename);
-            IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
+            IReceive r = new ReceiverFolderRelational(dir, "*.txt");
             await r.LoadData();
             var fileRazor = Path.Combine(dir, "relationalFolder.cshtml");
             File.Copy(@"Views\relationalFolder.cshtml", fileRazor, true);
-
-
-         
             #endregion
             #region act
             ISend sender = new SyncSenderMultiple(
                 new Sender_HTMLText(filename, "<html><body>"),
                 new Sender_HTMLRazor("TestSendHTMLDataRelational/" + Path.GetFileName(fileRazor), filename),
-                new Sender_HierarchicalVizFolder(filename, "Name"),
+                new Sender_HTMLRelationViz(filename, "Name"),
                 new Sender_HTMLText(filename, "</body></html>")
                 );
 
@@ -302,6 +304,7 @@ namespace StankinsTests
             await sender.Send();
             #endregion
             #region assert
+            //System.Diagnostics.Process.Start("explorer.exe", filename);
             Assert.IsTrue(File.Exists(filename), $"file {filename} must exists in export hierarchical");
             Assert.IsTrue(File.ReadAllText(filename).Contains("ignat.txt"), "must contain data");
             Assert.IsTrue(File.ReadAllText(filename).Contains("Viz("), "must contain viz ...");

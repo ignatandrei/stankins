@@ -7,40 +7,52 @@ using System.Threading.Tasks;
 
 namespace SenderHTML
 {
-    public class Sender_HierarchicalVizJob: Sender_HierarchicalViz<MediaTransformDotJob>
+    public class Sender_HierarchicalVizJob: Sender_Viz<MediaTransformDotJob>
     {
-        public Sender_HierarchicalVizJob(string outputFileName, string label) : base(outputFileName, label)
+        public Sender_HierarchicalVizJob(string outputFileName, string label) : base(outputFileName)
         {
 
+            Label = label;
         }
-    }
-        public class Sender_HierarchicalVizFolder:Sender_HierarchicalViz<MediaTransformDotFolderAndFiles>
-    {
-        public Sender_HierarchicalVizFolder(string outputFileName, string label) :base(outputFileName,label)
+        public string Label { get; set; }
+        public override void AddToMedia(MediaTransformDotJob dot)
         {
-
+            dot.LabelField = Label;
         }
-        
     }
-    public class Sender_HierarchicalViz<T>: SenderMediaToFile
-        where T: MediaTransformDotHierarchical,new()
+        public class Sender_HierarchicalVizFolder:Sender_Viz<MediaTransformDotFolderAndFiles>
     {
-        
-        public Sender_HierarchicalViz(string outputFileName, string label) 
-            : base(outputFileName,new T())
+        public Sender_HierarchicalVizFolder(string outputFileName, string label) :base(outputFileName)
         {
             Label = label;
+        }
+        public string Label { get; set; }
+        public override void AddToMedia(MediaTransformDotFolderAndFiles dot)
+        {
+            dot.LabelField = Label;
+        }
+    }
+    public abstract class Sender_Viz<T>: SenderMediaToFile
+        where T: MediaTransformDot, new()
+    {
+        
+        public Sender_Viz(string outputFileName) 
+            : base(outputFileName,new T())
+        {
+            
             VizUrl = "https://github.com/mdaines/viz.js/releases/download/v1.8.0/viz.js";
         }
         public string  VizUrl{ get; set; }
-
-        public string Label { get; set; }        
+        public abstract void AddToMedia(T dot);
+        
+        
         public override async Task Send()
         {
             
             var dot = new T();
-            dot.LabelField = Label;
-            dot.valuesToBeSent = this.valuesToBeSent;            
+            dot.valuesToBeSent = this.valuesToBeSent;
+            AddToMedia(dot);            
+            
             await dot.Run();
             var res = dot.Result.Replace("\r", "").Replace("\n", "");
             string data = $"" +

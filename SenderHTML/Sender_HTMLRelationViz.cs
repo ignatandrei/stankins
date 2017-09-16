@@ -1,4 +1,5 @@
-﻿using RazorCompile;
+﻿using MediaTransform;
+using RazorCompile;
 using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
@@ -8,63 +9,28 @@ using System.Threading.Tasks;
 
 namespace SenderHTML
 {
-    public class Sender_HTMLRelation: ISend
+    public class Sender_HTMLRelationViz: Sender_Viz<MediaTransformDotRelational>
     {
         
-        public Sender_HTMLRelation(string rootFileName,string label, string outputFileName)
+        public Sender_HTMLRelationViz(string label, string outputFileName):base(outputFileName)
         {
             this.Name = "sender html viz";
             
-            OutputFileName = outputFileName;
-            RootFileName = rootFileName;
+            
+            
             Label = label;
             
         }
 
         
-        public string OutputFileName { get; set; }
-        public string RootFileName { get; set; }
         public string Label { get; set; }
-        public IRow[] valuesToBeSent { get; set; }
-        public string Name { get; set; }
 
-        public async Task Send()
+        public override void AddToMedia(MediaTransformDotRelational dot)
         {
-            if (valuesToBeSent == null || valuesToBeSent.Length == 0)
-                return;
-
-            List<byte> buffer = new List<byte>();
-            
-
-            if (!File.Exists(RootFileName))
-            {
-                throw new FileNotFoundException($"root {RootFileName} must exists", RootFileName);
-            }
-            var mediaTransform = new MediaTransformRazor(RootFileName);
-            mediaTransform.valuesToBeSent = this.valuesToBeSent;
-            await mediaTransform.Run();
-            if (!string.IsNullOrWhiteSpace(mediaTransform.Result))
-                buffer.AddRange(Encoding.UTF8.GetBytes(mediaTransform.Result));
-
-            //foreach (var item in valuesToBeSent)
-            //{
-            //    IRowReceiveRelation rr = item as IRowReceiveRelation;
-            //    if (rr == null)
-            //        continue;
-            //    var b=await TransformRelation(rr,FolderNameWithRootAndRelation);
-            //    if (b?.Length > 0)
-            //    {
-            //        buffer.AddRange(b);
-            //    }
-            //}
-            var bytes = buffer.ToArray();
-            using (var fs = new FileStream(OutputFileName, FileMode.Append,
-              FileAccess.Write, FileShare.None, bytes.Length, true))
-            {
-                await fs.WriteAsync(bytes, 0, bytes.Length);
-            }
-
+            dot.LabelField = Label;
         }
+
+       
         //async Task<byte[]> TransformRelation(IRowReceiveRelation rr,string folderRoot)
         //{
         //    if (rr == null)
