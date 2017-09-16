@@ -65,49 +65,49 @@ namespace StankinsTests
 
             
 
-            var fileRazor = Path.Combine(dir, "my.cshtml");
+            var fileRazor = Path.Combine(dir, "genericRow.cshtml");
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
+            File.Copy(@"Views\genericRow.cshtml", fileRazor, true);
+//            File.WriteAllText(fileRazor,
+// @"@using System.Linq;
+//@model StankinsInterfaces.IRow[]
 
-            File.WriteAllText(fileRazor,
- @"@using System.Linq;
-@model StankinsInterfaces.IRow[]
+//Number Rows: @Model.Length
+//@{
+//	bool showTable=(Model.Length>0);
+//	if(!showTable){
+//		return;
+//    };
+//	var FieldNames= Model[0]
+//                .Values
+//                .Select(it => it.Key).ToArray();
+//}
+//<table>
+//<thead>
+//<tr>
+//@foreach(var col in FieldNames){
 
-Number Rows: @Model.Length
-@{
-	bool showTable=(Model.Length>0);
-	if(!showTable){
-		return;
-    };
-	var FieldNames= Model[0]
-                .Values
-                .Select(it => it.Key).ToArray();
-}
-<table>
-<thead>
-<tr>
-@foreach(var col in FieldNames){
+//<td>
+//@col
+//</td>
 
-<td>
-@col
-</td>
-
-}
-</thead>
-</tr>
-<tbody>
-@foreach(var item in Model){
-<tr>
-@foreach(var col in FieldNames){
-<td>
-@item.Values[col]
-</td>
-}
-</tr>
-}
-<tbody>
-</table>");
+//}
+//</thead>
+//</tr>
+//<tbody>
+//@foreach(var item in Model){
+//<tr>
+//@foreach(var col in FieldNames){
+//<td>
+//@item.Values[col]
+//</td>
+//}
+//</tr>
+//}
+//<tbody>
+//</table>");
 
             #endregion
             #region act
@@ -192,8 +192,8 @@ Number Rows: @Model.Length
                 File.Delete(filename);
             IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
             await r.LoadData();
-            var fileRazor = Path.Combine(dir, "my.cshtml");
-            File.Copy(@"Views\my.cshtml", fileRazor, true);
+            var fileRazor = Path.Combine(dir, "hierarFolder.cshtml");
+            File.Copy(@"Views\hierarFolder.cshtml", fileRazor, true);
            
 
 //            File.WriteAllText(fileRazor,
@@ -268,7 +268,7 @@ Number Rows: @Model.Length
             #endregion
         }
 
-        [TestMethod]
+        //[TestMethod]
         public async Task TestSendHTMLDataRelational()
         {
             #region arange            
@@ -283,8 +283,8 @@ Number Rows: @Model.Length
                 File.Delete(filename);
             IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
             await r.LoadData();
-            var fileRazor = Path.Combine(dir, "hierarFolder.cshtml");
-            File.Copy(@"Views\hierarFolder.cshtml", fileRazor, true);
+            var fileRazor = Path.Combine(dir, "relationalFolder.cshtml");
+            File.Copy(@"Views\relationalFolder.cshtml", fileRazor, true);
 
 
          
