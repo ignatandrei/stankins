@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ReceiverFileSystem;
+using Shouldly;
 using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace StankinsTests
     public class TestReceiverFolder
     {
         [TestMethod]
-        public async Task TestCurrentDir()
+        public async Task TestCurrentDirHierarchical()
         {
             #region arrange
             var dir = AppContext.BaseDirectory;
@@ -30,7 +31,7 @@ namespace StankinsTests
 
             #endregion
             #region act
-            IReceive r = new ReceiverFolder(dir,"*.txt");
+            IReceive r = new ReceiverFolderHierarchical(dir,"*.txt");
             await r.LoadData();
             #endregion
             #region assert
@@ -42,6 +43,42 @@ namespace StankinsTests
             var rh = rowFile as IRowReceiveHierarchicalParent;
             Assert.IsNotNull(rh);
             Assert.AreEqual(rh.Parent, rowDir);
+            #endregion
+
+        }
+
+        [TestMethod]
+        public async Task TestCurrentDirRelational()
+        {
+            #region arrange
+            var dir = AppContext.BaseDirectory;
+
+           
+
+
+            string fileNameToWrite = Guid.NewGuid().ToString("N") + ".txt";
+            string fullNameFile = Path.Combine(dir, fileNameToWrite);
+            File.WriteAllText(fullNameFile, "andrei ignat");
+
+            #endregion
+            #region act
+            IReceive r = new ReceiverFolderRelational(dir, "*.txt");
+            await r.LoadData();
+            #endregion
+            #region assert
+            r.valuesRead.ShouldNotBeNull();
+            r.valuesRead.Length.ShouldBe(1);
+            var rowDir = r.valuesRead[0];
+            rowDir.ShouldNotBeNull();
+            rowDir.Values.ShouldNotBeNull();
+            rowDir.Values["FullName"].ShouldBe(dir);
+            var rr = rowDir as IRowReceiveRelation;
+            rr.ShouldNotBeNull();
+            rr.Relations.ShouldContainKey("files");
+            var files = rr.Relations["files"];
+            files.Count.ShouldBeGreaterThanOrEqualTo(1);
+            files.ShouldContain(it => it.Values["Name"].ToString() == fileNameToWrite);
+            
             #endregion
 
         }

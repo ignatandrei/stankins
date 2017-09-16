@@ -266,3 +266,4 @@ __pycache__/
 /StankinsSimpleJob/IronSQLDBA_overall_status_central2es_job_stankins.json
 /StankinsTests/TestReceiverAzureIoTHub.cs
 /ReceiverAzureIoTHub/LastReceivedMessage.cs
+/StankinsDemos/Demo1JobFolders.txt

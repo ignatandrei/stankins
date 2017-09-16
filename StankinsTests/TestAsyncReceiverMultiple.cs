@@ -32,7 +32,7 @@ namespace StankinsTests
 
             File.WriteAllText(fullNameFile, "andrei ignat");
 
-            IReceive folder = new ReceiverFolder(dir, "andrei.txt");
+            IReceive folder = new ReceiverFolderHierarchical(dir, "andrei.txt");
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("model,Track_number");
             sb.AppendLine("Ford,B325ROS");

@@ -121,20 +121,8 @@ Number Rows: @Model.Length
             
             #endregion
         }
-
-        [TestMethod]
-        public async Task TestSendHTMLDataHierarchical()
+        void CreateFilesAndFolders(string dir)
         {
-            
-            #region arange
-
-            
-            var dir = AppContext.BaseDirectory;
-            dir = Path.Combine(dir, "TestSendDataHierarchical");
-            if (Directory.Exists(dir))
-                Directory.Delete(dir, true);
-            Directory.CreateDirectory(dir);
-
             string filename = Path.Combine(dir, "senderhtml.html");
             if (File.Exists(filename))
                 File.Delete(filename);
@@ -152,19 +140,58 @@ Number Rows: @Model.Length
             fullNameFile = Path.Combine(dir, fileNameToWrite);
             File.WriteAllText(fullNameFile, "andrei ignat");
 
-            var di=Directory.CreateDirectory(Path.Combine(dir, "2"));
+            var di = Directory.CreateDirectory(Path.Combine(dir, "2"));
             File.WriteAllText(Path.Combine(di.FullName, "2childfile.txt"), "test");
 
             di = Directory.CreateDirectory(Path.Combine(dir, "3"));
             File.WriteAllText(Path.Combine(di.FullName, "3childfile.txt"), "test");
 
             di = Directory.CreateDirectory(Path.Combine(di.FullName, "3childFolder"));
+            //string filename = Path.Combine(dir, "senderhtml.html");
+            //if (File.Exists(filename))
+            //    File.Delete(filename);
 
-            IReceive r = new ReceiverFolder(dir, "*.txt");
-            await r.LoadData();
+            //foreach (var item in Directory.GetFiles(dir, "*.txt", SearchOption.AllDirectories))
+            //{
+            //    File.Delete(item);
+            //}
+
+            //string fileNameToWrite = "andrei.txt";
+            //string fullNameFile = Path.Combine(dir, fileNameToWrite);
+            //File.WriteAllText(fullNameFile, "andrei ignat");
+
+            //fileNameToWrite = "ignat.txt";
+            //fullNameFile = Path.Combine(dir, fileNameToWrite);
+            //File.WriteAllText(fullNameFile, "andrei ignat");
+
+            //var di=Directory.CreateDirectory(Path.Combine(dir, "2"));
+            //File.WriteAllText(Path.Combine(di.FullName, "2childfile.txt"), "test");
+
+            //di = Directory.CreateDirectory(Path.Combine(dir, "3"));
+            //File.WriteAllText(Path.Combine(di.FullName, "3childfile.txt"), "test");
+
+            //di = Directory.CreateDirectory(Path.Combine(di.FullName, "3childFolder"));
+
+        }
+
+        [TestMethod]
+        public async Task TestSendHTMLDataHierarchical()
+        {
+            
+            #region arange
 
             
-
+            var dir = AppContext.BaseDirectory;
+            dir = Path.Combine(dir, "TestSendDataHierarchical");
+            if (Directory.Exists(dir))
+                Directory.Delete(dir, true);
+            Directory.CreateDirectory(dir);
+            CreateFilesAndFolders(dir);
+            string filename = Path.Combine(dir, "senderhtml.html");
+            if (File.Exists(filename))
+                File.Delete(filename);
+            IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
+            await r.LoadData();
             var fileRazor = Path.Combine(dir, "my.cshtml");
 
            
@@ -235,9 +262,9 @@ Number Rows: @Model.Length
             #endregion
             #region assert
             Assert.IsTrue(File.Exists(filename), $"file {filename} must exists in export hierarchical");
-            Assert.IsTrue(File.ReadAllText(filename).Contains(fileNameToWrite), "must contain data");
+            Assert.IsTrue(File.ReadAllText(filename).Contains("ignat.txt"), "must contain data");
             Assert.IsTrue(File.ReadAllText(filename).Contains("Viz("), "must contain viz ...");
-            //System.Diagnostics.Process.Start("explorer.exe", filename);
+            System.Diagnostics.Process.Start("explorer.exe", filename);
             #endregion
         }
     }

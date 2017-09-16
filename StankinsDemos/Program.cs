@@ -68,7 +68,7 @@ namespace StankinsDemos
             //TODO: put current dir on interpret string , like env
             
             var folderSolution= new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.FullName;
-            var receiveFolder = new ReceiverFolder(folderSolution, "*.csproj");
+            var receiveFolder = new ReceiverFolderHierarchical(folderSolution, "*.csproj");
             receiveFolder.ExcludeFolderNames = new string[] { "bin", "obj","Properties" ,".vs",".git","packages" };
 
             var si = new SimpleJob();

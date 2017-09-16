@@ -11,10 +11,10 @@ namespace ReceiverFileSystem
     /// <summary>
     /// TODO: add depth of folders to read - infinite , by default...
     /// </summary>
-    public class ReceiverFolder : IReceive
+    public class ReceiverFolderHierarchical : IReceive
     {
         public string Name { get; set; }
-        public ReceiverFolder(string folderName, string searchPattern="*")
+        public ReceiverFolderHierarchical(string folderName, string searchPattern="*")
         {
             FolderName = folderName;
             SearchPattern = searchPattern;

@@ -29,7 +29,7 @@ namespace StankinsTests
             File.WriteAllText(fullNameFile, "andrei ignat");
             #endregion  
             #region arrange
-            IReceive r = new ReceiverFolder(dir, "*.txt");
+            IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
             await r.LoadData();
             var m = new MediaTransformDotFolderAndFiles();
             m.valuesToBeSent = r.valuesRead;
