@@ -185,9 +185,10 @@ namespace StringInterpreter
                 var toInterpret = matchObj.Groups["myExpression"].Value;
 
                 matchObj = regexObj.Match(text, matchObj.Groups["myExpression"].Index + 1+ toInterpret.Length);
-                //two # means special char
-                if (toInterpret.StartsWith("#"))
+                //two special means special char
+                if (toInterpret[0]==special)
                     continue;
+
                 var kv = toInterpret.Split(':');
                 if(kv?.Length !=2)
                 {
