@@ -4,8 +4,8 @@
     "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
     "0": {
       "$type": "SenderToFile.Sender_JSON, SenderToFile",
-      "Name": "send to #static:Directory.GetCurrentDirectory()#/Stankins.json",
-      "FileName": "#static:Directory.GetCurrentDirectory()#/Stankins.json",
+      "Name": "send to "#static:Path.GetFileNameWithoutExtension(#env:solutionPath#)#.json",
+      "FileName": "#static:System.IO.Path.GetFileNameWithoutExtension(#env:solutionPath#)#.json",
       "media": [
         {
           "$type": "MediaTransform.MediaTransformJSON, MediaTransform",
@@ -26,8 +26,8 @@
     "0": {
       "$type": "ReceiverSolution.ReceiverFromSolution, ReceiverSolution",
       "valuesRead": null,
-      "Name": "receiver #static:Directory.GetCurrentDirectory()#/../../../#env:solution#.sln",
-      "SolutionFileName": "#static:Directory.GetCurrentDirectory()#/../../../#env:solution#.sln"
+      "Name": "receiver #env:solutionPath#",
+      "SolutionFileName": "#env:solutionPath#"
     }
   }
 }

@@ -55,10 +55,16 @@ namespace StringInterpreter
             var types = AllAssemblies.Select(it=>it.Value).SelectMany(it => it.ExportedTypes);
             foreach(var item in values)
             {
-                //Assembly.GetEntryAssembly().GetReferencedAssemblies().First().
-                var lastDot = item.ValueToTranslate.LastIndexOf(".");
-                var nameType = item.ValueToTranslate.Substring(0, lastDot );
-                var nameMethod = item.ValueToTranslate.Substring(lastDot+1);
+                
+                var beginFunction = item.ValueToTranslate.LastIndexOf(".");
+                var indexBegin = item.ValueToTranslate.LastIndexOf("(");
+                if(indexBegin>-1 && indexBegin < beginFunction)
+                {
+                    beginFunction = item.ValueToTranslate.LastIndexOf(".",beginFunction-1);
+
+                }
+                var nameType = item.ValueToTranslate.Substring(0, beginFunction );
+                
                 var type = types.FirstOrDefault(it => it.FullName == nameType);
                 if(type == null)
                 {
@@ -69,16 +75,40 @@ namespace StringInterpreter
                     throw new ArgumentException($"Can not find {nameType}");
                 }
                 MethodInfo mi;
+                string argMethod = null;
+                var nameMethod = item.ValueToTranslate.Substring(beginFunction + 1);
                 if (item.ValueToTranslate.Last() == ')')//function
                 {
-                    mi = type.GetRuntimeMethod(nameMethod.Replace("()", ""),new Type[0]);
-
+                    //find if have 1 argument
+                    //TODO: resolve with argument not string
+                    //TODO: resolve with multiple parameters
+                    var len = item.ValueToTranslate.Length;
+                    
+                    if (indexBegin==len-2)
+                    {
+                        mi = type.GetRuntimeMethod(nameMethod.Replace("()", ""), new Type[0]);
+                    }
+                    else
+                    {
+                        argMethod = item.ValueToTranslate.Substring(indexBegin+1).Replace(")","");
+                        nameMethod = nameMethod.Substring(0, nameMethod.Length - argMethod.Length - 2);
+                        mi = type.GetRuntimeMethod(nameMethod,new Type[1] { typeof(string) });
+                        
+                    }
                 }
                 else//assuming property ., not field
                 {
                     mi = type.GetRuntimeProperty(nameMethod).GetGetMethod();
                 }
-                var res = mi.Invoke(null, null);
+                object res;
+                if (argMethod == null)
+                {
+                    res = mi.Invoke(null, null);
+                }
+                else
+                {
+                    res = mi.Invoke(null, new object[1]{ argMethod });
+                }
                 item.ValueTranslated = res?.ToString();
             }
         }
@@ -134,24 +164,17 @@ namespace StringInterpreter
         public bool TwoSlashes = true;
         public string InterpretText(string text)
         {
+            var data = InterpretText(text, '#');
+            return InterpretText(data, '%');
+        }
+        string InterpretText(string text, char special)
+        {
             var env = new List<ValuesToTranslate>();
             var appSettings = new List<ValuesToTranslate>();
             var expressions = new List<ValuesToTranslate>();
-            var staticClass = new List<ValuesToTranslate>();
-            //var options = RegexOptions.Multiline | RegexOptions.Singleline;
-            //# separator
-            //string regex = @"^.+?\#(?<myExpression>.+?)\#.+?$";
-            //string regex = @"\#(?=<myExpression>.*)\#";
-            //var matches = Regex.Matches(text, regex, options);
-            //if (matches?.Count == 0)
-            //    return text;
-            //while (matches.Success)
-            //{
-            //    matchObj = regexObj.Match(subjectString, matchObj.Index + 1);
-            //}
-
-            //foreach (Match match in matches)
-            var str = @".*?\#(?<myExpression>.+?)\#.*?";            
+            var staticClass = new List<ValuesToTranslate>();            
+            
+            var str = @".*?\"+ special+ @"(?<myExpression>.+?)\"+ special+".*?";            
 
             Regex regexObj = new Regex(str);
             Match matchObj = regexObj.Match(text);
@@ -220,20 +243,20 @@ namespace StringInterpreter
             var sb = new StringBuilder(text);
             foreach (var item in env)
             {
-                sb.Replace($"#env:{item.ValueToTranslate}#", replace(item.ValueTranslated));
+                sb.Replace($"{special}env:{item.ValueToTranslate}{special}", replace(item.ValueTranslated));
             }
             foreach (var item in appSettings)
             {
-                sb.Replace($"#file:{item.ValueToTranslate}#", replace(item.ValueTranslated));
+                sb.Replace($"{special}file:{item.ValueToTranslate}{special}", replace(item.ValueTranslated));
             }
             
             foreach (var item in staticClass)
             {
-                sb.Replace($"#static:{item.ValueToTranslate}#", replace(item.ValueTranslated));
+                sb.Replace($"{special}static:{item.ValueToTranslate}{special}", replace(item.ValueTranslated));
             }
             foreach (var item in expressions)
             {
-                sb.Replace($"#{item.ValueToTranslate}#", replace(item.ValueTranslated));
+                sb.Replace($"{special}{item.ValueToTranslate}{special}", replace(item.ValueTranslated));
             }
             return sb.ToString();
             

@@ -108,7 +108,7 @@ namespace StankinsTests
             #endregion
         }
         [TestMethod]
-        public void InterpretStatic()
+        public void InterpretStaticOneParameter()
         {
             #region arrange
             string textToInterpret = "this is from #static:DateTime.Today#";
@@ -124,6 +124,25 @@ namespace StankinsTests
             #region assert
             Console.WriteLine("interpreted: " + str);
             str.ShouldBe($"this is from {DateTime.Today.ToString()} and {Directory.GetCurrentDirectory()}");
+            #endregion
+        }
+        [TestMethod]
+        public void InterpretStaticParameterString()
+        {
+            #region arrange
+            string textToInterpret = "this is %static:System.IO.Path.GetFileNameWithoutExtension(#env:solutionPath#)%";
+            Environment.SetEnvironmentVariable("solutionPath", "a.sln");
+
+            #endregion
+            #region act
+
+            var i = new Interpret();
+            i.TwoSlashes = false;
+            var str = i.InterpretText(textToInterpret);
+            #endregion
+            #region assert
+            
+            str.ShouldBe($"this is a");
             #endregion
         }
         [TestMethod]
