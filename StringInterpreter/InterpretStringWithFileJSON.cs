@@ -192,7 +192,7 @@ namespace StringInterpreter
                 var kv = toInterpret.Split(':');
                 if(kv?.Length !=2)
                 {
-                    throw new ArgumentException("interpret " + toInterpret + " has not 2 items separated by :");
+                    throw new ArgumentException($"interpret {toInterpret} has not 2 items separated by :,  special: {special}, whole text:{text}");
                 }
                 var p= new ValuesToTranslate() { ValueToTranslate= kv[1] };
                 switch (kv[0].ToLowerInvariant())
