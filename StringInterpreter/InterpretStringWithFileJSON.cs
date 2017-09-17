@@ -165,7 +165,7 @@ namespace StringInterpreter
         public string InterpretText(string text)
         {
             var data = InterpretText(text, '#');
-            return InterpretText(data, '%');
+            return InterpretText(data, '@');
         }
         string InterpretText(string text, char special)
         {
