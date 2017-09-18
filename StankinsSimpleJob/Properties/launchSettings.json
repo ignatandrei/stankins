@@ -2,7 +2,7 @@
   "profiles": {
     "StankinsSimpleJob": {
       "commandName": "Project",
-      "commandLineArgs": "execute \"E:\\j1.json\""
+      "commandLineArgs": "execute \"E:\\IronSQLDBA_Temp\\job005.json\""
     }
   }
 }

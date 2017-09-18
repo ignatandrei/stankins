@@ -165,7 +165,7 @@ namespace StringInterpreter
         public string InterpretText(string text)
         {
             var data = InterpretText(text, '#');
-            return InterpretText(data, '@');
+            return InterpretText(data, '$');//Old separator @ it's already used to map SQL sp' parameters thus @param1=column1...
         }
         string InterpretText(string text, char special)
         {
