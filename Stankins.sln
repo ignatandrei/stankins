@@ -94,8 +94,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverAzureIoTHub", "Rece
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderUnzipFiles", "SenderUnzipFiles\SenderUnzipFiles.csproj", "{5253DADF-7EF4-4E52-B242-AD8D6804DA7C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsIntegrationTests", "StankinsIntegrationTests\StankinsIntegrationTests.csproj", "{90FAE3FC-B83A-4EF2-A351-3990BFE8DED6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderToDB", "SenderToDB\SenderToDB.csproj", "{5D7C5F61-C817-41CE-968B-41347B2098A5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderToDBSqlServer", "SenderoToDBSqlServer\SenderToDBSqlServer.csproj", "{C5892C6C-D33C-4CA1-93A0-86596F2F63C7}"
@@ -258,10 +256,6 @@ Global
 		{5253DADF-7EF4-4E52-B242-AD8D6804DA7C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5253DADF-7EF4-4E52-B242-AD8D6804DA7C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5253DADF-7EF4-4E52-B242-AD8D6804DA7C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{90FAE3FC-B83A-4EF2-A351-3990BFE8DED6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{90FAE3FC-B83A-4EF2-A351-3990BFE8DED6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{90FAE3FC-B83A-4EF2-A351-3990BFE8DED6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{90FAE3FC-B83A-4EF2-A351-3990BFE8DED6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{5D7C5F61-C817-41CE-968B-41347B2098A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{5D7C5F61-C817-41CE-968B-41347B2098A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D7C5F61-C817-41CE-968B-41347B2098A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
