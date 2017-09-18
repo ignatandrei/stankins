@@ -12,17 +12,17 @@ using Transformers;
 
 namespace StankinsTests
 {
-    [TestClass]
+    //[TestClass]
     public class TestTransformerLine
     {
-        [TestMethod]
+        //[TestMethod]
 
         public async Task TestTransformerFileToLines()
         {
             #region arrange
             var dir = AppContext.BaseDirectory;
 
-            var folderSql = "SqlToExecute";
+            var folderSql = Path.Combine(dir, "SqlToExecute");
             var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.txt");
 
             #endregion
