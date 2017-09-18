@@ -23,10 +23,10 @@ namespace StankinsTests
             var dir = AppContext.BaseDirectory;
 
             var folderSql = Path.Combine(dir, "SqlToExecute");
-            var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.txt");
+            var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.sql");
             DirectoryInfo di = new DirectoryInfo(folderSql);
             Console.WriteLine($"start files in {folderSql}");
-            foreach (var item in di.EnumerateFiles( "*.txt"))
+            foreach (var item in di.EnumerateFiles( "*.sql"))
             {
                 Console.WriteLine($"File {item.FullName}");
             }

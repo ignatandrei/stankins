@@ -94,6 +94,7 @@ namespace StanskinsImplementation
             IRow[] data = arv.valuesRead;
             foreach (var filterKV in FiltersAndTransformers)
             {
+                //TODO: see also IFilterTransformer
                 var filter = filterKV.Value as ITransform;
                 if (filter == null)
                 {
