@@ -12,10 +12,10 @@ using Transformers;
 
 namespace StankinsTests
 {
-    //[TestClass]
+    [TestClass]
     public class TestTransformerLine
     {
-        //[TestMethod]
+        [TestMethod]
 
         public async Task TestTransformerFileToLines()
         {
@@ -34,6 +34,7 @@ namespace StankinsTests
             await j.Execute();
             #endregion
             #region assert
+            receiverFolder.valuesRead?.Length.ShouldBeGreaterThan(1);
             transformer.valuesTransformed.ShouldNotBeNull();
             var files = transformer.valuesTransformed.GroupBy(it => it.Values["FullName"]).ToArray();
             files.Length.ShouldBeGreaterThan(1);
