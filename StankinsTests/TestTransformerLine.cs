@@ -24,7 +24,13 @@ namespace StankinsTests
 
             var folderSql = Path.Combine(dir, "SqlToExecute");
             var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.txt");
-
+            DirectoryInfo di = new DirectoryInfo(folderSql);
+            Console.WriteLine($"start files in {folderSql}");
+            foreach (var item in di.EnumerateFiles( "*.txt"))
+            {
+                Console.WriteLine($"File {item.FullName}");
+            }
+            Console.WriteLine($"end files in {folderSql}");
             #endregion
             #region act
             var transformer = new TransformerFileToLines();
