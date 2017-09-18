@@ -1,0 +1,1 @@
+﻿insert into TestAndrei(ID ,FirstName)values(1,'Andrei');           

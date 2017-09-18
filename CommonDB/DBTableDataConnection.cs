@@ -6,26 +6,10 @@ using System.Threading.Tasks;
 
 namespace CommonDB
 {
-    public class DBTableDataConnection<Connection> : IDisposable        
+    public class DBDataConnection<Connection>:IDisposable
         where Connection : DbConnection, new()
-
     {
-        public ISerializeData data { get; set; }
-        public DBTableDataConnection(ISerializeData data)
-        {
-            this.data = data;
-            this.Fields = new string[1] { "*" };
-        }
         public string ConnectionString { get; set; }
-        public string TableName { get; set; }
-        public string[] Fields { get; set; }
-        public virtual IDictionary Keys()
-        {
-            var c = new DbConnectionStringBuilder();
-            c.ConnectionString = ConnectionString;
-
-            return c;
-        }
         private Connection cn;
         public virtual async Task<Connection> GetConnection()
         {
@@ -38,7 +22,6 @@ namespace CommonDB
             }
             return cn;
         }
-
         #region IDisposable Support
         private bool disposedValue = false; // To detect redundant calls
 
@@ -68,7 +51,7 @@ namespace CommonDB
         }
 
 
-        ~DBTableDataConnection()
+        ~DBDataConnection()
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(false);
@@ -82,5 +65,29 @@ namespace CommonDB
             GC.SuppressFinalize(this);
         }
         #endregion
+    }
+    public class DBTableDataConnection<Connection> : DBDataConnection<Connection>
+        where Connection : DbConnection, new()
+
+    {
+        public ISerializeData data { get; set; }
+        public DBTableDataConnection(ISerializeData data)
+        {
+            this.data = data;
+            this.Fields = new string[1] { "*" };
+        }
+        
+        public string TableName { get; set; }
+        public string[] Fields { get; set; }
+        public virtual IDictionary Keys()
+        {
+            var c = new DbConnectionStringBuilder();
+            c.ConnectionString = ConnectionString;
+
+            return c;
+        }
+       
+
+        
     }
 }
