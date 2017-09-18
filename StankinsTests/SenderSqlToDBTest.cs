@@ -33,7 +33,7 @@ namespace StankinsTests
             var dir = AppContext.BaseDirectory;
             var conection = GetSqlServerConnectionString();
             var folderSql = Path.Combine(dir, "SqlToExecute");
-            var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.txt");
+            var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.sql");
             var con = new DBDataConnection<SqlConnection>();
             con.ConnectionString = conection;
             var senderSqlServer = new SenderSqlToDBSqlServer(con);
@@ -45,7 +45,8 @@ namespace StankinsTests
             await j.Execute();
             #endregion
             #region assert
-            using(var conn = new SqlConnection(conection))
+            receiverFolder.valuesRead?.Length.ShouldBeGreaterThan(1);
+            using (var conn = new SqlConnection(conection))
             {
                 await conn.OpenAsync();
                 using (var cmd = conn.CreateCommand())

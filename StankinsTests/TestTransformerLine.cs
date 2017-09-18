@@ -23,8 +23,14 @@ namespace StankinsTests
             var dir = AppContext.BaseDirectory;
 
             var folderSql = Path.Combine(dir, "SqlToExecute");
-            var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.txt");
-
+            var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.sql");
+            DirectoryInfo di = new DirectoryInfo(folderSql);
+            Console.WriteLine($"start files in {folderSql}");
+            foreach (var item in di.EnumerateFiles( "*.sql"))
+            {
+                Console.WriteLine($"File {item.FullName}");
+            }
+            Console.WriteLine($"end files in {folderSql}");
             #endregion
             #region act
             var transformer = new TransformerFileToLines();
@@ -34,6 +40,7 @@ namespace StankinsTests
             await j.Execute();
             #endregion
             #region assert
+            receiverFolder.valuesRead?.Length.ShouldBeGreaterThan(1);
             transformer.valuesTransformed.ShouldNotBeNull();
             var files = transformer.valuesTransformed.GroupBy(it => it.Values["FullName"]).ToArray();
             files.Length.ShouldBeGreaterThan(1);

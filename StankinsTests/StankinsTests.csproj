@@ -10,8 +10,6 @@
     <None Remove="a.zip" />
     <None Remove="bookmarks_7_25_17.html" />
     <None Remove="InterpreterJobDateTime.txt" />
-    <None Remove="SqlToExecute\001Sql.txt" />
-    <None Remove="SqlToExecute\002Sql.txt" />
     <None Remove="Views\genericRow.cshtml" />
   </ItemGroup>
 
@@ -28,10 +26,10 @@
     <Content Include="bookmarks_7_25_17.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlToExecute\001Sql.txt">
+    <Content Include="SqlToExecute\001Sql.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="SqlToExecute\002Sql.txt">
+    <Content Include="SqlToExecute\002Sql.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\genericRow.cshtml">
