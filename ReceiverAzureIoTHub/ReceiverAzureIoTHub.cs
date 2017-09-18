@@ -74,7 +74,7 @@ namespace ReceiverAzureIoTHub
                 }
 
                 // Receiving
-                var receiver = eventHubClient.CreateReceiver(PartitionReceiver.DefaultConsumerGroupName, partition, lastRowValues[partition].EnqueuedTimeUtc);
+                var receiver = eventHubClient.CreateReceiver(PartitionReceiver.DefaultConsumerGroupName, partition, lastRowValues[partition].EnqueuedOffset.ToString());
                 await ReceiveMessagesFromDeviceAsync(receiver);
             }
 
@@ -96,16 +96,14 @@ namespace ReceiverAzureIoTHub
         {
             while (true)
             {
-                var eventData = /*await*/ receiver.ReceiveAsync(5, new TimeSpan(0, 0, 5)); //Timeout for receiving messages = 30 seconds
+                var eventData = await  receiver.ReceiveAsync(10, new TimeSpan(0, 0, 10)); //Timeout for receiving messages = 30 seconds
 
                 int count = 0;
                 if (eventData != null)
                 {
-                    //TODO: use here await eventData
-                    var result = eventData.Result;
-                    if (result != null)
+                    if (eventData != null)
                     {
-                        foreach (var item in result)
+                        foreach (var item in eventData)
                         {
                             count++;
 
@@ -117,7 +115,8 @@ namespace ReceiverAzureIoTHub
                                     {
                                         //Assert ? item.Properties["UnicodeEncoding"] == "UTF8"
                                         string data = UnicodeEncoding.UTF8.GetString(item.Body.Array);
-                                        List<Dictionary<string, object>> results = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(data);
+                                        var jsonDeserializerSettings = new JsonSerializerSettings() { DateFormatHandling = DateFormatHandling.IsoDateFormat, DateParseHandling = DateParseHandling.DateTimeOffset, DateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind };
+                                        List<Dictionary<string, object>> results = JsonConvert.DeserializeObject<List<Dictionary<string, object>>>(data,jsonDeserializerSettings);
 
                                         foreach(var r in results)
                                         {
