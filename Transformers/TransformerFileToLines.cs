@@ -30,6 +30,7 @@ namespace Transformers
                     //TODO: log
                     continue;
                 }
+                //TODO: use async
                 var lines = File.ReadAllLines(file);
                 int i = 0;
                 var length = lines.Length;

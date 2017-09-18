@@ -22,7 +22,7 @@ namespace StankinsTests
             #region arrange
             var dir = AppContext.BaseDirectory;
 
-            var folderSql = Path.Combine(dir, "SqlToExecute");
+            var folderSql = "SqlToExecute";
             var receiverFolder = new ReceiverFolderHierarchical(folderSql, "*.txt");
 
             #endregion
