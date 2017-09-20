@@ -13,6 +13,7 @@ namespace StankinsTests
     public class TestSenderAzureIoTHub
     {
         [TestMethod]
+        [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestSenderAzureIoTHubSimple()
         {
             #region arrange
