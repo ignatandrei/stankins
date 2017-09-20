@@ -165,7 +165,7 @@ namespace StringInterpreter
         public string InterpretText(string text)
         {
             var data = InterpretText(text, '#');
-            return InterpretText(data, '$');//Old separator @ it's already used to map SQL sp' parameters thus @param1=column1...
+            return InterpretText(data, '@');//Old separator @ it's already used to map SQL sp' parameters thus @param1=column1...
         }
         string InterpretText(string text, char special)
         {
@@ -190,7 +190,11 @@ namespace StringInterpreter
                     continue;
 
                 var kv = toInterpret.Split(':');
-                if(kv?.Length !=2)
+                if(kv?.Length == 1 && (Regex.Match(toInterpret, @"[a-zA-Z0-9_]*\=[a-zA-Z0-9_]*\;").Success || Regex.Match(toInterpret, @"[a-zA-Z0-9_]*\=.[a-zA-Z0-9_]*").Success))
+                {
+                    continue;
+                }
+                else if(kv?.Length != 2)
                 {
                     throw new ArgumentException($"interpret {toInterpret} has not 2 items separated by :,  special: {special}, whole text:{text}");
                 }

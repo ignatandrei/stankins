@@ -130,7 +130,7 @@ namespace StankinsTests
         public void InterpretStaticParameterString()
         {
             #region arrange
-            string textToInterpret = "this is $static:System.IO.Path.GetFileNameWithoutExtension(#env:solutionPath#)$";
+            string textToInterpret = "this is @static:System.IO.Path.GetFileNameWithoutExtension(#env:solutionPath#)@";
             Environment.SetEnvironmentVariable("solutionPath", "a.sln");
 
             #endregion

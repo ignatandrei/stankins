@@ -63,9 +63,9 @@ namespace StankinsTests
             var rcvr = new ReceiverStmtSqlServer(connectionString, commandType, commandText1, fileNameSerilizeLastRow, parameters1);
 
             //Sender
-            string iotHubUri = "AzBogdanStankinsIoTHub.azure-devices.net";
-            string deviceId = "DeviceTest01-ACD3688D";
-            string deviceKey = "oXJiz/W9Ta4dNM6s6FTmm2K14RxuFjbrKHXbxteYoRs=";
+            string iotHubUri = "a";
+            string deviceId = "b";
+            string deviceKey = "c";
             string messageType = "UnitTest";
 
             var snd = new SenderToAzureIoTHub(iotHubUri, deviceId, deviceKey, messageType);
@@ -114,9 +114,9 @@ namespace StankinsTests
         {
             #region arrange
             //Send test message
-            string iotHubUri = "AzBogdanStankinsIoTHub.azure-devices.net";
-            string deviceId = "DeviceTest01-ACD3688D";
-            string deviceKey = "oXJiz/W9Ta4dNM6s6FTmm2K14RxuFjbrKHXbxteYoRs=";
+            string iotHubUri = "a";
+            string deviceId = "b";
+            string deviceKey = "c";
             string messageType = "UnitTestSimpleJobReceiverFromIoTHub2SenderToSQLServer" + DateTime.Now.ToString();
 
             var sndToIoTHub = new SenderToAzureIoTHub(iotHubUri, deviceId, deviceKey, messageType);
@@ -145,8 +145,8 @@ namespace StankinsTests
             //End of Send test message
 
             //Receiver settings
-            string iotHubConnectionStringEventHubCompatible = "Endpoint=sb://iothub-ns-azbogdanst-208965-a24331514f.servicebus.windows.net/;SharedAccessKeyName=iothubowner;SharedAccessKey=pPQtX7pSbtNM1cUngtgsdRJIopXGF/jfHZPRVtlcebg=";
-            string iotHubMessageEntityEventHubCompatible = "azbogdanstankinsiothub";
+            string iotHubConnectionStringEventHubCompatible = "a";
+            string iotHubMessageEntityEventHubCompatible = "b";
             string fileNameLastRow = "TestReceiveAzureIoTHubSimple_LastRow.json";
 
             //Receiver

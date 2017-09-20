@@ -26,7 +26,7 @@ namespace StankinsTests
         //SMTP general settings
         const string from = "666def2ad8-a3dd31@inbox.mailtrap.io";
         const string to = "bogdan@localhost.com";
-        const string smtpServer = "smtp.mailtrap.io"; //https://mailtrap.io/ User:"bsahlean@gmail.com" Password:"SDJSf54c9c12fOEIRNYfhdsffdhFTBD5b05f43a99KLXCP" without double quotes; Free plan = maximum 50 emails allowed
+        const string smtpServer = "smtp.mailtrap.io"; //https://mailtrap.io/ 
         const int smtpPort = 2525;
         const string subject = "Send data by email";
         const string body = "Person details:\n";
