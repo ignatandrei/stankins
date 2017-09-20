@@ -55,7 +55,10 @@ namespace ReceiverFileSystem
                 var item = new RowReadRelation();
                 item.Values.Add("Name" , file.Name);
                 item.Values.Add("FullName", file.FullName);
-                item.Values.Add("RowType", "file");                
+                item.Values.Add("RowType", "file");
+                item.Values.Add("CreationTimeUtc", file.CreationTimeUtc);
+                item.Values.Add("LastAccessTimeUtc", file.LastAccessTimeUtc);
+                item.Values.Add("LastWriteTimeUtc", file.LastWriteTimeUtc);
                 ret.Add(item);
             }
             return ret;
@@ -67,6 +70,10 @@ namespace ReceiverFileSystem
             item.Values.Add("Name", di.Name);
             item.Values.Add("FullName", di.FullName);
             item.Values.Add("RowType", "folder");
+            item.Values.Add("CreationTimeUtc", di.CreationTimeUtc);
+            item.Values.Add("LastAccessTimeUtc", di.LastAccessTimeUtc);
+            item.Values.Add("LastWriteTimeUtc", di.LastWriteTimeUtc);
+
             return item;
         }
     }
