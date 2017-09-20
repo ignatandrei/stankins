@@ -10,7 +10,7 @@ namespace SenderHTML
     {
         public Sender_HTMLText(string outputFileName, string text) :base(outputFileName,new MediaTransformStringToText(text))
         {
-            
+            this.Name = $"send {text} to {outputFileName}";
         }
     }
     public class Sender_HTMLRazor : SenderMediaToFile
@@ -21,7 +21,7 @@ namespace SenderHTML
             : base(outputFileName, new MediaTransformRazor(viewFileName))
         {
             this.ViewFileName = viewFileName;
-        
+            this.Name = $"send razor {ViewFileName} to {outputFileName}";
         }
        
 

@@ -27,13 +27,38 @@ namespace StankinsDemos
             si = new SimpleJob();
             si.UnSerialize(strDemo1);
             si.Execute().GetAwaiter().GetResult();
-            
+            DirectoryInfo di;
+            string file;
+            Action<string, string> overWriteFile = (fileName, fileDestination) =>
+             {
+
+                 if (File.Exists(fileDestination))
+                     File.Delete(fileDestination);
+
+                 File.Move(fileName, fileDestination);
+             };
+            #region move into demos
+            di=Directory.CreateDirectory("Demo1JobFolders");
+            file = "Demo1JobFolders.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Demo1SimpleJobFolders.html";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            #endregion
+
             var strDemo2 = SimpleJobView();
             File.WriteAllText("Demo2JobView.txt", strDemo2);
             si = new SimpleJob();
             si.UnSerialize(strDemo2);
             si.Execute().GetAwaiter().GetResult();
-
+            #region move into demos
+            di = Directory.CreateDirectory("Demo2SimpleJobView");
+            file = "jobDefinition.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Demo2JobView.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Demo2SimpleJobView.html";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            #endregion
         }
         static string DeleteFileIfExists(string fileName)
         {
@@ -65,8 +90,7 @@ namespace StankinsDemos
         static string SimpleJobFolders()
         {
             string fileName = DeleteFileIfExists("Demo1SimpleJobFolders.html");
-            //TODO: put current dir on interpret string , like env
-            
+            //TODO: put current dir on interpret string , like env            
             var folderSolution= new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.FullName;
             var receiveFolder = new ReceiverFolderHierarchical(folderSolution, "*.csproj");
             receiveFolder.ExcludeFolderNames = new string[] { "bin", "obj","Properties" ,".vs",".git","packages" };

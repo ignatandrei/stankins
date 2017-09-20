@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Demo1JobFolders\**" />
+    <Compile Remove="Demo2SimpleJobView\**" />
+    <EmbeddedResource Remove="Demo1JobFolders\**" />
+    <EmbeddedResource Remove="Demo2SimpleJobView\**" />
+    <None Remove="Demo1JobFolders\**" />
+    <None Remove="Demo2SimpleJobView\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Demo1JobFolders.txt" />
     <None Remove="Demo2Job.txt" />
     <None Remove="Demo2JobView.txt" />

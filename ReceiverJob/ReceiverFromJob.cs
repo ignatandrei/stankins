@@ -13,6 +13,7 @@ namespace ReceiverJob
         public ReceiverFromJobFile(string fileName):base(null)
         {
             FileName = fileName;
+            Name = $"receiver from job serialized in {fileName}";
         }
 
         public string FileName { get; set; }
@@ -98,7 +99,7 @@ namespace ReceiverJob
             {
                 var item = sj.FiltersAndTransformers[i];
                 var newRow = new RowReadHierarchical();
-                newRow.Values.Add("Name", Name ?? item.GetType().Name);
+                newRow.Values.Add("Name", item.Name ?? item.GetType().Name);
                 newRow.Values.Add("Type", item.GetType().Name);
                 newRow.Values.Add("RowType", "Filter_Transformer");
                 li.Add(newRow);
@@ -111,7 +112,7 @@ namespace ReceiverJob
             {
                 var item = sj.Senders[i];
                 var newRow = new RowReadHierarchical();
-                newRow.Values.Add("Name", Name ?? item.GetType().Name);
+                newRow.Values.Add("Name", item.Name ?? item.GetType().Name);
                 newRow.Values.Add("Type", item.GetType().Name);
                 newRow.Values.Add("RowType", "Sender");
                 li.Add(newRow);

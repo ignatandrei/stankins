@@ -11,7 +11,7 @@ namespace SenderHTML
     {
         public Sender_HierarchicalVizJob(string outputFileName, string label) : base(outputFileName)
         {
-
+            Name = $"send dot viz to {outputFileName}";
             Label = label;
         }
         public string Label { get; set; }
@@ -25,6 +25,7 @@ namespace SenderHTML
         public Sender_HierarchicalVizFolder(string outputFileName, string label) :base(outputFileName)
         {
             Label = label;
+            Name = $"send dot viz to {outputFileName}";
         }
         public string Label { get; set; }
         public override void AddToMedia(MediaTransformDotFolderAndFiles dot)

@@ -18,6 +18,7 @@ namespace ReceiverFileSystem
         {
             FolderName = folderName;
             SearchPattern = searchPattern;
+            Name = $"Receiver from folder {folderName} with {searchPattern}";
         }
         public string[] ExcludeFolderNames { get; set; }
         public string FolderName { get; set; }
