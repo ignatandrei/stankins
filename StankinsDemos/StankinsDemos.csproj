@@ -9,10 +9,16 @@
   <ItemGroup>
     <Compile Remove="Demo1JobFolders\**" />
     <Compile Remove="Demo2SimpleJobView\**" />
+    <Compile Remove="Demo3ExecuteSql\**" />
+    <Compile Remove="StankinsDemo\**" />
     <EmbeddedResource Remove="Demo1JobFolders\**" />
     <EmbeddedResource Remove="Demo2SimpleJobView\**" />
+    <EmbeddedResource Remove="Demo3ExecuteSql\**" />
+    <EmbeddedResource Remove="StankinsDemo\**" />
     <None Remove="Demo1JobFolders\**" />
     <None Remove="Demo2SimpleJobView\**" />
+    <None Remove="Demo3ExecuteSql\**" />
+    <None Remove="StankinsDemo\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,6 +31,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="SqlToExecute\001Sql.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SqlToExecute\002Sql.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\RazorHierarchical.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -35,7 +47,14 @@
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
+    <ProjectReference Include="..\SenderoToDBSqlServer\SenderToDBSqlServer.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

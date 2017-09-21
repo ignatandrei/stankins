@@ -1,9 +1,12 @@
-﻿using ReceiverFileSystem;
+﻿using CommonDB;
+using ReceiverFileSystem;
 using ReceiverJob;
 using SenderHTML;
+using SenderToDBSqlServer;
 using StankinsInterfaces;
 using StanskinsImplementation;
 using System;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 
@@ -34,14 +37,19 @@ namespace StankinsDemos
 
                  if (File.Exists(fileDestination))
                      File.Delete(fileDestination);
+                 string destDir = Path.GetDirectoryName(fileDestination);
+                 if (!Directory.Exists(destDir))
+                     Directory.CreateDirectory(destDir);
 
-                 File.Move(fileName, fileDestination);
+                 File.Copy(fileName, fileDestination);
              };
             #region move into demos
             di=Directory.CreateDirectory("Demo1JobFolders");
             file = "Demo1JobFolders.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Demo1SimpleJobFolders.html";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Views/RazorRow.cshtml";
             overWriteFile(file, Path.Combine(di.FullName, file));
             #endregion
 
@@ -58,7 +66,27 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Demo2SimpleJobView.html";
             overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Views/RazorHierarchical.cshtml";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+
             #endregion
+            var strDemo3 = ExecuteSqlCIOrder();
+            File.WriteAllText("Demo3ExecuteSql.txt", strDemo3);
+            si = new SimpleJob();
+            si.UnSerialize(strDemo3);
+            si.Execute().GetAwaiter().GetResult();
+            #region move into demos
+            di = Directory.CreateDirectory("Demo3ExecuteSql");
+            file = "Demo3ExecuteSql.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "SqlToExecute/001Sql.sql";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "SqlToExecute/002Sql.sql";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "appsettings.json";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            #endregion            
+
         }
         static string DeleteFileIfExists(string fileName)
         {
@@ -66,27 +94,7 @@ namespace StankinsDemos
                 File.Delete(fileName);
             return fileName;
         }
-        static string SimpleJobView()
-        {
-            var si = new SimpleJob();
-
-            string fileName = DeleteFileIfExists("Demo2SimpleJobView.html");
-            File.WriteAllText("jobDefinition.txt", SimpleJobFolders());
-            var receiver = new ReceiverFromJobFile("jobDefinition.txt");
-            si.Receivers.Add(0,receiver);
-            si.Senders.Add(0, new Sender_HTMLText(fileName, "<html><body><h1>Job visualization</h1>"));
-            si.Senders.Add(1, new Sender_HTMLRazor("Views/RazorRow.cshtml", fileName));
-            si.Senders.Add(2, new Sender_HierarchicalVizJob(fileName, "Name"));
-            si.Senders.Add(3, new Sender_HTMLText(fileName, "</body></html>"));
-            //or you can add SyncSenderMultiple , but for now let's do it line by line
-            //ISend sender = new SyncSenderMultiple(
-            //    new Sender...
-            //    new Sender...
-            //    new Sender...
-            //    new Sender...
-            //    );
-            return si.SerializeMe();
-        }
+        
         static string SimpleJobFolders()
         {
             string fileName = DeleteFileIfExists("Demo1SimpleJobFolders.html");
@@ -108,6 +116,41 @@ namespace StankinsDemos
             //    new Sender_HierarchicalVizFolder(fileName, "Name"),
             //    new Sender_HTMLText(fileName, "</body></html>")
             //    );
+            return si.SerializeMe();
+        }
+        static string SimpleJobView()
+        {
+            var si = new SimpleJob();
+
+            string fileName = DeleteFileIfExists("Demo2SimpleJobView.html");
+            File.WriteAllText("jobDefinition.txt", SimpleJobFolders());
+            var receiver = new ReceiverFromJobFile("jobDefinition.txt");
+            si.Receivers.Add(0, receiver);
+            si.Senders.Add(0, new Sender_HTMLText(fileName, "<html><body><h1>Job visualization</h1>"));
+            si.Senders.Add(1, new Sender_HTMLRazor("Views/RazorRow.cshtml", fileName));
+            si.Senders.Add(2, new Sender_HierarchicalVizJob(fileName, "Name"));
+            si.Senders.Add(3, new Sender_HTMLText(fileName, "</body></html>"));
+            //or you can add SyncSenderMultiple , but for now let's do it line by line
+            //ISend sender = new SyncSenderMultiple(
+            //    new Sender...
+            //    new Sender...
+            //    new Sender...
+            //    new Sender...
+            //    );
+            return si.SerializeMe();
+        }
+        static string ExecuteSqlCIOrder()
+        {
+            string fileName = DeleteFileIfExists("Demo3SimpleExecuteSql.html");
+            //TODO: put current dir on interpret string , like env            
+            
+            var receiveFolder = new ReceiverFolderHierarchical(@"#static:Directory.GetCurrentDirectory()#\SqlToExecute", "*.sql");
+            var dbConnection = new DBDataConnection<SqlConnection>();
+            dbConnection.ConnectionString = "#file:SqlServerConnectionString#";
+            var senderSql = new SenderSqlToDBSqlServer(dbConnection);
+            var si = new SimpleJob();
+            si.Receivers.Add(0, receiveFolder);
+            si.Senders.Add(0, senderSql);
             return si.SerializeMe();
         }
     }

@@ -1,0 +1,76 @@
+<html><body><h1>Job visualization</h1>Number Rows: 5
+<table>
+<thead>
+<tr>
+<td>
+Name
+</td>
+<td>
+Type
+</td>
+<td>
+RowType
+</td>
+</thead>
+<tbody>
+<tr>
+<td>
+Receiver from folder D:\github\stankins with *.csproj
+</td>
+<td>
+ReceiverFolderHierarchical
+</td>
+<td>
+Receiver
+</td>
+</tr>
+<tr>
+<td>
+send &lt;html&gt;&lt;body&gt;&lt;h1&gt;Find .csproj in solution folder&lt;/h1&gt; to Demo1SimpleJobFolders.html
+</td>
+<td>
+Sender_HTMLText
+</td>
+<td>
+Sender
+</td>
+</tr>
+<tr>
+<td>
+send razor Views/RazorHierarchical.cshtml to Demo1SimpleJobFolders.html
+</td>
+<td>
+Sender_HTMLRazor
+</td>
+<td>
+Sender
+</td>
+</tr>
+<tr>
+<td>
+send dot viz to Demo1SimpleJobFolders.html
+</td>
+<td>
+Sender_HierarchicalVizFolder
+</td>
+<td>
+Sender
+</td>
+</tr>
+<tr>
+<td>
+send &lt;/body&gt;&lt;/html&gt; to Demo1SimpleJobFolders.html
+</td>
+<td>
+Sender_HTMLText
+</td>
+<td>
+Sender
+</td>
+</tr>
+<tbody>
+</table> <script src='https://github.com/mdaines/viz.js/releases/download/v1.8.0/viz.js'></script>
+<script>var result = Viz('digraph Name{Node121 [label="Receiver from folder D:\\\\github\\\\stankins with *.csproj" shape=cylinder color=lightblue];Node122 [label="send <html><body><h1>Find .csproj in solution folder</h1> to Demo1SimpleJobFolders.html" shape=signature color=lime];Node121 -> Node122;Node123 [label="send razor Views/RazorHierarchical.cshtml to Demo1SimpleJobFolders.html" shape=signature color=lime];Node122 -> Node123;Node124 [label="send dot viz to Demo1SimpleJobFolders.html" shape=signature color=lime];Node123 -> Node124;Node125 [label="send </body></html> to Demo1SimpleJobFolders.html" shape=signature color=lime];Node124 -> Node125;}', {format: 'png-image-element' });
+document.body.appendChild(result);
+</script>
+</body></html>

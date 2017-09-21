@@ -1,0 +1,32 @@
+{
+  "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
+  "Senders": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "SenderToDBSqlServer.SenderSqlToDBSqlServer, SenderToDBSqlServer",
+      "valuesToBeSent": null,
+      "Name": null,
+      "OrderBy": "FullName",
+      "Connection": {
+        "$type": "CommonDB.DBDataConnection`1[[System.Data.SqlClient.SqlConnection, System.Data.SqlClient]], CommonDB",
+        "ConnectionString": "#file:SqlServerConnectionString#"
+      }
+    }
+  },
+  "FiltersAndTransformers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces"
+  },
+  "AllReceiversAsync": false,
+  "AllSendersAsync": false,
+  "Receivers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "ReceiverFileSystem.ReceiverFolderHierarchical, ReceiverFileSystem",
+      "Name": "Receiver from folder #static:Directory.GetCurrentDirectory()#\\SqlToExecute with *.sql",
+      "ExcludeFolderNames": null,
+      "FolderName": "#static:Directory.GetCurrentDirectory()#\\SqlToExecute",
+      "SearchPattern": "*.sql",
+      "valuesRead": null
+    }
+  }
+}
