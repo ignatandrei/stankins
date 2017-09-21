@@ -1,4 +1,5 @@
 ﻿using CommonDB;
+using ReceiverDatabaseObjects;
 using ReceiverFileSystem;
 using ReceiverJob;
 using SenderHTML;
@@ -85,7 +86,10 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
             overWriteFile(file, Path.Combine(di.FullName, file));
-            #endregion            
+            #endregion
+            #region DocumentSqlServer
+            //TODO:add demo DocumentSqlServer
+            #endregion
 
         }
         static string DeleteFileIfExists(string fileName)
@@ -151,6 +155,16 @@ namespace StankinsDemos
             var si = new SimpleJob();
             si.Receivers.Add(0, receiveFolder);
             si.Senders.Add(0, senderSql);
+            return si.SerializeMe();
+        }
+        static string DocumentSqlServer()
+        {
+            var rr = new ReceiverRelationalSqlServer();
+            rr.ConnectionString = "#file:SqlServerConnectionString#";             
+            var sender = new Sender_HTMLRazor("Views/sqlserver.cshtml", "documentSqlServer.html");
+            var si = new SimpleJob();
+            si.Receivers.Add(0, rr);
+            si.Senders.Add(0, sender);
             return si.SerializeMe();
         }
     }

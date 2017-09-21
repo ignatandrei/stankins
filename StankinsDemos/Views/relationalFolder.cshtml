@@ -1,0 +1,55 @@
+@using System.Linq;
+@using StankinsInterfaces;
+@model StankinsInterfaces.IRowReceive[]
+
+Number Rows: @Model.Length
+@{
+	bool showTable=(Model.Length>0);
+	if(!showTable){
+		return;
+    };
+	var FieldNames= Model[0]
+                .Values
+                .Select(it => it.Key).ToArray();
+}
+<table>
+<thead>
+<tr>
+<td>ID</td>
+@foreach(var col in FieldNames){
+
+<td>
+@col
+</td>
+
+}
+<td>Files</td>
+</thead>
+
+<tbody>
+@foreach(var item in Model){
+    var m = item as IRowReceiveRelation;
+
+<tr>
+<td>@m.ID</td>
+@foreach(var col in FieldNames){
+<td>
+@item.Values[col]
+</td>
+}
+<td>
+    @Html.Partial("relationalFile", m.Relations["files"]);
+
+    
+</td>
+</tr>
+
+}
+<tbody>
+</table>
+@foreach (var item in Model)
+{
+    var m = item as IRowReceiveRelation;
+    <h2>Folders @item.Values["FullName"]</h2>
+    @Html.Partial("relationalFolder", m.Relations["folders"].ToArray());
+}

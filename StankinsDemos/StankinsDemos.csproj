@@ -26,8 +26,18 @@
     <None Remove="Demo2Job.txt" />
     <None Remove="Demo2JobView.txt" />
     <None Remove="Demo2SimpleJobView.html" />
+    <None Remove="Demo3ExecuteSql.txt" />
     <None Remove="jobDefinition.txt" />
+    <None Remove="Views\columns.cshtml" />
+    <None Remove="Views\databases.cshtml" />
+    <None Remove="Views\genericRow.cshtml" />
+    <None Remove="Views\hierarFolder.cshtml" />
     <None Remove="Views\RazorHierarchical.cshtml" />
+    <None Remove="Views\RazorRow.cshtml" />
+    <None Remove="Views\relationalFile.cshtml" />
+    <None Remove="Views\relationalFolder.cshtml" />
+    <None Remove="Views\sqlserver.cshtml" />
+    <None Remove="Views\tables.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -37,13 +47,41 @@
     <Content Include="SqlToExecute\002Sql.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\columns.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\databases.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\genericRow.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\hierarFolder.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Views\RazorHierarchical.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\RazorRow.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\relationalFile.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\relationalFolder.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\sqlserver.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\tables.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />

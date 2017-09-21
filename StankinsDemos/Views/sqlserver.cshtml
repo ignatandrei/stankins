@@ -1,0 +1,44 @@
+@using System.Linq;
+            @using StankinsInterfaces;
+            @model StankinsInterfaces.IRow[]
+
+            <h1> Servers Number Rows: @Model.Length</h1>
+<table border='1' id='server'>
+<tr><th>Nr</th><th>Name</th></tr>
+@{
+int idRow=1;
+}
+@foreach(var server in Model){
+    
+    <tr id='server_@server.Values["PathID"]'>
+<td>@(idRow++)</td>
+    <td>
+        @server.Values["Name"]
+        <table>
+            <tr>
+            <td>
+            @{ 
+            var item= server as IRowReceiveRelation;            
+            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations["databases"].ToArray());Html.RenderPartial("databases.cshtml",child); 
+
+            }
+            
+            </td>
+            <tr>
+        </table>
+    </td>
+    </tr>
+}
+</table>
+
+	<script language='javascript'> 
+function toggle(elementId) {
+	var ele = document.getElementById(elementId);
+	if(ele.style.display == 'block') {
+    		ele.style.display = 'none';
+  	}
+	else {
+		ele.style.display = 'block';
+	}
+} 
+</script>

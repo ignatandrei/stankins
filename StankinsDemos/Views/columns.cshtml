@@ -1,0 +1,24 @@
+@using System.Linq;
+            @using StankinsInterfaces;
+            @model Tuple<object,StankinsInterfaces.IRow[]>
+@{
+IRow parent =Model.Item1 as IRow;
+int idRow=1;
+}
+
+            <!--<h1> columns for table <a href='#table_@parent.Values["PathID"]'> @parent.Values["Name"]</a>-->
+
+<table  border='1' id='columns'>
+<tr><th>Nr</th><th>Name</th></tr>
+
+@foreach(var item in Model.Item2){
+
+    <tr id='column_@item.Values["PathID"]'>
+<td>@(idRow++)</td>
+    <td>
+        @item.Values["Name"]
+    </td>
+    </tr>
+}
+</table>
+
