@@ -66,7 +66,7 @@ namespace MediaTransform
                 if (rels[relName].Count == 0)
                     continue;
                 string relNode = $"NodeRel{relName + "_" + rr.ID}";
-                sb.AppendLine($"{relNode} [label=\"{relName}\"];");
+                sb.AppendLine($"{relNode} [label=\"{ReplaceStringForJavascript(relName)}\"];");
                 sb.AppendLine($"Node{rr.ID} -> {relNode};");
                 foreach(var childRel in rels[relName])
                 {

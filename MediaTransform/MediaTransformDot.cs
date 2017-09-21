@@ -12,5 +12,9 @@ namespace MediaTransform
         {
             return null;
         }
+        public string ReplaceStringForJavascript(string text)
+        {
+            return text.Replace(@"\", @"\\\\");
+        }
     }
 }

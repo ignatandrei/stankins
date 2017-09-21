@@ -27,7 +27,7 @@ namespace MediaTransform
             if (parent.Parent == null)
             {
                 var otherAttributes = OtherAttributes(parent);
-                sb.AppendLine($"Node{parent.ID} [label=\"{parent.Values[label]}\" {otherAttributes}];");
+                sb.AppendLine($"Node{parent.ID} [label=\"{ReplaceStringForJavascript(parent.Values[label].ToString())}\" {otherAttributes}];");
             }
 
             var children = col.Where(it => it.Parent == parent).ToArray();
@@ -38,7 +38,7 @@ namespace MediaTransform
             foreach (var item in children)
             {
                 var otherAttributes = OtherAttributes(item);
-                sb.AppendLine($"Node{item.ID} [label=\"{item.Values[label]}\" {otherAttributes}];");
+                sb.AppendLine($"Node{item.ID} [label=\"{ReplaceStringForJavascript(item.Values[label].ToString())}\" {otherAttributes}];");
                 sb.AppendLine($"Node{parent.ID} -> Node{item.ID};");
                 sb.AppendLine(AppendDataForParent(col, item, label));
             }
