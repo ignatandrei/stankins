@@ -87,6 +87,7 @@
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
     <ProjectReference Include="..\SenderoToDBSqlServer\SenderToDBSqlServer.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+    <ProjectReference Include="..\Transformers\Transformers.csproj" />
   </ItemGroup>
 
   <ItemGroup>

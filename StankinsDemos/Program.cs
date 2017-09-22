@@ -10,6 +10,7 @@ using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using Transformers;
 
 namespace StankinsDemos
 {
@@ -89,6 +90,29 @@ namespace StankinsDemos
             #endregion
             #region DocumentSqlServer
             //TODO:add demo DocumentSqlServer
+            var strDemo4 = DocumentSqlServer();
+            File.WriteAllText("Demo4DocumentSqlServer.txt", strDemo3);
+            si = new SimpleJobConditionalTransformers();
+            si.UnSerialize(strDemo4);
+            si.Execute().GetAwaiter().GetResult();
+            #region move into demos
+            di = Directory.CreateDirectory("Demo4DocumentSqlServer");
+            file = "Demo4DocumentSqlServer.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Views/sqlserver.cshtml";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Views/databases.cshtml";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Views/tables.cshtml";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Views/columns.cshtml";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "relationalSqlServer.html";
+            overWriteFile(file, Path.Combine(di.FullName, file));            
+            file = "appsettings.json";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            #endregion
+
             #endregion
 
         }
@@ -160,11 +184,19 @@ namespace StankinsDemos
         static string DocumentSqlServer()
         {
             var rr = new ReceiverRelationalSqlServer();
-            rr.ConnectionString = "#file:SqlServerConnectionString#";             
-            var sender = new Sender_HTMLRazor("Views/sqlserver.cshtml", "documentSqlServer.html");
-            var si = new SimpleJob();
+            rr.ConnectionString = "#file:SqlServerConnectionString#";
+            string OutputFileName = "relationalSqlServer.html";
+            var sender = new Sender_HTMLRazor("Views/sqlserver.cshtml", OutputFileName);
+
+            var senderViz = new Sender_HTMLRelationViz("Name", OutputFileName);
+            var filter = new FilterExcludeRelation();
+            filter.ExcludeProperties
+                .AddRange(new string[] { "columns", "tables" });
+            var si = new SimpleJobConditionalTransformers();
             si.Receivers.Add(0, rr);
-            si.Senders.Add(0, sender);
+            si.AddSender(sender);
+            si.Add(filter);
+            si.Add(filter, senderViz);
             return si.SerializeMe();
         }
     }
