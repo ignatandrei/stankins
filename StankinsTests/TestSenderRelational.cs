@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using Transformers;
 
 namespace StankinsTests
 {
@@ -26,166 +27,25 @@ namespace StankinsTests
         {
             if (!Directory.Exists(folderTo))
                 Directory.CreateDirectory(folderTo);
-            string sqlserver = @"@using System.Linq;
-            @using StankinsInterfaces;
-            @model StankinsInterfaces.IRow[]
 
-            <h1> Servers Number Rows: @Model.Length</h1>
-<table border='1' id='server'>
-<tr><th>Nr</th><th>Name</th></tr>
-@{
-int idRow=1;
-}
-@foreach(var server in Model){
-    
-    <tr id='server_@server.Values[" + "\"PathID\"" + @"]'>
-<td>@(idRow++)</td>
-    <td>
-        @server.Values[" + "\"Name\""+ @"]
-        <table>
-            <tr>
-            <td>
-            @{ 
-            var item= server as IRowReceiveRelation;            
-            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations[" + "\"databases\"].ToArray());"+
-            @"Html.RenderPartial(" + "\"databases.cshtml\"" + @",child); 
+      
 
-            }
-            
-            </td>
-            <tr>
-        </table>
-    </td>
-    </tr>
-}
-</table>
 
-	<script language='javascript'> 
-function toggle(elementId) {
-	var ele = document.getElementById(elementId);
-	if(ele.style.display == 'block') {
-    		ele.style.display = 'none';
-  	}
-	else {
-		ele.style.display = 'block';
-	}
-} 
-</script>
-";
+
             string sqlserverFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "sqlserver.cshtml"));
-            File.WriteAllText(sqlserverFile, sqlserver);
+            File.Copy(@"Views\sqlserver.cshtml", sqlserverFile);
 
-            string databases= @"@using System.Linq;
-            @using StankinsInterfaces;
-            @model Tuple<object,StankinsInterfaces.IRow[]>
-@{
-IRow parent =Model.Item1 as IRow;
-int idRow=1;
-}
-            <h1> databases for server @parent.Values[" + "\"Name\"" + @"] ;
-
-<table border='1' id='databases'>
-<tr><th>Nr</th><th>Name</th></tr>
-
-@foreach(var database in Model.Item2){
-var pathId=database.Values[" + "\"PathID\"" + @"];
-
-    <tr id='database_@pathId'>
-<td>@(idRow++)</td>
-    <td>
-        @database.Values[" + "\"Name\"" + @"]"+
-"<a href='javascript:toggle(" + "\"@string.Format(" + "\"tablesfor_{0}\"" + ",pathId)\")'>Tables</a>" + @"
-        <table style='display:none' id='tablesfor_@pathId'>
-            <tr>
-            <td>
-            @{ 
-            var item= database as IRowReceiveRelation;            
-            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations[" + "\"tables\"].ToArray());" +
-            @"Html.RenderPartial(" + "\"tables.cshtml\"" + @",child); 
-            }
-            </td>
-            <tr>
-        </table>
-    </td>
-    </tr>
-}
-</table>
-
-";
+            
             string databaseFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "databases.cshtml"));
-            File.WriteAllText(databaseFile, databases);
-
-            string tables = @"@using System.Linq;
-            @using StankinsInterfaces;
-            @model Tuple<object,StankinsInterfaces.IRow[]>
-@{
-IRow parent =Model.Item1 as IRow;
-int idRow=1;
-}
-            <!--<h1> tables for database <a href='#database_@parent.Values[" + "\"PathID\"" + @"]'> @parent.Values[" + "\"Name\"" + @"]</a>-->
-
-<table border='1' id='tables_@parent.Values[" + "\"PathID\"" + @"]'> 
-
-<tr>
-<th>Nr</th>
-<th>Name</th></tr>
-
-@foreach(var table in Model.Item2){
-var pathId=table.Values[" + "\"PathID\"" + @"];
-    <tr id='table_@pathId'>
-<td>@(idRow++)</td>
-    <td>
-        @table.Values[" + "\"Name\"" + @"] 
-
-"+
-"<a href = 'javascript:toggle(" + "\"@string.Format(" + "\"columnsfor_{0}\"" + ",pathId)\")' > Columns </a> " + @"
-   <table id='columnsfor_@pathId' style='display:none'>
-            <tr>
-            <td>
-            @{ 
-            var item= table as IRowReceiveRelation;            
-            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations[" + "\"columns\"].ToArray());" +
-            @"Html.RenderPartial(" + "\"columns.cshtml\"" + @",child); 
-            }
-            </td>
-            <tr>
-        </table>
-    </td>
-    </tr>
-}
-</table>
-
-";
+            File.Copy(@"Views\databases.cshtml", databaseFile);
+            databaseFile += ";"; 
+            
             string tableFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "tables.cshtml"));
-            File.WriteAllText(tableFile, tables);
+            File.Copy(@"Views\tables.cshtml", tableFile);
 
-            string columns = @"@using System.Linq;
-            @using StankinsInterfaces;
-            @model Tuple<object,StankinsInterfaces.IRow[]>
-@{
-IRow parent =Model.Item1 as IRow;
-int idRow=1;
-}
-
-            <!--<h1> columns for table <a href='#table_@parent.Values[" + "\"PathID\"" + @"]'> @parent.Values[" + "\"Name\"" + @"]</a>-->
-
-<table  border='1' id='columns'>
-<tr><th>Nr</th><th>Name</th></tr>
-
-@foreach(var item in Model.Item2){
-
-    <tr id='column_@item.Values[" + "\"PathID\"" + @"]'>
-<td>@(idRow++)</td>
-    <td>
-        @item.Values[" + "\"Name\"" + @"]
-    </td>
-    </tr>
-}
-</table>
-
-";
+            
             string columnFile = SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(folderTo, "columns.cshtml"));
-            File.WriteAllText(columnFile, columns);
+            File.WriteAllText(@"Views\columns.cshtml", columnFile);
             
         }
         [TestMethod]
@@ -194,7 +54,7 @@ int idRow=1;
         {
             #region arrange
             string folderName = AppContext.BaseDirectory;
-            CreateExportFilesSqlServer(Path.Combine(folderName,"Views"));
+            //CreateExportFilesSqlServer(Path.Combine(folderName,"Views"));
             var connectionString = GetSqlServerConnectionString();
             
             using (var conn = new SqlConnection(connectionString))
@@ -219,16 +79,23 @@ IF OBJECT_ID('dbo.TestAndrei', 'U') IS NOT NULL
             rr.ConnectionString = connectionString;
             string OutputFileName = SimpleJobConditionalTransformersTest.DeleteFileIfExists( Path.Combine(folderName, "relationalSqlServer.html"));
             var sender = new Sender_HTMLRazor("Views/sqlserver.cshtml", OutputFileName);
-            var job = new SimpleJob();
+
+            var senderViz = new Sender_HTMLRelationViz("Name", OutputFileName);
+            var filter = new FilterExcludeRelation();
+            filter.ExcludeProperties
+                .AddRange(new string[]{ "columns", "tables" });
+            var job = new SimpleJobConditionalTransformers();
             job.Receivers.Add(0, rr);
-            job.Senders.Add(0, sender);
+            job.AddSender(sender);
+            job.Add(filter);
+            job.Add(filter, senderViz);
             #endregion
             #region act
             await job.Execute();
             #endregion
             #region assert
             Assert.IsTrue(File.Exists(OutputFileName), $"{OutputFileName} must exists");
-            //Process.Start("explorer.exe", OutputFileName);
+            Process.Start("explorer.exe", OutputFileName);
             var text = File.ReadAllText(OutputFileName);
             Assert.IsTrue(text.Contains("TestAndrei"), "must contain table testandrei");
             Assert.IsTrue(text.Contains("FirstName"), "must contain column FirstName ");

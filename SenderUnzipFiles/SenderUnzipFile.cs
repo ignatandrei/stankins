@@ -38,6 +38,7 @@ namespace SenderUnzipFiles
                     continue;
                 }
                 ZipFile.ExtractToDirectory(zip, DestinationFolder);
+                await Task.CompletedTask;
             }
         }
     }
