@@ -44,7 +44,9 @@ namespace Transformers
                 
                 foreach (string g in regex.GetGroupNames())
                 {
-                    item.Values.Add(g, groups[g].Value);
+                    var value = groups[g].Value;
+                    if(!string.IsNullOrWhiteSpace(value))
+                        item.Values.Add(g, value);
                 }
 
             }

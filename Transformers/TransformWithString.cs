@@ -32,7 +32,7 @@ namespace Transformers
     public class TransformOneValue<T, U> : ITransform
     {
         public string Name { get; set; }
-        public string TheExpression { get; set; }
+        public virtual string TheExpression { get; set; }
         public string OldField { get; set; }
         public string NewField { get; set; }
         public TransformOneValue(string expression, string oldField, string newField)
@@ -67,14 +67,25 @@ namespace Transformers
             {
                 if (!item.Values.ContainsKey(OldField))
                 {
-                    throw new ArgumentException($"values does not contain {OldField}");
+                    //TODO:log
+                    continue;
                 }
                 var data = item.Values[OldField];
                 T oldValue = (T)Convert.ChangeType(data, typeof(T));
                 val.oldValue = oldValue;
                 //TODO: catch exception
-                var state = await script.RunAsync(val);
-                var returnValue = state.ReturnValue;
+                U returnValue;
+                try
+                {
+                    var state = await script.RunAsync(val);
+                    returnValue = state.ReturnValue;
+                }
+                catch(Exception ex)
+                {
+                    //TODO:log
+                    throw new ArgumentException($"trying to convert {data} with {TheExpression}", ex);
+                }
+                
                 //var val= await CSharpScript.EvaluateAsync<U>( TheExpression, globals: data, globalsType:data.GetType());
                 if (item.Values.ContainsKey(NewField))
                 {

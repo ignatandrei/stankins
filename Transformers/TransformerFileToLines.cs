@@ -51,6 +51,7 @@ namespace Transformers
                     }
                     var rr = new RowRead();
                     rr.Values.Add($"line{id}", line);
+                    rr.Values.Add($"text", line);
                     rr.Values.Add("FullName", file);
                     r.Add(rr);
                 }

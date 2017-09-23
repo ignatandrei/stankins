@@ -24,13 +24,14 @@ namespace StankinsTests
             IReceive r = new ReceiverFolderHierarchical(dirPBX, "*.log");
             IFilter filterFiles = new FilterForFilesHierarchical();
             ITransform transformLines = new TransformerFileToLines() { TrimEmptyLines = true };
-            //ITransform transformGroupingFiles = new TransformerGroupRelationalString("FullName");
-
+            var trDateRegex = new TransformRowRegex(@"^Date:\ (?<datePBX>.{23}).*?$", "text");
+            var trToDate = new TransformerFieldStringToDate("datePBX", "NewDatePBX", "yyyy/MM/dd HH:mm:ss.fff");
             var si = new SimpleJob();
             si.Receivers.Add(0,r);
             si.FiltersAndTransformers.Add(0,filterFiles);
             si.FiltersAndTransformers.Add(1, transformLines);
-            //si.FiltersAndTransformers.Add(2, transformGroupingFiles);
+            si.FiltersAndTransformers.Add(2, trDateRegex);
+            si.FiltersAndTransformers.Add(3, trToDate);
             await si.Execute();
 
             filterFiles.valuesTransformed.Length.ShouldBe(2,  "just two files after first filter");
@@ -38,7 +39,8 @@ namespace StankinsTests
             var d = transformLines.valuesTransformed.Select(it => it.Values["FullName"]).Distinct().ToArray();
             d.Length.ShouldBe(2, "two files after reading contents");
             //transformGroupingFiles.valuesTransformed.Length.ShouldBe(2);
-
+            trDateRegex.valuesRead.Count(it => it.Values.ContainsKey("datePBX")).ShouldBeGreaterThan(0);
+            trToDate.valuesRead.Count(it => it.Values.ContainsKey("NewDatePBX")).ShouldBeGreaterThan(0);
 
         }
     }
