@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Transformers
 {
-    public class FilterComparable : TypeConverter, ITransform
+    public class FilterComparable : TypeConverter, IFilter
 
     {
         public string Name { get; set; }

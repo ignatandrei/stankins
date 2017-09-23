@@ -53,8 +53,9 @@ namespace ReceiverFileSystem
 
             var files = Files(di, rh);
             
-            if(files.Length>0)
+            if(files?.Length>0)
                 ret.AddRange(files);
+            rh.Values.Add("nrfiles", files?.Length);
 
             foreach(var dir in di.EnumerateDirectories())
             {
