@@ -13,7 +13,7 @@ namespace Transformers
         public IRow[] valuesRead { get; set ; }
         public IRow[] valuesTransformed { get; set ; }
         public string Name { get ; set ; }
-
+        public bool TrimEmptyLines { get; set; }
         public async Task Run()
         {
             List<IRow> r = new List<IRow>();
@@ -45,6 +45,10 @@ namespace Transformers
                         id = "0" + id;
                     }
                     #endregion
+                    if (TrimEmptyLines && string.IsNullOrWhiteSpace(line.Trim()))
+                    {
+                        continue;
+                    }
                     var rr = new RowRead();
                     rr.Values.Add($"line{id}", line);
                     rr.Values.Add("FullName", file);
