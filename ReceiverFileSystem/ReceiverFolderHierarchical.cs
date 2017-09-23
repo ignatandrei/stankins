@@ -5,9 +5,22 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Transformers;
 
 namespace ReceiverFileSystem
 {
+    public class FilterForFoldersHierarchical : FilterComparableEqual
+    {
+        public FilterForFoldersHierarchical() : base(typeof(string), "folder", "RowType")
+        {
+        }
+    }
+    public class FilterForFilesHierarchical : FilterComparableEqual
+    {
+        public FilterForFilesHierarchical() : base(typeof(string), "file", "RowType")
+        {
+        }
+    }
     /// <summary>
     /// TODO: add depth of folders to read - infinite , by default...
     /// </summary>

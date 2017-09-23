@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StringInterpreter;
+using System.Diagnostics;
 
 namespace StanskinsImplementation
 {
@@ -95,16 +96,25 @@ namespace StanskinsImplementation
             foreach (var filterKV in FiltersAndTransformers)
             {
                 //TODO: see also IFilterTransformer
-                var filter = filterKV.Value as ITransform;
-                if (filter == null)
+                var transform = filterKV.Value as ITransform;
+                if (transform != null)
                 {
-                    //TODO: log
+                    transform.valuesRead = data;
+                    await transform.Run();
+                    data = transform.valuesTransformed;
                     continue;
                 }
+                var filter = filterKV.Value as IFilter;
+                if (filter == null)
+                {
+                    filter.valuesRead = data;
+                    await filter.Run();
+                    data = filter.valuesTransformed;
+                    continue;
+                }
+                //TODO: log
+                Debug.Assert(false);
 
-                filter.valuesRead = data;
-                await filter.Run();
-                data = filter.valuesTransformed;                
             }
             //await SenderData(data);
             ISend send;
