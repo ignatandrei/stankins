@@ -105,7 +105,7 @@ namespace StanskinsImplementation
                     continue;
                 }
                 var filter = filterKV.Value as IFilter;
-                if (filter == null)
+                if (filter != null)
                 {
                     filter.valuesRead = data;
                     await filter.Run();

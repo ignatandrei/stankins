@@ -20,10 +20,11 @@ namespace StankinsTests
             var dir = AppContext.BaseDirectory;
             var dirPBX = Path.Combine(dir, "PBX");
             IReceive r = new ReceiverFolderHierarchical(dirPBX, "*.log");
-            //IFilter f=new FilterComparableEqual(typeof(string),)
+            IFilter filterFiles = new FilterForFilesHierarchical();
 
             var si = new SimpleJob();
             si.Receivers.Add(0,r);
+            si.FiltersAndTransformers.Add(0,filterFiles);
             await si.Execute();
 
         }
