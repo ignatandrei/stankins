@@ -8,5 +8,6 @@ namespace StankinsInterfaces
     public interface IFilterTransformer : IBaseObjects
     {      
         Task Run();
+
     }
 }

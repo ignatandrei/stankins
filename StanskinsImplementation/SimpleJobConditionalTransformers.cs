@@ -113,7 +113,12 @@ namespace StanskinsImplementation
             IRow[] data = arv.valuesRead;
             await TransformAndSendData(association, data);
         }
-        async Task<IRow[]> GetDataFromFilter(ITransform filter)
+        async Task<IRow[]> GetDataFromTransform(ITransform transform)
+        {
+            await transform.Run();
+            return transform.valuesTransformed;
+        }
+        async Task<IRow[]> GetDataFromFilter(IFilter filter)
         {
             await filter.Run();
             return filter.valuesTransformed;
@@ -133,18 +138,28 @@ namespace StanskinsImplementation
                     await sender.Send();
                     continue;//sender is last...
                 }
-                var filter = transformOrFilter.Key as ITransform;
+                var filter = transformOrFilter.Key as IFilter;
                 if (filter != null)
                 {
                     filter.valuesRead = data;
                     var newData = await GetDataFromFilter(filter);
                     await TransformAndSendData(transformOrFilter.Childs, newData);
                     data = newData;//pass data to the next filter
+                    continue;
+                }
+                var transform = transformOrFilter.Key as ITransform;
+                if (transform != null)
+                {
+                    transform.valuesRead = data;
+                    var newData = await GetDataFromTransform(transform);
+                    await TransformAndSendData(transformOrFilter.Childs, newData);
+                    data = newData;//pass data to the next filter
+                    continue;
                 }
 
-               
-                
-                
+
+
+
             }
         }
         public override void UnSerialize(string serializeData)
