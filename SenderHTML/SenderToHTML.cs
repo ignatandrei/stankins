@@ -55,7 +55,9 @@ Number Rows: @Model.Length
 <tr>
 @foreach(var col in FieldNames){
 <td>
-@item.Values[col]
+    @if (item.Values.ContainsKey(col)){ 
+        <text>@item.Values[col]</text>
+    }
 </td>
 }
 </tr>

@@ -23,7 +23,10 @@ namespace MediaTransform
                 case "sender":
                     return "shape=signature color=lime";
                 case "filter_transformer":
+                case "filter":
+                case "transformer":
                     return "shape=invhouse   color=lightgrey";
+
                 case "receiver":
                     return "shape=cylinder color=lightblue";
                 default:

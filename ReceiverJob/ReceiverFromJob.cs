@@ -146,37 +146,44 @@ namespace ReceiverJob
         IRowReceiveHierarchicalParent[]  FromSimpleTree(SimpleTree st,IRowReceiveHierarchicalParent parent)
         {
             var li = new List<IRowReceiveHierarchicalParent>();
-            foreach(var node in st)
+            foreach (var node in st)
             {
                 var item = node.Key;
                 var newRow = new RowReadHierarchical();
                 newRow.Values.Add("Name", item.Name ?? item.GetType().Name);
                 newRow.Values.Add("Type", item.GetType().Name);
-                ISend send = item as ISend;
-                if (send != null)
-                    newRow.Values.Add("RowType", "Sender");
-                else
-                {
-                    ITransform tr = item as ITransform;
-                    if (tr != null)
-                        newRow.Values.Add("RowType", "Filter_Transformer");
-                    else
-                    {
-                        IReceive r = item as IReceive;
-                        if (r != null)
-                            newRow.Values.Add("RowType", "Receiver");
-                        else
-                        {
-                            //TODO:log
-                            Debug.Assert(false);
-                        }
-                    }
-
-                }
                 newRow.Parent = parent;
                 li.Add(newRow);
                 var childs = node.Childs;
                 li.AddRange(FromSimpleTree(childs, newRow));
+
+                ISend send = item as ISend;
+                if (send != null) {
+                    newRow.Values.Add("RowType", "Sender");
+                    continue;
+                }
+                ITransform tr = item as ITransform;
+                if (tr != null)
+                {
+                    newRow.Values.Add("RowType", "Transformer");
+                    continue;
+                }
+                IFilter fi = item as IFilter;
+                if (fi != null)
+                {
+                    newRow.Values.Add("RowType", "Filter");
+                    continue;
+                }
+                IReceive r = item as IReceive;
+                if (r != null)
+                {
+                    newRow.Values.Add("RowType", "Receiver");
+                    continue;
+                }
+                
+
+            
+              
             }
             return li.ToArray();
         }
