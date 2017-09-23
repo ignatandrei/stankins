@@ -32,10 +32,14 @@ Number Rows: @Model.Length
 
 <tr>
 <td>@m.ID</td>
-@foreach(var col in FieldNames){
-<td>
-@item.Values[col]
-</td>
+@foreach (var col in FieldNames)
+{
+    <td>
+        @if (item.Values.ContainsKey(col))
+        {
+            <text>@item.Values[col]</text>
+        }
+    </td>
 }
 <td>
 @if(m.Parent != null){
