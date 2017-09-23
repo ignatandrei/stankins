@@ -13,6 +13,13 @@ namespace StanskinsImplementation
             Relations = new Dictionary<string,List< IRowReceiveRelation>>();
 
         }
+        public void AddValuesFrom(IRow row)
+        {
+            foreach (var item in row.Values)
+            {
+                this.Values.Add(item.Key, item.Value);
+            }
+        }
         public void Add(string name, IRowReceiveRelation rel)
         {
             if (!Relations.ContainsKey(name))
