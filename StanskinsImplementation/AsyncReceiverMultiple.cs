@@ -31,7 +31,7 @@ namespace StanskinsImplementation
                 rec.Add(te);
 
             }
-            await Task.WhenAll(rec.AllTasksWithErrors());
+            await Task.WhenAll(rec.AllTasksWithLogging());
             if (!rec.Exists(it => it.IsSuccess()))
             {
                 //LOG: no data

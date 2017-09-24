@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\MediaTransform\MediaTransform.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
   </ItemGroup>
