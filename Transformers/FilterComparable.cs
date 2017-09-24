@@ -8,6 +8,28 @@ using System.Threading.Tasks;
 
 namespace Transformers
 {
+    public class FilterComparableFromSerializable : IFilter
+    {
+        public FilterComparableFromSerializable(FilterComparable fc, ISerializeData serializeData)
+        {
+            Fc = fc;
+            SerializeData = serializeData;            
+        }
+
+        public FilterComparable Fc { get; set; }
+        public ISerializeData SerializeData { get; set; }
+        public string Key { get; set; }
+        public IRow[] valuesRead { get => ((IFilter)Fc).valuesRead; set => ((IFilter)Fc).valuesRead = value; }
+        public IRow[] valuesTransformed { get => ((IFilter)Fc).valuesTransformed; set => ((IFilter)Fc).valuesTransformed = value; }
+        public string Name { get =>"Serializable "+ ((IFilter)Fc).Name; set => ((IFilter)Fc).Name = value.Replace("Serializable ",""); }
+
+        public async Task Run()
+        {
+            var val = SerializeData.GetValue(Fc.FieldName);
+            Fc.Value = val;
+            await Fc.Run();
+        }
+    }
     public class FilterComparable : TypeConverter, IFilter
 
     {
@@ -32,12 +54,18 @@ namespace Transformers
         {
         }
 
-        public async Task Run()
+        public virtual async Task Run()
         {
-            var original= Convert.ChangeType(Value, ComparableType);
-            IComparable v = (IComparable)original;
             var returnValues = new List<IRow>();
-            foreach(var item in valuesRead)
+            if(Value == null)
+            {
+                returnValues.AddRange(valuesRead);
+                valuesTransformed = returnValues.ToArray();
+                return;
+            }
+            var original = Convert.ChangeType(Value, ComparableType);
+            IComparable v = (IComparable)original;
+            foreach (var item in valuesRead)
             {
                 var val = item.Values[FieldName];
                 var valueLoop = Convert.ChangeType(val, ComparableType);

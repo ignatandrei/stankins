@@ -1,4 +1,5 @@
 ﻿using StankinsInterfaces;
+using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +8,30 @@ using System.Threading.Tasks;
 
 namespace SenderToFile
 {
-   
+    public class SenderMediaSerialize<T>:ISend
+    {
+        public SenderMediaSerialize(ISerializeData serializeData,string key, IFilterTransformTo<T> transform)
+        {
+            SerializeData = serializeData;
+            Key = key;
+            Transform = transform;
+            Name = $"serialize {Key} with {transform.Name} into {SerializeData.GetType().Name}";
+        }
+
+        public ISerializeData SerializeData { get; set; }
+        public string Key { get; set; }
+        public IFilterTransformTo<T> Transform { get; }
+        public IRow[] valuesToBeSent { set; get; }
+        public string Name { get ; set ; }
+
+        public async Task Send()
+        {
+            Transform.valuesToBeSent = valuesToBeSent;
+            await Transform.Run();
+            //for date time, think about iso format yyyy-MM-dd 
+            SerializeData.SetValue(Key, Transform.Result.ToString());
+        }
+    }
     /// <summary>
     /// TODO: encoding
     /// File.Write or File.Append

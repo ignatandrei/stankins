@@ -62,16 +62,16 @@ namespace StanskinsImplementation
 
             }
             //await Task.WhenAll(rec.AllTasksWithLogging());
-            await Task.WhenAll(rec.AllTasksWithErrors());
+            await Task.WhenAll(rec.AllTasksWithLogging());
             if (!rec.Exists(it => it.IsSuccess()))
             {
                 //LOG: no data
                 return;
             }
-            var failed = rec.Select(it => !it.IsSuccess()).ToArray();
+            var failed = rec.Where(it => !it.IsSuccess()).ToArray();
 
             foreach (var item in failed)
-            {
+            {                
                 //LOG: exception why failed
             }
 

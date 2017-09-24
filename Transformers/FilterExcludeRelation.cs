@@ -9,14 +9,16 @@ namespace Transformers
 {
     public class FilterExcludeRelation : ITransform
     {
-        public FilterExcludeRelation()
+        public FilterExcludeRelation(params string[] excludeRelations)
         {
-            ExcludeProperties = new List<string>();
+            ExcludeRelations = excludeRelations;
+            var all = string.Join(",", excludeRelations);
+            Name = $"exclude {all}";
         }
         public IRow[] valuesRead { get; set; }
         public IRow[] valuesTransformed { get; set; }
         public string Name { get; set; }
-        public List<string> ExcludeProperties { get; set; }
+        public string[] ExcludeRelations { get; set; }
         bool existsProperties;
         void RemoveRelational(IRowReceiveRelation rr)
         {
@@ -26,7 +28,7 @@ namespace Transformers
             var keys = rr.Relations.Keys.ToArray();
             if (existsProperties)
             {
-                foreach (var item in keys.Intersect(ExcludeProperties))
+                foreach (var item in keys.Intersect(ExcludeRelations))
                 {
                     rr.Relations.Remove(item);
                 }
@@ -42,7 +44,7 @@ namespace Transformers
         }
         public async Task Run()
         {
-            existsProperties = (ExcludeProperties?.Count > 0);
+            existsProperties = (ExcludeRelations?.Length??0) > 0;
             foreach (var val in valuesRead)
             {
                 var data = val as IRowReceiveRelation;

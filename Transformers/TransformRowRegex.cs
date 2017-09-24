@@ -13,6 +13,7 @@ namespace Transformers
         {
             RegexWithGroups = regexWithGroups;
             Key = key;
+            Name = $"Regex for field {key} to add group names as fields";
         }
         public IRow[] valuesRead { get; set; }
         public IRow[] valuesTransformed { get ; set ; }

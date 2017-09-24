@@ -60,7 +60,7 @@ namespace StanskinsImplementation
 
             }
             //await Task.WhenAll(rec.AllTasksWithLogging());
-            await Task.WhenAll(rec.AllTasksWithErrors());
+            await Task.WhenAll(rec.AllTasksWithLogging());
             if (!rec.Exists(it => it.IsSuccess()))
             {
                 //LOG: no data

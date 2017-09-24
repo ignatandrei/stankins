@@ -1,0 +1,142 @@
+<html><body><h1>Job visualization</h1>Number Rows: 11
+<table>
+<thead>
+<tr>
+<td>
+Name
+</td>
+<td>
+Type
+</td>
+<td>
+RowType
+</td>
+</thead>
+<tbody>
+<tr>
+<td>
+Receiver from folder D:\github\stankins\StankinsDemos\bin\Debug\netcoreapp1.0\PBX with *.log
+</td>
+<td>
+ReceiverFolderHierarchical
+</td>
+<td>
+Receiver
+</td>
+</tr>
+<tr>
+<td>
+RowType Equal file
+</td>
+<td>
+FilterForFilesHierarchical
+</td>
+<td>
+Filter_Transformer
+</td>
+</tr>
+<tr>
+<td>
+Serializable LastWriteTimeUtc Greater 1/1/0001 12:00:00 AM
+</td>
+<td>
+FilterComparableFromSerializable
+</td>
+<td>
+Filter_Transformer
+</td>
+</tr>
+<tr>
+<td>
+remove all rows with LastWriteTimeUtc = Max
+</td>
+<td>
+FilterRemovePropertyMaxMinDateTime
+</td>
+<td>
+Filter_Transformer
+</td>
+</tr>
+<tr>
+<td>
+load file lines from FullName field
+</td>
+<td>
+TransformerFileToLines
+</td>
+<td>
+Filter_Transformer
+</td>
+</tr>
+<tr>
+<td>
+Regex for field text to add group names as fields
+</td>
+<td>
+TransformRowRegex
+</td>
+<td>
+Filter_Transformer
+</td>
+</tr>
+<tr>
+<td>
+transform datePBX:String to NewDatePBX:DateTime
+</td>
+<td>
+TransformerFieldStringToDate
+</td>
+<td>
+Filter_Transformer
+</td>
+</tr>
+<tr>
+<td>
+adding field NewDatePBX as latest value if not exists
+</td>
+<td>
+TransformAddFieldDown
+</td>
+<td>
+Filter_Transformer
+</td>
+</tr>
+<tr>
+<td>
+remain just NewDatePBX,lineNr,text,FullName,LastWriteTimeUtc, removing all others
+</td>
+<td>
+TransformRowRemainsProperties
+</td>
+<td>
+Filter_Transformer
+</td>
+</tr>
+<tr>
+<td>
+sender to sql server table PBXData by bulk copy
+</td>
+<td>
+SenderSqlServerBulkCopy
+</td>
+<td>
+Sender
+</td>
+</tr>
+<tr>
+<td>
+serialize LastWriteTimeUtc with  into SerializeDataOnFile
+</td>
+<td>
+SenderMediaSerialize`1
+</td>
+<td>
+Sender
+</td>
+</tr>
+<tbody>
+</table> <script src='https://github.com/mdaines/viz.js/releases/download/v1.8.0/viz.js'></script>
+<script>var result = Viz('digraph Name{Node157 [label="Receiver from folder D:\\\\github\\\\stankins\\\\StankinsDemos\\\\bin\\\\Debug\\\\netcoreapp1.0\\\\PBX with *.log" shape=cylinder color=lightblue];Node158 [label="RowType Equal file" shape=invhouse   color=lightgrey];Node157 -> Node158;Node159 [label="Serializable LastWriteTimeUtc Greater 1/1/0001 12:00:00 AM" shape=invhouse   color=lightgrey];Node158 -> Node159;Node160 [label="remove all rows with LastWriteTimeUtc = Max" shape=invhouse   color=lightgrey];Node159 -> Node160;Node161 [label="load file lines from FullName field" shape=invhouse   color=lightgrey];Node160 -> Node161;Node162 [label="Regex for field text to add group names as fields" shape=invhouse   color=lightgrey];Node161 -> Node162;Node163 [label="transform datePBX:String to NewDatePBX:DateTime" shape=invhouse   color=lightgrey];Node162 -> Node163;Node164 [label="adding field NewDatePBX as latest value if not exists" shape=invhouse   color=lightgrey];Node163 -> Node164;Node165 [label="remain just NewDatePBX,lineNr,text,FullName,LastWriteTimeUtc, removing all others" shape=invhouse   color=lightgrey];Node164 -> Node165;Node166 [label="sender to sql server table PBXData by bulk copy" shape=signature color=lime];Node165 -> Node166;Node167 [label="serialize LastWriteTimeUtc with  into SerializeDataOnFile" shape=signature color=lime];Node166 -> Node167;}', {format: 'png-image-element' });
+document.body.appendChild(result);
+</script>
+</body></html>

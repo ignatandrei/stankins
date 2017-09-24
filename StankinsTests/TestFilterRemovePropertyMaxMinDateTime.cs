@@ -2,6 +2,7 @@
 using Moq;
 using Shouldly;
 using StankinsInterfaces;
+using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -37,7 +38,7 @@ namespace StankinsTests
 
             #endregion
             #region act
-            var tr = new FilterRemovePropertyMaxMinDateTime("Data",FilterRemovePropertyFunction.Max);
+            var tr = new FilterRemovePropertyMaxMinDateTime("Data", GroupingFunctions.Max);
             tr.valuesRead = rows.ToArray();
             await tr.Run();
             #endregion

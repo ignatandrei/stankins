@@ -1,8 +1,10 @@
 ﻿using CommonDB;
+using MediaTransform;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ReceiverFileSystem;
 using SenderBulkCopy;
+using SenderToFile;
 using Shouldly;
 using StankinsInterfaces;
 using StanskinsImplementation;
@@ -56,29 +58,40 @@ IF OBJECT_ID('dbo.PBXData', 'U') IS NOT NULL
                 var dir = AppContext.BaseDirectory;
                 var dirPBX = Path.Combine(dir, "PBX");
                 File.AppendAllText(Path.Combine(dirPBX, "PBXRemove.log"), "aaaa");
+
                 #endregion
                 #region act
-                
+                var serialize = new SerializeDataOnFile("a.txt");
                 IReceive r = new ReceiverFolderHierarchical(dirPBX, "*.log");
                 IFilter filterFiles = new FilterForFilesHierarchical();
-                IFilter removeFilesMaxWritten = new FilterRemovePropertyMaxMinDateTime("LastWriteTimeUtc",FilterRemovePropertyFunction.Max);
+                #region filter for remove dates serialize 
+
+                var filterDateTime = new FilterComparableGreat(typeof(DateTime), DateTime.MinValue, "LastWriteTimeUtc");
+                IFilter filterDateTimeSerializable = new FilterComparableFromSerializable(filterDateTime, serialize);
+                #endregion
+
+                IFilter removeFilesMaxWritten = new FilterRemovePropertyMaxMinDateTime("LastWriteTimeUtc",GroupingFunctions.Max);
                 ITransform transformLines = new TransformerFileToLines() { TrimEmptyLines = true };
                 var trDateRegex = new TransformRowRegex(@"^Date:\ (?<datePBX>.{23}).*?$", "text");
                 var trToDate = new TransformerFieldStringToDate("datePBX", "NewDatePBX", "yyyy/MM/dd HH:mm:ss.fff");
 
                 var trAddDate = new TransformAddFieldDown("NewDatePBX");
-                var trSimpleFields = new TransformRowRemainsProperties("NewDatePBX", "lineNr", "text", "FullName");
+                var trSimpleFields = new TransformRowRemainsProperties("NewDatePBX", "lineNr", "text", "FullName", "LastWriteTimeUtc");
 
                 var data = new DBTableDataConnection<SqlConnection>(new SerializeDataInMemory());
                 data.ConnectionString = GetSqlServerConnectionString();
                 data.Fields = new string[] { "NewDatePBX", "lineNr", "text", "FullName" };
                 data.TableName = "PBXData";
                 var bulk = new SenderSqlServerBulkCopy(data);
-
+                var md = new MediaTransformMaxMin<DateTime>();
+                md.GroupFunction = GroupingFunctions.Max;
+                md.FieldName = "LastWriteTimeUtc";                
+                var serializeMaxDate = new SenderMediaSerialize<DateTime>(serialize, "LastWriteTimeUtc", md);
                 var si = new SimpleJob();
                 si.Receivers.Add(0, r);
                 int iFilterNr = 0;
                 si.FiltersAndTransformers.Add(iFilterNr++, filterFiles);
+                si.FiltersAndTransformers.Add(iFilterNr++, filterDateTimeSerializable);
                 si.FiltersAndTransformers.Add(iFilterNr++, removeFilesMaxWritten);
                 si.FiltersAndTransformers.Add(iFilterNr++, transformLines);
                 si.FiltersAndTransformers.Add(iFilterNr++, trDateRegex);
@@ -89,6 +102,7 @@ IF OBJECT_ID('dbo.PBXData', 'U') IS NOT NULL
                 //TODO: add transformer regex for splitting Key=Value
                 //TODO: add field to separate Conn(1)Type(Any)User(InternalTask) CDL Request:RSVI(Get)
                 si.Senders.Add(0, bulk);
+                si.Senders.Add(1, serializeMaxDate);
 
                 await si.Execute();
                 #endregion
@@ -107,7 +121,7 @@ IF OBJECT_ID('dbo.PBXData', 'U') IS NOT NULL
                 }
                 foreach (var item in trSimpleFields.valuesTransformed)
                 {
-                    item.Values.Keys.Count.ShouldBe(4);
+                    item.Values.Keys.Count.ShouldBe(5);
                 }
                 using (var con = new SqlConnection(connectionString))
                 {
@@ -121,8 +135,27 @@ IF OBJECT_ID('dbo.PBXData', 'U') IS NOT NULL
 
                     }
                 }
+                md.Result.Year.ShouldBe(DateTime.Now.Year);
                 #endregion
-
+                #region arange to read again
+                r = new ReceiverFolderHierarchical(dirPBX, "*.log");
+                filterFiles = new FilterForFilesHierarchical();
+                #region filter for remove dates serialize 
+                filterDateTime = new FilterComparableGreat(typeof(DateTime), DateTime.MinValue, "LastWriteTimeUtc");
+                filterDateTimeSerializable = new FilterComparableFromSerializable(filterDateTime, serialize);
+                #endregion
+                #endregion
+                #region act
+                si = new SimpleJob();
+                si.Receivers.Add(0, r);
+                iFilterNr = 0;
+                si.FiltersAndTransformers.Add(iFilterNr++, filterFiles);
+                si.FiltersAndTransformers.Add(iFilterNr++, filterDateTimeSerializable);
+                await si.Execute();
+                #endregion
+#region assert
+                filterDateTime.valuesTransformed?.Length.ShouldBe(1, "next time 1 file read - the added one");
+#endregion
             }
         }
     }

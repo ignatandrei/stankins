@@ -1,0 +1,144 @@
+{
+  "$type": "StanskinsImplementation.SimpleJob, StanskinsImplementation",
+  "Senders": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "SenderBulkCopy.SenderSqlServerBulkCopy, SenderBulkCopy",
+      "Options": 0,
+      "valuesToBeSent": null,
+      "Name": "sender to sql server table PBXData by bulk copy",
+      "Data": {
+        "$type": "CommonDB.DBTableDataConnection`1[[System.Data.SqlClient.SqlConnection, System.Data.SqlClient]], CommonDB",
+        "data": {
+          "$type": "StanskinsImplementation.SerializeDataInMemory, StanskinsImplementation"
+        },
+        "TableName": "PBXData",
+        "Fields": [
+          "NewDatePBX",
+          "lineNr",
+          "text",
+          "FullName"
+        ],
+        "ConnectionString": "#file:SqlServerConnectionString#"
+      }
+    },
+    "1": {
+      "$type": "SenderToFile.SenderMediaSerialize`1[[System.DateTime, System.Private.CoreLib]], SenderToFile",
+      "SerializeData": {
+        "$type": "StanskinsImplementation.SerializeDataOnFile, StanskinsImplementation",
+        "FileName": "a.txt"
+      },
+      "Key": "LastWriteTimeUtc",
+      "Transform": {
+        "$type": "MediaTransform.MediaTransformMaxMin`1[[System.DateTime, System.Private.CoreLib]], MediaTransform",
+        "valuesToBeSent": null,
+        "Result": "0001-01-01T00:00:00",
+        "GroupFunction": 1,
+        "Name": null,
+        "FieldName": "LastWriteTimeUtc"
+      },
+      "valuesToBeSent": null,
+      "Name": "serialize LastWriteTimeUtc with  into SerializeDataOnFile"
+    }
+  },
+  "FiltersAndTransformers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "ReceiverFileSystem.FilterForFilesHierarchical, ReceiverFileSystem",
+      "Name": "RowType Equal file",
+      "valuesRead": null,
+      "valuesTransformed": null,
+      "ComparableType": "System.String, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+      "Value": "file",
+      "FieldName": "RowType",
+      "HowToCompareValues": 3
+    },
+    "1": {
+      "$type": "Transformers.FilterComparableFromSerializable, Transformers",
+      "Fc": {
+        "$type": "Transformers.FilterComparableGreat, Transformers",
+        "Name": "LastWriteTimeUtc Greater 1/1/0001 12:00:00 AM",
+        "valuesRead": null,
+        "valuesTransformed": null,
+        "ComparableType": "System.DateTime, System.Private.CoreLib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e",
+        "Value": "0001-01-01T00:00:00",
+        "FieldName": "LastWriteTimeUtc",
+        "HowToCompareValues": 4
+      },
+      "SerializeData": {
+        "$type": "StanskinsImplementation.SerializeDataOnFile, StanskinsImplementation",
+        "FileName": "a.txt"
+      },
+      "Key": null,
+      "valuesRead": null,
+      "valuesTransformed": null,
+      "Name": "Serializable LastWriteTimeUtc Greater 1/1/0001 12:00:00 AM"
+    },
+    "2": {
+      "$type": "Transformers.FilterRemovePropertyMaxMinDateTime, Transformers",
+      "Name": "remove all rows with LastWriteTimeUtc = Max",
+      "valuesRead": null,
+      "valuesTransformed": null,
+      "FieldName": "LastWriteTimeUtc",
+      "RemovePropertyFunction": 1
+    },
+    "3": {
+      "$type": "Transformers.TransformerFileToLines, Transformers",
+      "valuesRead": null,
+      "valuesTransformed": null,
+      "Name": "load file lines from FullName field",
+      "TrimEmptyLines": true
+    },
+    "4": {
+      "$type": "Transformers.TransformRowRegex, Transformers",
+      "valuesRead": null,
+      "valuesTransformed": null,
+      "Name": "Regex for field text to add group names as fields",
+      "RegexWithGroups": "^Date:\\ (?<datePBX>.{23}).*?$",
+      "Key": "text"
+    },
+    "5": {
+      "$type": "Transformers.TransformerFieldStringToDate, Transformers",
+      "Format": "yyyy/MM/dd HH:mm:ss.fff",
+      "TheExpression": "System.DateTime.ParseExact(oldValue.ToString(),\"yyyy/MM/dd HH:mm:ss.fff\",null)",
+      "Name": "transform datePBX:String to NewDatePBX:DateTime",
+      "OldField": "datePBX",
+      "NewField": "NewDatePBX",
+      "valuesRead": null,
+      "valuesTransformed": null
+    },
+    "6": {
+      "$type": "Transformers.TransformAddFieldDown, Transformers",
+      "valuesRead": null,
+      "valuesTransformed": null,
+      "Name": "adding field NewDatePBX as latest value if not exists",
+      "Key": "NewDatePBX"
+    },
+    "7": {
+      "$type": "Transformers.TransformRowRemainsProperties, Transformers",
+      "valuesRead": null,
+      "valuesTransformed": null,
+      "Name": "remain just NewDatePBX,lineNr,text,FullName,LastWriteTimeUtc, removing all others",
+      "Properties": [
+        "NewDatePBX",
+        "lineNr",
+        "text",
+        "FullName",
+        "LastWriteTimeUtc"
+      ]
+    }
+  },
+  "AllReceiversAsync": false,
+  "AllSendersAsync": false,
+  "Receivers": {
+    "$type": "StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces",
+    "0": {
+      "$type": "ReceiverFileSystem.ReceiverFolderHierarchical, ReceiverFileSystem",
+      "Name": "Receiver from folder D:\\github\\stankins\\StankinsDemos\\bin\\Debug\\netcoreapp1.0\\PBX with *.log",
+      "ExcludeFolderNames": null,
+      "FolderName": "D:\\github\\stankins\\StankinsDemos\\bin\\Debug\\netcoreapp1.0\\PBX",
+      "SearchPattern": "*.log",
+      "valuesRead": null
+    }
+  }
+}

@@ -1,8 +1,18 @@
-﻿namespace StankinsInterfaces
+﻿using System;
+
+namespace StankinsInterfaces
 {
-    public interface IFilterTransformToString:IFilterTransformer
+    public interface IFilterTransformTo<T>: IFilterTransformer
     {
         IRow[] valuesToBeSent { set; }
-        string Result { get; }
+        T Result { get; }
+    }
+    public interface IFilterTransformToString: IFilterTransformTo<string>
+    {
+        
+    }
+    public interface IFilterTransformToDateTime : IFilterTransformTo<DateTime>
+    {
+        
     }
 }

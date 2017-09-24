@@ -6,10 +6,15 @@ namespace Transformers
 {
     public class TransformRowRemainsProperties : ITransform
     {
-        public TransformRowRemainsProperties(params string[] props)
+        public TransformRowRemainsProperties(params string[] properties)
         {
 
-            Properties = props;
+            Properties = properties;
+            string all = "";
+            if((properties?.Length??0)>0)
+                all = string.Join(",", properties);
+
+            Name = $"remain just {all}, removing all others";
         }
         public IRow[] valuesRead { get; set; }
         public IRow[] valuesTransformed { get; set; }
