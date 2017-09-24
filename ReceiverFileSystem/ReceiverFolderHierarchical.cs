@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Transformers;
-
+using Microsoft.Extensions.Logging;
 namespace ReceiverFileSystem
 {
     public class FilterForFoldersHierarchical : FilterComparableEqual
@@ -58,23 +58,33 @@ namespace ReceiverFileSystem
             
             var ret = new List<IRowReceiveHierarchicalParent>();
             //var di = new DirectoryInfo(FolderName);
-            var rh=DirectoryRow(di);
-            if(parent != null)
-                rh.Parent = parent as IRowReceiveHierarchicalParent; 
-
-            ret.Add(rh);
-
-            var files = Files(di, rh);
-            
-            if(files?.Length>0)
-                ret.AddRange(files);
-            rh.Values.Add("nrfiles", files?.Length);
-
-            foreach(var dir in di.EnumerateDirectories())
+            try
             {
-                var filesFolders = RecursiveFromDirectory(dir,rh);
-                if(filesFolders?.Length>0)
-                    ret.AddRange(filesFolders.Where(it=>it!=null).ToArray());
+                var rh = DirectoryRow(di);
+                if (parent != null)
+                    rh.Parent = parent as IRowReceiveHierarchicalParent;
+
+                ret.Add(rh);
+
+                var files = Files(di, rh);
+
+                if (files?.Length > 0)
+                    ret.AddRange(files);
+                rh.Values.Add("nrfiles", files?.Length);
+
+                foreach (var dir in di.EnumerateDirectories())
+                {
+                    var filesFolders = RecursiveFromDirectory(dir, rh);
+                    if (filesFolders?.Length > 0)
+                        ret.AddRange(filesFolders.Where(it => it != null).ToArray());
+                }
+            }
+            catch(UnauthorizedAccessException ex)
+            {
+                string message = ex.Message;
+                //@class.Log(LogLevel.Warning,0,$"unauthorized {message}",ex,null);
+                message += "text";
+
             }
             return ret.ToArray();
         }
