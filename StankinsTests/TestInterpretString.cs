@@ -132,7 +132,7 @@ namespace StankinsTests
             #region arrange
             string textToInterpret = "this is @static:System.IO.Path.GetFileNameWithoutExtension(#env:solutionPath#)@";
             Environment.SetEnvironmentVariable("solutionPath", "a.sln");
-
+            
             #endregion
             #region act
 
@@ -143,6 +143,28 @@ namespace StankinsTests
             #region assert
             
             str.ShouldBe($"this is a");
+            #endregion
+        }
+
+        [TestMethod]
+        public void InterpretStaticTwoParameterString()
+        {
+            #region arrange
+            
+            string textToInterpret = "this is @static:Path.GetPathRoot(#static:Directory.GetCurrentDirectory()#)@";
+            
+
+            #endregion
+            #region act
+
+            var i = new Interpret();
+            i.TwoSlashes = false;
+            var str = i.InterpretText(textToInterpret);
+            #endregion
+            #region assert
+            
+            string s = Path.GetPathRoot(Directory.GetCurrentDirectory());
+            str.ShouldBe($"this is {s}");
             #endregion
         }
         [TestMethod]

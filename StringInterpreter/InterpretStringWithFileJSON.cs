@@ -92,7 +92,7 @@ namespace StringInterpreter
                     {
                         argMethod = item.ValueToTranslate.Substring(indexBegin+1).Replace(")","");
                         nameMethod = nameMethod.Substring(0, nameMethod.Length - argMethod.Length - 2);
-                        mi = type.GetRuntimeMethod(nameMethod,new Type[1] { typeof(string) });
+                        mi = type.GetRuntimeMethod(nameMethod,new Type[1] { typeof(string) }).GetRuntimeBaseDefinition();
                         
                     }
                 }
@@ -107,7 +107,7 @@ namespace StringInterpreter
                 }
                 else
                 {
-                    res = mi.Invoke(null, new object[1]{ argMethod });
+                    res = mi.Invoke(null, new string[1]{ argMethod });
                 }
                 item.ValueTranslated = res?.ToString();
             }
@@ -137,7 +137,12 @@ namespace StringInterpreter
             }
             for (int i = 0; i < length; i++)
             {
-                values[i].ValueTranslated = keys[values[i].ValueToTranslate];
+                string val = values[i].ValueToTranslate;
+                if (!keys.ContainsKey(val))
+                {
+                    throw new ArgumentException($"Environment does not contain {val}");
+                }
+                values[i].ValueTranslated = keys[val];
             }
 
 
@@ -154,8 +159,16 @@ namespace StringInterpreter
             
             for (int i = 0; i < length; i++)
             {
+                string val = values[i].ValueToTranslate;
 
-                values[i].ValueTranslated = config[values[i].ValueToTranslate];
+                try
+                {
+                    values[i].ValueTranslated = config[val];
+                }
+                catch(Exception ex)
+                {
+                    throw new ArgumentException($"config {filePath} does not contain {val}",ex);
+                }
             }
             
                 
@@ -194,9 +207,15 @@ namespace StringInterpreter
                 {
                     continue;
                 }
-                else if(kv?.Length != 2)
+                if(kv?.Length > 2)
                 {
-                    throw new ArgumentException($"interpret {toInterpret} has not 2 items separated by :,  special: {special}, whole text:{text}");
+                    int i = 1;
+                    string s = "";
+                    while (i < kv.Length)
+                    {
+                        s += kv[i++]+ ":";
+                    }
+                    kv[1] = s.Substring(0,s.Length-1);
                 }
                 var p= new ValuesToTranslate() { ValueToTranslate= kv[1] };
                 switch (kv[0].ToLowerInvariant())
