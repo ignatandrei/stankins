@@ -14,7 +14,7 @@ namespace SenderHTML
         
         public Sender_HTMLRelationViz(string label, string outputFileName):base(outputFileName)
         {
-            this.Name = "sender html viz";
+            this.Name = $"sender html viz to {outputFileName}";
             
             
             

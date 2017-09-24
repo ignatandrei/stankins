@@ -10,14 +10,17 @@
     <Compile Remove="Demo1JobFolders\**" />
     <Compile Remove="Demo2SimpleJobView\**" />
     <Compile Remove="Demo3ExecuteSql\**" />
+    <Compile Remove="Demo4DocumentSqlServer\**" />
     <Compile Remove="StankinsDemo\**" />
     <EmbeddedResource Remove="Demo1JobFolders\**" />
     <EmbeddedResource Remove="Demo2SimpleJobView\**" />
     <EmbeddedResource Remove="Demo3ExecuteSql\**" />
+    <EmbeddedResource Remove="Demo4DocumentSqlServer\**" />
     <EmbeddedResource Remove="StankinsDemo\**" />
     <None Remove="Demo1JobFolders\**" />
     <None Remove="Demo2SimpleJobView\**" />
     <None Remove="Demo3ExecuteSql\**" />
+    <None Remove="Demo4DocumentSqlServer\**" />
     <None Remove="StankinsDemo\**" />
   </ItemGroup>
 

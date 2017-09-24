@@ -53,9 +53,13 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Views/RazorRow.cshtml";
             overWriteFile(file, Path.Combine(di.FullName, file));
+            //execute visualization
+            file = ExecuteVisualizationDefinitionSimpleJob(strDemo1);
+            overWriteFile(file, Path.Combine(di.FullName, file));
+
             #endregion
 
-            var strDemo2 = SimpleJobView();
+            var strDemo2 = SimpleJobView(SimpleJobFolders(), "Demo2SimpleJobView.html");
             File.WriteAllText("Demo2JobView.txt", strDemo2);
             si = new SimpleJob();
             si.UnSerialize(strDemo2);
@@ -69,6 +73,9 @@ namespace StankinsDemos
             file = "Demo2SimpleJobView.html";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Views/RazorHierarchical.cshtml";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            //execute visualization
+            file = ExecuteVisualizationDefinitionSimpleJob(strDemo2);
             overWriteFile(file, Path.Combine(di.FullName, file));
 
             #endregion
@@ -86,6 +93,9 @@ namespace StankinsDemos
             file = "SqlToExecute/002Sql.sql";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            //execute visualization
+            file = ExecuteVisualizationDefinitionSimpleJob(strDemo3);
             overWriteFile(file, Path.Combine(di.FullName, file));
             #endregion
             #region DocumentSqlServer
@@ -111,6 +121,10 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));            
             file = "appsettings.json";
             overWriteFile(file, Path.Combine(di.FullName, file));
+            //execute visualization
+            file = ExecuteVisualizationDefinitionSimpleJob(strDemo4);
+            overWriteFile(file, Path.Combine(di.FullName, file));
+
             #endregion
 
             #endregion
@@ -148,12 +162,12 @@ namespace StankinsDemos
             //    );
             return si.SerializeMe();
         }
-        static string SimpleJobView()
+        static string SimpleJobView(string contents,string output)
         {
             var si = new SimpleJob();
 
-            string fileName = DeleteFileIfExists("Demo2SimpleJobView.html");
-            File.WriteAllText("jobDefinition.txt", SimpleJobFolders());
+            string fileName = DeleteFileIfExists(output);
+            File.WriteAllText("jobDefinition.txt", contents);
             var receiver = new ReceiverFromJobFile("jobDefinition.txt");
             si.Receivers.Add(0, receiver);
             si.Senders.Add(0, new Sender_HTMLText(fileName, "<html><body><h1>Job visualization</h1>"));
@@ -168,6 +182,14 @@ namespace StankinsDemos
             //    new Sender...
             //    );
             return si.SerializeMe();
+        }
+        static string ExecuteVisualizationDefinitionSimpleJob(string contents)
+        {
+
+            var si = new SimpleJob();
+            si.UnSerialize(SimpleJobView(contents,"jobDefinition.html"));
+            si.Execute().GetAwaiter().GetResult();
+            return "jobDefinition.html";
         }
         static string ExecuteSqlCIOrder()
         {
@@ -191,9 +213,8 @@ namespace StankinsDemos
             var sender = new Sender_HTMLRazor("Views/sqlserver.cshtml", OutputFileName);
 
             var senderViz = new Sender_HTMLRelationViz("Name", OutputFileName);
-            var filter = new FilterExcludeRelation();
-            filter.ExcludeProperties
-                .AddRange(new string[] { "columns", "tables" });
+            var filter = new FilterExcludeRelation(new string[] { "columns", "tables" });
+            
             var si = new SimpleJobConditionalTransformers();
             si.Receivers.Add(0, rr);
             si.AddSender(sender);

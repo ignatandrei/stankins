@@ -82,7 +82,7 @@ IF OBJECT_ID('dbo.TestAndrei', 'U') IS NOT NULL
 
             var senderViz = new Sender_HTMLRelationViz("Name", OutputFileName);
             var filter = new FilterExcludeRelation();
-            filter.ExcludeProperties
+            filter.ExcludeRelations
                 .AddRange(new string[]{ "columns", "tables" });
             var job = new SimpleJobConditionalTransformers();
             job.Receivers.Add(0, rr);
