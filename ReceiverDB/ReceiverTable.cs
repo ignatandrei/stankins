@@ -15,7 +15,7 @@ namespace ReceiverDB
 
         public string Name { get; set; }
         public DBTableData<T, Connection> tableData { get; set; }
-        public IRowReceive[] valuesRead { get; private set; }
+        public IRowReceive[] valuesRead { get; protected set; }
         
         public T LastValue
         {
