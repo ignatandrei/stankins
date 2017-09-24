@@ -3,6 +3,7 @@ using MediaTransform;
 using ReceiverDatabaseObjects;
 using ReceiverFileSystem;
 using ReceiverJob;
+using ReceiverJSON;
 using SenderBulkCopy;
 using SenderHTML;
 using SenderToDBSqlServer;
@@ -13,6 +14,9 @@ using System;
 using System.Data.SqlClient;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using Transformers;
 
 namespace StankinsDemos
@@ -23,8 +27,7 @@ namespace StankinsDemos
         {
             Console.WriteLine(Directory.GetCurrentDirectory());
             string dir = Directory.GetCurrentDirectory();
-
-
+            
             //if you want you can execute with StankinsSimpleJob
             //string file = Path.Combine(dir,"jobFolders.txt");
             //File.WriteAllText(file, SimpleJobFolders());
@@ -49,7 +52,7 @@ namespace StankinsDemos
                  File.Copy(fileName, fileDestination);
              };
             #region move into demos
-            di=Directory.CreateDirectory("Demo1JobFolders");
+            di = Directory.CreateDirectory("Demo1JobFolders");
             file = "Demo1JobFolders.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Demo1SimpleJobFolders.html";
@@ -121,7 +124,7 @@ namespace StankinsDemos
             file = "Views/columns.cshtml";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "relationalSqlServer.html";
-            overWriteFile(file, Path.Combine(di.FullName, file));            
+            overWriteFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
             overWriteFile(file, Path.Combine(di.FullName, file));
             //execute visualization
@@ -149,6 +152,14 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             #endregion
             #endregion
+            #region analysis project
+            ExecuteSlnAnalysis().GetAwaiter().GetResult();
+            di = Directory.CreateDirectory("Demo6AnalysisProject");
+            file = "Stankins.html";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "StankinsNETFramework.html";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            #endregion
 
         }
         static string DeleteFileIfExists(string fileName)
@@ -157,14 +168,14 @@ namespace StankinsDemos
                 File.Delete(fileName);
             return fileName;
         }
-        
+
         static string SimpleJobFolders()
         {
             string fileName = DeleteFileIfExists("Demo1SimpleJobFolders.html");
             //TODO: put current dir on interpret string , like env            
-            var folderSolution= new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.FullName;
+            var folderSolution = new DirectoryInfo(Directory.GetCurrentDirectory()).Parent.FullName;
             var receiveFolder = new ReceiverFolderHierarchical(folderSolution, "*.csproj");
-            receiveFolder.ExcludeFolderNames = new string[] { "bin", "obj","Properties" ,".vs",".git","packages" };
+            receiveFolder.ExcludeFolderNames = new string[] { "bin", "obj", "Properties", ".vs", ".git", "packages" };
 
             var si = new SimpleJob();
             si.Receivers.Add(0, receiveFolder);
@@ -181,7 +192,7 @@ namespace StankinsDemos
             //    );
             return si.SerializeMe();
         }
-        static string SimpleJobView(string contents,string output)
+        static string SimpleJobView(string contents, string output)
         {
             var si = new SimpleJob();
 
@@ -206,7 +217,7 @@ namespace StankinsDemos
         {
 
             var si = new SimpleJob();
-            si.UnSerialize(SimpleJobView(contents,"jobDefinition.html"));
+            si.UnSerialize(SimpleJobView(contents, "jobDefinition.html"));
             si.Execute().GetAwaiter().GetResult();
             return "jobDefinition.html";
         }
@@ -214,7 +225,7 @@ namespace StankinsDemos
         {
             string fileName = DeleteFileIfExists("Demo3SimpleExecuteSql.html");
             //TODO: put current dir on interpret string , like env            
-            
+
             var receiveFolder = new ReceiverFolderHierarchical(@"#static:Directory.GetCurrentDirectory()#\SqlToExecute", "*.sql");
             var dbConnection = new DBDataConnection<SqlConnection>();
             dbConnection.ConnectionString = "#file:SqlServerConnectionString#";
@@ -233,7 +244,7 @@ namespace StankinsDemos
 
             var senderViz = new Sender_HTMLRelationViz("Name", OutputFileName);
             var filter = new FilterExcludeRelation(new string[] { "columns", "tables" });
-            
+
             var si = new SimpleJobConditionalTransformers();
             si.Receivers.Add(0, rr);
             si.AddSender(sender);
@@ -244,56 +255,126 @@ namespace StankinsDemos
 
         static string PBXJob()
         {
-            
-                var dir = AppContext.BaseDirectory;
-                var dirPBX = Path.Combine(dir, "PBX");
-            
-            
-                var serialize = new SerializeDataOnFile("a.txt");
-                IReceive r = new ReceiverFolderHierarchical(dirPBX, "*.log");
-                IFilter filterFiles = new FilterForFilesHierarchical();
-                #region filter for remove dates serialize 
 
-                var filterDateTime = new FilterComparableGreat(typeof(DateTime), DateTime.MinValue, "LastWriteTimeUtc");
-                IFilter filterDateTimeSerializable = new FilterComparableFromSerializable(filterDateTime, serialize);
-                #endregion
+            var dir = AppContext.BaseDirectory;
+            var dirPBX = Path.Combine(dir, "PBX");
 
-                IFilter removeFilesMaxWritten = new FilterRemovePropertyMaxMinDateTime("LastWriteTimeUtc", GroupingFunctions.Max);
-                ITransform transformLines = new TransformerFileToLines() { TrimEmptyLines = true };
-                var trDateRegex = new TransformRowRegex(@"^Date:\ (?<datePBX>.{23}).*?$", "text");
-                var trToDate = new TransformerFieldStringToDate("datePBX", "NewDatePBX", "yyyy/MM/dd HH:mm:ss.fff");
 
-                var trAddDate = new TransformAddFieldDown("NewDatePBX");
-                var trSimpleFields = new TransformRowRemainsProperties("NewDatePBX", "lineNr", "text", "FullName", "LastWriteTimeUtc");
+            var serialize = new SerializeDataOnFile("a.txt");
+            IReceive r = new ReceiverFolderHierarchical(dirPBX, "*.log");
+            IFilter filterFiles = new FilterForFilesHierarchical();
+            #region filter for remove dates serialize 
 
-                var data = new DBTableDataConnection<SqlConnection>(new SerializeDataInMemory());
-                data.ConnectionString = "#file:SqlServerConnectionString#";
+            var filterDateTime = new FilterComparableGreat(typeof(DateTime), DateTime.MinValue, "LastWriteTimeUtc");
+            IFilter filterDateTimeSerializable = new FilterComparableFromSerializable(filterDateTime, serialize);
+            #endregion
+
+            IFilter removeFilesMaxWritten = new FilterRemovePropertyMaxMinDateTime("LastWriteTimeUtc", GroupingFunctions.Max);
+            ITransform transformLines = new TransformerFileToLines() { TrimEmptyLines = true };
+            var trDateRegex = new TransformRowRegex(@"^Date:\ (?<datePBX>.{23}).*?$", "text");
+            var trToDate = new TransformerFieldStringToDate("datePBX", "NewDatePBX", "yyyy/MM/dd HH:mm:ss.fff");
+
+            var trAddDate = new TransformAddFieldDown("NewDatePBX");
+            var trSimpleFields = new TransformRowRemainsProperties("NewDatePBX", "lineNr", "text", "FullName", "LastWriteTimeUtc");
+
+            var data = new DBTableDataConnection<SqlConnection>(new SerializeDataInMemory());
+            data.ConnectionString = "#file:SqlServerConnectionString#";
             data.Fields = new string[] { "NewDatePBX", "lineNr", "text", "FullName" };
-                data.TableName = "PBXData";
-                var bulk = new SenderSqlServerBulkCopy(data);
-                var md = new MediaTransformMaxMin<DateTime>();
-                md.GroupFunction = GroupingFunctions.Max;
-                md.FieldName = "LastWriteTimeUtc";
-                var serializeMaxDate = new SenderMediaSerialize<DateTime>(serialize, "LastWriteTimeUtc", md);
-                var si = new SimpleJob();
-                si.Receivers.Add(0, r);
-                int iFilterNr = 0;
-                si.FiltersAndTransformers.Add(iFilterNr++, filterFiles);
-                si.FiltersAndTransformers.Add(iFilterNr++, filterDateTimeSerializable);
-                si.FiltersAndTransformers.Add(iFilterNr++, removeFilesMaxWritten);
-                si.FiltersAndTransformers.Add(iFilterNr++, transformLines);
-                si.FiltersAndTransformers.Add(iFilterNr++, trDateRegex);
-                si.FiltersAndTransformers.Add(iFilterNr++, trToDate);
-                si.FiltersAndTransformers.Add(iFilterNr++, trAddDate);
-                si.FiltersAndTransformers.Add(iFilterNr++, trSimpleFields);
-                //TODO: add transformer to add a field down for all fields
-                //TODO: add transformer regex for splitting Key=Value
-                //TODO: add field to separate Conn(1)Type(Any)User(InternalTask) CDL Request:RSVI(Get)
-                si.Senders.Add(0, bulk);
-                si.Senders.Add(1, serializeMaxDate);
+            data.TableName = "PBXData";
+            var bulk = new SenderSqlServerBulkCopy(data);
+            var md = new MediaTransformMaxMin<DateTime>();
+            md.GroupFunction = GroupingFunctions.Max;
+            md.FieldName = "LastWriteTimeUtc";
+            var serializeMaxDate = new SenderMediaSerialize<DateTime>(serialize, "LastWriteTimeUtc", md);
+            var si = new SimpleJob();
+            si.Receivers.Add(0, r);
+            int iFilterNr = 0;
+            si.FiltersAndTransformers.Add(iFilterNr++, filterFiles);
+            si.FiltersAndTransformers.Add(iFilterNr++, filterDateTimeSerializable);
+            si.FiltersAndTransformers.Add(iFilterNr++, removeFilesMaxWritten);
+            si.FiltersAndTransformers.Add(iFilterNr++, transformLines);
+            si.FiltersAndTransformers.Add(iFilterNr++, trDateRegex);
+            si.FiltersAndTransformers.Add(iFilterNr++, trToDate);
+            si.FiltersAndTransformers.Add(iFilterNr++, trAddDate);
+            si.FiltersAndTransformers.Add(iFilterNr++, trSimpleFields);
+            //TODO: add transformer to add a field down for all fields
+            //TODO: add transformer regex for splitting Key=Value
+            //TODO: add field to separate Conn(1)Type(Any)User(InternalTask) CDL Request:RSVI(Get)
+            si.Senders.Add(0, bulk);
+            si.Senders.Add(1, serializeMaxDate);
 
-                return si.SerializeMe();
-            
-            }
+            return si.SerializeMe();
+
         }
+
+        static async Task ExecuteSlnAnalysis()
+        {
+            string root = "@static:Path.GetPathRoot(#static:Directory.GetCurrentDirectory()#)@";
+            var si=new SimpleJob();
+            var recFolder=new ReceiverFolderHierarchical(root, "*tank*.sln;*StankinsSimpleJobNET*.exe");
+            si.Receivers.Add(0, recFolder);
+            IFilter fi = new FilterForFilesHierarchical();
+            si.FiltersAndTransformers.Add(0, fi);
+
+            si.UnSerialize(si.SerializeMe());
+            await si.Execute();
+            fi = si.FiltersAndTransformers[0] as IFilter;
+            var exe = fi.valuesTransformed.FirstOrDefault(it => it.Values["FullName"].ToString().EndsWith(".exe"));
+            if(exe == null)
+            {
+                Console.WriteLine("please build StankinsSimpleJobNET");
+                return;
+            }
+            string exePath = exe.Values["FullName"].ToString();
+            string exeDir = Path.GetDirectoryName(exePath);
+            //cleanup
+            foreach (var item in Directory.GetFiles(exeDir, "*.json"))
+                File.Delete(item);
+
+            //File.Copy("SolutionExport.txt", Path.Combine(exeDir, "SolutionExport.txt"));
+            var slns = fi.valuesTransformed.Select(it=>it.Values["FullName"]?.ToString()).Where(it => (it??"").Contains(".sln")).ToArray();
+            foreach(var sln in slns)
+            {
+                Console.WriteLine($"interpret:{sln}");
+                var psi = new ProcessStartInfo(exePath, "execute SolutionExport.txt");
+                psi.WorkingDirectory = exeDir;
+                psi.Environment["solutionPath"] = sln;
+                var p = Process.Start(psi);
+                if (p.WaitForExit(60 * 1000))
+                {
+                    var newJob = new SimpleJobConditionalTransformers();
+                    var json = Path.Combine(exeDir, Path.GetFileNameWithoutExtension(sln) + ".json");
+                    var rec = new ReceiverJSONFileInt(json, Encoding.UTF8);
+                    newJob.Receivers.Add(0, rec);
+
+                    string fileName =Path.Combine(AppContext.BaseDirectory, Path.GetFileNameWithoutExtension(sln) + ".html");
+                    if (File.Exists(fileName))
+                        File.Delete(fileName);
+                    Console.WriteLine($"exporting to {fileName}");
+
+                    string fileRazor = "solution.cshtml";
+                    var sender= new SyncSenderMultiple(
+                        new Sender_HTMLText(fileName, "<html><body>"),
+                        new Sender_HTMLRazor("Views/" + Path.GetFileName(fileRazor), fileName)
+                        
+
+                     );
+                    newJob.AddSender(sender);
+                    var filter = new FilterExcludeRelation("referencedIn", "assemblyReferenced");
+                    
+
+                    var senderViz = new SyncSenderMultiple(
+                    new Sender_HTMLRelationViz("Name", fileName),
+                        new Sender_HTMLText(fileName, "</body></html>")
+                        );
+
+                    newJob.Add(filter, senderViz);
+                    
+                    await newJob.Execute();
+                }
+            }
+
+
+        }
+    }
 }

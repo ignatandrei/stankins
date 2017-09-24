@@ -117,6 +117,9 @@ namespace StanskinsImplementation
 
             }
             //await SenderData(data);
+            if (Senders.Count == 0)
+                return;
+
             ISend send;
             if (AllSendersAsync)
             {

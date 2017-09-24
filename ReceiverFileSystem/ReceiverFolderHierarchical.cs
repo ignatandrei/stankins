@@ -81,18 +81,20 @@ namespace ReceiverFileSystem
         RowReadHierarchical[] Files(DirectoryInfo di, IRowReceive parent)
         {
             var ret = new List<RowReadHierarchical>();
-            
-            foreach(var file in di.EnumerateFiles(SearchPattern))
+            foreach (var searchSplitPattern in SearchPattern.Split(new char[] { ';' },StringSplitOptions.RemoveEmptyEntries))
             {
-                var item = new RowReadHierarchical();
-                item.Values.Add("Name", file.Name);
-                item.Values.Add("FullName", file.FullName);
-                item.Values.Add("RowType", "file");
-                item.Values.Add("CreationTimeUtc", file.CreationTimeUtc);
-                item.Values.Add("LastAccessTimeUtc", file.LastAccessTimeUtc);
-                item.Values.Add("LastWriteTimeUtc", file.LastWriteTimeUtc);
-                item.Parent = parent as IRowReceiveHierarchicalParent;
-                ret.Add(item);
+                foreach (var file in di.EnumerateFiles(searchSplitPattern))
+                {
+                    var item = new RowReadHierarchical();
+                    item.Values.Add("Name", file.Name);
+                    item.Values.Add("FullName", file.FullName);
+                    item.Values.Add("RowType", "file");
+                    item.Values.Add("CreationTimeUtc", file.CreationTimeUtc);
+                    item.Values.Add("LastAccessTimeUtc", file.LastAccessTimeUtc);
+                    item.Values.Add("LastWriteTimeUtc", file.LastWriteTimeUtc);
+                    item.Parent = parent as IRowReceiveHierarchicalParent;
+                    ret.Add(item);
+                }
             }
             return ret.ToArray();
         }

@@ -11,26 +11,35 @@
     <Compile Remove="Demo2SimpleJobView\**" />
     <Compile Remove="Demo3ExecuteSql\**" />
     <Compile Remove="Demo4DocumentSqlServer\**" />
+    <Compile Remove="Demo5PBX\**" />
     <Compile Remove="StankinsDemo\**" />
     <EmbeddedResource Remove="Demo1JobFolders\**" />
     <EmbeddedResource Remove="Demo2SimpleJobView\**" />
     <EmbeddedResource Remove="Demo3ExecuteSql\**" />
     <EmbeddedResource Remove="Demo4DocumentSqlServer\**" />
+    <EmbeddedResource Remove="Demo5PBX\**" />
     <EmbeddedResource Remove="StankinsDemo\**" />
     <None Remove="Demo1JobFolders\**" />
     <None Remove="Demo2SimpleJobView\**" />
     <None Remove="Demo3ExecuteSql\**" />
     <None Remove="Demo4DocumentSqlServer\**" />
+    <None Remove="Demo5PBX\**" />
     <None Remove="StankinsDemo\**" />
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="a.txt" />
     <None Remove="Demo1JobFolders.txt" />
     <None Remove="Demo2Job.txt" />
     <None Remove="Demo2JobView.txt" />
     <None Remove="Demo2SimpleJobView.html" />
     <None Remove="Demo3ExecuteSql.txt" />
+    <None Remove="Demo4DocumentSqlServer.txt" />
+    <None Remove="Demo5PBX.txt" />
+    <None Remove="jobDefinition.html" />
     <None Remove="jobDefinition.txt" />
+    <None Remove="relationalSqlServer.html" />
+    <None Remove="SolutionExport.txt" />
     <None Remove="Views\columns.cshtml" />
     <None Remove="Views\databases.cshtml" />
     <None Remove="Views\genericRow.cshtml" />
@@ -48,6 +57,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SqlToExecute\002Sql.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\solution.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\columns.cshtml">
@@ -87,6 +99,7 @@
     <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
+    <ProjectReference Include="..\ReceiverJSON\ReceiverJSON.csproj" />
     <ProjectReference Include="..\SenderBulkCopy\SenderBulkCopy.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
     <ProjectReference Include="..\SenderoToDBSqlServer\SenderToDBSqlServer.csproj" />
