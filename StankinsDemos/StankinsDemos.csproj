@@ -87,6 +87,7 @@
     <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
+    <ProjectReference Include="..\SenderBulkCopy\SenderBulkCopy.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
     <ProjectReference Include="..\SenderoToDBSqlServer\SenderToDBSqlServer.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />

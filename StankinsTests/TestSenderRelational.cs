@@ -81,9 +81,7 @@ IF OBJECT_ID('dbo.TestAndrei', 'U') IS NOT NULL
             var sender = new Sender_HTMLRazor("Views/sqlserver.cshtml", OutputFileName);
 
             var senderViz = new Sender_HTMLRelationViz("Name", OutputFileName);
-            var filter = new FilterExcludeRelation();
-            filter.ExcludeRelations
-                .AddRange(new string[]{ "columns", "tables" });
+            var filter = new FilterExcludeRelation("columns", "tables");            
             var job = new SimpleJobConditionalTransformers();
             job.Receivers.Add(0, rr);
             job.AddSender(sender);

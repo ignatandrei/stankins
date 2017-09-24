@@ -1,6 +1,8 @@
-﻿namespace Transformers
+﻿using System;
+
+namespace Transformers
 {
-    public class TransformerFieldStringToDate : TransformOneValueGeneral
+    public class TransformerFieldStringToDate : TransformOneValue<string,DateTime>
     {
         
         public TransformerFieldStringToDate

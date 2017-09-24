@@ -9,6 +9,7 @@ namespace Transformers
         {
             
             Key = key;
+            Name = $"adding field {Key} as latest value if not exists";
         }
         public IRow[] valuesRead { get; set; }
         public IRow[] valuesTransformed { get; set; }

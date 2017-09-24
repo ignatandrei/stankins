@@ -26,6 +26,7 @@ namespace Transformers
 
             FieldName = fieldName;
             RemovePropertyFunction = removePropertyFunction;
+            Name = $"remove all rows with {fieldName} = {removePropertyFunction}";
         }
 
 
@@ -94,7 +95,7 @@ namespace Transformers
         public FilterRemovePropertyMaxMinDateTime(string fieldName, GroupingFunctions removePropertyFunction)
             :base(fieldName,removePropertyFunction)
         {
-
+            
            
         }
     }

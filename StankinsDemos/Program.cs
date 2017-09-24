@@ -1,9 +1,12 @@
 ﻿using CommonDB;
+using MediaTransform;
 using ReceiverDatabaseObjects;
 using ReceiverFileSystem;
 using ReceiverJob;
+using SenderBulkCopy;
 using SenderHTML;
 using SenderToDBSqlServer;
+using SenderToFile;
 using StankinsInterfaces;
 using StanskinsImplementation;
 using System;
@@ -129,7 +132,23 @@ namespace StankinsDemos
 
             #endregion
 
-
+            #region PBX 
+            var strDemo5 = PBXJob();
+            File.WriteAllText("Demo5PBX.txt", strDemo5);
+            //si = new SimpleJob();
+            //si.UnSerialize(strDemo5);
+            //si.Execute().GetAwaiter().GetResult();
+            #region move into demos
+            di = Directory.CreateDirectory("Demo5PBX");
+            file = "Demo5PBX.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "appsettings.json";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            //execute visualization
+            file = ExecuteVisualizationDefinitionSimpleJob(strDemo5);
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            #endregion
+            #endregion
 
         }
         static string DeleteFileIfExists(string fileName)
@@ -222,5 +241,59 @@ namespace StankinsDemos
             si.Add(filter, senderViz);
             return si.SerializeMe();
         }
-    }
+
+        static string PBXJob()
+        {
+            
+                var dir = AppContext.BaseDirectory;
+                var dirPBX = Path.Combine(dir, "PBX");
+            
+            
+                var serialize = new SerializeDataOnFile("a.txt");
+                IReceive r = new ReceiverFolderHierarchical(dirPBX, "*.log");
+                IFilter filterFiles = new FilterForFilesHierarchical();
+                #region filter for remove dates serialize 
+
+                var filterDateTime = new FilterComparableGreat(typeof(DateTime), DateTime.MinValue, "LastWriteTimeUtc");
+                IFilter filterDateTimeSerializable = new FilterComparableFromSerializable(filterDateTime, serialize);
+                #endregion
+
+                IFilter removeFilesMaxWritten = new FilterRemovePropertyMaxMinDateTime("LastWriteTimeUtc", GroupingFunctions.Max);
+                ITransform transformLines = new TransformerFileToLines() { TrimEmptyLines = true };
+                var trDateRegex = new TransformRowRegex(@"^Date:\ (?<datePBX>.{23}).*?$", "text");
+                var trToDate = new TransformerFieldStringToDate("datePBX", "NewDatePBX", "yyyy/MM/dd HH:mm:ss.fff");
+
+                var trAddDate = new TransformAddFieldDown("NewDatePBX");
+                var trSimpleFields = new TransformRowRemainsProperties("NewDatePBX", "lineNr", "text", "FullName", "LastWriteTimeUtc");
+
+                var data = new DBTableDataConnection<SqlConnection>(new SerializeDataInMemory());
+                data.ConnectionString = "#file:SqlServerConnectionString#";
+            data.Fields = new string[] { "NewDatePBX", "lineNr", "text", "FullName" };
+                data.TableName = "PBXData";
+                var bulk = new SenderSqlServerBulkCopy(data);
+                var md = new MediaTransformMaxMin<DateTime>();
+                md.GroupFunction = GroupingFunctions.Max;
+                md.FieldName = "LastWriteTimeUtc";
+                var serializeMaxDate = new SenderMediaSerialize<DateTime>(serialize, "LastWriteTimeUtc", md);
+                var si = new SimpleJob();
+                si.Receivers.Add(0, r);
+                int iFilterNr = 0;
+                si.FiltersAndTransformers.Add(iFilterNr++, filterFiles);
+                si.FiltersAndTransformers.Add(iFilterNr++, filterDateTimeSerializable);
+                si.FiltersAndTransformers.Add(iFilterNr++, removeFilesMaxWritten);
+                si.FiltersAndTransformers.Add(iFilterNr++, transformLines);
+                si.FiltersAndTransformers.Add(iFilterNr++, trDateRegex);
+                si.FiltersAndTransformers.Add(iFilterNr++, trToDate);
+                si.FiltersAndTransformers.Add(iFilterNr++, trAddDate);
+                si.FiltersAndTransformers.Add(iFilterNr++, trSimpleFields);
+                //TODO: add transformer to add a field down for all fields
+                //TODO: add transformer regex for splitting Key=Value
+                //TODO: add field to separate Conn(1)Type(Any)User(InternalTask) CDL Request:RSVI(Get)
+                si.Senders.Add(0, bulk);
+                si.Senders.Add(1, serializeMaxDate);
+
+                return si.SerializeMe();
+            
+            }
+        }
 }

@@ -11,6 +11,10 @@ namespace Transformers
 {
     public class TransformerFileToLines : ITransform
     {
+        public TransformerFileToLines()
+        {
+            Name = $"load file lines from FullName field";
+        }
         public IRow[] valuesRead { get; set ; }
         public IRow[] valuesTransformed { get; set ; }
         public string Name { get ; set ; }

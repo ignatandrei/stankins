@@ -10,7 +10,8 @@ namespace SenderBulkCopy
     {
         public SenderSqlServerBulkCopy(DBTableDataConnection<SqlConnection> data) 
         {
-            this.Name = "sender to sql server table by bulk copy";
+            string nameTable = data?.TableName;
+            this.Name = $"sender to sql server table {nameTable} by bulk copy";
             Data = data;
             Options = SqlBulkCopyOptions.Default;
         }

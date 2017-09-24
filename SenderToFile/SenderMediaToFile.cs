@@ -15,6 +15,7 @@ namespace SenderToFile
             SerializeData = serializeData;
             Key = key;
             Transform = transform;
+            Name = $"serialize {Key} with {transform.Name} into {SerializeData.GetType().Name}";
         }
 
         public ISerializeData SerializeData { get; set; }
