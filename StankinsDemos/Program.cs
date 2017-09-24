@@ -153,12 +153,15 @@ namespace StankinsDemos
             #endregion
             #endregion
             #region analysis project
-            ExecuteSlnAnalysis().GetAwaiter().GetResult();
-            di = Directory.CreateDirectory("Demo6AnalysisProject");
-            file = "Stankins.html";
-            overWriteFile(file, Path.Combine(di.FullName, file));
-            file = "StankinsNETFramework.html";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            if (false)
+            {
+                ExecuteSlnAnalysis().GetAwaiter().GetResult();
+                di = Directory.CreateDirectory("Demo6AnalysisProject");
+                file = "Stankins.html";
+                overWriteFile(file, Path.Combine(di.FullName, file));
+                file = "StankinsNETFramework.html";
+                overWriteFile(file, Path.Combine(di.FullName, file));
+            }
             #endregion
 
         }
