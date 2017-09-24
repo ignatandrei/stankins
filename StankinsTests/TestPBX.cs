@@ -28,6 +28,8 @@ namespace StankinsTests
             return configuration["SqlServerConnectionString"]; //VSTS SQL Server connection string "(localdb)\MSSQLLocalDB;Trusted_Connection=True;"
         }
         [TestMethod]
+        [TestCategory("RequiresSQLServer")]
+        [TestCategory("ExternalProgramsToBeRun")]
         public async Task TestPBXData()
         {
             #region arrange
@@ -50,12 +52,16 @@ IF OBJECT_ID('dbo.PBXData', 'U') IS NOT NULL
 )";
                     await cmd.ExecuteNonQueryAsync();
                 }
-                #endregion
-                #region act
+                await Task.Delay(2000);
                 var dir = AppContext.BaseDirectory;
                 var dirPBX = Path.Combine(dir, "PBX");
+                File.AppendAllText(Path.Combine(dirPBX, "PBXRemove.log"), "aaaa");
+                #endregion
+                #region act
+                
                 IReceive r = new ReceiverFolderHierarchical(dirPBX, "*.log");
                 IFilter filterFiles = new FilterForFilesHierarchical();
+                IFilter removeFilesMaxWritten = new FilterRemovePropertyMaxMinDateTime("LastWriteTimeUtc",FilterRemovePropertyFunction.Max);
                 ITransform transformLines = new TransformerFileToLines() { TrimEmptyLines = true };
                 var trDateRegex = new TransformRowRegex(@"^Date:\ (?<datePBX>.{23}).*?$", "text");
                 var trToDate = new TransformerFieldStringToDate("datePBX", "NewDatePBX", "yyyy/MM/dd HH:mm:ss.fff");
@@ -71,12 +77,14 @@ IF OBJECT_ID('dbo.PBXData', 'U') IS NOT NULL
 
                 var si = new SimpleJob();
                 si.Receivers.Add(0, r);
-                si.FiltersAndTransformers.Add(0, filterFiles);
-                si.FiltersAndTransformers.Add(1, transformLines);
-                si.FiltersAndTransformers.Add(2, trDateRegex);
-                si.FiltersAndTransformers.Add(3, trToDate);
-                si.FiltersAndTransformers.Add(4, trAddDate);
-                si.FiltersAndTransformers.Add(5, trSimpleFields);
+                int iFilterNr = 0;
+                si.FiltersAndTransformers.Add(iFilterNr++, filterFiles);
+                si.FiltersAndTransformers.Add(iFilterNr++, removeFilesMaxWritten);
+                si.FiltersAndTransformers.Add(iFilterNr++, transformLines);
+                si.FiltersAndTransformers.Add(iFilterNr++, trDateRegex);
+                si.FiltersAndTransformers.Add(iFilterNr++, trToDate);
+                si.FiltersAndTransformers.Add(iFilterNr++, trAddDate);
+                si.FiltersAndTransformers.Add(iFilterNr++, trSimpleFields);
                 //TODO: add transformer to add a field down for all fields
                 //TODO: add transformer regex for splitting Key=Value
                 //TODO: add field to separate Conn(1)Type(Any)User(InternalTask) CDL Request:RSVI(Get)
@@ -85,7 +93,8 @@ IF OBJECT_ID('dbo.PBXData', 'U') IS NOT NULL
                 await si.Execute();
                 #endregion
                 #region assert
-                filterFiles.valuesTransformed.Length.ShouldBe(2, "just two files after first filter");
+                filterFiles.valuesTransformed.Length.ShouldBe(3, "three files after first filter");
+                removeFilesMaxWritten.valuesTransformed.Length.ShouldBe(2, "last one file written dismissed");
                 transformLines.valuesTransformed.Length.ShouldBe(77251);
                 var d = transformLines.valuesTransformed.Select(it => it.Values["FullName"]).Distinct().ToArray();
                 d.Length.ShouldBe(2, "two files after reading contents");
