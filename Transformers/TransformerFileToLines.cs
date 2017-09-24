@@ -50,9 +50,12 @@ namespace Transformers
                         continue;
                     }
                     var rr = new RowRead();
-                    rr.Values.Add($"line{id}", line);
-                    rr.Values.Add($"text", line);
-                    rr.Values.Add("FullName", file);
+                    foreach(var val in item.Values)
+                    {
+                        rr.Values.Add(val.Key, val.Value);
+                    }
+                    rr.Values["lineNr"]=id;
+                    rr.Values["text"]=line;                    
                     r.Add(rr);
                 }
             }
