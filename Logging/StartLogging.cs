@@ -24,12 +24,11 @@ namespace Logging
             //var logger = new LoggerConfiguration()
             //    .ReadFrom.Configuration(configuration)
             //    .CreateLogger();
-            string template = "[{Timestamp:HH:mm:ss} Thread {ThreadId} {Level:u3}] {Message:l}{NewLine}{Exception}";
-            var logger = new LoggerConfiguration()
+            string template = "[{Timestamp:HH:mm:ss} Thread {ThreadId} {Scope} {Level:u3}] {Message:l}{NewLine}{Exception}";
+            Serilog.Log.Logger = new LoggerConfiguration()
                 .Enrich.WithThreadId()
                 .WriteTo.LiterateConsole(outputTemplate: template)
-                .WriteTo.RollingFile("log-{Date}.txt", shared: true,retainedFileCountLimit: null,outputTemplate:template)
-                
+                .WriteTo.Async(a=>a.RollingFile("log-{Date}.txt", shared: true,retainedFileCountLimit: null,outputTemplate:template))                
                 .CreateLogger();
                 
                 
@@ -37,8 +36,10 @@ namespace Logging
             var sc = new ServiceCollection();
             sc.AddLogging();
             var loggerFactory = sc.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
-            fact = loggerFactory.AddSerilog(logger, true);
-            
+            fact = loggerFactory.AddSerilog(Serilog.Log.Logger, false);
+            //TODO: dispose the logger when applications shuts down
+
+
         }
         public static ConcurrentBag<DebugInfo> cd = new ConcurrentBag<DebugInfo>();
         Stopwatch sw = new Stopwatch();
@@ -65,6 +66,7 @@ namespace Logging
             dt.duration = sw.Elapsed;
             cd.Add(dt);
             logger.LogInformation(" end method " + text + " duration:" + dt.duration.TotalMilliseconds);
+            Serilog.Log.CloseAndFlush();
             
         }
 

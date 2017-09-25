@@ -28,7 +28,7 @@ namespace StankinsTests
             string fullNameFile = Path.Combine(dir, fileNameToWrite);
             File.WriteAllText(fullNameFile, "andrei ignat");
             #endregion  
-            #region arrange
+            #region act
             IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
             await r.LoadData();
             var m = new MediaTransformDotFolderAndFiles();
