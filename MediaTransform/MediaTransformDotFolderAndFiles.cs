@@ -1,5 +1,5 @@
 ﻿using StankinsInterfaces;
-
+using Microsoft.Extensions.Logging;
 namespace MediaTransform
 {
     public class MediaTransformDotFolderAndFiles : MediaTransformDotHierarchical
@@ -18,7 +18,9 @@ namespace MediaTransform
                 case "file":
                     return "shape=now color=lightgrey";
                 default:
-                    //TODO: log
+                    string message = $"no shape defined for {str}";
+                    //@class.Log(LogLevel.Information, 0, $"media dot folder and files: {message}", null, null);                        
+                    message += "";
                     return "";
             }
         }

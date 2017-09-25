@@ -2,7 +2,7 @@
 using StankinsInterfaces;
 using System.Collections.Generic;
 using System.Linq;
-
+using Microsoft.Extensions.Logging;
 namespace StanskinsImplementation
 {
     public class SyncSenderMultiple : ISend
@@ -29,7 +29,10 @@ namespace StanskinsImplementation
                 await te.t;
                 if(!te.IsSuccess())
                 {
-                    //TODO: log
+                    string message = te.Exception.Message;
+                    //@class.Log(LogLevel.Error,0,$"end send data {message}",te.Exception,null);
+                    message += "";
+
                 }
             }
             

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace ReceiverDatabaseObjects
 {
     public class ReceiverRelationalSqlServer : ReceiverRelational
@@ -62,7 +62,9 @@ namespace ReceiverDatabaseObjects
                             var id = ir["ID"];
                             if(id== null || id == DBNull.Value)
                             {
-                                //TODO: log
+                                string message = $"ID field in database is null";
+                                //@class.Log(LogLevel.Information, 0, $"receiver relational sql server: {message}", null, null);                        
+                                message += "";
                                 continue;
                             }
                             ret.Add(new KeyValuePair<string, string>(ir["id"].ToString(), ir["name"].ToString()));

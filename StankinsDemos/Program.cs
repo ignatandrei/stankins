@@ -33,7 +33,7 @@ namespace StankinsDemos
             //    st.LogInformation("test'");
             //    Thread.Sleep(10);
             //}
-                
+
             //return;
             Console.WriteLine(Directory.GetCurrentDirectory());
             string dir = Directory.GetCurrentDirectory();

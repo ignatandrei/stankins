@@ -10,7 +10,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-
+using Microsoft.Extensions.Logging;
 namespace StankinsSimpleJob
 {
     public class Program
@@ -246,7 +246,9 @@ namespace StankinsSimpleJob
         {
             var currentError = e.ErrorContext.Error.Message;
             e.ErrorContext.Handled = true;
-            Console.WriteLine($"Deserialization error {currentError}");
+            //Console.WriteLine($"Deserialization error {currentError}");
+            //@class.Log(LogLevel.Error, 0, $"deserialization error {currentError}", ex, null);
+            
         }
     }
 }

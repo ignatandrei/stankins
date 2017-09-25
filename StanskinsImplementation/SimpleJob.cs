@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using StringInterpreter;
 using System.Diagnostics;
-
+using Microsoft.Extensions.Logging;
 namespace StanskinsImplementation
 {
     public abstract class SimpleJobReceiverTransformer : IJob
@@ -112,8 +112,9 @@ namespace StanskinsImplementation
                     data = filter.valuesTransformed;
                     continue;
                 }
-                //TODO: log
-                Debug.Assert(false);
+                Debug.Assert(false,"base object is not found");
+                //@class.Log(LogLevel.Error,0,$"base object is not found",null,null);
+                Debug.Assert(false, "filter is not found");
 
             }
             //await SenderData(data);

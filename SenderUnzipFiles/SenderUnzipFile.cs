@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace SenderUnzipFiles
 {
     /// <summary>
@@ -28,13 +28,17 @@ namespace SenderUnzipFiles
             {
                 if (!item.Values.ContainsKey("FullName"))
                 {
-                    //TODO: log
+                    string message = $"item does not contain FullName";
+                    //@class.Log(LogLevel.Information, 0, $"sender unzip files: {message}", null, null);                        
+                    message += "";
                     continue;
                 }
                 var zip = item.Values["FullName"]?.ToString();
                 if (!File.Exists(zip))
                 {
-                    //TODO: log
+                    string message = $"{zip} file does not exists";
+                    //@class.Log(LogLevel.Information, 0, $"sender unzip files: {message}", null, null);                        
+                    message += "";
                     continue;
                 }
                 ZipFile.ExtractToDirectory(zip, DestinationFolder);

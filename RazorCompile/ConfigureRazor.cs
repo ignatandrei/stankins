@@ -13,9 +13,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
-/// <summary>
-/// TODO: replace with https://github.com/aspnet/Entropy/blob/master/samples/Mvc.RenderViewToString/Program.cs
-/// </summary>
+using Microsoft.Extensions.Logging;
 namespace RazorCompile
 {    
 
@@ -41,7 +39,8 @@ namespace RazorCompile
             }
             catch (Exception ex)
             {
-                //TODO: log
+                string message = ex.Message;
+                //@class.Log(LogLevel.Error, 0, $"razor parse string error {message}", ex, null);
                 throw;
             }
         }
@@ -64,7 +63,8 @@ namespace RazorCompile
             }
             catch (Exception ex)
             {
-                //TODO: log
+                string message = ex.Message;
+                //@class.Log(LogLevel.Error, 0, $"razor parse string error {message}", ex, null);
                 throw;
             }
         }

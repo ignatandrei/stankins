@@ -1,7 +1,7 @@
 ﻿using StankinsInterfaces;
 using System;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace SenderAction
 {
     //TODO: make an abstract class with Roslyn to serialize
@@ -22,13 +22,17 @@ namespace SenderAction
         {
             if (valuesToBeSent?.Length == 0)
             {
-                //TODO: log
+                string message = $"no values to be sent ";
+                //@class.Log(LogLevel.Information, 0, $"sender action ordered: {message}", null, null);                        
+                message += "";
                 return;
             }
                 
             if (ActionToRow == null)
             {
-                //TODO: log
+                string message = $"actiontorow is null ";
+                //@class.Log(LogLevel.Information, 0, $"sender action ordered: {message}", null, null);                        
+                message += "";
                 return;
             }
             int i=0;                

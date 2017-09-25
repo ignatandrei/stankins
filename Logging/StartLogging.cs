@@ -28,7 +28,7 @@ namespace Logging
             var logger = new LoggerConfiguration()
                 .Enrich.WithThreadId()
                 .WriteTo.LiterateConsole(outputTemplate: template)
-                //.WriteTo.RollingFile("log-{Date}.txt", retainedFileCountLimit: null,outputTemplate:template)
+                .WriteTo.RollingFile("log-{Date}.txt", shared: true,retainedFileCountLimit: null,outputTemplate:template)
                 
                 .CreateLogger();
                 

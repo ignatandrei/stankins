@@ -8,7 +8,7 @@ using System.Dynamic;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace Transformers
 {
 
@@ -60,7 +60,9 @@ namespace Transformers
             script.Compile();
             if (valuesRead == null)
             {
-                //TODO: log
+                string message = $"values read are null";
+                //@class.Log(LogLevel.Information, 0, $"transformer with string: {message}", null, null);                        
+                message += "";
                 return;
             }
             foreach (var item in valuesRead)

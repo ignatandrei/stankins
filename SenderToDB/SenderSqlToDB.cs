@@ -6,7 +6,7 @@ using System.Data.Common;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace SenderToDB
 {
     /// <summary>
@@ -42,7 +42,9 @@ namespace SenderToDB
                 {
                     if (!item.Values.ContainsKey("FullName"))
                     {
-                        //TODO: log
+                        string message = $"item does not contain FullName ";
+                        //@class.Log(LogLevel.Information, 0, $"sender sql to db: {message}", null, null);                        
+                        message += "";
                         continue;
                     }
                     string fullName = item.Values["FullName"].ToString();

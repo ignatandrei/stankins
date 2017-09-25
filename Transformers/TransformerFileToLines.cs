@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace Transformers
 {
     public class TransformerFileToLines : ITransform
@@ -24,13 +24,17 @@ namespace Transformers
             List<IRow> r = new List<IRow>();
             if (!item.Values.ContainsKey("FullName"))
             {
-                //TODO: log
+                string message = "item not contain FullName";
+                //@class.Log(LogLevel.Information, 0, $"load from file: {message}", null, null);                        
+                message += "";
                 return null;
             }
             var file = item.Values["FullName"]?.ToString();
             if (!File.Exists(file))
             {
-                //TODO: log
+                string message = $"file dos not exists {file}";
+                //@class.Log(LogLevel.Information, 0, $"load from file: {message}", null, null);                        
+                message += "";
                 return null;
             }
             int id = 1;

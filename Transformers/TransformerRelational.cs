@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace Transformers
 {
     public class TransformerGroupRelationalString: TransformerGroupRelational<string>
@@ -34,13 +34,17 @@ namespace Transformers
             {
                 if (!item.Values.ContainsKey(Key))
                 {
-                    //TODO: log
+                    string message = $"item values does not contain {Key}";
+                    //@class.Log(LogLevel.Information, 0, $"transformer group relational: {message}", null, null);                        
+                    message += "";
                     continue;
                 }
                 var val = (T)item.Values[Key];
                 if (val == null)
                 {
-                    //TODO: log
+                    string message = $"val is null for {Key}";
+                    //@class.Log(LogLevel.Information, 0, $"transformer group relational: {message}", null, null);                        
+                    message += "";
                     continue;
                 }
                 if (!dict.ContainsKey(val))

@@ -1,5 +1,5 @@
 ﻿using StankinsInterfaces;
-
+using Microsoft.Extensions.Logging;
 namespace MediaTransform
 {
     public class MediaTransformDotJob: MediaTransformDotHierarchical
@@ -12,7 +12,9 @@ namespace MediaTransform
         {
             if (!(row?.Values?.ContainsKey("RowType") ?? false))
             {
-                //TODO: log                
+                string message = $"no key for RowType";
+                //@class.Log(LogLevel.Information, 0, $"media transform dot job : {message}", null, null);                        
+                message += "";
                 return null;
             }
             var str = row.Values["RowType"]?.ToString();
@@ -30,7 +32,9 @@ namespace MediaTransform
                 case "receiver":
                     return "shape=cylinder color=lightblue";
                 default:
-                    //TODO: log
+                    string message = $"no shape defined for {str}";
+                    //@class.Log(LogLevel.Information, 0, $"media transform dot job: {message}", null, null);                        
+                    message += "";
                     return "";
             }
 

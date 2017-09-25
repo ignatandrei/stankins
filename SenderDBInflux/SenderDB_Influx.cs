@@ -10,7 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace SenderDBInflux
 {
     public class SenderDB_Influx : ISend
@@ -93,19 +93,23 @@ namespace SenderDBInflux
                     if (!r)
                     {
 
-                        //TODO: log error
-                        Console.WriteLine("Errr");
+                        string message = "error influx post points";
+                        //@class.Log(LogLevel.Error, 0, $"{message}", null, null);                        
+                        message += "";
                     }
                 }
                 else
                 {
-                    //TODO: Log no values to be sent
+                    string message = "no values to be sent";                    
+                    //@class.Log(LogLevel.Information, 0, $"sender influx {message}", null, null);                        
+                    message += "";
                 }
             }
             catch (Exception ex)
             {
-                //TODO: log
-                string s = ex.Message;
+                string message = ex.Message;
+                //@class.Log(LogLevel.Error, 0, $"sender influx error {message}", ex, null);
+                message += "";
                 throw;
             }
 

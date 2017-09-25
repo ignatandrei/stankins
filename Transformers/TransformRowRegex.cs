@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-
+using Microsoft.Extensions.Logging;
 namespace Transformers
 {
     public class TransformRowRegex : ITransform
@@ -28,13 +28,17 @@ namespace Transformers
             {
                 if (!item.Values.ContainsKey(Key))
                 {
-                    //TODO: log
+                    string message = $"values not contain {Key}";
+                    //@class.Log(LogLevel.Information, 0, $"transformer row regex: {message}", null, null);                        
+                    message += "";
                     continue;
                 }
                 var val = item.Values[Key];
                 if (val == null)
                 {
-                    //TODO: log
+                    string message = $"val is null for {Key}";
+                    //@class.Log(LogLevel.Information, 0, $"transformer row regex: {message}", null, null);                        
+                    message += "";
                     continue;
                 }
                 var input = val.ToString();
