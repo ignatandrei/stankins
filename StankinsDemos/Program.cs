@@ -1,4 +1,6 @@
 ﻿using CommonDB;
+using Logging;
+using Microsoft.Extensions.Logging;
 using MediaTransform;
 using ReceiverDatabaseObjects;
 using ReceiverFileSystem;
@@ -18,6 +20,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Transformers;
+using System.Threading;
 
 namespace StankinsDemos
 {
@@ -25,6 +28,13 @@ namespace StankinsDemos
     {
         static void Main(string[] args)
         {
+            //using (StartLogging st = new StartLogging("asd", "Asda", 1))
+            //{
+            //    st.LogInformation("test'");
+            //    Thread.Sleep(10);
+            //}
+                
+            //return;
             Console.WriteLine(Directory.GetCurrentDirectory());
             string dir = Directory.GetCurrentDirectory();
             

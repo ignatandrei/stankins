@@ -1,0 +1,17 @@
+{
+  "Serilog": {
+    "Using": [ "Serilog.Sinks.Literate" ],
+    "MinimumLevel": "Debug",
+    "WriteTo": [
+      { "Name": "LiterateConsole" },
+      {
+        "Name": "File",
+        "Args": { "path": "%TEMP%\\Logs\\serilog-configuration-sample.txt" }
+      }
+    ],
+    "Enrich": [ "FromLogContext", "WithMachineName", "WithThreadId" ],
+    "Properties": {
+      "Application": "Sample"
+    }
+  }
+}
