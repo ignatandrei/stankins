@@ -70,26 +70,5 @@ namespace RazorCompile
         }
     }
 
-    //public class ConfigureRazor: IRazorRenderer
-    //{
-    //    public ConfigureRazor()
-    //    {
-                        
-    //    }
-
-    //    public async Task<string> RenderToString<TModel>(string contentView, TModel model)
-    //    {
-    //        var engine = EngineFactory.CreatePhysical();
-    //        try
-    //        {
-    //            return await engine.ParseString<TModel>(contentView, model);
-    //        }
-    //        catch (Exception ex)
-    //        {
-    //            //TODO: log
-    //            throw;
-    //        }
-
-    //    }
-    //}
+    
 }

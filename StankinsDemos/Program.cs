@@ -67,7 +67,7 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Demo1SimpleJobFolders.html";
             overWriteFile(file, Path.Combine(di.FullName, file));
-            file = "Views/RazorRow.cshtml";
+            file = "Views/RazorHierarchical.cshtml";
             overWriteFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo1);
@@ -109,7 +109,7 @@ namespace StankinsDemos
             file = "SqlToExecute/002Sql.sql";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            overWriteFile(file, Path.Combine(di.FullName, file));            
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo3);
             overWriteFile(file, Path.Combine(di.FullName, file));
