@@ -87,9 +87,7 @@ namespace StankinsDemos
             file = "readme.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "jobDefinition.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
-            file = "Demo2JobView.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            overWriteFile(file, Path.Combine(di.FullName, file));            
             file = "Demo2SimpleJobView.html";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Views/RazorHierarchical.cshtml";
