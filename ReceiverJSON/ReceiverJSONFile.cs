@@ -16,6 +16,10 @@ namespace ReceiverJSON
         }
         protected override async Task ProcessText(string text)
         {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentException($"cannot deserialize empty text from {FileToRead}");
+            }
             var settings = new JsonSerializerSettings()
             {
                 TypeNameHandling = TypeNameHandling.Objects,
