@@ -21,7 +21,7 @@ namespace ReceiverJSON
                 TypeNameHandling = TypeNameHandling.Objects,
                 Formatting = Formatting.Indented,
                 //Error = HandleDeserializationError
-                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+                ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
             var data = JsonConvert.DeserializeObject<IRowReceive[]>(text, settings);

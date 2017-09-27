@@ -98,7 +98,7 @@ namespace ReceiverFile
                             catch (Exception ex)
                             {
                                 string s = ex.Message;
-                                //@class.Log(LogLevel.Error,0,"end send data ERROR",ex,null);
+                                //@class.Log(LogLevel.Error,0,"end send data ERROR receiver file from storage"+s,ex,null);
                                 throw;
                             }
                         }

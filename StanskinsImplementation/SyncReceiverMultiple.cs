@@ -30,7 +30,7 @@ namespace StanskinsImplementation
                 catch(Exception ex)
                 {
                     string s = ex.Message;
-                    //@class.Log(LogLevel.Error,0,"end send data ERROR",ex,null);
+                    //@class.Log(LogLevel.Error,0,"end send data Sync Receiver multiple ERROR"+s,ex,null);
                     throw;
                 }
 
