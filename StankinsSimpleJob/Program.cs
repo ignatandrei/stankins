@@ -57,15 +57,20 @@ namespace StankinsSimpleJob
 
         public static int ExecuteJob(string fileName)
         {
-            var settings = new JsonSerializerSettings()
-            {
-                TypeNameHandling = TypeNameHandling.Objects,
-                Formatting = Formatting.Indented,
-                Error = HandleDeserializationError
-                //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
+            //var settings = new JsonSerializerSettings()
+            //{
+            //    TypeNameHandling = TypeNameHandling.Objects,
+            //    Formatting = Formatting.Indented,
+            //    Error = HandleDeserializationError
+            //    //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
-            };
+            //};
             var valSerialized = File.ReadAllText(fileName);
+            #region running the file from where it is
+            var dir = Path.GetDirectoryName(fileName);
+            if(!string.IsNullOrWhiteSpace(dir))
+                Directory.SetCurrentDirectory(dir);
+            #endregion
             IJob job=null;
             try
             {

@@ -12,6 +12,7 @@
     <None Remove="a.json" />
     <None Remove="a.txt" />
     <None Remove="a.xml" />
+    <None Remove="IronSQLDBA_overall_status_maz2central_job_stankins_LastOffset.json" />
     <None Remove="IronSQLDBA_wait_type_local_select_last_row.json" />
     <None Remove="job2.json" />
     <None Remove="StankinsData.txt" />

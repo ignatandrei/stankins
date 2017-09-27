@@ -44,7 +44,7 @@ namespace StankinsDemos
             //Console.WriteLine($"executing file {file}");
             IJob si;
             var strDemo1 = SimpleJobFolders();
-            File.WriteAllText("Demo1JobFolders.txt", strDemo1);
+            File.WriteAllText("jobDefinition.txt", strDemo1);
             si = new SimpleJob();
             si.UnSerialize(strDemo1);
             si.Execute().GetAwaiter().GetResult();
@@ -63,7 +63,9 @@ namespace StankinsDemos
              };
             #region move into demos
             di = Directory.CreateDirectory("Demo1JobFolders");
-            file = "Demo1JobFolders.txt";
+            file = "readme.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "jobDefinition.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Demo1SimpleJobFolders.html";
             overWriteFile(file, Path.Combine(di.FullName, file));
@@ -76,12 +78,14 @@ namespace StankinsDemos
             #endregion
 
             var strDemo2 = SimpleJobView(SimpleJobFolders(), "Demo2SimpleJobView.html");
-            File.WriteAllText("Demo2JobView.txt", strDemo2);
+            File.WriteAllText("jobDefinition.txt", strDemo2);
             si = new SimpleJob();
             si.UnSerialize(strDemo2);
             si.Execute().GetAwaiter().GetResult();
             #region move into demos
             di = Directory.CreateDirectory("Demo2SimpleJobView");
+            file = "readme.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
             file = "jobDefinition.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Demo2JobView.txt";
@@ -96,13 +100,15 @@ namespace StankinsDemos
 
             #endregion
             var strDemo3 = ExecuteSqlCIOrder();
-            File.WriteAllText("Demo3ExecuteSql.txt", strDemo3);
+            File.WriteAllText("jobDefinition.txt", strDemo3);
             si = new SimpleJob();
             si.UnSerialize(strDemo3);
             si.Execute().GetAwaiter().GetResult();
             #region move into demos
+            file = "readme.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
             di = Directory.CreateDirectory("Demo3ExecuteSql");
-            file = "Demo3ExecuteSql.txt";
+            file = "jobDefinition.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "SqlToExecute/001Sql.sql";
             overWriteFile(file, Path.Combine(di.FullName, file));
@@ -117,13 +123,15 @@ namespace StankinsDemos
             #region DocumentSqlServer
             //TODO:add demo DocumentSqlServer
             var strDemo4 = DocumentSqlServer();
-            File.WriteAllText("Demo4DocumentSqlServer.txt", strDemo3);
+            File.WriteAllText("jobDefinition.txt", strDemo3);
             si = new SimpleJobConditionalTransformers();
             si.UnSerialize(strDemo4);
             si.Execute().GetAwaiter().GetResult();
             #region move into demos
+            file = "readme.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
             di = Directory.CreateDirectory("Demo4DocumentSqlServer");
-            file = "Demo4DocumentSqlServer.txt";
+            file = "jobDefinition.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Views/sqlserver.cshtml";
             overWriteFile(file, Path.Combine(di.FullName, file));
@@ -147,13 +155,15 @@ namespace StankinsDemos
 
             #region PBX 
             var strDemo5 = PBXJob();
-            File.WriteAllText("Demo5PBX.txt", strDemo5);
+            File.WriteAllText("jobDefinition.txt", strDemo5);
             //si = new SimpleJob();
             //si.UnSerialize(strDemo5);
             //si.Execute().GetAwaiter().GetResult();
             #region move into demos
+            file = "readme.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
             di = Directory.CreateDirectory("Demo5PBX");
-            file = "Demo5PBX.txt";
+            file = "jobDefinition.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
             overWriteFile(file, Path.Combine(di.FullName, file));

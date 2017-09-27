@@ -38,6 +38,8 @@
     <None Remove="Demo5PBX.txt" />
     <None Remove="jobDefinition.html" />
     <None Remove="jobDefinition.txt" />
+    <None Remove="log-20170925.txt" />
+    <None Remove="readme.txt" />
     <None Remove="relationalSqlServer.html" />
     <None Remove="SolutionExport.txt" />
     <None Remove="Views\columns.cshtml" />
@@ -53,6 +55,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="readme.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SqlToExecute\001Sql.sql">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
