@@ -154,9 +154,9 @@ namespace StankinsDemos
             #region PBX 
             var strDemo5 = PBXJob();
             File.WriteAllText("jobDefinition.txt", strDemo5);
-            //si = new SimpleJob();
-            //si.UnSerialize(strDemo5);
-            //si.Execute().GetAwaiter().GetResult();
+            si = new SimpleJob();
+            si.UnSerialize(strDemo5);
+            si.Execute().GetAwaiter().GetResult();
             #region move into demos
             file = "readme.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
@@ -293,14 +293,18 @@ namespace StankinsDemos
             IFilter removeFilesMaxWritten = new FilterRemovePropertyMaxMinDateTime("LastWriteTimeUtc", GroupingFunctions.Max);
             ITransform transformLines = new TransformerFileToLines() { TrimEmptyLines = true };
             var trDateRegex = new TransformRowRegex(@"^Date:\ (?<datePBX>.{23}).*?$", "text");
+            var trKeyValueRegex = new TransformRowRegex(@"(^|\r|\n|\r\n)(?<tkey>(\$?[a-zA-Z0-9_[\]/ ]+))='?(?<tvalue>([a-zA-Z0-9_ ]+))'?(\r|\r\n|$)", "text");
             var trToDate = new TransformerFieldStringToDate("datePBX", "NewDatePBX", "yyyy/MM/dd HH:mm:ss.fff");
 
             var trAddDate = new TransformAddFieldDown("NewDatePBX");
-            var trSimpleFields = new TransformRowRemainsProperties("NewDatePBX", "lineNr", "text", "FullName", "LastWriteTimeUtc");
+            var trAddKey = new TransformAddNewField("tkey");
+            var trAddValue = new TransformAddNewField("tvalue");
+
+            var trSimpleFields = new TransformRowRemainsProperties("NewDatePBX", "lineNr", "text", "FullName", "LastWriteTimeUtc", "tkey", "tvalue");
 
             var data = new DBTableDataConnection<SqlConnection>(new SerializeDataInMemory());
             data.ConnectionString = "#file:SqlServerConnectionString#";
-            data.Fields = new string[] { "NewDatePBX", "lineNr", "text", "FullName" };
+            data.Fields = new string[] { "NewDatePBX", "lineNr", "text", "FullName", "tkey", "tvalue" };
             data.TableName = "PBXData";
             var bulk = new SenderSqlServerBulkCopy(data);
             var md = new MediaTransformMaxMin<DateTime>();
@@ -315,8 +319,11 @@ namespace StankinsDemos
             si.FiltersAndTransformers.Add(iFilterNr++, removeFilesMaxWritten);
             si.FiltersAndTransformers.Add(iFilterNr++, transformLines);
             si.FiltersAndTransformers.Add(iFilterNr++, trDateRegex);
+            si.FiltersAndTransformers.Add(iFilterNr++, trKeyValueRegex);
             si.FiltersAndTransformers.Add(iFilterNr++, trToDate);
             si.FiltersAndTransformers.Add(iFilterNr++, trAddDate);
+            si.FiltersAndTransformers.Add(iFilterNr++, trAddKey);
+            si.FiltersAndTransformers.Add(iFilterNr++, trAddValue);
             si.FiltersAndTransformers.Add(iFilterNr++, trSimpleFields);
             //TODO: add transformer to add a field down for all fields
             //TODO: add transformer regex for splitting Key=Value
