@@ -156,7 +156,16 @@ namespace StankinsDemos
             File.WriteAllText("jobDefinition.txt", strDemo5);
             si = new SimpleJob();
             si.UnSerialize(strDemo5);
-            si.Execute().GetAwaiter().GetResult();
+            try
+            {
+                si.Execute().GetAwaiter().GetResult();
+            }
+            catch (InvalidOperationException)
+            {
+
+                //do nothing - sql server does not have table
+            }
+            
             #region move into demos
             file = "readme.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
