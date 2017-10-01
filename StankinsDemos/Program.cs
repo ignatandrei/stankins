@@ -171,7 +171,7 @@ namespace StankinsDemos
             #endregion
             #endregion
             #region analysis project
-            if (false)
+            //if (false)
             {
                 ExecuteSlnAnalysis().GetAwaiter().GetResult();
                 di = Directory.CreateDirectory("Demo6AnalysisProject");
