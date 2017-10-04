@@ -28,6 +28,9 @@ namespace StankinsDemos
     {
         static void Main(string[] args)
         {
+            MainAsnc(args).GetAwaiter().GetResult();
+        }
+        static async Task MainAsnc(string[] args) { 
             //using (StartLogging st = new StartLogging("asd", "Asda", 1))
             //{
             //    st.LogInformation("test'");
@@ -47,7 +50,7 @@ namespace StankinsDemos
             File.WriteAllText("jobDefinition.txt", strDemo1);
             si = new SimpleJob();
             si.UnSerialize(strDemo1);
-            si.Execute().GetAwaiter().GetResult();
+            await si.Execute();
             DirectoryInfo di;
             string file;
             Action<string, string> overWriteFile = (fileName, fileDestination) =>
@@ -81,7 +84,7 @@ namespace StankinsDemos
             File.WriteAllText("jobDefinition.txt", strDemo2);
             si = new SimpleJob();
             si.UnSerialize(strDemo2);
-            si.Execute().GetAwaiter().GetResult();
+            await si.Execute();
             #region move into demos
             di = Directory.CreateDirectory("Demo2SimpleJobView");
             file = "readme.txt";
@@ -101,7 +104,7 @@ namespace StankinsDemos
             File.WriteAllText("jobDefinition.txt", strDemo3);
             si = new SimpleJob();
             si.UnSerialize(strDemo3);
-            si.Execute().GetAwaiter().GetResult();
+            await si.Execute();
             #region move into demos
             file = "readme.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
@@ -124,7 +127,7 @@ namespace StankinsDemos
             File.WriteAllText("jobDefinition.txt", strDemo3);
             si = new SimpleJobConditionalTransformers();
             si.UnSerialize(strDemo4);
-            si.Execute().GetAwaiter().GetResult();
+            await si.Execute();
             #region move into demos
             file = "readme.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
@@ -158,7 +161,7 @@ namespace StankinsDemos
             si.UnSerialize(strDemo5);
             try
             {
-                si.Execute().GetAwaiter().GetResult();
+                await si.Execute();
             }
             catch (InvalidOperationException)
             {
@@ -180,9 +183,9 @@ namespace StankinsDemos
             #endregion
             #endregion
             #region analysis project
-            //if (false)
+            if (false)
             {
-                ExecuteSlnAnalysis().GetAwaiter().GetResult();
+                await ExecuteSlnAnalysis();
                 di = Directory.CreateDirectory("Demo6AnalysisProject");
                 file = "Stankins.html";
                 overWriteFile(file, Path.Combine(di.FullName, file));
