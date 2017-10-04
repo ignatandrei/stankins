@@ -71,6 +71,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverAzureIoTHub", "Rece
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderUnzipFiles", "SenderUnzipFiles\SenderUnzipFiles.csproj", "{1454A306-FCAB-44B7-A068-E9E3551F7AE6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggingNET", "LoggingNET\LoggingNET.csproj", "{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -303,6 +305,14 @@ Global
 		{1454A306-FCAB-44B7-A068-E9E3551F7AE6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1454A306-FCAB-44B7-A068-E9E3551F7AE6}.Release|x64.ActiveCfg = Release|x64
 		{1454A306-FCAB-44B7-A068-E9E3551F7AE6}.Release|x64.Build.0 = Release|x64
+		{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}.Debug|x64.Build.0 = Debug|Any CPU
+		{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}.Release|x64.ActiveCfg = Release|Any CPU
+		{85461FD3-A6B8-4CE8-94C7-A689B9CD4EF3}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

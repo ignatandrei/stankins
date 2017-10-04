@@ -16,10 +16,10 @@ namespace Logging
     public class StartLogging : Microsoft.Extensions.Logging.ILogger, IDisposable
     {
         
-        static ILoggerFactory fact;
+        static ILoggerFactory fact; 
         static StartLogging()
         {
-            AssemblyLoadContext.Default.Resolving += Default_Resolving;
+            //AssemblyLoadContext.Default.Resolving += Default_Resolving;
             try
             {
                 //var configuration = new ConfigurationBuilder()
@@ -46,9 +46,9 @@ namespace Logging
             }
             catch(Exception ex)
             {
-                Console.Write("exception serilog" + ex.Message);
+                Console.Write("!!!exception serilog" + ex.Message);
             }
-            AssemblyLoadContext.Default.Resolving -= Default_Resolving;
+            //AssemblyLoadContext.Default.Resolving -= Default_Resolving;
 
         }
         public static ConcurrentBag<DebugInfo> cd = new ConcurrentBag<DebugInfo>();
