@@ -7,6 +7,7 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.Loader;
 using System.Text;
 
 namespace Logging
@@ -18,6 +19,7 @@ namespace Logging
         static ILoggerFactory fact;
         static StartLogging()
         {
+            AssemblyLoadContext.Default.Resolving += Default_Resolving;
             try
             {
                 //var configuration = new ConfigurationBuilder()
@@ -46,6 +48,7 @@ namespace Logging
             {
                 Console.Write("exception serilog" + ex.Message);
             }
+            AssemblyLoadContext.Default.Resolving -= Default_Resolving;
 
         }
         public static ConcurrentBag<DebugInfo> cd = new ConcurrentBag<DebugInfo>();
@@ -55,6 +58,7 @@ namespace Logging
         Microsoft.Extensions.Logging.ILogger logger;
         public StartLogging(string methodName, string className, int lineNumber)
         {
+            
             dt.StartTime = DateTime.Now;
             dt.ClassName = className;
             dt.MethodName = methodName;
@@ -71,7 +75,13 @@ namespace Logging
                 Log(LogLevel.Information, 0, " start method " + text, null, null);
             }
         }
-        
+
+        private static Assembly Default_Resolving(AssemblyLoadContext arg1, AssemblyName arg2)
+        {
+            Console.WriteLine("trying to solve " + arg2?.Name);
+            return null;
+        }
+
         public void Dispose()
         {
             Debug.WriteLine("test debug");
