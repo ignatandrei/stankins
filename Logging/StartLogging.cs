@@ -6,6 +6,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Reflection;
 using System.Text;
 
 namespace Logging
@@ -17,28 +18,34 @@ namespace Logging
         static ILoggerFactory fact;
         static StartLogging()
         {
-            //var configuration = new ConfigurationBuilder()
-              //.AddJsonFile("serilogsettings.json")
-              //.Build();
-            //TODO: use from .NET 2.0
-            //var logger = new LoggerConfiguration()
-            //    .ReadFrom.Configuration(configuration)
-            //    .CreateLogger();
-            string template = "[{Timestamp:HH:mm:ss} Thread {ThreadId} {Scope} {Level:u3}] {Message:l}{NewLine}{Exception}";
-            Serilog.Log.Logger = new LoggerConfiguration()
-                .Enrich.WithThreadId()
-                .WriteTo.LiterateConsole(outputTemplate: template)
-                .WriteTo.Async(a=>a.RollingFile("log-{Date}.txt", shared: true,retainedFileCountLimit: null,outputTemplate:template))                
-                .CreateLogger();
-                
-                
-                
-            var sc = new ServiceCollection();
-            sc.AddLogging();
-            var loggerFactory = sc.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
-            fact = loggerFactory.AddSerilog(Serilog.Log.Logger, false);
-            //TODO: dispose the logger when applications shuts down
+            try
+            {
+                //var configuration = new ConfigurationBuilder()
+                //.AddJsonFile("serilogsettings.json")
+                //.Build();
+                //TODO: use from .NET 2.0
+                //var logger = new LoggerConfiguration()
+                //    .ReadFrom.Configuration(configuration)
+                //    .CreateLogger();
+                string template = "[{Timestamp:HH:mm:ss} Thread {ThreadId} {Scope} {Level:u3}] {Message:l}{NewLine}{Exception}";
+                Serilog.Log.Logger = new LoggerConfiguration()
+                    .Enrich.WithThreadId()
+                    .WriteTo.LiterateConsole(outputTemplate: template)
+                    .WriteTo.Async(a => a.RollingFile("log-{Date}.txt", shared: true, retainedFileCountLimit: null, outputTemplate: template))
+                    .CreateLogger();
 
+
+
+                var sc = new ServiceCollection();
+                sc.AddLogging();
+                var loggerFactory = sc.BuildServiceProvider().GetRequiredService<ILoggerFactory>();
+                fact = loggerFactory.AddSerilog(Serilog.Log.Logger, false);
+                //TODO: dispose the logger when applications shuts down
+            }
+            catch(Exception ex)
+            {
+                Console.Write("exception serilog" + ex.Message);
+            }
 
         }
         public static ConcurrentBag<DebugInfo> cd = new ConcurrentBag<DebugInfo>();
@@ -54,8 +61,15 @@ namespace Logging
             dt.LineNumber = lineNumber;
             sw.Start();
             text = methodName + " from " + className + ":" + lineNumber;
-            logger = fact.CreateLogger(className);
-            logger.LogInformation(" start method " + text) ;
+            if (fact != null)
+            {
+                logger = fact.CreateLogger(className);
+                logger.LogInformation(" start method " + text);
+            }
+            else
+            {
+                Log(LogLevel.Information, 0, " start method " + text, null, null);
+            }
         }
         
         public void Dispose()
@@ -65,29 +79,43 @@ namespace Logging
             sw.Stop();
             dt.duration = sw.Elapsed;
             cd.Add(dt);
-            logger.LogInformation(" end method " + text + " duration:" + dt.duration.TotalMilliseconds);
-            Serilog.Log.CloseAndFlush();
+            text = " end method " + text + " duration:" + dt.duration.TotalMilliseconds;
+            if (logger != null)
+            { 
+                logger.LogInformation(text);
+                Serilog.Log.CloseAndFlush();
+            }
+            else
+            {
+                Log(LogLevel.Information, 0, text, null, null);
+            }
             
         }
 
         public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
         {
-            logger.Log(logLevel, eventId, state, exception, formatter);
-            //TODO: use serilog
-            //Console.WriteLine($"{logLevel}  {state}");
-            //if(exception != null)
-            //{
-            //    var x = exception.Message;
-            //    if(formatter != null)
-            //    {
-            //        x = formatter(state, exception);
-            //    }
-            //    var cc = Console.ForegroundColor;
-            //    Console.ForegroundColor = ConsoleColor.Red;
-            //    Console.WriteLine(x);
-            //    Console.ForegroundColor = cc;
+            if (logger != null)
+            {
+                logger.Log(logLevel, eventId, state, exception, formatter);
+            }
+            else
+            {
+                //TODO: use serilog
+                Console.WriteLine($"{logLevel}  {state}");
+                if (exception != null)
+                {
+                    var x = exception.Message;
+                    if (formatter != null)
+                    {
+                        x = formatter(state, exception);
+                    }
+                    var cc = Console.ForegroundColor;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(x);
+                    Console.ForegroundColor = cc;
 
-            //}
+                }
+            }
         }
 
         public bool IsEnabled(LogLevel logLevel)
