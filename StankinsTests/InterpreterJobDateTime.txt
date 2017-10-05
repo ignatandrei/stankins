@@ -37,17 +37,7 @@
         "IsBrowserSave": true,
         "IsMailNewsDisplay": true,
         "IsMailNewsSave": true,
-        "IsSingleByte": false,
-        "EncoderFallback": {
-          "$type": "System.Text.EncoderReplacementFallback, System.Private.CoreLib",
-          "DefaultString": "�",
-          "MaxCharCount": 1
-        },
-        "DecoderFallback": {
-          "$type": "System.Text.DecoderReplacementFallback, System.Private.CoreLib",
-          "DefaultString": "�",
-          "MaxCharCount": 1
-        },
+        "IsSingleByte": false,                
         "IsReadOnly": true,
         "CodePage": 65001
       },

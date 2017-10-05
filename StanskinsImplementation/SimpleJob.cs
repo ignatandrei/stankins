@@ -7,8 +7,57 @@ using Newtonsoft.Json;
 using StringInterpreter;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
+using System.Text;
+
 namespace StanskinsImplementation
 {
+    public class JsonEncodingConverter : JsonConverter
+    {
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            var webName = (value as Encoding).WebName;
+            serializer.Serialize(writer, webName);
+        }
+
+        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        {
+            var webName = "";
+            if (reader.TokenType == JsonToken.String) { 
+
+                webName = reader.Value?.ToString();
+            }
+            //handling old data format for encoding
+            if (reader.TokenType==JsonToken.StartObject)
+            {
+                webName = reader.Value?.ToString();
+                
+                while(reader.TokenType != JsonToken.EndObject)
+                {
+                    if (!reader.Read())
+                        break;
+                    if (reader.TokenType != JsonToken.PropertyName)
+                        continue;
+                    var val= reader.Value?.ToString();
+                    if (string.Compare("webname", val,StringComparison.InvariantCultureIgnoreCase) == 0)
+                    {
+                        webName = reader.ReadAsString();
+                        //do not break - advance reading to the end
+                        //break;
+                    }
+                }
+                
+            }
+
+            existingValue = Encoding.GetEncoding(webName);
+
+            return existingValue;
+        }
+
+        public override bool CanConvert(Type objectType)
+        {
+            return (typeof(Encoding).IsAssignableFrom(objectType));
+        }
+    }
     public abstract class SimpleJobReceiverTransformer : IJob
     {
         public SimpleJobReceiverTransformer()
@@ -25,10 +74,12 @@ namespace StanskinsImplementation
             {
                 TypeNameHandling = TypeNameHandling.Objects,
                 Formatting = Formatting.Indented,
+                
                 //Error = HandleDeserializationError
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
+            settings.Converters.Add(new JsonEncodingConverter());
             return JsonConvert.SerializeObject(this, settings);
         }
 
@@ -146,6 +197,7 @@ namespace StanskinsImplementation
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
+            settings.Converters.Add(new JsonEncodingConverter());
             var i = new Interpret();
             var newText= i.InterpretText(serializeData);
             var sj=(SimpleJob) JsonConvert.DeserializeObject(newText, settings);

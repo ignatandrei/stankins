@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.5</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
@@ -13,6 +13,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
+    <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
   </ItemGroup>
 
 </Project>

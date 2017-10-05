@@ -1,8 +1,10 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Newtonsoft.Json;
 using ReceiverCSV;
 using SenderToFile;
+using Shouldly;
 using StankinsInterfaces;
 using StanskinsImplementation;
 using System;
@@ -15,6 +17,10 @@ using Transformers;
 
 namespace StankinsTests
 {
+    public class TestClass
+    {
+        public Encoding TheEncoding { get; set; }
+    }
     [TestClass]
     public class SimpleJobConditionalTransformersTest
     {
@@ -164,6 +170,23 @@ namespace StankinsTests
 
             #endregion
 
+        }
+        [TestMethod]
+        public void SerializeWithJsonEncoding()
+        {
+            #region arrange
+            var testClass = new TestClass { TheEncoding = Encoding.UTF8 };
+            #endregion
+            #region act
+
+            var json = JsonConvert.SerializeObject(testClass, Formatting.Indented, new JsonEncodingConverter());
+
+            var obj = JsonConvert.DeserializeObject<TestClass>(json, new JsonEncodingConverter());
+            #endregion
+            #region assert
+            obj.TheEncoding.ShouldNotBeNull();
+            obj.TheEncoding.WebName.ShouldBe(testClass.TheEncoding.WebName);
+            #endregion
         }
         [TestMethod]
         public async Task SerializeSimpleJobConditionalTransformersTestSimpleReadCSV()

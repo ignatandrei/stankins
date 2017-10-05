@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.ObjectPool;
-using Microsoft.Extensions.PlatformAbstractions;
 using StankinsInterfaces;
 using System;
 using System.Collections.Generic;

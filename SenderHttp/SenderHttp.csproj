@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +11,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
+    <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
   </ItemGroup>
 
 </Project>

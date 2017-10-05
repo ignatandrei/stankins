@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Net.Http.Headers;
 using System.Xml;
+using StanskinsImplementation;
 
 namespace SenderHttp
 {
@@ -57,7 +58,7 @@ namespace SenderHttp
                             TypeNameHandling = TypeNameHandling.Objects,
                             Formatting = Newtonsoft.Json.Formatting.Indented,
                         };
-
+                        settings.Converters.Add(new JsonEncodingConverter());
                         data = JsonConvert.SerializeObject(dictionary, settings);
                     }
                     var content = new StringContent(data.ToString(), Encoding.UTF8, MediaType);

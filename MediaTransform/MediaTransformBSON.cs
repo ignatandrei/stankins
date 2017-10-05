@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Bson;
+using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -30,6 +31,7 @@ namespace MediaTransform
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
+            settings.Converters.Add(new JsonEncodingConverter());
             using (var ms = new MemoryStream())
             {
                 using (var writer = new BsonWriter(ms))

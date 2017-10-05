@@ -23,17 +23,29 @@ using ReceiverBookmarkExportChrome;
 using SenderHTML;
 using SenderElasticSearch;
 using SenderToFile;
+using System.Text;
 //using Transformers.BasicTransformersType;
 //using Aq.ExpressionJsonSerializer;
 //using Microsoft.Data.Sqlite;
 namespace ConsoleApp1
 {
+    
+    public class TestClass
+    {
+        public Encoding TheEncoding { get; set; }
+    }
+
     class Program
     {
         
         static void Main(string[] args)
         {
             
+
+        var testClass = new TestClass { TheEncoding = Encoding.UTF8 };
+        var json = JsonConvert.SerializeObject(testClass, Formatting.Indented, new JsonEncodingConverter());
+        var obj = JsonConvert.DeserializeObject<TestClass>(json, new JsonEncodingConverter());
+            return;
             //var f = new TransformerIntString("asd", "bas");
 
             //var settings1 = new JsonSerializerSettings()

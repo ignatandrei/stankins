@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ReceiverFile;
 using StankinsInterfaces;
+using StanskinsImplementation;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,6 +29,7 @@ namespace ReceiverJSON
                 ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
+            settings.Converters.Add(new JsonEncodingConverter());
             var data = JsonConvert.DeserializeObject<IRowReceive[]>(text, settings);
             valuesRead = data;
             await Task.CompletedTask;

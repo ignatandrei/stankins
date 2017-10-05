@@ -85,6 +85,7 @@ namespace StanskinsImplementation
                     //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
                 };
+                settings.Converters.Add(new JsonEncodingConverter());
                 var val = JsonConvert.SerializeObject(data, settings);
                 File.WriteAllText(FileName, val);
                 val=null;

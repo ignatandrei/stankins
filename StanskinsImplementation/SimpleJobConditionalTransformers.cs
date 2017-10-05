@@ -172,6 +172,7 @@ namespace StanskinsImplementation
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
+            settings.Converters.Add(new JsonEncodingConverter());
             var i = new Interpret();
             var newText = i.InterpretText(serializeData);
             var sj = (SimpleJobConditionalTransformers)JsonConvert.DeserializeObject(newText, settings);

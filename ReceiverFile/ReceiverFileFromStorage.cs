@@ -6,6 +6,8 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using StanskinsImplementation;
+
 namespace ReceiverFile
 {
     public class ReceiverFileFromStorageBinary : IReceive
@@ -36,6 +38,7 @@ namespace ReceiverFile
                             //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
                         };
+                        settings.Converters.Add(new JsonEncodingConverter());
                         var des = JsonSerializer.Create(settings);
                         valuesRead=des.Deserialize<IRowReceive[]>(reader);
 

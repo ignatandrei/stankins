@@ -138,8 +138,10 @@ namespace StankinsSimpleJob
 #if !NETSTANDARD1_6
 #if !NETCOREAPP1_1
 #if !NETCOREAPP1_0
+#if !NETCOREAPP2_0
             var ole = new ReceiverOLEDB.ReceiverOleDBDatabaseInt(null);
             var receiver = new ReceiverSolution.ReceiverFromSolution(null);
+#endif
 #endif
 #endif
 #endif

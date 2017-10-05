@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using StanskinsImplementation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace MediaTransform
                 //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
 
             };
+            settings.Converters.Add(new JsonEncodingConverter());
 
             var data = JsonConvert.SerializeObject(dict, settings);
             Result = data;
