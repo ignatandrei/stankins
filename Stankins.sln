@@ -100,8 +100,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderToDBSqlServer", "Send
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverDBMySQL", "ReceiverDBMySQL\ReceiverDBMySQL.csproj", "{8B893541-709F-4B43-834B-0CEEDB353045}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestNETStandard20", "TestNETStandard20\TestNETStandard20.csproj", "{1FD9F81A-3936-487E-B62A-3CB62F5DEF05}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -272,10 +270,6 @@ Global
 		{8B893541-709F-4B43-834B-0CEEDB353045}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B893541-709F-4B43-834B-0CEEDB353045}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B893541-709F-4B43-834B-0CEEDB353045}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1FD9F81A-3936-487E-B62A-3CB62F5DEF05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1FD9F81A-3936-487E-B62A-3CB62F5DEF05}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1FD9F81A-3936-487E-B62A-3CB62F5DEF05}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1FD9F81A-3936-487E-B62A-3CB62F5DEF05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
