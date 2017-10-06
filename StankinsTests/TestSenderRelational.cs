@@ -93,7 +93,7 @@ IF OBJECT_ID('dbo.TestAndrei', 'U') IS NOT NULL
             #endregion
             #region assert
             Assert.IsTrue(File.Exists(OutputFileName), $"{OutputFileName} must exists");
-            Process.Start("explorer.exe", OutputFileName);
+            //Process.Start("explorer.exe", OutputFileName);
             var text = File.ReadAllText(OutputFileName);
             Assert.IsTrue(text.Contains("TestAndrei"), "must contain table testandrei");
             Assert.IsTrue(text.Contains("FirstName"), "must contain column FirstName ");
