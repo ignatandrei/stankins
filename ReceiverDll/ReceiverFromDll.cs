@@ -11,7 +11,10 @@ namespace ReceiverDll
 {
     public class ReceiverFromDll : IReceive
     {
-
+        public ReceiverFromDll(string dllFileName)
+        {
+            DllFileName = dllFileName;
+        }
         public IRowReceive[] valuesRead { get; set; }
         public string Name { get; set; }
         public string DllFileName { get; set; }

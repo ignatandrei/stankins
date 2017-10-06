@@ -92,6 +92,7 @@
     <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverDBMySQL\ReceiverDBMySQL.csproj" />
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
+    <ProjectReference Include="..\ReceiverDll\ReceiverDll.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\ReceiverJSON\ReceiverJSON.csproj" />
