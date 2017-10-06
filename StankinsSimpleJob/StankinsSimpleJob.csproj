@@ -27,12 +27,15 @@
     <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\MediaTransform\MediaTransform.csproj" />
     <ProjectReference Include="..\ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj" />
+    <ProjectReference Include="..\ReceiverBookmarkExportChrome\ReceiverBookmarkExportChrome.csproj" />
     <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
     <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverDatabaseObjects\ReceiverDatabaseObjects.csproj" />
+    <ProjectReference Include="..\ReceiverDBMySQL\ReceiverDBMySQL.csproj" />
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
     <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
+    <ProjectReference Include="..\ReceiverDll\ReceiverDll.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />

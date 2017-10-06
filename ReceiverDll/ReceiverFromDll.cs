@@ -9,60 +9,90 @@ using System.Threading.Tasks;
 
 namespace ReceiverDll
 {
-    public class ReceiverFromDll : IReceive
+    public abstract class ReceiverFromDll : IReceive
     {
+        public IRowReceive[] valuesRead { get; set; }
+        public string Name { get; set; }
+        public string DllFileName { get; set; }
         public ReceiverFromDll(string dllFileName)
         {
             DllFileName = dllFileName;
         }
-        public IRowReceive[] valuesRead { get; set; }
-        public string Name { get; set; }
-        public string DllFileName { get; set; }
-        public bool LoadInterfaces { get; set; }
-        public bool LoadBaseClasses { get; set; }
+        abstract public void ProcessTypeInfo(TypeInfo item, Assembly assembly);
+        abstract public void LoadingAssembly(Assembly assembly);
+        abstract public void EndLoadingAssembly(Assembly assembly);
         public async Task LoadData()
         {
-            var ret = new List<IRowReceive>();
+            
             var d = AssemblyLoadContext.Default;
             var data = d.LoadFromAssemblyPath(DllFileName);
-            var an = data.GetName();
+            LoadingAssembly(data);
             foreach (var item in data.DefinedTypes)
             {
-                string interfaces="", baseTypes="";
-                if (LoadInterfaces)
-                {
-                    var i = item.ImplementedInterfaces.ToArray();
-                    interfaces = string.Join("@", i.Select(it => it.FullName).ToArray());
-                }
-                if (LoadBaseClasses)
-                {
-                    var bases = new List<string>();
-                    var baseType = item.BaseType;
-                    while (baseType != typeof(object))
-                    {
-                        bases.Add(baseType.FullName);
-                        baseType = baseType.BaseType;
-                    }
-                    bases.Add(baseType.FullName);//object
-
-                    baseTypes = string.Join("@", bases.ToArray());
-                }
-                var rr = new RowRead();
-                rr.Values.Add("Name", item.Name);
-                rr.Values.Add("FullName", item.FullName);
-                rr.Values.Add("AssemblyName", an.Name);
-                if (LoadInterfaces)
-                {
-                    rr.Values.Add("Interfaces", interfaces);
-                }
-                if (LoadBaseClasses)
-                {
-                    rr.Values.Add("BaseTypes", baseTypes);
-                }
-                rr.Values.Add("AssemblyFullName", an.FullName);
-                
-                ret.Add(rr);
+                ProcessTypeInfo(item,data);
             }
+            EndLoadingAssembly(data);
+            await Task.CompletedTask;
+        }
+    }
+    public class ReceiverFromDllPlain : ReceiverFromDll
+    {
+        public ReceiverFromDllPlain(string dllFileName):base(dllFileName)
+        {
+            
+        }
+        
+        public bool LoadInterfaces { get; set; }
+        public bool LoadBaseClasses { get; set; }
+        List<IRowReceive> ret;
+        AssemblyName an;
+        
+
+        public override void LoadingAssembly(Assembly assembly)
+        {
+            ret = new List<IRowReceive>();
+            an = assembly.GetName();
+        }
+
+        public override void ProcessTypeInfo(TypeInfo item, Assembly assembly)
+        {
+            string interfaces = "", baseTypes = "";
+            if (LoadInterfaces)
+            {
+                var i = item.ImplementedInterfaces.ToArray();
+                interfaces = string.Join("@", i.Select(it => it.FullName).ToArray());
+            }
+            if (LoadBaseClasses)
+            {
+                var bases = new List<string>();
+                var baseType = item.BaseType;
+                while (baseType != typeof(object))
+                {
+                    bases.Add(baseType.FullName);
+                    baseType = baseType.BaseType;
+                }
+                bases.Add(baseType.FullName);//object
+
+                baseTypes = string.Join("@", bases.ToArray());
+            }
+            var rr = new RowRead();
+            rr.Values.Add("Name", item.Name);
+            rr.Values.Add("FullName", item.FullName);
+            rr.Values.Add("AssemblyName", an.Name);
+            if (LoadInterfaces)
+            {
+                rr.Values.Add("Interfaces", interfaces);
+            }
+            if (LoadBaseClasses)
+            {
+                rr.Values.Add("BaseTypes", baseTypes);
+            }
+            rr.Values.Add("AssemblyFullName", an.FullName);
+            ret.Add(rr);
+        }
+
+        public override void EndLoadingAssembly(Assembly assembly)
+        {
             valuesRead = ret.ToArray();
         }
     }

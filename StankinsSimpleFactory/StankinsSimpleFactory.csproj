@@ -10,6 +10,7 @@
     <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
     <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
+    <ProjectReference Include="..\ReceiverDll\ReceiverDll.csproj" />
     <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
     <ProjectReference Include="..\SenderDBInflux\SenderDBInflux.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />

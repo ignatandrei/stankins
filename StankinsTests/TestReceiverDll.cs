@@ -21,7 +21,7 @@ namespace StankinsTests
             string fileName = Path.Combine(path, "StanskinsImplementation.dll");
             #endregion
 #region act
-            var rd = new ReceiverFromDll(fileName);
+            var rd = new ReceiverFromDllPlain(fileName);
             rd.LoadInterfaces = true;
             rd.LoadBaseClasses = true;
             await rd.LoadData();
