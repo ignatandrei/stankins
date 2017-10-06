@@ -21,6 +21,7 @@ namespace ReceiverSolution
         }
         public async Task LoadData()
         {
+            //@class.Log(LogLevel.Information,0,$"loading from {solutionFileName}",null,null);
             int x =(int) Microsoft.CodeAnalysis.CSharp.Formatting.BinaryOperatorSpacingOptions.Ignore;
             var _ = typeof(Microsoft.CodeAnalysis.CSharp.Formatting.CSharpFormattingOptions);
             var rr = new Dictionary<Guid, RowReadRelation>();
@@ -39,9 +40,10 @@ namespace ReceiverSolution
 
 
             var projectGraph = sol.GetProjectDependencyGraph();
-            var q = projectGraph.GetTopologicallySortedProjects();
+            var q = projectGraph.GetTopologicallySortedProjects().ToArray();
 
-            foreach (var projectId in q.ToArray())
+            //@class.Log(LogLevel.Information,0,$"loading from {solutionFileName} projects: {q.Length}",null,null);
+            foreach (var projectId in q)
             {
                 var project = sol.GetProject(projectId);
                 var rrProject = new RowReadRelation();

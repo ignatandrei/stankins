@@ -49,11 +49,12 @@ namespace Logging
                Console.WriteLine($"{logLevel}  {state}");
                 if (exception != null)
                 {
-                    var x = exception.Message;
+                    var x = exception.Message +Environment.NewLine+ exception.StackTrace;
                     if (formatter != null)
                     {
                         x = formatter(state, exception);
                     }
+
                     var cc = Console.ForegroundColor;
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(x);
