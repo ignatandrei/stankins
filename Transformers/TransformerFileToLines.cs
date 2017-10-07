@@ -9,6 +9,11 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 namespace Transformers
 {
+    /// <summary>
+    /// TODO: use TransformerApplyReceiver with 
+    /// ReceiverFileFromStorageLines
+    /// ReadAllFirstTime=false;
+    /// </summary>
     public class TransformerFileToLines : ITransform
     {
         public TransformerFileToLines()

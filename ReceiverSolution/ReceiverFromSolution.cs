@@ -95,5 +95,10 @@ namespace ReceiverSolution
                 valuesRead= new IRowReceive[] { rrhSol };
             }
         }
+
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 }
