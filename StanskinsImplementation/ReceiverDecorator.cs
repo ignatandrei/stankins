@@ -48,5 +48,9 @@ namespace StanskinsImplementation
             }
 
         }
+        public void ClearValues()
+        {
+            Receive.ClearValues();
+        }
     }
 }

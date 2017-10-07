@@ -42,5 +42,9 @@ namespace StanskinsImplementation
             valuesRead = await DataFromReceivers();
 
         }
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 }

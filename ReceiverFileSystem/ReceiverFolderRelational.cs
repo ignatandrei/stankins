@@ -76,6 +76,10 @@ namespace ReceiverFileSystem
 
             return item;
         }
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 
     

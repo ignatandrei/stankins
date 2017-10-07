@@ -90,6 +90,9 @@ namespace ReceiverDatabaseObjects
             }
         }
 
-        
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 }

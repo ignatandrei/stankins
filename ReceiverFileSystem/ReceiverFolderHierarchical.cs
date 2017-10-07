@@ -121,7 +121,10 @@ namespace ReceiverFileSystem
             item.Values.Add("LastWriteTimeUtc", di.LastWriteTimeUtc);
             return item;
         }
-        
 
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 }

@@ -206,5 +206,9 @@ namespace ReceiverJob
             li.AddRange(FromSimpleTree(sj.association,li[li.Count-1]));
             return li.ToArray();
         }
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 }

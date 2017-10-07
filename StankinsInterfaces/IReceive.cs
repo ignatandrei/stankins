@@ -9,6 +9,8 @@ namespace StankinsInterfaces
         Task LoadData();
 
         IRowReceive[] valuesRead { get; }
+
+        void ClearValues();
     }
     public interface IReceive<T>:IReceive
         where T : IComparable<T>

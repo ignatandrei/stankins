@@ -102,6 +102,9 @@ namespace ReceiverDB
             }
         }
 
-       
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 }

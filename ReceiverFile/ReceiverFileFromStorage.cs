@@ -46,6 +46,10 @@ namespace ReceiverFile
                 }
             }
         }
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
     /// <summary>
     /// override process line
@@ -111,6 +115,10 @@ namespace ReceiverFile
 
                 EndReadFile?.Invoke(this, EventArgs.Empty);
             }
+        }
+        public void ClearValues()
+        {
+            valuesRead = null;
         }
     }
 }

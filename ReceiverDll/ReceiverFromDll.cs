@@ -34,6 +34,10 @@ namespace ReceiverDll
             EndLoadingAssembly(data);
             await Task.CompletedTask;
         }
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
     public class ReceiverFromDllPlain : ReceiverFromDll
     {

@@ -136,5 +136,9 @@ namespace ReceiverDBStmtSqlServer
                 }
             }
         }
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 }

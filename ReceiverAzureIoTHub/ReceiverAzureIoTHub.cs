@@ -143,5 +143,9 @@ namespace ReceiverAzureIoTHub
             }
             await Task.CompletedTask;
         }
+        public void ClearValues()
+        {
+            valuesRead = null;
+        }
     }
 }
