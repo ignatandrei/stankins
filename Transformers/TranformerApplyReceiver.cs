@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Transformers
 {
-    public class TranformerApplyReceiver:ITransform
+    public class TransformerApplyReceiver:ITransform
     {
 
         public IRow[] valuesRead { get; set; }
@@ -16,7 +16,7 @@ namespace Transformers
         public string PropertyNameReceiver { get; }
         public string Key { get; }
 
-        public TranformerApplyReceiver(IReceive receiver, string propertyNameReceiver, string key)
+        public TransformerApplyReceiver(IReceive receiver, string propertyNameReceiver, string key)
         {
             Receiver = receiver;
             PropertyNameReceiver = propertyNameReceiver;
@@ -36,6 +36,7 @@ namespace Transformers
                 await Receiver.LoadData();
                 ret.AddRange(Receiver.valuesRead);
             }
+            valuesTransformed = ret.ToArray();
         }
         }
 }
