@@ -34,6 +34,7 @@ namespace ReceiverDll
             var typeRR = new RowReadRelation();
             typeRR.Values.Add("Name", item.Name);
             typeRR.Values.Add("FullName", item.FullName);
+            
             types.Add(typeRR);
             var interfaces = new List<IRowReceiveRelation>();
             typeRR.Relations.Add("Interfaces", interfaces);
@@ -42,6 +43,8 @@ namespace ReceiverDll
                 var intRR = new RowReadRelation();
                 intRR.Values.Add("Name", @interface.Name);
                 intRR.Values.Add("FullName", @interface.FullName);
+                intRR.Values.Add("IsGeneric", @interface.IsGenericType);
+                intRR.Values.Add("IsAbstract", @interface.IsAbstract);
                 interfaces.Add(intRR);
 
             }

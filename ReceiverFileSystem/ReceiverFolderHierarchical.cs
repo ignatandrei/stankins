@@ -9,18 +9,19 @@ using Transformers;
 using Microsoft.Extensions.Logging;
 namespace ReceiverFileSystem
 {
-    public class FilterForFoldersHierarchical : FilterComparableEqual
+    public class FilterForFoldersHierarchical : FilterForHierarchical
     {
-        public FilterForFoldersHierarchical() : base(typeof(string), "folder", "RowType")
+        public FilterForFoldersHierarchical() : base(new FilterComparableEqual(typeof(string), "folder", "RowType"))
         {
         }
     }
-    public class FilterForFilesHierarchical : FilterComparableEqual
+    public class FilterForFilesHierarchical : FilterForHierarchical
     {
-        public FilterForFilesHierarchical() : base(typeof(string), "file", "RowType")
+        public FilterForFilesHierarchical() : base(new FilterComparableEqual(typeof(string), "file", "RowType"))
         {
         }
     }
+    
     /// <summary>
     /// TODO: add depth of folders to read - infinite , by default...
     /// </summary>

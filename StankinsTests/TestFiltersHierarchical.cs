@@ -48,7 +48,7 @@ namespace StankinsTests
         {
             #region arrange
             var dir = AppContext.BaseDirectory;
-
+            dir = UtilsIO.DeleteCreateFolder(Path.Combine(dir, "TestFilterHierarchicalFiles"));
             string filename = Path.Combine(dir, "a.html");
             if (File.Exists(filename))
                 File.Delete(filename);

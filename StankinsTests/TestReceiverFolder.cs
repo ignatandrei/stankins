@@ -8,11 +8,12 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Transformers;
 
 namespace StankinsTests
 {
     [TestClass]
-    public class TestReceiverFolder
+    public class TestRelationalHierarchical
     {
         [TestMethod]
         public async Task TestCurrentDirHierarchical()
@@ -79,6 +80,34 @@ namespace StankinsTests
             files.Count.ShouldBeGreaterThanOrEqualTo(1);
             files.ShouldContain(it => it.Values["Name"].ToString() == fileNameToWrite);
             
+            #endregion
+
+        }
+
+        [TestMethod]
+        public async Task TestTransformerRelationalToPlain()
+        {
+            #region arrange
+            var dir = AppContext.BaseDirectory;
+
+
+
+
+            string fileNameToWrite = Guid.NewGuid().ToString("N") + ".txt";
+            string fullNameFile = Path.Combine(dir, fileNameToWrite);
+            File.WriteAllText(fullNameFile, "andrei ignat");
+
+            #endregion
+            #region act
+            IReceive r = new ReceiverFolderRelational(dir, "*.txt");
+            await r.LoadData();
+            var transform = new TransformerRelationalToPlain();
+            transform.valuesRead = r.valuesRead;
+            await transform.Run();
+            #endregion
+            #region assert
+            transform.valuesTransformed.ShouldNotBeNull();
+            transform.valuesTransformed.Length.ShouldBeGreaterThan(2);
             #endregion
 
         }
