@@ -62,7 +62,7 @@ namespace StankinsDemos
                 File.Copy(fileName, fileDestination);
             };
             
-            //goto andrei;
+            goto andrei;
             var strDemo1 = SimpleJobFolders();
             File.WriteAllText("jobDefinition.txt", strDemo1);
             si = new SimpleJob();
