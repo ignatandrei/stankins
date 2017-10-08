@@ -284,6 +284,7 @@ namespace StankinsDemos
             var recContentFile = new ReceiverFromDllRelational();
             var loadDllromFiles = new TransformerApplyReceiver(recContentFile, "DllFileName", "FullName");
             //load types that are not generic or abstract
+            var rel2plain = new TransformerRelationalToPlain();
 
             var fileRazor = Path.Combine(dir, "relationalGeneric.cshtml");
             string filename = "#static:Directory.GetCurrentDirectory()#\\relationalDLL.html";
@@ -295,10 +296,11 @@ namespace StankinsDemos
                 )
                 ;
             var job = new SimpleJob();
-            job.Receivers.Add(0, folderWithDll);
-            job.FiltersAndTransformers.Add(0, filterFiles);
-            job.FiltersAndTransformers.Add(1, loadDllromFiles);
-            job.Senders.Add(0, senderHTML);
+            job.AddReceiver(folderWithDll)
+            .AddTransformer(filterFiles)
+            .AddTransformer(loadDllromFiles)
+            .AddTransformer(rel2plain)
+            .AddSender(senderHTML);
             return job.SerializeMe();
 
         }

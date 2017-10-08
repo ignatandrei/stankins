@@ -97,6 +97,10 @@ namespace SenderToFile
                     bufferList.AddRange(item.Result);
                 }
             }
+            if(FileMode == 0)
+            {
+                FileMode = FileMode.OpenOrCreate;
+            }
             var buffer = bufferList.ToArray();
             using (var fs = new FileStream(FileName, FileMode,
                 FileAccess.Write, FileShare.Write, buffer.Length, true))

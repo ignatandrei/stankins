@@ -99,7 +99,7 @@ namespace StanskinsImplementation
             Senders = new OrderedList<ISend>();
 
         }
-
+        
        
         public async Task SenderData(IRow[] dataToSend)
         {
@@ -220,5 +220,27 @@ namespace StanskinsImplementation
             this.Senders = sj.Senders;
 
         }
+        #region easy to use
+        public SimpleJob AddReceiver(IReceive r)
+        {
+            this.Receivers.Add(Receivers.Count, r);
+            return this;
+        }
+        public SimpleJob AddSender(ISend s)
+        {
+            this.Senders.Add(Senders.Count, s);
+            return this;
+        }
+        public SimpleJob AddFilter(IFilterTransformer f)
+        {
+            this.FiltersAndTransformers.Add(FiltersAndTransformers.Count, f);
+            return this;
+        }
+        public SimpleJob AddTransformer(IFilterTransformer t)
+        {
+            this.FiltersAndTransformers.Add(FiltersAndTransformers.Count, t);
+            return this;
+        }
+        #endregion
     }
 }
