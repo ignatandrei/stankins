@@ -239,7 +239,7 @@ namespace StankinsDemos
             file = "appsettings.json";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "blockly.html";
-            //overWriteFile(file, Path.Combine(di.FullName, file));
+            overWriteFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo8);
             overWriteFile(file, Path.Combine(di.FullName, file));
@@ -284,16 +284,20 @@ namespace StankinsDemos
             IReceive folderWithDll = new ReceiverFolderHierarchical("#static:Directory.GetCurrentDirectory()#", "*.dll");
             var filterFiles = new FilterForFilesHierarchical();
             var recContentFile = new ReceiverFromDllRelational();
-            var loadDllromFiles = new TransformerApplyReceiver(recContentFile, "DllFileName", "FullName");
+            var loadDllFromFiles = new TransformerApplyReceiver(recContentFile, "DllFileName", "FullName");
             //retain just types
             var filterTypes = new FilterRetainRelationalName(FilterType.Equal, "Types");
             //load types that are not generic or abstract
+            //var justTypes = new FilterComparableEqual(typeof(string), "Types", "NameRelation");
+            var notAbstract = new FilterComparableEqual(typeof(bool), false, "IsAbstract");
+            var notGeneric = new FilterComparableEqual(typeof(bool), false, "IsGeneric");
 
+            var noInterface = new FilterExcludeRelation("Interfaces");
             var rel2plain = new TransformerRelationalToPlain();
 
-            var justRelations = new FilterRetainItemsWithKey("NameRelation", FilterType.Equal);
-            var justTypes = new FilterComparableEqual(typeof(string), "Types", "NameRelation");
-            var fileRazor = Path.Combine(dir, "genericRow.cshtml");
+            //var justRelations = new FilterRetainItemsWithKey("NameRelation", FilterType.Equal);
+            
+            var fileRazor = Path.Combine(dir, "blockly.cshtml");
             string filename = "#static:Directory.GetCurrentDirectory()#\\blockly.html";
             ISend senderHTML = new SyncSenderMultiple(
                 new Sender_HTMLText(filename, "<html><body>") { FileMode = FileMode.Create },
@@ -305,11 +309,13 @@ namespace StankinsDemos
             var job = new SimpleJob();
             job.AddReceiver(folderWithDll)
             .AddTransformer(filterFiles)
-            .AddTransformer(loadDllromFiles)
-            .AddTransformer(filterTypes)            
-            .AddTransformer(justRelations)
-            .AddTransformer(justTypes)
-            .AddTransformer(rel2plain)
+            .AddTransformer(loadDllFromFiles)
+            .AddTransformer(filterTypes)
+            .AddTransformer(notAbstract)
+            .AddTransformer(notGeneric)
+
+            .AddTransformer(noInterface)            
+            //.AddTransformer(rel2plain)
             .AddSender(senderHTML);
             return job.SerializeMe();
 

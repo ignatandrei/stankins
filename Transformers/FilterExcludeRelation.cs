@@ -13,7 +13,7 @@ namespace Transformers
         {
             ExcludeRelations = excludeRelations;
             var all = string.Join(",", excludeRelations);
-            Name = $"exclude {all}";
+            Name = $"exclude relational {all}";
         }
         public IRow[] valuesRead { get; set; }
         public IRow[] valuesTransformed { get; set; }

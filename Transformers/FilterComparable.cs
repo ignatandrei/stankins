@@ -49,6 +49,7 @@ namespace Transformers
             HowToCompareValues = compareValues;
             this.Name = $"{fieldName} {compareValues} {value ?? ""}";
         }
+        
 
         public FilterComparable()
         {
@@ -67,6 +68,11 @@ namespace Transformers
             IComparable v = (IComparable)original;
             foreach (var item in valuesRead)
             {
+                if (!item.Values.ContainsKey(FieldName))
+                {
+                    //TODO:log
+                    continue; 
+                }
                 var val = item.Values[FieldName];
                 var valueLoop = Convert.ChangeType(val, ComparableType);
                

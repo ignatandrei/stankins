@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Transformers
 {
+    
     public class FilterForRelational : IFilter
     {
         public FilterForRelational(IFilter filter)
