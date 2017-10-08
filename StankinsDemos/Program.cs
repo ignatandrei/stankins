@@ -31,7 +31,8 @@ namespace StankinsDemos
         {
             MainAsync(args).GetAwaiter().GetResult();
         }
-        static async Task MainAsync(string[] args) {
+        static async Task MainAsync(string[] args)
+        {
             //using (StartLogging st = new StartLogging("asd", "Asda", 1))
             //{
             //    st.LogInformation("test'");
@@ -47,7 +48,7 @@ namespace StankinsDemos
             //File.WriteAllText(file, SimpleJobFolders());
             //Console.WriteLine($"executing file {file}");
             IJob si;
-            DirectoryInfo di=null;
+            DirectoryInfo di = null;
             string file;
             Action<string, string> overWriteFile = (fileName, fileDestination) =>
             {
@@ -61,14 +62,14 @@ namespace StankinsDemos
                 File.Copy(fileName, fileDestination);
             };
 
-            //if (false) { 
+
             var strDemo1 = SimpleJobFolders();
             File.WriteAllText("jobDefinition.txt", strDemo1);
             si = new SimpleJob();
             si.UnSerialize(strDemo1);
             await si.Execute();
-            
-           
+
+
             #region move into demos
             di = Directory.CreateDirectory("Demo1JobFolders");
             file = "readme.txt";
@@ -198,7 +199,7 @@ namespace StankinsDemos
                 overWriteFile(file, Path.Combine(di.FullName, file));
             }
             #endregion
-        }
+
             #region showDllTypes
             var strDemo7 = SimpleJobDllLoadTypes();
             di = Directory.CreateDirectory("Demo7LoadDllTypes");
@@ -208,7 +209,7 @@ namespace StankinsDemos
             await si.Execute();
             #region move into demos
             file = "readme.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));            
+            overWriteFile(file, Path.Combine(di.FullName, file));
             file = "jobDefinition.txt";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
@@ -217,6 +218,28 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo7);
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            #endregion
+            #endregion
+
+            #region blockly
+            var strDemo8 = SimpleJobDllBlockly();
+            di = Directory.CreateDirectory("Demo8Blockly");
+            File.WriteAllText("jobDefinition.txt", strDemo8);
+            si = new SimpleJob();
+            si.UnSerialize(strDemo8);
+            await si.Execute();
+            #region move into demos
+            file = "readme.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "jobDefinition.txt";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "appsettings.json";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "relationalDLL.html";
+            overWriteFile(file, Path.Combine(di.FullName, file));
+            //execute visualization
+            file = ExecuteVisualizationDefinitionSimpleJob(strDemo8);
             overWriteFile(file, Path.Combine(di.FullName, file));
             #endregion
             #endregion
@@ -253,7 +276,32 @@ namespace StankinsDemos
             return job.SerializeMe();
 
         }
+        static string SimpleJobDllBlockly()
+        {
+            string dir = Environment.CurrentDirectory;
+            IReceive folderWithDll = new ReceiverFolderHierarchical("#static:Directory.GetCurrentDirectory()#", "*.dll");
+            var filterFiles = new FilterForFilesHierarchical();
+            var recContentFile = new ReceiverFromDllRelational();
+            var loadDllromFiles = new TransformerApplyReceiver(recContentFile, "DllFileName", "FullName");
+            //load types that are not generic or abstract
 
+            var fileRazor = Path.Combine(dir, "relationalGeneric.cshtml");
+            string filename = "#static:Directory.GetCurrentDirectory()#\\relationalDLL.html";
+            ISend senderHTML = new SyncSenderMultiple(
+                new Sender_HTMLText(filename, "<html><body>") { FileMode = FileMode.Create },
+                new Sender_HTMLRazor("Views/" + Path.GetFileName(fileRazor), filename),
+                //new Sender_HTMLRelationViz("Name", filename),
+                new Sender_HTMLText(filename, "</body></html>")
+                )
+                ;
+            var job = new SimpleJob();
+            job.Receivers.Add(0, folderWithDll);
+            job.FiltersAndTransformers.Add(0, filterFiles);
+            job.FiltersAndTransformers.Add(1, loadDllromFiles);
+            job.Senders.Add(0, senderHTML);
+            return job.SerializeMe();
+
+        }
         static string SimpleJobFolders()
         {
             string fileName = DeleteFileIfExists("Demo1SimpleJobFolders.html");
