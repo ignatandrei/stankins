@@ -17,10 +17,13 @@ namespace Transformers
                 return;
 
             ret.Add(rel);
+            
+
             foreach(var relationChild in rel.Relations)
             {
                 foreach(var item in relationChild.Value)
                 {
+                    item.Values.Add("NameRelation", relationChild.Key);
                     Add(item);
                 }
             }

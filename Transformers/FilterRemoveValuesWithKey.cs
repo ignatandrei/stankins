@@ -17,33 +17,33 @@ namespace Transformers
         Equal=4
 
     }
-    public class FilterRetainValuesWithKey : FilterAddRemoveValuesWithKey
+    public class FilterRetainItemsWithKey : FilterAddRemoveItemsWithKey
     {
 
-        public FilterRetainValuesWithKey(string key, FilterType filterType) : base(key, filterType)
+        public FilterRetainItemsWithKey(string key, FilterType filterType) : base(key, filterType)
         {
-
+            this.Name = $"retain items that have at least one key matching {FilterType} {key}";
         }
         public override bool Result(bool exists)
         {
             return exists;
         }
     }
-    public  class FilterRemoveValuesWithKey : FilterAddRemoveValuesWithKey
+    public  class FilterRemoveItemsWithKey : FilterAddRemoveItemsWithKey
     {
 
-        public FilterRemoveValuesWithKey(string key, FilterType filterType):base(key,filterType)
+        public FilterRemoveItemsWithKey(string key, FilterType filterType):base(key,filterType)
         {
-        
+            this.Name = $"remove items that have at least one key matching {FilterType} {key}";
         }
         public override bool Result(bool exists)
         {
             return !exists;
         }
     }
-    public abstract class FilterAddRemoveValuesWithKey: IFilter
+    public abstract class FilterAddRemoveItemsWithKey: IFilter
     {
-        public FilterAddRemoveValuesWithKey(string key, FilterType filterType)
+        public FilterAddRemoveItemsWithKey(string key, FilterType filterType)
         {
             Key = key;
             FilterType = filterType;
@@ -54,7 +54,7 @@ namespace Transformers
         public FilterType FilterType { get; set; }
         public IRow[] valuesRead { get ; set ; }
         public IRow[] valuesTransformed { get ; set ; }
-        public string Name { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        public string Name { get; set; }
         private static Func<string, string, bool> search(FilterType ft)
         {
             switch (ft)

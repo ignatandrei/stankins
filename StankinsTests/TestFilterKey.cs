@@ -34,7 +34,7 @@ namespace StankinsTests
             #region act
             IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
             await r.LoadData();
-            IFilter f = new FilterRemoveValuesWithKey("nrfiles", FilterType.Equal);
+            IFilter f = new FilterRemoveItemsWithKey("nrfiles", FilterType.Equal);
             f.valuesRead = r.valuesRead;
             await f.Run();
             #endregion
@@ -82,7 +82,7 @@ namespace StankinsTests
             #region act
             IReceive r = new ReceiverFolderHierarchical(dir, "*.txt");
             await r.LoadData();
-            IFilter f = new FilterRetainValuesWithKey("nrfiles", FilterType.Equal);
+            IFilter f = new FilterRetainItemsWithKey("nrfiles", FilterType.Equal);
             f.valuesRead = r.valuesRead;
             await f.Run();
             #endregion
