@@ -39,6 +39,8 @@ namespace ReceiverDll
             typeRR.Values.Add("FullName", item.FullName);
             typeRR.Values.Add("IsGeneric", item.IsGenericType);
             typeRR.Values.Add("IsAbstract", item.IsAbstract);
+            typeRR.Values.Add("IsInterface", item.IsInterface);
+            typeRR.Values.Add("AssemblyName", assembly.FullName);
             types.Add(typeRR);
             var interfaces = new List<IRowReceiveRelation>();
             typeRR.Relations.Add("Interfaces", interfaces);
@@ -51,6 +53,7 @@ namespace ReceiverDll
                 interfaces.Add(intRR);
 
             }
+            typeRR.Values.Add("InterfacesNr", interfaces.Count);
             var props = new List<IRowReceiveRelation>();
             typeRR.Relations.Add("Properties", props);
             foreach (var prop in item.GetProperties(BindingFlags.Public|BindingFlags.Instance))
@@ -59,7 +62,7 @@ namespace ReceiverDll
                 propRR.Values.Add("Name", prop.Name);
                 props.Add(propRR);
             }
-
+            typeRR.Values.Add("PropertiesNr", props.Count);
 
         }
     }

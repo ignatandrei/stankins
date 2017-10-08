@@ -221,7 +221,7 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             #endregion
             #endregion
-            return;
+           
             andrei:
             #region blockly
 
@@ -291,10 +291,10 @@ namespace StankinsDemos
             //var justTypes = new FilterComparableEqual(typeof(string), "Types", "NameRelation");
             var notAbstract = new FilterComparableEqual(typeof(bool), false, "IsAbstract");
             var notGeneric = new FilterComparableEqual(typeof(bool), false, "IsGeneric");
-
-            var noInterface = new FilterExcludeRelation("Interfaces");
-            var rel2plain = new TransformerRelationalToPlain();
-
+            var notInterface = new FilterComparableEqual(typeof(bool), false, "IsInterface");
+            //var noInterface = new FilterExcludeRelation("Interfaces");
+            //var rel2plain = new TransformerRelationalToPlain();
+            var haveProps = new FilterComparableGreat(typeof(int), 0, "PropertiesNr");
             //var justRelations = new FilterRetainItemsWithKey("NameRelation", FilterType.Equal);
             
             var fileRazor = Path.Combine(dir, "blockly.cshtml");
@@ -310,11 +310,12 @@ namespace StankinsDemos
             job.AddReceiver(folderWithDll)
             .AddTransformer(filterFiles)
             .AddTransformer(loadDllFromFiles)
-            .AddTransformer(filterTypes)
-            .AddTransformer(notAbstract)
-            .AddTransformer(notGeneric)
-
-            .AddTransformer(noInterface)            
+            .AddFilter(filterTypes)
+            .AddFilter(notAbstract)
+            .AddFilter(notGeneric)
+            .AddFilter(notInterface)
+            .AddFilter(haveProps)
+            //.AddTransformer(noInterface)            
             //.AddTransformer(rel2plain)
             .AddSender(senderHTML);
             return job.SerializeMe();
