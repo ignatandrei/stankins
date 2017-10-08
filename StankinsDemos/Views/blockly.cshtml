@@ -11,26 +11,78 @@ Number Rows: @Model.Length
                 .Values
                 .Select(it => it.Key).ToArray();
 }
-<table>
+<table border="1">
 <thead>
-<tr>
-@foreach(var col in FieldNames){
-
-<td>
-@col
-</td>
-
-}
+    <tr>
+        <td>
+            Name
+        </td>
+        <td>Block definition</td>
+        <td>Block JS</td>
+        <td>Block CodeGenerator</td>
+    </tr>
 </thead>
-</tr>
+
 <tbody>
 @foreach(var item in Model){
+    var rel = item as StankinsInterfaces.IRowReceiveRelation;
+
+    if (rel == null)
+    {
+        continue;
+    }
+    if (!rel.Relations.ContainsKey("Properties"))
+    {
+        continue;
+    }
+
+    string fields = "";
+    string codeReturn = "{";
+    string codeGenerator = "Blockly.JavaScript['" + item.Values["Name"]+"'] = function(block) {<br />{";
+        var props = rel.Relations["Properties"];
+        foreach (var prop in props)
+        {
+            fields += string.Format(@" this.appendValueInput('val{0}') <br />
+        //.setCheck('String')<br />
+        .appendField('{0}:')<br />
+        .appendField(new Blockly.FieldTextInput(''), 'fld{0}');<br />"
+            , prop.Values["Name"]);
+            codeGenerator += string.Format(@"<br />
+  var text_{0} = block.getFieldValue('fld{0}');<br />
+  var value_{0} = Blockly.JavaScript.valueToCode(block, 'val{0}', Blockly.JavaScript.ORDER_ATOMIC);<br />
+var realValue_{0} =value_{0} || text_{0};<br />
+  ", prop.Values["Name"]);
+            codeReturn += string.Format("{0}:realValue_{0},<br />", prop.Values["Name"]);
+        }
+
+        codeGenerator +=string.Format
+        (@"
+  <br />var code = {0} }};<br />
+code=JSON.stringify(code);//not good for variables <br />
+code +='\n';<br />
+  return code;<br />
+<br />}};<br />}};", codeReturn);
+
 <tr>
-@foreach(var col in FieldNames){
-<td>
-@item.Values[col]
+<td valign="top">
+@item.Values["Name"]
 </td>
-}
+    <td valign="top">@("<block type='"+ @item.Values["Name"]+"'></block>")</td>
+    <td valign="top">
+        Blockly.Blocks['@item.Values["Name"]'] = {<br />
+        init: function() {<br />
+        this.appendDummyInput()<br />
+        .appendField("@item.Values["Name"]");<br />
+        @Html.Raw(fields)<br />
+        <br />
+        this.setTooltip("@item.Values["Name"]");<br />
+        this.setHelpUrl("")<br />
+        }<br />
+        };<br />
+    </td>
+    <td>
+        @Html.Raw(codeGenerator)
+    </td>
 </tr>
 }
 <tbody>

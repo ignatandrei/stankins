@@ -12,23 +12,30 @@
     <Compile Remove="Demo3ExecuteSql\**" />
     <Compile Remove="Demo4DocumentSqlServer\**" />
     <Compile Remove="Demo5PBX\**" />
+    <Compile Remove="Demo7LoadDllTypes\**" />
+    <Compile Remove="Demo8Blockly\**" />
     <Compile Remove="StankinsDemo\**" />
     <EmbeddedResource Remove="Demo1JobFolders\**" />
     <EmbeddedResource Remove="Demo2SimpleJobView\**" />
     <EmbeddedResource Remove="Demo3ExecuteSql\**" />
     <EmbeddedResource Remove="Demo4DocumentSqlServer\**" />
     <EmbeddedResource Remove="Demo5PBX\**" />
+    <EmbeddedResource Remove="Demo7LoadDllTypes\**" />
+    <EmbeddedResource Remove="Demo8Blockly\**" />
     <EmbeddedResource Remove="StankinsDemo\**" />
     <None Remove="Demo1JobFolders\**" />
     <None Remove="Demo2SimpleJobView\**" />
     <None Remove="Demo3ExecuteSql\**" />
     <None Remove="Demo4DocumentSqlServer\**" />
     <None Remove="Demo5PBX\**" />
+    <None Remove="Demo7LoadDllTypes\**" />
+    <None Remove="Demo8Blockly\**" />
     <None Remove="StankinsDemo\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="a.txt" />
+    <None Remove="blockly.html" />
     <None Remove="Demo1JobFolders.txt" />
     <None Remove="Demo2Job.txt" />
     <None Remove="Demo2JobView.txt" />
