@@ -32,6 +32,7 @@ namespace SenderToFile
             SerializeData.SetValue(Key, Transform.Result.ToString());
         }
     }
+
     /// <summary>
     /// TODO: encoding
     /// File.Write or File.Append
@@ -40,6 +41,7 @@ namespace SenderToFile
     /// </summary>
     public class SenderMediaToFile: ISend
     {
+        public FileMode FileMode { get; set; }
         public string Name { get; set; }
         public IRow[] valuesToBeSent { protected get; set; }
         public string FileName { get; set; }
@@ -47,6 +49,7 @@ namespace SenderToFile
         public IFilterTransformToByteArray[] MediaArray { get;set; }
         public SenderMediaToFile(string outputFileName, params IFilterTransformToString[] media )
         {
+            this.FileMode = FileMode.Append;
             this.FileName = outputFileName;
             this.media = media;
             this.Name = $"send to {Path.GetFileName(outputFileName)} ";
@@ -95,8 +98,8 @@ namespace SenderToFile
                 }
             }
             var buffer = bufferList.ToArray();
-            using (var fs = new FileStream(FileName, FileMode.Append,
-                FileAccess.Write, FileShare.None, buffer.Length, true))
+            using (var fs = new FileStream(FileName, FileMode,
+                FileAccess.Write, FileShare.Write, buffer.Length, true))
             {
                 await fs.WriteAsync(buffer, 0, buffer.Length);
             }

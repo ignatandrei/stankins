@@ -133,14 +133,21 @@ namespace StanskinsImplementation
         public bool AllSendersAsync{ get; set; }
         public override async Task Execute()
         {
-            IReceive arv;
-            if (AllReceiversAsync)
+            IReceive arv =null;
+            if (Receivers?.Count == 1)
             {
-                arv = new AsyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                arv = Receivers[0];
             }
-            else
+            if (arv == null)
             {
-                arv=new SyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                if (AllReceiversAsync)
+                {
+                    arv = new AsyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                }
+                else
+                {
+                    arv = new SyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                }
             }
             await arv.LoadData();
             IRow[] data = arv.valuesRead;
@@ -172,14 +179,21 @@ namespace StanskinsImplementation
             if (Senders.Count == 0)
                 return;
 
-            ISend send;
-            if (AllSendersAsync)
+            ISend send = null;
+            if(Senders.Count == 1)
             {
-                send = new ASyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+                send = Senders[0];
             }
-            else
+            if (send == null)
             {
-                send = new SyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+                if (AllSendersAsync)
+                {
+                    send = new ASyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+                }
+                else
+                {
+                    send = new SyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+                }
             }
             send.valuesToBeSent = data;
             await send.Send();

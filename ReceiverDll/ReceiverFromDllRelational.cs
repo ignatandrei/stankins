@@ -8,6 +8,7 @@ namespace ReceiverDll
     public class ReceiverFromDllRelational : ReceiverFromDll
     {
         RowReadRelation rr;
+        public ReceiverFromDllRelational() : this(null) { }
         public ReceiverFromDllRelational(string dllFileName) : base(dllFileName)
         {
                 
@@ -21,7 +22,9 @@ namespace ReceiverDll
         {
             rr = new RowReadRelation();
             AssemblyName an = assembly.GetName();
+            rr.Values.Add("CodeBase", an.CodeBase);
             rr.Values.Add("AssemblyName", an.FullName);
+
             rr.Values.Add("Name", an.Name);
             var types = new List<IRowReceiveRelation>();
             rr.Relations.Add("Types", types);
