@@ -3,16 +3,8 @@ using SenderToFile;
 using StankinsInterfaces;
 using System;
 using System.Text;
-using MediaTransform;
 namespace SenderHTML
 {
-    public class Sender_HTMLText: SenderMediaToFile
-    {
-        public Sender_HTMLText(string outputFileName, string text) :base(outputFileName,new MediaTransformStringToText(text))
-        {
-            this.Name = $"send {text} to {outputFileName}";
-        }
-    }
     public class Sender_HTMLRazor : SenderMediaToFile
     {
         public string ViewFileName { get; set; }

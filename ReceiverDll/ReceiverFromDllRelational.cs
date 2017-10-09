@@ -8,6 +8,7 @@ namespace ReceiverDll
     public class ReceiverFromDllRelational : ReceiverFromDll
     {
         RowReadRelation rr;
+        public ReceiverFromDllRelational() : this(null) { }
         public ReceiverFromDllRelational(string dllFileName) : base(dllFileName)
         {
                 
@@ -21,7 +22,9 @@ namespace ReceiverDll
         {
             rr = new RowReadRelation();
             AssemblyName an = assembly.GetName();
+            rr.Values.Add("CodeBase", an.CodeBase);
             rr.Values.Add("AssemblyName", an.FullName);
+
             rr.Values.Add("Name", an.Name);
             var types = new List<IRowReceiveRelation>();
             rr.Relations.Add("Types", types);
@@ -34,7 +37,10 @@ namespace ReceiverDll
             var typeRR = new RowReadRelation();
             typeRR.Values.Add("Name", item.Name);
             typeRR.Values.Add("FullName", item.FullName);
-            
+            typeRR.Values.Add("IsGeneric", item.IsGenericType);
+            typeRR.Values.Add("IsAbstract", item.IsAbstract);
+            typeRR.Values.Add("IsInterface", item.IsInterface);
+            typeRR.Values.Add("AssemblyName", assembly.FullName);
             types.Add(typeRR);
             var interfaces = new List<IRowReceiveRelation>();
             typeRR.Relations.Add("Interfaces", interfaces);
@@ -43,11 +49,11 @@ namespace ReceiverDll
                 var intRR = new RowReadRelation();
                 intRR.Values.Add("Name", @interface.Name);
                 intRR.Values.Add("FullName", @interface.FullName);
-                intRR.Values.Add("IsGeneric", @interface.IsGenericType);
-                intRR.Values.Add("IsAbstract", @interface.IsAbstract);
+                
                 interfaces.Add(intRR);
 
             }
+            typeRR.Values.Add("InterfacesNr", interfaces.Count);
             var props = new List<IRowReceiveRelation>();
             typeRR.Relations.Add("Properties", props);
             foreach (var prop in item.GetProperties(BindingFlags.Public|BindingFlags.Instance))
@@ -56,7 +62,7 @@ namespace ReceiverDll
                 propRR.Values.Add("Name", prop.Name);
                 props.Add(propRR);
             }
-
+            typeRR.Values.Add("PropertiesNr", props.Count);
 
         }
     }

@@ -16,6 +16,7 @@ namespace Transformers
     /// </summary>
     public class TransformerFileToLines : ITransform
     {
+        public FileMode FileMode { get; set; }
         public TransformerFileToLines()
         {
             Name = $"load file lines from FullName field";

@@ -99,7 +99,7 @@ namespace StanskinsImplementation
             Senders = new OrderedList<ISend>();
 
         }
-
+        
        
         public async Task SenderData(IRow[] dataToSend)
         {
@@ -133,14 +133,21 @@ namespace StanskinsImplementation
         public bool AllSendersAsync{ get; set; }
         public override async Task Execute()
         {
-            IReceive arv;
-            if (AllReceiversAsync)
+            IReceive arv =null;
+            if (Receivers?.Count == 1)
             {
-                arv = new AsyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                arv = Receivers[0];
             }
-            else
+            if (arv == null)
             {
-                arv=new SyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                if (AllReceiversAsync)
+                {
+                    arv = new AsyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                }
+                else
+                {
+                    arv = new SyncReceiverMultiple(Receivers.Select(it => it.Value).ToArray());
+                }
             }
             await arv.LoadData();
             IRow[] data = arv.valuesRead;
@@ -172,14 +179,21 @@ namespace StanskinsImplementation
             if (Senders.Count == 0)
                 return;
 
-            ISend send;
-            if (AllSendersAsync)
+            ISend send = null;
+            if(Senders.Count == 1)
             {
-                send = new ASyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+                send = Senders[0];
             }
-            else
+            if (send == null)
             {
-                send = new SyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+                if (AllSendersAsync)
+                {
+                    send = new ASyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+                }
+                else
+                {
+                    send = new SyncSenderMultiple(Senders.Select(it => it.Value).ToArray());
+                }
             }
             send.valuesToBeSent = data;
             await send.Send();
@@ -206,5 +220,27 @@ namespace StanskinsImplementation
             this.Senders = sj.Senders;
 
         }
+        #region easy to use
+        public SimpleJob AddReceiver(IReceive r)
+        {
+            this.Receivers.Add(Receivers.Count, r);
+            return this;
+        }
+        public SimpleJob AddSender(ISend s)
+        {
+            this.Senders.Add(Senders.Count, s);
+            return this;
+        }
+        public SimpleJob AddFilter(IFilterTransformer f)
+        {
+            this.FiltersAndTransformers.Add(FiltersAndTransformers.Count, f);
+            return this;
+        }
+        public SimpleJob AddTransformer(IFilterTransformer t)
+        {
+            this.FiltersAndTransformers.Add(FiltersAndTransformers.Count, t);
+            return this;
+        }
+        #endregion
     }
 }

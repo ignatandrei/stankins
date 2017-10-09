@@ -12,23 +12,30 @@
     <Compile Remove="Demo3ExecuteSql\**" />
     <Compile Remove="Demo4DocumentSqlServer\**" />
     <Compile Remove="Demo5PBX\**" />
+    <Compile Remove="Demo7LoadDllTypes\**" />
+    <Compile Remove="Demo8Blockly\**" />
     <Compile Remove="StankinsDemo\**" />
     <EmbeddedResource Remove="Demo1JobFolders\**" />
     <EmbeddedResource Remove="Demo2SimpleJobView\**" />
     <EmbeddedResource Remove="Demo3ExecuteSql\**" />
     <EmbeddedResource Remove="Demo4DocumentSqlServer\**" />
     <EmbeddedResource Remove="Demo5PBX\**" />
+    <EmbeddedResource Remove="Demo7LoadDllTypes\**" />
+    <EmbeddedResource Remove="Demo8Blockly\**" />
     <EmbeddedResource Remove="StankinsDemo\**" />
     <None Remove="Demo1JobFolders\**" />
     <None Remove="Demo2SimpleJobView\**" />
     <None Remove="Demo3ExecuteSql\**" />
     <None Remove="Demo4DocumentSqlServer\**" />
     <None Remove="Demo5PBX\**" />
+    <None Remove="Demo7LoadDllTypes\**" />
+    <None Remove="Demo8Blockly\**" />
     <None Remove="StankinsDemo\**" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="a.txt" />
+    <None Remove="blockly.html" />
     <None Remove="Demo1JobFolders.txt" />
     <None Remove="Demo2Job.txt" />
     <None Remove="Demo2JobView.txt" />
@@ -40,6 +47,7 @@
     <None Remove="jobDefinition.txt" />
     <None Remove="log-20170925.txt" />
     <None Remove="readme.txt" />
+    <None Remove="relationalDLL.html" />
     <None Remove="relationalSqlServer.html" />
     <None Remove="SolutionExport.txt" />
     <None Remove="Views\columns.cshtml" />
@@ -71,6 +79,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SqlToExecute\002Sql.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\blockly.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Views\relationalGeneric.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\solution.cshtml">
@@ -109,15 +123,45 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CommonDB\CommonDB.csproj" />
     <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\MediaTransform\MediaTransform.csproj" />
+    <ProjectReference Include="..\RazorCompile\RazorCompile.csproj" />
+    <ProjectReference Include="..\ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj" />
+    <ProjectReference Include="..\ReceiverBookmarkExportChrome\ReceiverBookmarkExportChrome.csproj" />
+    <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
     <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
+    <ProjectReference Include="..\ReceiverDatabaseObjects\ReceiverDatabaseObjects.csproj" />
+    <ProjectReference Include="..\ReceiverDBMySQL\ReceiverDBMySQL.csproj" />
+    <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
+    <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
+    <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
+    <ProjectReference Include="..\ReceiverDll\ReceiverDll.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
+    <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\ReceiverJSON\ReceiverJSON.csproj" />
+    <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
+    <ProjectReference Include="..\SenderAction\SenderAction.csproj" />
+    <ProjectReference Include="..\SenderAzureIoTHub\SenderAzureIoTHub.csproj" />
     <ProjectReference Include="..\SenderBulkCopy\SenderBulkCopy.csproj" />
+    <ProjectReference Include="..\SenderDBInflux\SenderDBInflux.csproj" />
+    <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
+    <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
+    <ProjectReference Include="..\SenderFilter\SenderFilter.csproj" />
     <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
+    <ProjectReference Include="..\SenderHttp\SenderHttp.csproj" />
     <ProjectReference Include="..\SenderoToDBSqlServer\SenderToDBSqlServer.csproj" />
+    <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
+    <ProjectReference Include="..\SenderToDB\SenderToDB.csproj" />
+    <ProjectReference Include="..\SenderToFile\SenderToFile.csproj" />
+    <ProjectReference Include="..\SenderUnzipFiles\SenderUnzipFiles.csproj" />
+    <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
+    <ProjectReference Include="..\StankinsSimpleFactory\StankinsSimpleFactory.csproj" />
+    <ProjectReference Include="..\StankinsSimpleJob\StankinsSimpleJob.csproj" />
+    <ProjectReference Include="..\StankinsTests\StankinsTests.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+    <ProjectReference Include="..\StringInterpreter\StringInterpreter.csproj" />
     <ProjectReference Include="..\Transformers\Transformers.csproj" />
   </ItemGroup>
 

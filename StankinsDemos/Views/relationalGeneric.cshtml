@@ -1,0 +1,91 @@
+﻿@using System.Linq;
+@using StankinsInterfaces;
+@model StankinsInterfaces.IRowReceive[]
+Number Rows: @Model.Length
+@{
+    //Do not use.
+    //Look into relationalFolder.cshtml and relationalFile.cshtml
+    //or sqlserver.cshtml
+    //to see example of how to do it better for specific cases
+    bool showTable = (Model.Length > 0);
+    if (!showTable)
+    {
+        return;
+    };
+    var FieldNames = Model[0]
+                .Values
+                .Select(it => it.Key).ToArray();
+}
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            @foreach (var col in FieldNames)
+            {
+
+                <td>
+                    @col
+                </td>
+
+            }
+            <td>Relations</td>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            var m = item as IRowReceiveRelation;
+
+            <tr>
+                <td>@m.ID</td>
+                @foreach (var col in FieldNames)
+                {
+                    <td>
+                        @item.Values[col]
+                    </td>
+                }
+                <td>
+@{
+    var relKeys = m.Relations.Keys.ToArray();
+    <table>
+        
+        @foreach (var key in relKeys)
+        {
+            string pathid = string.Format("relFor_{0}_{1}", m.ID, key);
+            <tr>
+                <td>
+                   <a href='javascript:toggle("@pathid")'>@key</a>
+                </td>
+
+            </tr>
+            <tr style="display:none" id="@pathid">
+                <td>
+                    @Html.Partial("relationalGeneric", m.Relations[key].ToArray());
+                </td>
+            </tr>
+            
+        }
+    </table>
+}
+                    
+
+
+                </td>
+            </tr>
+
+        }
+    <tbody>
+</table>
+
+<script language='javascript'>
+
+function toggle(elementId) {
+	var ele = document.getElementById(elementId);
+	if(ele.style.display == 'block') {
+    		ele.style.display = 'none';
+  	}
+	else {
+		ele.style.display = 'block';
+	}
+} 
+</script>

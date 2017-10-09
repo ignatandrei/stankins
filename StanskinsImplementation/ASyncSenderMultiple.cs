@@ -15,7 +15,9 @@ namespace StanskinsImplementation
         public SyncSenderMultiple(params ISend[] senders)
         {
             this.Senders = senders;
-            
+            this.Name = $"SyncSenderMultiple :{senders?.Length}";
+
+
         }
 
         public async Task Send()

@@ -14,9 +14,11 @@ namespace ReceiverDll
         public IRowReceive[] valuesRead { get; set; }
         public string Name { get; set; }
         public string DllFileName { get; set; }
+        public ReceiverFromDll() : this(null) { }
         public ReceiverFromDll(string dllFileName)
         {
             DllFileName = dllFileName;
+            this.Name = $"receive types from {dllFileName}";
         }
         abstract public void ProcessTypeInfo(TypeInfo item, Assembly assembly);
         abstract public void LoadingAssembly(Assembly assembly);

@@ -95,11 +95,11 @@ namespace StankinsTests
             var receiverDll = new ReceiverFromDllRelational(fileNameDll);
 
             ISend senderHTML = new SyncSenderMultiple(
-                new Sender_HTMLText(filename, "<html><body>"),
+                new Sender_Text(filename, "<html><body>"),
                 new Sender_HTMLRazor("TestReceiveSendDllHtml/" + Path.GetFileName(fileRazor), filename),                
                 new Sender_HTMLRelationViz("Name",filename),
 
-                new Sender_HTMLText(filename, "</body></html>")
+                new Sender_Text(filename, "</body></html>")
                 )
                 ;
             #endregion

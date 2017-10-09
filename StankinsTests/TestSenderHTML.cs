@@ -254,10 +254,10 @@ namespace StankinsTests
             #endregion
             #region act
             ISend sender = new SyncSenderMultiple(
-                new Sender_HTMLText(filename, "<html><body>"),
+                new Sender_Text(filename, "<html><body>"),
                 new Sender_HTMLRazor("TestSendDataHierarchical/" + Path.GetFileName(fileRazor), filename),
                 new Sender_HierarchicalVizFolder(filename, "Name"),
-                new Sender_HTMLText(filename, "</body></html>")
+                new Sender_Text(filename, "</body></html>")
                 );
 
             
@@ -293,10 +293,10 @@ namespace StankinsTests
             #endregion
             #region act
             ISend sender = new SyncSenderMultiple(
-                new Sender_HTMLText(filename, "<html><body>"),
+                new Sender_Text(filename, "<html><body>"),
                 new Sender_HTMLRazor("TestSendHTMLDataRelational/" + Path.GetFileName(fileRazor), filename),
                 new Sender_HTMLRelationViz( "Name", filename),
-                new Sender_HTMLText(filename, "</body></html>")
+                new Sender_Text(filename, "</body></html>")
                 );
 
 

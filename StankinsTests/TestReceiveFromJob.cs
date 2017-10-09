@@ -38,10 +38,10 @@ namespace StankinsTests
             var export= SimpleJobConditionalTransformersTest.DeleteFileIfExists(Path.Combine(dir, "export.cshtml"));
             File.WriteAllText(export, Sender_HTMLRazor.DefaultExport());
             var sender = new SyncSenderMultiple(
-                new Sender_HTMLText(file, "<html><body>"),
+                new Sender_Text(file, "<html><body>"),
                 new Sender_HTMLRazor("TestReceiveFromJobConditional/"+Path.GetFileName(export), file),
                 new Sender_HierarchicalVizJob(file, "Name"),
-                new Sender_HTMLText(file, "</body></html>")
+                new Sender_Text(file, "</body></html>")
                 );
             var newJob = new SimpleJob();
             newJob.Receivers.Add(0,receiver);
