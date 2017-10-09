@@ -1,87 +1,17 @@
-﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Bson;
-using StankinsInterfaces;
+﻿using StankinsInterfaces;
 using System;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using StanskinsImplementation;
-using System.Collections.Generic;
 
 namespace ReceiverFile
 {
-    public class ReceiverFileFromStorageLines : ReceiverFileFromStorage<int>
+    public class FakeComparable : IComparable<FakeComparable>
     {
-        public ReceiverFileFromStorageLines(string fileToRead, Encoding fileEnconding) : base(fileToRead, true, fileEnconding)
+        public int CompareTo(FakeComparable other)
         {
-            Name = "read lines from " + fileToRead;
-            this.StartReadFile += ReceiverFileFromStorageLines_StartReadFile;
-            this.EndReadFile += ReceiverFileFromStorageLines_EndReadFile;
-        }
-        long line;
-        List<IRowReceive> values;
-        private void ReceiverFileFromStorageLines_EndReadFile(object sender, EventArgs e)
-        {
-            valuesRead = values.ToArray();
-        }
-
-
-        private void ReceiverFileFromStorageLines_StartReadFile(object sender, EventArgs e)
-        {
-            line = 1;
-            values = new List<IRowReceive>();
-        }
-
-        protected override async Task ProcessText(string text)
-        {
-            var rr = new RowRead();
-            rr.Values.Add("lineNr", line++);
-            rr.Values.Add("name", FileToRead);
-            rr.Values.Add("line", text);
-            values.Add(rr);
-            
-        }
-    }
-    public class ReceiverFileFromStorageBinary : IReceive
-    {
-        public ReceiverFileFromStorageBinary(string fileName)
-        {
-            this.FileName = fileName;
-        }
-        public IRowReceive[] valuesRead { get; protected set; }
-        public string FileName { get; set; }
-        public string Name { get; set; }
-
-        public async Task LoadData()
-        {
-            using (var fs = new FileStream(FileName, FileMode.Open, FileAccess.Read, FileShare.Read, 4096, true))
-            {
-                byte[] buffer = new byte[fs.Length];
-                await fs.ReadAsync(buffer, 0, buffer.Length);
-                using(var ms = new MemoryStream(buffer))
-                {
-                    using(var reader = new BsonReader(ms)){
-                        reader.ReadRootValueAsArray = true;
-                        var settings = new JsonSerializerSettings()
-                        {
-                            TypeNameHandling = TypeNameHandling.Objects,
-                            Formatting = Formatting.Indented,
-                            //Error = HandleDeserializationError
-                            //ConstructorHandling= ConstructorHandling.AllowNonPublicDefaultConstructor
-
-                        };
-                        settings.Converters.Add(new JsonEncodingConverter());
-                        var des = JsonSerializer.Create(settings);
-                        valuesRead=des.Deserialize<IRowReceive[]>(reader);
-
-                    }
-                }
-            }
-        }
-        public void ClearValues()
-        {
-            valuesRead = null;
+            return 0;
         }
     }
     /// <summary>

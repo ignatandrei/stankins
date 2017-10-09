@@ -47,6 +47,7 @@
     <None Remove="jobDefinition.txt" />
     <None Remove="log-20170925.txt" />
     <None Remove="readme.txt" />
+    <None Remove="relationalDLL.html" />
     <None Remove="relationalSqlServer.html" />
     <None Remove="SolutionExport.txt" />
     <None Remove="Views\columns.cshtml" />

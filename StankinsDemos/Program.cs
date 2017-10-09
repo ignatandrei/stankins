@@ -264,10 +264,10 @@ namespace StankinsDemos
             var fileRazor = Path.Combine(dir, "relationalGeneric.cshtml");
             string filename = "#static:Directory.GetCurrentDirectory()#\\relationalDLL.html";            
             ISend senderHTML = new SyncSenderMultiple(
-                new Sender_HTMLText(filename, "<html><body>") { FileMode = FileMode.Create},
+                new Sender_Text(filename, "<html><body>") { FileMode = FileMode.Create},
                 new Sender_HTMLRazor("Views/" + Path.GetFileName(fileRazor), filename),
                 //new Sender_HTMLRelationViz("Name", filename),
-                new Sender_HTMLText(filename, "</body></html>")
+                new Sender_Text(filename, "</body></html>")
                 )
                 ;
             var job = new SimpleJob();
@@ -300,12 +300,13 @@ namespace StankinsDemos
             var fileRazor = Path.Combine(dir, "blockly.cshtml");
             string filename = "#static:Directory.GetCurrentDirectory()#\\blockly.html";
             ISend senderHTML = new SyncSenderMultiple(
-                new Sender_HTMLText(filename, "<html><body>") { FileMode = FileMode.Create },
+                new Sender_Text(filename, "<html><body>") { FileMode = FileMode.Create },
                 new Sender_HTMLRazor("Views/" + Path.GetFileName(fileRazor), filename),
                 //new Sender_HTMLRelationViz("Name", filename),
-                new Sender_HTMLText(filename, "</body></html>")
+                new Sender_Text(filename, "</body></html>")
                 )
                 ;
+            var senderRow = new SenderByRowToFile("Name", "txt", "Block Definition");
             var job = new SimpleJob();
             job.AddReceiver(folderWithDll)
             .AddTransformer(filterFiles)
@@ -331,10 +332,10 @@ namespace StankinsDemos
 
             var si = new SimpleJob();
             si.Receivers.Add(0, receiveFolder);
-            si.Senders.Add(0, new Sender_HTMLText(fileName, "<html><body><h1>Find .csproj in solution folder</h1>"));
+            si.Senders.Add(0, new Sender_Text(fileName, "<html><body><h1>Find .csproj in solution folder</h1>"));
             si.Senders.Add(1, new Sender_HTMLRazor("Views/RazorHierarchical.cshtml", fileName));
             si.Senders.Add(2, new Sender_HierarchicalVizFolder(fileName, "Name"));
-            si.Senders.Add(3, new Sender_HTMLText(fileName, "</body></html>"));
+            si.Senders.Add(3, new Sender_Text(fileName, "</body></html>"));
             //or you can add SyncSenderMultiple , but for now let's do it line by line
             //ISend sender = new SyncSenderMultiple(
             //    new Sender_HTMLText(fileName, "<html><body>"),
@@ -352,10 +353,10 @@ namespace StankinsDemos
             File.WriteAllText("jobDefinition.txt", contents);
             var receiver = new ReceiverFromJobFile("jobDefinition.txt");
             si.Receivers.Add(0, receiver);
-            si.Senders.Add(0, new Sender_HTMLText(fileName, "<html><body><h1>Job visualization</h1>"));
+            si.Senders.Add(0, new Sender_Text(fileName, "<html><body><h1>Job visualization</h1>"));
             si.Senders.Add(1, new Sender_HTMLRazor("Views/RazorRow.cshtml", fileName));
             si.Senders.Add(2, new Sender_HierarchicalVizJob(fileName, "Name"));
-            si.Senders.Add(3, new Sender_HTMLText(fileName, "</body></html>"));
+            si.Senders.Add(3, new Sender_Text(fileName, "</body></html>"));
             //or you can add SyncSenderMultiple , but for now let's do it line by line
             //ISend sender = new SyncSenderMultiple(
             //    new Sender...
@@ -513,7 +514,7 @@ namespace StankinsDemos
 
                     string fileRazor = "solution.cshtml";
                     var sender= new SyncSenderMultiple(
-                        new Sender_HTMLText(fileName, "<html><body>"),
+                        new Sender_Text(fileName, "<html><body>"),
                         new Sender_HTMLRazor("Views/" + Path.GetFileName(fileRazor), fileName)
                         
 
@@ -524,7 +525,7 @@ namespace StankinsDemos
 
                     var senderViz = new SyncSenderMultiple(
                     new Sender_HTMLRelationViz("Name", fileName),
-                        new Sender_HTMLText(fileName, "</body></html>")
+                        new Sender_Text(fileName, "</body></html>")
                         );
 
                     newJob.Add(filter, senderViz);
