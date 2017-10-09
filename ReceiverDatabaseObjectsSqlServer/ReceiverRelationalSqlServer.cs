@@ -84,6 +84,14 @@ namespace ReceiverDatabaseObjects
                 order by TABLE_SCHEMA + '.'+TABLE_NAME";
             return await FromCmd(commandText,parameters);
         }
+        protected override async Task<KeyValuePair<string, string>[]> GetViews(KeyValuePair<string, string> database)
+        {
+            string parameters = $"@viewName={database.Value}";
+            string commandText = $"use {database.Value}" + @"
+                SELECT object_id as id, schema_id, name 
+                FROM sys.views where name = @viewName order by name";
+            return await FromCmd(commandText, parameters);
+        }
         protected override async Task<KeyValuePair<string, string>[]> GetColumns(KeyValuePair<string, string> table, KeyValuePair<string, string> database)
         {
             string parameters = $"@tableId={table.Key}";
@@ -94,6 +102,5 @@ namespace ReceiverDatabaseObjects
                 order by name";
             return await FromCmd(commandText, parameters);
         }
-
     }
 }

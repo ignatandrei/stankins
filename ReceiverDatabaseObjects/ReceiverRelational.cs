@@ -23,6 +23,7 @@ namespace ReceiverDatabaseObjects
         protected abstract Task<KeyValuePair<string, object>[]> GetServerDetails();
         protected abstract Task<KeyValuePair<string,string>[]> GetDatabases();
         protected abstract Task<KeyValuePair<string, string>[]> GetTables(KeyValuePair<string,string> database);
+        protected abstract Task<KeyValuePair<string, string>[]> GetViews(KeyValuePair<string, string> database);
         protected abstract Task<KeyValuePair<string, string>[]> GetColumns(KeyValuePair<string, string> table, KeyValuePair<string, string> database);
         public async Task LoadData()
         {
@@ -82,6 +83,35 @@ namespace ReceiverDatabaseObjects
                         dbsColumns.Add(rrCol);
                     }
                     //TODO: add relationships
+                }
+
+                var dbsViews = new List<IRowReceiveRelation>();
+                rrDatabase.Relations.Add("views", dbsViews);
+
+                var views = await GetViews(db);
+
+                foreach(var view in views)
+                {
+                    var rrView = new RowReadRelation();
+                    dbsViews.Add(rrView);
+                    rrView.Values.Add("ID", view.Key);
+                    rrView.Values.Add("PathID", rrDatabase.Values["PathID"] + "_" + view.Key);
+                    rrView.Values.Add("Name", view.Value);
+
+                    rr.Add(rrView.Values["PathID"].ToString(), rrView);
+
+                    var dbsColumns = new List<IRowReceiveRelation>();
+                    rrView.Relations.Add("columns", dbsColumns);
+                    var cols = await GetColumns(view, db);
+                    foreach (var col in cols)
+                    {
+                        var rrCol = new RowReadRelation();
+                        rrCol.Values.Add("ID", col.Key);
+                        rrCol.Values.Add("PathID", rrView.Values["PathID"] + "_" + col.Key);
+                        rrCol.Values.Add("Name", col.Value);
+                        rr.Add(rrCol.Values["PathID"].ToString(), rrCol);
+                        dbsColumns.Add(rrCol);
+                    }
                 }
                 //TODO: add stored procs
                 //TODO: add logins
