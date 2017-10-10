@@ -116,14 +116,18 @@ namespace StanskinsImplementation
             await Task.WhenAll(rec.AllTasksWithLogging());
             if (!rec.Exists(it => it.IsSuccess()))
             {
-                //LOG: no data
+                string noData = "no data for send";
+                //@class.Log(LogLevel.Error,0,noData,null,null);
                 return;
             }
             var failed = rec.Where(it => !it.IsSuccess()).ToArray();
 
             foreach (var item in failed)
-            {                
-                //LOG: exception why failed
+            {
+                string ex = item.Exception.Message;
+                //@class.Log(LogLevel.Error,0,$"error in send",item.Exception,null);
+                ex += ";";
+
             }
 
 
