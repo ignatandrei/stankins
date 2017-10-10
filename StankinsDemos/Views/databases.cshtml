@@ -11,24 +11,43 @@ int idRow=1;
 <tr><th>Nr</th><th>Name</th></tr>
 
 @foreach(var database in Model.Item2){
-var pathId=database.Values["PathID"];
-
+    var pathId=database.Values["PathID"];
+    var item = database as IRowReceiveRelation;
     <tr id='database_@pathId'>
 <td>@(idRow++)</td>
+        
     <td>
-        @database.Values["Name"]<a href='javascript:toggle("@string.Format("tablesfor_{0}",pathId)")'>Tables</a>
+        @database.Values["Name"]
+        <a href='javascript:toggle("@string.Format("tablesfor_{0}",pathId)")'>Tables</a>
         <table style='display:none' id='tablesfor_@pathId'>
             <tr>
             <td>
             @{ 
-            var item= database as IRowReceiveRelation;            
-            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations["tables"].ToArray());Html.RenderPartial("tables.cshtml",child); 
+                
+                var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations["tables"].ToArray());
+                Html.RenderPartial("tables.cshtml",child);
             }
             </td>
+
+
+            <tr>
+        </table>
+        <a href='javascript:toggle("@string.Format("viewsfor_{0}",pathId)")'>Views</a>
+        <table style='display:none' id='viewsfor_@pathId'>
+            <tr>
+                <td>
+                    @{
+
+                        child = new Tuple<object, StankinsInterfaces.IRow[]>(item, item.Relations["views"].ToArray());
+                        Html.RenderPartial("views.cshtml", child);
+                    }
+                </td>
+
+
             <tr>
         </table>
     </td>
     </tr>
-}
+                }
 </table>
 

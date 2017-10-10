@@ -1,0 +1,38 @@
+@using System.Linq;
+            @using StankinsInterfaces;
+            @model Tuple<object,StankinsInterfaces.IRow[]>
+@{
+IRow parent =Model.Item1 as IRow;
+int idRow=1;
+}
+            <!--<h1> views for database <a href='#database_@parent.Values["PathID"]'> @parent.Values["Name"]</a>-->
+
+<table border='1' id='tables_@parent.Values["PathID"]'> 
+
+<tr>
+<th>Nr</th>
+<th>Name</th></tr>
+
+@foreach(var view in Model.Item2){
+    var pathId= view.Values["PathID"];
+    <tr id='view_@pathId'>
+<td>@(idRow++)</td>
+    <td>
+        @view.Values["Name"] 
+
+<a href = 'javascript:toggle("@string.Format("columnsfor_{0}",pathId)")' > Columns </a> 
+   <table id='columnsfor_@pathId' style='display:none'>
+            <tr>
+            <td>
+            @{ 
+            var item= view as IRowReceiveRelation;            
+            var child= new Tuple<object,StankinsInterfaces.IRow[]>(item,item.Relations["columns"].ToArray());Html.RenderPartial("columns.cshtml",child); 
+            }
+            </td>
+            <tr>
+        </table>
+    </td>
+    </tr>
+}
+</table>
+
