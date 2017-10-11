@@ -86,11 +86,11 @@ namespace ReceiverDatabaseObjects
         }
         protected override async Task<KeyValuePair<string, string>[]> GetViews(KeyValuePair<string, string> database)
         {
-            string parameters = $"@viewName={database.Value}";
+            //string parameters = $"@viewName={database.Value}";
             string commandText = $"use {database.Value}" + @"
-                SELECT object_id as id, schema_id, name 
-                FROM sys.views where name = @viewName order by name";
-            return await FromCmd(commandText, parameters);
+                SELECT object_id as id, name 
+                FROM sys.views  order by name";
+            return await FromCmd(commandText);
         }
         protected override async Task<KeyValuePair<string, string>[]> GetColumns(KeyValuePair<string, string> table, KeyValuePair<string, string> database)
         {

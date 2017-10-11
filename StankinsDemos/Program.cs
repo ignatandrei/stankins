@@ -146,6 +146,8 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Views/tables.cshtml";
             overWriteFile(file, Path.Combine(di.FullName, file));
+            file = "Views/views.cshtml";
+            overWriteFile(file, Path.Combine(di.FullName, file));
             file = "Views/columns.cshtml";
             overWriteFile(file, Path.Combine(di.FullName, file));
             file = "relationalSqlServer.html";
@@ -394,9 +396,10 @@ namespace StankinsDemos
             rr.ConnectionString = "#file:SqlServerConnectionString#";
             string OutputFileName = "relationalSqlServer.html";
             var sender = new Sender_HTMLRazor("Views/sqlserver.cshtml", OutputFileName);
-
+            sender.FileMode = FileMode.Create;
+            var filter = new FilterExcludeRelation(new string[] { "columns", "tables" ,"views"});
             var senderViz = new Sender_HTMLRelationViz("Name", OutputFileName);
-            var filter = new FilterExcludeRelation(new string[] { "columns", "tables" });
+            
 
             var si = new SimpleJobConditionalTransformers();
             si.Receivers.Add(0, rr);
