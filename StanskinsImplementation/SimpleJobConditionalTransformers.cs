@@ -80,12 +80,23 @@ namespace StanskinsImplementation
         }
         public SimpleTree association { get; set; }
         
-        public void AddSender(ISend send)
+        public SimpleJobConditionalTransformers AddSender(ISend send)
         {
             association.Add(send, null);
+            return this;
         }
-        
-        public SimpleContainObjects Add(IBaseObjects transformParentNode, IBaseObjects senderORTransform=null)
+        public SimpleJobConditionalTransformers AddTransformer(ITransform transform)
+        {
+            association.Add(transform, null);
+            return this;
+        }
+        public SimpleJobConditionalTransformers AddFilter(IFilter filter)
+        {
+            association.Add(filter, null);
+            return this;
+        }
+
+        public SimpleJobConditionalTransformers Add(IBaseObjects transformParentNode, IBaseObjects senderORTransform=null)
         {
             //if (!association.ContainsKey(transformParentNode))
             //{                
@@ -102,7 +113,7 @@ namespace StanskinsImplementation
                 //val.Children.Add(senderORTransform);
                 val.Childs.Add(senderORTransform);
             }
-            return val;
+            return this;
         }
 
         public override async Task Execute()
@@ -156,7 +167,12 @@ namespace StanskinsImplementation
                     data = newData;//pass data to the next filter
                     continue;
                 }
-
+                var receiver = transformOrFilter.Key as IReceive;
+                if(receiver != null)
+                {
+                    await receiver.LoadData();
+                    data = receiver.valuesRead;
+                }
 
 
 
@@ -181,5 +197,10 @@ namespace StanskinsImplementation
            
         }
 
+        public SimpleJobConditionalTransformers AddReceiver(IReceive receiver)
+        {
+            this.Receivers.Add(0, receiver);
+            return this;
+        }
     }
 }

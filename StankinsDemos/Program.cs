@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Transformers;
 using System.Threading;
 using ReceiverDll;
+using ReceiverFile;
 
 namespace StankinsDemos
 {
@@ -225,12 +226,14 @@ namespace StankinsDemos
             #endregion
            
             andrei:
-            #region blockly
+            #region blockly table
 
-            var strDemo8 = SimpleJobDllBlockly();
+            var strDemo8 = JobDllBlockly();
             di = Directory.CreateDirectory("Demo8Blockly");
+            if (File.Exists("jobDefinition.txt"))
+                File.Delete("jobDefinition.txt");
             File.WriteAllText("jobDefinition.txt", strDemo8);
-            si = new SimpleJob();
+            si = new SimpleJobConditionalTransformers();
             si.UnSerialize(strDemo8);
             await si.Execute();
             #region move into demos
@@ -247,6 +250,7 @@ namespace StankinsDemos
             overWriteFile(file, Path.Combine(di.FullName, file));
             #endregion
             #endregion
+            
 
         }
         static string DeleteFileIfExists(string fileName)
@@ -280,7 +284,7 @@ namespace StankinsDemos
             return job.SerializeMe();
 
         }
-        static string SimpleJobDllBlockly()
+        static string JobDllBlockly()
         {
             string dir = Environment.CurrentDirectory;
             IReceive folderWithDll = new ReceiverFolderHierarchical("#static:Directory.GetCurrentDirectory()#", "*.dll");
@@ -309,9 +313,15 @@ namespace StankinsDemos
                 )
                 ;
             var senderRow = new SenderByRowToFile("Name", "txt", "Block Definition");
-            var job = new SimpleJob();
-            job.AddReceiver(folderWithDll)
-            .AddTransformer(filterFiles)
+            var clear = new TransformClearValues();
+            var trReceiveHtml=new ReceiverHTMLTable(@"blockly.html", Encoding.UTF8);
+            //var addJS = new TransformModifyField("Name", "{0}.js");
+            var senderBlock = new SenderByRowToFile("Name", "block.js", "Block definition");
+            
+            var job = new SimpleJobConditionalTransformers();
+            job
+            .AddReceiver(folderWithDll)
+            .AddFilter(filterFiles)
             .AddTransformer(loadDllFromFiles)
             .AddFilter(filterTypes)
             .AddFilter(notAbstract)
@@ -320,7 +330,13 @@ namespace StankinsDemos
             .AddFilter(haveProps)
             //.AddTransformer(noInterface)            
             //.AddTransformer(rel2plain)
-            .AddSender(senderHTML);
+            .AddSender(senderHTML)
+            .AddTransformer(clear)
+            .Add(clear, trReceiveHtml) 
+            .Add(clear,senderBlock)
+            
+            ;
+
             return job.SerializeMe();
 
         }

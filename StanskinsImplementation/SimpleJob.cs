@@ -235,12 +235,12 @@ namespace StanskinsImplementation
             this.Senders.Add(Senders.Count, s);
             return this;
         }
-        public SimpleJob AddFilter(IFilterTransformer f)
+        public SimpleJob AddFilter(IFilter f)
         {
             this.FiltersAndTransformers.Add(FiltersAndTransformers.Count, f);
             return this;
         }
-        public SimpleJob AddTransformer(IFilterTransformer t)
+        public SimpleJob AddTransformer(ITransform t)
         {
             this.FiltersAndTransformers.Add(FiltersAndTransformers.Count, t);
             return this;

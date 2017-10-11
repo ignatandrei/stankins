@@ -28,8 +28,9 @@ namespace SenderToFile
             foreach (var item in valuesToBeSent)
             {
                 string nameFile = item.Values[KeyNameFile]?.ToString();
+                //TODO: normalize name file
                 if (addExtension)
-                    nameFile += "." + ExtensionFile;
+                    nameFile +=  ExtensionFile;
 
 
                 var buffer = Encoding.UTF8.GetBytes(item.Values[RowDataKey]?.ToString());

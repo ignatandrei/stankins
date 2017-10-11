@@ -14,9 +14,7 @@ Number Rows: @Model.Length
 <table border="1">
 <thead>
     <tr>
-        <td>
-            Name
-        </td>
+        <td>Name</td>
         <td>Block definition</td>
         <td>Block JS</td>
         <td>Block CodeGenerator</td>
@@ -63,9 +61,7 @@ code +='}}\n';<br />
 <br />}};<br />;", codeReturn);
 
 <tr>
-<td valign="top">
-@item.Values["Name"]
-</td>
+<td valign="top">@item.Values["Name"]</td>
     <td valign="top">@("<block type='"+ @item.Values["Name"]+"'></block>")</td>
     <td valign="top">
         Blockly.Blocks['@item.Values["Name"]'] = {<br />
