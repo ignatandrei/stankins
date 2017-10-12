@@ -4,3 +4,5 @@ xcopy Demo2SimpleJobView StankinsDemo\Demo2SimpleJobView  /I /F /R /E /Y
 xcopy Demo3ExecuteSql StankinsDemo\Demo3ExecuteSql  /I /F /R /E /Y 
 xcopy Demo4DocumentSqlServer StankinsDemo\Demo4DocumentSqlServer  /I /F /R /E /Y 
 xcopy Demo5PBX StankinsDemo\Demo5PBX  /I /F /R /E /Y 
+xcopy Demo7LoadDllTypes StankinsDemo\Demo7LoadDllTypes  /I /F /R /E /Y 
+xcopy Demo8Blockly StankinsDemo\Demo8Blockly  /I /F /R /E /Y 
