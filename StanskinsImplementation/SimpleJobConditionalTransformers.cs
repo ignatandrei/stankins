@@ -171,7 +171,10 @@ namespace StanskinsImplementation
                 if(receiver != null)
                 {
                     await receiver.LoadData();
-                    data = receiver.valuesRead;
+                    var newData = receiver.valuesRead;
+                    await TransformAndSendData(transformOrFilter.Childs, newData);
+                    data = newData;//pass data to the next filter
+                    continue;
                 }
 
 

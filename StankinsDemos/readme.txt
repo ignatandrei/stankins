@@ -1,4 +1,4 @@
-﻿execute the job definition with
+execute the job definition with
 
 dotnet StankinsSimpleJob.dll execute <path to jobDefinition.txt>
 

@@ -37,24 +37,28 @@ Number Rows: @Model.Length
     string fields = "";
     string codeReturn = "var code ='{';<br />";
     string codeGenerator = "Blockly.JavaScript['" + item.Values["Name"]+"'] = function(block) {<br />";
-        var props = rel.Relations["Properties"];
-        foreach (var prop in props)
-        {
-            fields += string.Format(@" this.appendValueInput('val{0}') <br />
+    var props = rel.Relations["Properties"];
+    foreach (var prop in props)
+    {
+        fields += string.Format(@"<br />
+        this.appendValueInput('val{0}') <br />
         //.setCheck('String')<br />
         .appendField('{0}:')<br />
         .appendField(new Blockly.FieldTextInput(''), 'fld{0}');<br />"
-            , prop.Values["Name"]);
-            codeGenerator += string.Format(@"<br />
+        , prop.Values["Name"]);
+        codeGenerator += string.Format(@"<br />
   var text_{0} = block.getFieldValue('fld{0}');<br />
   var value_{0} = Blockly.JavaScript.valueToCode(block, 'val{0}', Blockly.JavaScript.ORDER_ATOMIC);<br />
 var realValue_{0} =value_{0} || text_{0};<br />
   ", prop.Values["Name"]);
-            codeReturn += string.Format("code+=\"{0}:\"+ realValue_{0}+\",\"<br />;", prop.Values["Name"]);
-        }
-
-        codeGenerator +=string.Format
-        (@"
+        codeReturn +=@"
+        "+ string.Format("<br />code+=\"{0}:\"+ realValue_{0}+\",\"<br />;", prop.Values["Name"]);
+    }
+    fields += @"
+    <br />;this.setPreviousStatement(true, null);
+    <br />this.setNextStatement(true, null); ";
+    codeGenerator +=string.Format
+    (@"
   <br />{0} ;<br />
 code +='}}\n';<br />
   return code;<br />
@@ -71,7 +75,7 @@ code +='}}\n';<br />
         @Html.Raw(fields)<br />
         <br />
         this.setTooltip("@item.Values["Name"]");<br />
-        this.setHelpUrl("")<br />
+        this.setHelpUrl("");<br />
         }<br />
         };<br />
     </td>

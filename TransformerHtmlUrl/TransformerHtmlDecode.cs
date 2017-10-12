@@ -11,7 +11,10 @@ namespace TransformerHtmlUrl
         public IRow[] valuesRead { get ; set ; }
         public IRow[] valuesTransformed { get ; set ; }
         public string Name { get ; set ; }
-
+        public TransformerHtmlDecode()
+        {
+            Name = "decode html";
+        }
         public async Task Run()
         {
             valuesTransformed = valuesRead;

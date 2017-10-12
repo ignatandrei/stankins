@@ -23,6 +23,7 @@ using Transformers;
 using System.Threading;
 using ReceiverDll;
 using ReceiverFile;
+using TransformerHtmlUrl;
 
 namespace StankinsDemos
 {
@@ -51,18 +52,47 @@ namespace StankinsDemos
             IJob si;
             DirectoryInfo di = null;
             string file;
-            Action<string, string> overWriteFile = (fileName, fileDestination) =>
+            Action<string, string> moveFile = (fileNameSource, fileDestination) =>
             {
-
-                if (File.Exists(fileDestination))
-                    File.Delete(fileDestination);
                 string destDir = Path.GetDirectoryName(fileDestination);
+
                 if (!Directory.Exists(destDir))
                     Directory.CreateDirectory(destDir);
 
-                File.Copy(fileName, fileDestination);
+                if (File.Exists(fileDestination))
+                    File.Delete(fileDestination);
+
+                
+                File.Move(fileNameSource, fileDestination);
             };
-            
+            Action<string, string> copyFile = (fileNameSource, fileDestination) =>
+            {
+                string destDir = Path.GetDirectoryName(fileDestination);
+
+                if (!Directory.Exists(destDir))
+                    Directory.CreateDirectory(destDir);
+
+                if (File.Exists(fileDestination))
+                    File.Delete(fileDestination);
+
+
+                File.Copy(fileNameSource, fileDestination);
+            };
+            Action<string, string,string> moveFiles = (path,search, pathDestination) =>
+            {
+               
+
+                var files = Directory.EnumerateFiles(path, search, SearchOption.TopDirectoryOnly);
+                foreach(var fileLoop in files)
+                {
+                    var name = Path.GetFileName(fileLoop);
+                    moveFile(fileLoop, Path.Combine(pathDestination, name));
+                }
+                
+            };
+//           
+
+
             //goto andrei;
             var strDemo1 = SimpleJobFolders();
             File.WriteAllText("jobDefinition.txt", strDemo1);
@@ -74,16 +104,16 @@ namespace StankinsDemos
             #region move into demos
             di = Directory.CreateDirectory("Demo1JobFolders");
             file = "readme.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "jobDefinition.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Demo1SimpleJobFolders.html";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Views/RazorHierarchical.cshtml";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo1);
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            moveFile(file, Path.Combine(di.FullName, file));
 
             #endregion
 
@@ -95,16 +125,16 @@ namespace StankinsDemos
             #region move into demos
             di = Directory.CreateDirectory("Demo2SimpleJobView");
             file = "readme.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "jobDefinition.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Demo2SimpleJobView.html";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Views/RazorHierarchical.cshtml";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo2);
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            moveFile(file, Path.Combine(di.FullName, file));
 
             #endregion
             var strDemo3 = ExecuteSqlCIOrder();
@@ -114,19 +144,19 @@ namespace StankinsDemos
             await si.Execute();
             #region move into demos
             file = "readme.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             di = Directory.CreateDirectory("Demo3ExecuteSql");
             file = "jobDefinition.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "SqlToExecute/001Sql.sql";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "SqlToExecute/002Sql.sql";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo3);
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            moveFile(file, Path.Combine(di.FullName, file));
             #endregion
             #region DocumentSqlServer
             //TODO:add demo DocumentSqlServer
@@ -137,27 +167,27 @@ namespace StankinsDemos
             await si.Execute();
             #region move into demos
             file = "readme.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             di = Directory.CreateDirectory("Demo4DocumentSqlServer");
             file = "jobDefinition.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Views/sqlserver.cshtml";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Views/databases.cshtml";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Views/tables.cshtml";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Views/views.cshtml";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "Views/columns.cshtml";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "relationalSqlServer.html";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo4);
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            moveFile(file, Path.Combine(di.FullName, file));
 
             #endregion
 
@@ -180,15 +210,15 @@ namespace StankinsDemos
 
             #region move into demos
             file = "readme.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             di = Directory.CreateDirectory("Demo5PBX");
             file = "jobDefinition.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo5);
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            moveFile(file, Path.Combine(di.FullName, file));
             #endregion
             #endregion
             #region analysis project
@@ -197,9 +227,9 @@ namespace StankinsDemos
                 await ExecuteSlnAnalysis();
                 di = Directory.CreateDirectory("Demo6AnalysisProject");
                 file = "Stankins.html";
-                overWriteFile(file, Path.Combine(di.FullName, file));
+                moveFile(file, Path.Combine(di.FullName, file));
                 file = "StankinsNETFramework.html";
-                overWriteFile(file, Path.Combine(di.FullName, file));
+                moveFile(file, Path.Combine(di.FullName, file));
             }
             #endregion
 
@@ -212,16 +242,16 @@ namespace StankinsDemos
             await si.Execute();
             #region move into demos
             file = "readme.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "jobDefinition.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "relationalDLL.html";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            moveFile(file, Path.Combine(di.FullName, file));
             //execute visualization
             file = ExecuteVisualizationDefinitionSimpleJob(strDemo7);
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            moveFile(file, Path.Combine(di.FullName, file));
             #endregion
             #endregion
            
@@ -238,16 +268,18 @@ namespace StankinsDemos
             await si.Execute();
             #region move into demos
             file = "readme.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "jobDefinition.txt";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "appsettings.json";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            copyFile(file, Path.Combine(di.FullName, file));
             file = "blockly.html";
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            moveFile(file, Path.Combine(di.FullName, file));
             //execute visualization
-            file = ExecuteVisualizationDefinitionSimpleJob(strDemo8);
-            overWriteFile(file, Path.Combine(di.FullName, file));
+            var dirBlocks = Path.Combine(di.FullName, "blocks");
+           moveFiles(Directory.GetCurrentDirectory(), "*block*.*", dirBlocks);
+           file = ExecuteVisualizationDefinitionSimpleJob(strDemo8);
+            moveFile(file, Path.Combine(di.FullName, file));
             #endregion
             #endregion
             
@@ -315,8 +347,11 @@ namespace StankinsDemos
             var senderRow = new SenderByRowToFile("Name", "txt", "Block Definition");
             var clear = new TransformClearValues();
             var trReceiveHtml=new ReceiverHTMLTable(@"blockly.html", Encoding.UTF8);
+            var decodeHtml = new TransformerHtmlDecode();
             //var addJS = new TransformModifyField("Name", "{0}.js");
-            var senderBlock = new SenderByRowToFile("Name", "block.js", "Block definition");
+            var senderBlockTag = new SenderByRowToFile("Name", "blockDefinition.txt", "Block definition");
+            var senderBlockDefinitionJs= new SenderByRowToFile("Name", "blockDefinition.js", "Block JS");
+            var senderBlockCodeJs = new SenderByRowToFile("Name", "blockCodeJavascript.js", "Block CodeGenerator");
             
             var job = new SimpleJobConditionalTransformers();
             job
@@ -333,7 +368,10 @@ namespace StankinsDemos
             .AddSender(senderHTML)
             .AddTransformer(clear)
             .Add(clear, trReceiveHtml) 
-            .Add(clear,senderBlock)
+            .Add(trReceiveHtml, decodeHtml)
+            .Add(decodeHtml, senderBlockTag)
+            .Add(decodeHtml, senderBlockDefinitionJs)
+            .Add(decodeHtml, senderBlockCodeJs)
             
             ;
 
