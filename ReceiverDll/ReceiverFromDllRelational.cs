@@ -23,7 +23,8 @@ namespace ReceiverDll
             rr = new RowReadRelation();
             AssemblyName an = assembly.GetName();
             rr.Values.Add("CodeBase", an.CodeBase);
-            rr.Values.Add("AssemblyName", an.FullName);
+            rr.Values.Add("AssemblyFullName", an.FullName);
+            rr.Values.Add("AssemblyName", an.Name);
 
             rr.Values.Add("Name", an.Name);
             var types = new List<IRowReceiveRelation>();
@@ -40,7 +41,8 @@ namespace ReceiverDll
             typeRR.Values.Add("IsGeneric", item.IsGenericType);
             typeRR.Values.Add("IsAbstract", item.IsAbstract);
             typeRR.Values.Add("IsInterface", item.IsInterface);
-            typeRR.Values.Add("AssemblyName", assembly.FullName);
+            typeRR.Values.Add("AssemblyFullName", assembly.FullName);
+            typeRR.Values.Add("AssemblyName", assembly.GetName().Name);
             types.Add(typeRR);
             var interfaces = new List<IRowReceiveRelation>();
             typeRR.Relations.Add("Interfaces", interfaces);

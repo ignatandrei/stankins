@@ -85,6 +85,7 @@ namespace ReceiverDll
             rr.Values.Add("Name", item.Name);
             rr.Values.Add("FullName", item.FullName);
             rr.Values.Add("AssemblyName", an.Name);
+            rr.Values.Add("AssemblyFullName", an.FullName);
             if (LoadInterfaces)
             {
                 rr.Values.Add("Interfaces", interfaces);
