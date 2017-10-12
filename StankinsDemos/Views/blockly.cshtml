@@ -33,7 +33,11 @@ Number Rows: @Model.Length
     {
         continue;
     }
-
+    if (!rel.Relations.ContainsKey("Interfaces"))
+    {
+        continue;
+    }
+    
     string fields = "";
     string codeReturn = "var code ='{';<br />";
     string codeGenerator = "Blockly.JavaScript['" + item.Values["Name"]+"'] = function(block) {<br />";
@@ -54,9 +58,7 @@ var realValue_{0} =value_{0} || {1} + text_{0} + {1};<br />
         codeReturn +=@"
         "+ string.Format("<br />code+=\"{0}:\"+ realValue_{0}+\",\"<br />;", prop.Values["Name"]);
     }
-    fields += @"
-    <br />;this.setPreviousStatement(true, null);
-    <br />this.setNextStatement(true, null); ";
+    
     codeReturn +=string.Format(@"
 "+
     "code+=\"$type: '{0}, {1}'\";",
@@ -65,7 +67,7 @@ var realValue_{0} =value_{0} || {1} + text_{0} + {1};<br />
     (@"
   <br />{0} ;<br />
 code +='}}\n';<br />
-  return code;<br />
+  return  [code, Blockly.JavaScript.ORDER_NONE];<br />
 <br />}};<br />;", codeReturn);
 
 <tr>
@@ -80,6 +82,7 @@ code +='}}\n';<br />
         <br />
         this.setTooltip("@item.Values["Name"]");<br />
         this.setHelpUrl("");<br />
+        //this.setOutput(true, "Sender");
         }<br />
         };<br />
     </td>
