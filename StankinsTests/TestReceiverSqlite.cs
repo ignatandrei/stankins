@@ -185,5 +185,88 @@ namespace StankinsTests
                 #endregion
             }
         }
+
+        [TestMethod]
+        public async Task TestLoadWholeTableEachTime()
+        {
+            #region ARRANGE
+            //ADD A DATABASE AND PUT nrPostsToAdd data into table
+            ISerializeData sd = new SerializeDataInMemory();
+
+            var connection = new SqliteConnection();
+            connection.ConnectionString = "DataSource=:memory:";
+            connection.Open();
+
+            var options = new DbContextOptionsBuilder<ApiContext>()
+             .UseSqlite(connection)
+             .Options;
+            using (var context = new ApiContext(options))
+            {
+                context.Database.EnsureCreated();
+            }
+            int nrPostsToAdd = 10;
+            using (var contextAdd = new ApiContext(options))
+            {
+                for (int i = 0; i < nrPostsToAdd; i++)
+                {
+                    contextAdd.Posts.Add(new Post()
+                    {
+                        Id = i + 1,
+                        UserId = i * 2,
+                        Content = "Post" + i
+                    });
+                }
+                await contextAdd.SaveChangesAsync();
+            }
+
+            #endregion
+            #region ACT
+            using (var dt = new DBTableDataSqliteMemory<FakeComparable>(connection, sd)
+            {
+                ConnectionString = "DataSource=:memory:",                
+                TableName = "Posts"
+            })
+            {
+                IReceive r = new ReceiverWholeTableSQLite(dt);
+                await r.LoadData();
+
+                #endregion
+                #region ASSERT
+
+                Assert.AreEqual(nrPostsToAdd, r.valuesRead.Length);                
+                #endregion
+                #region arange add new data into table
+                using (var contextAddNew = new ApiContext(options))
+                {
+
+                    contextAddNew.Posts.Add(new Post()
+                    {
+                        Id = nrPostsToAdd * 2,
+                        UserId = nrPostsToAdd,
+                        Content = "Post" + nrPostsToAdd
+                    });
+                    await contextAddNew.SaveChangesAsync();
+
+                }
+                #endregion
+                #region act
+                await r.LoadData();
+                #endregion
+                #region assert
+                Assert.AreEqual(nrPostsToAdd+1, r.valuesRead.Length);                
+                #endregion
+                #region arange
+                //load from the beginning
+                
+                #endregion
+                #region act
+                await r.LoadData();
+                #endregion
+                #region assert
+                Assert.AreEqual(nrPostsToAdd +1, r.valuesRead.Length);
+                
+                #endregion
+            }
+        }
     }
 }

@@ -278,7 +278,9 @@ namespace StankinsDemos
             //execute visualization
             var dirBlocks = Path.Combine(di.FullName, "blocks");
            moveFiles(Directory.GetCurrentDirectory(), "*block*.*", dirBlocks);
-           file = ExecuteVisualizationDefinitionSimpleJob(strDemo8);
+            moveFiles(Directory.GetCurrentDirectory(), "*def*.*", dirBlocks);
+            moveFiles(Directory.GetCurrentDirectory(), "*code*.*", dirBlocks);
+            file = ExecuteVisualizationDefinitionSimpleJob(strDemo8);
             moveFile(file, Path.Combine(di.FullName, file));
             #endregion
             #endregion
@@ -349,9 +351,9 @@ namespace StankinsDemos
             var trReceiveHtml=new ReceiverHTMLTable(@"blockly.html", Encoding.UTF8);
             var decodeHtml = new TransformerHtmlDecode();
             //var addJS = new TransformModifyField("Name", "{0}.js");
-            var senderBlockTag = new SenderByRowToFile("Name", "blockDefinition.txt", "Block definition");
-            var senderBlockDefinitionJs= new SenderByRowToFile("Name", "blockDefinition.js", "Block JS");
-            var senderBlockCodeJs = new SenderByRowToFile("Name", "blockCodeJavascript.js", "Block CodeGenerator");
+            var senderBlockTag = new SenderByRowToFile("Name", "_def.txt", "Block definition");
+            var senderBlockDefinitionJs= new SenderByRowToFile("Name", "_block.js", "Block JS");
+            var senderBlockCodeJs = new SenderByRowToFile("Name", "_code.js", "Block CodeGenerator");
             
             var job = new SimpleJobConditionalTransformers();
             job

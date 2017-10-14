@@ -44,22 +44,26 @@ namespace ReceiverDB
             var valSaved = tableData.lastValue;
 
             var cn = await tableData.GetConnection();
-            
+            bool CompareValues = !String.IsNullOrWhiteSpace(tableData.FieldNameToMark);
             using (var cmd = cn.CreateCommand())
             {
                 string fields = String.Join(",", tableData.Fields);
-                cmd.CommandText = $"select {fields} from {tableData.TableName} ";
+                string CommandText = $"select {fields} from {tableData.TableName} ";
 
-                if (!valSaved.Equals(default(T)))
+                if (CompareValues && !valSaved.Equals(default(T)))
                 {
-                    cmd.CommandText += $" where {tableData.FieldNameToMark} > @lastValue";
+                    CommandText += $" where {tableData.FieldNameToMark} > @lastValue";
                     var param = cmd.CreateParameter();
                     param.ParameterName = "@lastValue";
                     param.Value = tableData.lastValue;
                     cmd.Parameters.Add(param);
                 }
-                cmd.CommandText += $" order by {tableData.FieldNameToMark} asc";
-                cmd.CommandText += MaxRowsToLoad();
+                if (CompareValues)
+                {
+                    CommandText += $" order by {tableData.FieldNameToMark} asc";
+                }
+                CommandText += MaxRowsToLoad();
+                cmd.CommandText = CommandText;
                 var reader = await cmd.ExecuteReaderAsync();
                 //TODO: replace with datatable
                 var nrFields = reader.FieldCount;
@@ -89,8 +93,9 @@ namespace ReceiverDB
                 }
 
                 valuesRead = values.ToArray();
-                if (values.Count > 0 )
+                if (values.Count > 0 && CompareValues)
                 {
+                    
                     var lastVal = valLoop.Values[tableData.FieldNameToMark];
                     if (lastVal != null && lastVal != DBNull.Value)
                     {

@@ -94,7 +94,7 @@ namespace ReceiverDll
             {
                 rr.Values.Add("BaseTypes", baseTypes);
             }
-            rr.Values.Add("AssemblyFullName", an.FullName);
+            
             ret.Add(rr);
         }
 

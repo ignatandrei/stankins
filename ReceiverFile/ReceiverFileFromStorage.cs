@@ -7,13 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ReceiverFile
 {
-    public class FakeComparable : IComparable<FakeComparable>
-    {
-        public int CompareTo(FakeComparable other)
-        {
-            return 0;
-        }
-    }
+    
     /// <summary>
     /// override process line
     /// </summary>    

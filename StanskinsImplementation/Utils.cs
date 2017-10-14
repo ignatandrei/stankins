@@ -5,6 +5,13 @@ using System.Text;
 
 namespace StanskinsImplementation
 {
+    public class FakeComparable : IComparable<FakeComparable>
+    {
+        public int CompareTo(FakeComparable other)
+        {
+            return 0;
+        }
+    }
     public static class Utils
     {
         public static bool CompareDictionary(Dictionary<string, object> x, Dictionary<string, object> y)
