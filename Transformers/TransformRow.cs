@@ -20,9 +20,13 @@ namespace Transformers
         }
         public IRow[] valuesRead { get; set; }
         public IRow[] valuesTransformed { get; set; }
-
+        protected virtual string ModifyExpression(string theExpression)
+        {
+            return theExpression;
+        }
         public async Task Run()
         {
+            TheExpression = ModifyExpression(TheExpression);
             var script = CSharpScript.Create<Dictionary<string,object>>(TheExpression,
                 globalsType: typeof(IRow),
                 options:ScriptOptions.Default.AddReferences(

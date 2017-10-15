@@ -8,8 +8,30 @@
   <script src="blockly/javascript_compressed.js"></script>
   <script src="blockly/msg/js/en.js"></script>
   <script src='stankinsblocks/simplejob.js'></script>
-  <script src='stankinsblocks/ReceiverTableSQLServerIntblockCodeJavascript.js'></script>
-  <script src='stankinsblocks/Sender_CSVblockCodeJavascript.js'></script>
+  
+  
+  <script src='stankinsblocks/ReceiverWholeTableSqlServer_block.js'></script>
+  <script src='stankinsblocks/ReceiverWholeTableSqlServer_code.js'></script>
+  
+  
+  <script src='stankinsblocks/TransformRowMergeFields_block.js'></script>
+  <script src='stankinsblocks/TransformRowMergeFields_code.js'></script>
+  
+  <script src='stankinsblocks/Sender_CSV_block.js'></script>
+  <script src='stankinsblocks/Sender_CSV_code.js'></script>
+  
+  <script src='stankinsblocks/TransformerFieldStringToDate_block.js'></script>
+  <script src='stankinsblocks/TransformerFieldStringToDate_code.js'></script>
+  
+  <script src='stankinsblocks/TransformerFieldStringInt_block.js'></script>
+  <script src='stankinsblocks/TransformerFieldStringInt_code.js'></script>
+  
+  
+  <script src='stankinsblocks/FilterComparableEqual_block.js'></script>
+  <script src='stankinsblocks/FilterComparableEqual_code.js'></script>
+  
+  
+  
     <link href="hopscotch/css/hopscotch.min.css" rel="stylesheet" />
 	
 	
@@ -52,19 +74,23 @@
 		<block type='simplejob'></block>
 	</category>
 	<category name='receivers'>
-		<block type='ReceiverTableSQLServerInt'></block>
+		<block type='ReceiverWholeTableSqlServer'></block>
 	</category>
 	<category name='transformers'>
+		<block type='TransformRowMergeFields'></block>
+		
+		<block type='TransformerFieldStringToDate'></block>
+		<block type='TransformerFieldStringInt'></block>
 		
 	</category>
 	<category name='filters'>
-		
+		<block type='FilterComparableEqual'></block>
 	</category>
 	<category name='senders'>
 		<block type='Sender_CSV'></block>
 	</category>
 	
-    <category name="{catLogic}" colour="210">
+        <category name="{catLogic}" colour="210">
       <block type="controls_if"></block>
       <block type="logic_compare"></block>
       <block type="logic_operation"></block>
@@ -358,25 +384,28 @@
     <sep></sep>
     <category name="{catVariables}" colour="330" custom="VARIABLE"></category>
     <category name="{catFunctions}" colour="290" custom="PROCEDURE"></category>
-  </xml>
+	
+   </xml>
 
   <xml id="startBlocks" style="display: none">
   <block type='simplejob' inline="false" x="20" y="20">
 	<value name='Receivers'>
-		<block type='ReceiverTableSQLServerInt' inline="false" ></block>
+		<block type='ReceiverWholeTableSqlServer' inline="false" ></block>
 	</value>
-	<value name='Senders'>
-	<block type='lists_create_with' inline="false" >
-	  <mutation items="3"></mutation> 
-	 <value i="0"> 
-          <block type="Sender_CSV" inline="false"></block> 
-        </value> 
-	</block>
+	<value name='FiltersAndTransformers'>
+		<block type='lists_create_with' inline="false" >
+		  <mutation items="3"></mutation> 
+		 
+		</block>
+	</value>
 	
-	</value>
-  </block>
-   
-     
+	<value name='Senders'>
+	 
+	
+	  <block type="Sender_CSV" inline="false"></block> 
+	</value> 
+	</block>
+	 
   </xml>
 
   <script>
