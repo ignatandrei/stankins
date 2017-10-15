@@ -8,11 +8,28 @@
   <script src="blockly/javascript_compressed.js"></script>
   <script src="blockly/msg/js/en.js"></script>
   <script src='stankinsblocks/simplejob.js'></script>
+  
+  
   <script src='stankinsblocks/ReceiverWholeTableSqlServer_block.js'></script>
   <script src='stankinsblocks/ReceiverWholeTableSqlServer_code.js'></script>
   
+  
+  <script src='stankinsblocks/TransformRowMergeFields_block.js'></script>
+  <script src='stankinsblocks/TransformRowMergeFields_code.js'></script>
+  
   <script src='stankinsblocks/Sender_CSV_block.js'></script>
   <script src='stankinsblocks/Sender_CSV_code.js'></script>
+  
+  <script src='stankinsblocks/TransformerFieldStringToDate_block.js'></script>
+  <script src='stankinsblocks/TransformerFieldStringToDate_code.js'></script>
+  
+  <script src='stankinsblocks/TransformerFieldStringInt_block.js'></script>
+  <script src='stankinsblocks/TransformerFieldStringInt_code.js'></script>
+  
+  
+  <script src='stankinsblocks/FilterComparableEqual_block.js'></script>
+  <script src='stankinsblocks/FilterComparableEqual_code.js'></script>
+  
   
   
     <link href="hopscotch/css/hopscotch.min.css" rel="stylesheet" />
@@ -60,10 +77,14 @@
 		<block type='ReceiverWholeTableSqlServer'></block>
 	</category>
 	<category name='transformers'>
+		<block type='TransformRowMergeFields'></block>
+		
+		<block type='TransformerFieldStringToDate'></block>
+		<block type='TransformerFieldStringInt'></block>
 		
 	</category>
 	<category name='filters'>
-		
+		<block type='FilterComparableEqual'></block>
 	</category>
 	<category name='senders'>
 		<block type='Sender_CSV'></block>
@@ -363,6 +384,7 @@
     <sep></sep>
     <category name="{catVariables}" colour="330" custom="VARIABLE"></category>
     <category name="{catFunctions}" colour="290" custom="PROCEDURE"></category>
+	
    </xml>
 
   <xml id="startBlocks" style="display: none">
@@ -383,11 +405,7 @@
 	  <block type="Sender_CSV" inline="false"></block> 
 	</value> 
 	</block>
-	
-	</value>
-  </block>
-   
-     
+	 
   </xml>
 
   <script>
