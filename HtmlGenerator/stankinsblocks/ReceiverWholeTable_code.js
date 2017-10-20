@@ -12,11 +12,16 @@ var realValue_TableName =value_TableName || "'" + text_TableName + "'";
   var value_ConnectionString= Blockly.JavaScript.valueToCode(block, 'valConnectionString', Blockly.JavaScript.ORDER_ATOMIC);
 var realValue_ConnectionString=value_ConnectionString|| "'" + text_ConnectionString+ "'";
   
-  
+  var text_receivertype = block.getFieldValue('ReceiverType');
+  var value_receivertype = Blockly.JavaScript.valueToCode(block, 'ReceiverType', Blockly.JavaScript.ORDER_ATOMIC);
+  var realValue_receivertype=value_receivertype|| text_receivertype;
+  //debugger;
   var code ='{';
         code+="Name:"+ realValue_Name+",";
+		code+="ReceiverType:"+ realValue_receivertype+",";        		
         code+="TableName:"+ realValue_TableName+",";        
 		code+="ConnectionString:"+ realValue_ConnectionString+",";        
+		
 code+="$type: 'BlocklyClasses.ReceiverWholeTable, BlocklyClasses'"; ;
 code +='}\n';
   return  [code, Blockly.JavaScript.ORDER_NONE];

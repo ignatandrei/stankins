@@ -8,6 +8,14 @@
         .setCheck('String')
         .appendField('Name:')
         .appendField(new Blockly.FieldTextInput('Receiver Table'), 'fldName');
+		
+		this.appendValueInput("ReceiverType")
+        .setCheck(Number)
+		.appendField('Type:')
+        .appendField(new Blockly.FieldDropdown([["SqlServer","1"], ["SqlLite","2"], ["MySql","3"]]), "ReceiverType");
+
+		
+			
         this.appendValueInput('valTableName') 
         .setCheck('String')
         .appendField('Name Table:')
