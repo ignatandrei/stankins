@@ -51,7 +51,7 @@ namespace StankinsTests
             row3.SetupProperty(it => it.Values,
                 new Dictionary<string, object>()
                 {
-                    ["ID"] = 2,
+                    ["ID"] = 3,
                     ["XmlEventData"] = 
 @"<event name=""wait_info"" package=""sqlos"" timestamp=""2017-10-04T21:17:15.426Z"">
     <data name=""wait_type"">
@@ -71,11 +71,12 @@ namespace StankinsTests
                 }
             );
             rows.Add(row3.Object);
+
+            var transform = new TransformXPath(@"wait_type=XmlEventData(event/data[@name = ""wait_type""]/text/text())[1];duration=XmlEventData(event/data[@name = ""duration""]/value/text())[1];db=XmlEventData(event/action[@name = ""db""]/value/text())[1]");
+            transform.valuesRead = rows.ToArray();
             #endregion
 
             #region act
-            var transform = new TransformXPath(@"wait_type=XmlEventData(event/data[@name = ""wait_type""]/text/text())[1];duration=XmlEventData(event/data[@name = ""duration""]/value/text())[1];db=XmlEventData(event/action[@name = ""db""]/value/text())[1]");
-            transform.valuesRead = rows.ToArray();
             await transform.Run();
             #endregion
 
