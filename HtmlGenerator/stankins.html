@@ -10,8 +10,8 @@
   <script src='stankinsblocks/simplejob.js'></script>
   
   
-  <script src='stankinsblocks/ReceiverWholeTableSqlServer_block.js'></script>
-  <script src='stankinsblocks/ReceiverWholeTableSqlServer_code.js'></script>
+  <script src='stankinsblocks/ReceiverWholeTable_block.js'></script>
+  <script src='stankinsblocks/ReceiverWholeTable_code.js'></script>
   
   
   <script src='stankinsblocks/TransformRowMergeFields_block.js'></script>
@@ -74,7 +74,7 @@
 		<block type='simplejob'></block>
 	</category>
 	<category name='receivers'>
-		<block type='ReceiverWholeTableSqlServer'></block>
+		<block type='ReceiverWholeTable'></block>
 	</category>
 	<category name='transformers'>
 		<block type='TransformRowMergeFields'></block>
@@ -390,7 +390,7 @@
   <xml id="startBlocks" style="display: none">
   <block type='simplejob' inline="false" x="20" y="20">
 	<value name='Receivers'>
-		<block type='ReceiverWholeTableSqlServer' inline="false" ></block>
+		<block type='ReceiverWholeTable' inline="false" ></block>
 	</value>
 	<value name='FiltersAndTransformers'>
 		<block type='lists_create_with' inline="false" >

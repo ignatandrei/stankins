@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonDB\CommonDB.csproj" />
+    <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\ReceiverDBMySQL\ReceiverDBMySQL.csproj" />
+    <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
+    <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
+    <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
+    <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
+    <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
+  </ItemGroup>
+
+</Project>
