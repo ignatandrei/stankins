@@ -19,10 +19,10 @@ Blockly.Blocks['simplejob'] = {
   }
 };
 Blockly.JavaScript['simplejob'] = function(block) {
-  var value_receivers = eval(Blockly.JavaScript.valueToCode(block, 'Receivers', Blockly.JavaScript.ORDER_ATOMIC));
-  var value_filtersandtransformers = eval(Blockly.JavaScript.valueToCode(block, 'FiltersAndTransformers', Blockly.JavaScript.ORDER_ATOMIC));
-  var value_senders = eval(Blockly.JavaScript.valueToCode(block, 'Senders', Blockly.JavaScript.ORDER_ATOMIC));
-  debugger;
+  var value_receivers = (Blockly.JavaScript.valueToCode(block, 'Receivers', Blockly.JavaScript.ORDER_ATOMIC));
+  var value_filtersandtransformers = (Blockly.JavaScript.valueToCode(block, 'FiltersAndTransformers', Blockly.JavaScript.ORDER_ATOMIC));
+  var value_senders = (Blockly.JavaScript.valueToCode(block, 'Senders', Blockly.JavaScript.ORDER_ATOMIC));
+  //debugger;
  if(!Array.isArray((value_receivers)))
 	value_receivers=[value_receivers];
 
@@ -34,7 +34,7 @@ if(!Array.isArray((value_senders)))
 
 
 var code = '\n';
-code+="{";
+code+="var job={";
 code += '\n';
 code += "'$type': 'StanskinsImplementation.SimpleJob, StanskinsImplementation',";
 code += '\n';
@@ -103,6 +103,7 @@ code += '\n';
 
 code += "}";//end of job
 code += '\n';
+code += 'job;';
   return code;
 };
 

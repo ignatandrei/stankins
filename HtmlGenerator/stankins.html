@@ -387,10 +387,34 @@
 	
    </xml>
 
+  
   <xml id="startBlocks" style="display: none">
-  <block type='simplejob' inline="false" x="20" y="20">
+  <block type="variables_set" >
+                <field name="VAR">TheConnectionString</field>
+                <value name="VALUE">
+                  <block type="text" >
+                    <field name="TEXT">Server=.;Database=myTestDatabase;Trusted_Connection=True;</field>
+                  </block>
+                </value>
+				
+              </block>
+
+  <block type='simplejob' inline="false" x="20" y="40">
+  
 	<value name='Receivers'>
-		<block type='ReceiverWholeTable' inline="false" ></block>
+		<block type='ReceiverWholeTable' inline="false" >
+		<field name="fldTableName">Department</field>
+		
+		<value name="valConnectionString">
+		 <block type="variables_get">
+
+                      <field name="VAR">TheConnectionString</field>
+
+                    </block>
+		</value>
+		
+		
+		</block>
 	</value>
 	<value name='FiltersAndTransformers'>
 		<block type='lists_create_with' inline="false" >
@@ -419,8 +443,9 @@
       // Generate JavaScript code and display it.
       Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
       var code = Blockly.JavaScript.workspaceToCode(workspace);
-	  
-      $("#fileGenerated").val(code);
+	  //debugger;
+	  var x=eval(code);
+      $("#fileGenerated").val(JSON.stringify(x));
     }
 
     function runCode() {
