@@ -445,6 +445,7 @@
       var code = Blockly.JavaScript.workspaceToCode(workspace);
 	  //debugger;
 	  var x=eval(code);
+	  //$("#fileGenerated").val(code);
       $("#fileGenerated").val(JSON.stringify(x));
     }
 

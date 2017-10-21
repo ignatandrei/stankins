@@ -52,7 +52,7 @@ for(var i=0;i<value_receivers.length;i++){
 			continue;
 	code += ",'"+ nr++  + "': ";
 	code += '\n';
-	code+=JSON.stringify(valLoop) + "\n";
+	code+=(valLoop) + "\n";
 	code += "";
 	code += '\n';
 }
@@ -65,7 +65,7 @@ code += '\n';
 code += "'$type': 'StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces'";
 code += '\n';
 
-
+nr=0;
 for(var i=0;i<value_filtersandtransformers.length;i++){
 	var valLoop=value_filtersandtransformers[i];
 	if(valLoop == null || valLoop=='null')
@@ -73,12 +73,13 @@ for(var i=0;i<value_filtersandtransformers.length;i++){
 
 	code += ",'"+ nr++  + "': ";
 	code += '\n';
-	code+=JSON.stringify(valLoop) + "\n";
+	code+=(valLoop) + "\n";
 	code += "";
 	code += '\n';
 
 	
 }
+
 code += "},";//end of filters transformers
 code += '\n';
 
@@ -86,14 +87,14 @@ code += "'Senders': {";
 code += '\n';
 code += "'$type': 'StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces'";
 code += '\n';	
-	
+	nr=0;
 for(var i=0;i<value_senders.length;i++){
 	var valLoop=value_senders[i];
 	if(valLoop == null  || valLoop=='null')
 			continue;
 	code += ",'"+ nr++  + "': ";
 	code += '\n';
-	code+=JSON.stringify(valLoop) + "\n";
+	code+=(valLoop) + "\n";
 	code += "";
 	code += '\n';
 
@@ -103,7 +104,9 @@ code += '\n';
 
 code += "}";//end of job
 code += '\n';
-code += 'job;';
+code += ';//var t=eval(JSON.stringify(job));';
+code += '\n';
+code += 'job;\n';
   return code;
 };
 
