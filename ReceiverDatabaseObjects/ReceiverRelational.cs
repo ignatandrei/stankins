@@ -20,16 +20,16 @@ namespace ReceiverDatabaseObjects
         {
             Name = "get details from relational server";
         }
-        protected abstract Task<KeyValuePair<string, object>[]> GetServerDetails();
-        protected abstract Task<KeyValuePair<string,string>[]> GetDatabases();
-        protected abstract Task<KeyValuePair<string, string>[]> GetTables(KeyValuePair<string,string> database);
-        protected abstract Task<KeyValuePair<string, string>[]> GetViews(KeyValuePair<string, string> database);
-        protected abstract Task<KeyValuePair<string, string>[]> GetColumns(KeyValuePair<string, string> table, KeyValuePair<string, string> database);
+        protected abstract Task<KeyValuePair<string, object>[]> GetServerDetailsAsync();
+        protected abstract Task<KeyValuePair<string,string>[]> GetDatabasesAsync();
+        protected abstract Task<KeyValuePair<string, string>[]> GetTablesAsync(KeyValuePair<string,string> database);
+        protected abstract Task<KeyValuePair<string, string>[]> GetViewsAsync(KeyValuePair<string, string> database);
+        protected abstract Task<KeyValuePair<string, string>[]> GetColumnsAsync(KeyValuePair<string, string> table, KeyValuePair<string, string> database);
         public async Task LoadData()
         {
             var rr = new Dictionary<string, RowReadRelation>();
             var rrhServer= new RowReadRelation();
-            foreach (var item in await GetServerDetails())
+            foreach (var item in await GetServerDetailsAsync())
             {
                 rrhServer.Values.Add(item.Key,item.Value);
             }
@@ -38,7 +38,7 @@ namespace ReceiverDatabaseObjects
             var dbsList = new List<IRowReceiveRelation>();
             rrhServer.Relations.Add("databases", dbsList);
             
-            var dbs = await GetDatabases();
+            var dbs = await GetDatabasesAsync();
             bool allDatabases= string.IsNullOrWhiteSpace(DatabaseName);
             foreach(var db in dbs)
             {
@@ -57,7 +57,7 @@ namespace ReceiverDatabaseObjects
                 var dbsTables= new List<IRowReceiveRelation>();
                 rrDatabase.Relations.Add("tables", dbsTables);
                 
-                var tables=await GetTables(db);
+                var tables=await GetTablesAsync(db);
                 foreach(var table in tables)
                 {
                     var rrTable = new RowReadRelation();
@@ -68,11 +68,9 @@ namespace ReceiverDatabaseObjects
                     
                     rr.Add(rrTable.Values["PathID"].ToString(), rrTable);
                     
-
-
                     var dbsColumns= new List<IRowReceiveRelation>();
                     rrTable.Relations.Add("columns", dbsColumns);
-                    var cols = await GetColumns(table,db);
+                    var cols = await GetColumnsAsync(table,db);
                     foreach (var col in cols)
                     {
                         var rrCol= new RowReadRelation();
@@ -88,7 +86,7 @@ namespace ReceiverDatabaseObjects
                 var dbsViews = new List<IRowReceiveRelation>();
                 rrDatabase.Relations.Add("views", dbsViews);
 
-                var views = await GetViews(db);
+                var views = await GetViewsAsync(db);
 
                 foreach(var view in views)
                 {
@@ -102,7 +100,7 @@ namespace ReceiverDatabaseObjects
 
                     var dbsColumns = new List<IRowReceiveRelation>();
                     rrView.Relations.Add("columns", dbsColumns);
-                    var cols = await GetColumns(view, db);
+                    var cols = await GetColumnsAsync(view, db);
                     foreach (var col in cols)
                     {
                         var rrCol = new RowReadRelation();

@@ -12,7 +12,7 @@ namespace ReceiverDatabaseObjects
         {
             Name = "get details from sql server";
         }
-        protected override async Task<KeyValuePair<string, object>[]> GetServerDetails()
+        protected override async Task<KeyValuePair<string, object>[]> GetServerDetailsAsync()
         {
             var ret = new List<KeyValuePair<string, object>>();
             var sb = new SqlConnectionStringBuilder(ConnectionString);
@@ -20,7 +20,7 @@ namespace ReceiverDatabaseObjects
             ret.Add(new KeyValuePair<string, object>("ID", sb.DataSource));
             return await Task.FromResult(ret.ToArray());
         }
-        protected override async Task<KeyValuePair<string, string>[]> GetDatabases()
+        protected override async Task<KeyValuePair<string, string>[]> GetDatabasesAsync()
         {
             return await FromCmd("SELECT dbid as id,name FROM master.dbo.sysdatabases order by name");
         }
@@ -74,7 +74,7 @@ namespace ReceiverDatabaseObjects
             }
             return ret.ToArray();
         }
-        protected override async Task<KeyValuePair<string, string>[]> GetTables(KeyValuePair<string, string> database)
+        protected override async Task<KeyValuePair<string, string>[]> GetTablesAsync(KeyValuePair<string, string> database)
         {
             string parameters = $"@tableName={database.Value}";
             string commandText = $"use {database.Value}"+@"
@@ -84,7 +84,7 @@ namespace ReceiverDatabaseObjects
                 order by TABLE_SCHEMA + '.'+TABLE_NAME";
             return await FromCmd(commandText,parameters);
         }
-        protected override async Task<KeyValuePair<string, string>[]> GetViews(KeyValuePair<string, string> database)
+        protected override async Task<KeyValuePair<string, string>[]> GetViewsAsync(KeyValuePair<string, string> database)
         {
             //string parameters = $"@viewName={database.Value}";
             string commandText = $"use {database.Value}" + @"
@@ -92,7 +92,7 @@ namespace ReceiverDatabaseObjects
                 FROM sys.views  order by name";
             return await FromCmd(commandText);
         }
-        protected override async Task<KeyValuePair<string, string>[]> GetColumns(KeyValuePair<string, string> table, KeyValuePair<string, string> database)
+        protected override async Task<KeyValuePair<string, string>[]> GetColumnsAsync(KeyValuePair<string, string> table, KeyValuePair<string, string> database)
         {
             string parameters = $"@tableId={table.Key}";
             string commandText = $"use {database.Value}" + @"          
