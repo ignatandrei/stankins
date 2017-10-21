@@ -19,38 +19,90 @@ Blockly.Blocks['simplejob'] = {
   }
 };
 Blockly.JavaScript['simplejob'] = function(block) {
-  var value_receivers = Blockly.JavaScript.valueToCode(block, 'Receivers', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_filtersandtransformers = Blockly.JavaScript.valueToCode(block, 'FiltersAndTransformers', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_senders = Blockly.JavaScript.valueToCode(block, 'Senders', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_receivers = eval(Blockly.JavaScript.valueToCode(block, 'Receivers', Blockly.JavaScript.ORDER_ATOMIC));
+  var value_filtersandtransformers = eval(Blockly.JavaScript.valueToCode(block, 'FiltersAndTransformers', Blockly.JavaScript.ORDER_ATOMIC));
+  var value_senders = eval(Blockly.JavaScript.valueToCode(block, 'Senders', Blockly.JavaScript.ORDER_ATOMIC));
   debugger;
- //if(!Array.isArray(JSON.parse(value_receivers)))
+ if(!Array.isArray((value_receivers)))
 	value_receivers=[value_receivers];
 
-//if(!Array.isArray(JSON.parse(value_filtersandtransformers)))
+if(!Array.isArray((value_filtersandtransformers)))
 	value_filtersandtransformers=[value_filtersandtransformers];
   
-//if(!Array.isArray(JSON.parse(value_senders)))
+if(!Array.isArray((value_senders)))
 	value_senders=[value_senders];
 
 
 var code = '\n';
+code+="{";
+code += '\n';
+code += "'$type': 'StanskinsImplementation.SimpleJob, StanskinsImplementation',";
+code += '\n';
+
+code += "'Receivers': {";
+code += '\n';
+
+code += "'$type': 'StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces'";
+code += '\n';
+
+var nr=0;
 for(var i=0;i<value_receivers.length;i++){
-	if(value_receivers[i] == null || value_receivers[i]=='null')
+	var valLoop=value_receivers[i];
+	if(valLoop == null || valLoop=='null')
 			continue;
-	code+=value_receivers[i] + "\n";
+	code += ",'"+ nr++  + "': ";
+	code += '\n';
+	code+=JSON.stringify(valLoop) + "\n";
+	code += "";
+	code += '\n';
 }
+code += "},";//end of receivers
+code += '\n';
+
+code += '\n';
+code += "'FiltersAndTransformers': {";
+code += '\n';
+code += "'$type': 'StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IFilterTransformer, StankinsInterfaces]], StankinsInterfaces'";
+code += '\n';
+
 
 for(var i=0;i<value_filtersandtransformers.length;i++){
-	if(value_filtersandtransformers[i] == null || value_filtersandtransformers[i]=='null')
+	var valLoop=value_filtersandtransformers[i];
+	if(valLoop == null || valLoop=='null')
 			continue;
-	code+=value_filtersandtransformers[i]+"\n";
-}
 
-for(var i=0;i<value_senders.length;i++){
-	if(value_senders[i] == null  || value_senders[i]=='null')
-			continue;
-	code+=value_senders[i]+"\n";
+	code += ",'"+ nr++  + "': ";
+	code += '\n';
+	code+=JSON.stringify(valLoop) + "\n";
+	code += "";
+	code += '\n';
+
+	
 }
+code += "},";//end of filters transformers
+code += '\n';
+
+code += "'Senders': {";
+code += '\n';
+code += "'$type': 'StankinsInterfaces.OrderedList`1[[StankinsInterfaces.ISend, StankinsInterfaces]], StankinsInterfaces'";
+code += '\n';	
+	
+for(var i=0;i<value_senders.length;i++){
+	var valLoop=value_senders[i];
+	if(valLoop == null  || valLoop=='null')
+			continue;
+	code += ",'"+ nr++  + "': ";
+	code += '\n';
+	code+=JSON.stringify(valLoop) + "\n";
+	code += "";
+	code += '\n';
+
+}
+code += "}";//end of senders
+code += '\n';
+
+code += "}";//end of job
+code += '\n';
   return code;
 };
 
