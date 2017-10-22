@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\ReceiverDatabaseObjects\ReceiverDatabaseObjects.csproj" />
   </ItemGroup>
 

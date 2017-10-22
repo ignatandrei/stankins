@@ -35,6 +35,8 @@ namespace StankinsSimpleFactory
             var assemblyNames = DependencyContext.Default.GetRuntimeAssemblyNames(runtimeId).ToArray();
             foreach (var item in assemblyNames)
             {
+                if (item == null)
+                    continue; 
                 var assembly = Assembly.Load(item);
                 assembliesList.Add(assembly);
             }
