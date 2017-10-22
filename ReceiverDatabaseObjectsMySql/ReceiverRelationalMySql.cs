@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
 using MySql.Data.MySqlClient;
-
+using Microsoft.Extensions.Logging;
 namespace ReceiverDatabaseObjectsMySql
 {
     public class ReceiverRelationalMySql : ReceiverRelational
