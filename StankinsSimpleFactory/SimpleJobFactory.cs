@@ -32,7 +32,8 @@ namespace StankinsSimpleFactory
             //todo : replace with plugins
             //assemblies = Assembly.GetEntryAssembly().GetReferencedAssemblies();
             var runtimeId = RuntimeEnvironment.GetRuntimeIdentifier();
-            var assemblyNames = DependencyContext.Default.GetRuntimeAssemblyNames(runtimeId).ToArray();
+            //var assemblyNames = DependencyContext.Default.GetRuntimeAssemblyNames(runtimeId).ToArray();
+            var assemblyNames = DependencyContext.Default.GetDefaultAssemblyNames().ToArray();
             foreach (var item in assemblyNames)
             {
                 if (item == null)
@@ -46,13 +47,20 @@ namespace StankinsSimpleFactory
         {
             if (interfaceTo.GetTypeInfo().IsInterface)
             {
-                var types = assemblies.SelectMany(it => it.ExportedTypes)
-                        .Where(it => it.GetInterfaces().Contains(interfaceTo))
-                        .ToArray()
-                        .Where(it => !it.GetTypeInfo().IsAbstract)
-                        .ToArray();
+                var types= assemblies.SelectMany(it => it.ExportedTypes)
+                    .Where(it => !it.IsInterface)
+                    .Where(it => !it.IsGenericType)
+                    .Where(it => !it.IsAbstract)
+                    .ToArray();
+                var a = assemblies.Where(it => it.FullName.Contains("kins")).ToArray();
+                var q = types.Where(it => it.Name.Contains("imple")).ToArray();
 
-                return types.Where(it => !it.GetTypeInfo().IsInterface).ToArray();
+                types= types.Select(it=>new {type= it,ti=it.GetTypeInfo()})
+                    .Where(it => it.ti.ImplementedInterfaces.Contains(interfaceTo))                        
+                    .Select(it=>it.type)
+                    .ToArray();
+
+                return types.ToArray();
 
             }
             else
