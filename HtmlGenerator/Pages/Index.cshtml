@@ -415,8 +415,12 @@
                 var code = Blockly.JavaScript.workspaceToCode(workspace);
                 //debugger;
                 var x = eval(code);
+                if (!(typeof orderedStringify == 'function')) {
+                    window.alert('$type should be stringified first');
+                    return;
+                }
                 //$("#fileGenerated").val(code);
-                $("#fileGenerated").val(JSON.stringify(x));
+                $("#fileGenerated").val(orderedStringify(x));
             }
 
             function runCode() {

@@ -15,10 +15,19 @@
         .appendField(new Blockly.FieldTextInput(''), 'fldFileName');
 		
         this.appendValueInput('valFileMode') 
-        //.setCheck('String')
+        .setCheck('Number')
         .appendField('FileMode:')
-        .appendField(new Blockly.FieldTextInput(''), 'fldFileMode');
-        
+            .appendField(new Blockly.FieldDropdown([
+                ["CreateNew", "1"],
+                ["Create", "2"],
+                ["Open", "3"],
+                ["OpenOrCreate", "4"],
+                ["Truncate", "5"],
+                ["Append", "6"]
+
+            ]), 'fldFileMode');
+        //.appendField(new Blockly.FieldTextInput(''), 'fldFileMode')
+        ;
         this.setTooltip("Sender_CSV");
         this.setHelpUrl("");
         this.setOutput(true, "Sender");
