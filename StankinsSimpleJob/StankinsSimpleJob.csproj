@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlocklyClasses\BlocklyClasses.csproj" />
     <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\MediaTransform\MediaTransform.csproj" />
     <ProjectReference Include="..\ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj" />
@@ -38,6 +39,7 @@
     <ProjectReference Include="..\ReceiverDll\ReceiverDll.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
+    <ProjectReference Include="..\ReceiverHTML\ReceiverHTML.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\ReceiverJSON\ReceiverJSON.csproj" />
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
@@ -59,6 +61,7 @@
     <ProjectReference Include="..\StankinsSimpleFactory\StankinsSimpleFactory.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
     <ProjectReference Include="..\StringInterpreter\StringInterpreter.csproj" />
+    <ProjectReference Include="..\TransformerHtmlUrl\TransformerHtmlUrl.csproj" />
     <ProjectReference Include="..\Transformers\Transformers.csproj" />
   </ItemGroup>
 

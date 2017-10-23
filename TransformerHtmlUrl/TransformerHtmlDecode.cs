@@ -26,6 +26,7 @@ namespace TransformerHtmlUrl
                     vt.Values[key] = WebUtility.HtmlDecode(vt.Values[key]?.ToString());
                 }
             }
+            await Task.CompletedTask;
         }
     }
 }
