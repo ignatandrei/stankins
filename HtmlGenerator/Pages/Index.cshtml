@@ -1,0 +1,436 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <p class="text-center">
+            <h1 id="theTitle">Generating files for Stankins</h1>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <p class="text-left"><button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button></p>
+    </div>
+    <div class="col-md-6">
+        <p class="text-right">
+            <button id='showcode' onclick="showCode()" class="btn btn-large btn-primary">Generate  Stankins file</button>
+
+        </p>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <div id="blocklyDiv" style="height: 480px; width: 90%;"></div>
+            
+
+        <xml id="toolbox" style="display: none">
+            <category name='jobs' id="jobs">
+                <block type='simplejob'></block>
+            </category>
+            <category name='receivers'>
+                <block type='ReceiverWholeTable'></block>
+            </category>
+            <category name='transformers'>
+                <block type='TransformRowMergeFields'></block>
+
+                <block type='TransformerFieldStringToDate'></block>
+                <block type='TransformerFieldStringInt'></block>
+
+            </category>
+            <category name='filters'>
+                <block type='FilterComparableEqual'></block>
+            </category>
+            <category name='senders'>
+                <block type='Sender_CSV'></block>
+            </category>
+
+            <category name="{catLogic}" colour="210">
+                <block type="controls_if"></block>
+                <block type="logic_compare"></block>
+                <block type="logic_operation"></block>
+                <block type="logic_negate"></block>
+                <block type="logic_boolean"></block>
+                <block type="logic_null"></block>
+                <block type="logic_ternary"></block>
+            </category>
+            <category name="{catLoops}" colour="120">
+                <block type="controls_repeat_ext">
+                    <value name="TIMES">
+                        <shadow type="math_number">
+                            <field name="NUM">10</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="controls_whileUntil"></block>
+                <block type="controls_for">
+                    <value name="FROM">
+                        <shadow type="math_number">
+                            <field name="NUM">1</field>
+                        </shadow>
+                    </value>
+                    <value name="TO">
+                        <shadow type="math_number">
+                            <field name="NUM">10</field>
+                        </shadow>
+                    </value>
+                    <value name="BY">
+                        <shadow type="math_number">
+                            <field name="NUM">1</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="controls_forEach"></block>
+                <block type="controls_flow_statements"></block>
+            </category>
+            <category name="{catMath}" colour="230">
+                <block type="math_number"></block>
+                <block type="math_arithmetic">
+                    <value name="A">
+                        <shadow type="math_number">
+                            <field name="NUM">1</field>
+                        </shadow>
+                    </value>
+                    <value name="B">
+                        <shadow type="math_number">
+                            <field name="NUM">1</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="math_single">
+                    <value name="NUM">
+                        <shadow type="math_number">
+                            <field name="NUM">9</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="math_trig">
+                    <value name="NUM">
+                        <shadow type="math_number">
+                            <field name="NUM">45</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="math_constant"></block>
+                <block type="math_number_property">
+                    <value name="NUMBER_TO_CHECK">
+                        <shadow type="math_number">
+                            <field name="NUM">0</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="math_round">
+                    <value name="NUM">
+                        <shadow type="math_number">
+                            <field name="NUM">3.1</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="math_on_list"></block>
+                <block type="math_modulo">
+                    <value name="DIVIDEND">
+                        <shadow type="math_number">
+                            <field name="NUM">64</field>
+                        </shadow>
+                    </value>
+                    <value name="DIVISOR">
+                        <shadow type="math_number">
+                            <field name="NUM">10</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="math_constrain">
+                    <value name="VALUE">
+                        <shadow type="math_number">
+                            <field name="NUM">50</field>
+                        </shadow>
+                    </value>
+                    <value name="LOW">
+                        <shadow type="math_number">
+                            <field name="NUM">1</field>
+                        </shadow>
+                    </value>
+                    <value name="HIGH">
+                        <shadow type="math_number">
+                            <field name="NUM">100</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="math_random_int">
+                    <value name="FROM">
+                        <shadow type="math_number">
+                            <field name="NUM">1</field>
+                        </shadow>
+                    </value>
+                    <value name="TO">
+                        <shadow type="math_number">
+                            <field name="NUM">100</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="math_random_float"></block>
+            </category>
+            <category name="{catText}" colour="160">
+                <block type="text"></block>
+                <block type="text_join"></block>
+                <block type="text_append">
+                    <value name="TEXT">
+                        <shadow type="text"></shadow>
+                    </value>
+                </block>
+                <block type="text_length">
+                    <value name="VALUE">
+                        <shadow type="text">
+                            <field name="TEXT">abc</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="text_isEmpty">
+                    <value name="VALUE">
+                        <shadow type="text">
+                            <field name="TEXT"></field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="text_indexOf">
+                    <value name="VALUE">
+                        <block type="variables_get">
+                            <field name="VAR">{textVariable}</field>
+                        </block>
+                    </value>
+                    <value name="FIND">
+                        <shadow type="text">
+                            <field name="TEXT">abc</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="text_charAt">
+                    <value name="VALUE">
+                        <block type="variables_get">
+                            <field name="VAR">{textVariable}</field>
+                        </block>
+                    </value>
+                </block>
+                <block type="text_getSubstring">
+                    <value name="STRING">
+                        <block type="variables_get">
+                            <field name="VAR">{textVariable}</field>
+                        </block>
+                    </value>
+                </block>
+                <block type="text_changeCase">
+                    <value name="TEXT">
+                        <shadow type="text">
+                            <field name="TEXT">abc</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="text_trim">
+                    <value name="TEXT">
+                        <shadow type="text">
+                            <field name="TEXT">abc</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="text_print">
+                    <value name="TEXT">
+                        <shadow type="text">
+                            <field name="TEXT">abc</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="text_prompt_ext">
+                    <value name="TEXT">
+                        <shadow type="text">
+                            <field name="TEXT">abc</field>
+                        </shadow>
+                    </value>
+                </block>
+            </category>
+            <category name="{catLists}" colour="260">
+                <block type="lists_create_with">
+                    <mutation items="0"></mutation>
+                </block>
+                <block type="lists_create_with"></block>
+                <block type="lists_repeat">
+                    <value name="NUM">
+                        <shadow type="math_number">
+                            <field name="NUM">5</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="lists_length"></block>
+                <block type="lists_isEmpty"></block>
+                <block type="lists_indexOf">
+                    <value name="VALUE">
+                        <block type="variables_get">
+                            <field name="VAR">{listVariable}</field>
+                        </block>
+                    </value>
+                </block>
+                <block type="lists_getIndex">
+                    <value name="VALUE">
+                        <block type="variables_get">
+                            <field name="VAR">{listVariable}</field>
+                        </block>
+                    </value>
+                </block>
+                <block type="lists_setIndex">
+                    <value name="LIST">
+                        <block type="variables_get">
+                            <field name="VAR">{listVariable}</field>
+                        </block>
+                    </value>
+                </block>
+                <block type="lists_getSublist">
+                    <value name="LIST">
+                        <block type="variables_get">
+                            <field name="VAR">{listVariable}</field>
+                        </block>
+                    </value>
+                </block>
+                <block type="lists_split">
+                    <value name="DELIM">
+                        <shadow type="text">
+                            <field name="TEXT">,</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="lists_sort"></block>
+            </category>
+            <category name="{catColour}" colour="20">
+                <block type="colour_picker"></block>
+                <block type="colour_random"></block>
+                <block type="colour_rgb">
+                    <value name="RED">
+                        <shadow type="math_number">
+                            <field name="NUM">100</field>
+                        </shadow>
+                    </value>
+                    <value name="GREEN">
+                        <shadow type="math_number">
+                            <field name="NUM">50</field>
+                        </shadow>
+                    </value>
+                    <value name="BLUE">
+                        <shadow type="math_number">
+                            <field name="NUM">0</field>
+                        </shadow>
+                    </value>
+                </block>
+                <block type="colour_blend">
+                    <value name="COLOUR1">
+                        <shadow type="colour_picker">
+                            <field name="COLOUR">#ff0000</field>
+                        </shadow>
+                    </value>
+                    <value name="COLOUR2">
+                        <shadow type="colour_picker">
+                            <field name="COLOUR">#3333ff</field>
+                        </shadow>
+                    </value>
+                    <value name="RATIO">
+                        <shadow type="math_number">
+                            <field name="NUM">0.5</field>
+                        </shadow>
+                    </value>
+                </block>
+            </category>
+            <sep></sep>
+            <category name="{catVariables}" colour="330" custom="VARIABLE"></category>
+            <category name="{catFunctions}" colour="290" custom="PROCEDURE"></category>
+
+        </xml>
+
+
+        <xml id="startBlocks" style="display: none">
+            <block type="variables_set">
+                <field name="VAR">TheConnectionString</field>
+                <value name="VALUE">
+                    <block type="text">
+                        <field name="TEXT">Server=.;Database=myTestDatabase;Trusted_Connection=True;</field>
+                    </block>
+                </value>
+
+            </block>
+
+            <block type='simplejob' inline="false" x="20" y="40">
+
+                <value name='Receivers'>
+                    <block type='ReceiverWholeTable' inline="false">
+                        <field name="fldTableName">Department</field>
+
+                        <value name="valConnectionString">
+                            <block type="variables_get">
+
+                                <field name="VAR">TheConnectionString</field>
+
+                            </block>
+                        </value>
+
+
+                    </block>
+                </value>
+                <value name='FiltersAndTransformers'>
+                    <block type='lists_create_with' inline="false">
+                        <mutation items="3"></mutation>
+
+                    </block>
+                </value>
+
+                <value name='Senders'>
+
+
+                    <block type="Sender_CSV" inline="false">
+                        <field name="fldFileName">Department.csv</field>
+                    </block>
+                </value>
+            </block>
+
+        </xml>
+    </div>
+    <div class="col-md-2">
+        <textarea cols="40" rows="50" id='fileGenerated'></textarea>
+    </div>
+</div>
+
+    @section Scripts{
+        <script>
+            var workspace = Blockly.inject('blocklyDiv',
+                {
+                    media: '../../media/',
+                    toolbox: document.getElementById('toolbox')
+                });
+            Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
+                workspace);
+
+            function showCode() {
+                // Generate JavaScript code and display it.
+                Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+                var code = Blockly.JavaScript.workspaceToCode(workspace);
+                //debugger;
+                var x = eval(code);
+                //$("#fileGenerated").val(code);
+                $("#fileGenerated").val(JSON.stringify(x));
+            }
+
+            function runCode() {
+                // Generate JavaScript code and run it.
+                window.LoopTrap = 1000;
+                Blockly.JavaScript.INFINITE_LOOP_TRAP =
+                    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
+                var code = Blockly.JavaScript.workspaceToCode(workspace);
+                Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+                try {
+                    eval(code);
+                } catch (e) {
+                    alert(e);
+                }
+            }
+        </script>
+    }

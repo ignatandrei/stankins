@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsInterfaces", "StankinsInterfaces\StankinsInterfaces.csproj", "{A8FD3C16-D79D-478C-9BC3-6E44F9684553}"
 EndProject
@@ -108,7 +108,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransformerHtmlUrl", "Trans
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlocklyClasses", "BlocklyClasses\BlocklyClasses.csproj", "{48AD068F-63CB-495B-B351-9D5A5EE222D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReceiverDatabaseObjectsMySql", "ReceiverDatabaseObjectsMySql\ReceiverDatabaseObjectsMySql.csproj", "{5AA17CAD-EEBB-49D5-9EF7-4AC2BD111690}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverDatabaseObjectsMySql", "ReceiverDatabaseObjectsMySql\ReceiverDatabaseObjectsMySql.csproj", "{5AA17CAD-EEBB-49D5-9EF7-4AC2BD111690}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlGenerator", "HtmlGenerator\HtmlGenerator.csproj", "{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -300,6 +302,10 @@ Global
 		{5AA17CAD-EEBB-49D5-9EF7-4AC2BD111690}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5AA17CAD-EEBB-49D5-9EF7-4AC2BD111690}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5AA17CAD-EEBB-49D5-9EF7-4AC2BD111690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
