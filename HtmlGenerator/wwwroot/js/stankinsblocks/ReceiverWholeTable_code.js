@@ -17,12 +17,13 @@ var realValue_ConnectionString=value_ConnectionString|| "'" + text_ConnectionStr
   var realValue_receivertype=value_receivertype|| text_receivertype;
   //debugger;
   var code ='{';
-        code+="Name:"+ realValue_Name+",";
-		code+="ReceiverType:"+ realValue_receivertype+",";        		
-        code+="TableName:"+ realValue_TableName+",";        
-		code+="ConnectionString:"+ realValue_ConnectionString+",";        
+		code+="$type: 'BlocklyClasses.ReceiverWholeTable, BlocklyClasses'"; ;
+        code+=",Name:"+ realValue_Name;
+		code+=",ReceiverType:"+ realValue_receivertype;        		
+        code+=",TableName:"+ realValue_TableName;        
+		code+=",ConnectionString:"+ realValue_ConnectionString;        
 		
-code+="$type: 'BlocklyClasses.ReceiverWholeTable, BlocklyClasses'"; ;
+
 code +='}\n';
   return  [code, Blockly.JavaScript.ORDER_NONE];
 };;

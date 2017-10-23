@@ -14,11 +14,12 @@ var realValue_FileName =value_FileName || "'" + text_FileName + "'";
   
   
   var code ='{';
-        code+="Name:"+ realValue_Name+",";
-        code+="FileMode:"+ realValue_FileMode+",";        
-        code+="FileName:"+ realValue_FileName+",";
+  code+="$type: 'SenderToFile.Sender_CSV, SenderToFile'"; ;
+        code+=",Name:"+ realValue_Name;
+        code+=",FileMode:"+ realValue_FileMode;        
+        code+=",FileName:"+ realValue_FileName;
         
-code+="$type: 'SenderToFile.Sender_CSV, SenderToFile'"; ;
+
 code +='}\n';
   return  [code, Blockly.JavaScript.ORDER_NONE];
 };;
