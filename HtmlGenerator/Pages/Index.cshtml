@@ -14,11 +14,17 @@
 
 <div class="row">
     <div class="col-md-6">
-        <p class="text-left"><button id="startTourBtn" class="btn btn-large btn-primary">Take a tour</button></p>
+        <p class="text-left">
+            <button id="startTourBtn" class="btn btn-large btn-primary">
+                Take a tour
+            </button>
+        </p>
     </div>
     <div class="col-md-6">
         <p class="text-right">
-            <button id='showcode' onclick="showCode()" class="btn btn-large btn-primary">Generate  Stankins file</button>
+            <button id='showcode' onclick="showCode()" class="btn btn-large btn-primary">
+                Generate  Stankins file
+            </button>
 
         </p>
 
@@ -26,8 +32,10 @@
 </div>
 <div class="row">
     <div class="col-md-10">
-        <div id="blocklyDiv" style="height: 480px; width: 90%;"></div>
-            
+        <div id="blocklyDiv" style="height: 480px; width: 90%;">
+
+        </div>
+
 
         <xml id="toolbox" style="display: none">
             <category name='jobs' id="jobs">
@@ -388,53 +396,19 @@
 
                     <block type="Sender_CSV" inline="false">
                         <field name="fldFileName">Department.csv</field>
+                        <field name="fldFileMode">4</field>
                     </block>
                 </value>
             </block>
 
         </xml>
+       
     </div>
     <div class="col-md-2">
         <textarea cols="40" rows="50" id='fileGenerated'></textarea>
     </div>
 </div>
 
-    @section Scripts{
-        <script>
-            var workspace = Blockly.inject('blocklyDiv',
-                {
-                    media: '../../media/',
-                    toolbox: document.getElementById('toolbox')
-                });
-            Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-                workspace);
-
-            function showCode() {
-                // Generate JavaScript code and display it.
-                Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-                var code = Blockly.JavaScript.workspaceToCode(workspace);
-                //debugger;
-                var x = eval(code);
-                if (!(typeof orderedStringify == 'function')) {
-                    window.alert('$type should be stringified first');
-                    return;
-                }
-                //$("#fileGenerated").val(code);
-                $("#fileGenerated").val(orderedStringify(x));
-            }
-
-            function runCode() {
-                // Generate JavaScript code and run it.
-                window.LoopTrap = 1000;
-                Blockly.JavaScript.INFINITE_LOOP_TRAP =
-                    'if (--window.LoopTrap == 0) throw "Infinite loop.";\n';
-                var code = Blockly.JavaScript.workspaceToCode(workspace);
-                Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
-                try {
-                    eval(code);
-                } catch (e) {
-                    alert(e);
-                }
-            }
-        </script>
-    }
+@section Scripts{
+    <script src="~/js/blocklyGenerator.js"></script>
+}

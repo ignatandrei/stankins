@@ -20,7 +20,7 @@ var orderedStringify = function (o, fn) {
         }
         
         if(type !== 4)
-        	res += '"'+props[i]+'":'+ val+',';
+        	res += '\n"'+props[i]+'":'+ val+',';
 	}
 	
     return res.substring(res, res.lastIndexOf(','))+'}';
