@@ -11,30 +11,35 @@
 	  //debugger;
 	  window.alert(code);
 	  var x=eval(code);
-	  x=transformArray(x);
+	  x=transformReceiversSendersTransformer(x);
 	  //$("#fileGenerated").val(code);
       $("#fileGenerated").html(orderedStringify(x));
     }
- function transformArray(code){
-	var valueFiltersAndTransformers=code["FiltersAndTransformers"];
-	if('0' in valueFiltersAndTransformers){
-		var value=valueFiltersAndTransformers['0'];
+	function transformArray(code, theType){
+	var valueType=code[theType];
+	if('0' in valueType){
+		var value=valueType['0'];
 		if(Array.isArray(value))			
 		{
-			debugger;
-			delete valueFiltersAndTransformers['0'];
+			//debugger;
+			delete valueType['0'];
 			var nr=0;
 			for(var i=0;i<value.length;i++){
 				var valLoop=value[i];
 				if(valLoop == null || valLoop=='null')
 						continue;
-				valueFiltersAndTransformers[nr++]=valLoop;
+				valueType[nr++]=valLoop;
 			}
 			if(nr == 0)
-				delete code["FiltersAndTransformers"]
+				delete code[theType]
 		}
 	}
-	 
+		
+	}
+ function transformReceiversSendersTransformer(code){
+	transformArray(code,"FiltersAndTransformers")
+	transformArray(code,"Senders")
+	transformArray(code,"Receivers")
 	return code;
  }
     function runCode() {
