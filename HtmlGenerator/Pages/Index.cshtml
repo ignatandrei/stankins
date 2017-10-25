@@ -23,11 +23,13 @@
     <div class="col-md-6">
         <p class="text-right">
             <button id='showcode' onclick="showCode()" class="btn btn-large btn-primary">
-                Generate  Stankins file
+                Generate
             </button>
-
+            &nbsp;&nbsp;&nbsp;
+            <button id='runcode' onclick="runCode()" class="btn btn-large btn-primary">
+                Run
+            </button>
         </p>
-
     </div>
 </div>
 <div class="row">
@@ -402,10 +404,18 @@
             </block>
 
         </xml>
-       
+
     </div>
+    
     <div class="col-md-2">
-        <textarea cols="40" rows="50" id='fileGenerated'></textarea>
+        <div style="color:red">
+            @Model.ExceptionMessage
+            
+        </div>
+        <form method="post" id="postData">
+            <textarea cols="40" rows="50" asp-for="fileGenerated"></textarea>
+            
+        </form>
     </div>
 </div>
 

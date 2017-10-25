@@ -10,6 +10,50 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BlocklyClasses\BlocklyClasses.csproj" />
+    <ProjectReference Include="..\CommonDB\CommonDB.csproj" />
     <ProjectReference Include="..\Logging\Logging.csproj" />
+    <ProjectReference Include="..\MediaTransform\MediaTransform.csproj" />
+    <ProjectReference Include="..\RazorCompile\RazorCompile.csproj" />
+    <ProjectReference Include="..\ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj" />
+    <ProjectReference Include="..\ReceiverBookmarkExportChrome\ReceiverBookmarkExportChrome.csproj" />
+    <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
+    <ProjectReference Include="..\ReceiverDatabaseObjectsMySql\ReceiverDatabaseObjectsMySql.csproj" />
+    <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
+    <ProjectReference Include="..\ReceiverDatabaseObjects\ReceiverDatabaseObjects.csproj" />
+    <ProjectReference Include="..\ReceiverDBMySQL\ReceiverDBMySQL.csproj" />
+    <ProjectReference Include="..\ReceiverDBSQLite\ReceiverDBSQLite.csproj" />
+    <ProjectReference Include="..\ReceiverDBSqlServer\ReceiverDBSqlServer.csproj" />
+    <ProjectReference Include="..\ReceiverDB\ReceiverDB.csproj" />
+    <ProjectReference Include="..\ReceiverDll\ReceiverDll.csproj" />
+    <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
+    <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
+    <ProjectReference Include="..\ReceiverHTML\ReceiverHTML.csproj" />
+    <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
+    <ProjectReference Include="..\ReceiverJSON\ReceiverJSON.csproj" />
+    <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
+    <ProjectReference Include="..\SenderAction\SenderAction.csproj" />
+    <ProjectReference Include="..\SenderAzureIoTHub\SenderAzureIoTHub.csproj" />
+    <ProjectReference Include="..\SenderBulkCopy\SenderBulkCopy.csproj" />
+    <ProjectReference Include="..\SenderDBInflux\SenderDBInflux.csproj" />
+    <ProjectReference Include="..\SenderDBStmtSqlServer\SenderDBStmtSqlServer.csproj" />
+    <ProjectReference Include="..\SenderElasticSearch\SenderElasticSearch.csproj" />
+    <ProjectReference Include="..\SenderFilter\SenderFilter.csproj" />
+    <ProjectReference Include="..\SenderHTML\SenderHTML.csproj" />
+    <ProjectReference Include="..\SenderHttp\SenderHttp.csproj" />
+    <ProjectReference Include="..\SenderoToDBSqlServer\SenderToDBSqlServer.csproj" />
+    <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
+    <ProjectReference Include="..\SenderToDB\SenderToDB.csproj" />
+    <ProjectReference Include="..\SenderToFile\SenderToFile.csproj" />
+    <ProjectReference Include="..\SenderUnzipFiles\SenderUnzipFiles.csproj" />
+    <ProjectReference Include="..\StankinsDemos\StankinsDemos.csproj" />
+    <ProjectReference Include="..\StankinsInterfaces\StankinsInterfaces.csproj" />
+    <ProjectReference Include="..\StankinsSimpleFactory\StankinsSimpleFactory.csproj" />
+    <ProjectReference Include="..\StankinsSimpleJob\StankinsSimpleJob.csproj" />
+    <ProjectReference Include="..\StankinsTests\StankinsTests.csproj" />
+    <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
+    <ProjectReference Include="..\StringInterpreter\StringInterpreter.csproj" />
+    <ProjectReference Include="..\TransformerHtmlUrl\TransformerHtmlUrl.csproj" />
+    <ProjectReference Include="..\Transformers\Transformers.csproj" />
   </ItemGroup>
 </Project>
