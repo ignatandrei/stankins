@@ -20,6 +20,7 @@ namespace HtmlGenerator.Pages
         public string ExceptionMessage;
         [BindProperty]
         public string fileGenerated { get; set; }
+        
         public async Task<IActionResult> OnPostAsync()
         {
            
