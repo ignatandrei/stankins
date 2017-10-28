@@ -26,34 +26,50 @@ namespace ReceiverFile
             foreach(var table    in tables)
             {
                 var head = table.SelectSingleNode("thead");
-                if (head == null)
+                if (head != null)
                 {
-                    //TODO: log head not found
-                    continue;
+                    var columns = head.SelectNodes("tr/td");
+                    if (columns != null)
+                    {
+
+                        columnsNames = new string[columns.Count];
+                        for (int i = 0; i < columns.Count; i++)
+                        {
+                            columnsNames[i] = columns[i].InnerText;
+                        }
+                    }
                 }
+                HtmlNodeCollection rows;
                 var body = table.SelectSingleNode("tbody");
-                if (body == null)
+                if (body != null)
                 {
-                    //TODO: log body not found
-                    continue;
+                    rows = body.SelectNodes("tr");
                 }
-                var columns = head.SelectNodes("tr/td");
-                if(columns == null)
+                else
                 {
-                    //TODO: log header columns not found
-                    continue;
+                    rows = table.SelectNodes("tr");
                 }
-                columnsNames = new string[columns.Count];
-                for (int i = 0; i < columns.Count; i++)
-                {
-                    columnsNames[i] = columns[i].InnerText;
-                }
-                var rows = body.SelectNodes("tr");
+                
                 foreach (var row in rows)
                 {
+                    var cells = row.SelectNodes("td");
+                    if((cells?.Count??0) == 0)
+                    {
+                        cells = row.SelectNodes("th");
+                    }
+                    if ((columnsNames?.Length??0) == 0)
+                    {
+                        columnsNames = new string[cells.Count];
+                        for (int i = 0; i < columnsNames.Length; i++)
+                        {
+                            columnsNames[i] = cells[i].InnerText;
+                        }
+                        continue;
+                    }
+                    cells = row.SelectNodes("td");
                     var rr = new RowRead();
                     ret.Add(rr);
-                    var cells = row.SelectNodes("td");
+                    
                     for (int i = 0; i < cells.Count; i++)
                     {
                         rr.Values.Add(columnsNames[i], cells[i].InnerText);

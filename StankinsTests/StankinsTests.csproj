@@ -22,7 +22,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="blockly.html">
+    <Content Include="HtmlTables\TableExample2.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HtmlTables\TableExample1.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="HtmlTables\blockly.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Views\relationalGeneric.cshtml">

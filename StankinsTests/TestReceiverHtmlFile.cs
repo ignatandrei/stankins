@@ -16,7 +16,7 @@ namespace StankinsTests
         public async Task Test_ReceiverHtmlTable()
         {
             #region ARRANGE
-            var receiver = new ReceiverHTMLTable(@"blockly.html",Encoding.UTF8);
+            var receiver = new ReceiverHTMLTable(@"HtmlTables\blockly.html", Encoding.UTF8);
             #endregion
             #region ACT
 
@@ -26,6 +26,44 @@ namespace StankinsTests
             #region ASSERT
             receiver.valuesRead.ShouldNotBeNull();
             receiver.valuesRead.Length.ShouldBe(131);
+            //TODO: add column names and others
+            #endregion
+
+        }
+
+        [TestMethod]
+        public async Task Test_ReceiverHtmlTableExample1()
+        {
+            #region ARRANGE
+            var receiver = new ReceiverHTMLTable(@"HtmlTables\TableExample1.html", Encoding.UTF8);
+            #endregion
+            #region ACT
+
+            await receiver.LoadData();
+
+            #endregion
+            #region ASSERT
+            receiver.valuesRead.ShouldNotBeNull();
+            receiver.valuesRead.Length.ShouldBe(1);
+            //TODO: add column names and others
+            #endregion
+
+        }
+
+        [TestMethod]
+        public async Task Test_ReceiverHtmlTableExample2()
+        {
+            #region ARRANGE
+            var receiver = new ReceiverHTMLTable(@"HtmlTables\TableExample2.html", Encoding.UTF8);
+            #endregion
+            #region ACT
+
+            await receiver.LoadData();
+
+            #endregion
+            #region ASSERT
+            receiver.valuesRead.ShouldNotBeNull();
+            receiver.valuesRead.Length.ShouldBe(1);
             //TODO: add column names and others
             #endregion
 
