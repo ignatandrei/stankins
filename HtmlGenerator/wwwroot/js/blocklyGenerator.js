@@ -65,7 +65,7 @@ function loadxml(xml) {
      //var xml = Blockly.Xml.workspaceToDom(Blockly.Ma);
      //var xml_text = Blockly.Xml.domToText(xml);
      //setCookie("xmlWorkspace", xml_text, 365);
-
+     showCode();
         $("#postData").submit();
  }
  function loadFromCookie() {
