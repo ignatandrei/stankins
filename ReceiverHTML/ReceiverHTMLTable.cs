@@ -28,7 +28,11 @@ namespace ReceiverFile
                 var head = table.SelectSingleNode("thead");
                 if (head != null)
                 {
-                    var columns = head.SelectNodes("tr/td");
+                    var columns = head.SelectNodes("tr/th");
+                    if((columns?.Count??0) == 0)
+                    {
+                        columns = head.SelectNodes("tr/td");
+                    }
                     if (columns != null)
                     {
 

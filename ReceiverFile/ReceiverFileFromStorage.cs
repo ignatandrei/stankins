@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
+using System.Net;
 
 namespace ReceiverFile
 {
@@ -34,8 +35,41 @@ namespace ReceiverFile
         public event EventHandler EndReadFile;
         
         protected bool ContinueRead;
-        public  async Task LoadData()
+        bool IsLocalFile()
         {
+            try
+            {
+                var uri = new Uri(FileToRead, UriKind.RelativeOrAbsolute);
+                return uri.IsFile;
+            }
+            catch (Exception)
+            {
+                //if it is local file, 
+                //then uri.IsFile will send error
+                return true;
+            }
+        }
+        public async Task LoadData()
+        {
+
+            var b = IsLocalFile();
+            if(b)
+            {
+                await LoadLocalFile();
+                return;
+            }
+            //is a file on internet
+            using (var wc = new WebClient())
+            {
+                StartReadFile?.Invoke(this, EventArgs.Empty);
+                var allText = await wc.DownloadStringTaskAsync(FileToRead);
+                await ProcessText(allText);
+                EndReadFile?.Invoke(this, EventArgs.Empty);
+            }
+        }
+        async Task LoadLocalFile()
+        {
+            
             ContinueRead = true;
             StartReadFile?.Invoke(this, EventArgs.Empty);
             using (var stream = File.Open(FileToRead, FileMode.OpenOrCreate, FileAccess.Read))
