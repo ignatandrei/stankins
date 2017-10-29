@@ -110,7 +110,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlocklyClasses", "BlocklyCl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverDatabaseObjectsMySql", "ReceiverDatabaseObjectsMySql\ReceiverDatabaseObjectsMySql.csproj", "{5AA17CAD-EEBB-49D5-9EF7-4AC2BD111690}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HtmlGenerator", "HtmlGenerator\HtmlGenerator.csproj", "{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HtmlGenerator", "HtmlGenerator\HtmlGenerator.csproj", "{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderToDataTable", "SenderToDataTable\SenderToDataTable.csproj", "{F5C14357-B4D7-431A-A453-3F6E63B069EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -306,6 +308,10 @@ Global
 		{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A334EA38-6E8E-4F4A-8CD4-CF3CDB5B922D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C14357-B4D7-431A-A453-3F6E63B069EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C14357-B4D7-431A-A453-3F6E63B069EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C14357-B4D7-431A-A453-3F6E63B069EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C14357-B4D7-431A-A453-3F6E63B069EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

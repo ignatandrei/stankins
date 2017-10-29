@@ -1,8 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using SenderAction;
+using SenderToDataTable;
 //using SenderCSV;
 using SenderToFile;
+using Shouldly;
 using StankinsInterfaces;
 using System;
 using System.Collections.Generic;
@@ -15,11 +17,50 @@ namespace StankinsTests
     [TestClass]
     public class TestSenderAction
     {
-        
+
 
         //public TestContext TestContext { get; set; }
 
-        
+        [TestMethod]
+        public async Task SenderDataTable()
+        {
+            var dir = AppContext.BaseDirectory;
+            #region arange
+
+            var rows = new List<IRow>();
+            int nrRows = 10;
+            for (int i = 0; i < nrRows; i++)
+            {
+                var rowAndrei = new Mock<IRow>();
+
+                rowAndrei.SetupProperty(it => it.Values,
+                    new Dictionary<string, object>()
+                    {
+                        ["ID"] = i,
+                        ["FirstName"] = "Andrei" + i,
+                        ["LastName"] = "Ignat" + i
+                    }
+                );
+
+                rows.Add(rowAndrei.Object);
+            }
+
+
+            #endregion
+            #region act
+            var send = new SenderDataTable();
+            send.valuesToBeSent = rows.ToArray();
+            await send.Send();
+            #endregion
+            #region assert
+            var data = send.result;
+            data.ShouldNotBeNull();
+            data.Columns.Count.ShouldBe(3);
+            data.Rows.Count.ShouldBe(nrRows);
+
+            #endregion
+        }
+
         [TestMethod]
         public async Task SenderActionGenericRowStringBuilder()
         {
