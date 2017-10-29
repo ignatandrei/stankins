@@ -50,11 +50,13 @@ namespace StankinsTests
 
         }
 
+
+
         [TestMethod]
-        public async Task Test_ReceiverHtmlTableExample2()
+        public async Task Test_ReceiverFromInternet()
         {
             #region ARRANGE
-            var receiver = new ReceiverHTMLTable(@"HtmlTables\TableExample2.html", Encoding.UTF8);
+            var receiver = new ReceiverHTMLTable(@"https://en.wikipedia.org/wiki/List_of_file_signatures", Encoding.UTF8);
             #endregion
             #region ACT
 
@@ -63,7 +65,7 @@ namespace StankinsTests
             #endregion
             #region ASSERT
             receiver.valuesRead.ShouldNotBeNull();
-            receiver.valuesRead.Length.ShouldBe(1);
+            receiver.valuesRead.Length.ShouldBeGreaterThan(1);
             //TODO: add column names and others
             #endregion
 

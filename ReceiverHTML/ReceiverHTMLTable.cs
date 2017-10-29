@@ -25,6 +25,7 @@ namespace ReceiverFile
             string[] columnsNames = null;
             foreach(var table    in tables)
             {
+                
                 var head = table.SelectSingleNode("thead");
                 if (head != null)
                 {
@@ -70,7 +71,10 @@ namespace ReceiverFile
                         }
                         continue;
                     }
-                    cells = row.SelectNodes("td");
+                    //cells = row.SelectNodes("td");
+                    if ((cells?.Count ?? 0) == 0)
+                        continue;
+
                     var rr = new RowRead();
                     ret.Add(rr);
                     
