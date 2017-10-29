@@ -45,6 +45,7 @@
     <ProjectReference Include="..\SenderHttp\SenderHttp.csproj" />
     <ProjectReference Include="..\SenderoToDBSqlServer\SenderToDBSqlServer.csproj" />
     <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
+    <ProjectReference Include="..\SenderToDataTable\SenderToDataTable.csproj" />
     <ProjectReference Include="..\SenderToDB\SenderToDB.csproj" />
     <ProjectReference Include="..\SenderToFile\SenderToFile.csproj" />
     <ProjectReference Include="..\SenderUnzipFiles\SenderUnzipFiles.csproj" />
