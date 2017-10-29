@@ -10,6 +10,7 @@
     "gulp-htmlmin": "3.0.0",
     "gulp-uglify": "3.0.0",
     "merge-stream": "1.0.1",
-    "rimraf": "2.6.1"
+    "rimraf": "2.6.1",
+    "gulp-order": "1.1.1"
   }
 }
