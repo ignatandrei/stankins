@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
+@using System.Data;
 <div class="row">
     <div class="col-md-12">
         <p class="text-center">
@@ -416,6 +416,48 @@
             <textarea cols="40" rows="50" asp-for="fileGenerated"></textarea>
             
         </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <p class="text-center">
+            <h1 id="theTitle">Result</h1>
+        </p>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        @if (Model?.Result != null)
+        {
+        <table>
+            <thead>
+                <tr>
+                    @foreach (DataColumn col in Model.Result.Columns)
+                    {
+                        <th>@col.ColumnName</th>
+
+                    }
+
+                </tr>
+
+                
+            </thead>
+            <tbody>
+                @foreach (DataRow item in Model.Result.Rows)
+                {
+                    <tr>
+                        @foreach(var data in item.ItemArray)
+                        {
+                            <td>@data</td>
+
+                        }
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        }
     </div>
 </div>
 

@@ -57,7 +57,7 @@ namespace StankinsTests
             data.ShouldNotBeNull();
             data.Columns.Count.ShouldBe(3);
             data.Rows.Count.ShouldBe(nrRows);
-
+            data.Rows[0][0].ShouldBe("0");
             #endregion
         }
 

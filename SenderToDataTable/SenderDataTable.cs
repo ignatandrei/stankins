@@ -30,7 +30,7 @@ namespace SenderToDataTable
             result.Columns.AddRange(cols);
             foreach(var item in valuesToBeSent)
             {
-                var vals = new List<string>();
+                var vals = new List<object>();
                 foreach (var k in keys)
                 {
                     
@@ -43,7 +43,7 @@ namespace SenderToDataTable
                         vals.Add(null);
                     }
                 }
-                result.Rows.Add(vals);
+                result.Rows.Add(vals.ToArray());
             }
         }
     }
