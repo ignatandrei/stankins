@@ -1,11 +1,17 @@
   var workspace = Blockly.inject('blocklyDiv',
-        {media: '../../media/',
+        {//media: '../../media/',
          toolbox: document.getElementById('toolbox')});
-    Blockly.Xml.domToWorkspace(document.getElementById('startBlocks'),
-                               workspace);
 
+function loadSqlServer() {
+    
+
+    Blockly.Xml.domToWorkspace(
+        document.getElementById('sqlServer'),
+        workspace);
+
+}   
 function loadxml(xml) {
-    debugger;
+    //debugger;
     if (typeof xml != "string" || xml.length < 5) {
         //alert("No Input");
         return false;

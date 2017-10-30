@@ -16,7 +16,7 @@ var paths = {
 };
 
 paths.js = paths.webroot + "js/";
-
+paths.libs = paths.webroot + "lib/";
 paths.minJs = paths.webroot + "js/**/*.min.js";
 paths.css = paths.webroot + "css/**/*.css";
 paths.minCss = paths.webroot + "css/**/*.min.css";
@@ -36,7 +36,8 @@ gulp.task("clean", ["clean:js", "clean:css"]);
 gulp.task("min:js", function () {
     return gulp.src(
         
-        [paths.js + "hopscotch/**/*.js",
+        [   paths.libs + "requirejs/require.js",
+            paths.js + "hopscotch/**/*.js",
             paths.js + "blockly/**/*.js",
             paths.js + "**/*.js",
             "!" + paths.minJs],

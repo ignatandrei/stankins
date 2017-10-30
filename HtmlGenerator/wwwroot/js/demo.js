@@ -65,13 +65,14 @@ var tour = {
       arrowOffset: 60
     }
 	,
-	 {
-      target: ':5.label',
-      title: 'Add sender',
-      content: "Now click senders and add to the list a sender",
-      placement: 'bottom',
-      arrowOffset: 60
-    }
+	 
+     {
+         target: 'recipeSqlServer',
+         title: 'SqlServer',
+         content: "Now click here and see how you can load data from Sql Server",
+         placement: 'bottom',
+         arrowOffset: 60
+     }
     
   ],
   showPrevButton: true,

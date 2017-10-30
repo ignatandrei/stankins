@@ -13,10 +13,17 @@
 </div>
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <p class="text-left">
             <button id="startTourBtn" class="btn btn-large btn-primary">
                 Take a tour
+            </button>
+        </p>
+    </div>
+    <div class="col-md-2">
+        <p class="text-left">
+            <button id="recipeSqlServer" class="btn btn-large btn-primary" onclick="javascript:loadSqlServer()">
+                SqlServer
             </button>
         </p>
     </div>
@@ -358,52 +365,7 @@
         </xml>
 
 
-        <xml id="startBlocks" style="display: none">
-            <block type="variables_set">
-                <field name="VAR">TheConnectionString</field>
-                <value name="VALUE">
-                    <block type="text">
-                        <field name="TEXT">Server=.;Database=myTestDatabase;Trusted_Connection=True;</field>
-                    </block>
-                </value>
-
-            </block>
-
-            <block type='simplejob' inline="false" x="20" y="40">
-
-                <value name='Receivers'>
-                    <block type='ReceiverWholeTable' inline="false">
-                        <field name="fldTableName">Department</field>
-
-                        <value name="valConnectionString">
-                            <block type="variables_get">
-
-                                <field name="VAR">TheConnectionString</field>
-
-                            </block>
-                        </value>
-
-
-                    </block>
-                </value>
-                <value name='FiltersAndTransformers'>
-                    <block type='lists_create_with' inline="false">
-                        <mutation items="3"></mutation>
-
-                    </block>
-                </value>
-
-                <value name='Senders'>
-
-
-                    <block type="Sender_CSV" inline="false">
-                        <field name="fldFileName">Department.csv</field>
-                        <field name="fldFileMode">4</field>
-                    </block>
-                </value>
-            </block>
-
-        </xml>
+       
 
        
             @if (Model?.Result != null)
@@ -452,6 +414,7 @@
     </div>
 </div>
 
+@Html.Raw(System.IO.File.ReadAllText("recipesXML/sqlserver.txt"));
 
 
 
