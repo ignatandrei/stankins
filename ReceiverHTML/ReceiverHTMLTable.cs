@@ -22,10 +22,10 @@ namespace ReceiverFile
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
             var tables = doc.DocumentNode.SelectNodes("//table");
-            string[] columnsNames = null;
+            
             foreach(var table    in tables)
             {
-                
+                string[] columnsNames = null;
                 var head = table.SelectSingleNode("thead");
                 if (head != null)
                 {
@@ -84,9 +84,10 @@ namespace ReceiverFile
                     }
                     
                 }
-                valuesRead = ret.ToArray();
-                await Task.CompletedTask;
+               
             }
+            valuesRead = ret.ToArray();
+            await Task.CompletedTask;
 
 
         }
