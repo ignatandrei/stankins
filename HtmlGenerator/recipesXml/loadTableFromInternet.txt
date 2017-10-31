@@ -1,0 +1,46 @@
+﻿<xml id="loadTable" style="display: none">
+            <block type="variables_set">
+                <field name="VAR">UrlToLoad</field>
+                <value name="VALUE">
+                    <block type="text">
+                        <field name="TEXT">https://en.wikipedia.org/wiki/List_of_file_signatures</field>
+                    </block>
+                </value>
+
+            </block>
+
+            <block type='simplejob' inline="false" x="20" y="40">
+
+                <value name='Receivers'>
+                    <block type='ReceiverHTMLTable' inline="false">
+                        
+
+                        <value name="valFileToRead">
+                            <block type="variables_get">
+
+                                <field name="VAR">UrlToLoad</field>
+
+                            </block>
+                        </value>
+
+
+                    </block>
+                </value>
+                <value name='FiltersAndTransformers'>
+                    <block type='lists_create_with' inline="false">
+                        <mutation items="3"></mutation>
+
+                    </block>
+                </value>
+
+                <value name='Senders'>
+
+
+                    <block type="Sender_CSV" inline="false">
+                        <field name="fldFileName">LoadTable.csv</field>
+                        <field name="fldFileMode">4</field>
+                    </block>
+                </value>
+            </block>
+
+        </xml>

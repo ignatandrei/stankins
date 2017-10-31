@@ -5,6 +5,7 @@
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="recipesXml\loadTableFromInternet.txt" />
     <Content Include="recipesXml\sqlserver.txt" />
   </ItemGroup>
   <ItemGroup>

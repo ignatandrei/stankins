@@ -1,15 +1,18 @@
   var workspace = Blockly.inject('blocklyDiv',
         {//media: '../../media/',
-         toolbox: document.getElementById('toolbox')});
-
-function loadSqlServer() {
+        toolbox: document.getElementById('toolbox')
+    });
+var start = document.getElementById("startBlocks");
+if (start !=null)
+    Blockly.Xml.domToWorkspace(start , workspace);
+function loadData(xmlId) {
     
-
+    Blockly.mainWorkspace.clear();
     Blockly.Xml.domToWorkspace(
-        document.getElementById('sqlServer'),
-        workspace);
+        document.getElementById(xmlId),workspace);
 
 }   
+
 function loadxml(xml) {
     //debugger;
     if (typeof xml != "string" || xml.length < 5) {
@@ -67,6 +70,7 @@ function loadxml(xml) {
 	return code;
  }
  function runCode() {
+     showPleaseWait();
      //showCode();
      //var xml = Blockly.Xml.workspaceToDom(Blockly.Ma);
      //var xml_text = Blockly.Xml.domToText(xml);

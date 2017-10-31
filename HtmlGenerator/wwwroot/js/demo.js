@@ -4,7 +4,7 @@ var tour = {
     {
       target: 'theTitle',
       title: 'Welcome to Stankins generator!',
-      content: "Let's see how to generate Stankins file",
+      content: "Let's see how to generate and run Stankins file",
       placement: 'bottom',
       arrowOffset: 60
     },
@@ -64,12 +64,29 @@ var tour = {
       placement: 'left',
       arrowOffset: 60
     }
-	,
+      ,
+     {
+         target: 'runcode',
+         title: 'Run code',
+         content: "Click this button to run code and see results",
+         placement: 'left',
+         arrowOffset: 60
+     }
+      ,
 	 
      {
          target: 'recipeSqlServer',
          title: 'SqlServer',
          content: "Now click here and see how you can load data from Sql Server",
+         placement: 'bottom',
+         arrowOffset: 60
+     }
+      ,
+
+     {
+         target: 'recipeTable',
+         title: 'Load Table',
+         content: "Now click here and see how you can load data from a table from local or internet",
          placement: 'bottom',
          arrowOffset: 60
      }

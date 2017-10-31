@@ -21,11 +21,15 @@
         </p>
     </div>
     <div class="col-md-2">
-        <p class="text-left">
-            <button id="recipeSqlServer" class="btn btn-large btn-primary" onclick="javascript:loadSqlServer()">
+        <p class="text-justify">
+            <button id="recipeSqlServer" class="btn btn-large btn-primary" onclick="javascript:loadData('sqlServer')">
                 SqlServer
             </button>
-        </p>
+        &nbsp;&nbsp;&nbsp;
+    <button id="recipeTable" class="btn btn-large btn-primary" onclick="javascript:loadData('loadTable')">
+        Load Table
+    </button>
+</p>
     </div>
     <div class="col-md-6">
         <p class="text-right">
@@ -52,6 +56,7 @@
             </category>
             <category name='receivers'>
                 <block type='ReceiverWholeTable'></block>
+                <block type='ReceiverHTMLTable'></block>
             </category>
             <category name='transformers'>
                 <block type='TransformRowMergeFields'></block>
@@ -363,7 +368,22 @@
             <category name="{catFunctions}" colour="290" custom="PROCEDURE"></category>
 
         </xml>
+        <xml id="startBlocks" style="display: none">
+            
 
+            <block type='simplejob' inline="false" x="20" y="40">
+
+                <value name='FiltersAndTransformers'>
+                    <block type='lists_create_with' inline="false">
+                        <mutation items="3"></mutation>
+
+                    </block>
+                </value>
+
+            
+            </block>
+
+        </xml>
 
        
 
@@ -415,6 +435,8 @@
 </div>
 
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/sqlserver.txt"));
+
+@Html.Raw(System.IO.File.ReadAllText("recipesXML/loadTableFromInternet.txt"));
 
 
 

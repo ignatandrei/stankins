@@ -45,10 +45,11 @@ code += '\n';
 code += "'$type': 'StankinsInterfaces.OrderedList`1[[StankinsInterfaces.IReceive, StankinsInterfaces]], StankinsInterfaces'";
 code += '\n';
 
-var nr=0;
+var nr = 0;
+
 for(var i=0;i<value_receivers.length;i++){
 	var valLoop=value_receivers[i];
-	if(valLoop == null || valLoop=='null')
+    if (valLoop == null || valLoop == 'null' || valLoop.length == 0)
 			continue;
 	code += ",'"+ nr++  + "': ";
 	code += '\n';
@@ -90,7 +91,7 @@ code += '\n';
 	nr=0;
 for(var i=0;i<value_senders.length;i++){
 	var valLoop=value_senders[i];
-	if(valLoop == null  || valLoop=='null')
+    if (valLoop == null || valLoop == 'null' || valLoop.length == 0)
 			continue;
 	code += ",'"+ nr++  + "': ";
 	code += '\n';
