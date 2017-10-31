@@ -126,6 +126,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BlocklyClasses\BlocklyClasses.csproj" />
     <ProjectReference Include="..\CommonDB\CommonDB.csproj" />
     <ProjectReference Include="..\Logging\Logging.csproj" />
     <ProjectReference Include="..\MediaTransform\MediaTransform.csproj" />
@@ -133,6 +134,7 @@
     <ProjectReference Include="..\ReceiverAzureIoTHub\ReceiverAzureIoTHub.csproj" />
     <ProjectReference Include="..\ReceiverBookmarkExportChrome\ReceiverBookmarkExportChrome.csproj" />
     <ProjectReference Include="..\ReceiverCSV\ReceiverCSV.csproj" />
+    <ProjectReference Include="..\ReceiverDatabaseObjectsMySql\ReceiverDatabaseObjectsMySql.csproj" />
     <ProjectReference Include="..\ReceiverDatabaseObjectsSqlServer\ReceiverDatabaseObjectsSqlServer.csproj" />
     <ProjectReference Include="..\ReceiverDatabaseObjects\ReceiverDatabaseObjects.csproj" />
     <ProjectReference Include="..\ReceiverDBMySQL\ReceiverDBMySQL.csproj" />
@@ -142,6 +144,7 @@
     <ProjectReference Include="..\ReceiverDll\ReceiverDll.csproj" />
     <ProjectReference Include="..\ReceiverFileSystem\ReceiverFileSystem.csproj" />
     <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
+    <ProjectReference Include="..\ReceiverHTML\ReceiverHTML.csproj" />
     <ProjectReference Include="..\ReceiverJob\ReceiverJob.csproj" />
     <ProjectReference Include="..\ReceiverJSON\ReceiverJSON.csproj" />
     <ProjectReference Include="..\ReiceverDBStmtSqlServer\ReiceverDBStmtSqlServer.csproj" />
@@ -156,6 +159,7 @@
     <ProjectReference Include="..\SenderHttp\SenderHttp.csproj" />
     <ProjectReference Include="..\SenderoToDBSqlServer\SenderToDBSqlServer.csproj" />
     <ProjectReference Include="..\SenderSMTP\SenderSMTP.csproj" />
+    <ProjectReference Include="..\SenderToDataTable\SenderToDataTable.csproj" />
     <ProjectReference Include="..\SenderToDB\SenderToDB.csproj" />
     <ProjectReference Include="..\SenderToFile\SenderToFile.csproj" />
     <ProjectReference Include="..\SenderUnzipFiles\SenderUnzipFiles.csproj" />
@@ -165,6 +169,7 @@
     <ProjectReference Include="..\StankinsTests\StankinsTests.csproj" />
     <ProjectReference Include="..\StanskinsImplementation\StanskinsImplementation.csproj" />
     <ProjectReference Include="..\StringInterpreter\StringInterpreter.csproj" />
+    <ProjectReference Include="..\TransformerHtmlUrl\TransformerHtmlUrl.csproj" />
     <ProjectReference Include="..\Transformers\Transformers.csproj" />
   </ItemGroup>
 
