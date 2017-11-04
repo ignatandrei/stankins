@@ -29,7 +29,12 @@
                 <value name='FiltersAndTransformers'>
                     <block type='lists_create_with' inline="false">
                         <mutation items="3"></mutation>
-
+						 <value name="ADD0">
+                            <block type="FilterExistValue">
+                            <field name="fldKey">Hex signature</field>
+							<field name="fldName">Verify Hex signature</field>
+                            </block>
+                        </value>
                     </block>
                 </value>
 
