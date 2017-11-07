@@ -2,7 +2,7 @@
         Blockly.Blocks['FilterExistValue'] = {
         init: function() {
         this.appendDummyInput()
-        .appendField("FilterExistValue");
+        .appendField("Filter Exist Value for Column");
         
         this.appendValueInput('valName') 
         .setCheck('String')
@@ -10,7 +10,7 @@
         .appendField(new Blockly.FieldTextInput('Exists value for '), 'fldName');
         this.appendValueInput('valKey') 
         .setCheck('String')
-        .appendField('Key:')
+        .appendField('ColumnName:')
         .appendField(new Blockly.FieldTextInput(''), 'fldKey');
         
         this.setTooltip("FilterExistValue");
