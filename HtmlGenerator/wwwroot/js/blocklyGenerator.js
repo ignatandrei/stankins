@@ -22,7 +22,7 @@ function loadxml(xml) {
     try {
         var dom = Blockly.Xml.textToDom(xml);
         //window.alert(dom);
-        //Blockly.mainWorkspace.clear();
+        Blockly.mainWorkspace.clear();
         Blockly.Xml.domToWorkspace(dom, Blockly.mainWorkspace);
         return true;
     } catch (e) {
@@ -72,35 +72,25 @@ function loadxml(xml) {
  function runCode() {
      showPleaseWait();
      //showCode();
-     //var xml = Blockly.Xml.workspaceToDom(Blockly.Ma);
-     //var xml_text = Blockly.Xml.domToText(xml);
-     //setCookie("xmlWorkspace", xml_text, 365);
+     var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+     var xml_text = Blockly.Xml.domToText(xml);
+     setCookie("xmlWorkspace", xml_text);
      showCode();
-        $("#postData").submit();
+     $("#postData").submit();
  }
  function loadFromCookie() {
      
-     //loadxml(getCookie("xmlWorkspace"));
+     loadxml(getCookie("xmlWorkspace"));
  }
 
- function setCookie(cname, cvalue, exdays) {
-     var d = new Date();
-     d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-     var expires = "expires=" + d.toUTCString();
-     document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+ function setCookie(cname, cvalue) {
+     if (typeof (Storage) !== "undefined") {
+         localStorage.setItem(cname, cvalue);
+     }
  }
 
  function getCookie(cname) {
-     var name = cname + "=";
-     var ca = document.cookie.split(';');
-     for (var i = 0; i < ca.length; i++) {
-         var c = ca[i];
-         while (c.charAt(0) == ' ') {
-             c = c.substring(1);
-         }
-         if (c.indexOf(name) == 0) {
-             return c.substring(name.length, c.length);
-         }
+     if (typeof (Storage) !== "undefined") {
+         return localStorage.getItem(cname);
      }
-     return "";
  }
