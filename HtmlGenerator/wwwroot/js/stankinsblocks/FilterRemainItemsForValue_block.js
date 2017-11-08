@@ -12,7 +12,18 @@
         .setCheck('String')
         .appendField('Column:')
         .appendField(new Blockly.FieldTextInput(''), 'fldKey');
-       this.appendValueInput('valFilterType') 
+       this.appendValueInput('valCondition') 
+        .setCheck('Boolean')
+        .appendField('Condition:')
+        
+		 .appendField(new Blockly.FieldDropdown([
+                ["Does", 'false'],
+                ["DoesNot", 'true'],
+                
+            ]), 'fldCondition');
+		
+	   
+	   this.appendValueInput('valFilterType') 
         .setCheck('String')
         .appendField('FilterType:')
         
