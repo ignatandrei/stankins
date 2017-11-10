@@ -1,0 +1,87 @@
+﻿
+<xml id="loadDateProgrammingLanguages" style="display: none">
+   <variables>
+      <variable  type="">UrlToLoad</variable>
+   </variables>
+   <block  type="variables_set" y="0" x="0" >
+      <field  name="VAR" variableType="">UrlToLoad</field>
+      <value name="VALUE">
+         <block type="text">
+            <field name="TEXT">https://en.wikipedia.org/wiki/Timeline_of_programming_languages</field>
+         </block>
+      </value>
+   </block>
+   <block type="simplejob" >
+      <value name="Receivers">
+         <block  type="ReceiverHTMLTable" inline="false">
+            <field name="fldName">Receiver HTML Table</field>
+            <field name="fldFileToRead" ></field>
+            <value name="valFileToRead">
+               <block  type="variables_get">
+                  <field  name="VAR" variableType="">UrlToLoad</field>
+               </block>
+            </value>
+         </block>
+      </value>
+      <value name="FiltersAndTransformers">
+         <block  type="lists_create_with" inline="false">
+            <mutation items="3" ></mutation>
+            <value name="ADD0">
+               <block  type="TransformRowRemoveField">
+                  <field name="fldName">Remove fields</field>
+                  <value name="valNameFields">
+                     <block  type="lists_create_with">
+                        <mutation items="4" ></mutation>
+                        <value name="ADD0">
+                           <block  type="text">
+                              <field name="TEXT">Predecessor(s)</field>
+                           </block>
+                        </value>
+                        <value name="ADD1">
+                           <block  type="text">
+                              <field name="TEXT">Chief developer, company</field>
+                           </block>
+                        </value>
+                        <value name="ADD2">
+                           <block  type="text">
+                              <field name="TEXT">v t e Programming languages</field>
+                           </block>
+                        </value>
+                        <value name="ADD3">
+                           <block  type="text">
+                              <field name="TEXT">Programming language lists</field>
+                           </block>
+                        </value>
+                     </block>
+                  </value>
+               </block>
+            </value>
+            <value name="ADD1">
+               <block  type="FilterRemainItemsForValue">
+                  <field name="fldName">Filter column for value</field>
+                  <field name="fldKey">Year</field>
+                  <field name="fldCondition">true</field>
+                  <field name="fldFilterType">1</field>
+                  <field name="fldValueSearch">–</field>
+               </block>
+            </value>
+            <value name="ADD2">
+               <block  type="FilterRemainItemsForValue">
+                  <field name="fldName">Filter column for value</field>
+                  <field name="fldKey">Year</field>
+                  <field name="fldCondition">true</field>
+                  <field name="fldFilterType">1</field>
+                  <field name="fldValueSearch">Year</field>
+               </block>
+            </value>
+         </block>
+      </value>
+      <value name="Senders">
+         <block  type="Sender_CSV" inline="false">
+            <field name="fldName">Sender to CSV</field>
+            <field name="fldFileName">LoadTable.csv</field>
+            <field name="fldFileMode">4</field>
+         </block>
+      </value>
+   </block>
+</xml>

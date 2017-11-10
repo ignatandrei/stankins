@@ -26,8 +26,11 @@
                 SqlServer
             </button>
         &nbsp;&nbsp;&nbsp;
-    <button id="recipeTable" class="btn btn-large btn-primary" onclick="javascript:loadData('loadTable')">
-        Load Table
+    <button id="recipeFileSignatures" class="btn btn-large btn-primary" onclick="javascript:loadData('loadSignatures')">
+        File signatures
+    </button>
+            <button id="recipeProgrammingLanguages" class="btn btn-large btn-primary" onclick="javascript:loadData('loadDateProgrammingLanguages')">
+       Programming languages dates
     </button>
 </p>
     </div>
@@ -437,8 +440,8 @@
 
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/sqlserver.txt"));
 
-@Html.Raw(System.IO.File.ReadAllText("recipesXML/loadTableFromInternet.txt"));
-
+@Html.Raw(System.IO.File.ReadAllText("recipesXML/loadFileSignatures.txt"));
+@Html.Raw(System.IO.File.ReadAllText("recipesXML/loadDateProgrammingLanguages.txt"));
 
 
 @section Scripts{

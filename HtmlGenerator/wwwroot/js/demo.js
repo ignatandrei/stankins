@@ -84,8 +84,8 @@ var tour = {
       ,
 
      {
-         target: 'recipeTable',
-         title: 'Load Table',
+         target: 'recipeFileSignatures',
+         title: 'Load file signatures',
          content: "Now click here and see how you can load data from a table from local or internet",
          placement: 'bottom',
          arrowOffset: 60

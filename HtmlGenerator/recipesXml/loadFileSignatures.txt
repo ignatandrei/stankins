@@ -1,4 +1,4 @@
-﻿<xml id="loadTable" style="display: none">
+﻿<xml id="loadSignatures" style="display: none">
             <block type="variables_set">
                 <field name="VAR">UrlToLoad</field>
                 <value name="VALUE">
