@@ -15,7 +15,7 @@ namespace ReceiverFile
         {
             
         }
-
+        public bool PrettifyColumnNames { get; set; } = true;
         protected override async Task ProcessText(string text)
         {
             var ret = new List<IRowReceive>();
@@ -40,7 +40,8 @@ namespace ReceiverFile
                         columnsNames = new string[columns.Count];
                         for (int i = 0; i < columns.Count; i++)
                         {
-                            columnsNames[i] = columns[i].InnerText;
+                            var colName = columns[i].InnerText;
+                            columnsNames[i] =MakePretty(colName) ;
                         }
                     }
                 }
@@ -67,7 +68,8 @@ namespace ReceiverFile
                         columnsNames = new string[cells.Count];
                         for (int i = 0; i < columnsNames.Length; i++)
                         {
-                            columnsNames[i] = cells[i].InnerText;
+                            var colName = cells[i].InnerText;
+                            columnsNames[i] =MakePretty( cells[i].InnerText);
                         }
                         continue;
                     }
@@ -90,6 +92,20 @@ namespace ReceiverFile
             await Task.CompletedTask;
 
 
+        }
+
+        private string MakePretty(string colName)
+        {
+            if (!PrettifyColumnNames)
+                return colName;
+            if (string.IsNullOrWhiteSpace(colName))
+                return colName;
+            colName = colName.Trim();
+            colName = colName.Replace("\n", " ");
+            while (colName.IndexOf("  ") > -1)
+                colName = colName.Replace("  ", " ");
+
+            return colName;
         }
     }
 }
