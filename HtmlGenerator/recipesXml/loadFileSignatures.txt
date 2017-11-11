@@ -1,4 +1,7 @@
 ﻿<xml id="loadSignatures" style="display: none">
+ <variables>
+      <variable  type="">UrlToLoad</variable>
+   </variables>
             <block type="variables_set">
                 <field name="VAR">UrlToLoad</field>
                 <value name="VALUE">

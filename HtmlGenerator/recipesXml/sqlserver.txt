@@ -1,4 +1,7 @@
 ﻿<xml id="sqlServer" style="display: none">
+ <variables>
+      <variable  type="">TheConnectionString</variable>
+   </variables>
             <block type="variables_set">
                 <field name="VAR">TheConnectionString</field>
                 <value name="VALUE">

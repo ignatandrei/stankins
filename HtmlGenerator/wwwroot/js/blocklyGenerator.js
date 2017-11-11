@@ -1,7 +1,35 @@
-  var workspace = Blockly.inject('blocklyDiv',
-        {//media: '../../media/',
-        toolbox: document.getElementById('toolbox')
-    });
+var options = {
+    toolbox: document.getElementById('toolbox'),
+    collapse: true,
+    comments: true,
+    disable: true,
+    maxBlocks: Infinity,
+    trashcan: true,
+    horizontalLayout: false,
+    toolboxPosition: 'start',
+    css: true,
+    /*      media : '../media/', */
+    rtl: false,
+    scrollbars: true,
+    sounds: true,
+    oneBasedIndex: true,
+    zoom: {
+        controls: true,
+        wheel: true,
+        startScale: 1,
+        maxcale: 3,
+        minScale: 0.3
+    },
+    grid:
+    {
+        spacing: 20,
+        length: 3,
+        colour: '#ccc',
+        snap: true
+    }
+};
+
+var workspace = Blockly.inject('blocklyDiv',options);
 var start = document.getElementById("startBlocks");
 if (start !=null)
     Blockly.Xml.domToWorkspace(start , workspace);
