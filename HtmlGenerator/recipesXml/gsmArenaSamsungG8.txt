@@ -1,0 +1,43 @@
+﻿<xml id="loadGSMArenaSamsungG8" xmlns="http://www.w3.org/1999/xhtml">
+   <variables>
+      <variable  type="">UrlToLoad</variable>
+   </variables>
+   <block  type="variables_set" y="-290" x="-290">
+      <field  name="VAR" variableType="">UrlToLoad</field>
+      <value name="VALUE">
+         <block  type="text">
+            <field name="TEXT">https://www.gsmarena.com/samsung_galaxy_s8+-8523.php</field>
+         </block>
+      </value>
+   </block>
+   <block  type="simplejob" y="-250" x="-410">
+      <value name="Receivers">
+         <block  type="ReceiverHTMLTable" inline="false">
+            <field name="fldName">Receiver HTML Table</field>
+            <field name="fldFileToRead"></field>
+            <value name="valFileToRead">
+               <block  type="variables_get">
+                  <field  name="VAR" variableType="">UrlToLoad</field>
+               </block>
+            </value>
+         </block>
+      </value>
+      <value name="FiltersAndTransformers">
+         <block  type="lists_create_with" inline="false">
+            <mutation items="3" ></mutation>
+            <value name="ADD0">
+               <block  type="TransformKeyValue">
+                  <field name="fldName">Transformer to key value</field>
+               </block>
+            </value>
+         </block>
+      </value>
+      <value name="Senders">
+         <block  type="Sender_CSV" inline="false">
+            <field name="fldName">Sender to CSV</field>
+            <field name="fldFileName">LoadTable.csv</field>
+            <field name="fldFileMode">4</field>
+         </block>
+      </value>
+   </block>
+</xml>

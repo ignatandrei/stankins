@@ -69,6 +69,11 @@ function loadxml(xml) {
 	  x=transformReceiversSendersTransformer(x);
 	  //$("#fileGenerated").val(code);
       $("#fileGenerated").html(orderedStringify(x));
+      var xml = Blockly.Xml.workspaceToDom(Blockly.mainWorkspace);
+      var xml_text = Blockly.Xml.domToText(xml);
+      //debugger;
+        
+      //$("#xmlBlockly").html(xml_text);
     }
 	function transformArray(code, theType){
 	var valueType=code[theType];

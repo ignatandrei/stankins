@@ -29,9 +29,13 @@
     <button id="recipeFileSignatures" class="btn btn-large btn-primary" onclick="javascript:loadData('loadSignatures')">
         File signatures
     </button>
-            <button id="recipeProgrammingLanguages" class="btn btn-large btn-primary" onclick="javascript:loadData('loadDateProgrammingLanguages')">
+    <button id="recipeProgrammingLanguages" class="btn btn-large btn-primary" onclick="javascript:loadData('loadDateProgrammingLanguages')">
        Programming languages dates
     </button>
+            <button id="recipeloadGSMArenaSamsungG8" class="btn btn-large btn-primary" onclick="javascript:loadData('loadGSMArenaSamsungG8')">
+                GSMArenaSamsungG8
+            </button>
+            
 </p>
     </div>
     <div class="col-md-6">
@@ -68,6 +72,7 @@
                 <block type='TransformerFieldStringInt'></block>
                 <block type='TransformRowRemoveField'></block>
                 <block type='TransformKeyValue'></block>
+                <block type='TransformAddNewField'></block>
             </category>
             <category name='filters'>
                 <block type='FilterExistValue'></block>
@@ -436,6 +441,7 @@
             <textarea cols="40" rows="50" asp-for="fileGenerated"></textarea>
             
         </form>
+        @*<textarea cols="40" rows="50" id="xmlBlockly"></textarea>*@
     </div>
 </div>
 
@@ -443,6 +449,7 @@
 
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/loadFileSignatures.txt"));
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/loadDateProgrammingLanguages.txt"));
+@Html.Raw(System.IO.File.ReadAllText("recipesXML/gsmArenaSamsungG8.txt"));
 
 
 @section Scripts{
