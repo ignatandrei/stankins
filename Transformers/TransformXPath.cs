@@ -56,7 +56,7 @@ namespace Transformers
                                 }
                                 catch (Exception)
                                 {
-
+                                    //TODO:log
                                     row.Values[exp.Key] = null;
                                 }
                             }
