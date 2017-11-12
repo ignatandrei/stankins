@@ -1,0 +1,28 @@
+﻿<xml id="androidList" xmlns="http://www.w3.org/1999/xhtml">
+   <variables>
+      <variable  type="">UrlToLoad</variable>
+   </variables>
+   <block  type="variables_set" y="-310" x="-370">
+      <field  name="VAR" variableType="">UrlToLoad</field>
+      <value name="VALUE">
+         <block  type="text">
+            <field name="TEXT">http://storage.googleapis.com/play_public/supported_devices.csv</field>
+         </block>
+      </value>
+   </block>
+   <block  type="simplejob" y="-270" x="-350">
+      <value name="Receivers">
+         <block  type="ReceiverCSVWholeFile">
+            <field name="fldName">Read CSV</field>
+            <field name="fldFileToRead" ></field>
+            <field name="fldFileEnconding">utf-8</field>
+            <field name="fldReadAllFirstTime">true</field>
+            <value name="valFileToRead">
+               <block  type="variables_get">
+                  <field  name="VAR" variableType="">UrlToLoad</field>
+               </block>
+            </value>
+         </block>
+      </value>
+   </block>
+</xml>

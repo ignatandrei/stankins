@@ -4,7 +4,9 @@ using StanskinsImplementation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ReceiverCSV
@@ -31,21 +33,48 @@ namespace ReceiverCSV
         string[] CSVHeaderLine;
         
         List<IRowReceive> listOfData;
-        protected override Task ProcessText(string text)
+        protected override async Task ProcessText(string text)
         {
-            if(CSVHeaderLine == null)
+            if ((text?.Length ?? 0) == 0)
+                return;
+            foreach (var item in text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries))
             {
-                CSVHeaderLine=text.Split(new string[] { "," }, StringSplitOptions.None);
-                return Task.CompletedTask;
+                var textLine = item.Replace("\r", "");
+                var row = textLine.Split(new string[] { "," }, StringSplitOptions.None);
+                if (CSVHeaderLine != null && row.Length > CSVHeaderLine.Length)
+                {
+                    if (textLine.Contains("\""))
+                    {
+                        if ((textLine.Replace("\"", "").Length - textLine.Length) % 2 == 0)
+                        {
+                            row = Regex.Split(textLine, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+                        }
+                    }
+                    if (textLine.Contains("'"))
+                    {
+                        if ((textLine.Replace("'", "").Length - textLine.Length) % 2 == 0)
+                        {
+                            row = Regex.Split(textLine, ",(?=(?:[^']*'[^']*')*[^']*$)");
+                        }
+                    }
+                }
+                if (CSVHeaderLine == null)
+                {
+                    CSVHeaderLine = row;
+                    continue ;
+                }
+                
+
+                
+                RowRead obj = new RowRead();
+                
+                for (int columns = 0; columns <Math.Min( row.Length,CSVHeaderLine.Length); columns++)
+                {
+                    obj.Values.Add(CSVHeaderLine[columns], row[columns]);
+                }
+                listOfData.Add(obj);
             }
-            var row = text.Split(new string[] { "," }, StringSplitOptions.None);
-            RowRead obj = new RowRead();
-            for (int columns = 0; columns < row.Length; columns++)
-            {
-                obj.Values.Add(CSVHeaderLine[columns], row[columns]);
-            }
-            listOfData.Add(obj);
-            return Task.CompletedTask;
+            return ;
         }
         
     }

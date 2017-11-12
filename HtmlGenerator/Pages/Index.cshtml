@@ -35,6 +35,9 @@
             <button id="recipeloadGSMArenaSamsungG8" class="btn btn-large btn-primary" onclick="javascript:loadData('loadGSMArenaSamsungG8')">
                 GSMArenaSamsungG8
             </button>
+            <button id="recipeLoadandroidList" class="btn btn-large btn-primary" onclick="javascript:loadData('androidList')">
+                Android List
+            </button>
             
 </p>
     </div>
@@ -64,6 +67,7 @@
             <category name='receivers'>
                 <block type='ReceiverWholeTable'></block>
                 <block type='ReceiverHTMLTable'></block>
+                <block type='ReceiverCSVWholeFile'></block>
             </category>
             <category name='transformers'>
                 <block type='TransformRowMergeFields'></block>
@@ -450,7 +454,7 @@
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/loadFileSignatures.txt"));
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/loadDateProgrammingLanguages.txt"));
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/gsmArenaSamsungG8.txt"));
-
+@Html.Raw(System.IO.File.ReadAllText("recipesXML/androidList.txt"));
 
 @section Scripts{
     <script src="~/js/blocklyGenerator.js"></script>
