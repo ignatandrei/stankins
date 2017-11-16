@@ -8,6 +8,7 @@ using StringInterpreter;
 using System.Diagnostics;
 using Microsoft.Extensions.Logging;
 using System.Text;
+using System.Reflection;
 
 namespace StanskinsImplementation
 {
@@ -135,6 +136,9 @@ namespace StanskinsImplementation
         }
         public bool AllReceiversAsync { get; set; }
         public bool AllSendersAsync{ get; set; }
+
+        public RuntimeParameter[] RuntimeParameters { get; set; }
+        Dictionary<RuntimeParameter, string> variables = new Dictionary<RuntimeParameter, string>();
         public override async Task Execute()
         {
             IReceive arv =null;
@@ -154,13 +158,37 @@ namespace StanskinsImplementation
                 }
             }
             await arv.LoadData();
+            
+            var nameObjectsWithVariables = RuntimeParameters
+                .SelectMany(it => it.NameObjectsToApplyTo)
+                .Select(it=>it.ToLowerInvariant())
+                .Distinct()
+                .ToArray();
             IRow[] data = arv.valuesRead;
             foreach (var filterKV in FiltersAndTransformers)
             {
+                var var = filterKV.Value as TransformIntoVariable;
+                if(var != null)
+                {
+                    var param = RuntimeParameters.FirstOrDefault(it => it.VariableName == var.VariableName);
+                    if(param == null)
+                    {
+                        throw new ArgumentException($"in runtime parameters I cannot find variable {var.VariableName}");
+                    }
+                    await var.Run();
+                    variables[param]= var.Result;
+                    continue;
+                }
+                bool hasVar = (nameObjectsWithVariables.Contains(filterKV.Value.Name.ToLowerInvariant()));
+                if (hasVar)
+                {
+                    TransformPropertyFromVar(filterKV.Value);
+                }
                 //TODO: see also IFilterTransformer
                 var transform = filterKV.Value as ITransform;
                 if (transform != null)
                 {
+                    
                     transform.valuesRead = data;
                     await transform.Run();
                     data = transform.valuesTransformed;
@@ -203,7 +231,24 @@ namespace StanskinsImplementation
             await send.Send();
         }
 
-        
+        private void TransformPropertyFromVar(IFilterTransformer value)
+        {
+            var name = value.Name.ToLowerInvariant();
+            var runtimes = RuntimeParameters
+                .Where(it=>
+                it
+                .NameObjectsToApplyTo
+                .Select(n=>n.ToLowerInvariant())
+                .Contains(name))
+                .ToArray();
+            var props = value.GetType().GetProperties(BindingFlags.Public);
+            foreach (var rt in runtimes)
+            {
+                var prop = props.FirstOrDefault(it => it.Name.ToLowerInvariant() == rt.VariableName.ToLowerInvariant());
+                object var = Convert.ChangeType(variables[rt], prop.PropertyType);
+                prop.SetValue(value, var);
+            }
+        }
 
         public override void UnSerialize(string serializeData)
         {
