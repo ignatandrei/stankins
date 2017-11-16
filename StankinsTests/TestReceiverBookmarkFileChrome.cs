@@ -43,6 +43,7 @@ namespace StankinsTests
             receiver.XPaths[1] = "//a";
             receiver.AttributeNames = new string[2];
             receiver.AttributeNames[0] = "HREF";
+            //second attribute is missing -take inner text
             #endregion
             #region ACT
 

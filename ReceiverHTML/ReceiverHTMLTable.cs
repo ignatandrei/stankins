@@ -22,7 +22,10 @@ namespace ReceiverFile
             var doc = new HtmlDocument();
             doc.LoadHtml(text);
             var tables = doc.DocumentNode.SelectNodes("//table");
-            
+
+            if ((tables?.Count ?? 0) == 0)
+                throw new ArgumentException("not found tables");
+
             foreach(var table    in tables)
             {
                 string[] columnsNames = null;
