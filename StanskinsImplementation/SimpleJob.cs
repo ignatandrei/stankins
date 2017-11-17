@@ -98,7 +98,7 @@ namespace StanskinsImplementation
             
             FiltersAndTransformers = new OrderedList<IFilterTransformer>();
             Senders = new OrderedList<ISend>();
-
+            
         }
         
        
@@ -158,8 +158,9 @@ namespace StanskinsImplementation
                 }
             }
             await arv.LoadData();
-            
-            var nameObjectsWithVariables = RuntimeParameters
+            string[] nameObjectsWithVariables=null;
+            if((RuntimeParameters?.Length??0)>0)
+                nameObjectsWithVariables = RuntimeParameters
                 .SelectMany(it => it.NameObjectsToApplyTo)
                 .Select(it=>it.ToLowerInvariant())
                 .Distinct()
@@ -179,7 +180,7 @@ namespace StanskinsImplementation
                     variables[param]= var.Result;
                     continue;
                 }
-                bool hasVar = (nameObjectsWithVariables.Contains(filterKV.Value.Name.ToLowerInvariant()));
+                bool hasVar =(nameObjectsWithVariables?.Length>0) &&(nameObjectsWithVariables.Contains(filterKV.Value.Name.ToLowerInvariant()));
                 if (hasVar)
                 {
                     TransformPropertyFromVar(filterKV.Value);
@@ -285,7 +286,7 @@ namespace StanskinsImplementation
             this.FiltersAndTransformers.Add(FiltersAndTransformers.Count, f);
             return this;
         }
-        public SimpleJob AddTransformer(ITransform t)
+        public SimpleJob AddTransformer(IFilterTransformer t)
         {
             this.FiltersAndTransformers.Add(FiltersAndTransformers.Count, t);
             return this;
