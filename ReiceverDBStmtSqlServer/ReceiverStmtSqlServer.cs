@@ -42,9 +42,6 @@ namespace ReceiverDBStmtSqlServer
 
         private void Initialization()
         {
-            if (this.CommandType != CommandType.StoredProcedure)
-                throw new NotImplementedException();
-
             //Example value for parameters: @param1=Col1;@param2=Col2;@param3=Col3
             //Where:
             //@param1,...   = {stored procedure|query} parameters
