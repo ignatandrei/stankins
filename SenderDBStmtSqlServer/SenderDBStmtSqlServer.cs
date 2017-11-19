@@ -43,6 +43,13 @@ namespace SenderDBStmtSqlServer
         /// </summary>
         public bool HasParameters { get { return (this.Parameters != null && this.Parameters.Count > 0); } }
 
+        /// <summary>
+        /// Initializes a new instance of the SenderToDBStmtSqlServer class.
+        /// </summary>
+        /// <param name="connectionString">See <see cref="ConnectionString"/> property.</param>
+        /// <param name="commandType">See <see cref="CommandType"/> property.</param>
+        /// <param name="commandText">See <see cref="CommandText"/> property.</param>
+        /// <param name="parameterMappings">See <see cref="ParametersMappings"/> property.</param>
         public SenderToDBStmtSqlServer(string connectionString, CommandType commandType, string commandText, string parameterMappings = "")
         {
             this.ConnectionString = connectionString;
