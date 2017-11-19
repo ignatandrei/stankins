@@ -3,3 +3,4 @@
 
 <a href='https://github.com/ignatandrei/stankins/releases'>Releases</a>
 
+<a href='https://rawgit.com/ignatandrei/stankins/master/Documentation/Help/index.html'>Documentation</a>
