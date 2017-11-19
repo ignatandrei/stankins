@@ -14,7 +14,7 @@ namespace ReceiverCSV
     /// <summary>
     /// Receiver for *.csv files.
     /// </summary>
-    /// <typeparam name="T">Row type.</typeparam>
+    /// <typeparam name="T">Data type of last value.</typeparam>
     public abstract class ReceiverCSVFile<T> : ReceiverFileFromStorage<T>
          where T : IComparable<T>
     {
