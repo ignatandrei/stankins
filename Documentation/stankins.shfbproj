@@ -43,7 +43,9 @@
 <DocumentationSource sourceFile="..\SenderDBStmtSqlServer\bin\Debug\netstandard2.0\SenderDBStmtSqlServer.dll" />
 <DocumentationSource sourceFile="..\SenderDBStmtSqlServer\bin\Debug\netstandard2.0\SenderDBStmtSqlServer.xml" />
 <DocumentationSource sourceFile="..\StankinsInterfaces\bin\Debug\netstandard2.0\StankinsInterfaces.dll" />
-<DocumentationSource sourceFile="..\StankinsInterfaces\bin\Debug\netstandard2.0\StankinsInterfaces.xml" /></DocumentationSources>
+<DocumentationSource sourceFile="..\StankinsInterfaces\bin\Debug\netstandard2.0\StankinsInterfaces.xml" />
+<DocumentationSource sourceFile="..\ReceiverCSV\bin\Debug\netstandard2.0\ReceiverCSV.dll" />
+<DocumentationSource sourceFile="..\ReceiverCSV\bin\Debug\netstandard2.0\ReceiverCSV.xml" /></DocumentationSources>
     <PlugInConfigurations>
       <PlugInConfig id="Assembly Binding Redirection" enabled="True" xmlns="">
         <configuration useGAC="false">

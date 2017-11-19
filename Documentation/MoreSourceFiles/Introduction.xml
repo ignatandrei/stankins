@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<doc>
+    <summary>
+	Stankins is an open source framework created in order to simplify development of ETL by using *.json config files or by simply referencing project binaries in your projects.
+	Main type of objects are receivers (extract), transformers and senders (load).
+    </summary>
+	
+	<example>
+
+	</example>
+</doc>

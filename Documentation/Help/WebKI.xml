@@ -18,6 +18,7 @@
     <HelpKINode Title="ReceiverStmtSqlServer.ConnectionString Property " Url="html/b23a8ba9-9419-99b5-3d6a-42674191fdcf.htm" />
     <HelpKINode Title="SenderToDBStmtSqlServer.ConnectionString Property " Url="html/d7f494bc-fbac-b396-cbbe-6d35e6216baa.htm" />
   </HelpKINode>
+  <HelpKINode Title="CSVHeaderLine field" Url="html/0fe9c885-958c-7631-6968-380f35ccf278.htm" />
   <HelpKINode Title="DeviceName property" Url="html/e5c0e93d-a731-1d6f-1901-cf456afbf921.htm" />
   <HelpKINode Title="DeviceType property" Url="html/5b2e1c45-2381-5f47-67cf-3395d7c97d2c.htm" />
   <HelpKINode Title="Execute method" Url="html/ea7d4001-1e03-3f8a-f0d1-fa5e046b210f.htm" />
@@ -195,6 +196,7 @@
   <HelpKINode Title="ITransform.valuesTransformed property" Url="html/a9978eef-fbe2-beb5-42df-d398d197071e.htm" />
   <HelpKINode Title="lastRowValues field" Url="html/bc89ae2a-1446-08b4-ebf5-58771d8e27f3.htm" />
   <HelpKINode Title="LastValue property" Url="html/5a52d72c-baee-b3c5-5a6a-008a95a667f2.htm" />
+  <HelpKINode Title="listOfData field" Url="html/5c3dee68-391b-0057-0de2-f0b8a1e9c087.htm" />
   <HelpKINode Title="LoadData method">
     <HelpKINode Title="IReceive.LoadData Method " Url="html/4d419cac-4947-d604-66dc-3adbe6ad0cf9.htm" />
     <HelpKINode Title="ReceiverStmtSqlServer.LoadData Method " Url="html/6050a7cf-dc02-44f0-4559-40256df97985.htm" />
@@ -227,6 +229,72 @@
     <HelpKINode Title="SenderToDBStmtSqlServer.ParametersMappings Property " Url="html/8131fc5d-bc75-6aa3-ea17-7ef78329c836.htm" />
   </HelpKINode>
   <HelpKINode Title="Parent property" Url="html/c1f9793e-aa45-50f7-b15e-40b4bdacd04c.htm" />
+  <HelpKINode Title="ProcessText method" Url="html/33834da7-2f86-dc86-33ba-055e4618da76.htm" />
+  <HelpKINode Title="ReceiverCSV namespace" Url="html/67d12291-764b-0c90-158c-6dd76dcbb818.htm" />
+  <HelpKINode Title="ReceiverCSV.ReceiverCSVFile(Of T) class" Url="html/a6b90050-e23b-58f1-093b-d8f44d921ef8.htm" />
+  <HelpKINode Title="ReceiverCSV.ReceiverCSVFile&lt;T&gt; class" Url="html/a6b90050-e23b-58f1-093b-d8f44d921ef8.htm" />
+  <HelpKINode Title="ReceiverCSV.ReceiverCSVFileDateTime class" Url="html/c59df8fc-2a74-96ff-0a3c-9cc3b0b5fe7e.htm" />
+  <HelpKINode Title="ReceiverCSV.ReceiverCSVFileInt class" Url="html/d48d7d3f-959a-ebe5-7327-41b49de75344.htm" />
+  <HelpKINode Title="ReceiverCSV.ReceiverCSVWholeFile class" Url="html/e6859189-d213-927b-fb72-bee15814e4f2.htm" />
+  <HelpKINode Title="ReceiverCSVFile(Of T) class">
+    <HelpKINode Title="ReceiverCSVFile(T) Class" Url="html/a6b90050-e23b-58f1-093b-d8f44d921ef8.htm" />
+    <HelpKINode Title="about ReceiverCSVFile(Of T) class" Url="html/a6b90050-e23b-58f1-093b-d8f44d921ef8.htm" />
+    <HelpKINode Title="constructor" Url="html/81a4f146-0138-7b4c-df3f-059c9ad116cf.htm" />
+    <HelpKINode Title="events" Url="html/2c85ec12-b388-3265-f32b-829b67199066.htm" />
+    <HelpKINode Title="fields" Url="html/e6b04ec2-95e2-19ca-db04-8bc38d3ed388.htm" />
+    <HelpKINode Title="methods" Url="html/9a80bed9-b9b9-722c-2ed7-bcc14fbbe368.htm" />
+    <HelpKINode Title="properties" Url="html/cdf52ac3-5eea-276d-faf4-88acfec3c00f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ReceiverCSVFile(Of T).CSVHeaderLine field" Url="html/0fe9c885-958c-7631-6968-380f35ccf278.htm" />
+  <HelpKINode Title="ReceiverCSVFile(Of T).listOfData field" Url="html/5c3dee68-391b-0057-0de2-f0b8a1e9c087.htm" />
+  <HelpKINode Title="ReceiverCSVFile(Of T).ProcessText method" Url="html/33834da7-2f86-dc86-33ba-055e4618da76.htm" />
+  <HelpKINode Title="ReceiverCSVFile(Of T).ReceiverCSVFile constructor" Url="html/81a4f146-0138-7b4c-df3f-059c9ad116cf.htm" />
+  <HelpKINode Title="ReceiverCSVFile(Of T).ReceiverCSVFile_EndReadFile method" Url="html/5824e926-2b14-c6ce-f079-6322e9907885.htm" />
+  <HelpKINode Title="ReceiverCSVFile&lt;T&gt; class">
+    <HelpKINode Title="ReceiverCSVFile(T) Class" Url="html/a6b90050-e23b-58f1-093b-d8f44d921ef8.htm" />
+    <HelpKINode Title="about ReceiverCSVFile&lt;T&gt; class" Url="html/a6b90050-e23b-58f1-093b-d8f44d921ef8.htm" />
+    <HelpKINode Title="constructor" Url="html/81a4f146-0138-7b4c-df3f-059c9ad116cf.htm" />
+    <HelpKINode Title="events" Url="html/2c85ec12-b388-3265-f32b-829b67199066.htm" />
+    <HelpKINode Title="fields" Url="html/e6b04ec2-95e2-19ca-db04-8bc38d3ed388.htm" />
+    <HelpKINode Title="methods" Url="html/9a80bed9-b9b9-722c-2ed7-bcc14fbbe368.htm" />
+    <HelpKINode Title="properties" Url="html/cdf52ac3-5eea-276d-faf4-88acfec3c00f.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ReceiverCSVFile&lt;T&gt;.CSVHeaderLine field" Url="html/0fe9c885-958c-7631-6968-380f35ccf278.htm" />
+  <HelpKINode Title="ReceiverCSVFile&lt;T&gt;.listOfData field" Url="html/5c3dee68-391b-0057-0de2-f0b8a1e9c087.htm" />
+  <HelpKINode Title="ReceiverCSVFile&lt;T&gt;.ProcessText method" Url="html/33834da7-2f86-dc86-33ba-055e4618da76.htm" />
+  <HelpKINode Title="ReceiverCSVFile&lt;T&gt;.ReceiverCSVFile constructor" Url="html/81a4f146-0138-7b4c-df3f-059c9ad116cf.htm" />
+  <HelpKINode Title="ReceiverCSVFile&lt;T&gt;.ReceiverCSVFile_EndReadFile method" Url="html/5824e926-2b14-c6ce-f079-6322e9907885.htm" />
+  <HelpKINode Title="ReceiverCSVFileDateTime class">
+    <HelpKINode Title="ReceiverCSVFileDateTime Class" Url="html/c59df8fc-2a74-96ff-0a3c-9cc3b0b5fe7e.htm" />
+    <HelpKINode Title="about ReceiverCSVFileDateTime class" Url="html/c59df8fc-2a74-96ff-0a3c-9cc3b0b5fe7e.htm" />
+    <HelpKINode Title="constructor" Url="html/8bcae95d-0b16-1e3c-c577-6087c89613c2.htm" />
+    <HelpKINode Title="events" Url="html/eca0f157-32b9-78a9-f49c-13c1e48e2592.htm" />
+    <HelpKINode Title="fields" Url="html/2c3f2210-8823-a8a5-238a-b7b348704bdf.htm" />
+    <HelpKINode Title="methods" Url="html/1e5cce89-d35f-669d-33e2-5434d6e9997a.htm" />
+    <HelpKINode Title="properties" Url="html/d2fb1f45-f4c1-50fc-fca9-f4d3db6386c0.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ReceiverCSVFileDateTime.ReceiverCSVFileDateTime constructor" Url="html/8bcae95d-0b16-1e3c-c577-6087c89613c2.htm" />
+  <HelpKINode Title="ReceiverCSVFileInt class">
+    <HelpKINode Title="ReceiverCSVFileInt Class" Url="html/d48d7d3f-959a-ebe5-7327-41b49de75344.htm" />
+    <HelpKINode Title="about ReceiverCSVFileInt class" Url="html/d48d7d3f-959a-ebe5-7327-41b49de75344.htm" />
+    <HelpKINode Title="constructor" Url="html/2ec0fdd5-b6bc-2625-7221-01f3b53541eb.htm" />
+    <HelpKINode Title="events" Url="html/312cfb5b-839f-e8f0-64df-a54be926d037.htm" />
+    <HelpKINode Title="fields" Url="html/e9ae12cc-3482-46a7-a5a9-f9130ba931ca.htm" />
+    <HelpKINode Title="methods" Url="html/e80868e8-24e8-d213-236f-6b22bb4a1201.htm" />
+    <HelpKINode Title="properties" Url="html/cb295404-7f5c-7fb3-cec7-46bf96b7c846.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ReceiverCSVFileInt.ReceiverCSVFileInt constructor" Url="html/2ec0fdd5-b6bc-2625-7221-01f3b53541eb.htm" />
+  <HelpKINode Title="ReceiverCSVFile_EndReadFile method" Url="html/5824e926-2b14-c6ce-f079-6322e9907885.htm" />
+  <HelpKINode Title="ReceiverCSVWholeFile class">
+    <HelpKINode Title="ReceiverCSVWholeFile Class" Url="html/e6859189-d213-927b-fb72-bee15814e4f2.htm" />
+    <HelpKINode Title="about ReceiverCSVWholeFile class" Url="html/e6859189-d213-927b-fb72-bee15814e4f2.htm" />
+    <HelpKINode Title="constructor" Url="html/c9b23cf0-3d44-dab7-359d-a5a18d19fb45.htm" />
+    <HelpKINode Title="events" Url="html/27dbb2ab-e67b-4068-95b1-41da1cbbeb9f.htm" />
+    <HelpKINode Title="fields" Url="html/79c99f3e-c68f-e165-6d46-07eb6cd51ca7.htm" />
+    <HelpKINode Title="methods" Url="html/0a7fac64-fb0c-d9c2-e380-a6639b8d05d9.htm" />
+    <HelpKINode Title="properties" Url="html/ec503dad-32a6-d08f-9411-e9b7adf5b114.htm" />
+  </HelpKINode>
+  <HelpKINode Title="ReceiverCSVWholeFile.ReceiverCSVWholeFile constructor" Url="html/c9b23cf0-3d44-dab7-359d-a5a18d19fb45.htm" />
   <HelpKINode Title="ReceiverDBStmtSqlServer namespace" Url="html/ebe9d50c-8648-597b-04b2-c07f4368d182.htm" />
   <HelpKINode Title="ReceiverDBStmtSqlServer.ReceiverStmtSqlServer class" Url="html/69fa1a43-7e2f-7073-91bc-e26927a70ba6.htm" />
   <HelpKINode Title="ReceiverName property" Url="html/f85707a6-6aca-f8a2-4a67-b4564e35fc85.htm" />
