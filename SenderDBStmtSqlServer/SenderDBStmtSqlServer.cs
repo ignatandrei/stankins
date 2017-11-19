@@ -8,20 +8,39 @@ using System.Collections.Generic;
 namespace SenderDBStmtSqlServer
 {
     /// <summary>
-    /// TODO :
-    ///  Refactor ReceiverToDBStmtSqlServer and SenderToDBStmtSqlServer into a single class ExecuteDBStmtSqlServer
-    /// Add XML transformer (rows -> XML scalar value) + map XML scalar value to a SP parameter
-    /// Use SqlBulkCopy for high speed INSERTs
-    /// Use table partitioning + partition SWITCH to import data (concurent INSERTs)
+    /// Sender to SQL Server.
     /// </summary>
     public class SenderToDBStmtSqlServer : ISend
     {
+        /// <summary>
+        /// Gets or sets the name of the sender.
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the connection string used to connect to SQL Server instance.
+        /// </summary>
         public string ConnectionString { get; set; }
+        /// <summary>
+        /// Gets or sets a integer value indicating how the CommandText property is to be interpreted. Same as CommandType from System.Data.SqlClient namespace.
+        /// </summary>
         public CommandType CommandType { get; set; }
+        /// <summary>
+        /// Gets or sets the Transact-SQL statement(s), table name or stored procedure to be executed on SQL Server instance.
+        /// </summary>
         public string CommandText { get; set; }
+        /// <summary>
+        /// Gets or sets the mappings between the parameters of stored procedure and the source columns.
+        /// Syntax: 
+        ///     @Parameter1=SourceColumn1;@Parameter2=SourceColumn2
+        /// </summary>
         public string ParametersMappings { get; set; }
+        /// <summary>
+        /// Gets or sets the parameters of stored procedure. Created from ParametersMappings.
+        /// </summary>
         private Dictionary<string, string> Parameters { get; set; }
+        /// <summary>
+        /// Returns true if Parameters has one or more items. Otherwise, it returns false.
+        /// </summary>
         public bool HasParameters { get { return (this.Parameters != null && this.Parameters.Count > 0); } }
 
         public SenderToDBStmtSqlServer(string connectionString, CommandType commandType, string commandText, string parameterMappings = "")
@@ -34,13 +53,6 @@ namespace SenderDBStmtSqlServer
 
         private void Initalization()
         {
-            if (this.CommandType != CommandType.StoredProcedure)
-                throw new NotImplementedException();
-
-            //Example value for parameters: @param1=Col1;@param2=Col2;@param3=Col3
-            //Where:
-            //@param1,...   = {stored procedure|query} parameters
-            //Col1,...      = columns serialized within lastRow
             if (!string.IsNullOrEmpty(this.ParametersMappings))
             {
                 string[] parameters2 = this.ParametersMappings.Split(';');
@@ -54,8 +66,15 @@ namespace SenderDBStmtSqlServer
             }
         }
 
+        /// <summary>
+        /// Get or set the IRow object used to store received values.
+        /// </summary>
         public IRow[] valuesToBeSent { set; get; }
 
+        /// <summary>
+        /// Execute the sender reading data from valuesToBeSent.
+        /// </summary>
+        /// <returns></returns>
         public async Task Send()
         {
             //Initialization
