@@ -38,7 +38,7 @@ namespace ReceiverDBStmtSqlServer
         /// <summary>
         /// <para>Gets or sets the mappings between the parameters of stored procedure and columns serialized into FileNameSerializeLastRow.</para>
         /// <para>Syntax: <code>@Parameter1=Column1;@Parameter2=Column2</code></para>
-        /// <para><example><code>"FileNameSerializeLastRow": "active_slow_query_select_last_row.json",<lineBreak/>"ParametersMappings": "@original_id=original_id"</code></example></para>
+        /// <para><example><code>"FileNameSerializeLastRow": "active_slow_query_select_last_row.json", "ParametersMappings": "@original_id=original_id"</code></example></para>
         /// </summary>
         public string ParametersMappings { get; set; }
         /// <summary>
@@ -57,11 +57,11 @@ namespace ReceiverDBStmtSqlServer
         /// <summary>
         /// Initializes a new instance of the ReceiverStmtSqlServer class.
         /// </summary>
-        /// <param name="connectionString">See ConnectionString property.</param>
-        /// <param name="commandType">See CommandType property.</param>
-        /// <param name="commandText">See CommandText property.</param>
-        /// <param name="fileNameSerializeLastRow">See FileNameSerializeLastRow property.</param>
-        /// <param name="parametersMappings">See ParametersMappings property.</param>
+        /// <param name="connectionString">See <see cref="ConnectionString"/> property.</param>
+        /// <param name="commandType">See <see cref="CommandType"/> property.</param>
+        /// <param name="commandText">See <see cref="CommandText"/> property.</param>
+        /// <param name="fileNameSerializeLastRow">See <see cref="FileNameSerializeLastRow"/> property.</param>
+        /// <param name="parametersMappings">See <see cref="ParametersMappings"/> property.</param>
         public ReceiverStmtSqlServer(string connectionString, CommandType commandType, string commandText, string fileNameSerializeLastRow, string parametersMappings = "")
         {
             this.ConnectionString = connectionString;
