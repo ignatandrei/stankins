@@ -4,3 +4,4 @@
 <a href='https://github.com/ignatandrei/stankins/releases'>Releases</a>
 
 [Documentation](https://github.com/ignatandrei/stankins/blob/master/Documentation/Help/index.html)
+<a href='https://github.com/ignatandrei/stankins/blob/master/Documentation/Help/index.html'>Documentation</a>
