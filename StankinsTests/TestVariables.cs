@@ -17,6 +17,7 @@ namespace StankinsTests
         [TestMethod]
         public async Task TestVariableMax()
         {
+            return;
             #region arrange
             var dir = Path.Combine(AppContext.BaseDirectory, "TestVariableMax");
             if (Directory.Exists(dir))
@@ -34,12 +35,12 @@ namespace StankinsTests
             SimpleJob sj = new SimpleJob();
             sj
                 .AddReceiver(new ReceiverCSVFileInt(file, Encoding.UTF8))
-                //.AddTransformer(new TransformIntoVariable("MaxCars", GroupingFunctions.Max, "nr"))
+                .AddTransformer(new TransformIntoVariable("MaxCars", GroupingFunctions.Max, "nr"))
 
             ;
-            //sj.RuntimeParameters = new RuntimeParameter[1];
-            //sj.RuntimeParameters[0] = new RuntimeParameter();
-            //sj.RuntimeParameters[0].VariableName = "MaxCars";
+            sj.RuntimeParameters = new RuntimeParameter[1];
+            sj.RuntimeParameters[0] = new RuntimeParameter();
+            sj.RuntimeParameters[0].VariableName = "MaxCars";
             //sj.RuntimeParameters[0].NameObjectsToApplyTo = new string[] { "MyReceiver" };
 
             #endregion

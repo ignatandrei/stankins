@@ -158,11 +158,12 @@ namespace StanskinsImplementation
                 }
             }
             await arv.LoadData();
+            bool existsVar = (RuntimeParameters?.Length ?? 0) > 0;
             string[] nameObjectsWithVariables=null;
-            if((RuntimeParameters?.Length??0)>0)
+            if(existsVar)
                 nameObjectsWithVariables = RuntimeParameters
                 .SelectMany(it => it.NameObjectsToApplyTo)
-                .Select(it=>it.ToLowerInvariant())
+                .Select(it=>it.NameObjectToApplyTo.ToLowerInvariant())
                 .Distinct()
                 .ToArray();
             IRow[] data = arv.valuesRead;
@@ -171,7 +172,12 @@ namespace StanskinsImplementation
                 var var = filterKV.Value as TransformIntoVariable;
                 if(var != null)
                 {
-                    var param = RuntimeParameters.FirstOrDefault(it => it.VariableName == var.VariableName);
+                    if (!existsVar)
+                    {
+                        //TODO:log
+                        continue;
+                    }
+                    var param = RuntimeParameters.FirstOrDefault(it => it.VariableName == var.VariableName);                    
                     if(param == null)
                     {
                         throw new ArgumentException($"in runtime parameters I cannot find variable {var.VariableName}");
@@ -239,9 +245,10 @@ namespace StanskinsImplementation
                 .Where(it=>
                 it
                 .NameObjectsToApplyTo
-                .Select(n=>n.ToLowerInvariant())
+                .Select(n=>n.NameObjectToApplyTo.ToLowerInvariant())
                 .Contains(name))
                 .ToArray();
+
             var props = value.GetType().GetProperties(BindingFlags.Public);
             foreach (var rt in runtimes)
             {
