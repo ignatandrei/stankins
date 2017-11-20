@@ -10,27 +10,58 @@ using System.Linq;
 namespace ReceiverDBStmtSqlServer
 {
     /// <summary>
-    /// Note: Initial version will include support only for SPs calls (CommandType.StoredProcedure)
-    /// TODO: Replace cmd.Parameters.AddWithValue with something else to avoid SQL Server plan cache pollution
-    /// TODO: Refactor Dictionary<string, string> Parameters into a separate class
-    /// Stored procedure (SP) with parameters (Dictionary<string, string> Parameters Parameters: Key is @sqlParamter, Value is columnName from SP resultset):
-    ///     For the first call, we are call SP with default value of every paramter -> SP should be designed with this in mind; SP could be executed without parameters
-    ///     When reading SP results, we are serializing values of the last row (we are serializing only values of columns from this.Parameters)
-    ///     Next calls of the same SP will be made with values of the last row -> SP should be designed with this in mind
-    ///     If resultset is empty then next SP call will be made with default values
+    /// Receiver for SQL Server/T-SQL batches (ex. stored procedure / ad-hoc query calls).
     /// </summary>
     public class ReceiverStmtSqlServer : IReceive
     {
+        /// <summary>
+        /// Gets or sets the name of the receiver.
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Gets or sets the connection string used to connect to SQL Server instance.
+        /// </summary>
         public string ConnectionString { get; set; }
+        /// <summary>
+        /// Gets or sets a integer value indicating how the CommandText property is to be interpreted. Same as CommandType from System.Data.SqlClient namespace.
+        /// </summary>
         public CommandType CommandType { get; set; }
+        /// <summary>
+        /// Gets or sets the Transact-SQL statement(s), table name or stored procedure to be executed on SQL Server instance.
+        /// </summary>
         public string CommandText { get; set; }
+        /// <summary>
+        /// Gets or sets the path of *.json file used to serialize last received row. Last received row is serialized as Dictionary&lt;string,object&gt;.
+        /// This property is property is optional. When it's empty string last received row is not serialized.
+        /// </summary>
         public string FileNameSerializeLastRow { get; set; }
+        /// <summary>
+        /// <para>Gets or sets the mappings between the parameters of stored procedure and columns serialized into FileNameSerializeLastRow.</para>
+        /// <para>Syntax: <code>@Parameter1=Column1;@Parameter2=Column2</code></para>
+        /// <para><example><code>"FileNameSerializeLastRow": "active_slow_query_select_last_row.json", "ParametersMappings": "@original_id=original_id"</code></example></para>
+        /// </summary>
         public string ParametersMappings { get; set; }
-        private Dictionary<string, string> Parameters { get; set; } 
+        /// <summary>
+        /// Gets or sets the parameters of stored procedure. Created from ParametersMappings.
+        /// </summary>
+        private Dictionary<string, string> Parameters { get; set; }
+        /// <summary>
+        /// Returns true if Parameters has one or more items. Otherwise, it returns false.
+        /// </summary>
         public bool HasParameters { get { return (this.Parameters != null && this.Parameters.Count > 0); } }
+        /// <summary>
+        /// Returns true if FileNameSerializeLastRow it isn't empty string.
+        /// </summary>
         public bool SerializeLastRow { get { return (!string.IsNullOrEmpty(this.FileNameSerializeLastRow)); } }
 
+        /// <summary>
+        /// Initializes a new instance of the ReceiverStmtSqlServer class.
+        /// </summary>
+        /// <param name="connectionString">See <see cref="ConnectionString"/> property.</param>
+        /// <param name="commandType">See <see cref="CommandType"/> property.</param>
+        /// <param name="commandText">See <see cref="CommandText"/> property.</param>
+        /// <param name="fileNameSerializeLastRow">See <see cref="FileNameSerializeLastRow"/> property.</param>
+        /// <param name="parametersMappings">See <see cref="ParametersMappings"/> property.</param>
         public ReceiverStmtSqlServer(string connectionString, CommandType commandType, string commandText, string fileNameSerializeLastRow, string parametersMappings = "")
         {
             this.ConnectionString = connectionString;
@@ -42,13 +73,6 @@ namespace ReceiverDBStmtSqlServer
 
         private void Initialization()
         {
-            if (this.CommandType != CommandType.StoredProcedure)
-                throw new NotImplementedException();
-
-            //Example value for parameters: @param1=Col1;@param2=Col2;@param3=Col3
-            //Where:
-            //@param1,...   = {stored procedure|query} parameters
-            //Col1,...      = columns serialized within lastRow
             if (!string.IsNullOrEmpty(this.ParametersMappings))
             {
                 string[] parameters2 = this.ParametersMappings.Split(';');
@@ -66,10 +90,17 @@ namespace ReceiverDBStmtSqlServer
             }
         }
 
+        /// <summary>
+        /// Get or set the IRowReceive object used to store received values. If SerializeLastRow is true, the values from last received row are serialized into FileNameSerializeLastRow.
+        /// </summary>
         public IRowReceive[] valuesRead { get; private set; }
 
         private Dictionary<string, object> lastRowValues;
 
+        /// <summary>
+        /// Execute the receiver filling valuesRead with received data.
+        /// </summary>
+        /// <returns></returns>
         public async Task LoadData()
         {
             //Initialization

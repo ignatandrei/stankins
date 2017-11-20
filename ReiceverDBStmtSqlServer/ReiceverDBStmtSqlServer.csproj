@@ -5,7 +5,12 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.0\ReiceverDBStmtSqlServer.xml</DocumentationFile>
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="EWSoftware.SHFB.NETCore" Version="4.5.1" />
     <PackageReference Include="System.Data.SqlClient" Version="4.3.1" />
   </ItemGroup>
 
