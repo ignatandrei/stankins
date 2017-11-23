@@ -45,14 +45,20 @@
 <DocumentationSource sourceFile="..\StankinsInterfaces\bin\Debug\netstandard2.0\StankinsInterfaces.dll" />
 <DocumentationSource sourceFile="..\StankinsInterfaces\bin\Debug\netstandard2.0\StankinsInterfaces.xml" />
 <DocumentationSource sourceFile="..\ReceiverCSV\bin\Debug\netstandard2.0\ReceiverCSV.dll" />
-<DocumentationSource sourceFile="..\ReceiverCSV\bin\Debug\netstandard2.0\ReceiverCSV.xml" /></DocumentationSources>
+<DocumentationSource sourceFile="..\ReceiverCSV\bin\Debug\netstandard2.0\ReceiverCSV.xml" />
+<DocumentationSource sourceFile="..\SenderDBInflux\bin\Debug\netstandard2.0\SenderDBInflux.dll" />
+<DocumentationSource sourceFile="..\SenderDBInflux\bin\Debug\netstandard2.0\SenderDBInflux.xml" />
+<DocumentationSource sourceFile="..\SenderElasticSearch\bin\Debug\netstandard2.0\SenderElasticSearch.dll" />
+<DocumentationSource sourceFile="..\SenderElasticSearch\bin\Debug\netstandard2.0\SenderElasticSearch.xml" /></DocumentationSources>
     <PlugInConfigurations>
-      <PlugInConfig id="Assembly Binding Redirection" enabled="True" xmlns="">
+      <PlugInConfig id="Assembly Binding Redirection" enabled="True">
         <configuration useGAC="false">
           <assemblyBinding />
           <ignoreIfUnresolved>
+            <assemblyIdentity name="AdysTech.InfluxDB.Client.Net.Core" />
             <assemblyIdentity name="BusinessObjects.Licensing.KeycodeDecoder" />
             <assemblyIdentity name="Microsoft.VisualStudio.TestTools.UITest.Playback" />
+            <assemblyIdentity name="Nest" />
             <assemblyIdentity name="netstandard" />
           </ignoreIfUnresolved>
         </configuration>

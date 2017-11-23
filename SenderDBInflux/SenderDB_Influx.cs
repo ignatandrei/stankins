@@ -13,16 +13,48 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 namespace SenderDBInflux
 {
+    /// <summary>
+    /// Send data to InfluxDB instance.
+    /// </summary>
     public class SenderDB_Influx : ISend
     {
+        /// <summary>
+        /// Name of sender instance.
+        /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        ///The URL of InfluxDB instance.
+        /// </summary>
         public string url { get; set; }
 
+        /// <summary>
+        /// Get or set the IRow object used to store values to be sent.
+        /// </summary>
         public IRow[] valuesToBeSent { set; private get; }
+        /// <summary>
+        /// Get or set database name.
+        /// </summary>
         public string db { get; set; }
+        /// <summary>
+        /// Get or set the measurement name.
+        /// </summary>
         public string MeasurementName { get; set; }
+        /// <summary>
+        /// Get or set the array of fields.
+        /// </summary>
         public string[] Fields { get; set; }
+        /// <summary>
+        /// Get or set the array of tags.
+        /// </summary>
         public string[] Tags { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the SenderDB_Influx class.
+        /// </summary>
+        /// <param name="url">See <see cref="url"/> property.</param>
+        /// <param name="db">See <see cref="db"/> property.</param>
+        /// <param name="measurementName">See <see cref="MeasurementName"/> property.</param>
+        /// <param name="Fields">See <see cref="Fields"/> property.</param>
+        /// <param name="Tags">See <see cref="Tags"/> property.</param>
         public SenderDB_Influx(
             string url, string db,string measurementName,
             string[] Fields, string[] Tags)
@@ -47,6 +79,9 @@ namespace SenderDBInflux
             Console.WriteLine($"{message}: {exception}");
         }
 
+        /// <summary>
+        /// Executes the sender reading data from valuesToBeSent.
+        /// </summary>
         public async Task Send()
         {
             InfluxDBClient client = new InfluxDBClient(url);
