@@ -38,6 +38,9 @@
             <button id="recipeLoadandroidList" class="btn btn-large btn-primary" onclick="javascript:loadData('androidList')">
                 Android List
             </button>
+            <button id="recipeLoadPhoneProducers" class="btn btn-large btn-primary" onclick="javascript:loadData('phoneProducers')">
+                Phone Producers
+            </button>
             
 </p>
     </div>
@@ -460,6 +463,7 @@
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/loadDateProgrammingLanguages.txt"));
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/gsmArenaSamsungG8.txt"));
 @Html.Raw(System.IO.File.ReadAllText("recipesXML/androidList.txt"));
+@Html.Raw(System.IO.File.ReadAllText("recipesXML/phoneProducers.txt"));
 
 @section Scripts{
     <script src="~/js/blocklyGenerator.js"></script>

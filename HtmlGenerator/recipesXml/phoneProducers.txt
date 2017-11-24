@@ -1,0 +1,144 @@
+﻿<xml  id='phoneProducers' xmlns="http://www.w3.org/1999/xhtml">
+    <variables>
+        <variable  type="">UrlToLoad</variable>
+        <variable  type="">BaseUrl</variable>
+        <variable  type="">item</variable>
+        <variable  type="">urlTransform</variable>
+    </variables>
+    <block  type="variables_set" y="-550" x="-550">
+        <field  name="VAR" variableType="">BaseUrl</field>
+        <value name="VALUE">
+            <block  type="text">
+                <field name="TEXT">https://www.gsmarena.com/</field>
+            </block>
+        </value>
+    </block>
+    <block  type="variables_set" y="-470" x="-550">
+        <field  name="VAR" variableType="">UrlToLoad</field>
+        <value name="VALUE">
+            <block  type="text_join">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
+                    <block  type="variables_get">
+                        <field  name="VAR" variableType="">BaseUrl</field>
+                    </block>
+                </value>
+                <value name="ADD1">
+                    <block  type="text">
+                        <field name="TEXT">makers.php3</field>
+                    </block>
+                </value>
+            </block>
+        </value>
+    </block>
+    <block  type="variables_set" y="-390" x="-550">
+        <field  name="VAR" variableType="">urlTransform</field>
+        <value name="VALUE">
+            <block  type="text_join">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
+                    <block  type="variables_get">
+                        <field  name="VAR" variableType="">BaseUrl</field>
+                    </block>
+                </value>
+                <value name="ADD1">
+                    <block  type="text">
+                        <field name="TEXT">{0}</field>
+                    </block>
+                </value>
+            </block>
+        </value>
+    </block>
+    <block  type="simplejob" y="-270" x="-470">
+        <value name="Receivers">
+            <block  type="ReceiverHTMLXPath">
+                <field name="fldXPaths"></field>
+                <field name="fldAttributeNames"></field>
+                <field name="fldName">gsm producers</field>
+                <field name="fldFileToRead"></field>
+                <value name="valXPaths">
+                    <block  type="lists_create_with">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                            <block  type="text">
+                                <field name="TEXT">//tr/td/a</field>
+                            </block>
+                        </value>
+                        <value name="ADD1">
+                            <block  type="text">
+                                <field name="TEXT">//tr/td/a</field>
+                            </block>
+                        </value>
+                    </block>
+                </value>
+                <value name="valAttributeNames">
+                    <block  type="lists_create_with">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                            <block  type="text">
+                                <field name="TEXT">href</field>
+                            </block>
+                        </value>
+                        <value name="ADD1">
+                            <block  type="text">
+                                <field name="TEXT"></field>
+                            </block>
+                        </value>
+                    </block>
+                </value>
+                <value name="valFileToRead">
+                    <block  type="variables_get">
+                        <field  name="VAR" variableType="">UrlToLoad</field>
+                    </block>
+                </value>
+            </block>
+        </value>
+        <value name="FiltersAndTransformers">
+            <block  type="lists_create_with">
+                <mutation items="3"></mutation>
+                <value name="ADD0">
+                    <block  type="TransformRowRegex">
+                        <field name="fldName">find just name</field>
+                        <field name="fldRegexWithGroups"></field>
+                        <field name="fldKey">Value1</field>
+                        <value name="valRegexWithGroups">
+                            <block  type="text">
+                                <field name="TEXT">^(?&lt;DeviceName&gt;.+?)[0-9]</field>
+                                </block>
+                            </value>
+                        </block>
+                    </value>
+                    <value name="ADD1">
+                        <block  type="TransformRowRemoveField">
+                            <field name="fldName">Remove fields</field>
+                            <field name="fldNameFields"></field>
+                            <value name="valNameFields">
+                                <block  type="lists_create_with">
+                                    <mutation items="2"></mutation>
+                                    <value name="ADD0"><block  type="text"><field name="TEXT">Value1</field>
+                                        </block>
+                                    </value>
+                                    <value name="ADD1">
+                                        <block  type="text"><field name="TEXT">0</field>
+                                        </block>
+                                    </value>
+                                </block>
+                            </value>
+                        </block>
+                    </value>
+                    <value name="ADD2">
+                        <block  type="TransformModifyField">
+                            <field name="fldName">Modify Field</field>
+                            <field name="fldKey">href</field>
+                            <field name="fldFormatString"></field>
+                            <value name="valFormatString">
+                                <block  type="variables_get">
+                                    <field  name="VAR" variableType="">urlTransform</field>
+                                </block>
+                            </value>
+                        </block>
+                    </value>
+                </block>
+            </value>
+        </block>
+    </xml>
