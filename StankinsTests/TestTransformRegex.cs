@@ -55,6 +55,40 @@ namespace StankinsTests
             #endregion
         }
 
+        [TestMethod]
+        public async Task TestTransformerRegexBeer()
+        {
+            #region arrange
+            var rows = new List<IRow>();
+            int nrRows = 1;
+            var rowAndrei = new Mock<IRow>();
 
+                rowAndrei.SetupProperty(it => it.Values,
+                    new Dictionary<string, object>()
+                    {
+                        
+                        ["Data"] = "1Toppling Goliath Kentucky Brunch Imperial Stout"
+
+                    }
+                );
+                rows.Add(rowAndrei.Object);
+            
+            #endregion
+            #region act
+            var tr = new TransformRowRegex(@"^(?<Nr>\d+)(?<Beer>.+?)$", "Data");
+            tr.valuesRead = rows.ToArray();
+            await tr.Run();
+            #endregion
+            #region assert
+            tr.valuesTransformed.Length.ShouldBe(nrRows, $"should have {nrRows} values");
+            var nr = 0;
+            foreach (var item in tr.valuesTransformed)
+            {
+                item.Values.ShouldContainKeyAndValue("Nr","1");
+                item.Values.ShouldContainKeyAndValue("Beer", "Toppling Goliath Kentucky Brunch Imperial Stout");
+            }
+            
+            #endregion
+        }
     }
 }

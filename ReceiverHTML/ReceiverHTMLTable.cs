@@ -85,8 +85,23 @@ namespace ReceiverFile
                     
                     for (int i = 0; i < cells.Count; i++)
                     {
-                        rr.Values.Add(columnsNames[i], cells[i].InnerText);
+                        var key = columnsNames[i];
+                        if(string.IsNullOrWhiteSpace(key))
+                        {
+                            key = "!NoName";
+                        }
+                        if (rr.Values.ContainsKey(key))
+                        {
+                            rr.Values[key] += cells[i].InnerText;
+                        }
+                        else
+                        {
+                            rr.Values.Add(key, cells[i].InnerText);
+                        }
+
+                        
                     }
+                    
                     
                 }
                

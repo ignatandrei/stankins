@@ -45,6 +45,7 @@ namespace Transformers
                 //string regex = @"^Date:\ (?<date>.{23}).*?$";
 
                 //string input = @"Date: 2017/07/31 18:20:52.309: Log file for rdc-16 created.";
+                var matching = regex.Match(input);
                 var groups = regex.Match(input).Groups;
                 
                 foreach (string g in regex.GetGroupNames())

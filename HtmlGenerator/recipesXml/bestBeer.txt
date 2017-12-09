@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xml id="bestBeer" xmlns="http://www.w3.org/1999/xhtml">
+   <variables>
+      <variable  type="">UrlToLoad</variable>
+   </variables>
+   <block  type="variables_set" y="0" x="0">
+      <field  name="VAR" variableType="">UrlToLoad</field>
+      <value name="VALUE">
+         <block  type="text">
+            <field name="TEXT">https://www.ratebeer.com/top</field>
+         </block>
+      </value>
+   </block>
+   <block  type="simplejob" y="40" x="20">
+      <value name="Receivers">
+         <block  type="ReceiverHTMLTable" inline="false">
+            <field name="fldName">Receiver HTML Table</field>
+            <field name="fldFileToRead" ></field>
+            <value name="valFileToRead">
+               <block  type="variables_get">
+                  <field  name="VAR" variableType="">UrlToLoad</field>
+               </block>
+            </value>
+         </block>
+      </value>
+      <value name="FiltersAndTransformers">
+         <block  type="lists_create_with" inline="false">
+            <mutation items="3" ></mutation>
+            <value name="ADD0">
+               <block  type="TransformRowRegex">
+                  <field name="fldName">NumberAndName</field>
+                  <field name="fldRegexWithGroups" >^(?&lt;Nr&gt;\\\\d+)(?&lt;Beer&gt;.+?)$</field>
+                  <field name="fldKey">!NoName</field>
+               </block>
+            </value>
+            <value name="ADD1">
+               <block  type="TransformRowRemoveField">
+                  <field name="fldName">unused</field>
+                  <field name="fldNameFields" ></field>
+                  <value name="valNameFields">
+                     <block  type="lists_create_with">
+                        <mutation items="5" ></mutation>
+                        <value name="ADD0">
+                           <block  type="text">
+                              <field name="TEXT">0</field>
+                           </block>
+                        </value>
+                        <value name="ADD1">
+                           <block  type="text">
+                              <field name="TEXT">!NoName</field>
+                           </block>
+                        </value>
+						<value name="ADD2">
+                           <block  type="text">
+                              <field name="TEXT">COUNT</field>
+                           </block>
+                        </value>
+						<value name="ADD3">
+                           <block  type="text">
+                              <field name="TEXT">SCORE</field>
+                           </block>
+                        </value>
+						<value name="ADD4">
+                           <block  type="text">
+                              <field name="TEXT">ABV</field>
+                           </block>
+                        </value>
+                     </block>
+                  </value>
+               </block>
+            </value>
+         </block>
+      </value>
+   </block>
+</xml>
