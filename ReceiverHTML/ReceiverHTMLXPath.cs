@@ -15,7 +15,7 @@ namespace ReceiverHTML
         public ReceiverHTMLXPath(string fileToRead, Encoding fileEnconding) :base(fileToRead,true, fileEnconding)
         {
             Name = $"load html with xpath";
-            
+            FileEnconding = Encoding.UTF8;
         }
         public string[] XPaths { get; set; }
         public string[] AttributeNames { get; set; }
