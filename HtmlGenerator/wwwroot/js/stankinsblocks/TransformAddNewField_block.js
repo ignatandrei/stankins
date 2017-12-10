@@ -17,6 +17,11 @@
         .setCheck('String')
         .appendField('Value:')
         .appendField(new Blockly.FieldTextInput(''), 'fldValue');
+		
+		this.appendValueInput('valIncrement') 
+        .setCheck('Boolean')
+        .appendField('Increment:')
+        .appendField(new Blockly.FieldTextInput(''), 'fldIncrement');
         
         this.setTooltip("TransformAddNewField");
         this.setHelpUrl("");

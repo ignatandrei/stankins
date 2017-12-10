@@ -13,10 +13,15 @@ var realValue_Key =value_Key || "'" + text_Key + "'";
   var value_Value= Blockly.JavaScript.valueToCode(block, 'valValue', Blockly.JavaScript.ORDER_ATOMIC);
 var realValue_Value=value_Value|| "'" + text_Value + "'";
   
+  var value_Increment = Blockly.JavaScript.valueToCode(block, 'valIncrement', Blockly.JavaScript.ORDER_ATOMIC);
+var realValue_Increment =value_Increment || "'" + text_Increment + "'";
+
   var code ='{';
         code+="Name:"+ realValue_Name+",";
         code+="Key:"+ realValue_Key+",";
 		code+="Value:"+ realValue_Value+",";
+		code+="Increment:"+ realValue_Increment+",";
+
 code+="$type: 'Transformers.TransformAddNewField, Transformers'"; ;
 code +='}\n';
   return  [code, Blockly.JavaScript.ORDER_NONE];
