@@ -34,6 +34,7 @@ namespace Transformers
             Key = key;
             Name = $"Regex for field {key} to replace group names as fields";
         }
+        public bool ReplaceAllNextOccurences;
         Dictionary<string, string> namesAndReplace = new Dictionary<string, string>();
 
         public override async Task Run()
@@ -52,11 +53,21 @@ namespace Transformers
                     if (groups[groupName].Captures.Count > 0)
                     {
                         if (!namesAndReplace.ContainsKey(groupName))
-                            namesAndReplace[groupName] = Guid.NewGuid().ToString("N");
-
-                        value = value.Replace(regex, groupName, namesAndReplace[groupName]);
+                        {
+                            var newVal = Guid.NewGuid().ToString("N");
+                            namesAndReplace[groups[groupName].Captures[0].Value] = newVal;
+                            value = value.Replace(regex, groupName, newVal);  
+                        }
+                        
                     }
                    
+                }
+                if (ReplaceAllNextOccurences)
+                {
+                    foreach(var itemDict in namesAndReplace)
+                    {
+                        value = value.Replace(itemDict.Key, itemDict.Value);
+                    }
                 }
                 item.Values[Key] = value;
             }
