@@ -33,7 +33,7 @@ namespace SenderToFile
                     nameFile +=  ExtensionFile;
 
 
-                var buffer = Encoding.UTF8.GetBytes(item.Values[RowDataKey]?.ToString());
+                var buffer = Encoding.UTF8.GetBytes(item.Values[RowDataKey]?.ToString()+Environment.NewLine);
                 using (var fs = new FileStream(nameFile, FileMode,
                 FileAccess.Write, FileShare.Write, buffer.Length, true))
                 {
