@@ -15,6 +15,11 @@ namespace StringInterpreter
         public string ValueToTranslate { get; set; }
         public string ValueTranslated { get; set; }
     }
+    /// <summary>
+    /// TODO example with GUID: SendTo#static:Guid.NewGuid():N#.csv
+    /// TODO now and utc now
+    /// test , code coverage
+    /// </summary>
     public class Interpret
     {
         static void GetAllAssemblies(Assembly start)
@@ -228,6 +233,21 @@ namespace StringInterpreter
                         break;
                     case "static":
                         staticClass.Add(p);
+                        break;
+                    case "guid":
+                        expressions.Add(new ValuesToTranslate()
+                        {
+                            ValueToTranslate = toInterpret,
+                            ValueTranslated = (kv.Length == 2) ? Guid.NewGuid().ToString(kv[1]):Guid.NewGuid().ToString()
+                        });
+                        break;
+
+                    case "utcnow":
+                        expressions.Add(new ValuesToTranslate()
+                        {
+                            ValueToTranslate = toInterpret,
+                            ValueTranslated = (kv.Length == 2) ? DateTime.Now.ToString(kv[1]) : DateTime.Now.ToString()
+                        });
                         break;
                     case "now":
                         expressions.Add(new ValuesToTranslate()
