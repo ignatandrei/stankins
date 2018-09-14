@@ -1,9 +1,0 @@
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\bin\Debug\netstandard2.0\ReceiverOpenAPI.deps.json
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\bin\Debug\netstandard2.0\ReceiverOpenAPI.dll
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\obj\Debug\netstandard2.0\ReceiverOpenAPI.csproj.CoreCompileInputs.cache
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\obj\Debug\netstandard2.0\ReceiverOpenAPI.AssemblyInfoInputs.cache
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\obj\Debug\netstandard2.0\ReceiverOpenAPI.AssemblyInfo.cs
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\obj\Debug\netstandard2.0\ReceiverOpenAPI.csprojAssemblyReference.cache
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\bin\Debug\netstandard2.0\ReceiverOpenAPI.pdb
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\obj\Debug\netstandard2.0\ReceiverOpenAPI.dll
-C:\Users\Surface1\source\repos\StankinsV2\ReceiverOpenAPI\obj\Debug\netstandard2.0\ReceiverOpenAPI.pdb

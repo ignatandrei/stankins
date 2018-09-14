@@ -1,9 +1,0 @@
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\bin\Debug\netstandard2.0\StankinsCommon.deps.json
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\bin\Debug\netstandard2.0\StankinsCommon.dll
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\bin\Debug\netstandard2.0\StankinsCommon.pdb
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\obj\Debug\netstandard2.0\StankinsCommon.csprojAssemblyReference.cache
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\obj\Debug\netstandard2.0\StankinsCommon.csproj.CoreCompileInputs.cache
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\obj\Debug\netstandard2.0\StankinsCommon.AssemblyInfoInputs.cache
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\obj\Debug\netstandard2.0\StankinsCommon.AssemblyInfo.cs
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\obj\Debug\netstandard2.0\StankinsCommon.dll
-C:\Users\Surface1\source\repos\StankinsV2\StankinsCommon\obj\Debug\netstandard2.0\StankinsCommon.pdb
