@@ -1,0 +1,16 @@
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\obj\Debug\netstandard2.0\TransformerGrouping.csprojAssemblyReference.cache
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\obj\Debug\netstandard2.0\TransformerGrouping.csproj.CoreCompileInputs.cache
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\obj\Debug\netstandard2.0\TransformerGrouping.AssemblyInfoInputs.cache
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\obj\Debug\netstandard2.0\TransformerGrouping.AssemblyInfo.cs
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\TransformerGrouping.deps.json
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\TransformerGrouping.dll
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\TransformerGrouping.pdb
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\StankinsCommon.dll
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\StankinsV2Interfaces.dll
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\StankinsV2Objects.dll
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\StankinsCommon.pdb
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\StankinsV2Interfaces.pdb
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\bin\Debug\netstandard2.0\StankinsV2Objects.pdb
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\obj\Debug\netstandard2.0\TransformerGrouping.csproj.CopyComplete
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\obj\Debug\netstandard2.0\TransformerGrouping.dll
+C:\Users\Surface1\source\repos\StankinsV2\TransformerGrouping\obj\Debug\netstandard2.0\TransformerGrouping.pdb

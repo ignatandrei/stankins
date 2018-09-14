@@ -1,0 +1,22 @@
+{
+  "$type": "AOPRoslyn.RewriteCodeFolder, AOPRoslyn",
+  "ExcludeFileNames": ["TestClassPerson.cs","TestClassPersonWithArguments.cs"],
+  "FolderName": "@static:Environment.CurrentDirectory@",
+  "SearchPattern": "*.cs",
+"AddDefaultArguments": "true",
+  "Formatter": {
+    "$type": "AOPRoslyn.AOPFormatter, AOPRoslyn",
+    "FormatArguments": {
+      "$type": "System.Collections.Generic.Dictionary`2[[System.String, System.Private.CoreLib],[System.String, System.Private.CoreLib]], System.Private.CoreLib"
+    },
+    "AddDefaultArguments": true,
+    "FormatterFirstLine": "System.Console.WriteLine(\"start1 {nameClass}_{nameMethod}_{lineStartNumber}\"+{arguments});",
+    "FormatterLastLine": "System.Console.WriteLine(\"end2 {nameClass}_{nameMethod}_{lineStartNumber}\");"
+  },
+  "Options": {
+    "$type": "AOPRoslyn.RewriteOptions, AOPRoslyn",
+    "PreserveLinesNumber": true,
+    "NoArguments": "\"No arguments in method\"",
+    "ArgumentSeparator": "+"
+  }
+}

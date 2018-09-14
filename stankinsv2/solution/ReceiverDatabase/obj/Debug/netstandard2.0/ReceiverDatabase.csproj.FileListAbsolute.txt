@@ -1,0 +1,16 @@
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\obj\Debug\netstandard2.0\ReceiverDatabase.csprojAssemblyReference.cache
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\obj\Debug\netstandard2.0\ReceiverDatabase.csproj.CoreCompileInputs.cache
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\obj\Debug\netstandard2.0\ReceiverDatabase.AssemblyInfoInputs.cache
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\obj\Debug\netstandard2.0\ReceiverDatabase.AssemblyInfo.cs
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\ReceiverDatabase.deps.json
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\ReceiverDatabase.dll
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\ReceiverDatabase.pdb
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\StankinsV2Interfaces.dll
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\StankinsV2Interfaces.pdb
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\obj\Debug\netstandard2.0\ReceiverDatabase.csproj.CopyComplete
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\obj\Debug\netstandard2.0\ReceiverDatabase.dll
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\obj\Debug\netstandard2.0\ReceiverDatabase.pdb
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\StankinsV2Objects.dll
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\StankinsV2Objects.pdb
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\StankinsCommon.dll
+C:\Users\Surface1\source\repos\StankinsV2\ReceiverDatabase\bin\Debug\netstandard2.0\StankinsCommon.pdb

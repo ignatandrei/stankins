@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DBReceiveSqlServer\DBReceiveSqlServer.csproj" />
+    <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
+    <ProjectReference Include="..\ReceiverHTML\ReceiverHTML.csproj" />
+    <ProjectReference Include="..\SenderConsole\SenderConsole.csproj" />
+    <ProjectReference Include="..\TransformerGrouping\TransformerGrouping.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="OneTab.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

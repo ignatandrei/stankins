@@ -1,0 +1,9 @@
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\obj\Debug\netstandard2.0\StankinsV2Interfaces.csprojAssemblyReference.cache
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\obj\Debug\netstandard2.0\StankinsV2Interfaces.csproj.CoreCompileInputs.cache
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\obj\Debug\netstandard2.0\StankinsV2Interfaces.AssemblyInfoInputs.cache
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\obj\Debug\netstandard2.0\StankinsV2Interfaces.AssemblyInfo.cs
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\bin\Debug\netstandard2.0\StankinsV2Interfaces.deps.json
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\bin\Debug\netstandard2.0\StankinsV2Interfaces.dll
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\bin\Debug\netstandard2.0\StankinsV2Interfaces.pdb
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\obj\Debug\netstandard2.0\StankinsV2Interfaces.dll
+C:\Users\Surface1\source\repos\StankinsV2\StankinsV2Interfaces\obj\Debug\netstandard2.0\StankinsV2Interfaces.pdb
