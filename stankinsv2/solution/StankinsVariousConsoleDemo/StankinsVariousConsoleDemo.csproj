@@ -11,6 +11,7 @@
     <ProjectReference Include="..\ReceiverFile\ReceiverFile.csproj" />
     <ProjectReference Include="..\ReceiverHTML\ReceiverHTML.csproj" />
     <ProjectReference Include="..\SenderConsole\SenderConsole.csproj" />
+    <ProjectReference Include="..\StankinsOffice\StankinsOffice.csproj" />
     <ProjectReference Include="..\TransformerGrouping\TransformerGrouping.csproj" />
   </ItemGroup>
 

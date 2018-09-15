@@ -2,6 +2,7 @@
 using ReceiverFile;
 using ReceiverHTML;
 using SenderConsole;
+using StankinsOffice;
 using StankinsV2Interfaces;
 using StankinsV2Objects;
 using System;
@@ -40,6 +41,10 @@ namespace StankinsVariousConsoleDemo
             data =await transform.TransformData(data);
             data = await v.TransformData(data);
 
+            var transformPicture = new TransformerHTMLAttribute("Picture_html", "src", "PictureUrl");
+            data = await transformPicture.TransformData(data);
+            data = await v.TransformData(data);
+
             var addSite = new TransformerAddColumnExpressionByTable(data.Metadata.Tables.First().Name, "'https://en.wikipedia.org'+ LaureateWiki ", "LaureateFullWiki");
             data = await addSite.TransformData(data);
             data = await v.TransformData(data);
@@ -63,10 +68,38 @@ namespace StankinsVariousConsoleDemo
             data = await (new TransformTrim()).TransformData(data);
             data = await v.TransformData(data);
             data = await (new FilterColumnDataGreaterThanLength("li_html", 400)).TransformData(data);
-            data = await (new TransformerAddColumnExpressionByColumn("li_html", "Len(li_html)", "liLen")).TransformData(data);
+            //data = await (new TransformerAddColumnExpressionByColumn("li_html", "Len(li_html)", "liLen")).TransformData(data);
             var csv = new SenderFileCSV(@"D:\test");
             data = await csv.TransformData(data);
-            data = await writeData.TransformData(data);
+            data = await new RemoveColumn("li_html").TransformData(data);
+            data = await new RemoveColumn("Picture").TransformData(data);
+            data = await new RemoveColumn("Year_html").TransformData(data);
+            data = await new RemoveColumn("Genre(s)_html").TransformData(data);
+            data = await new RemoveColumn("LaureateWiki").TransformData(data);
+            data = await new RemoveColumn("Country").TransformData(data);
+            data = await new RemoveColumn("Picture_html").TransformData(data);
+            data = await new RemoveColumn("Laureate_html").TransformData(data);
+            data = await new RemoveColumn("Country_html").TransformData(data);
+            data = await new RemoveColumn("Language(s)_html").TransformData(data);
+            data = await new RemoveColumn("Citation_html").TransformData(data);
+            
+            data = await v.TransformData(data);
+            //var regexLast = @"(?:.+\/)((?<name>.+))";
+            data = await new AddColumnRegex("LaureateFullWiki_origin", @"(?:.+\/)((?<name>.+))").TransformData(data);
+            data = await v.TransformData(data);
+
+            data = await new AddColumnRegex("LaureateFullWiki", @"(?:.+\/)((?<name>.+))").TransformData(data);
+            
+            data = await new RemoveColumn("LaureateFullWiki_origin").TransformData(data);
+
+            data= await new ChangeTableNamesRegex(@"(?:.+\/)((?<name>.+))").TransformData(data);
+            data = await v.TransformData(data);
+
+            data = await new ChangeColumnName("li","bookName").TransformData(data);
+            data = await v.TransformData(data);
+
+            data = await new SenderExcel(@"D:\test\nobel.xlsx").TransformData(data);
+            //data = await writeData.TransformData(data);
             return;
             var item = new DBReceiveTableNamesSqlServer("Server=.;Database=MyTestDatabase;Trusted_Connection=True;");
             var data1 = await item.TransformData(null);

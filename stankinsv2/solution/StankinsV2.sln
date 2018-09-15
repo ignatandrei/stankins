@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ReceiverFile", "ReceiverFil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TransformerGrouping", "TransformerGrouping\TransformerGrouping.csproj", "{D4DB4077-0110-483C-9502-C1A49C149AD5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SenderConsole", "SenderConsole\SenderConsole.csproj", "{FADB4E5D-45BF-43DC-888E-966C146A96C0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SenderConsole", "SenderConsole\SenderConsole.csproj", "{FADB4E5D-45BF-43DC-888E-966C146A96C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsOffice", "StankinsOffice\StankinsOffice.csproj", "{A5DEF32A-DDD7-4CEE-B5C5-E3146AD7E56D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -75,6 +77,10 @@ Global
 		{FADB4E5D-45BF-43DC-888E-966C146A96C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FADB4E5D-45BF-43DC-888E-966C146A96C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FADB4E5D-45BF-43DC-888E-966C146A96C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5DEF32A-DDD7-4CEE-B5C5-E3146AD7E56D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5DEF32A-DDD7-4CEE-B5C5-E3146AD7E56D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5DEF32A-DDD7-4CEE-B5C5-E3146AD7E56D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5DEF32A-DDD7-4CEE-B5C5-E3146AD7E56D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

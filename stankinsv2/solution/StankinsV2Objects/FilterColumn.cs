@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace StankinsV2Objects
 {
-    
+
     public class FilterTablesWithColumn : BaseObject, IFilter
     {
         public FilterTablesWithColumn(string nameColumn) : this(new CtorDictionary() {
