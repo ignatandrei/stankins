@@ -1,0 +1,18 @@
+﻿@{
+	var colsQuestion= "?";
+	var cols = "id";
+	foreach(var col in Model.Columns)
+    {
+		cols += ","+ col.ColumnName;
+		colsQuestion+=",?";
+    }
+	int nr=1;	
+}
+
+db.run("CREATE TABLE @Model.TableName (@cols);");
+
+@foreach(var row in Model.Rows){
+	 <text>
+	 db.run("INSERT INTO @Model.TableName VALUES (@colsQuestion)", [@(nr++),'@Raw(string.Join("','" , row.ItemArray))]');
+	</text>
+}

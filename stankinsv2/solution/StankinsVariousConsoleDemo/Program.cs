@@ -2,10 +2,12 @@
 using ReceiverFile;
 using ReceiverHTML;
 using SenderConsole;
+using SenderInterpretedRazor;
 using StankinsOffice;
 using StankinsV2Interfaces;
 using StankinsV2Objects;
 using System;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -69,8 +71,8 @@ namespace StankinsVariousConsoleDemo
             data = await v.TransformData(data);
             data = await (new FilterColumnDataGreaterThanLength("li_html", 400)).TransformData(data);
             //data = await (new TransformerAddColumnExpressionByColumn("li_html", "Len(li_html)", "liLen")).TransformData(data);
-            var csv = new SenderFileCSV(@"D:\test");
-            data = await csv.TransformData(data);
+            //var csv = new SenderFileCSV(@"D:\test");
+            //data = await csv.TransformData(data);
             data = await new RemoveColumn("li_html").TransformData(data);
             data = await new RemoveColumn("Picture").TransformData(data);
             data = await new RemoveColumn("Year_html").TransformData(data);
@@ -99,7 +101,13 @@ namespace StankinsVariousConsoleDemo
             data = await v.TransformData(data);
 
             data = await new SenderExcel(@"D:\test\nobel.xlsx").TransformData(data);
+            var content = File.ReadAllText("sqliteCreation.txt");
+            data=  await new SenderRazorTableOneByOne(content, @"D:\test\").TransformData(data);
+            data = await v.TransformData(data);
             //data = await writeData.TransformData(data);
+            
+
+
             return;
             var item = new DBReceiveTableNamesSqlServer("Server=.;Database=MyTestDatabase;Trusted_Connection=True;");
             var data1 = await item.TransformData(null);
