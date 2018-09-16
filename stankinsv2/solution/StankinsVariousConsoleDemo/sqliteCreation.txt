@@ -11,7 +11,7 @@
     }
 	var colString = string.Join(",",cols);
 	var colsQuestion=string.Join(",",Enumerable.Repeat( "?",nrCols).ToArray());
-	Func<object, string> transform = (it) => (it == null) ? "" : it.ToString();
+	Func<object, string> transform = (it) => (it == null) ? "" : it.ToString().Replace("'","\\'");
 }
 
 db.run("CREATE TABLE @Model.TableName (@colString);");
