@@ -74,8 +74,8 @@ namespace ReceiverDatabase
 
                         #region gather metadata
                         var ret = new DataToSentTable();
-                        ret.DataToBeSentFurther.Add(ret.DataToBeSentFurther.Count,dt);
-                        ret.Metadata.AddTable(dt);
+                        var id= ret.AddNewTable(dt);
+                        ret.Metadata.AddTable(dt,id);
                         #endregion
                         return ret;
                     }

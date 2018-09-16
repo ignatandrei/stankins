@@ -46,8 +46,8 @@ namespace TransformerGrouping
                 if ((i+1) % Number == 0)
                 {
                     dt.TableName = data.TableName + $"{i+1-Number}_{i + 1}";
-                    receiveData.DataToBeSentFurther.Add(receiveData.DataToBeSentFurther.Count,dt);
-                    receiveData.Metadata.AddTable(dt);
+                    var id= receiveData.AddNewTable(dt);
+                    receiveData.Metadata.AddTable(dt,id);
                     dt = data.Clone();
                     
                 }

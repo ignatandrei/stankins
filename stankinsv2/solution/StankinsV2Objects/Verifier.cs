@@ -22,15 +22,23 @@ namespace StankinsV2Objects
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var data = new DataToSentTable();
-            var tables = receiveData.Metadata.Tables.Select(it => it.Name).ToList();
-            if(tables.Count != receiveData.DataToBeSentFurther.Count)
+            var tablesMetadata = receiveData.Metadata.Tables.Select(it => it.Name).ToList();
+            if(tablesMetadata.Count != receiveData.DataToBeSentFurther.Count)
             {
-                throw new NotSupportedException($"Metadata has {tables.Count} tables, data has {receiveData.DataToBeSentFurther.Count} tables");
+                throw new NotSupportedException($"Metadata has {tablesMetadata.Count} tables, data has {receiveData.DataToBeSentFurther.Count} tables");
             }
-            foreach(var item in receiveData.DataToBeSentFurther)
+            var tablesData = receiveData.DataToBeSentFurther.Select(it => it.Value.TableName).ToArray();
+            var except = tablesMetadata.Except(tablesData).ToArray();
+            if (except.Length > 0)
+                throw new NotSupportedException($"metadata tables has {except[0]} that is not a table in DataToBeSentFurther ");
+            except = tablesData.Except(tablesMetadata).ToArray();
+            if (except.Length > 0)
+                throw new NotSupportedException($"table {except[0]} has no metadata");
+
+            foreach (var item in receiveData.DataToBeSentFurther)
             {
                 //verify name exists
-                if (!tables.Contains(item.Value.TableName))
+                if (!tablesMetadata.Contains(item.Value.TableName))
                 {
                     throw new NotSupportedException($"{item.Value.TableName} is not found in metadata tables");
                 }
@@ -42,21 +50,25 @@ namespace StankinsV2Objects
                 }
                 
                 //verify columns
-                var cols = receiveData.Metadata
+                var colsMetadata = receiveData.Metadata
                     .Columns
                     .Where(it => it.IDTable == item.Key)
                     .Select(it=>it.Name)
                     .ToList();
+                var colsTable = new List<string>();
                 foreach(DataColumn dc in item.Value.Columns)
                 {
-                    if(!cols.Contains(dc.ColumnName))
-                        throw new NotSupportedException($"{dc.ColumnName} is not into metadata columns ");
-                    cols.Remove(dc.ColumnName);
+                    colsTable.Add(dc.ColumnName);
                 }
-                if(cols.Count>0)
-                    throw new NotSupportedException($"Data table does not contain {cols[0]} ");
+                if(colsTable.Count != colsMetadata.Count)
+                    throw new NotSupportedException($"length not the same for cols and metadata cols from {item.Value.TableName} ");
 
-             
+                except = colsMetadata.Except(colsTable).ToArray();
+                if(except.Length>0)
+                    throw new NotSupportedException($"metadata has {except[0]} that is not a column in {item.Value.TableName} ");
+                except = colsTable.Except(colsMetadata).ToArray();
+                if (except.Length > 0)
+                    throw new NotSupportedException($"cols for {item.Value.TableName} has {except[0]} that is not a metadata column ");
             }
             return receiveData;
         }

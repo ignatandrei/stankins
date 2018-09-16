@@ -137,8 +137,8 @@ namespace ReceiverHTML
                     arr.AddRange(cells.Select(it => it.InnerHtml).ToArray());
                     dt.Rows.Add(arr.ToArray());
                 }
-                ret.DataToBeSentFurther.Add(ret.DataToBeSentFurther.Count,dt);
-                ret.Metadata.AddTable(dt);
+                var id= ret.AddNewTable(dt);
+                ret.Metadata.AddTable(dt,id);
             }
             return ret;
         }

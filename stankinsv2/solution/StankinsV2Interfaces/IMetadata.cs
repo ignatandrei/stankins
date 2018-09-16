@@ -9,7 +9,7 @@ namespace StankinsV2Interfaces
         IList<IColumn> Columns { get; set; }
         IList<IRelation> Relations { get; set; }
         IList<IHistory> Histories { get; set; }
-        int AddTable(DataTable dt);
+        int AddTable(DataTable dt, int id);
         void AssignNewId(ITable table, int newId);
         void RemoveTable(ITable table);
     }

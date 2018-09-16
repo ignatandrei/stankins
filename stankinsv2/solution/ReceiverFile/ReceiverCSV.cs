@@ -84,8 +84,9 @@ namespace ReceiverFile
                 dt.Rows.Add(vals);
             }
             
-            ret.Metadata.AddTable(dt);
-            ret.DataToBeSentFurther.Add(ret.DataToBeSentFurther.Count,dt);
+            
+            var id=ret.AddNewTable(dt);
+            ret.Metadata.AddTable(dt, id);
             return ret;
 
         }

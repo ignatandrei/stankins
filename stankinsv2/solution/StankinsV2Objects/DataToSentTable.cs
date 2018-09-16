@@ -16,7 +16,15 @@ namespace StankinsV2Objects
         public Dictionary<int,DataTable> DataToBeSentFurther { get ; set ; }
         public IMetadata Metadata { get ; set ; }
 
-        
+        public int AddNewTable(DataTable dt)
+        {
+            int max = 0;
+            if(DataToBeSentFurther.Count>0 )
+                max = DataToBeSentFurther.Select(it => it.Key).Max()+1;
+            DataToBeSentFurther.Add(max, dt);
+            return max;
+            
+        }
 
         public DataTable FindAfterName(string nameTable)
         {

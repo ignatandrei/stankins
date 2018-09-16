@@ -57,31 +57,31 @@ namespace StankinsV2Objects
                 foreach(var dataTable in dataToBeSent.DataToBeSentFurther)
                 {
                     dataTable.Value.TableName += data.ToString();
-                    var dc= new DataColumn(column.Name + "_origin", data.GetType());
-                    dc.DefaultValue = data;
-                    dataTable.Value.Columns.Add(dc);
-                    receiveData.DataToBeSentFurther.Add(receiveData.DataToBeSentFurther.Count, dataTable.Value);
-                }
-                //TODO: add relation
-                foreach(var meta in dataToBeSent.Metadata.Tables)
-                {
-                    //remake the id
-                    meta.Name += data.ToString();
-                    dataToBeSent.Metadata.AssignNewId(meta, receiveData.Metadata.Tables.Count);
-                    receiveData.Metadata.Tables.Add(meta);
-                    foreach(var c in dataToBeSent.Metadata.Columns)
+                    var dc = new DataColumn(column.Name + "_origin", data.GetType())
                     {
+                        DefaultValue = data
+                    };
+                    dataTable.Value.Columns.Add(dc);
+                    var idTable = receiveData.AddNewTable(dataTable.Value);
+                    var meta = dataToBeSent.Metadata.Tables.FirstOrDefault(it => it.Id == dataTable.Key);
+                    meta.Name = dataTable.Value.TableName;
+                    receiveData.Metadata.Tables.Add(meta);
+                    receiveData.Metadata.AssignNewId(meta, idTable);
+                    foreach (var c in dataToBeSent.Metadata.Columns)
+                    {
+                        c.IDTable = idTable;
                         receiveData.Metadata.Columns.Add(c);
                     }
                     receiveData.Metadata.Columns.Add(new Column()
                     {
-                        Name = column.Name+"_origin",
+                        Name = column.Name + "_origin",
                         Id = receiveData.Metadata.Columns.Count,
-                        IDTable = meta.Id
-                    }
-                     );
-                    
+                        IDTable = idTable
+                    });
+                    //TODO: add relation
                 }
+
+                
             }
             return receiveData;
         }

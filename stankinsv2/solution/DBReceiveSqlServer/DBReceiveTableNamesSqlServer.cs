@@ -21,9 +21,9 @@ namespace DBReceiveSqlServer
         {
             
             var m = new MetadataTable();
-            var id = m.AddTable(this.Name);
-            m.AddColumn("name",id);//those are in sql
-            m.AddColumn("id", id);//those are in sql
+            //var id = m.AddTable(this,0);
+            //m.AddColumn("name",id);//those are in sql
+            //m.AddColumn("id", id);//those are in sql
             //TODO: use valuetask
             return await Task.FromResult(m);
         }

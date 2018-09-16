@@ -14,15 +14,9 @@ namespace StankinsV2Objects
             Columns = new List<IColumn>();
             Relations = new List<IRelation>();
         }
-        public int AddTable(string name)
+        public int AddTable(DataTable dt, int id)
         {
-            var nr = Tables.Count;
-            Tables.Add(new Table() { Id = nr , Name = name });
-            return nr;
-        }
-        public int AddTable(DataTable dt)
-        {
-            var id = AddTable(dt.TableName);
+            Tables.Add(new Table() { Id = id, Name = dt.TableName });
             foreach (DataColumn dc in dt.Columns)
             {
                 this.AddColumn(dc.ColumnName, id);

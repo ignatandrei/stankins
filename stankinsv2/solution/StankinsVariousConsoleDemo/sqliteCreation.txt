@@ -14,7 +14,7 @@
 	Func<object, string> transform = (it) => (it == null) ? "" : it.ToString().Replace("'","\\'");
 }
 
-db.run("CREATE TABLE @Model.TableName (@colString);");
+
 
 @{
 	
@@ -28,7 +28,7 @@ db.run("CREATE TABLE @Model.TableName (@colString);");
 		}
 		
 		 <text> 
-		 db.run("INSERT INTO @Model.TableName VALUES (@colsQuestion)", ['@Raw(string.Join("','" , data))']);
+		 this.db.run("INSERT INTO booksNobel VALUES (@colsQuestion)", ['@Raw(string.Join("','" , data))']);
 		 </text>
 	}
 }

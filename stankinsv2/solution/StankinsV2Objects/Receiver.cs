@@ -31,7 +31,7 @@ namespace StankinsV2Objects
                 .Select(it=>it.IDTable)
                 .ToArray();
             var tables = receiveData.DataToBeSentFurther;
-            for (int i = 0; i < tables.Count; i++)
+            foreach(var i in tables.Keys)
             {
                 if (!cols.Contains(i))
                     continue;

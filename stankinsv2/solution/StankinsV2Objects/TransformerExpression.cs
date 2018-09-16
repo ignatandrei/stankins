@@ -33,9 +33,9 @@ namespace StankinsV2Objects
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
 
-            for (int i = 0; i < receiveData.DataToBeSentFurther.Count; i++)
+            foreach(var item in receiveData.DataToBeSentFurther)
             {
-                var table = receiveData.DataToBeSentFurther[i];
+                var table = item.Value;
                 if (!this.IsTableOk(table))
                     continue;
 
@@ -48,7 +48,7 @@ namespace StankinsV2Objects
                     dr[NewColumnName] = dr[NewColumnName + "@"]?.ToString();
                 }
                 table.Columns.Remove(NewColumnName + "@");
-                receiveData.Metadata.Columns.Add(new Column() { IDTable = i, Name = NewColumnName, Id = receiveData.Metadata.Columns.Count });
+                receiveData.Metadata.Columns.Add(new Column() { IDTable = item.Key, Name = NewColumnName, Id = receiveData.Metadata.Columns.Count });
             }
             return receiveData;
         }

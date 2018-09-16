@@ -66,8 +66,8 @@ namespace ReceiverHTML
                 {                    
                     dt.Rows.Add(row.InnerText,row.InnerHtml);
                 }
-                ret.DataToBeSentFurther.Add(ret.DataToBeSentFurther.Count,dt);
-                ret.Metadata.AddTable(dt);
+                var id= ret.AddNewTable(dt);
+                ret.Metadata.AddTable(dt,id);
             }
             return ret;
         }
