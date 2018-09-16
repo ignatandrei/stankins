@@ -27,6 +27,8 @@ db.run("CREATE TABLE @Model.TableName (@colString);");
 			i++;
 		}
 		
-		 <text> db.run("INSERT INTO @Model.TableName VALUES (@colsQuestion)", '@Raw(string.Join("','" , data))');</text>
+		 <text> 
+		 db.run("INSERT INTO @Model.TableName VALUES (@colsQuestion)", ['@Raw(string.Join("','" , data))']);
+		 </text>
 	}
 }
