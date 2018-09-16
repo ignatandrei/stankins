@@ -1,18 +1,32 @@
-﻿@{
-	var colsQuestion= "?";
-	var cols = "id";
+﻿@using System.Linq;
+@using System;
+@{
+	int nrCols= Model.Columns.Count;
+	var cols = new string[nrCols];
+	int i=0;
 	foreach(var col in Model.Columns)
     {
-		cols += ","+ col.ColumnName;
-		colsQuestion+=",?";
+		cols[i++]=col.ColumnName;	
+		
     }
-	int nr=1;	
+	var colString = string.Join(",",cols);
+	var colsQuestion=string.Join(",",Enumerable.Repeat( "?",nrCols).ToArray());
+	Func<object, string> transform = (it) => (it == null) ? "" : it.ToString();
 }
 
-db.run("CREATE TABLE @Model.TableName (@cols);");
+db.run("CREATE TABLE @Model.TableName (@colString);");
 
-@foreach(var row in Model.Rows){
-	 <text>
-	 db.run("INSERT INTO @Model.TableName VALUES (@colsQuestion)", [@(nr++),'@Raw(string.Join("','" , row.ItemArray))]');
-	</text>
+@{
+	
+	foreach(var row in Model.Rows){
+		var orig=row.ItemArray;
+		string[] data= new string[nrCols];
+		i=0;
+		foreach(var it in row.ItemArray){
+			data[i] = transform(orig[i]);
+			i++;
+		}
+		
+		 <text> db.run("INSERT INTO @Model.TableName VALUES (@colsQuestion)", '@Raw(string.Join("','" , data))');</text>
+	}
 }
