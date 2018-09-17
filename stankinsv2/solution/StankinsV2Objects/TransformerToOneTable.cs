@@ -18,7 +18,6 @@ namespace StankinsV2Objects
         {
         }
 
-
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             if (receiveData.DataToBeSentFurther.Count == 0)
@@ -34,20 +33,45 @@ namespace StankinsV2Objects
             {
                 throw new ArgumentException($"{string.Join(",", firstTableColumns)} does not contain { first.Name}");
             }
-            var dt = receiveData.DataToBeSentFurther[0];
-            for (int i = 1; i < receiveData.DataToBeSentFurther.Count; i++)
+            var dt = receiveData.DataToBeSentFurther[firstTableId];
+            for (int i = 0; i < receiveData.DataToBeSentFurther.Count; i++)
             {
-                dt.Merge(receiveData.DataToBeSentFurther[i]);
+                if(i != firstTableId)
+                    dt.Merge(receiveData.DataToBeSentFurther[i]);
+
             }
+            //remove all datatables but not firstTableId
             while (receiveData.DataToBeSentFurther.Count != 1)
-                receiveData.DataToBeSentFurther.Remove(receiveData.DataToBeSentFurther.Count - 1);
-            //metadata
-            for (int i = receiveData.Metadata.Tables.Count - 1; i >= 0; i--)
             {
-                var t = receiveData.Metadata.Tables[i];
+                var nr = receiveData.DataToBeSentFurther.Count-1;
+                if (nr != firstTableId)
+                    receiveData.DataToBeSentFurther.Remove(nr);
+
+                if(0 != firstTableId)
+                    receiveData.DataToBeSentFurther.Remove(0);
+            }
+
+            //metadata
+            var cols = receiveData.Metadata.Columns;
+            var tables = receiveData.Metadata.Tables;
+            for (int i = tables.Count - 1; i >= 0; i--)
+            {
+                var t = tables[i];
                 if (t.Id == firstTableId)
                     continue;
+
                 receiveData.Metadata.RemoveTable(t);
+                
+                var colsRemove = cols
+                    .Where(it => it.IDTable == t.Id)
+                    .Select(it=>it.Id)
+                    .ToArray();
+                for (int col = cols.Count - 1; col >= 0; col--)
+                {
+                    var colId = cols[col].Id;
+                    if (colsRemove.Contains(colId))
+                        cols.RemoveAt(i);
+                }
             }
                 
             return receiveData;

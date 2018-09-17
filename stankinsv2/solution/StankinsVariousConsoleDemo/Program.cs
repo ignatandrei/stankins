@@ -144,14 +144,24 @@ namespace StankinsVariousConsoleDemo
             data = await new ChangeColumnName("li", "bookName").TransformData(data);
             data = await v.TransformData(data);
             data = await new RemoveColumn("li_html").TransformData(data);
-                
+            data = await new RemoveColumn("Year_html").TransformData(data);
+            data = await new RemoveColumn("Author_html").TransformData(data);
+            data = await new RemoveColumn("Title_html").TransformData(data);
+            data = await new RemoveColumn("Genre(s)_html").TransformData(data);
+            data = await new RemoveColumn("Country_html").TransformData(data);
+            data = await (new TransformTrim()).TransformData(data);
+
+
             data = await new SenderExcel(@"D:\test\booker.xlsx").TransformData(data);
             data = await v.TransformData(data);
+            var content = File.ReadAllText("sqliteCreation.txt");
+            data = await new SenderRazorTableOneByOne(content, @"D:\test\").TransformData(data);
+
         }
         static async Task MainAsync(string[] args)
         {
-            await BookerPrize();
-            return;
+            //await BookerPrize();
+            //return;
             await Nobel();
             return;
             var item = new DBReceiveTableNamesSqlServer("Server=.;Database=MyTestDatabase;Trusted_Connection=True;");

@@ -61,7 +61,7 @@ namespace StankinsV2Objects
                     colsTable.Add(dc.ColumnName);
                 }
                 if(colsTable.Count != colsMetadata.Count)
-                    throw new NotSupportedException($"length not the same for cols and metadata cols from {item.Value.TableName} ");
+                    throw new NotSupportedException($"length not the same for cols {colsTable.Count} and metadata cols {colsMetadata.Count} from {item.Value.TableName} ");
 
                 except = colsMetadata.Except(colsTable).ToArray();
                 if(except.Length>0)

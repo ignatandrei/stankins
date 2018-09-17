@@ -31,6 +31,9 @@ namespace StankinsV2Objects
 
         public async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
+            //TODO : remove from release builds
+            var v = new Verifier();
+
             var column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name == columnNameWithData);
             if(column == null)
             {
@@ -54,6 +57,8 @@ namespace StankinsV2Objects
                 r.Name = data.ToString();
                 //TODO : load this async all
                 var dataToBeSent= await r.TransformData(null);
+                //TODO : remove from release builds
+                await v.TransformData(dataToBeSent);
                 foreach(var dataTable in dataToBeSent.DataToBeSentFurther)
                 {
                     dataTable.Value.TableName += data.ToString();
@@ -65,8 +70,8 @@ namespace StankinsV2Objects
                     var idTable = receiveData.AddNewTable(dataTable.Value);
                     var meta = dataToBeSent.Metadata.Tables.FirstOrDefault(it => it.Id == dataTable.Key);
                     meta.Name = dataTable.Value.TableName;
-                    receiveData.Metadata.Tables.Add(meta);
-                    receiveData.Metadata.AssignNewId(meta, idTable);
+                    meta.Id = idTable;
+                    receiveData.Metadata.Tables.Add(meta);                    
                     foreach (var c in dataToBeSent.Metadata.Columns)
                     {
                         c.IDTable = idTable;
@@ -80,7 +85,8 @@ namespace StankinsV2Objects
                     });
                     //TODO: add relation
                 }
-
+                //TODO : remove from release builds                
+                await v.TransformData(receiveData);
                 
             }
             return receiveData;

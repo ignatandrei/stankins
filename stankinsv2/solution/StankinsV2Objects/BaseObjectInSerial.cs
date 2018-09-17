@@ -46,11 +46,17 @@ namespace StankinsV2Objects
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
+            //TODO : remove from release builds
+            var v = new Verifier();
             var first = Activator.CreateInstance(typeof(T), dataNeeded) as BaseObject;
             var second = Activator.CreateInstance(typeof(U), dataNeeded) as BaseObject;
 
             var data = await first.TransformData(receiveData);
+            //TODO : remove from release builds
+            await v.TransformData(data);
             data = await second.TransformData(data);
+            //TODO : remove from release builds
+            await v.TransformData(data);
             return data;
             
         }
