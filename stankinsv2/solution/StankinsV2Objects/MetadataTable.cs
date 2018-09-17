@@ -54,7 +54,7 @@ namespace StankinsV2Objects
                     Columns.RemoveAt(i);
 
             }
-            Tables.RemoveAt(idTable);
+            Tables.Remove(table);
         }
 
         public IList<IColumn> Columns { get ; set ; }

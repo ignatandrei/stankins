@@ -33,7 +33,7 @@ namespace StankinsVariousConsoleDemo
             var f = new FilterTablesWithColumn("Laureate");
             data = await f.TransformData(data);
             data = await v.TransformData(data);
-
+                
 
             var justSome = new FilterColumnData("Laureate", "Laureate not like '*ohn*'");
             data = await justSome.TransformData(data);
@@ -101,6 +101,14 @@ namespace StankinsVariousConsoleDemo
             data = await v.TransformData(data);
 
             data = await new SenderExcel(@"D:\test\nobel.xlsx").TransformData(data);
+            
+
+            data = await new FilterTablesWithColumn("bookName").TransformData(data);
+            data = await v.TransformData(data);
+
+            data = await new TransformerToOneTable().TransformData(data);
+            data = await v.TransformData(data);
+
             var content = File.ReadAllText("sqliteCreation.txt");
             data = await new SenderRazorTableOneByOne(content, @"D:\test\").TransformData(data);
             data = await v.TransformData(data);
