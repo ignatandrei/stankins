@@ -4,7 +4,7 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     public class FilterColumnDataGreaterThanLength : FilterColumnData
     {

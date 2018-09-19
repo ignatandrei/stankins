@@ -1,6 +1,6 @@
 ﻿using StankinsCommon;
 using Stankins.Interfaces;
-using StankinsV2Objects;
+using StankinsObjects ;
 using System;
 using System.Collections.Generic;
 using System.Data;

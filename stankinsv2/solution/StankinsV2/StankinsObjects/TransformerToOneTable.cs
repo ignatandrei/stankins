@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     //TODO:make one version that identifies what tables can be merged
     public class TransformerToOneTable : BaseObject, ITransformer

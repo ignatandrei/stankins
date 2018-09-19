@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     public class MetadataTable: IMetadata
     {

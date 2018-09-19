@@ -5,10 +5,10 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     //TODO: make remove more columns at once
-    public class RemoveColumn: BaseObject, IFilter
+    public class RemoveColumn : BaseObject, IFilter
     {
         public string NameColumn { get; }
         public RemoveColumn(string nameColumn) : this(new CtorDictionary() {

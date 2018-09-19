@@ -6,7 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     
     public abstract class BaseObject : IBaseObject

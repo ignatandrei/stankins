@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     public class TransformerOneTableToMulti<T> :  ITransformer
         where T:IBaseObject

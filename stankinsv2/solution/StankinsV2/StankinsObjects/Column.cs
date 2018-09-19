@@ -1,7 +1,7 @@
 ﻿using Stankins.Interfaces;
 using System.Diagnostics;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     [DebuggerDisplay("{Id} {Name} IDTable = {IDTable}")]
     public class Column : MetadataRow, IColumn

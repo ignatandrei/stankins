@@ -3,7 +3,7 @@ using Stankins.File;
 using Stankins.HTML;
 using Stankins.Interfaces;
 using Stankins.Office;
-using StankinsV2Objects;
+using StankinsObjects ;
 using System;
 using System.Linq;
 using System.Text;
@@ -83,15 +83,15 @@ namespace StankinsVariousConsole
 
             data = await v.TransformData(data);
             //var regexLast = @"(?:.+\/)((?<name>.+))";
-            //data = await new AddColumnRegex("LaureateFullWiki_origin", @"(?:.+\/)((?<name>.+))").TransformData(data);
-            //data = await v.TransformData(data);
+            data = await new AddColumnRegex("LaureateFullWiki_origin", @"(?:.+\/)((?<nameAuthor>.+))").TransformData(data);
+            data = await v.TransformData(data);
 
-            //data = await new AddColumnRegex("LaureateFullWiki", @"(?:.+\/)((?<name>.+))").TransformData(data);
+            data = await new AddColumnRegex("LaureateFullWiki", @"(?:.+\/)((?<name>.+))").TransformData(data);
 
-            //data = await new RemoveColumn("LaureateFullWiki_origin").TransformData(data);
+            data = await new RemoveColumn("LaureateFullWiki_origin").TransformData(data);
 
-            //data = await new ChangeTableNamesRegex(@"(?:.+\/)((?<name>.+))").TransformData(data);
-            //data = await v.TransformData(data);
+            data = await new ChangeTableNamesRegex(@"(?:.+\/)((?<name>.+))").TransformData(data);
+            data = await v.TransformData(data);
 
             data = await new ChangeColumnName("li", "bookName").TransformData(data);
             data = await v.TransformData(data);

@@ -1,7 +1,7 @@
 ﻿using RazorLight;
 using Stankins.Interfaces;
 using StankinsCommon;
-using StankinsV2Objects;
+using StankinsObjects ;
 using System;
 using System.Collections.Generic;
 using System.Data;

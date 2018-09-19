@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     public class DataToSentTable : IDataToSent
     {

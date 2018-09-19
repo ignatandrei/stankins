@@ -1,6 +1,6 @@
 ﻿using Stankins.Interfaces;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     public class Table: MetadataRow, ITable
     {

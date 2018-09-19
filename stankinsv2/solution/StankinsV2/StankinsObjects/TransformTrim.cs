@@ -6,7 +6,7 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StankinsV2Objects
+namespace StankinsObjects 
 {
     public class TransformTrim : BaseObject, ITransformer
     {
