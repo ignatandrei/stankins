@@ -41,11 +41,7 @@ namespace StankinsObjects
             {
                 foreach (var n in names)
                 {
-                    var dc = new DataColumn(n, typeof(string));
-                    dc.DefaultValue = "asdasd";
-                    dc.AllowDBNull = true; ;
-                    table.Value.Columns.Add(dc);
-                    table.Value.AcceptChanges();
+                    table.Value.Columns.Add(new DataColumn(n, typeof(string)));
                     receiveData.Metadata.Columns.Add(new Column() { Id = receiveData.Metadata.Columns.Count, IDTable = table.Key, Name = n });
                 }
             }
@@ -82,7 +78,15 @@ namespace StankinsObjects
                         if (gr.Success)
                         {
                             string val = gr.Value;
-                            item[n] = val;
+                            try
+                            {
+                                item[n] = val;
+                            }
+                            catch (Exception ex)
+                            {
+                                if (item[n]?.ToString() == val)
+                                    continue;
+                            }
                         }
 
                     }
