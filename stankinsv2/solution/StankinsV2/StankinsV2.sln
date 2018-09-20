@@ -5,19 +5,21 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Interfaces", "Stankins.Interfaces\Stankins.Interfaces.csproj", "{AD565CAA-69B5-468F-9BF3-B89071C99F92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsCommon", "StankinsCommon\StankinsCommon.csproj", "{48B51AD6-DB3C-4DE8-992D-5A0C4CD68A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsCommon", "StankinsCommon\StankinsCommon.csproj", "{48B51AD6-DB3C-4DE8-992D-5A0C4CD68A5E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsObjects", "StankinsObjects\StankinsObjects.csproj", "{04A65750-0511-4B62-B5B9-AFB2974384DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsObjects", "StankinsObjects\StankinsObjects.csproj", "{04A65750-0511-4B62-B5B9-AFB2974384DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.File", "Stankins.File\Stankins.File.csproj", "{FB78070A-A487-48A9-B1F5-30F1432B8F0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.File", "Stankins.File\Stankins.File.csproj", "{FB78070A-A487-48A9-B1F5-30F1432B8F0D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Office", "Stankins.Office\Stankins.Office.csproj", "{3D31BFDA-9F51-474F-B33D-91D3041B540A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Office", "Stankins.Office\Stankins.Office.csproj", "{3D31BFDA-9F51-474F-B33D-91D3041B540A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.HTML", "Stankins.HTML\Stankins.HTML.csproj", "{73290B5C-A0BC-4318-9208-9524D5F3CB2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.HTML", "Stankins.HTML\Stankins.HTML.csproj", "{73290B5C-A0BC-4318-9208-9524D5F3CB2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsVariousConsole", "StankinsVariousConsole\StankinsVariousConsole.csproj", "{49402C7D-0891-4146-82FD-97C7188C07D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsVariousConsole", "StankinsVariousConsole\StankinsVariousConsole.csproj", "{49402C7D-0891-4146-82FD-97C7188C07D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Razor", "Stankins.Razor\Stankins.Razor.csproj", "{D93D3CC6-42B5-4926-B080-2EF4B8873C8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Razor", "Stankins.Razor\Stankins.Razor.csproj", "{D93D3CC6-42B5-4926-B080-2EF4B8873C8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Process", "Stankins.Process\Stankins.Process.csproj", "{749590F9-92CD-404E-9A6F-B389DA1797FC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{D93D3CC6-42B5-4926-B080-2EF4B8873C8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D93D3CC6-42B5-4926-B080-2EF4B8873C8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D93D3CC6-42B5-4926-B080-2EF4B8873C8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{749590F9-92CD-404E-9A6F-B389DA1797FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{749590F9-92CD-404E-9A6F-B389DA1797FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{749590F9-92CD-404E-9A6F-B389DA1797FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{749590F9-92CD-404E-9A6F-B389DA1797FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

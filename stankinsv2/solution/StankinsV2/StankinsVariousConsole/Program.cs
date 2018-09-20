@@ -3,8 +3,11 @@ using Stankins.File;
 using Stankins.HTML;
 using Stankins.Interfaces;
 using Stankins.Office;
+using Stankins.Process;
 using StankinsObjects ;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +19,33 @@ namespace StankinsVariousConsole
         static void Main(string[] args)
         {
             MainAsync(args).GetAwaiter().GetResult();
+        }
+        static async Task MainAsync(string[] args)
+        {
+            await ResultsDir();
+            return;
+            await BookerPrize();
+            return;
+            await Nobel();
+            return;
+            //var item = new DBReceiveTableNamesSqlServer("Server=.;Database=MyTestDatabase;Trusted_Connection=True;");
+            //var data = await item.TransformData(null);
+
+            //Console.WriteLine("1");
+
+            //IReceive receive = new ReceiverCSV("OneTab.txt", Encoding.UTF8, false, '|', '\n');
+            //var dataNoble = await receive.TransformData(null);
+
+            //ITransformer separate = new SeparateByNumber(data.Metadata.Tables[0].Name, 10);
+            //data = await separate.TransformData(data);
+            //Console.WriteLine("2");
+        }
+
+        static async Task ResultsDir()
+        {
+            var r = new ReceiverProcess("print.exe",null);
+            var q = await r.TransformData(null);
+            return;
         }
         static async Task Nobel()
         {
@@ -153,8 +183,9 @@ namespace StankinsVariousConsole
             data = await new RemoveColumn("Title_html").TransformData(data);
             data = await new RemoveColumn("Genre(s)_html").TransformData(data);
             data = await new RemoveColumn("Country_html").TransformData(data);
+            data = await v.TransformData(data);
             data = await (new TransformTrim()).TransformData(data);
-
+            data = await v.TransformData(data);
 
             data = await new SenderExcel(@"D:\test\booker.xlsx").TransformData(data);
             data = await v.TransformData(data);
@@ -162,23 +193,6 @@ namespace StankinsVariousConsole
             data = await new SenderRazorTableOneByOne(content, @"D:\test\").TransformData(data);
 
         }
-        static async Task MainAsync(string[] args)
-        {
-            await BookerPrize();
-            return;
-            await Nobel();
-            return;
-            //var item = new DBReceiveTableNamesSqlServer("Server=.;Database=MyTestDatabase;Trusted_Connection=True;");
-            //var data = await item.TransformData(null);
-
-            //Console.WriteLine("1");
-
-            //IReceive receive = new ReceiverCSV("OneTab.txt", Encoding.UTF8, false, '|', '\n');
-            //var dataNoble = await receive.TransformData(null);
-
-            //ITransformer separate = new SeparateByNumber(data.Metadata.Tables[0].Name, 10);
-            //data = await separate.TransformData(data);
-            //Console.WriteLine("2");
-        }
+       
     }
 }
