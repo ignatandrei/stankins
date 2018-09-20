@@ -33,16 +33,16 @@ steps:
 
     arguments: 'install -g dotnet-aop'
     
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet run aop'
-  inputs:
-    command: custom
+#- task: DotNetCoreCLI@2
+#  displayName: 'dotnet run aop'
+#  inputs:
+#    command: custom
 
-    custom: aop
+#    custom: aop
 
     #arguments: '$(Build.Repository.LocalPath)\AOPRoslyn\processme.txt'
 
-    workingDirectory: stankinsv2
+ #   workingDirectory: stankinsv2
     
 - task: VSTest@2
   inputs:
