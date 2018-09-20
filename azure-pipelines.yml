@@ -23,7 +23,27 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
+    
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet install aop'
+  inputs:
+    command: custom
 
+    custom: tool
+
+    arguments: 'install -g dotnet-aop'
+    
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet run aop'
+  inputs:
+    command: custom
+
+    custom: aop
+
+    #arguments: '$(Build.Repository.LocalPath)\AOPRoslyn\processme.txt'
+
+    workingDirectory: stankinsv2
+    
 - task: VSTest@2
   inputs:
     platform: '$(buildPlatform)'
