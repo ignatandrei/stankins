@@ -55,8 +55,7 @@ steps:
     command: pack
 
     packagesToPack: '**/Stankins.*.csproj'
-
-    versioningScheme: byBuildNumber
+    
   
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
