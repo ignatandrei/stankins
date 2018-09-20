@@ -1,0 +1,34 @@
+﻿@using System.Linq;
+@using System;
+@{
+	int nrCols= Model.Columns.Count;
+	var cols = new string[nrCols];
+	int i=0;
+	foreach(var col in Model.Columns)
+    {
+		cols[i++]=col.ColumnName;	
+		
+    }
+	var colString = string.Join(",",cols);
+	var colsQuestion=string.Join(",",Enumerable.Repeat( "?",nrCols).ToArray());
+	Func<object, string> transform = (it) => (it == null) ? "" : it.ToString().Replace("'","\\'");
+}
+
+db.run("CREATE TABLE booksPrize (@colString);");
+
+@{
+	
+	foreach(var row in Model.Rows){
+		var orig=row.ItemArray;
+		string[] data= new string[nrCols];
+		i=0;
+		foreach(var it in row.ItemArray){
+			data[i] = transform(orig[i]);
+			i++;
+		}
+		
+		 <text> 
+		 this.db.run("INSERT INTO booksPrize VALUES (@colsQuestion)", ['@Raw(string.Join("','" , data))']);
+		 </text>
+	}
+}

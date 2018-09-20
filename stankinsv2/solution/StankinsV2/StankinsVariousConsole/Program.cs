@@ -164,8 +164,8 @@ namespace StankinsVariousConsole
         }
         static async Task MainAsync(string[] args)
         {
-            //await BookerPrize();
-            //return;
+            await BookerPrize();
+            return;
             await Nobel();
             return;
             //var item = new DBReceiveTableNamesSqlServer("Server=.;Database=MyTestDatabase;Trusted_Connection=True;");
