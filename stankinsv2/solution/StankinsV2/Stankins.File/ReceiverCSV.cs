@@ -34,9 +34,9 @@ namespace Stankins.File
             return splitLines;
         }
     }
-        public class ReceiverStreamingFile : IStreamingReceive<string>
+        public class ReceiverCSV : IStreamingReceive<string>
     {
-        public ReceiverStreamingFile(string nameFile, Encoding encoding,char separator)
+        public ReceiverCSV(string nameFile, Encoding encoding,char separator)
         {
             NameFile = nameFile;
             Encoding = encoding;
@@ -165,7 +165,7 @@ namespace Stankins.File
             return "Table1";
         }
     }
-    public class ReceiverCSVFile : ReceiveCSV<ReceiverStreamingFile>
+    public class ReceiverCSVFile : ReceiveCSV<ReceiverCSV>
     {
         public string FileCSV { get; }
         public Encoding Encoding { get; }
@@ -197,9 +197,9 @@ namespace Stankins.File
             throw new NotImplementedException();
         }
 
-        public override ReceiverStreamingFile Create()
+        public override ReceiverCSV Create()
         {
-            var s = new ReceiverStreamingFile(this.FileCSV, this.Encoding, this.LineSeparator);
+            var s = new ReceiverCSV(this.FileCSV, this.Encoding, this.LineSeparator);
             return s;
         }
 
