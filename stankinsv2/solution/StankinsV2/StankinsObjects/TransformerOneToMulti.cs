@@ -7,41 +7,45 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StankinsObjects 
+namespace StankinsObjects
 {
-    public class TransformerOneTableToMulti<T> :  ITransformer
+    public class TransformerOneTableToMulti<T> : BaseObject, ITransformer
         where T:IBaseObject
     {
         
-        private readonly string receiverProperty;
-        protected readonly string columnNameWithData;
-        protected readonly CtorDictionary dataNeeded;
+        private readonly string ReceiverProperty;
+        protected readonly string ColumnNameWithData;
+        
+        public TransformerOneTableToMulti(CtorDictionary data):base(data)
+        {
+            ReceiverProperty = GetMyDataOrThrow<string>(nameof(ReceiverProperty));
+            ColumnNameWithData = GetMyDataOrThrow<string>(nameof(ColumnNameWithData));
 
-        public TransformerOneTableToMulti(string receiverProperty, string columnNameWithData , CtorDictionary dataNeeded)
+        }
+        public TransformerOneTableToMulti(string receiverProperty, string columnNameWithData , CtorDictionary dataNeeded):
+            this(new CtorDictionary(dataNeeded)
+            {
+                { nameof(receiverProperty),receiverProperty },
+                {nameof(columnNameWithData),columnNameWithData }
+            })
         {
             
-            this.receiverProperty = receiverProperty;
-            this.columnNameWithData = columnNameWithData;
-            this.dataNeeded = dataNeeded;
+            
         }
-        public string Name { get ; set ; }
-        public IDictionary<string,object> StoringDataBetweenCalls { get ; set ; }
-
-        public Version Version { get; protected set; }
-
-        public async Task<IDataToSent> TransformData(IDataToSent receiveData)
+        
+        public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             //TODO : remove from release builds
             var v = new Verifier();
 
-            var column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name == columnNameWithData);
+            var column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name == ColumnNameWithData);
             if(column == null)
             {
-                column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name.Equals(columnNameWithData, StringComparison.InvariantCultureIgnoreCase));
+                column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name.Equals(ColumnNameWithData, StringComparison.InvariantCultureIgnoreCase));
             }
             if (column == null)
             {
-                throw new ArgumentException($"no column {columnNameWithData} in metadata");
+                throw new ArgumentException($"no column {ColumnNameWithData} in metadata");
 
             }
             var table = receiveData.DataToBeSentFurther[column.IDTable];
@@ -51,7 +55,7 @@ namespace StankinsObjects
                 var data = item[column.Name];
                 var d = new CtorDictionary(dataNeeded)
                 {
-                    { this.receiverProperty, data }
+                    { this.ReceiverProperty, data }
                 };
                 var r = Activator.CreateInstance(typeof(T), d) as BaseObject;
                 r.Name = data.ToString();
@@ -92,7 +96,7 @@ namespace StankinsObjects
             return receiveData;
         }
 
-        public Task<IMetadata> TryLoadMetadata()
+        public override Task<IMetadata> TryLoadMetadata()
         {
             throw new NotImplementedException();
         }

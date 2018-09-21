@@ -4,7 +4,7 @@ using Stankins.HTML;
 using Stankins.Interfaces;
 using Stankins.Office;
 using Stankins.Process;
-using StankinsObjects ;
+using StankinsObjects;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -20,15 +20,41 @@ namespace StankinsVariousConsole
         {
             MainAsync(args).GetAwaiter().GetResult();
         }
+        static async Task Bookmarks()
+        {
+            var v = new Verifier();
+
+            var dt = new ReceiverHtmlSelector(@"C:\Users\Surface1\Desktop\bookmarks_11_17_17.html", Encoding.UTF8, "//dt/a");
+            var data = await dt.TransformData(null);
+            data = await v.TransformData(data);
+            //data = await new TransformerHTMLAttribute("item_html", "href").TransformData(data);
+            //data = await v.TransformData(data);
+            data = await new TransformerAddColumnExpressionByColumn("item_html", "'<li>' + item_html +'</li>'", "li").TransformData(data);
+            data = await v.TransformData(data);
+            data = await new RemoveColumn("item_html").TransformData(data);
+            data = await v.TransformData(data);
+            data = await new RemoveColumn("item").TransformData(data);
+            data = await v.TransformData(data);
+            data = await new TransformerOneColumnToMultiTablesByNumber(data.Metadata.Tables.First().Name, 20).TransformData(data);
+            data = await v.TransformData(data);
+
+            var excel = new SenderExcel(@"text.xslx");
+            data = await excel.TransformData(data);
+            data = await v.TransformData(data);
+           
+        }
         static async Task MainAsync(string[] args)
         {
+            await Bookmarks();
+            
+            return;
             await ResultsDir();
             return;
             await BookerPrize();
             return;
             await Nobel();
             return;
-            //var item = new DBReceiveTableNamesSqlServer("Server=.;Database=MyTestDatabase;Trusted_Connection=True;");
+            //var item = new DBReceiveTableNamesSqlServer("Server =.;Database=MyTestDatabase;Trusted_Connection=True;");
             //var data = await item.TransformData(null);
 
             //Console.WriteLine("1");
@@ -43,8 +69,11 @@ namespace StankinsVariousConsole
 
         static async Task ResultsDir()
         {
+            var v = new Verifier();
+
             var r = new ReceiverProcess("print.exe",null);
-            var q = await r.TransformData(null);
+            var data = await r.TransformData(null);
+            await v.TransformData(data);
             return;
         }
         static async Task Nobel()
