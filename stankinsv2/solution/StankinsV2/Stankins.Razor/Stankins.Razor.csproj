@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <TargetsForTfmSpecificBuildOutput>$(TargetsForTfmSpecificBuildOutput);CopyProjectReferencesToPackage</TargetsForTfmSpecificBuildOutput>
+    
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
+    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" PrivateAssets="all" />
   </ItemGroup>
 
+  <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
+    <ItemGroup>
+      <BuildOutputInPackage Include="@(ReferenceCopyLocalPaths->WithMetadataValue('ReferenceSourceTarget', 'ProjectReference')->WithMetadataValue('PrivateAssets', 'All'))" />
+    </ItemGroup>
+  </Target>
 </Project>
