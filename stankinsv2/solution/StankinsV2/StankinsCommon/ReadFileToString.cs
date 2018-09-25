@@ -7,26 +7,44 @@ using System.Threading.Tasks;
 
 namespace StankinsCommon
 {
+    public enum FileType
+    {
+        None=0,
+        Local,
+        Web
+    }
     /// <summary>
     /// reads from local or reads from web
     /// TODO : read from FTP
     /// </summary>
     public class ReadFileToString
     {
+        public FileType FileType { get; private set; }
         public string FileToRead { get; set; }
         public Encoding FileEnconding { get;  set; }
 
         bool IsLocalFile()
         {
+            if(FileType != FileType.None)
+            {
+                return FileType == FileType.Local;
+            }
             try
             {
                 var uri = new Uri(FileToRead, UriKind.RelativeOrAbsolute);
-                return uri.IsFile;
+                if (uri.IsFile)
+                {
+                    FileType = FileType.Local;
+                    return true;
+                }
+                FileType = FileType.Web;
+                return false;
             }
             catch (Exception)
             {
                 //if it is local file, 
                 //then uri.IsFile will send error
+                FileType = FileType.Local;
                 return true;
             }
         }

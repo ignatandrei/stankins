@@ -20,6 +20,46 @@ namespace StankinsVariousConsole
         {
             MainAsync(args).GetAwaiter().GetResult();
         }
+        
+        static async Task MainAsync(string[] args)
+        {
+            await BillGates();
+
+            return;
+            await Bookmarks();
+            
+            return;
+            await ResultsDir();
+            return;
+            await BookerPrize();
+            return;
+            await Nobel();
+            return;
+            //var item = new DBReceiveTableNamesSqlServer("Server =.;Database=MyTestDatabase;Trusted_Connection=True;");
+            //var data = await item.TransformData(null);
+
+            //Console.WriteLine("1");
+
+            //IReceive receive = new ReceiverCSV("OneTab.txt", Encoding.UTF8, false, '|', '\n');
+            //var dataNoble = await receive.TransformData(null);
+
+            //ITransformer separate = new SeparateByNumber(data.Metadata.Tables[0].Name, 10);
+            //data = await separate.TransformData(data);
+            //Console.WriteLine("2");
+        }
+
+        private static async Task BillGates()
+        {
+            var v = new Verifier();
+
+            var dt = new ReceiverHtmlAHref(@"https://www.gatesnotes.com/Books#All",Encoding.UTF8);
+            var data = await dt.TransformData(null);
+            await v.TransformData(data);
+            var excel = new SenderExcel(@"bg.xslx");
+            data = await excel.TransformData(data);
+            data = await v.TransformData(data);
+        }
+
         static async Task Bookmarks()
         {
             var v = new Verifier();
@@ -41,30 +81,7 @@ namespace StankinsVariousConsole
             var excel = new SenderExcel(@"text.xslx");
             data = await excel.TransformData(data);
             data = await v.TransformData(data);
-           
-        }
-        static async Task MainAsync(string[] args)
-        {
-            await Bookmarks();
-            
-            return;
-            await ResultsDir();
-            return;
-            await BookerPrize();
-            return;
-            await Nobel();
-            return;
-            //var item = new DBReceiveTableNamesSqlServer("Server =.;Database=MyTestDatabase;Trusted_Connection=True;");
-            //var data = await item.TransformData(null);
 
-            //Console.WriteLine("1");
-
-            //IReceive receive = new ReceiverCSV("OneTab.txt", Encoding.UTF8, false, '|', '\n');
-            //var dataNoble = await receive.TransformData(null);
-
-            //ITransformer separate = new SeparateByNumber(data.Metadata.Tables[0].Name, 10);
-            //data = await separate.TransformData(data);
-            //Console.WriteLine("2");
         }
 
         static async Task ResultsDir()
