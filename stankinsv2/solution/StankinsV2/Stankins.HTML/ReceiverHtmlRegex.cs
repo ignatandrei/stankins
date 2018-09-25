@@ -62,8 +62,10 @@ namespace Stankins.HTML
             {
                 dt.Columns.Add(new DataColumn(n, typeof(string)));                
             }
-            var m = regex.Matches(data);
-            foreach(Match g in m)
+            RegexOptions options = RegexOptions.Multiline;
+            MatchCollection matches = Regex.Matches(data, Expression, options);
+
+            foreach (Match g in matches)
             {
                 if (!g.Success)
                     continue;
@@ -92,6 +94,9 @@ namespace Stankins.HTML
                 dt.Rows.Add(item);
 
             }
+            var id = ret.AddNewTable(dt);
+            ret.Metadata.AddTable(dt, id);
+            return ret;
 
 
         }

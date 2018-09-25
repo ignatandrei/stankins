@@ -52,8 +52,13 @@ namespace StankinsVariousConsole
         {
             var v = new Verifier();
 
-            var dt = new ReceiverHtmlAHref(@"https://www.gatesnotes.com/Books#All",Encoding.UTF8);
+            //var dt = new ReceiverHtmlAHref(@"https://www.gatesnotes.com/Books#All",Encoding.UTF8);
+            //var dt = new ReceiverHtmlRegex(@"C:\Users\Surface1\Documents\bg.txt", Encoding.UTF8, @".(?:href=)(?<book>.+?)(?:#disqus).*?");
+            var dt = new ReceiverHtmlRegex(@"C:\Users\Surface1\Documents\bg.txt", Encoding.UTF8, @".(?:href=\\"")(?<book>.+?)(?:#disqus).*?");
             var data = await dt.TransformData(null);
+            await v.TransformData(data);
+            var books = new RetainColumnDataContains(data.Metadata.Columns[0].Name, "ooks");
+            data = await books.TransformData(data);
             await v.TransformData(data);
             var excel = new SenderExcel(@"bg.xslx");
             data = await excel.TransformData(data);

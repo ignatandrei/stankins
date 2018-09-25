@@ -4,25 +4,8 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace StankinsObjects 
+namespace StankinsObjects
 {
-    public class FilterColumnDataGreaterThanLength : FilterColumnData
-    {
-        
-        public FilterColumnDataGreaterThanLength(string nameColumn, int length) : this(new CtorDictionary() {
-            { nameof(nameColumn), nameColumn },
-            { nameof(Expression), $"Len({nameColumn})>{length}"}
-            }
-           )
-        {
-            
-        }
-        public FilterColumnDataGreaterThanLength(CtorDictionary dataNeeded) : base(dataNeeded)
-        {
-            
-        }
-
-    }
     public class FilterColumnData : BaseObject, IFilter
     {
         public string NameColumn { get; }
@@ -34,8 +17,7 @@ namespace StankinsObjects
             }
            )
         {
-            NameColumn = nameColumn;
-            Expression = expression;
+            
         }
         public FilterColumnData(CtorDictionary dataNeeded) : base(dataNeeded)
         {
