@@ -12,6 +12,12 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+
+- task: DotNetCoreInstaller@0 
+    displayName: 'Use .NET Core sdk 2.1.300' 
+    inputs:  version: 2.1.300
+
 - task: NuGetToolInstaller@0
 
 - task: NuGetCommand@2
@@ -33,16 +39,16 @@ steps:
 
     arguments: 'install -g dotnet-aop'
     
-#- task: DotNetCoreCLI@2
-#  displayName: 'dotnet run aop'
-#  inputs:
-#    command: custom
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet run aop'
+  inputs:
+    command: custom
 
-#    custom: aop
+    custom: aop
 
-    #arguments: '$(Build.Repository.LocalPath)\AOPRoslyn\processme.txt'
+    arguments: '$(Build.Repository.LocalPath)\AOPRoslyn\processme.txt'
 
- #   workingDirectory: stankinsv2
+    workingDirectory: stankinsv2
     
 - task: VSTest@2
   inputs:
