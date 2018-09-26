@@ -12,12 +12,15 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-
-
-- task: DotNetCoreInstaller@0 
-  displayName: 'Use .NET Core sdk 2.1.300' 
-  inputs:  
+- task: DotNetCoreInstaller@0
+  displayName: 'Use .NET Core sdk 2.1.300'
+  inputs:
     version: 2.1.300
+
+- script: |
+   dotnet tool install -g dotnetsay
+   dotnet dotnetsay 
+  displayName: 'Command Line Script'
 
 - task: NuGetToolInstaller@0
 
