@@ -18,8 +18,8 @@ steps:
     version: 2.1.300
 
 - script: |
-   dotnet tool install -g dotnetsay
-   dotnet dotnetsay 
+   dotnet tool install  --tool-path . dotnetsay
+   .\dotnetsay 
   displayName: 'Command Line Script'
 
 - task: NuGetToolInstaller@0
