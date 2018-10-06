@@ -1,4 +1,5 @@
 ﻿using SenderInterpretedRazor;
+using Stankins.Amazon;
 using Stankins.File;
 using Stankins.HTML;
 using Stankins.Interfaces;
@@ -66,9 +67,22 @@ namespace StankinsVariousConsole
             data = await new TransformerXMLToColumn("OuterXML", @"//*[name()=""content:encoded""]", "content", ",").TransformData(data);
             await v.TransformData(data);
 
-            data =await  new TransformerOneTableToMulti<BaseObjectInSerial<TransformerHtmlAHref, TransformerToOneTable>>("Content", "content", new CtorDictionary()).TransformData(data);
+            data =await  new TransformerOneTableToMulti<TransformerHtmlAHref>("Content", "content", new CtorDictionary()).TransformData(data);
+
             await v.TransformData(data);
-            
+            data = await new FilterTablesWithColumn("href").TransformData(data);
+
+            await v.TransformData(data);
+            data = await new TransformerToOneTable().TransformData(data);
+
+            await v.TransformData(data);
+            data = await new RetainColumnDataContains("href","amazon").TransformData(data);
+            await v.TransformData(data);
+            //data = await new RetainColumnDataContains("a_text", "Lord of Light").TransformData(data);
+            await v.TransformData(data);
+            data = await new TransformerOneTableToMulti<AmazonMeta>("file","href",new CtorDictionary()).TransformData(data);
+            await v.TransformData(data);
+
             var excel = new SenderExcel(@"andrei.xslx");
             data = await excel.TransformData(data);
             data = await v.TransformData(data);

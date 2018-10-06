@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
-    public class ReceiverHtmlList : Receiver
+    public class ReceiverHtmlMeta : Receiver
     {
-        public ReceiverHtmlList(CtorDictionary dataNeeded) : base(dataNeeded)
+        public ReceiverHtmlMeta(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.Name = nameof(ReceiverHtmlTables);
             File = GetMyDataOrThrow<string>(nameof(File));
             Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
 
         }
-        public ReceiverHtmlList(string file, Encoding encoding) : this(new CtorDictionary()
+        public ReceiverHtmlMeta(string file, Encoding encoding) : this(new CtorDictionary()
             {
                 {nameof(file),file },
                 {nameof(encoding),encoding },
@@ -31,7 +31,7 @@ namespace Stankins.HTML
         public Encoding Encoding { get; }
         public bool PrettifyColumnNames { get; set; } = true;
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
-        { 
+        {
             var file = new ReadFileToString
             {
                 FileEnconding = this.Encoding,
@@ -41,34 +41,31 @@ namespace Stankins.HTML
             var data = await file.LoadData();
             var doc = new HtmlDocument();
             doc.LoadHtml(data);
-            var tables = doc.DocumentNode.SelectNodes("//ul | //ol | //dl");
+            var metas = doc.DocumentNode.SelectNodes("//head/meta");
 
-            if ((tables?.Count ?? 0) == 0)
-                throw new ArgumentException("not found ul, ol, dl");
+            if ((metas?.Count ?? 0) == 0)
+                throw new ArgumentException("not found head meta");
 
             var ret = new DataToSentTable();
 
-            int nrTable = 0;
-            foreach (var table in tables)
+            
+            var dt = new DataTable
             {
-                nrTable++;
-                var dt = new DataTable
-                {
-                    TableName = $"Table{nrTable}"
-                };
-
-                dt.Columns.Add("li");
-                dt.Columns.Add("li_html");
-
-                var rows = table.SelectNodes("li");
-                if(rows?.Count >0)
-                foreach (var row in rows)
-                {                    
-                    dt.Rows.Add(row.InnerText,row.InnerHtml);
-                }
-                var id= ret.AddNewTable(dt);
-                ret.Metadata.AddTable(dt,id);
+                TableName = $"TableMeta"
+            };
+            dt.Columns.Add("meta_name");
+            dt.Columns.Add("meta_content");
+            foreach (var meta in metas)
+            {
+                var attr = meta.Attributes;
+                if (!attr.Contains("name"))
+                    continue;
+                var arr = new string[] { attr["name"].Value, attr["content"].Value };
+                dt.Rows.Add(arr);
             }
+            var id = ret.AddNewTable(dt);
+            ret.Metadata.AddTable(dt, id);
+            
             return ret;
         }
 

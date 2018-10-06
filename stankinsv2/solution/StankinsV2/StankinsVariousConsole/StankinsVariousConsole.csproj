@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Stankins.Amazon\Stankins.Amazon.csproj" />
     <ProjectReference Include="..\Stankins.File\Stankins.File.csproj" />
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />

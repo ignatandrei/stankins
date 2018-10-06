@@ -23,6 +23,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Process", "Stankin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.XML", "Stankins.XML\Stankins.XML.csproj", "{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Amazon", "Stankins.Amazon\Stankins.Amazon.csproj", "{5EFDA49A-10B2-4B39-B28F-C2DFF130CEE3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EFDA49A-10B2-4B39-B28F-C2DFF130CEE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EFDA49A-10B2-4B39-B28F-C2DFF130CEE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EFDA49A-10B2-4B39-B28F-C2DFF130CEE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EFDA49A-10B2-4B39-B28F-C2DFF130CEE3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

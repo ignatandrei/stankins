@@ -6,6 +6,7 @@ using System.Text;
 
 namespace Stankins.HTML
 {
+    //TODO: this is called from 2 parts. How to make one?
     class AHrefToTable
     {
         public DataTable TransformToTable(string data)
