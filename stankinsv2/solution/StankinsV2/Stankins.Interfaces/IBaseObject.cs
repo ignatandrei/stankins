@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace Stankins.Interfaces
 {
+    //ToDo: errors table
     public interface IBaseObject
     {
         string Name { get; set; }

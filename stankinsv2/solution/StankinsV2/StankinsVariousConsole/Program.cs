@@ -77,12 +77,15 @@ namespace StankinsVariousConsole
 
             await v.TransformData(data);
             data = await new RetainColumnDataContains("href","amazon").TransformData(data);
-            await v.TransformData(data);
+            //await v.TransformData(data);
             //data = await new RetainColumnDataContains("a_text", "Lord of Light").TransformData(data);
             await v.TransformData(data);
             data = await new TransformerOneTableToMulti<AmazonMeta>("file","href",new CtorDictionary()).TransformData(data);
             await v.TransformData(data);
-
+            data = await new FilterTablesWithColumn("meta_content").TransformData(data);
+            await v.TransformData(data);
+            data = await new TransformerToOneTable().TransformData(data);
+            await v.TransformData(data);
             var excel = new SenderExcel(@"andrei.xslx");
             data = await excel.TransformData(data);
             data = await v.TransformData(data);

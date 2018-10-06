@@ -52,46 +52,54 @@ namespace StankinsObjects
             //TODO: verify null
             foreach (DataRow item in table.Rows)
             {
-                var data = item[column.Name];
-                var d = new CtorDictionary(dataNeeded)
+                object data=null;
+                try
+                {
+                    data = item[column.Name];
+                    var d = new CtorDictionary(dataNeeded)
                 {
                     { this.ReceiverProperty, data }
                 };
-                var r = Activator.CreateInstance(typeof(T), d) as BaseObject;
-                r.Name = data.ToString();
-                //TODO : load this async all
-                var dataToBeSent= await r.TransformData(null);
-                //TODO : remove from release builds
-                await v.TransformData(dataToBeSent);
-                foreach(var dataTable in dataToBeSent.DataToBeSentFurther)
-                {
-                    dataTable.Value.TableName += data.ToString();
-                    var dc = new DataColumn(column.Name + "_origin", data.GetType())
+                    var r = Activator.CreateInstance(typeof(T), d) as BaseObject;
+                    r.Name = data.ToString();
+                    //TODO : load this async all
+                    var dataToBeSent = await r.TransformData(null);
+                    //TODO : remove from release builds
+                    await v.TransformData(dataToBeSent);
+                    foreach (var dataTable in dataToBeSent.DataToBeSentFurther)
                     {
-                        DefaultValue = data
-                    };
-                    dataTable.Value.Columns.Add(dc);
-                    var idTable = receiveData.AddNewTable(dataTable.Value);
-                    var meta = dataToBeSent.Metadata.Tables.FirstOrDefault(it => it.Id == dataTable.Key);
-                    meta.Name = dataTable.Value.TableName;
-                    meta.Id = idTable;
-                    receiveData.Metadata.Tables.Add(meta);                    
-                    foreach (var c in dataToBeSent.Metadata.Columns)
-                    {
-                        c.IDTable = idTable;
-                        receiveData.Metadata.Columns.Add(c);
+                        dataTable.Value.TableName += data.ToString();
+                        var dc = new DataColumn(column.Name + "_origin", data.GetType())
+                        {
+                            DefaultValue = data
+                        };
+                        dataTable.Value.Columns.Add(dc);
+                        var idTable = receiveData.AddNewTable(dataTable.Value);
+                        var meta = dataToBeSent.Metadata.Tables.FirstOrDefault(it => it.Id == dataTable.Key);
+                        meta.Name = dataTable.Value.TableName;
+                        meta.Id = idTable;
+                        receiveData.Metadata.Tables.Add(meta);
+                        foreach (var c in dataToBeSent.Metadata.Columns)
+                        {
+                            c.IDTable = idTable;
+                            receiveData.Metadata.Columns.Add(c);
+                        }
+                        receiveData.Metadata.Columns.Add(new Column()
+                        {
+                            Name = column.Name + "_origin",
+                            Id = receiveData.Metadata.Columns.Count,
+                            IDTable = idTable
+                        });
+                        //TODO: add relation
                     }
-                    receiveData.Metadata.Columns.Add(new Column()
-                    {
-                        Name = column.Name + "_origin",
-                        Id = receiveData.Metadata.Columns.Count,
-                        IDTable = idTable
-                    });
-                    //TODO: add relation
+                    //TODO : remove from release builds                
+                    await v.TransformData(receiveData);
                 }
-                //TODO : remove from release builds                
-                await v.TransformData(receiveData);
-                
+                catch (Exception ex)
+                {
+                    //TODO: log or put into error table
+                    Console.WriteLine("error at " + column.Name+ "-" + data?.ToString() +"-" + ex.Message);
+                }
             }
             return receiveData;
         }
