@@ -4,6 +4,7 @@ using Stankins.HTML;
 using Stankins.Interfaces;
 using Stankins.Office;
 using Stankins.Process;
+using Stankins.XML;
 using StankinsCommon;
 using StankinsObjects;
 using System;
@@ -24,6 +25,8 @@ namespace StankinsVariousConsole
         
         static async Task MainAsync(string[] args)
         {
+            await Propriu();
+            return;
             await BillGates();
 
             return;
@@ -47,6 +50,26 @@ namespace StankinsVariousConsole
             //ITransformer separate = new SeparateByNumber(data.Metadata.Tables[0].Name, 10);
             //data = await separate.TransformData(data);
             //Console.WriteLine("2");
+        }
+
+        private static async Task Propriu()
+        {
+            var v = new Verifier();
+            var dt = new ReceiverXML(@"C:\Users\Surface1\Downloads\blogpropriu.wordpress.2018-10-06.xml", Encoding.UTF8, @"//item/category[@nicename=""carti-5-stele""]/..");
+            var data = await dt.TransformData(null);
+            await v.TransformData(data);
+            data = await new TransformerXMLToColumn("OuterXML", "//title", "title", ",").TransformData(data);
+            await v.TransformData(data);
+            data = await new TransformerXMLToColumn("OuterXML", "//category", "category", ",").TransformData(data);
+            await v.TransformData(data);
+
+            data = await new TransformerXMLToColumn("OuterXML", @"//*[name()=""content:encoded""]", "content", ",").TransformData(data);
+            await v.TransformData(data);
+            var excel = new SenderExcel(@"andrei.xslx");
+            data = await excel.TransformData(data);
+            data = await v.TransformData(data);
+            
+
         }
 
         private static async Task BillGates()

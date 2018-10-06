@@ -30,6 +30,7 @@
     <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />
     <ProjectReference Include="..\Stankins.Process\Stankins.Process.csproj" />
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />
+    <ProjectReference Include="..\Stankins.XML\Stankins.XML.csproj" />
     <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
   </ItemGroup>
 

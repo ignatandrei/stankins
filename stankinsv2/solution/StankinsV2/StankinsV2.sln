@@ -19,7 +19,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsVariousConsole", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Razor", "Stankins.Razor\Stankins.Razor.csproj", "{D93D3CC6-42B5-4926-B080-2EF4B8873C8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Process", "Stankins.Process\Stankins.Process.csproj", "{749590F9-92CD-404E-9A6F-B389DA1797FC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Process", "Stankins.Process\Stankins.Process.csproj", "{749590F9-92CD-404E-9A6F-B389DA1797FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.XML", "Stankins.XML\Stankins.XML.csproj", "{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{749590F9-92CD-404E-9A6F-B389DA1797FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{749590F9-92CD-404E-9A6F-B389DA1797FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{749590F9-92CD-404E-9A6F-B389DA1797FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{718A26C9-DC16-4A3D-B113-EC8AC983AB2F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
