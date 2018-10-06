@@ -9,6 +9,47 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
+    public class TransformerHtmlAHref : BaseObject, ITransformer
+    {
+        public TransformerHtmlAHref(CtorDictionary dataNeeded) : base(dataNeeded)
+        {
+            this.Name = nameof(TransformerHtmlAHref);
+            Content = GetMyDataOrThrow<string>(nameof(Content));
+            
+
+        }
+        public TransformerHtmlAHref(string content) : this(new CtorDictionary()
+            {
+                {nameof(content),content},
+                
+            })
+        {
+            
+        }
+
+        public string Content { get; }
+
+        public override async  Task<IDataToSent> TransformData(IDataToSent receiveData)
+        {
+            if(receiveData == null)
+            {
+                receiveData = new DataToSentTable();
+
+            }
+            var tr = new AHrefToTable();
+            var dt = tr.TransformToTable(Content);
+
+            var id = receiveData.AddNewTable(dt);
+            receiveData.Metadata.AddTable(dt, id);
+            return receiveData;
+            
+        }
+
+        public override Task<IMetadata> TryLoadMetadata()
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class ReceiverHtmlAHref: Receiver
     {
         public ReceiverHtmlAHref(CtorDictionary dataNeeded) : base(dataNeeded)
@@ -32,6 +73,8 @@ namespace Stankins.HTML
         public bool PrettifyColumnNames { get; set; } = true;
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
+            var ret = new DataToSentTable();
+
             var file = new ReadFileToString
             {
                 FileEnconding = this.Encoding,
@@ -40,53 +83,33 @@ namespace Stankins.HTML
             
             var data = await file.LoadData();
             bool web = file.FileType == FileType.Web;
-            var doc = new HtmlDocument();
-            doc.LoadHtml(data);
-            var links = doc.DocumentNode.SelectNodes("//a");
-
-            if ((links?.Count ?? 0) == 0)
-                throw new ArgumentException("not found a");
-
-            var ret = new DataToSentTable();
-            
-            var dt = new DataTable
-            {
-                TableName = $"TableLinks"
-            };
-            
-            dt.Columns.Add("href");
-            dt.Columns.Add("a_html");
-            dt.Columns.Add("a_text");
-            
+           
             var startWeb = "";
-            if (web )
+            if (web)
             {
                 var uri = new Uri(File);
                 startWeb = uri.GetLeftPart(UriPartial.Authority);
-               }
-            foreach (var link in links)
-            {
-                if (!link.Attributes.Contains("href"))
-                {
-                    //todo: put at error?
-                    continue;
-                }
-               string val = link.Attributes["href"].Value;
-               if (web && val.StartsWith("/"))
-               {
-                    val = (startWeb + val).Replace("//", "/");
-                    
-               }
-                var item = new string[]
-                {
-                   val,
-                   link.OuterHtml,
-                   link.InnerText,
+            }
+            var tr = new AHrefToTable();
+            var dt = tr.TransformToTable(data);
 
-                };
-                dt.Rows.Add(item);
-               
-               
+
+            if (web) {
+                foreach (DataRow item in dt.Rows)
+                {
+
+                    string val = item["href"]?.ToString();
+                    if (val == null)
+                        continue;
+
+                    if (val.StartsWith("/"))
+                    {
+                        val = (startWeb + val).Replace("//", "/");
+
+                    }
+                    item["href"] = val;
+
+                }
             }
             var id = ret.AddNewTable(dt);
             ret.Metadata.AddTable(dt, id);

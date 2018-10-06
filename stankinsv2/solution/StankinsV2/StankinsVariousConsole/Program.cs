@@ -65,6 +65,10 @@ namespace StankinsVariousConsole
 
             data = await new TransformerXMLToColumn("OuterXML", @"//*[name()=""content:encoded""]", "content", ",").TransformData(data);
             await v.TransformData(data);
+
+            data =await  new TransformerOneTableToMulti<BaseObjectInSerial<TransformerHtmlAHref, TransformerToOneTable>>("Content", "content", new CtorDictionary()).TransformData(data);
+            await v.TransformData(data);
+            
             var excel = new SenderExcel(@"andrei.xslx");
             data = await excel.TransformData(data);
             data = await v.TransformData(data);
