@@ -66,9 +66,7 @@ namespace StankinsVariousConsole
             data = await new FilterRetainColumnDataContains("li_html", "http://amzn.to").TransformData(data);
             await v.TransformData(data);
 
-            data = await new transfre("li_html", "http://amzn.to").TransformData(data);
-            await v.TransformData(data);
-
+            
 
             data = await new TransformSplitColumn(data.Metadata.Tables[0].Name, "li", ':').TransformData(data);
             string file = Path.Combine(Directory.GetCurrentDirectory(), "jordanbpeterson.xlsx");
