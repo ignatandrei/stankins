@@ -2,9 +2,9 @@
 
 namespace StankinsObjects
 {
-    public class RetainColumnDataContains: FilterColumnData
+    public class FilterRetainColumnDataContains: FilterColumnData
     {
-        public RetainColumnDataContains(string nameColumn, string stringToHave) : this(new CtorDictionary() {
+        public FilterRetainColumnDataContains(string nameColumn, string stringToHave) : this(new CtorDictionary() {
             { nameof(nameColumn), nameColumn },
             { nameof(Expression), $"not({nameColumn} like '%{stringToHave}%')" }
             }
@@ -12,7 +12,7 @@ namespace StankinsObjects
         {
             
         }
-        public RetainColumnDataContains(CtorDictionary dataNeeded) : base(dataNeeded)
+        public FilterRetainColumnDataContains(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             
         }

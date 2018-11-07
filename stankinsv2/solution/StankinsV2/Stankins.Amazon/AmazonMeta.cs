@@ -27,7 +27,7 @@ namespace Stankins.Amazon
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var data = await base.TransformData(receiveData);
-            var table = data.FindAfterName("TableMeta");
+            var table = data.FindAfterName("TableMeta").Value;
             string title = "";
             foreach (DataRow dr in table.Rows)
             {

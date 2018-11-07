@@ -26,7 +26,7 @@ namespace StankinsObjects
             
         }
 
-        public DataTable FindAfterName(string nameTable)
+        public KeyValuePair<int, DataTable> FindAfterName(string nameTable)
         {
             var t = this.DataToBeSentFurther.FirstOrDefault(it => it.Value.TableName == nameTable);
             if (t.Value == null)
@@ -38,7 +38,7 @@ namespace StankinsObjects
             {
                 throw new ArgumentException($"cannot find {nameTable}");
             }
-            return t.Value;
+            return t;
         }
     }
 }

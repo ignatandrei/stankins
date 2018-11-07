@@ -26,6 +26,8 @@ namespace StankinsVariousConsole
         
         static async Task MainAsync(string[] args)
         {
+            await jordanbpeterson();
+            return;
             await Propriu();
             return;
             await BillGates();
@@ -52,7 +54,36 @@ namespace StankinsVariousConsole
             //data = await separate.TransformData(data);
             //Console.WriteLine("2");
         }
+        private static async Task jordanbpeterson()
+        {
+            var v = new Verifier();
+            var dt = new ReceiverHtmlList("https://jordanbpeterson.com/great-books/");
+            var data = await dt.TransformData(null);
+            await v.TransformData(data);
+            data = await new TransformerToOneTable().TransformData(data);
+            await v.TransformData(data);
 
+            data = await new FilterRetainColumnDataContains("li_html", "http://amzn.to").TransformData(data);
+            await v.TransformData(data);
+
+            data = await new transfre("li_html", "http://amzn.to").TransformData(data);
+            await v.TransformData(data);
+
+
+            data = await new TransformSplitColumn(data.Metadata.Tables[0].Name, "li", ':').TransformData(data);
+            string file = Path.Combine(Directory.GetCurrentDirectory(), "jordanbpeterson.xlsx");
+            var excel = new SenderExcel(file);
+            data = await excel.TransformData(data);
+            data = await v.TransformData(data);
+
+
+            
+            Process.Start(@"C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe", file);
+            
+
+
+
+        }
         private static async Task Propriu()
         {
             var v = new Verifier();
@@ -76,7 +107,7 @@ namespace StankinsVariousConsole
             data = await new TransformerToOneTable().TransformData(data);
 
             await v.TransformData(data);
-            data = await new RetainColumnDataContains("href","amazon").TransformData(data);
+            data = await new FilterRetainColumnDataContains("href","amazon").TransformData(data);
             //await v.TransformData(data);
             //data = await new RetainColumnDataContains("a_text", "Lord of Light").TransformData(data);
             await v.TransformData(data);
@@ -102,7 +133,7 @@ namespace StankinsVariousConsole
             var dt = new ReceiverHtmlRegex(@"C:\Users\Surface1\Documents\bg.txt", Encoding.UTF8, @".(?:href=\\"")(?<book>.+?)(?:#disqus).*?");
             var data = await dt.TransformData(null);
             await v.TransformData(data);
-            var books = new RetainColumnDataContains(data.Metadata.Columns[0].Name, "ooks");
+            var books = new FilterRetainColumnDataContains(data.Metadata.Columns[0].Name, "ooks");
             data = await books.TransformData(data);
             await v.TransformData(data);
             var t = new TransformerOneTableToMulti<ReceiverHtmlMeta>("file", data.Metadata.Columns[0].Name,new CtorDictionary());
@@ -114,7 +145,7 @@ namespace StankinsVariousConsole
             await v.TransformData(data);
             data = await new TransformerToOneTable().TransformData(data);
             await v.TransformData(data);
-            books = new RetainColumnDataContains("meta_name", "keywords");            
+            books = new FilterRetainColumnDataContains("meta_name", "keywords");            
             data = await books.TransformData(data);
             await v.TransformData(data);
             var excel = new SenderExcel(@"bg.xslx");

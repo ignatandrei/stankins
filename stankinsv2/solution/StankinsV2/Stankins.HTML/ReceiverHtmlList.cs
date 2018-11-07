@@ -18,6 +18,10 @@ namespace Stankins.HTML
             Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
 
         }
+        public ReceiverHtmlList(string file) : this(file, null)
+        {
+
+        }
         public ReceiverHtmlList(string file, Encoding encoding) : this(new CtorDictionary()
             {
                 {nameof(file),file },

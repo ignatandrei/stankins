@@ -9,7 +9,7 @@ namespace Stankins.Interfaces
         int AddNewTable(DataTable dt);
         Dictionary<int,DataTable> DataToBeSentFurther { get; set; }
         IMetadata Metadata { get; set; }
-        DataTable FindAfterName(string nameTable);
+        KeyValuePair<int, DataTable> FindAfterName(string nameTable);
 
     }
 }
