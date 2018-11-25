@@ -14,13 +14,14 @@ namespace Stankins.Alive
     {
         public ReceiverPing(CtorDictionary dict) : base(dict)
         {
+            NameSite =GetMyDataOrThrow<string>(nameof(NameSite));
         }
         public ReceiverPing(string nameSite):this(new CtorDictionary()
         {
             {nameof(nameSite),nameSite }
         })
         {
-            NameSite = nameSite;
+            
         }
 
         public string NameSite { get; private set; }
@@ -34,7 +35,7 @@ namespace Stankins.Alive
             var pingSender = new Ping();
             var reply = pingSender.Send(NameSite);
             var status = reply.Status;
-            results.Rows.Add("ping","",NameSite,reply.Status.ToString(),reply.RoundtripTime.ToString() );
+            results.Rows.Add("ping","",NameSite,(int)reply.Status,reply.RoundtripTime.ToString() );
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
 

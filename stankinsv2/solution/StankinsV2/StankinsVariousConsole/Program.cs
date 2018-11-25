@@ -22,6 +22,8 @@ namespace StankinsVariousConsole
     {
         static async Task Main(string[] args)
         {
+            await WebSites();
+            return;
             await PingSites();
             return;
             await jordanbpeterson();
@@ -51,6 +53,18 @@ namespace StankinsVariousConsole
             //ITransformer separate = new SeparateByNumber(data.Metadata.Tables[0].Name, 10);
             //data = await separate.TransformData(data);
             //Console.WriteLine("2");
+        }
+        private static async Task WebSites()
+        {
+            var v = new Verifier();
+            var dt = new ReceiverWeb("http://www.yahoo.com");
+            var data = await dt.TransformData(null);
+            await v.TransformData(data);
+            string file = Path.Combine(Directory.GetCurrentDirectory(), "ping.xlsx");
+            var excel = new SenderExcel(file);
+            data = await excel.TransformData(data);
+
+
         }
 
         private static async Task PingSites()
