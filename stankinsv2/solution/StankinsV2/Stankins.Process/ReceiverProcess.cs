@@ -23,7 +23,7 @@ namespace Stankins.Process
             this.Arguments= GetMyDataOrDefault<string>(nameof(Arguments),"");
         }
 
-        dia.Process process = new dia.Process();
+        ProcessIntercept process ;
         DataTable output = new DataTable();
         DataTable error = new DataTable();
         public string FileName { get; }
@@ -44,23 +44,11 @@ namespace Stankins.Process
             ret.Metadata.AddTable(output, id);
             id= ret.AddNewTable(error);
             ret.Metadata.AddTable(error, id);
-
-            process.EnableRaisingEvents = true;
+            process = new ProcessIntercept(FileName, Arguments);
             process.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(Process_OutputDataReceived);
             process.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(Process_ErrorDataReceived);
             process.Exited += new System.EventHandler(Process_Exited);
 
-            process.StartInfo.FileName = FileName;
-            process.StartInfo.Arguments = Arguments;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.RedirectStandardOutput = true;
-
-            process.Start();
-            process.BeginErrorReadLine();
-            process.BeginOutputReadLine();
-            process.WaitForExit();
-            
             return ret;
         }
         void Process_Exited(object sender, EventArgs e)
