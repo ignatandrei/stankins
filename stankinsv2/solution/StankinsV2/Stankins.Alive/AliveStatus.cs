@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Data;
+using System.Linq;
 using System.Threading.Tasks;
 using Stankins.Interfaces;
 using StankinsCommon;
@@ -12,20 +14,21 @@ namespace Stankins.Alive
         {
 
         }
+        protected DataTable CreateTable()
+        {
+            var m = new DataTable();
+            m.Columns.Add("Process",typeof(string));
+            m.Columns.Add("Arguments", typeof(string));
+            m.Columns.Add("To", typeof(string));
+            m.Columns.Add("Result", typeof(string));
+            m.Columns.Add("DetailedResult", typeof(string));
+            return m;
+        }
+
         public override async Task<IMetadata> TryLoadMetadata()
         {
-            var m = new MetadataTable();
-            m.Tables.Add(new Table()
-            {
-                Name = this.Name
-            });
-            var idTable = m.Tables.First(it => it.Name == this.Name).Id;
-            m.AddColumn("Process", idTable);
-            m.AddColumn("Arguments", idTable);
-            m.AddColumn("To", idTable);
-            m.AddColumn("Result", idTable);
-            m.AddColumn("DetailedResult", idTable);
-            return m;
+            throw new NotImplementedException();
+
         }
     }
 }

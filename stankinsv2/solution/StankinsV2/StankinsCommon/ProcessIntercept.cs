@@ -21,7 +21,7 @@ namespace StankinsCommon
             process.StartInfo.RedirectStandardError = true;
             process.StartInfo.RedirectStandardOutput = true;
         }
-        public void StartProcess()
+        public void StartProcessAndWait()
         {
             process.Start();
             process.BeginErrorReadLine();

@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
     <ProjectReference Include="..\Stankins.Amazon\Stankins.Amazon.csproj" />
     <ProjectReference Include="..\Stankins.File\Stankins.File.csproj" />
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />

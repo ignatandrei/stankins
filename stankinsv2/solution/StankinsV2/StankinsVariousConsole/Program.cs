@@ -1,4 +1,5 @@
 ﻿using SenderInterpretedRazor;
+using Stankins.Alive;
 using Stankins.Amazon;
 using Stankins.File;
 using Stankins.HTML;
@@ -19,13 +20,10 @@ namespace StankinsVariousConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            MainAsync(args).GetAwaiter().GetResult();
-        }
-        
-        static async Task MainAsync(string[] args)
-        {
+            await PingSites();
+            return;
             await jordanbpeterson();
             return;
             await Propriu();
@@ -53,6 +51,19 @@ namespace StankinsVariousConsole
             //ITransformer separate = new SeparateByNumber(data.Metadata.Tables[0].Name, 10);
             //data = await separate.TransformData(data);
             //Console.WriteLine("2");
+        }
+
+        private static async Task PingSites()
+        {
+            var v = new Verifier();
+            var dt = new ReceiverPing("www.yahoo.com");
+            var data = await dt.TransformData(null);
+            await v.TransformData(data);
+            string file = Path.Combine(Directory.GetCurrentDirectory(), "ping.xlsx");
+            var excel = new SenderExcel(file);
+            data = await excel.TransformData(data);
+
+
         }
         private static async Task jordanbpeterson()
         {

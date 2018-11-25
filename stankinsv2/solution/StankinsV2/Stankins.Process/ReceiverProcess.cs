@@ -48,7 +48,7 @@ namespace Stankins.Process
             process.OutputDataReceived += new System.Diagnostics.DataReceivedEventHandler(Process_OutputDataReceived);
             process.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(Process_ErrorDataReceived);
             process.Exited += new System.EventHandler(Process_Exited);
-
+            process.StartProcessAndWait();
             return ret;
         }
         void Process_Exited(object sender, EventArgs e)
