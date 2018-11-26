@@ -41,7 +41,7 @@ steps:
 
     custom: tool
 
-    arguments: 'install -g dotnet-aop'
+    arguments: 'install --tool-path . dotnet-aop'
     
 - task: DotNetCoreCLI@2
   displayName: 'dotnet run aop'
