@@ -34,10 +34,10 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
-- script: |
-   dotnet tool install  --tool-path . dotnet-aop
-   .\dotnet-aop.exe $(Build.Repository.LocalPath)\AOPRoslyn\processme.txt 
-  displayName: 'dotnet aop'
+#- script: |
+#   dotnet tool install  --tool-path . dotnet-aop
+#   .\dotnet-aop.exe $(Build.Repository.LocalPath)\AOPRoslyn\processme.txt 
+#  displayName: 'dotnet aop'
 
 
 #- task: DotNetCoreCLI@2
