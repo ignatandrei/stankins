@@ -22,6 +22,7 @@ namespace Stankins.Alive
             m.Columns.Add("To", typeof(string));
             m.Columns.Add("Result", typeof(string));
             m.Columns.Add("DetailedResult", typeof(string));
+            m.Columns.Add("Exception", typeof(string));
             return m;
         }
 

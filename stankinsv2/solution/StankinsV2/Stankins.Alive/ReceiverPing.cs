@@ -33,9 +33,16 @@ namespace Stankins.Alive
 
             results = CreateTable();
             var pingSender = new Ping();
-            var reply = pingSender.Send(NameSite);
-            var status = reply.Status;
-            results.Rows.Add("ping","",NameSite,(int)reply.Status,reply.RoundtripTime.ToString() );
+            try
+            {
+                var reply = pingSender.Send(NameSite);
+                var status = reply.Status;
+                results.Rows.Add("ping", "", NameSite, (int)reply.Status, reply.RoundtripTime.ToString(),null);
+            }
+            catch(Exception ex)
+            {
+                results.Rows.Add("ping", "", NameSite, null, null, ex.Message);
+            }
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
 

@@ -44,24 +44,32 @@ namespace Stankins.Alive
 
             var ws = WebRequest.Create(URL) as HttpWebRequest;
             ws.Method = Method;
-            using (var resp = await ws.GetResponseAsync())
+            try
             {
-                var r = resp as HttpWebResponse;
-                var sc = (int)r.StatusCode;
-                var text = "";
-                if((sc>= 200) && (sc<= 299)){
-                    using(var rs = r.GetResponseStream())
+                using (var resp = await ws.GetResponseAsync())
+                {
+                    var r = resp as HttpWebResponse;
+                    var sc = (int)r.StatusCode;
+                    var text = "";
+                    if ((sc >= 200) && (sc <= 299))
                     {
-                        using(var sr=new StreamReader(rs))
+                        using (var rs = r.GetResponseStream())
                         {
-                            text = await sr.ReadToEndAsync();
+                            using (var sr = new StreamReader(rs))
+                            {
+                                text = await sr.ReadToEndAsync();
+                            }
                         }
                     }
+                    results.Rows.Add("webrequest", Method, URL, sc, text,null);
+
+
+
                 }
-                results.Rows.Add("webrequest", Method, URL, sc, text);
-
-
-
+            }
+            catch(Exception ex)
+            {
+                results.Rows.Add("webrequest", Method, URL, null, null, ex.Message);
             }
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
