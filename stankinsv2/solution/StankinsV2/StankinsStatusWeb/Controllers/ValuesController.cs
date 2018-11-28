@@ -14,9 +14,10 @@ namespace StankinsStatusWeb.Controllers
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> Get(
-            [FromServices]IOptionsSnapshot<MonitorOptions> opt)
+            //[FromServices]IOptionsSnapshot<MonitorOptions> opt)
+            [FromServices]MonitorOptions optVal)
         {
-            var optVal = opt.Value;
+            //var optVal = opt.Value;
             var dataPing= await Task.WhenAll(optVal.PingAddresses.Select(it => it.Execute()).ToArray());
             var webData= await Task.WhenAll(optVal.WebAdresses.Select(it => it.Execute()).ToArray());
 

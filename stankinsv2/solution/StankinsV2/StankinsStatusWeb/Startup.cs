@@ -27,6 +27,11 @@ namespace StankinsStatusWeb
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<MonitorOptions>(Configuration.GetSection("MonitorData"));
+            var m = new MonitorOptions();
+            Configuration.Bind("MonitorData", m);
+            services.AddSingleton(m);
+            services.AddHostedService<RunTasks>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,6 +48,7 @@ namespace StankinsStatusWeb
 
             app.UseHttpsRedirection();
             app.UseMvc();
+            
         }
     }
 }
