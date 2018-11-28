@@ -20,7 +20,7 @@ steps:
 - script: |
    dotnet tool install  --tool-path . dotnetsay
    .\dotnetsay 
-  displayName: 'Command Line Script'
+  displayName: 'DOTNET SAY'
 
 - task: NuGetToolInstaller@0
 
@@ -33,26 +33,32 @@ steps:
     solution: '$(solution)'
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
-    
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet install aop'
-  inputs:
-    command: custom
 
-    custom: tool
+#- script: |
+#   dotnet tool install  --tool-path . dotnet-aop
+#   .\dotnet-aop.exe $(Build.Repository.LocalPath)\AOPRoslyn\processme.txt 
+#  displayName: 'dotnet aop'
 
-    arguments: 'install -g dotnet-aop'
-    
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet run aop'
-  inputs:
-    command: custom
 
-    custom: aop
-
-    arguments: '$(Build.Repository.LocalPath)\AOPRoslyn\processme.txt'
-
-    workingDirectory: stankinsv2
+#- task: DotNetCoreCLI@2
+#  displayName: 'dotnet install aop'
+#  inputs:
+#    command: custom
+#
+#    custom: tool
+#
+#    arguments: 'install --tool-path . dotnet-aop'
+#    
+#- task: DotNetCoreCLI@2
+#  displayName: 'dotnet run aop'
+#  inputs:
+#    command: custom
+#
+#    custom: aop
+#
+#    arguments: '$(Build.Repository.LocalPath)\AOPRoslyn\processme.txt'
+#
+#    workingDirectory: stankinsv2
     
 - task: VSTest@2
   inputs:
