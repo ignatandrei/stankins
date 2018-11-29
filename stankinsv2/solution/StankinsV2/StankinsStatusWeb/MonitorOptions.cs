@@ -172,7 +172,13 @@ namespace StankinsStatusWeb
                     }
 
                     var res = await Task.WhenAll(t.ToArray());
-                    var x = res.Length;
+                    var dataToBeSent = res
+                        .SelectMany(it=> it.DataToBeSentFurther.Values)
+                        .Select(it => AliveStatus.FromTable(it))
+                        .SelectMany(it=>it)
+                        .Select(it=>opt.DataFromResult(it))
+                        .ToArray() ;
+
                 }
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 
