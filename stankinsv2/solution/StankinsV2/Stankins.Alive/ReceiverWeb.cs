@@ -4,6 +4,7 @@ using StankinsObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
@@ -41,7 +42,7 @@ namespace Stankins.Alive
             if (receiveData == null)
                 receiveData = new DataToSentTable();
             results = CreateTable();
-
+            var sw = Stopwatch.StartNew();
             var ws = WebRequest.Create(URL) as HttpWebRequest;
             ws.Method = Method;
             try
@@ -61,7 +62,7 @@ namespace Stankins.Alive
                             }
                         }
                     }
-                    results.Rows.Add("webrequest", Method, URL, sc, text,null);
+                    results.Rows.Add("webrequest", Method, URL, true, sc,sw.ElapsedMilliseconds, text,null);
 
 
 
@@ -69,7 +70,7 @@ namespace Stankins.Alive
             }
             catch(Exception ex)
             {
-                results.Rows.Add("webrequest", Method, URL, null, null, ex.Message);
+                results.Rows.Add("webrequest", Method, URL, false, null,null, null, ex.Message);
             }
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);

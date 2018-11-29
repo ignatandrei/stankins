@@ -37,11 +37,11 @@ namespace Stankins.Alive
             {
                 var reply = pingSender.Send(NameSite);
                 var status = reply.Status;
-                results.Rows.Add("ping", "", NameSite, (int)reply.Status, reply.RoundtripTime.ToString(),null);
+                results.Rows.Add("ping", "", NameSite,true, (int)reply.Status, reply.RoundtripTime.ToString(), reply.RoundtripTime.ToString(),null);
             }
             catch(Exception ex)
             {
-                results.Rows.Add("ping", "", NameSite, null, null, ex.Message);
+                results.Rows.Add("ping", "", NameSite,false, null,null, null, ex.Message);
             }
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
