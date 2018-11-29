@@ -25,13 +25,13 @@ namespace Stankins.Alive
         }
 
         public string NameSite { get; private set; }
-        DataTable results;
+        
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             if (receiveData == null)
                 receiveData = new DataToSentTable();
 
-            results = CreateTable();
+            DataTable results = CreateTable();
             var pingSender = new Ping();
             try
             {

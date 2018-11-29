@@ -23,7 +23,8 @@ namespace StankinsStatusWeb.Controllers
             var optVal = opt.Value;
             var dataPing= await Task.WhenAll(optVal.PingAddresses.Select(it => it.Execute()).ToArray());
             var webData= await Task.WhenAll(optVal.WebAdresses.Select(it => it.Execute()).ToArray());
-            var all = dataPing.Union(webData)
+            var dbs = await Task.WhenAll(optVal.Databases.Select(it => it.Execute()).ToArray());
+            var all = dataPing.Union(webData).Union(dbs)
                 .Select(it => AliveStatus.FromTable(it))
                 .SelectMany(it=>it)
                 .Select(it=>optVal.DataFromResult(it))

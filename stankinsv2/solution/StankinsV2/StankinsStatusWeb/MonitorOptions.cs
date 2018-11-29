@@ -19,7 +19,7 @@ namespace StankinsStatusWeb
     {
         public WebAdress[] WebAdresses { get; set; }
         public PingAddress[] PingAddresses { get; set; } 
-
+        public DatabaseConnection[] Databases { get; set; }
         public IEnumerable< BaseObject> ToExecute()
         {
             var date = DateTime.UtcNow;
@@ -56,6 +56,9 @@ namespace StankinsStatusWeb
                         break;
                     case "webrequest":
                         cd = WebAdresses.First(w => w.URL == it.To).CustomData;
+                        break;
+                    case "receiverdatabaseserver":
+                        cd = Databases.First(w => w.ConnectionString == it.To).CustomData;
                         break;
                     default:
                         throw new ArgumentException($"not a good process {it.Process.ToLower()}");
@@ -131,6 +134,23 @@ namespace StankinsStatusWeb
     {
         public AliveResult AliveResult { get; set; }
         public CustomData CustomData { get; set; }
+    }
+    public class DatabaseConnection : CRONExecution, IToBaseObject
+    {
+        public CustomData CustomData { get; set; }
+        public string ConnectionString { get; set; }
+        public string TypeOfReceiver { get; set; }
+        public BaseObject baseObject()
+        {
+            var type = Type.GetType(TypeOfReceiver);
+            return Activator.CreateInstance(type,ConnectionString) as BaseObject;
+        }
+        public async Task<DataTable> Execute()
+        {
+
+            var ret = await baseObject().TransformData(null);
+            return ret.DataToBeSentFurther.Values.First();
+        }
     }
     public class PingAddress : CRONExecution, IToBaseObject
     {

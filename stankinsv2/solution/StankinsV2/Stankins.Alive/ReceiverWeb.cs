@@ -34,14 +34,14 @@ namespace Stankins.Alive
         }
 
         public string URL { get; private set; }
-        DataTable results;
+        
         private readonly string Method;
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             if (receiveData == null)
                 receiveData = new DataToSentTable();
-            results = CreateTable();
+            DataTable results = CreateTable();
             var sw = Stopwatch.StartNew();
             var ws = WebRequest.Create(URL) as HttpWebRequest;
             ws.Method = Method;

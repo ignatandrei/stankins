@@ -28,6 +28,10 @@ namespace StankinsStatusWeb
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.Configure<MonitorOptions>(Configuration.GetSection("MonitorData"));
+            services.PostConfigure<MonitorOptions>((x) =>
+            {
+               
+            });
             var m = new MonitorOptions();
             Configuration.Bind("MonitorData", m);
             services.AddSingleton(m);
