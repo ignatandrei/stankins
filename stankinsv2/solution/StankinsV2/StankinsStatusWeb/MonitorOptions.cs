@@ -42,6 +42,30 @@ namespace StankinsStatusWeb
             }
         }
 
+        public ResultWithData DataFromResult(AliveResult it)
+        {
+            
+            
+                CustomData cd;
+                switch (it.Process.ToLower())
+                {
+                    case "ping":
+                        cd = PingAddresses.First(p => p.NameSite == it.To).CustomData;
+                        break;
+                    case "webrequest":
+                        cd = WebAdresses.First(w => w.URL == it.To).CustomData;
+                        break;
+                    default:
+                        throw new ArgumentException($"not a good process {it.Process.ToLower()}");
+                }
+                return new ResultWithData()
+                {
+                    AliveResult = it,
+                    CustomData = cd
+                };
+            
+        }
+
     }
     public interface IToBaseObject
     {
@@ -76,10 +100,16 @@ namespace StankinsStatusWeb
             return false;
         }
     }
+    public class CustomData
+    {
+        public string Name { get; set; }
+        public string[] Tags { get; set; }
+    }
     public class WebAdress: CRONExecution, IToBaseObject
     {
         public string URL { get; set; }
-       
+        public CustomData CustomData { get; set; }
+
 
         public BaseObject baseObject()
         {
@@ -95,12 +125,16 @@ namespace StankinsStatusWeb
 
         
     }
-
+    public class ResultWithData
+    {
+        public AliveResult AliveResult { get; set; }
+        public CustomData CustomData { get; set; }
+    }
     public class PingAddress : CRONExecution, IToBaseObject
     {
-      
+        public CustomData CustomData { get; set; }
         public string NameSite { get; set; }
-       
+        
         public BaseObject baseObject()
         {
             return new ReceiverPing(NameSite);

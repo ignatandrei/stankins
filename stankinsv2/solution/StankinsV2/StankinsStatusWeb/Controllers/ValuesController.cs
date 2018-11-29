@@ -14,14 +14,19 @@ namespace StankinsStatusWeb.Controllers
     {
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<AliveResult[]>> Get(
-            //[FromServices]IOptionsSnapshot<MonitorOptions> opt)
-            [FromServices]MonitorOptions optVal)
+        public async Task<ActionResult<ResultWithData[]>> Get(
+            [FromServices]IOptionsSnapshot<MonitorOptions> opt)
+            //[FromServices]MonitorOptions optVal)
         {
-            //var optVal = opt.Value;
+            var optVal = opt.Value;
             var dataPing= await Task.WhenAll(optVal.PingAddresses.Select(it => it.Execute()).ToArray());
             var webData= await Task.WhenAll(optVal.WebAdresses.Select(it => it.Execute()).ToArray());
-            var all = dataPing.Union(webData).Select(it => AliveStatus.FromTable(it)).SelectMany(it=>it).ToArray();
+            var all = dataPing.Union(webData)
+                .Select(it => AliveStatus.FromTable(it))
+                .SelectMany(it=>it)
+                .Select(it=>optVal.DataFromResult(it))
+                .ToArray();
+            
             return all;
         }
 
