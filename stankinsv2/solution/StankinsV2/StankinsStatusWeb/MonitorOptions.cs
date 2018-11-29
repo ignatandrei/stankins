@@ -1,4 +1,6 @@
 ﻿using Cronos;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Stankins.Alive;
@@ -125,7 +127,7 @@ namespace StankinsStatusWeb
 
         
     }
-    public class ResultWithData
+    public class ResultWithData: INotification
     {
         public AliveResult AliveResult { get; set; }
         public CustomData CustomData { get; set; }
@@ -152,13 +154,16 @@ namespace StankinsStatusWeb
     public class RunTasks : BackgroundService
     {
         private readonly MonitorOptions opt;
+        private readonly IServiceScopeFactory sc;
 
-        public RunTasks(MonitorOptions opt)
+        public RunTasks(MonitorOptions opt, IServiceScopeFactory sc)
         {
             this.opt = opt;
+            this.sc = sc;
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+
             while (!stoppingToken.IsCancellationRequested)
             {
 
@@ -178,7 +183,15 @@ namespace StankinsStatusWeb
                         .SelectMany(it=>it)
                         .Select(it=>opt.DataFromResult(it))
                         .ToArray() ;
-
+                    using(var scope = sc.CreateScope())
+                    {
+                        var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                        foreach (var item in dataToBeSent)
+                        {
+                            await mediator.Publish(item);
+                        }
+                    }
+                    
                 }
                 await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 

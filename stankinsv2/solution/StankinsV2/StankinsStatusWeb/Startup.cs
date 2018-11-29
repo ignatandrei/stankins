@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,7 @@ namespace StankinsStatusWeb
             Configuration.Bind("MonitorData", m);
             services.AddSingleton(m);
             services.AddHostedService<RunTasks>();
+            services.AddMediatR();
 
         }
 

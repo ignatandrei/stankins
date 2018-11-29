@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Stankins.Alive;
@@ -15,6 +16,7 @@ namespace StankinsStatusWeb.Controllers
         // GET api/values
         [HttpGet]
         public async Task<ActionResult<ResultWithData[]>> Get(
+            [FromServices]IMediator mediator,
             [FromServices]IOptionsSnapshot<MonitorOptions> opt)
             //[FromServices]MonitorOptions optVal)
         {
@@ -26,7 +28,10 @@ namespace StankinsStatusWeb.Controllers
                 .SelectMany(it=>it)
                 .Select(it=>optVal.DataFromResult(it))
                 .ToArray();
-            
+            foreach(var item in all)
+            {
+                await mediator.Publish(item);
+            }
             return all;
         }
 
