@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Stankins.Alive;
 
 namespace StankinsStatusWeb.Controllers
 {
@@ -13,15 +14,15 @@ namespace StankinsStatusWeb.Controllers
     {
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<string>>> Get(
+        public async Task<ActionResult<AliveResult[]>> Get(
             //[FromServices]IOptionsSnapshot<MonitorOptions> opt)
             [FromServices]MonitorOptions optVal)
         {
             //var optVal = opt.Value;
             var dataPing= await Task.WhenAll(optVal.PingAddresses.Select(it => it.Execute()).ToArray());
             var webData= await Task.WhenAll(optVal.WebAdresses.Select(it => it.Execute()).ToArray());
-
-            return new string[] { dataPing.Length.ToString(),webData.Length.ToString() };
+            var all = dataPing.Union(webData).Select(it => AliveStatus.FromTable(it)).SelectMany(it=>it).ToArray();
+            return all;
         }
 
         // GET api/values/5
