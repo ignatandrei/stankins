@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using StankinsAliveMonitor.SignalRHubs;
 
 namespace StankinsStatusWeb
 {
@@ -27,6 +28,7 @@ namespace StankinsStatusWeb
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSignalR();
             services.Configure<MonitorOptions>(Configuration.GetSection("MonitorData"));
             services.PostConfigure<MonitorOptions>((x) =>
             {
@@ -37,6 +39,7 @@ namespace StankinsStatusWeb
             services.AddSingleton(m);
             services.AddHostedService<RunTasks>();
             services.AddMediatR();
+            
 
         }
 
@@ -53,6 +56,10 @@ namespace StankinsStatusWeb
             }
 
             app.UseHttpsRedirection();
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<DataHub>("/DataHub");
+            });
             app.UseMvc();
             
         }
