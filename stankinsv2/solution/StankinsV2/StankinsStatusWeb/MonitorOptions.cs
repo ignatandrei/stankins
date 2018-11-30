@@ -20,26 +20,24 @@ namespace StankinsStatusWeb
         public WebAdress[] WebAdresses { get; set; }
         public PingAddress[] PingAddresses { get; set; } 
         public DatabaseConnection[] Databases { get; set; }
-        public IEnumerable< BaseObject> ToExecute()
+        public IEnumerable<IToBaseObject> AllItems()
+        {
+            return ((IToBaseObject[]) WebAdresses)
+                .Union(((IToBaseObject[])PingAddresses))
+                .Union(((IToBaseObject[])Databases)) ;
+
+        }
+        public IEnumerable<IToBaseObject> ToExecuteCRON()
         {
             var date = DateTime.UtcNow;
-            foreach(var item in WebAdresses)
+            
+            foreach (var item in AllItems())
             {
-
-                if (item.ShouldRun(date))
+                var cron = item as CRONExecution;
+                if (cron.ShouldRun(date))
                 {
-                    yield return item.baseObject();
-                    
-                }
-            }
-            //TODO: not copy paste
-            foreach (var item in PingAddresses)
-            {
+                    yield return item;
 
-                if (item.ShouldRun(date))
-                {
-                    yield return item.baseObject();
-                   
                 }
             }
         }
@@ -75,6 +73,7 @@ namespace StankinsStatusWeb
     public interface IToBaseObject
     {
         BaseObject baseObject();
+        Task<DataTable> Execute();
     }
     public class CRONExecution
     {
@@ -187,23 +186,22 @@ namespace StankinsStatusWeb
             while (!stoppingToken.IsCancellationRequested)
             {
 
-                var toExec = opt.ToExecute().ToArray();
+                var toExec = opt.ToExecuteCRON().Select(it=>it.Execute()).ToArray();
                 if (toExec.Length > 0)
                 {
-                    var t = new List<Task<IDataToSent>>();
-                    foreach (var item in toExec)
-                    {
-                        t.Add(item.TransformData(null));
-                    }
+                   
 
-                    var res = await Task.WhenAll(t.ToArray());
+                    var res = await Task.WhenAll(toExec);
                     var dataToBeSent = res
-                        .SelectMany(it=> it.DataToBeSentFurther.Values)
+                      
                         .Select(it => AliveStatus.FromTable(it))
                         .SelectMany(it=>it)
                         .Select(it=>opt.DataFromResult(it))
                         .ToArray() ;
-                    using(var scope = sc.CreateScope())
+
+                  
+
+                    using (var scope = sc.CreateScope())
                     {
                         var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                         foreach (var item in dataToBeSent)
