@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Amazon", "Stankins
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Alive", "Stankins.Alive\Stankins.Alive.csproj", "{6610F08F-54CD-4D86-852C-5E886367F512}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsStatusWeb", "StankinsStatusWeb\StankinsStatusWeb.csproj", "{C43C5DB4-A7DF-406F-92FF-73B1EB2BA867}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsAliveMonitor", "StankinsStatusWeb\StankinsAliveMonitor.csproj", "{C43C5DB4-A7DF-406F-92FF-73B1EB2BA867}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
