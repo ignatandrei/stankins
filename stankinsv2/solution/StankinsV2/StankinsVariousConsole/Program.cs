@@ -22,6 +22,8 @@ namespace StankinsVariousConsole
     {
         static async Task Main(string[] args)
         {
+            await OneTab();
+            return;
             await WebSites();
             return;
             await PingSites();
@@ -53,6 +55,25 @@ namespace StankinsVariousConsole
             //ITransformer separate = new SeparateByNumber(data.Metadata.Tables[0].Name, 10);
             //data = await separate.TransformData(data);
             //Console.WriteLine("2");
+        }
+
+        private static async Task OneTab()
+        {
+            var v = new Verifier();
+            //var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/4BuJyIbyQ7akwk0DrTLwUg");
+            var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/2lpYRWu3R4CRTjAFCch5aA");
+            var data = await dr.TransformData(null);
+            await v.TransformData(data);
+
+            //var dt = new ReceiverHtmlAHref("https://www.one-tab.com/page/4BuJyIbyQ7akwk0DrTLwUg");
+            //var data = await dt.TransformData(null);
+            //await v.TransformData(data);
+            //data = await new RemoveColumn("a_html").TransformData(data);
+            //await v.TransformData(data);
+            string file = Path.Combine(Directory.GetCurrentDirectory(), "onetab.xlsx");
+            var excel = new SenderExcel(file);
+            data = await excel.TransformData(data);
+
         }
         private static async Task WebSites()
         {

@@ -50,6 +50,7 @@ namespace Stankins.HTML
             throw new NotImplementedException();
         }
     }
+
     public class ReceiverHtmlAHref: Receiver
     {
         public ReceiverHtmlAHref(CtorDictionary dataNeeded) : base(dataNeeded)
@@ -57,6 +58,10 @@ namespace Stankins.HTML
             this.Name = nameof(ReceiverHtmlTables);
             File = GetMyDataOrThrow<string>(nameof(File));
             Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
+
+        }
+        public ReceiverHtmlAHref(string file):this(file, null)
+        {
 
         }
         public ReceiverHtmlAHref(string file, Encoding encoding) : this(new CtorDictionary()
@@ -119,6 +124,21 @@ namespace Stankins.HTML
         public override Task<IMetadata> TryLoadMetadata()
         {
             throw new NotImplementedException();
+        }
+    }
+    public class ReceiverLinkOneTab : ReceiverHtmlAHref
+    {
+        public ReceiverLinkOneTab(string link) : base(link)
+        {
+
+        }
+        public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
+        {
+
+            var data= await base.TransformData(receiveData);
+
+            data = await new RemoveColumn("a_html").TransformData(data);
+            return data;
         }
     }
 }
