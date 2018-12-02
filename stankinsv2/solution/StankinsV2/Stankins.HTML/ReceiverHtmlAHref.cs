@@ -3,7 +3,9 @@ using Stankins.Interfaces;
 using StankinsCommon;
 using StankinsObjects;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -134,10 +136,18 @@ namespace Stankins.HTML
         }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
-
+            var beforeTables = new List<int>();
+            if(receiveData != null)
+            {
+                var ids = receiveData.Metadata.Tables.Select(it => it.Id).ToArray();
+                beforeTables.AddRange(ids);
+            }
             var data= await base.TransformData(receiveData);
-
-            data = await new RemoveColumn("a_html").TransformData(data);
+            var t = data.DataToBeSentFurther.First(it => !beforeTables.Contains(it.Key));
+            t.Value.Rows[0].Delete();
+            t.Value.AcceptChanges();
+            t.Value.Rows[0].Delete();
+            t.Value.AcceptChanges();
             return data;
         }
     }

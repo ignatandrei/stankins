@@ -60,17 +60,24 @@ namespace StankinsVariousConsole
         private static async Task OneTab()
         {
             var v = new Verifier();
-            //var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/4BuJyIbyQ7akwk0DrTLwUg");
-            var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/2lpYRWu3R4CRTjAFCch5aA");
+            var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/4BuJyIbyQ7akwk0DrTLwUg");
+            //var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/2lpYRWu3R4CRTjAFCch5aA");
             var data = await dr.TransformData(null);
             await v.TransformData(data);
 
-            //var dt = new ReceiverHtmlAHref("https://www.one-tab.com/page/4BuJyIbyQ7akwk0DrTLwUg");
-            //var data = await dt.TransformData(null);
-            //await v.TransformData(data);
-            //data = await new RemoveColumn("a_html").TransformData(data);
-            //await v.TransformData(data);
+            data = await new RemoveColumn("href").TransformData(data);
+            data = await new RemoveColumn("a_text").TransformData(data);
+            await v.TransformData(data);
+            var firstTableName = data.Metadata.Tables[0].Name;
+            
+            data =await new TransformerOneColumnToMultiTablesByNumber(firstTableName, 15).TransformData(data);
+            await v.TransformData(data);
+
+            data = await new FilterRemoveTable(firstTableName).TransformData(data);
+            await v.TransformData(data);
+
             string file = Path.Combine(Directory.GetCurrentDirectory(), "onetab.xlsx");
+
             var excel = new SenderExcel(file);
             data = await excel.TransformData(data);
 
