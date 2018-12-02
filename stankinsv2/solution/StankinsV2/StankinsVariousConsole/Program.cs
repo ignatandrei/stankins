@@ -86,7 +86,7 @@ namespace StankinsVariousConsole
             data = await new FilterRenameTablesInOrder(297, "Friday Links ###").TransformData(data);
             await v.TransformData(data);
 
-            data =await new SenderWindowsLiveWriter(null,"<br />","").TransformData(data);
+            data =await new SenderWindowsLiveWriter(null,"</li><li>","","<li>","").TransformData(data);
             await v.TransformData(data);
 
 

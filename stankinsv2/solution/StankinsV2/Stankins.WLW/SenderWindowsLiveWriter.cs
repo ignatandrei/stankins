@@ -18,14 +18,21 @@ namespace Stankins.WLW
             FolderPath = base.GetMyDataOrDefault<string>(nameof(FolderPath),Environment.CurrentDirectory);
             SeparatorColumn = base.GetMyDataOrDefault<string>(nameof(SeparatorColumn), ",");
             SeparatorRow = base.GetMyDataOrDefault<string>(nameof(SeparatorRow), Environment.NewLine);
+            First = base.GetMyDataOrDefault<string>(nameof(First), "");
+            Last = base.GetMyDataOrDefault<string>(nameof(Last), "");
+
 
         }
-        public SenderWindowsLiveWriter(string folderPath,string separatorRow,string separatorColumn) : this(new CtorDictionary()
+        public SenderWindowsLiveWriter(string folderPath,string separatorRow,string separatorColumn, string first, string last) : this(new CtorDictionary()
         {
 
             { nameof(folderPath),folderPath},
             { nameof(separatorRow),separatorRow},
             { nameof(separatorColumn),separatorColumn},
+            { nameof(first),first},
+            { nameof(last),last},
+
+
         })
         {
 
@@ -39,7 +46,8 @@ namespace Stankins.WLW
         public string FolderPath { get; }
         public string SeparatorRow { get; set; }
         public string SeparatorColumn { get; set; }
-
+        public string First { get; set; }
+        public string Last { get; set; }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var nr = receiveData.DataToBeSentFurther.Count;
@@ -55,14 +63,14 @@ namespace Stankins.WLW
                 var t = rs.TryGetStream("Title");
 
                 t.SetData(Str(fileName));
-                var allData = new StringBuilder();
+                var allData = new StringBuilder(First);
                 var c = rs.TryGetStream("Contents");
                 foreach(DataRow dr in item.Value.Rows)
                 {
                     var str = string.Join(SeparatorColumn, dr.ItemArray);
                     allData.Append($"{str}{SeparatorRow}");
                 }
-
+                allData.Append(Last);
                 c.SetData(Str(allData.ToString()));
                 cf.Save(fullFilePath);
                 
