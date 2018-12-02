@@ -16,12 +16,16 @@ namespace Stankins.WLW
         public SenderWindowsLiveWriter(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             FolderPath = base.GetMyDataOrDefault<string>(nameof(FolderPath),Environment.CurrentDirectory);
+            SeparatorColumn = base.GetMyDataOrDefault<string>(nameof(SeparatorColumn), ",");
+            SeparatorRow = base.GetMyDataOrDefault<string>(nameof(SeparatorRow), Environment.NewLine);
 
         }
-        public SenderWindowsLiveWriter(string folderPath) : this(new CtorDictionary()
+        public SenderWindowsLiveWriter(string folderPath,string separatorRow,string separatorColumn) : this(new CtorDictionary()
         {
 
             { nameof(folderPath),folderPath},
+            { nameof(separatorRow),separatorRow},
+            { nameof(separatorColumn),separatorColumn},
         })
         {
 
@@ -33,6 +37,8 @@ namespace Stankins.WLW
 
 
         public string FolderPath { get; }
+        public string SeparatorRow { get; set; }
+        public string SeparatorColumn { get; set; }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
@@ -53,8 +59,8 @@ namespace Stankins.WLW
                 var c = rs.TryGetStream("Contents");
                 foreach(DataRow dr in item.Value.Rows)
                 {
-                    var str = string.Join(" ", dr.ItemArray);
-                    allData.AppendLine(str);
+                    var str = string.Join(SeparatorColumn, dr.ItemArray);
+                    allData.Append($"{str}{SeparatorRow}");
                 }
 
                 c.SetData(Str(allData.ToString()));

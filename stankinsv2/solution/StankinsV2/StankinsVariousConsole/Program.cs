@@ -83,7 +83,10 @@ namespace StankinsVariousConsole
             data = await excel.TransformData(data);
             await v.TransformData(data);
 
-            data =await new SenderWindowsLiveWriter((string)null).TransformData(data);
+            data = await new FilterRenameTablesInOrder(297, "Friday Links ###").TransformData(data);
+            await v.TransformData(data);
+
+            data =await new SenderWindowsLiveWriter(null,"<br />","").TransformData(data);
             await v.TransformData(data);
 
 
