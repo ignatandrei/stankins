@@ -11,17 +11,17 @@ namespace StankinsStatusWeb
 {
     public class PublishToSignalR : INotificationHandler<ResultWithData>
     {
-        public PublishToSignalR(IHubContext<DataHub> opt)
+        public PublishToSignalR(IHubContext<DataHub, ICommunication> opt)
         {
             Opt = opt;
         }
 
-        public IHubContext<DataHub> Opt { get; }
+        public IHubContext<DataHub, ICommunication> Opt { get; }
 
         public async Task Handle(ResultWithData notification, CancellationToken cancellationToken)
         {
             Console.WriteLine(notification.AliveResult.Process);
-            await Opt.Clients.All.SendAsync("SendMessageToClients", notification);
+            await Opt.Clients.All.SendMessageToClients(notification);
         }
     }
 }
