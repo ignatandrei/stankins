@@ -50,7 +50,14 @@ namespace StankinsObjects
             if (!dataNeeded.ContainsKey(name))
                 return def;
 
-            return (T)dataNeeded[name];
+            var ret= (T)dataNeeded[name];
+            if (object.Equals(ret , default(T)))
+                return def;
+
+            return ret;
+
+
+
         }
         protected T GetMyDataOrThrow<T>(string name)
         {

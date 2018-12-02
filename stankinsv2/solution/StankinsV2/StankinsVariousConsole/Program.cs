@@ -6,6 +6,7 @@ using Stankins.HTML;
 using Stankins.Interfaces;
 using Stankins.Office;
 using Stankins.Process;
+using Stankins.WLW;
 using Stankins.XML;
 using StankinsCommon;
 using StankinsObjects;
@@ -80,6 +81,11 @@ namespace StankinsVariousConsole
 
             var excel = new SenderExcel(file);
             data = await excel.TransformData(data);
+            await v.TransformData(data);
+
+            data =await new SenderWindowsLiveWriter((string)null).TransformData(data);
+            await v.TransformData(data);
+
 
         }
         private static async Task WebSites()
