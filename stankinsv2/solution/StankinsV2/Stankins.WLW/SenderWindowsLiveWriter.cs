@@ -51,7 +51,7 @@ namespace Stankins.WLW
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var nr = receiveData.DataToBeSentFurther.Count;
-            var fmt = "#".PadLeft(nr).Replace(" ","0");
+            var fmt = "#".PadLeft(nr.ToString().Count()+1).Replace(" ","0");
             foreach (var item in receiveData.DataToBeSentFurther)
             {
                 

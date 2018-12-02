@@ -61,8 +61,8 @@ namespace StankinsVariousConsole
         private static async Task OneTab()
         {
             var v = new Verifier();
-            var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/4BuJyIbyQ7akwk0DrTLwUg");
-            //var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/2lpYRWu3R4CRTjAFCch5aA");
+            //var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/4BuJyIbyQ7akwk0DrTLwUg");
+            var dr = new ReceiverLinkOneTab("https://www.one-tab.com/page/2lpYRWu3R4CRTjAFCch5aA");
             var data = await dr.TransformData(null);
             await v.TransformData(data);
 
@@ -83,7 +83,7 @@ namespace StankinsVariousConsole
             data = await excel.TransformData(data);
             await v.TransformData(data);
 
-            data = await new FilterRenameTablesInOrder(297, "Friday Links ###").TransformData(data);
+            data = await new FilterRenameTablesInOrder(304, "Friday Links ###").TransformData(data);
             await v.TransformData(data);
 
             data =await new SenderWindowsLiveWriter(null,"</li><li>","","<li>","").TransformData(data);
