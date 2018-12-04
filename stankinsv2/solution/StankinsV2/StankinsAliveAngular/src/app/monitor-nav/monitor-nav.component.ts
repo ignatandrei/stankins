@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as signalR from '@aspnet/signalr';
+import { ResultWithData } from '../DTO/HubDeclaration';
 
 @Component({
   selector: 'app-monitor-nav',
@@ -23,9 +24,13 @@ export class MonitorNavComponent {
       .build();
 
       connection.start().catch(err => document.write(err));
-      connection.on('sendMessageToClients', (o) => { window.alert(JSON.stringify(o)); });
+      connection.on('sendMessageToClients', (o) => {
+          const p = o as ResultWithData;
+        
+        window.alert(JSON.stringify(p));
+        });
       
-  }
+    }
   //https://twitter.com/davidfowl/status/998043928291983360
   adapt<T>(st: signalR.IStreamResult<T>): Observable<T> {
     const subject = new Subject<T>();
