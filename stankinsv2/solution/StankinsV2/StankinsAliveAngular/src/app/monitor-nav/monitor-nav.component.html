@@ -1,12 +1,15 @@
 <mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #drawer class="sidenav" fixedInViewport="true"
-      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-      [mode]="(isHandset$ | async) ? 'over' : 'side'"
-      [opened]="!(isHandset$ | async)">
+  <mat-sidenav
+    #drawer
+    class="sidenav"
+    fixedInViewport="true"
+    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+    [mode]="(isHandset$ | async) ? 'over' : 'side'"
+    [opened]="!(isHandset$ | async)"
+  >
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item href="#">Link 1</a>
-      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item href="#">Link 1</a> <a mat-list-item href="#">Link 2</a>
       <a mat-list-item href="#">Link 3</a>
     </mat-nav-list>
   </mat-sidenav>
@@ -17,13 +20,57 @@
         aria-label="Toggle sidenav"
         mat-icon-button
         (click)="drawer.toggle()"
-        *ngIf="isHandset$ | async">
+        *ngIf="(isHandset$ | async)"
+      >
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
       <span>StankinsAliveAngular</span>
     </mat-toolbar>
     <!-- Add Content Here -->
 
+    Monitored items: {{ results.size }}
 
+    <mat-tab-group>
+      <mat-tab label="Success: {{ OK?.length}}">
+        <mat-accordion>
+          <ng-template ngFor let-ok [ngForOf]="OK" let-i="index">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title
+                  >{{ i + 1 }}) {{ ok.customData.name }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ ok.aliveResult.to }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div *ngFor="let item of (ok.aliveResult | keyvalue)">
+                Key: <b>{{ item.key }}</b> and Value: <b>{{ item.value }}</b>
+              </div>
+              <mat-action-row>
+                Tags:
+                <span *ngFor="let tag of ok.customData.tags"> {{ tag }}; </span>
+              </mat-action-row>
+            </mat-expansion-panel>
+          </ng-template>
+        </mat-accordion>
+      </mat-tab>
+      <mat-tab label="Failed: {{ Failed?.length}}">
+        <mat-accordion>
+          <ng-template ngFor let-ok [ngForOf]="Failed" let-i="index">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title
+                  >{{ i + 1 }} {{ ok.customData.name }}
+                </mat-panel-title>
+                <mat-panel-description> Click to expand </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div *ngFor="let item of (ok.aliveResult | keyvalue)">
+                Key: <b>{{ item.key }}</b> and Value: <b>{{ item.value }}</b>
+              </div>
+            </mat-expansion-panel>
+          </ng-template>
+        </mat-accordion>
+      </mat-tab>
+    </mat-tab-group>
   </mat-sidenav-content>
 </mat-sidenav-container>

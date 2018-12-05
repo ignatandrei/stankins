@@ -19,6 +19,13 @@ namespace Stankins.Alive
         public long? Duration { get; set; }
         public string DetailedResult { get; set; }
         public string Exception { get; set; }
+        public bool HasError
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace(Exception );
+            }
+        }
 
     }
     public abstract class AliveStatus : BaseObject, IReceive

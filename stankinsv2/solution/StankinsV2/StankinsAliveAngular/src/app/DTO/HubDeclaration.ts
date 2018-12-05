@@ -7,6 +7,7 @@ export interface AliveResult {
   duration: number;
   detailedResult: string;
   exception: string;
+  hasError: string;
 }
 export interface CustomData {
   name: string;
