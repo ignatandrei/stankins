@@ -25,7 +25,7 @@ export class TagDisplayComponent implements OnInit {
     this.data.getData().subscribe(p => {
       // window.alert(JSON.stringify(p));
       // console.log('received ' + JSON.stringify(p));
-      console.log('received' + p.customData.name);
+      // console.log('received' + p.customData.name);
       self.results.set(p.customData.name, p);
 
       self.DisplayResults = Array.from(self.results.values())

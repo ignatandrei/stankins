@@ -9,6 +9,7 @@ using StankinsObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,19 +19,19 @@ namespace StankinsStatusWeb
     public class MonitorOptions
     {
         public WebAdress[] WebAdresses { get; set; }
-        public PingAddress[] PingAddresses { get; set; } 
+        public PingAddress[] PingAddresses { get; set; }
         public DatabaseConnection[] Databases { get; set; }
         public IEnumerable<IToBaseObject> AllItems()
         {
-            return ((IToBaseObject[]) WebAdresses)
+            return ((IToBaseObject[])WebAdresses)
                 .Union(((IToBaseObject[])PingAddresses))
-                .Union(((IToBaseObject[])Databases)) ;
+                .Union(((IToBaseObject[])Databases));
 
         }
         public IEnumerable<IToBaseObject> ToExecuteCRON()
         {
             var date = DateTime.UtcNow;
-            
+
             foreach (var item in AllItems())
             {
                 var cron = item as CRONExecution;
@@ -44,29 +45,39 @@ namespace StankinsStatusWeb
 
         public ResultWithData DataFromResult(AliveResult it)
         {
-            
-            
-                CustomData cd;
-                switch (it.Process.ToLower())
-                {
-                    case "ping":
-                        cd = PingAddresses.First(p => p.NameSite == it.To).CustomData;
-                        break;
-                    case "webrequest":
-                        cd = WebAdresses.First(w => w.URL == it.To).CustomData;
-                        break;
-                    case "receiverdatabaseserver":
-                        cd = Databases.First(w => w.ConnectionString == it.To).CustomData;
-                        break;
-                    default:
-                        throw new ArgumentException($"not a good process {it.Process.ToLower()}");
-                }
-                return new ResultWithData()
-                {
-                    AliveResult = it,
-                    CustomData = cd
-                };
-            
+
+            CronExecutionBase c;
+            CustomData cd;
+            switch (it.Process.ToLower())
+            {
+                case "ping":
+                    var p1 = PingAddresses.First(p => p.NameSite == it.To);
+                    c = p1;
+                    cd = p1.CustomData;
+                    break;
+                case "webrequest":
+                    var w1 = WebAdresses.First(w => w.URL == it.To);
+                    c = w1;
+                    cd = w1.CustomData;
+                    break;
+                case "receiverdatabaseserver":
+                    var r1 = Databases.First(w => w.ConnectionString == it.To);
+                    c = r1;
+                    cd = r1.CustomData;
+                    break;
+                default:
+                    throw new ArgumentException($"not a good process {it.Process.ToLower()}");
+            }
+            var res = new CronExecutionBase();
+            res.CopyFrom(c);
+            return new ResultWithData()
+            {
+                AliveResult = it,
+                CustomData = cd,
+                CRONExecution = res
+
+            };
+
         }
 
     }
@@ -75,13 +86,28 @@ namespace StankinsStatusWeb
         BaseObject baseObject();
         Task<DataTable> Execute();
     }
-    public class CRONExecution
+    [DebuggerDisplay("{CRON} {LastRunTime} {NextRunTime}" )]
+    public class CronExecutionBase
     {
         public string CRON { get; set; }
-       
+
 
         public DateTime? LastRunTime { get; set; }
         public DateTime? NextRunTime { get; set; }
+        public void CopyFrom(CronExecutionBase c)
+        {
+            this.CRON = c.CRON;
+            this.LastRunTime = c.LastRunTime;
+            this.NextRunTime = c.NextRunTime;
+            
+        }
+    }
+    public class CRONExecution: CronExecutionBase 
+    {
+       
+       
+
+        
         void MakeNextExecute()
         {
             LastRunTime = NextRunTime;
@@ -92,7 +118,10 @@ namespace StankinsStatusWeb
         public bool ShouldRun(DateTime currentTime)
         {
             if (NextRunTime == null && LastRunTime == null)
+            {
+                MakeNextExecute();
                 return true;//execute once
+            }
             if (NextRunTime == null)
                 return false;
 
@@ -129,10 +158,11 @@ namespace StankinsStatusWeb
 
         
     }
-    public class ResultWithData: INotification
+    public class ResultWithData : INotification
     {
         public AliveResult AliveResult { get; set; }
         public CustomData CustomData { get; set; }
+        public CronExecutionBase CRONExecution { get; set; }
     }
     public class DatabaseConnection : CRONExecution, IToBaseObject
     {

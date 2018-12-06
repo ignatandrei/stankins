@@ -12,7 +12,7 @@ export class HubDataService {
   private subject:  Subject<ResultWithData>;
 
   constructor(private http: HttpClient) {
-
+    const self = this;
     this.subject = new ReplaySubject<ResultWithData>(20);
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl('/DataHub')
@@ -23,9 +23,9 @@ export class HubDataService {
     .start()
     .catch(err => document.write(err) )
     .finally(() => {
-      http.get('api/values').subscribe();
+      self.reloadData();
     });
-    const self = this;
+
 
     this.connection.on('sendMessageToClients', o => {
       const p = o as ResultWithData;
@@ -33,10 +33,15 @@ export class HubDataService {
       // time zone offset
       const dif = new Date().getTimezoneOffset();
       p.aliveResult.startedDate = new Date( p.aliveResult.startedDate.valueOf() - dif * 60000);
+      // p.cronExecution.nextRunTime = new Date( p.cronExecution.nextRunTime.valueOf() - dif * 60000);
+
       self.subject.next(p);
     });
 
 
+  }
+  public  reloadData() {
+    this.http.get('api/values').subscribe();
   }
   public getData(): Observable <ResultWithData> {
     return this.subject.asObservable();

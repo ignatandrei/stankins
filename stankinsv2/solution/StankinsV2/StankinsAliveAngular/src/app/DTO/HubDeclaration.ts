@@ -18,5 +18,10 @@ export interface CustomData {
 export interface ResultWithData  {
   aliveResult: AliveResult;
   customData: CustomData;
+  cronExecution: CRONExecution;
 }
+export interface CRONExecution {
+  cron: string;
+  nextRunTime: Date;
 
+}
