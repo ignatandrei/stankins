@@ -1,0 +1,22 @@
+<p>
+ Number ok: {{OK?.length}}
+</p>
+<div *ngFor='let item of OK'>
+    <mat-card>
+        <mat-card-title>
+                <mat-icon color="primary">done</mat-icon>
+            {{ item.customData.name }}
+        </mat-card-title>
+        <mat-card-subtitle>
+            Last update :{{ item.aliveResult.startedDate.toLocaleString() }} 
+        </mat-card-subtitle>
+        <mat-card-content>
+            <div>To: {{ item.aliveResult.to }}</div>
+            <div>Duration : {{item.aliveResult.duration}} ms</div>
+            <div>DetailedResult: {{item.aliveResult.detailedResult}}</div>              
+       
+        </mat-card-content>
+        <mat-card-footer> Tags:
+        <span *ngFor="let tag of item.customData.tags"> <a routerLink="/tag/{{tag}}"> {{ tag }}</a>; </span></mat-card-footer>
+      </mat-card>
+</div>

@@ -1,0 +1,56 @@
+Monitored items: {{ results.size }} ( {{ OK?.length }} / {{ Failed?.length }})
+
+<mat-tab-group>
+  <mat-tab label="">
+    <ng-template mat-tab-label>
+      <mat-icon color="primary">done</mat-icon>
+      Success: {{ OK?.length }}
+    </ng-template>
+    <mat-accordion>
+      <ng-template ngFor let-ok [ngForOf]="OK" let-i="index">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title
+              >{{ i + 1 }}) {{ ok.customData.name }}
+            </mat-panel-title>
+            <mat-panel-description>
+              Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>To: {{ ok.aliveResult.to }}</div>
+          <div>Duration : {{ ok.aliveResult.duration }} ms</div>
+          <div>DetailedResult: {{ ok.aliveResult.detailedResult }}</div>
+          <mat-action-row>
+            Tags:
+            <span *ngFor="let tag of ok.customData.tags">
+              <a routerLink="/tag/{{tag}}"> {{ tag }}</a>;
+            </span>
+          </mat-action-row>
+        </mat-expansion-panel>
+      </ng-template>
+    </mat-accordion>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>error</mat-icon>
+      Failed: {{ Failed?.length }}
+    </ng-template>
+    <mat-accordion>
+      <ng-template ngFor let-ok [ngForOf]="Failed" let-i="index">
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{ i + 1 }} {{ ok.customData.name }}
+            </mat-panel-title>
+            <mat-panel-description>
+              Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>To: {{ ok.aliveResult.to }}</div>
+          <div>Duration : {{ ok.aliveResult.duration }} ms</div>
+          <div>Exception : {{ ok.aliveResult.exception }}</div>
+        </mat-expansion-panel>
+      </ng-template>
+    </mat-accordion>
+  </mat-tab>
+</mat-tab-group>

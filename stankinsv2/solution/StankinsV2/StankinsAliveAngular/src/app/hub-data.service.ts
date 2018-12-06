@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, ReplaySubject } from 'rxjs';
 import { ResultWithData } from './DTO/HubDeclaration';
 import * as signalR from '@aspnet/signalr';
 
@@ -13,7 +13,7 @@ export class HubDataService {
 
   constructor(private http: HttpClient) {
 
-    this.subject = new Subject<ResultWithData>();
+    this.subject = new ReplaySubject<ResultWithData>(20);
     this.connection = new signalR.HubConnectionBuilder()
       .withUrl('/DataHub')
       .build();

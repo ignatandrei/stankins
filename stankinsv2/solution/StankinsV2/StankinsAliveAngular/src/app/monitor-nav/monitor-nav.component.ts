@@ -12,41 +12,18 @@ import { HubDataService } from '../hub-data.service';
   templateUrl: './monitor-nav.component.html',
   styleUrls: ['./monitor-nav.component.css']
 })
-export class MonitorNavComponent implements  OnInit {
+export class MonitorNavComponent {
 
 
   isHandset$: Observable<boolean> = this.breakpointObserver
   .observe(Breakpoints.Handset)
   .pipe(map(result => result.matches));
 
-public results: Map<string, ResultWithData>;
-public OK: ResultWithData[];
-public Failed: ResultWithData[];
-
-  ngOnInit(): void {
-    const self = this;
-
-      this.data.getData().subscribe(p => {
-        // window.alert(JSON.stringify(p));
-      // console.log('received ' + JSON.stringify(p));
-      console.log('received' + p.customData.name);
-      self.results.set(p.customData.name, p);
-
-      self.OK = Array.from(self.results.values())
-        .filter((it: ResultWithData) => it.aliveResult.isSuccess)
-        .sort((a, b) => a.customData.name.localeCompare(b.customData.name));
-
-      self.Failed = Array.from(self.results.values())
-        .filter((it: ResultWithData) => !it.aliveResult.isSuccess)
-        .sort((a, b) => a.customData.name.localeCompare(b.customData.name));
-    });
-  }
 
 
 
-  constructor(private data: HubDataService, private breakpointObserver: BreakpointObserver) {
+  constructor( private breakpointObserver: BreakpointObserver) {
 
-    this.results = new Map<string, ResultWithData>();
 
   }
   // https://twitter.com/davidfowl/status/998043928291983360
