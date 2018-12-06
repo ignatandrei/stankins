@@ -31,13 +31,17 @@
     Monitored items: {{ results.size }} ( {{ OK?.length}} / {{ Failed?.length}})
 
     <mat-tab-group>
-      <mat-tab label="Success: {{ OK?.length}}">
+      <mat-tab label="">
+          <ng-template mat-tab-label>
+              <mat-icon>done</mat-icon>
+              Success: {{ OK?.length}}
+            </ng-template>
         <mat-accordion>
           <ng-template ngFor let-ok [ngForOf]="OK" let-i="index">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>{{ i + 1 }}) {{ ok.customData.name }}
-                    <mat-icon>done</mat-icon>
+                    
                 </mat-panel-title>
                 <mat-panel-description>
                   Last update :{{ ok.aliveResult.startedDate.toLocaleString() }} 
@@ -54,14 +58,17 @@
           </ng-template>
         </mat-accordion>
       </mat-tab>
-      <mat-tab label="Failed: {{ Failed?.length}}">
+      <mat-tab >
+          <ng-template mat-tab-label>
+              <mat-icon>error</mat-icon>
+              Failed: {{ Failed?.length}}
+            </ng-template>
         <mat-accordion>
           <ng-template ngFor let-ok [ngForOf]="Failed" let-i="index">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{ i + 1 }} {{ ok.customData.name }}
-                  <mat-icon>error</mat-icon>
+                  {{ i + 1 }} {{ ok.customData.name }}                  
                 </mat-panel-title>
                 <mat-panel-description>  Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}  </mat-panel-description>
               </mat-expansion-panel-header>

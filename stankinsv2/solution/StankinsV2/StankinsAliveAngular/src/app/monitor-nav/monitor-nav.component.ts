@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import * as signalR from '@aspnet/signalr';
 import { ResultWithData } from '../DTO/HubDeclaration';
 import { constructor } from 'q';
+import { HubDataService } from '../hub-data.service';
 
 @Component({
   selector: 'app-monitor-nav',
@@ -12,6 +13,7 @@ import { constructor } from 'q';
   styleUrls: ['./monitor-nav.component.css']
 })
 export class MonitorNavComponent implements  OnInit {
+
 
   isHandset$: Observable<boolean> = this.breakpointObserver
   .observe(Breakpoints.Handset)
@@ -23,24 +25,9 @@ public Failed: ResultWithData[];
 
   ngOnInit(): void {
     const self = this;
-    const connection = new signalR.HubConnectionBuilder()
-      .withUrl('/DataHub')
-      .build();
 
-    connection
-    .start()
-    .catch(err => document.write(err))
-    .finally(()=>{
-
-    });
-    ;
-    connection.on('sendMessageToClients', o => {
-      const p = o as ResultWithData;
-      p.aliveResult.startedDate = new Date(p.aliveResult.startedDate.toString());
-      // time zone offset
-      const dif = new Date().getTimezoneOffset();
-      p.aliveResult.startedDate = new Date( p.aliveResult.startedDate.valueOf() - dif * 60000);
-      // window.alert(JSON.stringify(p));
+      this.data.getData().subscribe(p => {
+        // window.alert(JSON.stringify(p));
       // console.log('received ' + JSON.stringify(p));
       console.log('received' + p.customData.name);
       self.results.set(p.customData.name, p);
@@ -57,7 +44,7 @@ public Failed: ResultWithData[];
 
 
 
-  constructor(private breakpointObserver: BreakpointObserver) {
+  constructor(private data: HubDataService, private breakpointObserver: BreakpointObserver) {
 
     this.results = new Map<string, ResultWithData>();
 

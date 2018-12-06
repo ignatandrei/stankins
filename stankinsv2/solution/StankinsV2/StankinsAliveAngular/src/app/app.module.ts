@@ -12,7 +12,8 @@ import { MatToolbarModule, MatButtonModule, MatSidenavModule,
           MatCardModule,  
           MatExpansionModule, MatFormFieldModule } from '@angular/material';
 import { MonitorTableComponent } from './monitor-table/monitor-table.component';
-import { FormsModule } from '@angular/forms';
+
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { FormsModule } from '@angular/forms';
     MatTabsModule,
     MatCardModule,
     MatFormFieldModule,
-    MatExpansionModule
+    MatExpansionModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
