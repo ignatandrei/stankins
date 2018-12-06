@@ -71,7 +71,10 @@ steps:
     command: pack
 
     packagesToPack: '**/Stankins.*.csproj'
-    
+
+- script: |
+   dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj  -f netcoreapp2.1 -c Release -r win10-x64 
+  displayName: 'DOTNET publish'    
   
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
