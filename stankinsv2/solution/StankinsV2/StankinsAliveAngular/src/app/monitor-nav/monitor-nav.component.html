@@ -28,7 +28,7 @@
     </mat-toolbar>
     <!-- Add Content Here -->
 
-    Monitored items: {{ results.size }}
+    Monitored items: {{ results.size }} ( {{ OK?.length}} / {{ Failed?.length}})
 
     <mat-tab-group>
       <mat-tab label="Success: {{ OK?.length}}">
@@ -36,16 +36,16 @@
           <ng-template ngFor let-ok [ngForOf]="OK" let-i="index">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title
-                  >{{ i + 1 }}) {{ ok.customData.name }}
+                <mat-panel-title>{{ i + 1 }}) {{ ok.customData.name }}
+                    <mat-icon>done</mat-icon>
                 </mat-panel-title>
                 <mat-panel-description>
-                  {{ ok.aliveResult.to }}
+                  Last update :{{ ok.aliveResult.startedDate.toLocaleString() }} 
                 </mat-panel-description>
               </mat-expansion-panel-header>
-              <div *ngFor="let item of (ok.aliveResult | keyvalue)">
-                Key: <b>{{ item.key }}</b> and Value: <b>{{ item.value }}</b>
-              </div>
+              <div>To: {{ ok.aliveResult.to }}</div>
+              <div>Duration : {{ok.aliveResult.duration}} ms</div>
+              <div>DetailedResult: {{ok.aliveResult.detailedResult}}</div>              
               <mat-action-row>
                 Tags:
                 <span *ngFor="let tag of ok.customData.tags"> {{ tag }}; </span>
@@ -59,14 +59,15 @@
           <ng-template ngFor let-ok [ngForOf]="Failed" let-i="index">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title
-                  >{{ i + 1 }} {{ ok.customData.name }}
+                <mat-panel-title>
+                  {{ i + 1 }} {{ ok.customData.name }}
+                  <mat-icon>error</mat-icon>
                 </mat-panel-title>
-                <mat-panel-description> Click to expand </mat-panel-description>
+                <mat-panel-description>  Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}  </mat-panel-description>
               </mat-expansion-panel-header>
-              <div *ngFor="let item of (ok.aliveResult | keyvalue)">
-                Key: <b>{{ item.key }}</b> and Value: <b>{{ item.value }}</b>
-              </div>
+              <div>To: {{ ok.aliveResult.to }}</div>
+              <div>Duration : {{ok.aliveResult.duration}} ms</div>
+              <div>Exception : {{ok.aliveResult.exception }}</div>
             </mat-expansion-panel>
           </ng-template>
         </mat-accordion>

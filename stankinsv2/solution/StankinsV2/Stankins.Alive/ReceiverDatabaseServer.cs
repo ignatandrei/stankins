@@ -40,22 +40,23 @@ namespace Stankins.Alive
                 receiveData = new DataToSentTable();
             DataTable results = CreateTable();
             var sw = Stopwatch.StartNew();
-
+            var StartedDate = DateTime.UtcNow;
             try
             {
+                
                 var resp = NewConnection();
                 using (resp)
                 {
                     resp.ConnectionString = connectionString;
                     await resp.OpenAsync();
 
-                    results.Rows.Add("receiverdatabaseserver", "", connectionString, true, resp.State, sw.ElapsedMilliseconds, resp.ServerVersion, null);
+                    results.Rows.Add("receiverdatabaseserver", "", connectionString, true, resp.State, sw.ElapsedMilliseconds, resp.ServerVersion, null,StartedDate);
 
                 }
             }
             catch (Exception ex)
             {
-                results.Rows.Add("receiverdatabaseserver", "", connectionString, false, null, null, null, ex.Message);
+                results.Rows.Add("receiverdatabaseserver", "", connectionString, false, null, sw.ElapsedMilliseconds, null, ex.Message,StartedDate);
             }
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);

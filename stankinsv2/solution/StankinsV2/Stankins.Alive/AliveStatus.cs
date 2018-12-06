@@ -11,6 +11,7 @@ namespace Stankins.Alive
 {
     public class AliveResult
     {
+        public DateTime StartedDate { get; set; }
         public string Process { get; set; }
         public string Arguments { get; set; }
         public string To { get; set; }
@@ -19,13 +20,7 @@ namespace Stankins.Alive
         public long? Duration { get; set; }
         public string DetailedResult { get; set; }
         public string Exception { get; set; }
-        public bool HasError
-        {
-            get
-            {
-                return !string.IsNullOrWhiteSpace(Exception );
-            }
-        }
+        
 
     }
     public abstract class AliveStatus : BaseObject, IReceive
@@ -45,6 +40,7 @@ namespace Stankins.Alive
             m.Columns.Add("Duration", typeof(long));
             m.Columns.Add("DetailedResult", typeof(string));
             m.Columns.Add("Exception", typeof(string));
+            m.Columns.Add("StartedDate", typeof(DateTime));
             return m;
         }
 
@@ -59,6 +55,7 @@ namespace Stankins.Alive
             foreach(DataRow row in result.Rows)
             {
                 var m = new AliveResult();
+                m.StartedDate =(DateTime)row[nameof(m.StartedDate)] ;
                 m.Arguments = row[nameof(m.Arguments)]?.ToString();
                 m.DetailedResult = row[nameof(m.DetailedResult)]?.ToString();
                 var duration = row[nameof(m.Duration)]?.ToString();

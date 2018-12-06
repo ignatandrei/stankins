@@ -8,6 +8,7 @@ export interface AliveResult {
   detailedResult: string;
   exception: string;
   hasError: string;
+  startedDate: Date;
 }
 export interface CustomData {
   name: string;

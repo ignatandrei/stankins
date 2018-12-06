@@ -27,20 +27,30 @@ public Failed: ResultWithData[];
       .withUrl('/DataHub')
       .build();
 
-    connection.start().catch(err => document.write(err));
+    connection
+    .start()
+    .catch(err => document.write(err))
+    .finally(()=>{
+
+    });
+    ;
     connection.on('sendMessageToClients', o => {
       const p = o as ResultWithData;
+      p.aliveResult.startedDate = new Date(p.aliveResult.startedDate.toString());
+      // time zone offset
+      const dif = new Date().getTimezoneOffset();
+      p.aliveResult.startedDate = new Date( p.aliveResult.startedDate.valueOf() - dif * 60000);
       // window.alert(JSON.stringify(p));
       // console.log('received ' + JSON.stringify(p));
       console.log('received' + p.customData.name);
       self.results.set(p.customData.name, p);
 
       self.OK = Array.from(self.results.values())
-        .filter((it: ResultWithData) => !it.aliveResult.hasError)
+        .filter((it: ResultWithData) => it.aliveResult.isSuccess)
         .sort((a, b) => a.customData.name.localeCompare(b.customData.name));
 
       self.Failed = Array.from(self.results.values())
-        .filter((it: ResultWithData) => it.aliveResult.hasError)
+        .filter((it: ResultWithData) => !it.aliveResult.isSuccess)
         .sort((a, b) => a.customData.name.localeCompare(b.customData.name));
     });
   }

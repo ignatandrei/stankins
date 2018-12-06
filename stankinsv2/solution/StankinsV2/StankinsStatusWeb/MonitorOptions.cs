@@ -189,14 +189,14 @@ namespace StankinsStatusWeb
                 var toExec = opt.ToExecuteCRON().Select(it=>it.Execute()).ToArray();
                 if (toExec.Length > 0)
                 {
-                   
 
+                    var checkedDate = DateTime.UtcNow;
                     var res = await Task.WhenAll(toExec);
                     var dataToBeSent = res
                       
                         .Select(it => AliveStatus.FromTable(it))
                         .SelectMany(it=>it)
-                        .Select(it=>opt.DataFromResult(it))
+                        .Select(it=>opt.DataFromResult(it))                     
                         .ToArray() ;
 
                   

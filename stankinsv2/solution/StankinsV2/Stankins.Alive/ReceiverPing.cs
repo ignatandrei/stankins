@@ -30,18 +30,19 @@ namespace Stankins.Alive
         {
             if (receiveData == null)
                 receiveData = new DataToSentTable();
-
+            var sw = Stopwatch.StartNew();
             DataTable results = CreateTable();
             var pingSender = new Ping();
+            var StartedDate = DateTime.UtcNow;
             try
             {
                 var reply = pingSender.Send(NameSite);
                 var status = reply.Status;
-                results.Rows.Add("ping", "", NameSite,true, (int)reply.Status, reply.RoundtripTime.ToString(), reply.RoundtripTime.ToString(),null);
+                results.Rows.Add("ping", "", NameSite,true, (int)reply.Status, reply.RoundtripTime.ToString(), reply.RoundtripTime.ToString(),null,StartedDate);
             }
             catch(Exception ex)
             {
-                results.Rows.Add("ping", "", NameSite,false, null,null, null, ex.Message);
+                results.Rows.Add("ping", "", NameSite,false, null, sw.ElapsedMilliseconds, null, ex.Message,StartedDate);
             }
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);

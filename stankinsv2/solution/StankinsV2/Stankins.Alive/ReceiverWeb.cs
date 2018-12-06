@@ -45,6 +45,7 @@ namespace Stankins.Alive
             var sw = Stopwatch.StartNew();
             var ws = WebRequest.Create(URL) as HttpWebRequest;
             ws.Method = Method;
+            var StartedDate = DateTime.UtcNow;
             try
             {
                 using (var resp = await ws.GetResponseAsync())
@@ -62,7 +63,7 @@ namespace Stankins.Alive
                             }
                         }
                     }
-                    results.Rows.Add("webrequest", Method, URL, true, sc,sw.ElapsedMilliseconds, text,null);
+                    results.Rows.Add("webrequest", Method, URL, true, sc,sw.ElapsedMilliseconds, text,null,StartedDate);
 
 
 
@@ -70,7 +71,7 @@ namespace Stankins.Alive
             }
             catch(Exception ex)
             {
-                results.Rows.Add("webrequest", Method, URL, false, null,null, null, ex.Message);
+                results.Rows.Add("webrequest", Method, URL, false, null, sw.ElapsedMilliseconds, null, ex.Message,StartedDate);
             }
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
