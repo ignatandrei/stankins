@@ -64,6 +64,8 @@ namespace StankinsStatusWeb
             }
             app.UseCors("CorsPolicy");
             app.UseHttpsRedirection();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             app.UseSignalR(routes =>
             {
                 routes.MapHub<DataHub>("/DataHub");
