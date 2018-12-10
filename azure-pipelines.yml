@@ -77,7 +77,7 @@ steps:
   displayName: 'DOTNET publish'    
   
  - script: |
-  docker build stankinsv2/solution/Dockerfile -t stankins   
+   docker build stankinsv2/solution/Dockerfile -t stankins 
   displayName: 'docker'    
  
 - task: PublishBuildArtifacts@1
