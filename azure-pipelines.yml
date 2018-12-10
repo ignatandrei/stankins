@@ -83,6 +83,7 @@ steps:
    dir
    docker build . -t stankins
    echo "$MY_PASSWORD_DOCKER" | docker login --username ignatandrei --password-stdin
+   docker push ignatandrei/stankinsWindows
   displayName: 'docker'    
  
 - task: PublishBuildArtifacts@1
