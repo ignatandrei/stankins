@@ -78,7 +78,7 @@ steps:
   
 - script: |
    xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I 
-   docker build --build-arg BuildArtifactStagingDirectory=$(Build.ArtifactStagingDirectory) stankinsv2/solution/ -t stankins 
+   docker build stankinsv2/solution/ -t stankins 
   displayName: 'docker'    
  
 - task: PublishBuildArtifacts@1
