@@ -1,6 +1,8 @@
 # stankins
 
 
+##Version 2 right away
+
 <a href='https://github.com/ignatandrei/stankins/releases'>Releases</a>
 
 <a href='https://cdn.rawgit.com/ignatandrei/stankins/74e25fbe/Documentation/Help/index.html'>Documentation</a>
