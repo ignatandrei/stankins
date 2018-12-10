@@ -83,6 +83,7 @@ steps:
    dir
    docker build . -t stankins_windows
    docker image ls
+   docker tag stankins_windows ignatandrei/stankins_windows
    echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
    docker push ignatandrei/stankins_windows
   displayName: 'docker'    
