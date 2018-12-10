@@ -81,7 +81,8 @@ steps:
    dir
    xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I  
    dir
-   docker build . -t stankins 
+   docker build . -t stankins
+   echo "$MY_PASSWORD_DOCKER" | docker login --username ignatandrei --password-stdin
   displayName: 'docker'    
  
 - task: PublishBuildArtifacts@1
