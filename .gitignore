@@ -198,3 +198,6 @@ FakesAssemblies/
 
 # Visual Studio 6 workspace options file
 *.opt
+/stankinsv2/solution/StankinsV2/StankinsStatusWeb/selfcontained-linux-x64/selfcontained-linux-x64
+/stankinsv2/solution/StankinsV2/StankinsStatusWeb/selfcontained-linux-x64/wwwroot
+/stankinsv2/solution/StankinsV2/StankinsStatusWeb/selfcontained-linux-x64
