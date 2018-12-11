@@ -63,7 +63,7 @@ namespace StankinsStatusWeb
                 app.UseHsts();
             }
             app.UseCors("CorsPolicy");
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseSignalR(routes =>
