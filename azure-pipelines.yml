@@ -90,11 +90,11 @@ steps:
    docker push ignatandrei/stankins_windows
 
 
-   docker build . -t stankins_linux -f Dockerfile_linux
-   docker image ls
-   docker tag stankins_linux ignatandrei/stankins_linux
+   #docker build . -t stankins_linux -f Dockerfile_linux
+   #ocker image ls
+   #docker tag stankins_linux ignatandrei/stankins_linux
    #echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
-   docker push ignatandrei/stankins_linux
+   #docker push ignatandrei/stankins_linux
 
   displayName: 'docker'    
  
