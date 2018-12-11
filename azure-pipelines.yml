@@ -79,8 +79,8 @@ steps:
 - script: |
    cd stankinsv2/solution/
    dir
-   xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I  
-   rem xcopy $(Build.ArtifactStagingDirectory)\linux-x64 linux-x64\ /I  
+   xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
+   rem xcopy $(Build.ArtifactStagingDirectory)\linux-x64 linux-x64\ /I  /E
    dir
     echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
    
