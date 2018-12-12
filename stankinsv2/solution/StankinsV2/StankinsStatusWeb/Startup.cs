@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Subjects;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StankinsAliveMonitor.SignalRHubs;
+using Microsoft.AspNetCore.Http;
 
 namespace StankinsStatusWeb
 {
@@ -74,6 +76,16 @@ namespace StankinsStatusWeb
                 routes.MapHub<DataHub>("/DataHub");
             });
             app.UseMvc();
+            //redirect to angular page if do not use MVC or static files
+            app.Run(async (context) =>
+            {
+                context.Response.ContentType = "text/html";
+                var fileBytes = await File.ReadAllBytesAsync(Path.Combine(env.WebRootPath, "index.html"));
+                var ms = new MemoryStream(fileBytes);
+                ms.Position = 0;
+                await ms.CopyToAsync(context.Response.Body);
+                context.Response.StatusCode = StatusCodes.Status200OK;
+            });
             
         }
     }
