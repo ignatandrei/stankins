@@ -55,6 +55,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TagDisplayComponent } from './tag-display/tag-display.component';
+import { ShowItemComponent } from './show-item/show-item.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { TagDisplayComponent } from './tag-display/tag-display.component';
     DashboardComponent,
     ResultSuccessComponent,
     ResultFailedComponent,
-    TagDisplayComponent
+    TagDisplayComponent,
+    ShowItemComponent
   ],
   imports: [
     BrowserModule,

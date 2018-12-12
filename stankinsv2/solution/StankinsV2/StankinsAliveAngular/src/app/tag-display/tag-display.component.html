@@ -1,25 +1,47 @@
 <p>
-  Display items with tag {{id}} : {{DisplayResults?.length}}
+  Display items with tag <b>{{id}}</b> : {{DisplayResults?.length}} ( {{ OK?.length }} ok / {{ Failed?.length }} failed)
 </p>
-<div *ngFor='let item of DisplayResults'>
-    <mat-card>
-        <mat-card-title>
-            <mat-icon *ngIf="item.aliveResult.isSuccess" color="primary">done</mat-icon>
-            <mat-icon *ngIf="!item.aliveResult.isSuccess" color="primary">error</mat-icon>
-            {{ item.customData.name }}
-        </mat-card-title>
-        <mat-card-subtitle>
-            Last update :{{ item.aliveResult.startedDate.toLocaleString() }} 
-        </mat-card-subtitle>
-        <mat-card-content>
-           <div>To: {{ item.aliveResult.to }}</div>
-           <div>Duration : {{item.aliveResult.duration}} ms</div>
-           <div *ngIf="item.aliveResult.isSuccess" >DetailedResult: {{ item.aliveResult.detailedResult }}</div>
-           <div *ngIf="!item.aliveResult.isSuccess" >Exception : {{item.aliveResult.exception }}</div>
-        </mat-card-content>
-        <mat-card-footer> Tags:
-        <span *ngFor="let tag of item.customData.tags"> 
-         <a routerLink='/tag/{{tag}}'>   
-         {{ tag }}</a>; </span></mat-card-footer>
-      </mat-card>
-</div>
+<mat-tab-group>
+    <mat-tab label="">
+      <ng-template mat-tab-label>
+        <mat-icon color="primary">done</mat-icon>
+        Success: {{ OK?.length }}
+      </ng-template>
+      <mat-accordion>
+        <ng-template ngFor let-ok [ngForOf]="OK" let-i="index">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title
+                >{{ i + 1 }}) {{ ok.customData.name }}
+              </mat-panel-title>
+              <mat-panel-description>
+                Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-show-item [item]="ok"></app-show-item>
+          </mat-expansion-panel>
+        </ng-template>
+      </mat-accordion>
+    </mat-tab>
+    <mat-tab>
+      <ng-template mat-tab-label>
+        <mat-icon>error</mat-icon>
+        Failed: {{ Failed?.length }}
+      </ng-template>
+      <mat-accordion>
+        <ng-template ngFor let-ok [ngForOf]="Failed" let-i="index">
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ i + 1 }} {{ ok.customData.name }}
+              </mat-panel-title>
+              <mat-panel-description>
+                Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+            <app-show-item [item]="ok"></app-show-item>
+          </mat-expansion-panel>
+        </ng-template>
+      </mat-accordion>
+    </mat-tab>
+  </mat-tab-group>

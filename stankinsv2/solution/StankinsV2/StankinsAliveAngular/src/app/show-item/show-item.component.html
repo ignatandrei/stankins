@@ -1,0 +1,37 @@
+
+<mat-card *ngIf="item.aliveResult.isSuccess">
+  <mat-card-title>
+          <mat-icon color="primary">done</mat-icon>
+      {{ item.customData.name }}
+  </mat-card-title>
+  <mat-card-subtitle>
+      Last update :{{ item.aliveResult.startedDate.toLocaleString() }} 
+  </mat-card-subtitle>
+  <mat-card-content>
+      <div>To: {{ item.aliveResult.to }}</div>
+      <div>Duration : {{item.aliveResult.duration}} ms</div>
+      <div>DetailedResult: {{item.aliveResult.detailedResult}}</div>              
+ 
+  </mat-card-content>
+  <mat-card-footer> Tags:
+  <span *ngFor="let tag of item.customData.tags"> <a routerLink="/tag/{{tag}}"> {{ tag }}</a>; </span></mat-card-footer>
+</mat-card>
+
+
+<mat-card *ngIf="!item.aliveResult.isSuccess">
+  <mat-card-title><mat-icon  color="primary">error</mat-icon>
+      {{ item.customData.name }}
+  </mat-card-title>
+  <mat-card-subtitle>
+      Last update :{{ item.aliveResult.startedDate.toLocaleString() }} 
+  </mat-card-subtitle>
+  <mat-card-content>
+     <div>To: {{ item.aliveResult.to }}</div>
+     <div>Duration : {{item.aliveResult.duration}} ms</div>
+     <div>Exception : {{item.aliveResult.exception }}</div>
+  </mat-card-content>
+  <mat-card-footer> Tags:
+  <span *ngFor="let tag of item.customData.tags"> 
+   <a routerLink='/tag/{{tag}}'>   
+   {{ tag }}</a>; </span></mat-card-footer>
+</mat-card>

@@ -1,4 +1,4 @@
-Monitored items: {{ results.size }} ( {{ OK?.length }} / {{ Failed?.length }})
+Monitored items: {{ results.size }} ( {{ OK?.length }} ok / {{ Failed?.length }} failed)
 
 <mat-tab-group>
   <mat-tab label="">
@@ -17,16 +17,7 @@ Monitored items: {{ results.size }} ( {{ OK?.length }} / {{ Failed?.length }})
               Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div>To: {{ ok.aliveResult.to }}</div>
-          <div>Duration : {{ ok.aliveResult.duration }} ms</div>
-          <div>DetailedResult: {{ ok.aliveResult.detailedResult }}</div>
-          <div>Next Run time UTC: {{ok.cronExecution.nextRunTime}}</div>
-          <mat-action-row>
-            Tags:
-            <span *ngFor="let tag of ok.customData.tags">
-              <a routerLink="/tag/{{tag}}"> {{ tag }}</a>;
-            </span>
-          </mat-action-row>
+          <app-show-item [item]="ok"></app-show-item>
         </mat-expansion-panel>
       </ng-template>
     </mat-accordion>
@@ -47,11 +38,7 @@ Monitored items: {{ results.size }} ( {{ OK?.length }} / {{ Failed?.length }})
               Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <div>To: {{ ok.aliveResult.to }}</div>
-          <div>Duration : {{ ok.aliveResult.duration }} ms</div>
-          <div>Exception : {{ ok.aliveResult.exception }}</div>
-          <div>Next Run time UTC: {{ok.cronExecution.nextRunTime}}</div>
-        
+          <app-show-item [item]="ok"></app-show-item>
         </mat-expansion-panel>
       </ng-template>
     </mat-accordion>
