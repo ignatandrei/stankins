@@ -10,8 +10,7 @@ Monitored items: {{ results.size }} ( {{ OK?.length }} ok / {{ Failed?.length }}
       <ng-template ngFor let-ok [ngForOf]="OK" let-i="index">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
-            <mat-panel-title
-              >{{ i + 1 }}) {{ ok.customData.name }}
+            <mat-panel-title>{{ i + 1 }}) <mat-icon  color="primary">{{ ok.customData.icon}}</mat-icon> {{ ok.customData.name }}  
             </mat-panel-title>
             <mat-panel-description>
               Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}
@@ -32,7 +31,7 @@ Monitored items: {{ results.size }} ( {{ OK?.length }} ok / {{ Failed?.length }}
         <mat-expansion-panel>
           <mat-expansion-panel-header>
             <mat-panel-title>
-              {{ i + 1 }} {{ ok.customData.name }}
+              {{ i + 1 }} <mat-icon  color="primary">{{ ok.customData.icon}}</mat-icon> {{ ok.customData.name }}  
             </mat-panel-title>
             <mat-panel-description>
               Last update :{{ ok.aliveResult.startedDate.toLocaleString() }}

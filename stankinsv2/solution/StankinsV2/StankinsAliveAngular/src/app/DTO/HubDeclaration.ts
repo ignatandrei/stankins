@@ -13,6 +13,7 @@ export interface AliveResult {
 export interface CustomData {
   name: string;
   tags: string[];
+  icon: string;
 }
 
 export interface ResultWithData  {

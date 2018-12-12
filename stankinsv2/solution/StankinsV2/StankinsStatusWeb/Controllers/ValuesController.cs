@@ -21,7 +21,7 @@ namespace StankinsStatusWeb.Controllers
             //[FromServices]MonitorOptions optVal)
         {
             
-            return null;
+            
             var optVal = opt.Value;
             var toExec = optVal.ToExecuteCRON().Select(it => it.Execute()).ToArray();
             //var exec = await Task.WhenAll(optVal.AllItems().Select(it => it.Execute()).ToArray());

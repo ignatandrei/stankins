@@ -3,6 +3,7 @@
   <mat-card-title>
           <mat-icon color="primary">done</mat-icon>
       {{ item.customData.name }}
+      <mat-icon  color="primary">{{ item.customData.icon}}</mat-icon>
   </mat-card-title>
   <mat-card-subtitle>
       Last update :{{ item.aliveResult.startedDate.toLocaleString() }} 
@@ -21,6 +22,7 @@
 <mat-card *ngIf="!item.aliveResult.isSuccess">
   <mat-card-title><mat-icon  color="primary">error</mat-icon>
       {{ item.customData.name }}
+      <mat-icon  color="primary">{{ item.customData.icon}}</mat-icon>
   </mat-card-title>
   <mat-card-subtitle>
       Last update :{{ item.aliveResult.startedDate.toLocaleString() }} 

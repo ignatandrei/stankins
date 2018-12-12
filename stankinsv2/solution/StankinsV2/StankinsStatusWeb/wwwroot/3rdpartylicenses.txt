@@ -357,12 +357,12 @@ MIT
 
 @angular/material/expansion
 
+@angular/material/card
+
 @angular/material/tabs
 
 @aspnet/signalr
 Apache-2.0
-
-@angular/material/card
 
 @angular/material/bottom-sheet
 

@@ -13,7 +13,7 @@ export class ShowItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    
+
   }
 
 }
