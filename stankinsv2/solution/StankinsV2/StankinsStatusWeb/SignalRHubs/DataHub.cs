@@ -13,7 +13,11 @@ namespace StankinsAliveMonitor.SignalRHubs
     }
     public class DataHub:Hub<ICommunication>
     {
-
+        public override async Task OnConnectedAsync()
+        {
+                
+        }
+        
         public async Task SendMessage(ResultWithData item)
         {
             await Clients.All.SendMessageToClients(item);
