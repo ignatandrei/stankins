@@ -56,6 +56,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { CdkTreeModule } from '@angular/cdk/tree';
 import { TagDisplayComponent } from './tag-display/tag-display.component';
 import { ShowItemComponent } from './show-item/show-item.component';
+import { NumberToImgPipe } from './number-to-img.pipe';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ShowItemComponent } from './show-item/show-item.component';
     ResultSuccessComponent,
     ResultFailedComponent,
     TagDisplayComponent,
-    ShowItemComponent
+    ShowItemComponent,
+    NumberToImgPipe
   ],
   imports: [
     BrowserModule,

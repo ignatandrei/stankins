@@ -1,11 +1,13 @@
 <p>
-  Display items with tag <b>{{id}}</b> : {{DisplayResults?.length}} ( {{ OK?.length }} ok / {{ Failed?.length }} failed)
+  Display items with tag <b>{{id}}</b> : 
+  <span [innerHTML]="DisplayResults?.length  | numberToImg"></span> 
+  
 </p>
 <mat-tab-group>
     <mat-tab label="">
       <ng-template mat-tab-label>
         <mat-icon color="primary">done</mat-icon>
-        Success: {{ OK?.length }}
+        Success: <span [innerHTML]="OK?.length | numberToImg"></span>
       </ng-template>
       <mat-accordion>
         <ng-template ngFor let-ok [ngForOf]="OK" let-i="index">
@@ -26,7 +28,7 @@
     <mat-tab>
       <ng-template mat-tab-label>
         <mat-icon>error</mat-icon>
-        Failed: {{ Failed?.length }}
+        Failed: <span style="background-color: red" [innerHTML]="Failed?.length | numberToImg"></span>
       </ng-template>
       <mat-accordion>
         <ng-template ngFor let-ok [ngForOf]="Failed" let-i="index">

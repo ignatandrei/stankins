@@ -1,5 +1,5 @@
 <p>
-    Number failed: {{Failed?.length}}
+    Number failed: <span style="background-color: red" [innerHTML]="Failed?.length | numberToImg"></span>
    </p>
    <div *ngFor='let item of Failed'>
     <app-show-item [item]="item"></app-show-item>

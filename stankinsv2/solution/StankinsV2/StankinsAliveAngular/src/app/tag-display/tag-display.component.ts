@@ -16,14 +16,16 @@ export class TagDisplayComponent implements OnInit {
   public OK: ResultWithData[];
   public Failed: ResultWithData[];
   constructor(private route: ActivatedRoute, private data: HubDataService) {
-    this.id = this.route.snapshot.paramMap.get('id');
-    this.results = new Map<string, ResultWithData>();
-
+    route.params.subscribe(val => this.ngOnInit());
+    // or add Router and put routereusestragegy 
+    // or  https://medium.com/@juliapassynkova/angular-2-component-reuse-strategy-9f3ddfab23f5
    }
 
   ngOnInit() {
     const self = this;
-
+    this.id = this.route.snapshot.paramMap.get('id');
+    this.results = new Map<string, ResultWithData>();
+    console.log(this.id);
     this.data.getData().subscribe(p => {
       // window.alert(JSON.stringify(p));
       // console.log('received ' + JSON.stringify(p));

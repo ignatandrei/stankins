@@ -1,5 +1,5 @@
 <p>
- Number ok: {{OK?.length}}
+ Number ok:<span [innerHTML]="OK?.length | numberToImg"></span> 
 </p>
 <div *ngFor='let item of OK'>
     <app-show-item [item]="item"></app-show-item>

@@ -15,7 +15,14 @@
           Success</a>
        <a mat-list-item routerLink="resultFailed"><mat-icon  color="primary">error</mat-icon>
         Failed</a>
-
+        <mat-divider></mat-divider>
+        Tags: {{tags.length}}
+        <cdk-virtual-scroll-viewport itemSize="5" class="example-viewport">
+            <div *cdkVirtualFor="let tag of tags;let i=index" class="example-item">
+                <a mat-list-item routerLink="tag/{{tag}}">{{i+1}}){{tag}}</a>
+            </div>
+          </cdk-virtual-scroll-viewport>
+       
       <a mat-list-item routerLink="about">About</a>
     </mat-nav-list>
   </mat-sidenav>

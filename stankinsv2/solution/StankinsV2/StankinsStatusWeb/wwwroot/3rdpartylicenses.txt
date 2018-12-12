@@ -379,13 +379,17 @@ MIT
 
 @angular/material/snack-bar
 
+@angular/material/core
+
+@angular/material/list
+
 @angular/material/sidenav
 
 @angular/material/toolbar
 
-@angular/material/core
+@angular/material/divider
 
-@angular/material/list
+@angular/cdk/scrolling
 
 zone.js
 MIT

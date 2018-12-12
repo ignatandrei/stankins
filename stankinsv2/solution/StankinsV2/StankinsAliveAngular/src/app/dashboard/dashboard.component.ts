@@ -12,6 +12,7 @@ export class DashboardComponent implements OnInit {
   public results: Map<string, ResultWithData>;
 public OK: ResultWithData[];
 public Failed: ResultWithData[];
+public test=3065;
 
   ngOnInit(): void {
     const self = this;
