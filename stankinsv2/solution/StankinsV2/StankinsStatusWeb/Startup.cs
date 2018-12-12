@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +43,8 @@ namespace StankinsStatusWeb
             {
                
             });
+
+            services.AddSingleton<ReplaySubject<ResultWithData>>(new ReplaySubject<ResultWithData>(new TimeSpan(0,10,0)));
             var m = new MonitorOptions();
             Configuration.Bind("MonitorData", m);
             services.AddSingleton(m);

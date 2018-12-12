@@ -44,6 +44,7 @@ namespace StankinsStatusWeb
             var toExecTask = new Dictionary<string,Task<DataTable>>();
             while (!stoppingToken.IsCancellationRequested)
             {
+                Console.WriteLine($"starting monitor again at UTC {DateTime.UtcNow.ToString("o")}");
                 var itemsToExec = opt.ToExecuteCRON()
                     .Where(it=> !toExecTask.ContainsKey(it.baseObject().Name))
                     .ToArray();
