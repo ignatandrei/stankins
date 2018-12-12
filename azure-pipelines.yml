@@ -73,14 +73,14 @@ steps:
 
 - script: |
    dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 
-   #dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c release -r linux-x64 
+   rem dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c release -r linux-x64 
   displayName: 'DOTNET publish'    
   
 - script: |
    cd stankinsv2/solution/
    dir
-   xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I  
-   #xcopy $(Build.ArtifactStagingDirectory)\linux-x64 linux-x64\ /I  
+   xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
+   rem xcopy $(Build.ArtifactStagingDirectory)\linux-x64 linux-x64\ /I  /E
    dir
     echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
    
@@ -90,11 +90,11 @@ steps:
    docker push ignatandrei/stankins_windows
 
 
-   #docker build . -t stankins_linux -f Dockerfile_linux
-   #ocker image ls
-   #docker tag stankins_linux ignatandrei/stankins_linux
-   #echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
-   #docker push ignatandrei/stankins_linux
+   rem docker build . -t stankins_linux -f Dockerfile_linux
+   rem docker image ls
+   rem docker tag stankins_linux ignatandrei/stankins_linux
+   rem echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
+   rem docker push ignatandrei/stankins_linux
 
   displayName: 'docker'    
  
