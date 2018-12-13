@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
   { path: 'resultSuccess', component: ResultSuccessComponent },
   { path: 'resultFailed', component: ResultFailedComponent },
-  { path: 'tag/:id', component: TagDisplayComponent},
+  { path: 'tag/:id', component: TagDisplayComponent,},
 ];
 
 @NgModule({

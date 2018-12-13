@@ -21,7 +21,7 @@ namespace StankinsStatusWeb
 
         public async Task Handle(ResultWithData notification, CancellationToken cancellationToken)
         {
-            Console.WriteLine(notification.AliveResult.Process);
+            Console.WriteLine("sending " + notification.CustomData.Name);
             await Opt.Clients.All.SendMessageToClients(notification);
         }
     }
