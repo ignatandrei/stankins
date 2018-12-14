@@ -12,7 +12,8 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script
+
+- script: |
  echo $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/build/options?view=vsts&tabs=yaml
 
