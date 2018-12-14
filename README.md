@@ -3,6 +3,8 @@
 
 ##Version 2 right away
 
+[![Build Status](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master)](https://dev.azure.com/ignatandrei0674/stankinsv2/_build/latest?definitionId=1?branchName=master)
+
 <a href='https://github.com/ignatandrei/stankins/releases'>Releases</a>
 
 <a href='https://cdn.rawgit.com/ignatandrei/stankins/74e25fbe/Documentation/Help/index.html'>Documentation</a>
