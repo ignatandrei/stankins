@@ -12,6 +12,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- script
+ echo $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+#https://docs.microsoft.com/en-us/azure/devops/pipelines/build/options?view=vsts&tabs=yaml
+
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core sdk 2.1.300'
   inputs:
@@ -19,7 +23,7 @@ steps:
 
 - script: |
    dotnet tool install  --tool-path . dotnet-property
-   .\dotnet-property "**/Stankins*.csproj" Version:"1.0.0.3"
+   .\dotnet-property "**/Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
   displayName: 'DOTNET SAY'
 
 - task: NuGetToolInstaller@0
