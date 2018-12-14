@@ -16,7 +16,7 @@ steps:
 
 - script: |
    echo $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)   
-   displayName: 'variables'
+  displayName: 'variables'
 
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core sdk 2.1.300'
