@@ -15,7 +15,8 @@ variables:
 steps:
 
 - script: |
-   echo $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)   
+   echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
+   echo $(Build.BuildId) $(Build.BuildNumber) 
   displayName: 'variables'
 
 - task: DotNetCoreInstaller@0
