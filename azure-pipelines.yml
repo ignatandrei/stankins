@@ -18,8 +18,8 @@ steps:
     version: 2.1.300
 
 - script: |
-   dotnet tool install  --tool-path . dotnetsay
-   .\dotnetsay 
+   dotnet tool install  --tool-path . dotnet-property
+   .\dotnet-property "**/*.csproj" Version:"1.0.0.3"
   displayName: 'DOTNET SAY'
 
 - task: NuGetToolInstaller@0
