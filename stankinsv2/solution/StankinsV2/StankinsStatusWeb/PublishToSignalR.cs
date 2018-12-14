@@ -23,6 +23,7 @@ namespace StankinsStatusWeb
         {
             Console.WriteLine("sending " + notification.CustomData.Name);
             await Opt.Clients.All.SendMessageToClients(notification);
+            
         }
     }
 
@@ -37,6 +38,7 @@ namespace StankinsStatusWeb
         public async Task Handle(ResultWithData notification, CancellationToken cancellationToken)
         {
             subject.OnNext(notification);
+            await Task.CompletedTask;
         }
     }
 }

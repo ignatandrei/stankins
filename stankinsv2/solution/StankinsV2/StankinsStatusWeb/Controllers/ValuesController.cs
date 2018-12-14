@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Stankins.Alive;
 
@@ -40,15 +42,21 @@ namespace StankinsStatusWeb.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        public ActionResult<string> Get(string id, [FromServices]IServiceScopeFactory sc)
         {
-            return "value";
+            //TODO: transform id into monitor options 
+            return "value" + id;
         }
-
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task Post([FromBody] MonitorOptions monitorOptions, [FromServices]IServiceScopeFactory sc)
         {
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(1000 * 60);//one minute
+            using (var rt = new RunTasks(monitorOptions, sc))
+            {
+                await rt.StartAsync(cts.Token);
+            }
         }
 
         // PUT api/values/5

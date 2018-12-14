@@ -9,6 +9,7 @@ namespace StankinsStatusWeb
 {
     public class MonitorOptions
     {
+        public string UserName { get; set; }
         public WebAdress[] WebAdresses { get; set; }
         public PingAddress[] PingAddresses { get; set; }
         public DatabaseConnection[] Databases { get; set; }

@@ -81,8 +81,10 @@ namespace StankinsStatusWeb
             {
                 context.Response.ContentType = "text/html";
                 var fileBytes = await File.ReadAllBytesAsync(Path.Combine(env.WebRootPath, "index.html"));
-                var ms = new MemoryStream(fileBytes);
-                ms.Position = 0;
+                var ms = new MemoryStream(fileBytes)
+                {
+                    Position = 0
+                };
                 await ms.CopyToAsync(context.Response.Body);
                 context.Response.StatusCode = StatusCodes.Status200OK;
             });
