@@ -19,7 +19,7 @@ steps:
 
 - script: |
    dotnet tool install  --tool-path . dotnet-property
-   .\dotnet-property "**/*.csproj" Version:"1.0.0.3"
+   .\dotnet-property "**/Stankins*.csproj" Version:"1.0.0.3"
   displayName: 'DOTNET SAY'
 
 - task: NuGetToolInstaller@0
