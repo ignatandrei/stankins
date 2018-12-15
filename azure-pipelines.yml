@@ -2,6 +2,7 @@
 # Build and run tests for .NET Desktop or Windows classic desktop solutions.
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/vsts/pipelines/apps/windows/dot-net
+#https://docs.microsoft.com/en-us/azure/devops/pipelines/build/options?view=vsts&tabs=yaml
 
 pool:
   vmImage: 'VS2017-Win2016'
@@ -12,15 +13,21 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+
+- script: |
+   echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
+   echo $(Build.BuildId) $(Build.BuildNumber) 
+  displayName: 'variables'
+
 - task: DotNetCoreInstaller@0
   displayName: 'Use .NET Core sdk 2.1.300'
   inputs:
     version: 2.1.300
 
 - script: |
-   dotnet tool install  --tool-path . dotnetsay
-   .\dotnetsay 
-  displayName: 'DOTNET SAY'
+   dotnet tool install  --tool-path . dotnet-property
+   .\dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
+  displayName: 'DOTNET property'
 
 - task: NuGetToolInstaller@0
 
