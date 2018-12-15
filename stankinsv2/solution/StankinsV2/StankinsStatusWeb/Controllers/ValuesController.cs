@@ -34,7 +34,7 @@ namespace StankinsStatusWeb.Controllers
                 .Select(it=>optVal.DataFromResult(it))
                 .ToArray();
             foreach(var item in all)
-            {
+            {                
                 await mediator.Publish(item);
             }
             return all;

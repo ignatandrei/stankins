@@ -62,6 +62,7 @@ namespace StankinsStatusWeb
             }
             var res = new CronExecutionBase();
             res.CopyFrom(c);
+            cd.UserName = this.UserName;
             return new ResultWithData()
             {
                 AliveResult = it,

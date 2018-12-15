@@ -14,6 +14,7 @@ export interface CustomData {
   name: string;
   tags: string[];
   icon: string;
+  userName: string;
 }
 
 export interface ResultWithData  {
