@@ -88,6 +88,19 @@ namespace StankinsStatusWeb
                     c = r1;
                     cd = r1.CustomData;
                     break;
+                case "process":
+                    var pr1 = Executors.First(p =>
+                    {
+                        var r = (p as StartProcess);
+                        if (r == null)
+                            return false;
+                        return r.FileName + r.Parameters == it.To;
+
+                    });
+                    c = pr1;
+                    cd = pr1.CustomData;
+                    break;
+
                 default:
                     throw new ArgumentException($"not a good process {it.Process.ToLower()}");
             }

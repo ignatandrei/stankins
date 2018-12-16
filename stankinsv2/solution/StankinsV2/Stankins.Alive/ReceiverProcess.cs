@@ -51,7 +51,7 @@ namespace Stankins.Alive
             }
             catch (Exception ex)
             {
-                results.Rows.Add(FileName, Arguments, "", false, ex.Message, sw.ElapsedMilliseconds, "", ex.Message, StartedDate);
+                results.Rows.Add("process",Arguments, FileName + Arguments , false, ex.Message, sw.ElapsedMilliseconds, "", ex.Message, StartedDate);
             }
 
             receiveData.AddNewTable(results);
@@ -71,12 +71,18 @@ namespace Stankins.Alive
         //    m.Columns.Add("StartedDate", typeof(DateTime));
         void Process_ErrorDataReceived(object sender, dia.DataReceivedEventArgs e)
         {
-            results.Rows.Add(FileName,Arguments,"",true,e.Data,sw.ElapsedMilliseconds,"",null, StartedDate);
+            if (string.IsNullOrWhiteSpace(e?.Data))
+                return;
+
+            results.Rows.Add("process", Arguments, FileName + Arguments, false,e.Data,sw.ElapsedMilliseconds, e.Data, null, StartedDate);
         }
 
         void Process_OutputDataReceived(object sender, dia.DataReceivedEventArgs e)
         {
-            results.Rows.Add(FileName, Arguments, "", false, e.Data, sw.ElapsedMilliseconds, "", null, StartedDate);
+            if (string.IsNullOrWhiteSpace(e?.Data))
+                return;
+
+            results.Rows.Add("process", Arguments, FileName + Arguments, true, e.Data, sw.ElapsedMilliseconds, e.Data, null, StartedDate);
         }
         void Process_Exited(object sender, EventArgs e)
         {

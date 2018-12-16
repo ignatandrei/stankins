@@ -10,23 +10,23 @@ namespace StankinsCommon
     /// </summary>
     public class ProcessIntercept: Process
     {
-        Process process;
-        public ProcessIntercept(string fileName, string arguments)
+        
+        public ProcessIntercept(string fileName, string arguments):base()
         {
-            process = new Process();
-            process.EnableRaisingEvents = true;
-            process.StartInfo.FileName = fileName;
-            process.StartInfo.Arguments = arguments;
-            process.StartInfo.UseShellExecute = false;
-            process.StartInfo.RedirectStandardError = true;
-            process.StartInfo.RedirectStandardOutput = true;
+            
+            this.EnableRaisingEvents = true;
+            this.StartInfo.FileName = fileName;
+            this.StartInfo.Arguments = arguments;
+            this.StartInfo.UseShellExecute = false;
+            this.StartInfo.RedirectStandardError = true;
+            this.StartInfo.RedirectStandardOutput = true;
         }
         public void StartProcessAndWait()
         {
-            process.Start();
-            process.BeginErrorReadLine();
-            process.BeginOutputReadLine();
-            process.WaitForExit();
+            this.Start();
+            this.BeginErrorReadLine();
+            this.BeginOutputReadLine();
+            this.WaitForExit();
         }
 
     }
