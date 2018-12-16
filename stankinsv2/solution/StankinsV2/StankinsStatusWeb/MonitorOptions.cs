@@ -10,29 +10,60 @@ namespace StankinsStatusWeb
     public class MonitorOptions
     {
         public string UserName { get; set; }
-        public WebAdress[] WebAdresses { get; set; }
-        public PingAddress[] PingAddresses { get; set; }
-        public DatabaseConnection[] Databases { get; set; }
-        public IEnumerable<IToBaseObject> AllItems()
+        public Dictionary<string,Dictionary<string,string>>[] ExecutorsDynamic { get; set; }
+        private CRONExecution[] ExecutorsCache;
+        public void CreateExecutors()
         {
-            return ((IToBaseObject[])WebAdresses)
-                .Union(((IToBaseObject[])PingAddresses))
-                .Union(((IToBaseObject[])Databases));
+            ExecutorsCache = new CRONExecution[ExecutorsDynamic.Length];
+            int i = 0;
+            foreach (var item in ExecutorsDynamic)
+            {
+                //TODO: ascertain exists item["Data"]["Type"]
+                var type = Type.GetType(item["Data"]["Type"]);
+                if (type == null)
+                {
+                    //TODO: log
+                    continue;
+                }
+                var instance = Activator.CreateInstance(type) as CRONExecution;
+                if (instance == null)
+                {
+                    //TODO: log
+                    continue;
+                }
+                foreach (var key in item["Data"].Keys)
+                {
+                    if (key == "Type")
+                        continue;
+                    type.GetProperty(key).GetSetMethod().Invoke(instance, new object[] { item["Data"][key] });
+                }
+                var cd = new CustomData();
+                cd.UserName = this.UserName;
+                cd.Tags = item["CustomData"]["Tags"].Split(',');
+                cd.Name = item["CustomData"]["Name"];
+                cd.Icon = item["CustomData"]["Icon"];
+                instance.CustomData = cd;
 
+                ExecutorsCache[i++] = instance;
+
+            }
         }
-        public IEnumerable<IToBaseObject> ToExecuteCRON()
+        private CRONExecution[] Executors
+        {
+            get
+            {
+                if (ExecutorsCache != null)
+                    return ExecutorsCache;
+
+                CreateExecutors();
+                return ExecutorsCache;
+            }
+        }
+        public IEnumerable<IToBaseObjectExecutable> ToExecuteCRON()
         {
             var date = DateTime.UtcNow;
-
-            foreach (var item in AllItems())
-            {
-                var cron = item as CRONExecution;
-                if (cron.ShouldRun(date))
-                {
-                    yield return item;
-
-                }
-            }
+            return Executors.Where(it => it.ShouldRun(date));
+            
         }
 
         public ResultWithData DataFromResult(AliveResult it)
@@ -43,17 +74,17 @@ namespace StankinsStatusWeb
             switch (it.Process.ToLower())
             {
                 case "ping":
-                    var p1 = PingAddresses.First(p => p.NameSite == it.To);
+                    var p1 =Executors.First(p =>(p as PingAddress)?.NameSite == it.To);
                     c = p1;
                     cd = p1.CustomData;
                     break;
                 case "webrequest":
-                    var w1 = WebAdresses.First(w => w.URL == it.To);
+                    var w1 = Executors.First(w => (w as WebAdress)?.URL == it.To);
                     c = w1;
                     cd = w1.CustomData;
                     break;
                 case "receiverdatabaseserver":
-                    var r1 = Databases.First(w => w.ConnectionString == it.To);
+                    var r1 = Executors.First(r => (r as DatabaseConnection)?.ConnectionString == it.To);
                     c = r1;
                     cd = r1.CustomData;
                     break;

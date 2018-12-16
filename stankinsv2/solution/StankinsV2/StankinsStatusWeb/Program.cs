@@ -14,6 +14,9 @@ namespace StankinsStatusWeb
     {
         public static void Main(string[] args)
         {
+            var t = Type.GetType("StankinsStatusWeb.PingAddress, StankinsAliveMonitor");
+            var p = new PingAddress();
+            var s = p.GetType().FullName;
             CreateWebHostBuilder(args).Build().Run();
         }
 

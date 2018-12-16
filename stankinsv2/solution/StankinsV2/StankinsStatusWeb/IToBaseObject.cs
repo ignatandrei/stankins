@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace StankinsStatusWeb
 {
-    public interface IToBaseObject
+    public interface IToBaseObjectExecutable
     {
         BaseObject baseObject();
         Task<DataTable> Execute();

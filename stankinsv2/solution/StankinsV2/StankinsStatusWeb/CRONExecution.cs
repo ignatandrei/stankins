@@ -1,14 +1,27 @@
 ﻿using Cronos;
+using StankinsObjects;
 using System;
+using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace StankinsStatusWeb
 {
-    public class CRONExecution: CronExecutionBase 
+    
+    public abstract class CRONExecution: CronExecutionBase , IToBaseObjectExecutable
     {
-       
-       
 
-        
+        public CustomData CustomData { get; set; }
+
+        public abstract BaseObject baseObject();
+
+        public async Task<DataTable> Execute()
+        {
+
+            var ret = await baseObject().TransformData(null);
+            return ret.DataToBeSentFurther.Values.First();
+        }
+
         void MakeNextExecute()
         {
             LastRunTime = NextRunTime;

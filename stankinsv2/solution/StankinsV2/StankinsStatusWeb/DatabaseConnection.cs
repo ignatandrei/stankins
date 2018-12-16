@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace StankinsStatusWeb
 {
-    public class DatabaseConnection : CRONExecution, IToBaseObject
+    public class DatabaseConnection : CRONExecution
     {
-        public CustomData CustomData { get; set; }
+        
         public string ConnectionString { get; set; }
         public string TypeOfReceiver { get; set; }
         private BaseObject cache;
-        public BaseObject baseObject()
+        public override BaseObject baseObject()
         {
             if (cache == null)
             {
@@ -23,12 +23,6 @@ namespace StankinsStatusWeb
             }
             return cache;
             
-        }
-        public async Task<DataTable> Execute()
-        {
-
-            var ret = await baseObject().TransformData(null);
-            return ret.DataToBeSentFurther.Values.First();
         }
     }
 }

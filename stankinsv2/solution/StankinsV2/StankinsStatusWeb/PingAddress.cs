@@ -6,29 +6,21 @@ using System.Threading.Tasks;
 
 namespace StankinsStatusWeb
 {
-    public class PingAddress : CRONExecution, IToBaseObject
+    public class PingAddress : CRONExecution
     {
-        public CustomData CustomData { get; set; }
+        
         public string NameSite { get; set; }
         private ReceiverPing cache;
-        public BaseObject baseObject()
+        public override BaseObject baseObject()
         {
-            if(cache == null)
-            cache = new ReceiverPing(NameSite)
-            {
-                Name = CustomData.Name
-            };
+            if (cache == null)
+                cache = new ReceiverPing(NameSite)
+                {
+                    Name = CustomData.Name
+                };
 
             return cache;
         }
-
-        public async Task<DataTable> Execute()
-        {
-            
-            var ret = await baseObject().TransformData(null);
-            return ret.DataToBeSentFurther.Values.First();
-        }
-
 
     }
 }
