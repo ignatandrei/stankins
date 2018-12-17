@@ -29,7 +29,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Alive", "Stankins.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsAliveMonitor", "StankinsStatusWeb\StankinsAliveMonitor.csproj", "{C43C5DB4-A7DF-406F-92FF-73B1EB2BA867}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.WLW", "Stankins.WLW\Stankins.WLW.csproj", "{B35F3127-6616-4643-B844-7B6C9EB46A4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileVersionFromDir", "Stankins.WLW\FileVersionFromDir.csproj", "{B35F3127-6616-4643-B844-7B6C9EB46A4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Version", "Stankins.Version\Stankins.Version.csproj", "{975E639F-05EA-48F6-A52E-D957130D7D28}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +95,10 @@ Global
 		{B35F3127-6616-4643-B844-7B6C9EB46A4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B35F3127-6616-4643-B844-7B6C9EB46A4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B35F3127-6616-4643-B844-7B6C9EB46A4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{975E639F-05EA-48F6-A52E-D957130D7D28}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{975E639F-05EA-48F6-A52E-D957130D7D28}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{975E639F-05EA-48F6-A52E-D957130D7D28}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{975E639F-05EA-48F6-A52E-D957130D7D28}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
