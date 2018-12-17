@@ -26,9 +26,7 @@
               "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
               "src/styles.css"
             ],
-            "scripts": [
-              
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -127,6 +125,41 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": "e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "versions": {
+      "root": "projects/versions",
+      "sourceRoot": "projects/versions/src",
+      "projectType": "library",
+      "prefix": "vers",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/versions/tsconfig.lib.json",
+            "project": "projects/versions/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/versions/src/test.ts",
+            "tsConfig": "projects/versions/tsconfig.spec.json",
+            "karmaConfig": "projects/versions/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/versions/tsconfig.lib.json",
+              "projects/versions/tsconfig.spec.json"
+            ],
             "exclude": [
               "**/node_modules/**"
             ]

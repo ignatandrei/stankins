@@ -325,6 +325,8 @@ MIT
 @angular/router
 MIT
 
+versions
+
 @angular/cdk
 MIT
 The MIT License

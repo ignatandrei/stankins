@@ -57,6 +57,7 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { TagDisplayComponent } from './tag-display/tag-display.component';
 import { ShowItemComponent } from './show-item/show-item.component';
 import { NumberToImgPipe } from './number-to-img.pipe';
+import { VersionsModule } from 'versions';
 
 @NgModule({
   declarations: [
@@ -112,7 +113,8 @@ import { NumberToImgPipe } from './number-to-img.pipe';
     MatTooltipModule,
     MatTreeModule,
     HttpClientModule,
-    ScrollingModule
+    ScrollingModule,
+    VersionsModule
   ],
   providers: [],
   bootstrap: [AppComponent],
