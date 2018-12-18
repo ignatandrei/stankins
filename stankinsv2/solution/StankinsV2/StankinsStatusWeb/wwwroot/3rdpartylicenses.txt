@@ -325,8 +325,6 @@ MIT
 @angular/router
 MIT
 
-versions
-
 @angular/cdk
 MIT
 The MIT License
@@ -352,19 +350,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-@angular/material/icon
+versions
 
 @angular/animations
 MIT
-
-@angular/material/expansion
-
-@angular/material/card
-
-@angular/material/tabs
-
-@aspnet/signalr
-Apache-2.0
 
 @angular/material/bottom-sheet
 
@@ -380,6 +369,21 @@ MIT
 @angular/material/tooltip
 
 @angular/material/snack-bar
+
+@angular/material/table
+
+@angular/material/form-field
+
+@angular/material/icon
+
+@angular/material/expansion
+
+@angular/material/card
+
+@angular/material/tabs
+
+@aspnet/signalr
+Apache-2.0
 
 @angular/material/core
 

@@ -14,6 +14,7 @@ export class VersionsService {
   }
 
   public FVS(): Observable<FileVersionInfo[]> {
+    console.log('get fvs');
     return this.http.get<FileVersionInfo[]>('api/Utils/GetVersions');
   }
 }

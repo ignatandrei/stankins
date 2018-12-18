@@ -12,7 +12,7 @@ import {MatSnackBar} from '@angular/material';
   selector: 'app-monitor-nav',
   templateUrl: './monitor-nav.component.html',
   styleUrls: ['./monitor-nav.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MonitorNavComponent implements OnInit {
 
@@ -43,7 +43,7 @@ export class MonitorNavComponent implements OnInit {
       }, ' ')
     )
     .subscribe(it => {
-      
+
       this.snackBar.open(`Updating ${it}` , '' , {
         duration: 2000,
       });
