@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Stankins.Alive;
 using System;
 using System.Collections.Generic;
@@ -13,15 +14,15 @@ namespace StankinsStatusWeb
 {
     public class RunTasks : BackgroundService
     {
-        private readonly MonitorOptions opt;
+        
         private readonly IServiceScopeFactory sc;
 
-        public RunTasks(MonitorOptions opt, IServiceScopeFactory sc)
+        public RunTasks(IServiceScopeFactory sc)
         {
-            this.opt = opt;
+           
             this.sc = sc;
         }
-        private async Task PublishData(DataTable res)
+        private async Task PublishData(MonitorOptions opt,DataTable res)
         {
 
             var dataToBeSent = AliveStatus.FromTable(res)
@@ -40,11 +41,19 @@ namespace StankinsStatusWeb
         }
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
+            MonitorOptions opt;
+           
             //var existingNames = new List<string>();
             var toExecTask = new Dictionary<string,Task<DataTable>>();
             while (!stoppingToken.IsCancellationRequested)
             {
                 Console.WriteLine($"starting monitor again at UTC {DateTime.UtcNow.ToString("o")}");
+                using (var scope = sc.CreateScope())
+                {
+                    var snap = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<MonitorOptions>>();
+                    opt = snap.Value;
+                }
+                
                 var itemsToExec = opt.ToExecuteCRON()
                     .Where(it=> !toExecTask.ContainsKey(it.baseObject().Name))
                     .ToArray();
@@ -75,7 +84,7 @@ namespace StankinsStatusWeb
                         if (item.Value.IsCompletedSuccessfully)
                         {
                             
-                            await PublishData(item.Value.Result);
+                            await PublishData(opt, item.Value.Result);
                         }
                     }
                     foreach(var item in remove)

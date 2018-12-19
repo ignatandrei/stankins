@@ -47,10 +47,10 @@ namespace StankinsStatusWeb
             });
 
             services.AddSingleton<ReplaySubject<ResultWithData>>(new ReplaySubject<ResultWithData>(new TimeSpan(0,10,0)));
-
-            var m = new MonitorOptions();
-            Configuration.Bind("MonitorData", m);
-            services.AddSingleton(m);
+            //do not do this
+            //var m = new MonitorOptions();
+            //Configuration.Bind("MonitorData", m);
+            //services.AddSingleton(m);
             //or  
             //services.AddSingleton(resolver => resolver.GetRequiredService<IOptions<MonitorOptions>>().Value);
             services.AddHostedService<RunTasks>();

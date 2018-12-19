@@ -53,7 +53,8 @@ namespace StankinsStatusWeb.Controllers
         {
             var cts = new CancellationTokenSource();
             cts.CancelAfter(1000 * 60);//one minute
-            using (var rt = new RunTasks(monitorOptions, sc))
+            //TODO: solve this with a new RunTask instance that have also monitor options
+            using (var rt = new RunTasks(sc))
             {
                 await rt.StartAsync(cts.Token);
             }
