@@ -8,8 +8,7 @@
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
     <ng-container matColumnDef="internalName">
         <th mat-header-cell *matHeaderCellDef> Name </th>
-        <td mat-cell *matCellDef="let element"
-        > {{element.internalName}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.internalName}} {{element.fileName}}</td>
       </ng-container>
       <ng-container matColumnDef="companyName">
         <th mat-header-cell *matHeaderCellDef> companyName </th>
