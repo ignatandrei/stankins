@@ -1,0 +1,10 @@
+<p>
+  {{data.internalName }}
+</p>
+
+<div *ngFor="let item of data | keyvalue">
+    Key: <b>{{item.key}}</b>  Value: <b>{{item.value}}</b>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Close</button>
+   </div>

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { VersionsComponent } from './versions.component';
+import { VersionsNetcoreAngularComponent } from './versions-netcore-angular.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
 import { MatTableDataSource, MatAutocompleteModule,
@@ -14,9 +14,10 @@ import { MatTableDataSource, MatAutocompleteModule,
   MatSlideToggleModule, MatSnackBarModule, MatSortModule,
   MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule,
    MatTooltipModule, MatTreeModule } from '@angular/material';
+import { DisplayNetCoreComponent } from './display-net-core/display-net-core.component';
 
 @NgModule({
-  declarations: [VersionsComponent],
+  declarations: [VersionsNetcoreAngularComponent, DisplayNetCoreComponent],
   imports: [
     CommonModule,
     BrowserModule,
@@ -56,6 +57,7 @@ import { MatTableDataSource, MatAutocompleteModule,
   MatTooltipModule,
   MatTreeModule,
   ],
-  exports: [VersionsComponent]
+  entryComponents: [DisplayNetCoreComponent],
+  exports: [VersionsNetcoreAngularComponent, DisplayNetCoreComponent]
 })
-export class VersionsModule { }
+export class VersionsNetcoreAngularModule { }

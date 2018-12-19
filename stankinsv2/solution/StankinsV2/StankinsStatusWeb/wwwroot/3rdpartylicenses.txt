@@ -23,6 +23,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+versions-netcore-angular
+
 hammerjs
 MIT
 The MIT License (MIT)
@@ -350,29 +352,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-versions
-
 @angular/animations
 MIT
 
-@angular/material/bottom-sheet
-
-@angular/material/dialog
-
-@angular/forms
-MIT
+@angular/material/sort
 
 @angular/material/button
-
-@angular/material/datepicker
-
-@angular/material/tooltip
-
-@angular/material/snack-bar
 
 @angular/material/table
 
 @angular/material/form-field
+
+@angular/forms
+MIT
 
 @angular/material/icon
 
@@ -384,6 +376,16 @@ MIT
 
 @aspnet/signalr
 Apache-2.0
+
+@angular/material/bottom-sheet
+
+@angular/material/dialog
+
+@angular/material/datepicker
+
+@angular/material/tooltip
+
+@angular/material/snack-bar
 
 @angular/material/core
 

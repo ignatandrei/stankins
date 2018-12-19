@@ -18,11 +18,12 @@
       "dom"
     ],
     "paths": {
-      "versions": [
-        "dist/versions"
+      
+      "versionsnetcoreangular": [
+        "dist/versionsnetcoreangular"
       ],
-      "versions/*": [
-        "dist/versions/*"
+      "versionsnetcoreangular/*": [
+        "dist/versionsnetcoreangular/*"
       ]
     }
   }

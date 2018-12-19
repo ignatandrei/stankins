@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { VersionsComponent } from './versions.component';
+import { DisplayNetCoreComponent } from './display-net-core.component';
 
-describe('VersionsComponent', () => {
-  let component: VersionsComponent;
-  let fixture: ComponentFixture<VersionsComponent>;
+describe('DisplayNetCoreComponent', () => {
+  let component: DisplayNetCoreComponent;
+  let fixture: ComponentFixture<DisplayNetCoreComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ VersionsComponent ]
+      declarations: [ DisplayNetCoreComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(VersionsComponent);
+    fixture = TestBed.createComponent(DisplayNetCoreComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

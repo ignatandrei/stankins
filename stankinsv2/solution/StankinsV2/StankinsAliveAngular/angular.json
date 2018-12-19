@@ -166,6 +166,41 @@
           }
         }
       }
+    },
+    "versions-netcore-angular": {
+      "root": "projects/versions-netcore-angular",
+      "sourceRoot": "projects/versions-netcore-angular/src",
+      "projectType": "library",
+      "prefix": "vers",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/versions-netcore-angular/tsconfig.lib.json",
+            "project": "projects/versions-netcore-angular/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/versions-netcore-angular/src/test.ts",
+            "tsConfig": "projects/versions-netcore-angular/tsconfig.spec.json",
+            "karmaConfig": "projects/versions-netcore-angular/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/versions-netcore-angular/tsconfig.lib.json",
+              "projects/versions-netcore-angular/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "StankinsAliveAngular"

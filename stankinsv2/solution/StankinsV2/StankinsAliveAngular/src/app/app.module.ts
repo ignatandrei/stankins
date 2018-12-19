@@ -57,7 +57,8 @@ import { CdkTreeModule } from '@angular/cdk/tree';
 import { TagDisplayComponent } from './tag-display/tag-display.component';
 import { ShowItemComponent } from './show-item/show-item.component';
 import { NumberToImgPipe } from './number-to-img.pipe';
-import { VersionsModule } from 'versions';
+import { VersionsNetcoreAngularModule } from 'projects/versions-netcore-angular/src/lib/versions-netcore-angular.module';
+
 
 @NgModule({
   declarations: [
@@ -114,7 +115,7 @@ import { VersionsModule } from 'versions';
     MatTreeModule,
     HttpClientModule,
     ScrollingModule,
-    VersionsModule
+    VersionsNetcoreAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent],

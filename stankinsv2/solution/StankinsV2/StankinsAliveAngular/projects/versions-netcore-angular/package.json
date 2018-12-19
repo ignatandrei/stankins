@@ -1,0 +1,21 @@
+{
+  "name": "versions-netcore-angular",
+  "version": "0.0.2",
+  "description": "A simple angular library for displaying versions of .NET Core and Angular files",
+  "author": "Amdrei Ignat",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ignatandrei/stankins"
+  },
+  "homepage": "http://msprogrammer.serviciipeweb.ro/",
+  "keywords": [
+    "angular",
+    "typescript",
+    "netcore"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^7.0.0",
+    "@angular/core": "^7.0.0"
+  }
+}
