@@ -8,6 +8,9 @@ variables:
     solution: '**/StankinsV2.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
+    year: '$(Date:yyyy)'
+    month: '$(Date:MM)'
+    day: '$(Date:dd)'
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -29,11 +32,11 @@ jobs:
         @dir %AGENT_BUILDDIRECTORY%
         echo BUILD_SOURCESDIRECTORY contents:
         @dir %BUILD_SOURCESDIRECTORY%
-        echo $(Build.BuildId) $(Build.BuildNumber) 
-        echo $(name) 
-        echo %name% 
-        echo $(NAME) 
-        echo %NAME% 
+        echo a $(Build.BuildId) $(Build.BuildNumber) 
+        echo a $(year) 
+        echo a $(MONTH) 
+        echo a %year% 
+        echo a %MONTH% 
     displayName: 'variables'
 
   - script: |
@@ -129,7 +132,7 @@ jobs:
     displayName: 'Download Build Artifacts'
     inputs:
       artifactName: drop
-      downloadPath: $(System.DefaultWorkingDirectory)
+      downloadPath: $(Build.ArtifactStagingDirectory)
 
   - script: |
         echo hello from deploy
@@ -140,9 +143,8 @@ jobs:
       gitHubConnection: ignatandrei
       repositoryName: ignatandrei/stankins
       action: 'create'
-      target: 'master'
+      target: '$(SourceBranchName)'
       title: 'Release $(Build.BuildId) $(Build.BuildNumber)'
-      tag: 'B_$(Build.BuildId)_$(Build.BuildNumber)'
       addChangeLog: true
       isDraft: true
 
