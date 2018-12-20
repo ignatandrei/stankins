@@ -21,8 +21,18 @@ jobs:
   - script: |
         echo hello from Windows
         echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
+        echo %BUILDDEFINITIONNAME% %SOURCEBRANCHNAME% %(DATE:yyyyMMdd)% %(REV:.r)%    
+        echo Hello World from %AGENT_NAME%.
+        echo My ID is %AGENT_ID%.
+        echo AGENT_WORKFOLDER contents:
+        @dir %AGENT_WORKFOLDER%
+        echo AGENT_BUILDDIRECTORY contents:
+        @dir %AGENT_BUILDDIRECTORY%
+        echo BUILD_SOURCESDIRECTORY contents:
+        @dir %BUILD_SOURCESDIRECTORY%
+echo Over and out.
         echo $(Build.BuildId) $(Build.BuildNumber) 
-        echo $(name) %name% 
+        echo $(name) %name% $(NAME) %NAME% 
     displayName: 'variables'
 
   - script: |
@@ -88,6 +98,7 @@ jobs:
        docker image ls
        docker tag stankins_linux ignatandrei/stankins_linux
        docker push ignatandrei/stankins_linux
+       docker cp stankins_linux:/app/ $(Build.ArtifactStagingDirectory)/linux-x64
 
     displayName: 'docker'
 - job: macOS
