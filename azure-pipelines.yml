@@ -130,8 +130,8 @@ jobs:
       downloadPath: $(System.DefaultWorkingDirectory)
 
   - script: |
-    echo hello from deploy
-    dir $(Build.ArtifactStagingDirectory)    
+        echo hello from deploy
+        dir $(Build.ArtifactStagingDirectory)    
       
   - task: GithubRelease@0
     inputs:
