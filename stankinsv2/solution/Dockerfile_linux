@@ -1,8 +1,22 @@
+FROM microsoft/dotnet:2.1-sdk-alpine AS build-env
+WORKDIR /app
 
-#FROM microsoft/dotnet:aspnetcore-runtime
-FROM microsoft/dotnet:2.1-runtime-deps-alpine
-WORKDIR /root/  
-COPY linux-x64 .
+# copy csproj and restore as distinct layers
+COPY . ./
+RUN dotnet publish -c Release -r linux-x64 -o out StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj 
+
+# build runtime image
+FROM microsoft/dotnet:2.1-runtime-deps
+WORKDIR /app
+COPY --from=build-env /app/StankinsV2/StankinsStatusWeb/out ./
 ENV ASPNETCORE_URLS=http://+:5000
 EXPOSE 5000/tcp
-CMD ["StankinsAliveMonitor"]  
+ENTRYPOINT ["./StankinsAliveMonitor"]
+
+#FROM microsoft/dotnet:aspnetcore-runtime
+#FROM microsoft/dotnet:2.1-runtime-deps-alpine
+#WORKDIR /root/  
+#COPY linux-x64 .
+#ENV ASPNETCORE_URLS=http://+:5000
+#EXPOSE 5000/tcp
+#CMD ["StankinsAliveMonitor"]  
