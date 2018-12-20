@@ -98,11 +98,16 @@ jobs:
        docker tag stankins_linux ignatandrei/stankins_linux
        docker push ignatandrei/stankins_linux
        docker create --name st stankins_linux
+       docker container ls
        docker cp st:/app/ $(Build.ArtifactStagingDirectory)/linux-x64
        docker container kill st
        docker container prune -f
 
     displayName: 'docker'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+
 - job: macOS
   pool:
     vmImage: 'macOS-10.13'
