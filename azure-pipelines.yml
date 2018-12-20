@@ -17,6 +17,12 @@ jobs:
         echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
         echo $(Build.BuildId) $(Build.BuildNumber) 
     displayName: 'variables'
+
+  - script: |
+       cd stankinsv2/solution/
+    displayName: 'docker'
+
+
   - task: DotNetCoreInstaller@0
     displayName: 'Use .NET Core sdk 2.1.300'
     inputs:
@@ -29,7 +35,15 @@ jobs:
         buildPlatform: 'Any CPU'
         buildConfiguration: 'Release'
   steps:
-  - script: echo hello from Linux
+  - script: |
+        echo hello from Linux
+        echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
+        echo $(Build.BuildId) $(Build.BuildNumber) 
+    displayName: 'variables'
+  
+  - script: |
+       cd stankinsv2/solution/
+    displayName: 'docker'
 - job: macOS
   pool:
     vmImage: 'macOS-10.13'
