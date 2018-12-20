@@ -128,6 +128,10 @@ jobs:
     inputs:
       artifactName: drop
       downloadPath: $(System.DefaultWorkingDirectory)
+  - task: GithubRelease@0
+    inputs:
+      gitHubConnection: ignatandrei
+      repositoryName: stankins
 
   dependsOn: 
   - Windows
