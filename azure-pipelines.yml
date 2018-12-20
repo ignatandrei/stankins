@@ -94,16 +94,11 @@ steps:
    docker build . -t stankins_windows -f Dockerfile_win
    docker image ls
    docker tag stankins_windows ignatandrei/stankins_windows
-   docker push ignatandrei/stankins_windows
-
-   rem docker build . -t stankins_linux -f Dockerfile_linux
-    
-   docker build . -t stankins_linux -f Dockerfile_linux
-   docker image ls
+   docker build . -t stankins_linux -f Dockerfile_linux      
    docker tag stankins_linux ignatandrei/stankins_linux
    rem echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
-   docker push ignatandrei/stankins_linux
-
+   call docker push ignatandrei/stankins_linux
+   call docker push ignatandrei/stankins_windows
   displayName: 'docker'    
  
 - task: PublishBuildArtifacts@1
