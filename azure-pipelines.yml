@@ -3,19 +3,25 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/vsts/pipelines/apps/windows/dot-net
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/build/options?view=vsts&tabs=yaml
+
+variables:
+    solution: '**/StankinsV2.sln'
+    buildPlatform: 'Any CPU'
+    buildConfiguration: 'Release'
+    name: $(Date:yyyyMMdd)
+
 jobs:
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
-    variables:
-        solution: '**/StankinsV2.sln'
-        buildPlatform: 'Any CPU'
-        buildConfiguration: 'Release'
+
+  
   steps:
   - script: |
         echo hello from Windows
         echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
         echo $(Build.BuildId) $(Build.BuildNumber) 
+        echo $(name)
     displayName: 'variables'
 
   - script: |
