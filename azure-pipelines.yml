@@ -82,7 +82,8 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
    
-   
+  condition: false
+
 - job: Linux
   pool:
     vmImage: 'ubuntu-16.04'
@@ -125,6 +126,7 @@ jobs:
   steps:
   - script: echo hello from macOS
 
+  condition: false
 - job: Deploy
   pool:
     vmImage: 'win1803'
@@ -138,7 +140,8 @@ jobs:
 
   - script: |
         echo hello from deploy
-        dir $(Build.ArtifactStagingDirectory)    
+        dir $(Build.ArtifactStagingDirectory)  
+        echo asda >>$(Build.ArtifactStagingDirectory)\a.txt
       
   - task: GithubRelease@0
     inputs:
@@ -150,8 +153,9 @@ jobs:
       tag: '$(Build.BuildNumber)'
       addChangeLog: true
       isDraft: true
+      tagSource: 'auto'
 
-  dependsOn: 
-  - Windows
-  - Linux
-  condition: succeeded()
+  #dependsOn: 
+  #- Windows
+  #- Linux
+  #condition: succeeded()
