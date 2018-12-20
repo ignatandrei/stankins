@@ -8,9 +8,9 @@ variables:
     solution: '**/StankinsV2.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
-    year: '$(Date:yyyy)'
-    month: '$(Date:MM)'
-    day: '$(Date:dd)'
+    year: $(Date:yyyy)
+    month: $(Date:MM)
+    day: $(Date:dd)
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -37,6 +37,7 @@ jobs:
         echo a $(MONTH) 
         echo a %year% 
         echo a %MONTH% 
+        cmd /K set
     displayName: 'variables'
 
   - script: |
@@ -143,7 +144,7 @@ jobs:
       gitHubConnection: ignatandrei
       repositoryName: ignatandrei/stankins
       action: 'create'
-      target: '$(SourceBranchName)'
+      target: 'master'
       title: 'Release $(Build.BuildId) $(Build.BuildNumber)'
       addChangeLog: true
       isDraft: true
