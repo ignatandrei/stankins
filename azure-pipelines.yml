@@ -9,12 +9,12 @@ variables:
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
 
+name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
 jobs:
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
-
-  name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
   steps:
   - script: |
