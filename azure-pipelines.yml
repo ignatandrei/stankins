@@ -82,9 +82,12 @@ steps:
     packagesToPack: '**/Stankins.*.csproj'
 
 - script: |
-   dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 
+   dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
+   rem dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 
    rem dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c release -r linux-x64 
-   dotnet publish -c Release -r linux-x64 -o outlinuxx64 StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj 
+   echo publish windows
+   dotnet publish -c Release -r linux-x64 -o outlinuxx64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
+   echo publish linux
   displayName: 'DOTNET publish'    
   
 - script: |
