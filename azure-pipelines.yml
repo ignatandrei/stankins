@@ -155,7 +155,7 @@ jobs:
       tag: '$(Build.BuildNumber)'
       addChangeLog: true
       isDraft: true
-      tagSource: 'auto'
+      tagSource: 'manual'
 
   #dependsOn: 
   #- Windows
