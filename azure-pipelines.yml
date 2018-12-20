@@ -115,6 +115,8 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
+  
+  condition: false
 
 - job: macOS
   pool:
@@ -132,11 +134,11 @@ jobs:
     vmImage: 'win1803'
   steps:
   - checkout: none #skip checking out the default repository resource
-  - task: DownloadBuildArtifacts@0
-    displayName: 'Download Build Artifacts'
-    inputs:
-      artifactName: drop
-      downloadPath: $(Build.ArtifactStagingDirectory)
+  #- task: DownloadBuildArtifacts@0
+  #  displayName: 'Download Build Artifacts'
+  #  inputs:
+  #    artifactName: drop
+  #    downloadPath: $(Build.ArtifactStagingDirectory)
 
   - script: |
         echo hello from deploy
