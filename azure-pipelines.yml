@@ -118,3 +118,16 @@ jobs:
   steps:
   - script: echo hello from macOS
 
+- job: Deploy
+  pool:
+    vmImage: 'win1803'
+  steps:
+  - checkout: none #skip checking out the default repository resource
+  - task: DownloadBuildArtifacts@0
+    displayName: 'Download Build Artifacts'
+    inputs:
+      artifactName: drop
+      downloadPath: $(System.DefaultWorkingDirectory)
+
+  dependsOn: Windows,Linux
+  condition: succeeded()
