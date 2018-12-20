@@ -14,7 +14,8 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
 
-  
+  name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+
   steps:
   - script: |
         echo hello from Windows
@@ -139,7 +140,7 @@ jobs:
       gitHubConnection: ignatandrei
       repositoryName: ignatandrei/stankins
       action: 'create'
-      target: '$(build.sourceVersion)'
+      target: 'master'
       title: 'Release $(Build.BuildId) $(Build.BuildNumber)'
       tag: 'B_$(Build.BuildId)_$(Build.BuildNumber)'
       addChangeLog: true
