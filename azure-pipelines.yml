@@ -11,7 +11,7 @@ variables:
 
 
 
-name:Build $(Date:yyyyMMdd)_$(Build.BuildId)_$(Rev:.r)
+name: 'Build $(Date:yyyyMMdd)_$(Build.BuildId)_$(Rev:.r)'
 
 jobs:
 - job: Windows
