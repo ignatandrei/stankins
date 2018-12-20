@@ -6,7 +6,7 @@
 
 pool:
   #vmImage: 'VS2017-Win2016'
-  vmImage:' ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
+  vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
 variables:
   solution: '**/StankinsV2.sln'
