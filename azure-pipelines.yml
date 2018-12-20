@@ -129,5 +129,7 @@ jobs:
       artifactName: drop
       downloadPath: $(System.DefaultWorkingDirectory)
 
-  dependsOn: Windows,Linux
+  dependsOn: 
+  - Windows
+  - Linux
   condition: succeeded()
