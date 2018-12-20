@@ -11,7 +11,10 @@ variables:
     year: $(Date:yyyy)
     month: $(Date:MM)
     day: $(Date:dd)
+    uk: $(Date:yyyyMMdd)
 
+uk1: $(Date:yyyyMMdd)
+uk2: $(Date:yyyy)
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 jobs:
@@ -146,6 +149,7 @@ jobs:
       action: 'create'
       target: 'master'
       title: 'Release $(Build.BuildId) $(Build.BuildNumber)'
+      tag: '$(Build.BuildNumber)'
       addChangeLog: true
       isDraft: true
 
