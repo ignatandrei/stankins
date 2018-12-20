@@ -154,7 +154,8 @@ jobs:
       title: 'Release $(Build.BuildId) $(Build.BuildNumber)'
       tag: '$(Build.BuildNumber)'
       addChangeLog: true
-      isDraft: true
+      isDraft: false
+      isPreRelease: false 
       tagSource: 'manual'
 
   #dependsOn: 
