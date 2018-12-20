@@ -7,15 +7,27 @@ jobs:
 - job: Linux
   pool:
     vmImage: 'ubuntu-16.04'
+    variables:
+        solution: '**/StankinsV2.sln'
+        buildPlatform: 'Any CPU'
+        buildConfiguration: 'Release'
   steps:
   - script: echo hello from Linux
 - job: macOS
   pool:
     vmImage: 'macOS-10.13'
+    variables:
+        solution: '**/StankinsV2.sln'
+        buildPlatform: 'Any CPU'
+        buildConfiguration: 'Release'
   steps:
   - script: echo hello from macOS
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
+    variables:
+        solution: '**/StankinsV2.sln'
+        buildPlatform: 'Any CPU'
+        buildConfiguration: 'Release'
   steps:
   - script: echo hello from Windows
