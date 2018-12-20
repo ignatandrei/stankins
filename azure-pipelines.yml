@@ -30,7 +30,6 @@ jobs:
         @dir %AGENT_BUILDDIRECTORY%
         echo BUILD_SOURCESDIRECTORY contents:
         @dir %BUILD_SOURCESDIRECTORY%
-echo Over and out.
         echo $(Build.BuildId) $(Build.BuildNumber) 
         echo $(name) %name% $(NAME) %NAME% 
     displayName: 'variables'
