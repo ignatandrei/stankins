@@ -9,7 +9,9 @@ variables:
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
 
-name: $(Date:yyyyMMdd)
+
+
+name:Build $(Date:yyyyMMdd)_$(Build.BuildId)_$(Rev:.r)
 
 jobs:
 - job: Windows
@@ -31,7 +33,10 @@ jobs:
         echo BUILD_SOURCESDIRECTORY contents:
         @dir %BUILD_SOURCESDIRECTORY%
         echo $(Build.BuildId) $(Build.BuildNumber) 
-        echo $(name) %name% $(NAME) %NAME% 
+        echo $(name) 
+        echo %name% 
+        echo $(NAME) 
+        echo %NAME% 
     displayName: 'variables'
 
   - script: |
@@ -138,9 +143,11 @@ jobs:
       gitHubConnection: ignatandrei
       repositoryName: ignatandrei/stankins
       action: 'create'
-      title: Release $(Build.BuildId) $(Build.BuildNumber)
-      tag: B_$(Build.BuildId)_$(Build.BuildNumber)
+      target: '$(build.sourceVersion)'
+      title: 'Release $(Build.BuildId) $(Build.BuildNumber)'
+      tag: 'B_$(Build.BuildId)_$(Build.BuildNumber)'
       addChangeLog: true
+      isDraft: true
 
   dependsOn: 
   - Windows
