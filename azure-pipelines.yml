@@ -31,7 +31,7 @@ jobs:
   - script: |
         dotnet tool install  --tool-path . dotnet-property   
         dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
-   displayName: 'DOTNET property'
+    displayName: 'DOTNET property'
 
   - task: NuGetToolInstaller@0
 
