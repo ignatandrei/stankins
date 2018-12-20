@@ -4,119 +4,18 @@
 # https://docs.microsoft.com/vsts/pipelines/apps/windows/dot-net
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/build/options?view=vsts&tabs=yaml
 jobs:
-- job: Windows
+- job: Linux
   pool:
-  vmImage: 'VS2017-Win2016'
-  #vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
-
-variables:
-  solution: '**/StankinsV2.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
-
-steps:
-
-- script: |
-   echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
-   echo $(Build.BuildId) $(Build.BuildNumber) 
-  displayName: 'variables'
-
-- task: DotNetCoreInstaller@0
-  displayName: 'Use .NET Core sdk 2.1.300'
-  inputs:
-    version: 2.1.300
-
-- script: |
-   dotnet tool install  --tool-path . dotnet-property
-   rem ls -l
-   rem pwd   
-   dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
-  displayName: 'DOTNET property'
-
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
-
-- task: VSBuild@1
-  inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-#- script: |
-#   dotnet tool install  --tool-path . dotnet-aop
-#   .\dotnet-aop.exe $(Build.Repository.LocalPath)\AOPRoslyn\processme.txt 
-#  displayName: 'dotnet aop'
-
-
-#- task: DotNetCoreCLI@2
-#  displayName: 'dotnet install aop'
-#  inputs:
-#    command: custom
-#
-#    custom: tool
-#
-#    arguments: 'install --tool-path . dotnet-aop'
-#    
-#- task: DotNetCoreCLI@2
-#  displayName: 'dotnet run aop'
-#  inputs:
-#    command: custom
-#
-#    custom: aop
-#
-#    arguments: '$(Build.Repository.LocalPath)\AOPRoslyn\processme.txt'
-#
-#    workingDirectory: stankinsv2
-    
-- task: VSTest@2
-  inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet pack interfaces'
-  inputs:
-    command: pack
-    packagesToPack: '**/Stankins.*.csproj'
-
-- script: |
-   echo start publish windows
-   dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
-   rem dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 
-   rem dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c release -r linux-x64 
-   echo publish windows
-   dotnet publish -c Release -r linux-x64 -o outlinuxx64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
-   echo publish linux
-  displayName: 'DOTNET publish'    
-  
-- script: |
-   cd stankinsv2/solution/
-   dir
-   xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
-   rem xcopy $(Build.ArtifactStagingDirectory)\linux-x64 linux-x64\ /I  /E
-   dir
-    echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
-   
-   docker build . -t stankins_windows -f Dockerfile_win
-   docker image ls
-   docker tag stankins_windows ignatandrei/stankins_windows
-   rem docker build . -t stankins_linux -f Dockerfile_linux      
-   rem docker image ls
-   rem docker tag stankins_linux ignatandrei/stankins_linux
-   rem echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
-   rem call docker push ignatandrei/stankins_linux
-   call docker push ignatandrei/stankins_windows
-  displayName: 'docker'    
- 
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: drop'
-  
-
-  - job: Linux
-  pool:
-  vmImage: 'ubuntu-16.04'
+    vmImage: 'ubuntu-16.04'
   steps:
   - script: echo hello from Linux
+- job: macOS
+  pool:
+    vmImage: 'macOS-10.13'
+  steps:
+  - script: echo hello from macOS
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+  steps:
+  - script: echo hello from Windows
