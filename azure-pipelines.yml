@@ -43,8 +43,8 @@ jobs:
   
   - script: |
        cd stankinsv2/solution/
-       echo %MY_PASSWORD_DOCKER%
-       echo %MY_PASSWORD_DOCKER% | docker login --username ignatandrei --password-stdin
+       echo $MY_PASSWORD_DOCKER
+       echo $MY_PASSWORD_DOCKER| docker login --username ignatandrei --password-stdin
        docker build . -t stankins_linux -f Dockerfile_linux      
        docker image ls
        docker tag stankins_linux ignatandrei/stankins_linux
