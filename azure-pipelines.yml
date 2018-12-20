@@ -8,7 +8,8 @@ variables:
     solution: '**/StankinsV2.sln'
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
-    name: $(Date:yyyyMMdd)
+
+name: $(Date:yyyyMMdd)
 
 jobs:
 - job: Windows
@@ -21,7 +22,7 @@ jobs:
         echo hello from Windows
         echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
         echo $(Build.BuildId) $(Build.BuildNumber) 
-        echo $(name)
+        echo $(name) %name% 
     displayName: 'variables'
 
   - script: |
@@ -55,8 +56,9 @@ jobs:
         dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
         cd stankinsv2/solution/
         xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
-        echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
         docker build . -t stankins_windows -f Dockerfile_win
+        docker tag stankins_windows ignatandrei/stankins_windows
+        docker image ls
         echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
         docker push ignatandrei/stankins_windows
     displayName: 'docker'
