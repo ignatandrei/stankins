@@ -34,5 +34,4 @@ jobs:
         echo hello from Windows
         echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
         echo $(Build.BuildId) $(Build.BuildNumber) 
-
     displayName: 'variables'
