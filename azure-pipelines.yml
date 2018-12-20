@@ -27,6 +27,34 @@ jobs:
     displayName: 'Use .NET Core sdk 2.1.300'
     inputs:
         version: 2.1.300
+
+  - script: |
+   dotnet tool install  --tool-path . dotnet-property   
+   dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
+   displayName: 'DOTNET property'
+
+  - task: NuGetToolInstaller@0
+
+  - task: VSBuild@1
+    inputs:
+      solution: '$(solution)'
+      platform: '$(buildPlatform)'
+      configuration: '$(buildConfiguration)'
+  - script: |
+    echo start publish windows
+    dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
+    cd stankinsv2/solution/
+    xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
+    echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
+    docker build . -t stankins_windows -f Dockerfile_win
+    echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
+    docker push ignatandrei/stankins_windows
+    displayName: 'docker'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: drop'
+   
+   
 - job: Linux
   pool:
     vmImage: 'ubuntu-16.04'
@@ -43,7 +71,6 @@ jobs:
   
   - script: |
        cd stankinsv2/solution/
-       echo $MY_PASSWORD_DOCKER
        echo $MY_PASSWORD_DOCKER| docker login --username ignatandrei --password-stdin
        docker build . -t stankins_linux -f Dockerfile_linux      
        docker image ls
