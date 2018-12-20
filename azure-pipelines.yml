@@ -95,6 +95,7 @@ steps:
    docker image ls
    docker tag stankins_windows ignatandrei/stankins_windows
    docker build . -t stankins_linux -f Dockerfile_linux      
+   docker image ls
    docker tag stankins_linux ignatandrei/stankins_linux
    rem echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
    call docker push ignatandrei/stankins_linux
