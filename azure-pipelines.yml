@@ -128,10 +128,19 @@ jobs:
     inputs:
       artifactName: drop
       downloadPath: $(System.DefaultWorkingDirectory)
+
+  - script: |
+    echo hello from deploy
+    dir $(Build.ArtifactStagingDirectory)    
+      
   - task: GithubRelease@0
     inputs:
       gitHubConnection: ignatandrei
       repositoryName: ignatandrei/stankins
+      action: 'create'
+      title: Release $(Build.BuildId) $(Build.BuildNumber)
+      tag: B_$(Build.BuildId)_$(Build.BuildNumber)
+      addChangeLog: true
 
   dependsOn: 
   - Windows
