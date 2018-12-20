@@ -30,4 +30,13 @@ jobs:
         buildPlatform: 'Any CPU'
         buildConfiguration: 'Release'
   steps:
-  - script: echo hello from Windows
+  - script: |
+        echo hello from Windows
+        echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
+        echo $(Build.BuildId) $(Build.BuildNumber) 
+
+  displayName: 'variables'
+  - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk 2.1.300'
+    inputs:
+        version: 2.1.300
