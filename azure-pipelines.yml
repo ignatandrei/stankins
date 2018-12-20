@@ -97,7 +97,10 @@ jobs:
        docker image ls
        docker tag stankins_linux ignatandrei/stankins_linux
        docker push ignatandrei/stankins_linux
-       docker cp stankins_linux:/app/ $(Build.ArtifactStagingDirectory)/linux-x64
+       docker create --name st stankins_linux
+       docker cp st:/app/ $(Build.ArtifactStagingDirectory)/linux-x64
+       docker container kill st
+       docker container prune -f
 
     displayName: 'docker'
 - job: macOS
