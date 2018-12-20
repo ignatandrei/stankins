@@ -5,8 +5,8 @@
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/build/options?view=vsts&tabs=yaml
 
 pool:
-  #vmImage: 'VS2017-Win2016'
-  vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
+  vmImage: 'VS2017-Win2016'
+  #vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
 variables:
   solution: '**/StankinsV2.sln'
@@ -27,9 +27,9 @@ steps:
 
 - script: |
    dotnet tool install  --tool-path . dotnet-property
-   ls -l
-   pwd
-   /home/vsts/work/1/s/dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
+   #ls -l
+   #pwd
+   #/home/vsts/work/1/s/dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
    ./dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
   displayName: 'DOTNET property'
 
@@ -85,6 +85,7 @@ steps:
 - script: |
    dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 
    rem dotnet publish stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c release -r linux-x64 
+   dotnet publish -c Release -r linux-x64 -o outlinuxx64 StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj 
   displayName: 'DOTNET publish'    
   
 - script: |
@@ -98,11 +99,11 @@ steps:
    docker build . -t stankins_windows -f Dockerfile_win
    docker image ls
    docker tag stankins_windows ignatandrei/stankins_windows
-   docker build . -t stankins_linux -f Dockerfile_linux      
-   docker image ls
-   docker tag stankins_linux ignatandrei/stankins_linux
+   rem docker build . -t stankins_linux -f Dockerfile_linux      
+   rem docker image ls
+   rem docker tag stankins_linux ignatandrei/stankins_linux
    rem echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
-   call docker push ignatandrei/stankins_linux
+   rem call docker push ignatandrei/stankins_linux
    call docker push ignatandrei/stankins_windows
   displayName: 'docker'    
  
