@@ -29,7 +29,8 @@ steps:
    dotnet tool install  --tool-path . dotnet-property
    ls -l
    pwd
-   dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
+   /home/vsts/work/1/s/dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
+   ./dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
   displayName: 'DOTNET property'
 
 - task: NuGetToolInstaller@0
