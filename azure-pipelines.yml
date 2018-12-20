@@ -9,10 +9,6 @@ variables:
     buildPlatform: 'Any CPU'
     buildConfiguration: 'Release'
 
-
-
-name: 'Build $(Date:yyyyMMdd)_$(Build.BuildId)_$(Rev:.r)'
-
 jobs:
 - job: Windows
   pool:
