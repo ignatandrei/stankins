@@ -4,6 +4,19 @@
 # https://docs.microsoft.com/vsts/pipelines/apps/windows/dot-net
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/build/options?view=vsts&tabs=yaml
 jobs:
+- job: Windows
+  pool:
+    vmImage: 'vs2017-win2016'
+    variables:
+        solution: '**/StankinsV2.sln'
+        buildPlatform: 'Any CPU'
+        buildConfiguration: 'Release'
+  steps:
+  - script: |
+        echo hello from Windows
+        echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
+        echo $(Build.BuildId) $(Build.BuildNumber) 
+    displayName: 'variables'
 - job: Linux
   pool:
     vmImage: 'ubuntu-16.04'
@@ -22,16 +35,4 @@ jobs:
         buildConfiguration: 'Release'
   steps:
   - script: echo hello from macOS
-- job: Windows
-  pool:
-    vmImage: 'vs2017-win2016'
-    variables:
-        solution: '**/StankinsV2.sln'
-        buildPlatform: 'Any CPU'
-        buildConfiguration: 'Release'
-  steps:
-  - script: |
-        echo hello from Windows
-        echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
-        echo $(Build.BuildId) $(Build.BuildNumber) 
-    displayName: 'variables'
+
