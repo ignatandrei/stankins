@@ -3,8 +3,8 @@
 # Add steps that publish symbols, save build artifacts, and more:
 # https://docs.microsoft.com/vsts/pipelines/apps/windows/dot-net
 #https://docs.microsoft.com/en-us/azure/devops/pipelines/build/options?view=vsts&tabs=yaml
-
-pool:
+- job: Windows
+  pool:
   vmImage: 'VS2017-Win2016'
   #vmImage: 'ubuntu-16.04' # other options: 'macOS-10.13', 'vs2017-win2016'
 
@@ -114,3 +114,8 @@ steps:
   displayName: 'Publish Artifact: drop'
   
 
+  - job: Linux
+  pool:
+  vmImage: 'ubuntu-16.04'
+  steps:
+  - script: echo hello from Linux
