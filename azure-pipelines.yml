@@ -12,7 +12,7 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    deployWindows: 1
+    deployWindows: 0
     deployLinux: 1
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
@@ -194,8 +194,8 @@ jobs:
       #downloadPath: $(Agent.BuildDirectory)
 
   - script: |
-       ls
-       move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
+       ls -l
+       move drop/files-$(Build.BuildId).zip .
     displayName: 'moving file artifact'
 
   - task: ExtractFiles@1
