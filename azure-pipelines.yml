@@ -124,7 +124,7 @@ jobs:
 
   - script: |
        dir
-       copy drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
+       move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
     displayName: 'moving file artifact'
 
   - task: ExtractFiles@1
