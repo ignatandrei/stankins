@@ -51,7 +51,8 @@ jobs:
         echo $(Date:yyyyMMdd)
         cmd /K set
 
-- job: TesttingPropertiesMissing
+- job: TesttingPropertiesSetting
+    dependsOn: SettingVariousPropertiesMissing
   pool:
     vmImage: 'vs2017-win2016'
     condition: true
@@ -60,7 +61,7 @@ jobs:
  
   steps:
     - checkout: none #skip checking out the default repository resource
-    - script: echo $(MyVersion)
+    - script: echo this is version $(MyVersion)
       name: echovar    
     
 - job: Windows
