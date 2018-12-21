@@ -12,8 +12,8 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    deployWindows: 0
-    deployLinux: 1
+    deployWindows: 1
+    deployLinux: 0
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -74,7 +74,10 @@ jobs:
   condition: eq(variables['deployWindows'],1)
   pool:
     vmImage: 'vs2017-win2016'
-  
+
+  variables:
+    MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable
+ 
   steps:
   
   - script: |
@@ -89,8 +92,7 @@ jobs:
 
   - script: |
         dotnet tool install  --tool-path . dotnet-property   
-        dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"1.0.0.3"
-    displayName: 'DOTNET property'
+        dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"%MyVersion%"
 
   - task: NuGetToolInstaller@0
 
