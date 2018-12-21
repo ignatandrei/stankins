@@ -82,7 +82,7 @@ jobs:
   
   - script: |
        cd stankinsv2/solution/
-    displayName: 'docker'
+    displayName: 'cd to folder'
 
 
   - task: DotNetCoreInstaller@0
@@ -93,12 +93,13 @@ jobs:
   - script: |
         dotnet tool install  --tool-path . dotnet-property   
         dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"%MyVersion%"
+    displayName: 'versioning'
 
-  - task: NuGetToolInstaller@0
+  #- task: NuGetToolInstaller@0
 
-  - task: NuGetCommand@2
-    inputs:
-        restoreSolution: '$(solution)'
+  #- task: NuGetCommand@2
+  #  inputs:
+  #      restoreSolution: '$(solution)'
   
   - task: VSBuild@1
     inputs:
@@ -217,4 +218,4 @@ jobs:
   dependsOn: 
   - Windows
   - Linux
-  condition: and(succeeded('Windows') , succeeded('Linux'))
+  condition: or(succeeded('Windows') , succeeded('Linux'))
