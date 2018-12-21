@@ -47,7 +47,7 @@ jobs:
         rem echo BUILD_SOURCESDIRECTORY contents:
         rem @dir %BUILD_SOURCESDIRECTORY%       
         cmd /K set
-     displayName: 'variables'
+    
     
 - job: Windows
   pool:
