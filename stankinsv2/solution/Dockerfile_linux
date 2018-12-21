@@ -10,10 +10,10 @@ RUN /root/.dotnet/tools/dotnet-property "Stankinsv2/**/Stankins*.csproj" Version
 #RUN dotnet publish -c Release -r linux-x64 -o out StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj 
 
 # build runtime image
-#FROM microsoft/dotnet:2.1-runtime-deps
-#WORKDIR /app
-#COPY --from=build-env /app/StankinsV2/StankinsStatusWeb/out ./
-#ENV ASPNETCORE_URLS=http://+:5000
-#EXPOSE 5000/tcp
-#ENTRYPOINT ["./StankinsAliveMonitor"]
+FROM microsoft/dotnet:2.1-runtime-deps
+WORKDIR /app
+COPY --from=build-env /app/StankinsV2/StankinsStatusWeb/out ./
+ENV ASPNETCORE_URLS=http://+:5000
+EXPOSE 5000/tcp
+ENTRYPOINT ["./StankinsAliveMonitor"]
 
