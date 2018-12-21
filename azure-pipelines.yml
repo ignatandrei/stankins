@@ -151,7 +151,7 @@ jobs:
       repositoryName: ignatandrei/stankins
       action: 'create'
       target: 'master'
-      title: 'Release $(Build.BuildId) $(Build.BuildNumber)'
+      title: 'Automated $(Build.BuildNumber) $(Build.BuildId)'
       tag: '$(Build.BuildNumber)'
       addChangeLog: true
       isDraft: false
