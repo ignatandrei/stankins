@@ -143,7 +143,7 @@ jobs:
   - script: |
         echo hello from deploy
         dir $(Build.ArtifactStagingDirectory)  
-        #echo test >>$(Build.ArtifactStagingDirectory)\a.txt
+        echo test >>$(Build.ArtifactStagingDirectory)\a.txt
 
   - task: ArchiveFiles@2
     inputs:
