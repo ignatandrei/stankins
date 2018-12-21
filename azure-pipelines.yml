@@ -18,7 +18,7 @@ name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)
 
 jobs:
 
-- job: TestingVarious
+- job: SettingVariousPropertiesMissing
   pool:
     vmImage: 'vs2017-win2016'
     condition: true
@@ -28,15 +28,16 @@ jobs:
         $yearPW= Get-Date -Format yyyy
         $monthPW=Get-Date -Format MM
         $dayPW=Get-Date -Format dd
-        Write-Host "##vso[task.setvariable variable=PWyear]$yearPW"
-        Write-Host "##vso[task.setvariable variable=PWmonth]$monthPW"
-        Write-Host "##vso[task.setvariable variable=PWday]$dayPW"
-        Write-Host "##vso[task.setvariable variable=PWversion]$yearPW.$monthPW.$dayPW.$env:BUILD_BUILDID"
-
+        Write-Host "##vso[task.setvariable variable=PWyear;isOutput=true]$yearPW"
+        Write-Host "##vso[task.setvariable variable=PWmonth;isOutput=true]$monthPW"
+        Write-Host "##vso[task.setvariable variable=PWday;isOutput=true]$dayPW"
+        Write-Host "##vso[task.setvariable variable=PWversion;isOutput=true]$yearPW.$monthPW.$dayPW.$env:BUILD_BUILDID"
+      
+      name: setvarStep
 
 
     - script: |
-        echo hello from Windows
+        echo hello from SettingVariousPropertiesMissing
         rem echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
         rem echo %BUILDDEFINITIONNAME% %SOURCEBRANCHNAME% %(DATE:yyyyMMdd)% %(REV:.r)%    
         rem echo Hello World from %AGENT_NAME%.
@@ -48,14 +49,25 @@ jobs:
         rem echo BUILD_SOURCESDIRECTORY contents:
         rem @dir %BUILD_SOURCESDIRECTORY%      
         echo $(Date:yyyyMMdd)
-
         cmd /K set
-    
-    
-- job: Windows
+
+- job: TesttingPropertiesMissing
   pool:
     vmImage: 'vs2017-win2016'
-
+    condition: true
+  variables:
+    MyVersion: $[ dependencies.SettingVariousPropertiesMissing.outputs['setvarStep.PWversion'] ]  # map in the variable
+ 
+  steps:
+    - checkout: none #skip checking out the default repository resource
+    - script: echo $(MyVersion)
+      name: echovar    
+    
+- job: Windows
+  dependsOn: SettingVariousPropertiesMissing
+  pool:
+    vmImage: 'vs2017-win2016'
+  
   steps:
   
   - script: |
