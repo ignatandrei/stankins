@@ -95,6 +95,15 @@ jobs:
         dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"%MyVersion%"
       displayName: versioning
 
+    - task: ArchiveFiles@2
+      displayName: 'arhive files'
+      inputs:
+        rootFolderOrFile: '$(BUILD_REPOSITORY_LOCALPATH)'
+        includeRootFolder: true
+        archiveType: 'zip' 
+        archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
+        replaceExistingArchive: true 
+
 
 - job: Windows
   dependsOn: 
