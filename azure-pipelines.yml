@@ -142,7 +142,7 @@ jobs:
        echo $MY_PASSWORD_DOCKER| docker login --username ignatandrei --password-stdin
        echo version1 : $MyVersion
        echo version2 : $(MyVersion)
-       docker build . --build-arg version=$MyVersion -t stankins_linux -f Dockerfile_linux      
+       docker build . --build-arg version= $(MyVersion) -t stankins_linux -f Dockerfile_linux      
        docker image ls
        docker tag stankins_linux ignatandrei/stankins_linux
        docker push ignatandrei/stankins_linux
@@ -189,6 +189,7 @@ jobs:
         rem echo test >>$(Build.ArtifactStagingDirectory)\a.txt
 
   - task: ArchiveFiles@2
+    condition: succeeded('Linux')
     inputs:
       rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/linux-x64'
       includeRootFolder: true
@@ -197,6 +198,7 @@ jobs:
       replaceExistingArchive: true 
 
   - task: ArchiveFiles@2
+    condition: succeeded('Windows') 
     inputs:
       rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/win10-x64'
       includeRootFolder: true
@@ -210,7 +212,7 @@ jobs:
       repositoryName: ignatandrei/stankins
       action: 'create'
       target: 'master'
-      title: 'Automated $(Build.BuildNumber) $(Build.BuildId)'
+      title: 'Automated $(Build.BuildNumber) $(Build.BuildId) BuildWindows = $(deployWindows) BuildLinux= $(deployLinux)'
       tag: '$(Build.BuildNumber)'
       addChangeLog: true
       isDraft: false
