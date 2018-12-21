@@ -12,35 +12,46 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
+    justDebugTesting:true
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 jobs:
+
+- job: TestingVarious
+  pool:
+    vmImage: 'vs2017-win2016'
+    condition: $justDebugTesting
+  steps:
+    -powershell: |
+        $yearPW= Get-Date -Format yyyy
+        $monthPW=Get-Date -Format MM
+        $dayPW=Get-Date -Format dd
+        Write-Host "##vso[task.setvariable variable=yearPW]$yearPW"
+        Write-Host "##vso[task.setvariable variable=$monthPW]$monthPW"
+        Write-Host "##vso[task.setvariable variable=$dayPW]$dayPW"
+    
+    - script: |
+        echo hello from Windows
+        rem echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
+        rem echo %BUILDDEFINITIONNAME% %SOURCEBRANCHNAME% %(DATE:yyyyMMdd)% %(REV:.r)%    
+        rem echo Hello World from %AGENT_NAME%.
+        rem echo My ID is %AGENT_ID%.
+        rem echo AGENT_WORKFOLDER contents:
+        rem @dir %AGENT_WORKFOLDER%
+        rem echo AGENT_BUILDDIRECTORY contents:
+        rem @dir %AGENT_BUILDDIRECTORY%
+        rem echo BUILD_SOURCESDIRECTORY contents:
+        rem @dir %BUILD_SOURCESDIRECTORY%       
+        cmd /K set
+    displayName: 'variables'
+    
 - job: Windows
   pool:
     vmImage: 'vs2017-win2016'
 
   steps:
-  - script: |
-        echo hello from Windows
-        echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
-        echo %BUILDDEFINITIONNAME% %SOURCEBRANCHNAME% %(DATE:yyyyMMdd)% %(REV:.r)%    
-        echo Hello World from %AGENT_NAME%.
-        echo My ID is %AGENT_ID%.
-        echo AGENT_WORKFOLDER contents:
-        @dir %AGENT_WORKFOLDER%
-        echo AGENT_BUILDDIRECTORY contents:
-        @dir %AGENT_BUILDDIRECTORY%
-        echo BUILD_SOURCESDIRECTORY contents:
-        @dir %BUILD_SOURCESDIRECTORY%
-        echo a $(Build.BuildId) $(Build.BuildNumber) 
-        echo a $(year) 
-        echo a $(MONTH) 
-        echo a %year% 
-        echo a %MONTH% 
-        cmd /K set
-    displayName: 'variables'
-
+  
   - script: |
        cd stankinsv2/solution/
     displayName: 'docker'
@@ -82,7 +93,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
    
-  condition: true
+  condition:not $justDebugTesting
 
 - job: Linux
   pool:
@@ -116,7 +127,8 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
   
-  condition: true
+  condition: not $justDebugTesting
+
 
 - job: macOS
   pool:
@@ -128,7 +140,7 @@ jobs:
   steps:
   - script: echo hello from macOS
 
-  condition: true
+  condition: not $justDebugTesting
 - job: Deploy
   pool:
     vmImage: 'win1803'
@@ -177,4 +189,4 @@ jobs:
   dependsOn: 
   - Windows
   - Linux
-  condition: succeeded()
+  condition: and(not $justDebugTesting , succeeded())
