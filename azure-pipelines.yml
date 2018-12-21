@@ -84,9 +84,10 @@ jobs:
   steps:
     - script: echo this is version $(MyVersion)
       name: echovar    
+    
     - task: DotNetCoreInstaller@0
-    displayName: 'Use .NET Core sdk 2.1.300'
-    inputs:
+      displayName: 'Use .NET Core sdk 2.1.300'
+      inputs:
         version: 2.1.300
 
     - script: |
