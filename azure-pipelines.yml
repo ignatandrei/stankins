@@ -93,7 +93,7 @@ jobs:
     - script: |
         dotnet tool install  --tool-path . dotnet-property   
         dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"%MyVersion%"
-    displayName: 'versioning'
+     displayName: 'versioning'
 
 
 - job: Windows
