@@ -13,7 +13,7 @@ variables:
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
     deployWindows: 0
-    deployLinux: 1
+    deployLinux: 0
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -68,9 +68,37 @@ jobs:
     - checkout: none #skip checking out the default repository resource
     - script: echo this is version $(MyVersion)
       name: echovar    
-    
-- job: Windows
+
+- job: DownloadFiles
+
   dependsOn: SetProps
+  condition: true
+
+  pool:
+    vmImage: 'vs2017-win2016'
+
+  
+  variables:
+    MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable
+ 
+  steps:
+    - script: echo this is version $(MyVersion)
+      name: echovar    
+    - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk 2.1.300'
+    inputs:
+        version: 2.1.300
+
+    - script: |
+        dotnet tool install  --tool-path . dotnet-property   
+        dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"%MyVersion%"
+    displayName: 'versioning'
+
+
+- job: Windows
+  dependsOn: 
+  - SetProps
+  - DownloadFiles
   condition: eq(variables['deployWindows'],1)
   pool:
     vmImage: 'vs2017-win2016'
@@ -79,22 +107,13 @@ jobs:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable
  
   steps:
-  
+  - checkout: none #skip checking out the default repository resource
   - script: |
        cd stankinsv2/solution/
     displayName: 'cd to folder'
 
 
-  - task: DotNetCoreInstaller@0
-    displayName: 'Use .NET Core sdk 2.1.300'
-    inputs:
-        version: 2.1.300
-
-  - script: |
-        dotnet tool install  --tool-path . dotnet-property   
-        dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"%MyVersion%"
-    displayName: 'versioning'
-
+  
   - task: NuGetToolInstaller@0
 
   - task: NuGetCommand@2
@@ -131,6 +150,7 @@ jobs:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable
  
   steps:
+  - checkout: none #skip checking out the default repository resource
   - script: |
         echo hello from Linux
         echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
@@ -142,7 +162,8 @@ jobs:
        echo $MY_PASSWORD_DOCKER| docker login --username ignatandrei --password-stdin
        echo version1 : $MyVersion
        echo version2 : $(MyVersion)
-       docker build . --build-arg version=$(MyVersion) -t stankins_linux -f Dockerfile_linux      
+       #docker build . --build-arg version=$(MyVersion) -t stankins_linux -f Dockerfile_linux      
+       docker build . -t stankins_linux -f Dockerfile_linux      
        docker image ls
        docker tag stankins_linux ignatandrei/stankins_linux
        docker push ignatandrei/stankins_linux

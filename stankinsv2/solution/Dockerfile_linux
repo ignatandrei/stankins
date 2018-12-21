@@ -1,13 +1,13 @@
 FROM microsoft/dotnet:2.1-sdk-alpine AS build-env
-ARG version
+#ARG version
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
 COPY . ./
-RUN dotnet tool install  -g dotnet-property   
-RUN dotnet tool list -g
-RUN /root/.dotnet/tools/dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"$version"
-#RUN dotnet publish -c Release -r linux-x64 -o out StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj 
+#RUN dotnet tool install  -g dotnet-property   
+#RUN dotnet tool list -g
+#RUN /root/.dotnet/tools/dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:$version
+RUN dotnet publish -c Release -r linux-x64 -o out StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj 
 
 # build runtime image
 FROM microsoft/dotnet:2.1-runtime-deps
