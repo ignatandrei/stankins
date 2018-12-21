@@ -195,7 +195,7 @@ jobs:
 
   - script: |
        ls -l
-       move drop/files-$(Build.BuildId).zip .
+       mv drop/files-$(Build.BuildId).zip .
     displayName: 'moving file artifact'
 
   - task: ExtractFiles@1
