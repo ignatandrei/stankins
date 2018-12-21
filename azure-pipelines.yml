@@ -12,8 +12,7 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    #justDebugTesting: 0
-    justDebugTesting: false
+    justDebugTesting: 1
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -55,8 +54,7 @@ jobs:
 - job: TestMyProps
 
   dependsOn: SetProps
-  #condition: eq(variables['justDebugTesting'],1)
-  condition: variables['justDebugTesting']
+  condition: eq(variables['justDebugTesting'],1)
 
   pool:
     vmImage: 'vs2017-win2016'
