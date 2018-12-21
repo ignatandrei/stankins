@@ -18,7 +18,7 @@ name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)
 
 jobs:
 
-- job: SettingVariousPropertiesMissing
+- job: SetProps
   pool:
     vmImage: 'vs2017-win2016'
     condition: true
@@ -51,13 +51,15 @@ jobs:
         echo $(Date:yyyyMMdd)
         cmd /K set
 
-- job: TesttingPropertiesSetting
-  dependsOn: SettingVariousPropertiesMissing
+- job: TestMyProps
+
+  dependsOn: SetProps
+
   pool:
     vmImage: 'vs2017-win2016'
     condition: true
   variables:
-    MyVersion: $[ dependencies.SettingVariousPropertiesMissing.outputs['setvarStep.PWversion'] ]  # map in the variable
+    MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable
  
   steps:
     - checkout: none #skip checking out the default repository resource
@@ -65,7 +67,7 @@ jobs:
       name: echovar    
     
 - job: Windows
-  dependsOn: SettingVariousPropertiesMissing
+  dependsOn: SetProps
   pool:
     vmImage: 'vs2017-win2016'
   
