@@ -142,15 +142,23 @@ jobs:
 
   - script: |
         echo hello from deploy
-        dir $(Build.ArtifactStagingDirectory)  
-        echo test >>$(Build.ArtifactStagingDirectory)\a.txt
+        dir $(Build.DefaultWorkingDirectory)  
+        #echo test >>$(Build.ArtifactStagingDirectory)\a.txt
 
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/drop/linux-x64'
       includeRootFolder: true
       archiveType: 'zip' 
-      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip' 
+      archiveFile: '$(Build.ArtifactStagingDirectory)/linux-x64-$(Build.BuildId).zip' 
+      replaceExistingArchive: true 
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/drop/win10-x64'
+      includeRootFolder: true
+      archiveType: 'zip' 
+      archiveFile: '$(Build.ArtifactStagingDirectory)/win10-x64-$(Build.BuildId).zip' 
       replaceExistingArchive: true 
 
   - task: GithubRelease@0
