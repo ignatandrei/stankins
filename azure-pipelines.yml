@@ -104,6 +104,8 @@ jobs:
         archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
         replaceExistingArchive: true 
 
+    - task: PublishBuildArtifacts@1
+        displayName: Publish files as Artifact
 
 - job: Windows
   dependsOn: 
