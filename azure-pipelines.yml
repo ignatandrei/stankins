@@ -23,6 +23,7 @@ jobs:
     vmImage: 'vs2017-win2016'
     condition: $justDebugTesting
   steps:
+
     -powershell: |
         $yearPW= Get-Date -Format yyyy
         $monthPW=Get-Date -Format MM
@@ -30,7 +31,8 @@ jobs:
         Write-Host "##vso[task.setvariable variable=yearPW]$yearPW"
         Write-Host "##vso[task.setvariable variable=$monthPW]$monthPW"
         Write-Host "##vso[task.setvariable variable=$dayPW]$dayPW"
-    
+     displayName: 'powershell dates'
+
     - script: |
         echo hello from Windows
         rem echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
@@ -44,7 +46,7 @@ jobs:
         rem echo BUILD_SOURCESDIRECTORY contents:
         rem @dir %BUILD_SOURCESDIRECTORY%       
         cmd /K set
-    displayName: 'variables'
+     displayName: 'variables'
     
 - job: Windows
   pool:
