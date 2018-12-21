@@ -54,7 +54,7 @@ jobs:
 - job: TestMyProps
 
   dependsOn: SetProps
-  condition: eq($(justDebugTesting),1)
+  condition: eq(variables['justDebugTesting'],1)
 
   pool:
     vmImage: 'vs2017-win2016'
