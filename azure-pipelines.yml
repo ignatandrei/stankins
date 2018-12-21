@@ -85,11 +85,6 @@ jobs:
     - script: echo this is version $(MyVersion)
       name: echovar    
     
-    - task: DotNetCoreInstaller@0
-      displayName: 'Use .NET Core sdk 2.1.300'
-      inputs:
-        version: 2.1.300
-
     - script: |
         dotnet tool install  --tool-path . dotnet-property   
         dotnet-property "Stankinsv2/**/Stankins*.csproj" Version:"%MyVersion%"
@@ -132,7 +127,7 @@ jobs:
     inputs:
         archiveFilePatterns: '**\*.zip' 
         destinationFolder: $(Build.SourcesDirectory)
-        cleanDestinationFolder: true 
+        cleanDestinationFolder: false 
 
 
   - script: |
@@ -140,6 +135,10 @@ jobs:
        cd stankinsv2/solution/
     displayName: 'cd to folder'
 
+  - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk 2.1.300'
+    inputs:
+        version: 2.1.300
 
   
   - task: NuGetToolInstaller@0
