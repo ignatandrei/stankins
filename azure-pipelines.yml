@@ -23,7 +23,7 @@ jobs:
     vmImage: 'vs2017-win2016'
     condition: true
   steps:
-
+    - checkout: none #skip checking out the default repository resource
     - powershell: |
         $yearPW= Get-Date -Format yyyy
         $monthPW=Get-Date -Format MM
@@ -31,7 +31,7 @@ jobs:
         Write-Host "##vso[task.setvariable variable=PWyear]$yearPW"
         Write-Host "##vso[task.setvariable variable=PWmonth]$monthPW"
         Write-Host "##vso[task.setvariable variable=PWday]$dayPW"
-        Write-Host "##vso[task.setvariable variable=PWversion]$yearPW.$monthPW.$dayPW.$(BUILD_BUILDID)"
+        Write-Host "##vso[task.setvariable variable=PWversion]$yearPW.$monthPW.$dayPW.$env:BUILD_BUILDID"
 
 
 
