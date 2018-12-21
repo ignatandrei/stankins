@@ -21,7 +21,7 @@ jobs:
 - job: SetProps
   pool:
     vmImage: 'vs2017-win2016'
-    condition: true
+  condition: true
   steps:
     - checkout: none #skip checking out the default repository resource
     - powershell: |
@@ -54,10 +54,12 @@ jobs:
 - job: TestMyProps
 
   dependsOn: SetProps
+  condition: eq($(justDebugTesting),1)
 
   pool:
     vmImage: 'vs2017-win2016'
-    condition: eq($(justDebugTesting),1)
+
+  
   variables:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable
  
