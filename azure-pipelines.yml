@@ -57,7 +57,7 @@ jobs:
 
   pool:
     vmImage: 'vs2017-win2016'
-    condition: true
+    condition: $(justDebugTesting)
   variables:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable
  
