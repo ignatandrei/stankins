@@ -138,13 +138,21 @@ jobs:
     displayName: 'Download Build Artifacts'
     inputs:
       artifactName: drop
-      downloadPath: $(Build.ArtifactStagingDirectory)
+      downloadPath: $(System.DefaultWorkingDirectory)
 
   - script: |
         echo hello from deploy
         dir $(Build.ArtifactStagingDirectory)  
-        echo asda >>$(Build.ArtifactStagingDirectory)\a.txt
-      
+        #echo test >>$(Build.ArtifactStagingDirectory)\a.txt
+
+  - task: ArchiveFiles@2
+    inputs:
+      rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+      includeRootFolder: true
+      archiveType: 'zip' 
+      archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip' 
+      replaceExistingArchive: true 
+
   - task: GithubRelease@0
     inputs:
       gitHubConnection: ignatandrei
