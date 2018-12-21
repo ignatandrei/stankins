@@ -189,7 +189,8 @@ jobs:
         rem echo test >>$(Build.ArtifactStagingDirectory)\a.txt
 
   - task: ArchiveFiles@2
-    condition: eq(variables['Linux'],1) #succeeded('Linux')
+    displayName: 'arhive linux'
+    condition: and(always(),eq(variables['deployLinux'],1)) #succeeded('Linux')
     inputs:
       rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/linux-x64'
       includeRootFolder: true
@@ -198,7 +199,8 @@ jobs:
       replaceExistingArchive: true 
 
   - task: ArchiveFiles@2
-    condition: eq(variables['Windows'],1) #succeeded('Windows') 
+    displayName: 'arhive windows '
+    condition: and(always(),eq(variables['deployWindows'],1)) #succeeded('Windows') 
     inputs:
       rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/win10-x64'
       includeRootFolder: true
