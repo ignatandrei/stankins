@@ -12,7 +12,8 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    justDebugTesting: 1
+    deployWindows: 0
+    deployLinux: 1
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -54,7 +55,7 @@ jobs:
 - job: TestMyProps
 
   dependsOn: SetProps
-  condition: eq(variables['justDebugTesting'],1)
+  condition: true
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -70,6 +71,7 @@ jobs:
     
 - job: Windows
   dependsOn: SetProps
+  condition: eq(variables['deployWindows'],1)
   pool:
     vmImage: 'vs2017-win2016'
   
@@ -119,6 +121,8 @@ jobs:
   condition: false
 
 - job: Linux
+  dependsOn: SetProps
+  condition: eq(variables['deployLinux'],1)
   pool:
     vmImage: 'ubuntu-16.04'
     variables:
@@ -164,6 +168,9 @@ jobs:
   - script: echo hello from macOS
 
   condition: false
+
+
+
 - job: Deploy
   pool:
     vmImage: 'win1803'
@@ -212,4 +219,4 @@ jobs:
   dependsOn: 
   - Windows
   - Linux
-  condition: and(false , succeeded())
+  condition: and(succeeded('Windows') , succeeded('Linux'))
