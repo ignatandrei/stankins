@@ -138,7 +138,7 @@ jobs:
     displayName: 'Download Build Artifacts'
     inputs:
       artifactName: drop
-     downloadPath: $(Build.ArtifactStagingDirectory)
+      downloadPath: $(Build.ArtifactStagingDirectory)
 
   - script: |
         echo hello from deploy
