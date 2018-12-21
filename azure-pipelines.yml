@@ -12,7 +12,7 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    justDebugTesting: True
+    justDebugTesting: false
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -21,7 +21,7 @@ jobs:
 - job: TestingVarious
   pool:
     vmImage: 'vs2017-win2016'
-    condition: $justDebugTesting
+    condition: true
   steps:
 
     - powershell: |
@@ -96,7 +96,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
    
-  condition:not $justDebugTesting
+  condition: false
 
 - job: Linux
   pool:
@@ -130,7 +130,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
   
-  condition: not $justDebugTesting
+  condition: false
 
 
 - job: macOS
@@ -143,7 +143,7 @@ jobs:
   steps:
   - script: echo hello from macOS
 
-  condition: not $justDebugTesting
+  condition: false
 - job: Deploy
   pool:
     vmImage: 'win1803'
@@ -192,4 +192,4 @@ jobs:
   dependsOn: 
   - Windows
   - Linux
-  condition: and(not $justDebugTesting , succeeded())
+  condition: and(false , succeeded())
