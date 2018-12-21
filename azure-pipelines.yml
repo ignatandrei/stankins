@@ -13,7 +13,7 @@ variables:
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
     deployWindows: 1
-    deployLinux: 0
+    deployLinux: 1
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -173,7 +173,9 @@ jobs:
     displayName: 'Publish Artifact: drop'
 
 - job: Linux
-  dependsOn: SetProps
+  dependsOn: 
+  - SetProps
+  - DownloadFiles
   condition: eq(variables['deployLinux'],1)
   pool:
     vmImage: 'ubuntu-16.04'
@@ -181,13 +183,28 @@ jobs:
   variables:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable
  
+  
   steps:
   - checkout: none #skip checking out the default repository resource
+  - task: DownloadBuildArtifacts@0
+    displayName: 'Download Build Artifacts'
+    inputs:
+      artifactName: drop
+      downloadPath: $(Build.SourcesDirectory)
+      #downloadPath: $(Agent.BuildDirectory)
+
   - script: |
-        echo hello from Linux
-        echo $(Build.ArtifactStagingDirectory) $(TeamProject) $(BuildDefinitionName) $(SourceBranchName) $(Date:yyyyMMdd) $(Rev:.r)   
-        echo $(Build.BuildId) $(Build.BuildNumber) 
-    displayName: 'variables'
+       ls
+       move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
+    displayName: 'moving file artifact'
+
+  - task: ExtractFiles@1
+    displayName: 'Extract zip files'
+    inputs:
+        archiveFilePatterns: '*.zip' 
+        destinationFolder: $(Build.SourcesDirectory)
+        cleanDestinationFolder: false 
+
   
   - script: |
        cd stankinsv2/solution/
