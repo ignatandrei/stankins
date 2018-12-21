@@ -29,8 +29,8 @@ jobs:
         $monthPW=Get-Date -Format MM
         $dayPW=Get-Date -Format dd
         Write-Host "##vso[task.setvariable variable=yearPW]$yearPW"
-        Write-Host "##vso[task.setvariable variable=$monthPW]$monthPW"
-        Write-Host "##vso[task.setvariable variable=$dayPW]$dayPW"
+        Write-Host "##vso[task.setvariable variable=monthPW]$monthPW"
+        Write-Host "##vso[task.setvariable variable=dayPW]$dayPW"
 
 
 
