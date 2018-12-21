@@ -142,7 +142,7 @@ jobs:
        echo $MY_PASSWORD_DOCKER| docker login --username ignatandrei --password-stdin
        echo version1 : $MyVersion
        echo version2 : $(MyVersion)
-       docker build . --build-arg version= $(MyVersion) -t stankins_linux -f Dockerfile_linux      
+       docker build . --build-arg version=$(MyVersion) -t stankins_linux -f Dockerfile_linux      
        docker image ls
        docker tag stankins_linux ignatandrei/stankins_linux
        docker push ignatandrei/stankins_linux
