@@ -24,14 +24,14 @@ jobs:
     condition: $justDebugTesting
   steps:
 
-    -powershell: |
+    - powershell: |
         $yearPW= Get-Date -Format yyyy
         $monthPW=Get-Date -Format MM
         $dayPW=Get-Date -Format dd
         Write-Host "##vso[task.setvariable variable=yearPW]$yearPW"
         Write-Host "##vso[task.setvariable variable=$monthPW]$monthPW"
         Write-Host "##vso[task.setvariable variable=$dayPW]$dayPW"
-     displayName: 'powershell dates'
+     displayName: 'dates'
 
     - script: |
         echo hello from Windows
