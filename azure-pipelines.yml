@@ -28,9 +28,10 @@ jobs:
         $yearPW= Get-Date -Format yyyy
         $monthPW=Get-Date -Format MM
         $dayPW=Get-Date -Format dd
-        Write-Host "##vso[task.setvariable variable=yearPW]$yearPW"
-        Write-Host "##vso[task.setvariable variable=monthPW]$monthPW"
-        Write-Host "##vso[task.setvariable variable=dayPW]$dayPW"
+        Write-Host "##vso[task.setvariable variable=PWyear]$yearPW"
+        Write-Host "##vso[task.setvariable variable=PWmonth]$monthPW"
+        Write-Host "##vso[task.setvariable variable=PWday]$dayPW"
+        Write-Host "##vso[task.setvariable variable=PWversion]$yearPW.$monthPW.$dayPW.$(BUILD_BUILDID)"
 
 
 
@@ -45,7 +46,9 @@ jobs:
         rem echo AGENT_BUILDDIRECTORY contents:
         rem @dir %AGENT_BUILDDIRECTORY%
         rem echo BUILD_SOURCESDIRECTORY contents:
-        rem @dir %BUILD_SOURCESDIRECTORY%       
+        rem @dir %BUILD_SOURCESDIRECTORY%      
+        echo $(Date:yyyyMMdd)
+
         cmd /K set
     
     
