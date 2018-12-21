@@ -138,16 +138,16 @@ jobs:
     displayName: 'Download Build Artifacts'
     inputs:
       artifactName: drop
-      downloadPath: $(System.DefaultWorkingDirectory)
+      downloadPath: $(System.ArtifactStagingDirectory)
 
   - script: |
         echo hello from deploy
-        dir $(Build.DefaultWorkingDirectory)  
-        #echo test >>$(Build.ArtifactStagingDirectory)\a.txt
+        dir $(Build.ArtifactStagingDirectory)  
+        rem echo test >>$(Build.ArtifactStagingDirectory)\a.txt
 
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/drop/linux-x64'
+      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/linux-x64'
       includeRootFolder: true
       archiveType: 'zip' 
       archiveFile: '$(Build.ArtifactStagingDirectory)/linux-x64-$(Build.BuildId).zip' 
@@ -155,7 +155,7 @@ jobs:
 
   - task: ArchiveFiles@2
     inputs:
-      rootFolderOrFile: '$(System.DefaultWorkingDirectory)/drop/win10-x64'
+      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/win10-x64'
       includeRootFolder: true
       archiveType: 'zip' 
       archiveFile: '$(Build.ArtifactStagingDirectory)/win10-x64-$(Build.BuildId).zip' 
