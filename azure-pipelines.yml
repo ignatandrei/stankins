@@ -52,7 +52,7 @@ jobs:
         cmd /K set
 
 - job: TesttingPropertiesSetting
-    dependsOn: SettingVariousPropertiesMissing
+  dependsOn: SettingVariousPropertiesMissing
   pool:
     vmImage: 'vs2017-win2016'
     condition: true
