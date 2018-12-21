@@ -94,7 +94,7 @@ jobs:
       displayName: 'arhive files'
       inputs:
         rootFolderOrFile: '$(Build.SourcesDirectory)'
-        includeRootFolder: true
+        includeRootFolder: false
         archiveType: 'zip' 
         archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
         replaceExistingArchive: true 
