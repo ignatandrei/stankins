@@ -98,7 +98,7 @@ jobs:
     - task: ArchiveFiles@2
       displayName: 'arhive files'
       inputs:
-        rootFolderOrFile: '$(BUILD_REPOSITORY_LOCALPATH)'
+        rootFolderOrFile: '$(Build.SourcesDirectory)'
         includeRootFolder: true
         archiveType: 'zip' 
         archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
