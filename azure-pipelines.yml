@@ -117,8 +117,6 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
-   
-  condition: false
 
 - job: Linux
   dependsOn: SetProps
@@ -153,8 +151,6 @@ jobs:
 
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
-  
-  condition: false
 
 
 - job: macOS
