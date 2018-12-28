@@ -101,8 +101,9 @@ jobs:
 
     - task: PublishBuildArtifacts@1
       displayName: Publish files as Artifact
+      artifactName: dotNetModifs
 
-- job: FrontEnd
+- job: BuildFrontEnd
   dependsOn: 
   - SetProps
   - DownloadFiles
@@ -114,7 +115,7 @@ jobs:
   - task: DownloadBuildArtifacts@0
     displayName: 'Download Build Artifacts'
     inputs:
-      artifactName: drop
+      artifactName: dotNetModifs
       downloadPath: $(Build.SourcesDirectory)
       #downloadPath: $(Agent.BuildDirectory)
 
@@ -141,7 +142,21 @@ jobs:
        rem see robocopy in build.bat
        build.bat 
        echo finish
-    displayName: 'npm and angular'
+    displayName: 'npm and angular publish'
+
+
+    - task: ArchiveFiles@2
+      displayName: 'arhive files'
+      inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)'
+        includeRootFolder: false
+        archiveType: 'zip' 
+        archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
+        replaceExistingArchive: true 
+
+    - task: PublishBuildArtifacts@1
+      displayName: Publish files as Artifact
+      
 
 
 
