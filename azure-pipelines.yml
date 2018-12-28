@@ -231,10 +231,14 @@ jobs:
     displayName: install global tools
 
   - script: |
+        cd stankinsv2/solution/StankinsV2/StankinsStatusWeb
         dotnet-thx.exe
+        cd ../StankinsTestXUnit
         dotnet test  $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
         reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
-        xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S        
+        xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
+        rem restoring current dir
+        cd ../../../../ 
     displayName: test dot net
   - script: |
         echo start publish windows
