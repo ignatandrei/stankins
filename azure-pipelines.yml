@@ -138,6 +138,7 @@ jobs:
        echo before npm
        call npm i
        echo before build
+       rem see robocopy in build.bat
        build.bat 
        echo finish
     displayName: 'npm and angular'
