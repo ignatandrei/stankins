@@ -31,7 +31,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsAliveMonitor", "Sta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileVersionFromDir", "Stankins.WLW\FileVersionFromDir.csproj", "{B35F3127-6616-4643-B844-7B6C9EB46A4B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsTestXUnit", "StankinsTestXUnit\StankinsTestXUnit.csproj", "{0C13E6CB-4A53-424D-A551-770AC476D74D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsTestXUnit", "StankinsTestXUnit\StankinsTestXUnit.csproj", "{0C13E6CB-4A53-424D-A551-770AC476D74D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
