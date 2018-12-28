@@ -231,10 +231,12 @@ jobs:
     displayName: install global tools
 
   - script: |
+        dir StankinsTestXUnit.dll  /s /b
         rem cd stankinsv2/solution/StankinsV2/StankinsStatusWeb
         rem dotnet-thx.exe
         rem cd ../StankinsTestXUnit
-        dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj
+        rem dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj
+        coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test --no-build" --format opencover --exclude "[xunit*]*"
         reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
         xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
         rem restoring current dir
