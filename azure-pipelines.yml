@@ -135,6 +135,7 @@ jobs:
        dir
        cd stankinsv2\solution\StankinsV2\StankinsAliveAngular
        echo before install angular
+       rem https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/npm?view=vsts
        call npm install -g @angular/cli
        echo before npm
        call npm i
@@ -145,17 +146,17 @@ jobs:
     displayName: 'npm and angular publish'
 
 
-    - task: ArchiveFiles@2
-      displayName: 'arhive files'
-      inputs:
+  - task: ArchiveFiles@2
+    displayName: 'arhive files'
+        inputs:
         rootFolderOrFile: '$(Build.SourcesDirectory)'
         includeRootFolder: false
         archiveType: 'zip' 
         archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
         replaceExistingArchive: true 
 
-    - task: PublishBuildArtifacts@1
-      displayName: Publish files as Artifact
+  - task: PublishBuildArtifacts@1
+    displayName: Publish files as Artifact
       
 
 
