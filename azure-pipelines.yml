@@ -100,8 +100,10 @@ jobs:
         replaceExistingArchive: true 
 
     - task: PublishBuildArtifacts@1
+      inputs:
+         artifactName: dotNetModifs
       displayName: Publish files as Artifact
-      artifactName: dotNetModifs
+     
 
 - job: BuildFrontEnd
   dependsOn: 
