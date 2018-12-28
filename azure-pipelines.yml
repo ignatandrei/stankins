@@ -122,7 +122,9 @@ jobs:
       #downloadPath: $(Agent.BuildDirectory)
 
   - script: |
-       dir
+       dir 
+       dir dotNetModifs
+       dir dotNetModifs\files-$(Build.BuildId).zip
        move dotNetModifs\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
     displayName: 'moving file artifact'
 
