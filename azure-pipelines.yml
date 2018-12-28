@@ -228,7 +228,7 @@ jobs:
         dotnet tool install  --tool-path . coverlet.console
         dotnet tool install  --tool-path . dotnet-reportgenerator-globaltool 
         dotnet tool install  --tool-path . DotnetThx 
-      displayName: install global tools
+    displayName: install global tools
 
   - script: |
         dotnet-thx.exe
