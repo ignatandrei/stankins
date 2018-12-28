@@ -134,6 +134,7 @@ jobs:
        dir
        cd stankinsv2\solution\StankinsV2\StankinsAliveAngular
        npm i
+       build.bat 
     displayName: 'moving file artifact'
 
 
