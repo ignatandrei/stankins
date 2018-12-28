@@ -223,6 +223,21 @@ jobs:
       solution: '$(solution)'
       platform: '$(buildPlatform)'
       configuration: '$(buildConfiguration)'
+
+  - script: |
+        dotnet tool install  --tool-path . coverlet.console
+        dotnet tool install  --tool-path . dotnet-reportgenerator-globaltool 
+        dotnet tool install  --tool-path . DotnetThx 
+      displayName: install global tools
+
+  - script: |
+        dotnet-thx.exe
+        dotnet test  $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover 
+        reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
+        xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S        
+
+
+      displayName: test dot net
   - script: |
         echo start publish windows
         dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
