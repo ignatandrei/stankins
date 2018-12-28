@@ -136,6 +136,8 @@ jobs:
         cleanDestinationFolder: false 
 
   - script: |
+       rem delete old artifact files
+       del files-$(Build.BuildId).zip 
        dir
        cd stankinsv2\solution\StankinsV2\StankinsAliveAngular
        echo before install angular
