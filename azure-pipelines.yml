@@ -236,7 +236,7 @@ jobs:
         rem dotnet-thx.exe
         rem cd ../StankinsTestXUnit
         rem dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj
-        coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test --no-build" --format opencover --exclude "[xunit*]*"
+        coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --no-build" --format opencover --exclude "[xunit*]*"
         reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
         xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
         rem restoring current dir
