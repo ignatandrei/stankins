@@ -123,7 +123,7 @@ jobs:
 
   - script: |
        dir
-       move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
+       move dotNetModifs\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
     displayName: 'moving file artifact'
 
   - task: ExtractFiles@1
