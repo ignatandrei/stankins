@@ -134,7 +134,7 @@ jobs:
        dir
        cd stankinsv2\solution\StankinsV2\StankinsAliveAngular
        echo before install angular
-       npm install -g @angular/cli
+       call npm install -g @angular/cli
        echo before npm
        call npm i
        echo before build
