@@ -148,7 +148,7 @@ jobs:
 
   - task: ArchiveFiles@2
     displayName: 'arhive files'
-        inputs:
+    inputs:
         rootFolderOrFile: '$(Build.SourcesDirectory)'
         includeRootFolder: false
         archiveType: 'zip' 
