@@ -406,26 +406,26 @@ jobs:
   condition: or(succeeded('Windows') , succeeded('Linux'))
 
 
-#- job: DeployOnAzure
-#
-#  dependsOn: Windows
-#  condition: succeeded('Windows')
+- job: DeployOnAzure
 
-#  pool:
-#    vmImage: 'vs2017-win2016'
+  dependsOn: Windows
+  condition: succeeded('Windows')
+
+  pool:
+    vmImage: 'vs2017-win2016'
  
-#  steps:
-#    - checkout: none #skip checking out the default repository resource
-#    - task: DotNetCoreCLI@2
-#      inputs:
-#        command: publish
-#        publishWebProjects: True
-#        projects: '**/StankinsAliveMonitor.csproj'
-#        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-#        zipAfterPublish: Truee 
+  steps:
+    - checkout: none #skip checking out the default repository resource
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        projects: '**/StankinsAliveMonitor.csproj'
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: Truee 
     
-#    - task: AzureRmWebAppDeployment@3
-#      inputs:
-#        azureSubscription: andreiazurestankins
-#        WebAppName: 'stankinswebapp'
+    - task: AzureRmWebAppDeployment@3
+      inputs:
+        azureSubscription: 'azurestankins'
+        WebAppName: 'stankinswebapp'
 #        Package: $(System.ArtifactsDirectory)/**/*Monitor*.zip
