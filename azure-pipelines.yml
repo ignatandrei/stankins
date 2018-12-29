@@ -426,11 +426,11 @@ jobs:
     - script: |
        dir
        move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
-    displayName: 'moving file artifact'
+       displayName: 'moving file artifact'
 
     - task: ExtractFiles@1
-    displayName: 'Extract zip files'
-    inputs:
+      displayName: 'Extract zip files'
+      inputs:
         archiveFilePatterns: '*.zip' 
         destinationFolder: $(Build.SourcesDirectory)
         cleanDestinationFolder: false 
