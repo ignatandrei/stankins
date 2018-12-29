@@ -416,6 +416,25 @@ jobs:
  
   steps:
     - checkout: none #skip checking out the default repository resource
+    - task: DownloadBuildArtifacts@0
+    displayName: 'Download Build Artifacts'
+    inputs:
+      artifactName: drop
+      downloadPath: $(Build.SourcesDirectory)
+      #downloadPath: $(Agent.BuildDirectory)
+
+    - script: |
+       dir
+       move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
+    displayName: 'moving file artifact'
+
+    - task: ExtractFiles@1
+    displayName: 'Extract zip files'
+    inputs:
+        archiveFilePatterns: '*.zip' 
+        destinationFolder: $(Build.SourcesDirectory)
+        cleanDestinationFolder: false 
+
     - task: DotNetCoreCLI@2
       inputs:
         command: publish
