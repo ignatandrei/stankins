@@ -426,6 +426,6 @@ jobs:
     
     - task: AzureRmWebAppDeployment@3
       inputs:
-        azureSubscription: 'andreiazurestankins'
+        azureSubscription: andreiazurestankins
         WebAppName: 'stankinswebapp'
         Package: $(System.ArtifactsDirectory)/**/*Monitor*.zip
