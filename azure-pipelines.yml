@@ -422,7 +422,7 @@ jobs:
         publishWebProjects: True
         projects: '**/StankinsAliveMonitor.csproj'
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: Truee 
+        zipAfterPublish: True
     
     - task: AzureRmWebAppDeployment@3
       inputs:
