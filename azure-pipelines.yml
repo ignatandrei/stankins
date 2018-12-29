@@ -378,6 +378,15 @@ jobs:
       archiveFile: '$(Build.ArtifactStagingDirectory)/win10-x64-$(Build.BuildId).zip' 
       replaceExistingArchive: true 
 
+  - task: ArchiveFiles@2
+    displayName: 'arhive code coverage'
+    inputs:
+      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/cc'
+      includeRootFolder: true
+      archiveType: 'zip' 
+      archiveFile: '$(Build.ArtifactStagingDirectory)/CodeCoverage-$(Build.BuildId).zip' 
+      replaceExistingArchive: true 
+
   - task: GithubRelease@0
     inputs:
       gitHubConnection: ignatandrei
@@ -395,3 +404,28 @@ jobs:
   - Windows
   - Linux
   condition: or(succeeded('Windows') , succeeded('Linux'))
+
+
+- job: DeployOnAzure
+
+  dependsOn: Windows
+  condition: succeeded('Windows')
+
+  pool:
+    vmImage: 'vs2017-win2016'
+ 
+  steps:
+    - checkout: none #skip checking out the default repository resource
+    - task: DotNetCoreCLI@2
+      inputs:
+        command: publish
+        publishWebProjects: True
+        projects: '**/StankinsAliveMonitor.csproj'
+        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: Truee 
+    
+    - task: AzureRmWebAppDeployment@3
+      inputs:
+        azureSubscription: 'andreiazurestankins'
+        WebAppName: 'stankinswebapp'
+        Package: $(System.ArtifactsDirectory)/**/*Monitor*.zip
