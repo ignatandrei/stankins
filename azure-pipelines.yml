@@ -230,9 +230,11 @@ jobs:
         dotnet tool install  --tool-path . DotnetThx 
     displayName: install global tools
 
-  - script:  |
-        dotnet test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --logger trx --collect "Code coverage"
-    displayName: irun test coverage Automated
+  - task: DotNetCoreCLI@2
+    inputs:
+       command: test
+       projects: '**/*Test*/*Test*.csproj'
+       arguments: '--configuration $(buildConfiguration) --logger trx --collect "Code coverage"'
 
   - task: PublishTestResults@2
     inputs:

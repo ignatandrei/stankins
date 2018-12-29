@@ -28,5 +28,21 @@ namespace StankinsTestXUnit
             row["IsSuccess"].Should().Be(true);
             #endregion
         }
+        [Fact]
+        public async Task AliveStatusFromPing()
+        {
+            #region arrange
+            var r = new ReceiverPing("127.0.0.1");
+            #endregion
+            #region act
+            var dt = await r.TransformData(null);
+            var res = AliveStatus.FromTable(dt.DataToBeSentFurther.First().Value);
+            #endregion
+            #region assert
+            res.Should().NotBeNull();
+            res.Count().Should().Be(1);
+            res.First().IsSuccess.Should().Be(true);
+            #endregion
+        }
     }
 }
