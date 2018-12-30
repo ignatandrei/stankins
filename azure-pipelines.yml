@@ -469,4 +469,4 @@ jobs:
       inputs:
         azureSubscription: 'azurestankins'
         WebAppName: 'azurestankins'
-#       Package: $(System.ArtifactsDirectory)/*StankinsStatusWeb*.zip
+        Package: $(System.ArtifactsDirectory)/*StankinsStatusWeb*.zip
