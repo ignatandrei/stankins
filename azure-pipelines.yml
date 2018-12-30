@@ -441,10 +441,10 @@ jobs:
   #      archiveFilePatterns: '*.zip' 
   #      destinationFolder: $(Build.SourcesDirectory)
   #      cleanDestinationFolder: false 
-     - script: |
-        dir
-        cd stankinsv2/solution
-        dir
+    - script: |
+       dir
+       cd stankinsv2/solution
+       dir
         
     - task: DotNetCoreCLI@2
       displayName: 'build again'
