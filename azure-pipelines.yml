@@ -467,23 +467,24 @@ jobs:
 # Azure App Service Manage
 # Start, Stop, Restart, Slot swap, Install site extensions or Enable Continuous Monitoring for an Azure App Service
 
-    - task: AzureAppServiceManage@0
-      inputs:
-        azureSubscriptionazureSubscription: 'azurestankins'
-        WebAppName: 'azurestankins'
-        action: 'stop Azure App Service'
+    #- task: AzureAppServiceManage@0
+    #  inputs:
+    #    azureSubscriptionazureSubscription: 'azurestankins'
+    #    WebAppName: 'azurestankins'
+    #    action: 'stop Azure App Service'
   
     - task: AzureRmWebAppDeployment@3
       inputs:
         azureSubscription: 'azurestankins'
         WebAppName: 'azurestankins'
         Package: $(System.ArtifactsDirectory)/*StankinsStatusWeb*.zip
-        #DeployToSlotFlag: true
-        #SlotName: staging
+        DeployToSlotFlag: true
+        SlotName: staging
+        ResourceGroupName: 'stankins'
 
-    - task: AzureAppServiceManage@0
-      inputs:
-        azureSubscriptionazureSubscription: 'azurestankins'
-        WebAppName: 'azurestankins'
-        action: 'start Azure App Service'
+    #- task: AzureAppServiceManage@0
+    #  inputs:
+    #    azureSubscriptionazureSubscription: 'azurestankins'
+    #    WebAppName: 'azurestankins'
+    #    action: 'start Azure App Service'
   
