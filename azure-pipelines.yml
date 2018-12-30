@@ -446,7 +446,7 @@ jobs:
       inputs:
         command: publish
         publishWebProjects: True
-        projects: '**/StankinsAliveMonitor.csproj'
+        projects: 'Stankinsv2/**/StankinsAliveMonitor.csproj'
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
     
