@@ -364,6 +364,8 @@ jobs:
         echo hello from deploy
         dir $(Build.ArtifactStagingDirectory)  
         rem echo test >>$(Build.ArtifactStagingDirectory)\a.txt
+    displayName: just testing
+
 
   - task: ArchiveFiles@2
     displayName: 'arhive linux'
@@ -447,6 +449,7 @@ jobs:
        dir
        rmdir stankinsV1 /s /q
        dir
+      displayName: removing stankinsV1
 
     - task: DotNetCoreCLI@2
       displayName: 'build again'
@@ -456,9 +459,14 @@ jobs:
         workingDirectory: 'stankinsv2/solution/StankinsV2/'
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
-    
+        
+    - script: |
+       dir $(System.ArtifactsDirectory)/*.zip /s /b
+      displayName: finding zip after Publish
+
+  
     - task: AzureRmWebAppDeployment@3
       inputs:
         azureSubscription: 'azurestankins'
-        WebAppName: 'stankinswebapp'
-#        Package: $(System.ArtifactsDirectory)/**/*Monitor*.zip
+        WebAppName: 'azurestankins'
+#       Package: $(System.ArtifactsDirectory)/**/*Monitor*.zip
