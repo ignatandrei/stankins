@@ -444,7 +444,14 @@ jobs:
     #    archiveFilePatterns: '*.zip' 
     #    destinationFolder: $(Build.SourcesDirectory)
     #    cleanDestinationFolder: false 
-        
+         
+    - task: AzureRmWebAppDeployment@3
+      inputs:
+        azureSubscription: 'azurestankins'
+        action: 'stop'
+        WebAppName: 'azurestankins'
+        SlotName: staging
+        ResourceGroupName: 'stankins'
         
     - script: |
        dir
