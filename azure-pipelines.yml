@@ -442,6 +442,12 @@ jobs:
   #      destinationFolder: $(Build.SourcesDirectory)
   #      cleanDestinationFolder: false 
         
+        
+    - script: |
+       dir
+       rmdir stankinsV1 /s /q
+       dir
+
     - task: DotNetCoreCLI@2
       displayName: 'build again'
       inputs:
