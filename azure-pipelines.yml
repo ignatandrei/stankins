@@ -482,6 +482,12 @@ jobs:
         SlotName: staging
         ResourceGroupName: 'stankins'
 
+    - task: AzureAppServiceManage@0
+      inputs:
+        azureSubscription: 'azurestankins'
+        WebAppName: 'azurestankins'
+        ResourceGroupName: 'stankins'
+        SourceSlot: staging
     #- task: AzureAppServiceManage@0
     #  inputs:
     #    azureSubscriptionazureSubscription: 'azurestankins'
