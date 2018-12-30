@@ -445,10 +445,10 @@ jobs:
     #    destinationFolder: $(Build.SourcesDirectory)
     #    cleanDestinationFolder: false 
          
-    - task: AzureRmWebAppDeployment@3
+    - task: AzureAppServiceManage@0
       inputs:
         azureSubscription: 'azurestankins'
-        action: 'stop Azure App Service'
+        action: 'stop'
         WebAppName: 'azurestankins'
         SlotName: staging
         ResourceGroupName: 'stankins'
