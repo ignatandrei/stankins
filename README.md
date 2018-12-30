@@ -8,6 +8,14 @@
 [![codecov](https://codecov.io/gh/ignatandrei/stankins/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/stankins)
 
 [Live demo https://azurestankins.azurewebsites.net](https://azurestankins.azurewebsites.net)
+
+
+[Live swagger https://azurestankins.azurewebsites.net/swagger](https://azurestankins.azurewebsites.net/swagger)
+
+
+[Pipeline Azure Devops https://dev.azure.com/ignatandrei0674/stankinsv2/_build?definitionId=1](https://dev.azure.com/ignatandrei0674/stankinsv2/_build?definitionId=1)
+
+
 <a href='https://github.com/ignatandrei/stankins/releases'>Releases</a>
 
 <a href='https://cdn.rawgit.com/ignatandrei/stankins/74e25fbe/Documentation/Help/index.html'>Documentation</a>

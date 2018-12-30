@@ -14,6 +14,7 @@ namespace StankinsAliveMonitor.Controllers
     [ApiController]
     public class UtilsController : ControllerBase
     {
+        [HttpGet]
         public FileVersionInfo[] GetVersions([FromServices] IHostingEnvironment hosting)
         {
             var dirPath = hosting.ContentRootPath;

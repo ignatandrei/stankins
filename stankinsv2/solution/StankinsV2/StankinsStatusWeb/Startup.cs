@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using StankinsAliveMonitor.SignalRHubs;
 using Microsoft.AspNetCore.Http;
+using NSwag.AspNetCore;
 
 namespace StankinsStatusWeb
 {
@@ -39,6 +40,7 @@ namespace StankinsStatusWeb
             }));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddSwaggerDocument();
             services.AddSignalR();
             services.Configure<MonitorOptions>(Configuration.GetSection("MonitorData"));
             services.PostConfigure<MonitorOptions>((x) =>
@@ -77,6 +79,11 @@ namespace StankinsStatusWeb
             app.UseSignalR(routes =>
             {
                 routes.MapHub<DataHub>("/DataHub");
+            });
+            app.UseSwagger();
+            app.UseSwaggerUi3(settings =>
+            {
+                
             });
             app.UseMvc();
             //redirect to angular page if do not use MVC or static files
