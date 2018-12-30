@@ -448,7 +448,7 @@ jobs:
     - task: AzureRmWebAppDeployment@3
       inputs:
         azureSubscription: 'azurestankins'
-        action: 'stop'
+        action: 'stop Azure App Service'
         WebAppName: 'azurestankins'
         SlotName: staging
         ResourceGroupName: 'stankins'
