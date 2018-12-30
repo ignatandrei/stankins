@@ -427,7 +427,7 @@ jobs:
     - checkout: none #skip checking out the default repository resource
     - task: DownloadBuildArtifacts@0
       displayName: 'Download Build Artifacts'
-     inputs:
+      inputs:
         artifactName: drop
         downloadPath: $(Build.SourcesDirectory)
   
