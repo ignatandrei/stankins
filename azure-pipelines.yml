@@ -471,7 +471,6 @@ jobs:
       inputs:
         azureSubscriptionazureSubscription: 'azurestankins'
         WebAppName: 'azurestankins'
-        ConnectedServiceName:'azurestankins'
         action: 'stop Azure App Service'
   
     - task: AzureRmWebAppDeployment@3
