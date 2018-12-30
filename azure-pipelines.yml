@@ -461,7 +461,7 @@ jobs:
         zipAfterPublish: True
         
     - script: |
-       dir $(System.ArtifactsDirectory)/*.zip /s /b
+       dir $(System.ArtifactsDirectory)\*.zip /s /b
       displayName: finding zip after Publish
 
   
