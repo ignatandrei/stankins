@@ -443,10 +443,11 @@ jobs:
         cleanDestinationFolder: false 
 
     - task: DotNetCoreCLI@2
+      displayName: 'build again'
       inputs:
         command: publish
         publishWebProjects: True
-        projects: 'Stankinsv2/**/StankinsAliveMonitor.csproj'
+        projects: 'stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj'
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
     
