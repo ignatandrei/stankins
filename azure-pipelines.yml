@@ -447,10 +447,12 @@ jobs:
          
     - task: AzureAppServiceManage@0
       inputs:
+        #ConnectedServiceName: "azurestankins"
         azureSubscription: 'azurestankins'
-        action: 'Stop'
+        action: 'Stop Azure App Service'
         WebAppName: 'azurestankins'
         SlotName: staging
+        SpecifySlot: 'true'
         ResourceGroupName: 'stankins'
         
     - script: |
