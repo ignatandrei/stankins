@@ -441,13 +441,17 @@ jobs:
   #      archiveFilePatterns: '*.zip' 
   #      destinationFolder: $(Build.SourcesDirectory)
   #      cleanDestinationFolder: false 
-
+     - script: |
+        dir
+        cd stankinsv2/solution
+        dir
+        
     - task: DotNetCoreCLI@2
       displayName: 'build again'
       inputs:
         command: publish
         publishWebProjects: True
-        projects: 'stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj'
+        #projects: 'stankinsv2/solution/StankinsV2/s'
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
     
