@@ -27,3 +27,9 @@ export interface FileVersionInfo {
   comments: string;
   isPatched: boolean;
 }
+
+export class FVSAngular {
+  name: string;
+  version: string;
+  dev: boolean;
+}

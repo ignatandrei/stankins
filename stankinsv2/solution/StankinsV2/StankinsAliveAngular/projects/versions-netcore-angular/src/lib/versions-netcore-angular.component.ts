@@ -25,6 +25,7 @@ export class VersionsNetcoreAngularComponent implements OnInit {
 
   ngOnInit() {
     console.log('ng on init versions');
+    this.vs.FVSAngular().subscribe(it => window.alert(JSON.stringify(it)));
     this.vs.FVS().subscribe(it => {
       console.log(it.length);
       this.dataSource = new MatTableDataSource( it);
