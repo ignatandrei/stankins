@@ -12,8 +12,8 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    deployWindows: 1
-    deployLinux: 1
+    deployWindows: 0
+    deployLinux: 0
     stop : 0
     
 
@@ -114,6 +114,9 @@ jobs:
   pool:
     vmImage: 'vs2017-win2016'
 
+  variables:
+    MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable 
+
   steps:
   - checkout: none #skip checking out the default repository resource
   - task: DownloadBuildArtifacts@0
@@ -145,6 +148,8 @@ jobs:
        echo before install angular
        rem https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/npm?view=vsts
        call npm install -g @angular/cli
+       call npm install -g json
+       json -I -f npm-shrinkwrap.json -e "this.version='%MyVersion%'"
        echo before npm
        call npm i
        echo before build
