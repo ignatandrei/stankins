@@ -164,6 +164,7 @@ jobs:
 
   - script: |
        dir
+       npm install -g q
        call npm install -g cordova
        cd stankinsv2\solution\StankinsV2\StankinsCordova
        echo requirements
