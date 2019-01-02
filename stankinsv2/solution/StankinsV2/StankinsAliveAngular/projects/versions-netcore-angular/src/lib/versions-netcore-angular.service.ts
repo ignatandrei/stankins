@@ -26,6 +26,7 @@ export class VersionsNetcoreAngularService {
                 let f = new FVSAng();
                 f.name = ret.name;
                 f.fileVersion = ret.version;
+                arr.push(f);
                 for (const key of Array.from( Object.keys(d)) ) {
                     const dep = d[key] as Dependency;
                     if (dep.dev) {
