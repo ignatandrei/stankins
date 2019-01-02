@@ -164,12 +164,27 @@ jobs:
 
   - script: |
        dir
-       npm install -g cordova
+       call npm install -g cordova
        cd stankinsv2\solution\StankinsV2\StankinsAliveAngular
        call cordova requirements
        cordova build android
     displayName: 'cordova'
-   
+
+  - task: AndroidSigning@2
+    inputs:
+        apkFiles: '**/*.apk'
+        jarsign: true
+        jarsignerKeystoreFile: 'stankinsv2\solution\StankinsV2\StankinsCordova\keystore.jks'
+        jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
+        jarsignerKeystoreAlias: '$(keystoreAlias)'
+        jarsignerKeyPassword: '$(jarsignerKeyPassword)'
+        zipalign: true   
+
+  - task: CopyFiles@2
+    inputs:
+        contents: '**/*.apk'
+        targetFolder: '$(build.artifactStagingDirectory)'
+
   - task: ArchiveFiles@2
     displayName: 'arhive files'
     inputs:
