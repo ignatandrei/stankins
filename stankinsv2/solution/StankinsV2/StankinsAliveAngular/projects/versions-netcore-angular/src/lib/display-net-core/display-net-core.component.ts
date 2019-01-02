@@ -9,8 +9,8 @@ import { FileVersionInfo } from '../FileVersion';
 })
 export class DisplayNetCoreComponent implements OnInit {
 
-  constructor( public dialogRef: MatDialogRef<FileVersionInfo>,
-    @Inject(MAT_DIALOG_DATA) public data: FileVersionInfo) { }
+  constructor( public dialogRef: MatDialogRef<any>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
   }

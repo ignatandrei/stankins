@@ -3,7 +3,7 @@ import { MatTableDataSource, MatSort, MatDialogRef, MatDialog } from '@angular/m
 import { element } from '@angular/core/src/render3';
 import { VersionsNetcoreAngularService } from './versions-netcore-angular.service';
 import { DisplayNetCoreComponent } from './display-net-core/display-net-core.component';
-import { FileVersionInfo } from './FileVersion';
+import { FileVersionInfo, PackageJSONVersion, Dependencies, Dependency, FVSAng } from './FileVersion';
 
 
 @Component({
@@ -17,25 +17,45 @@ export class VersionsNetcoreAngularComponent implements OnInit {
     public dialog: MatDialog
     ) { }
   public fvs: FileVersionInfo[];
-  public dataSource: MatTableDataSource<FileVersionInfo>;
-  displayedColumns: string[] = ['internalName', 'companyName', 'fileVersion', 'AllInfo'];
+  public dataSourceNET: MatTableDataSource<FileVersionInfo>;
+
+  public dataSourceNPM: MatTableDataSource<FVSAng>;
+
+  displayedColumnsNET: string[] = ['internalName', 'companyName', 'fileVersion', 'AllInfo'];
+
   @ViewChild(MatSort)
-  sort: MatSort;
+  sortNet: MatSort;
 
+  displayedColumnsNPM: string[] = ['name', 'version', 'AllInfo'];
 
+  @ViewChild(MatSort)
+  sortAng: MatSort;
   ngOnInit() {
     console.log('ng on init versions');
-    this.vs.FVSAngular().subscribe(it => window.alert(JSON.stringify(it)));
+    this.vs.FVSAngular().subscribe(it => {
+      this.dataSourceNPM = new MatTableDataSource( it);
+      this.dataSourceNPM.sort = this.sortAng;
+    }
+       );
     this.vs.FVS().subscribe(it => {
       console.log(it.length);
-      this.dataSource = new MatTableDataSource( it);
-      this.dataSource.sort = this.sort;
+      this.dataSourceNET = new MatTableDataSource( it);
+      this.dataSourceNET.sort = this.sortNet;
     });
   }
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilterNET(filterValue: string) {
+    this.dataSourceNET.filter = filterValue.trim().toLowerCase();
   }
-  infoElement( el: FileVersionInfo) {
+  applyFilterNPM(filterValue: string) {
+    this.dataSourceNPM.filter = filterValue.trim().toLowerCase();
+  }
+  infoElementNPM( el: FileVersionInfo) {
+    const dialogRef = this.dialog.open(DisplayNetCoreComponent, {
+      // width: '250px',
+      data: el
+    });
+  }
+  infoElementNET( el: FileVersionInfo) {
     const dialogRef = this.dialog.open(DisplayNetCoreComponent, {
       // width: '250px',
       data: el

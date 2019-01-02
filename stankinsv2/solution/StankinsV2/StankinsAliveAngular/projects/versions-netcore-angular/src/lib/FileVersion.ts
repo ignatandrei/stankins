@@ -28,8 +28,24 @@ export interface FileVersionInfo {
   isPatched: boolean;
 }
 
-export class FVSAngular {
-  name: string;
+export interface Dependency {
   version: string;
   dev: boolean;
+}
+export interface Dependencies {
+  [dependencyName: string]: Dependency;
+}
+
+export class PackageJSONVersion {
+  name: string;
+  version: string;
+  dependencies: Dependencies;
+}
+
+export class FVSAng {
+  fileVersion: string;
+  name: string;
+  get internalName(): string {
+    return this.name;
+  }
 }
