@@ -148,10 +148,11 @@ jobs:
        echo before install angular
        rem https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/npm?view=vsts
        call npm install -g @angular/cli
-       echo before json call
-       call npm install -g json
        echo install json
+       call npm install -g json
+       echo before json call with %MyVersion%
        call json -I -f npm-shrinkwrap.json -e "this.version='%MyVersion%'"
+       type npm-shrinkwrap.json
        echo before npm
        call npm i
        echo before build
@@ -325,8 +326,8 @@ jobs:
   - script: |
        cd stankinsv2/solution/
        echo $MY_PASSWORD_DOCKER| docker login --username ignatandrei --password-stdin
-       echo version1 : $MyVersion
-       echo version2 : $(MyVersion)
+       rem echo version1 : $MyVersion
+       rem echo version2 : $(MyVersion)
        #docker build . --build-arg version=$(MyVersion) -t stankins_linux -f Dockerfile_linux      
        docker build . -t stankins_linux -f Dockerfile_linux      
        docker image ls
