@@ -166,7 +166,9 @@ jobs:
        dir
        call npm install -g cordova
        cd stankinsv2\solution\StankinsV2\StankinsCordova
+       echo requirements
        call cordova requirements
+       echo Build android
        cordova build android
     displayName: 'cordova'
 
