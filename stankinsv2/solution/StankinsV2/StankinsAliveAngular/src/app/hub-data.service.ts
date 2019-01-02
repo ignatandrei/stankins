@@ -21,7 +21,7 @@ export class HubDataService {
 
    this.connection
     .start()
-    .catch(err => document.write(err) )
+    .catch(err => console.log(err) )
     .finally(() => {
       self.reloadData();
     });

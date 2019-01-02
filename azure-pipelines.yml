@@ -162,7 +162,14 @@ jobs:
        echo finish
     displayName: 'npm and angular publish'
 
-
+  - script: |
+       dir
+       npm install -g cordova
+       cd stankinsv2\solution\StankinsV2\StankinsAliveAngular
+       call cordova requirements
+       cordova build android
+    displayName: 'cordova'
+   
   - task: ArchiveFiles@2
     displayName: 'arhive files'
     inputs:
