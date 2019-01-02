@@ -152,6 +152,7 @@ jobs:
        call npm install -g json
        echo before json call with %MyVersion%
        call json -I -f npm-shrinkwrap.json -e "this.version='%MyVersion%'"
+       call json -I -f package.json -e "this.version='%MyVersion%'"
        type npm-shrinkwrap.json
        echo before npm
        call npm i
