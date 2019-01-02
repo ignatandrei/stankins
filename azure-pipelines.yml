@@ -167,6 +167,8 @@ jobs:
        call npm install -g q
        call npm install -g cordova
        cd stankinsv2\solution\StankinsV2\StankinsCordova
+       call cordova platform rm android
+       call cordova platform add android
        echo requirements
        call cordova requirements
        echo Build android
