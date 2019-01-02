@@ -174,7 +174,7 @@ jobs:
     inputs:
         apkFiles: '**/*.apk'
         jarsign: true
-        jarsignerKeystoreFile: 'stankinsv2\solution\StankinsV2\StankinsCordova\keystore.jks'
+        jarsignerKeystoreFile: 'keystore.jks' #from library...
         jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
         jarsignerKeystoreAlias: '$(keystoreAlias)'
         jarsignerKeyPassword: '$(jarsignerKeyPassword)'
