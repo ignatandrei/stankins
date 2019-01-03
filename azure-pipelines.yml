@@ -204,6 +204,8 @@ jobs:
         
   - script: |
        cd $(Build.ArtifactStagingDirectory)
+       dir *.apk /s /b 
+       echo renaming
        ren app-debug.apk  StankinsCordova_%MyVersion%.apk
     displayName: 'renaming apk'
 
@@ -458,7 +460,7 @@ jobs:
   - task: ArchiveFiles@2
     displayName: 'arhive androd'
     inputs:
-      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/*.apk'
+      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/*.apk'
       includeRootFolder: true
       archiveType: 'zip' 
       archiveFile: '$(Build.ArtifactStagingDirectory)/Android-$(Build.BuildId).zip' 
