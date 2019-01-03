@@ -177,7 +177,7 @@ jobs:
 
   - task: AndroidSigning@2
     inputs:
-        apkFiles: '**/app*.apk'
+        apkFiles: 'stankinsv2/solution/StankinsV2/StankinsCordova/**/app*.apk' #how to change name of apk file? mystery...
         jarsign: true
         jarsignerKeystoreFile: 'keystore.jks' #from library...
         jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
@@ -187,8 +187,8 @@ jobs:
 
   - task: CopyFiles@2
     inputs:
-        contents: '**/*.apk'
-        targetFolder: '$(build.artifactStagingDirectory)'
+        contents: 'stankinsv2/solution/StankinsV2/StankinsCordova/**/app*.apk'
+        targetFolder: '$(Build.ArtifactStagingDirectory)'
 
   - task: ArchiveFiles@2
     displayName: 'arhive files'
