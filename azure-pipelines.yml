@@ -175,16 +175,26 @@ jobs:
        cordova build android
     displayName: 'cordova'
 
-  - task: AndroidSigning@2
+  #- task: AndroidSigning@2
+  #  inputs:
+  #     apkFiles: 'stankinsv2/solution/StankinsV2/StankinsCordova/**/app*.apk' #how to change name of apk file? mystery...
+  #      jarsign: true
+  #      jarsignerKeystoreFile: 'keystore.jks' #from library...
+  #      jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
+  #      jarsignerKeystoreAlias: '$(keystoreAlias)'
+  #      jarsignerKeyPassword: '$(jarsignerKeyPassword)'
+  #      zipalign: true  
+    
+    
+  - task: AndroidSigning@3
     inputs:
-        apkFiles: 'stankinsv2/solution/StankinsV2/StankinsCordova/**/app*.apk' #how to change name of apk file? mystery...
-        jarsign: true
-        jarsignerKeystoreFile: 'keystore.jks' #from library...
-        jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
-        jarsignerKeystoreAlias: '$(keystoreAlias)'
-        jarsignerKeyPassword: '$(jarsignerKeyPassword)'
-        zipalign: true   
-
+        apkFiles: '**/debug/*.apk' #how to change name of apk file? mystery...
+        apksign: true
+        apksignerKeystoreFile: 'keystore.jks' #from library...
+        apksignerKeystorePassword: '$(jarsignerKeystorePassword)'
+        apksignerKeystoreAlias: '$(keystoreAlias)'
+        apksignerKeyPassword: '$(jarsignerKeyPassword)'
+        zipalign: true
   - task: CopyFiles@2
     inputs:
         contents: 'stankinsv2/solution/StankinsV2/StankinsCordova/**/app*.apk'
