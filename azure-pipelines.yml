@@ -215,9 +215,13 @@ jobs:
        call npm install -g electron
        call npm install -g electron-builder
        cd stankinsv2\solution\StankinsV2\StankinsElectron
+       call npm install -g json
+       echo before json call with %MyVersion%
+       call json -I -f package.json -e "this.version='%MyVersion%'"
        call npm install 
        echo Build electron
-       electron-builder --win --x64
+       electron-builder --win --x64 --publish never
+       dir dist\*.* /b
     displayName: 'electron'
     
   - task: CopyFiles@2
@@ -473,7 +477,7 @@ jobs:
       replaceExistingArchive: true 
       
   - task: ArchiveFiles@2
-    displayName: 'arhive androd'
+    displayName: 'arhive android'
     inputs:
       rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/*.apk'
       includeRootFolder: true
