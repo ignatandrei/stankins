@@ -177,7 +177,7 @@ jobs:
 
   - task: AndroidSigning@2
     inputs:
-        apkFiles: '**/*.apk'
+        apkFiles: '**/app*.apk'
         jarsign: true
         jarsignerKeystoreFile: 'keystore.jks' #from library...
         jarsignerKeystorePassword: '$(jarsignerKeystorePassword)'
