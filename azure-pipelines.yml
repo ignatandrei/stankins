@@ -189,6 +189,7 @@ jobs:
   - task: AndroidSigning@3
     inputs:
         apkFiles: '**/debug/*.apk' #how to change name of apk file? mystery...
+        #apkFiles: 'stankinsv2/solution/StankinsV2/StankinsCordova/platforms/android/app/build/outputs/apk/debug/app-debug.apk'
         apksign: true
         apksignerKeystoreFile: 'keystore.jks' #from library...
         apksignerKeystorePassword: '$(jarsignerKeystorePassword)'
@@ -200,6 +201,14 @@ jobs:
         contents: 'stankinsv2/solution/StankinsV2/StankinsCordova/**/app*.apk'
         targetFolder: '$(Build.ArtifactStagingDirectory)'
         flattenFolders: true
+        
+  - script: |
+       cd $(Build.ArtifactStagingDirectory)
+       ren app-debug.apk  StankinsCordova_%MyVersion%.apk
+    displayName: 'renaming apk'
+
+
+
 
   - task: ArchiveFiles@2
     displayName: 'arhive files'
@@ -209,6 +218,7 @@ jobs:
         archiveType: 'zip' 
         archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
         replaceExistingArchive: true 
+
 
   - task: PublishBuildArtifacts@1
     displayName: Publish files as Artifact
@@ -221,7 +231,7 @@ jobs:
   dependsOn: 
   - SetProps
   - BuildFrontEnd
-  condition: eq(variables['deployWindows'],1)
+  condition: and( eq(variables['deployWindows'],1), succeeded('BuildFrontEnd'))
   pool:
     vmImage: 'vs2017-win2016'
 
@@ -332,7 +342,7 @@ jobs:
   dependsOn: 
   - SetProps
   - BuildFrontEnd
-  condition: eq(variables['deployLinux'],1)
+  condition: and(eq(variables['deployLinux'],1), succeeded('BuildFrontEnd'))
   pool:
     vmImage: 'ubuntu-16.04'
 
@@ -444,6 +454,16 @@ jobs:
       archiveType: 'zip' 
       archiveFile: '$(Build.ArtifactStagingDirectory)/CodeCoverage-$(Build.BuildId).zip' 
       replaceExistingArchive: true 
+      
+  - task: ArchiveFiles@2
+    displayName: 'arhive androd'
+    inputs:
+      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/*.apk'
+      includeRootFolder: true
+      archiveType: 'zip' 
+      archiveFile: '$(Build.ArtifactStagingDirectory)/Android-$(Build.BuildId).zip' 
+      replaceExistingArchive: true 
+
 
   - task: GithubRelease@0
     inputs:
