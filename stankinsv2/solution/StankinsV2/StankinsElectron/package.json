@@ -1,26 +1,28 @@
 {
-  "name": "electron-quick-start",
+  "name": "stankinsalive",
   "version": "1.0.0",
-  "description": "A minimal Electron application",
+  "description": "A minimal alive",
   "main": "main.js",
+  "build": {
+    "appId": "StankinsAlive.msprogrammer.serviciipeweb.ro",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  },
   "scripts": {
     "start": "electron ."
   },
-  "repository": "https://github.com/electron/electron-quick-start",
+  "repository": "https://github.com/ignatandrei/stankins",
   "keywords": [
     "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo"
+    "quick"
   ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
+  "author": "ignatandrei",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^3.0.7"
   },
   "dependencies": {
-    "electron-builder": "^20.38.4",
     "fs": "0.0.1-security",
     "path": "^0.12.7",
     "winston": "^3.1.0"

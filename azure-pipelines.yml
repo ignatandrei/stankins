@@ -206,11 +206,26 @@ jobs:
        cd $(Build.ArtifactStagingDirectory)
        dir *.apk /s /b 
        echo renaming
-       ren app-debug.apk  StankinsCordova_%MyVersion%.apk
+       ren app*.apk  StankinsCordova_%MyVersion%.apk
     displayName: 'renaming apk'
 
-
-
+    
+  - script: |
+       dir
+       call npm install -g electron
+       call npm install -g electron-builder
+       cd stankinsv2\solution\StankinsV2\StankinsElectron
+       call npm install 
+       echo Build electron
+       electron-builder --win --x64
+    displayName: 'electron'
+    
+  - task: CopyFiles@2
+    inputs:
+        contents: 'stankinsv2/solution/StankinsV2/StankinsElectron/dist/*.*'
+        targetFolder: '$(Build.ArtifactStagingDirectory)/electronwin64'
+        flattenFolders: true
+  
 
   - task: ArchiveFiles@2
     displayName: 'arhive files'
@@ -466,6 +481,15 @@ jobs:
       archiveFile: '$(Build.ArtifactStagingDirectory)/Android-$(Build.BuildId).zip' 
       replaceExistingArchive: true 
 
+      
+  - task: ArchiveFiles@2
+    displayName: 'arhive electronwin64'
+    inputs:
+      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/electronwin64'
+      includeRootFolder: true
+      archiveType: 'zip' 
+      archiveFile: '$(Build.ArtifactStagingDirectory)/StankinsWin64-$(Build.BuildId).zip' 
+      replaceExistingArchive: true 
 
   - task: GithubRelease@0
     inputs:
