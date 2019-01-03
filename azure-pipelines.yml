@@ -189,6 +189,7 @@ jobs:
     inputs:
         contents: 'stankinsv2/solution/StankinsV2/StankinsCordova/**/app*.apk'
         targetFolder: '$(Build.ArtifactStagingDirectory)'
+        flattenFolders: true
 
   - task: ArchiveFiles@2
     displayName: 'arhive files'
