@@ -168,11 +168,15 @@ jobs:
        call npm install -g cordova
        cd stankinsv2\solution\StankinsV2\StankinsCordova
        call cordova platform rm android
+       call cordova platform rm windows
        call cordova platform add android
+       call cordova platform add windows
        echo requirements
        call cordova requirements
        echo Build android
        cordova build android
+       echo Build windows 10
+       cordova build windows -- --appx=uap
     displayName: 'cordova'
 
   #- task: AndroidSigning@2
