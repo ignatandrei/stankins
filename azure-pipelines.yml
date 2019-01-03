@@ -194,7 +194,7 @@ jobs:
         apksignerKeystorePassword: '$(jarsignerKeystorePassword)'
         apksignerKeystoreAlias: '$(keystoreAlias)'
         apksignerKeyPassword: '$(jarsignerKeyPassword)'
-        zipalign: true
+        zipalign: false
   - task: CopyFiles@2
     inputs:
         contents: 'stankinsv2/solution/StankinsV2/StankinsCordova/**/app*.apk'
