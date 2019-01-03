@@ -174,9 +174,9 @@ jobs:
        echo requirements
        call cordova requirements
        echo Build android
-       cordova build android
+       call cordova build android
        echo Build windows 10
-       cordova build windows -- --appx=uap
+       call cordova build windows -- --appx=uap
     displayName: 'cordova'
 
   #- task: AndroidSigning@2
