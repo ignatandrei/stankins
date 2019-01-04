@@ -29,7 +29,8 @@ jobs:
     - checkout: none #skip checking out the default repository resource
     - script: |
         echo test
-        where msbuild.exe
+        cd \
+        dir  msbuild.exe /s /b
 
       
       
