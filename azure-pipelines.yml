@@ -176,6 +176,8 @@ jobs:
        echo Build android
        call cordova build android
        echo Build windows 10
+       dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64"
+       set  MSBUILDDIR=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64
        call cordova build windows -- --appx=uap
     displayName: 'cordova'
 
