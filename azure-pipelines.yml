@@ -14,13 +14,25 @@ variables:
     uk: $(Date:yyyyMMdd)
     deployWindows: 1
     deployLinux: 1
-    stop : 0
+    stop : 1
     
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
 jobs:
 
+- job: Test
+  pool:
+    vmImage: 'vs2017-win2016'
+  condition: eq(variables['stop'],1)
+  steps:
+    - checkout: none #skip checking out the default repository resource
+    - script: |
+        echo test
+        where msbuild.exe
+
+      
+      
 - job: SetProps
   pool:
     vmImage: 'vs2017-win2016'
