@@ -21,6 +21,19 @@ name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)
 
 jobs:
 
+- job: Test
+  pool:
+    vmImage: 'vs2017-win2016'
+  condition: eq(variables['stop'],1)
+  steps:
+    - checkout: none #skip checking out the default repository resource
+    - script: |
+        echo test
+        dir C:\msbuild.exe /s /b
+        
+
+      
+      
 - job: SetProps
   pool:
     vmImage: 'vs2017-win2016'
@@ -175,9 +188,13 @@ jobs:
        call cordova requirements
        echo Build android
        call cordova build android
-       echo Build windows 10
-       dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64"
-       set  MSBUILDDIR=C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64
+       echo dir1
+       dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\amd64\*.exe"
+       echo dir2
+       dir "C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\*.exe"
+       echo set the MSBUILDDIR="
+       set  MSBUILDDIR="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\amd64\"
+       rem set  MSBUILDDIR="C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\MSBuild\15.0\Bin\"
        call cordova build windows -- --appx=uap
     displayName: 'cordova'
 
