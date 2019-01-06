@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
+    <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
   </ItemGroup>
 
 </Project>
