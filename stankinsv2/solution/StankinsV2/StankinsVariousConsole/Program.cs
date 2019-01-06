@@ -11,18 +11,273 @@ using Stankins.XML;
 using StankinsCommon;
 using StankinsObjects;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using YamlDotNet.RepresentationModel;
 
 namespace StankinsVariousConsole
 {
+    abstract class Step
+    {
+        public string Name { get; protected set; }
+        public string Value { get; protected set; }
+        public string DisplayName { get; set; }
+    }
+    abstract class MultipleCommands: Step
+    {
+
+    }
+    class Script : MultipleCommands
+    {
+        public Script(string value)
+        {
+            Name = "script";
+            Value = value;
+        }
+    }
+    class Bash : MultipleCommands
+    {
+        public Bash(string value)
+        {
+            Name = "bash";
+            Value = value;
+        }
+    }
+    class TaskYaml: Step
+    {
+        public TaskYaml(string value)
+        {
+            Name = "task";
+            Value = value;
+            Inputs = new List<KeyValuePair<string, string>>();
+        }
+        public List<KeyValuePair<string,string>> Inputs { get; set; }
+    }
+    class Powershell: MultipleCommands
+    {
+        public Powershell(string value)
+        {
+            Name = "powershell";
+            Value = value;
+        }
+    }
+    class Checkout: Step
+    {
+        public Checkout(string value)
+        {
+            Name = "checkout";
+            Value = value;
+        }
+    }
+    class JobYaml
+    {
+        public JobYaml()
+        {
+            DependsOn = new List<string>();
+            Steps = new List<Step>();
+        }
+        public string condition;
+        public List<string> DependsOn;
+        public KeyValuePair<string, string> pool;
+        public List<Step> Steps;
+        public string Name { get; set; }
+    }
+    class YamlDevOpsVisitor : IYamlVisitor
+    {
+        public YamlDevOpsVisitor()
+        {
+            jobs = new List<JobYaml>();
+        }
+        public List<JobYaml> jobs;
+        public void Visit(YamlStream stream)
+        {
+            Console.WriteLine("stream");
+        }
+
+        public void Visit(YamlDocument document)
+        {
+            Console.WriteLine("document");
+        }
+
+        public void Visit(YamlScalarNode scalar)
+        {
+            //Console.WriteLine("scalar" + scalar.Value);
+        }
+
+        public void Visit(YamlSequenceNode sequence)
+        {
+            //Console.WriteLine("sequence" + sequence.Style);
+            foreach (var item in sequence.Children)
+            {
+                item.Accept(this);
+            }
+        }
+        private JobYaml LastJob()
+        {
+            return this.jobs.LastOrDefault();
+        }
+        public void Visit(YamlMappingNode mapping)
+        {
+            
+            foreach(var item in mapping.Children)
+            {
+                if(item.Key.NodeType == YamlNodeType.Scalar)
+                {
+                    var sc = item.Key as YamlScalarNode;
+                    switch (sc.Value)
+                    {
+                        case "variables":
+                            {
+                                //TODO: variables
+                                var job = LastJob();
+                                if (job == null)
+                                {
+                                    //TODO: is the yaml name
+                                    continue;
+                                }
+                                else
+                                {
+                                }
+                            }
+                            continue;
+                        case "inputs":
+                            {
+                                var seq = item.Value as YamlMappingNode;
+                                var t = LastJob().Steps.Last() as TaskYaml;
+                                foreach (var inp in seq.Children)
+                                {                             
+                                    t.Inputs.Add(new KeyValuePair<string, string>( inp.Key.ToString(),inp.Value.ToString()));
+                                }
+                            }
+                            continue;
+                        case "displayName":
+                        case "name":
+                            {
+                                var c = item.Value as YamlScalarNode;
+                                var job = LastJob();
+                                if (job == null)
+                                {
+                                    //TODO: is the yaml name
+                                    continue;
+                                }
+                                else
+                                {
+                                    var step = job.Steps.LastOrDefault();
+                                    if (step != null)
+                                    {
+                                        step.DisplayName = c.Value;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("NOT FOUND STEP FOR " + c.Value);
+                                    }
+                                }
+                            }
+                            continue;
+                        case "jobs":
+                            item.Value.Accept(this);
+                            continue;
+                        case "job":
+                            var j = new JobYaml();
+                            var n = item.Value as YamlScalarNode;
+                            j.Name = n.Value;
+                            this.jobs.Add(j);                            
+                            item.Value.Accept(this);
+                            continue;
+                        case "condition":
+                            var s = item.Value as YamlScalarNode;
+                            LastJob().condition = s.Value;
+                            continue;
+                        case "pool":
+                            var name = item.Value as YamlMappingNode;
+                            var vmimage = name.Children.First();
+                            LastJob().pool = new KeyValuePair<string, string>(vmimage.Key.ToString(), vmimage.Value.ToString());
+                            continue;
+                        case "steps":
+                            var steps = item.Value as YamlSequenceNode;
+                            steps.Accept(this);
+                            continue;
+                        case "checkout":
+                            {
+                                var step = item.Value as YamlScalarNode;
+                                LastJob().Steps.Add(new Checkout(step.Value));
+                            }
+                            continue;
+                        case "powershell":
+                            { var step = item.Value as YamlScalarNode;
+                                LastJob().Steps.Add(new Powershell(step.Value));
+                            }
+                            continue;
+                        case "bash":
+                            {
+                                var step = item.Value as YamlScalarNode;
+                                LastJob().Steps.Add(new Bash(step.Value));
+                            }
+                            continue;
+                        case "script":
+                            {
+                                var step = item.Value as YamlScalarNode;
+                                LastJob().Steps.Add(new Script(step.Value));
+                            }
+                            continue;
+                        case "task":
+                            {
+                                var step = item.Value as YamlScalarNode;
+                                LastJob().Steps.Add(new TaskYaml(step.Value));
+                            }
+                            continue;
+                        case "dependsOn":
+                            {
+                                var l = LastJob();
+                                var d = item.Value as YamlScalarNode;
+                                if (d != null)
+                                {
+                                    l.DependsOn.Add(d.Value);
+                                    continue;
+                                }
+                                var seq = item.Value as YamlSequenceNode;
+                                foreach (var child in seq.Children)
+                                {
+                                    d = child as YamlScalarNode;
+                                    l.DependsOn.Add(d.Value);
+                                }
+                            }
+                            continue;
+                        //foreach(var step in steps.Children)
+                        //{
+                        //    switch (step.NodeType)
+                        //    {
+                        //        case YamlNodeType.Mapping:
+
+                        //            continue;
+
+                        //        default:
+                        //            Console.WriteLine("can not interpret step child " + step.NodeType);
+                        //            continue;
+                        //    }
+                        //}
+                        //continue;
+                        default:
+                            Console.WriteLine($" scalar not handled {sc.Value}");
+                            continue;
+
+                    }
+                }
+                Console.WriteLine("mapping");
+                
+            }
+        }
+    }
     class Program
     {
         static async Task Main(string[] args)
         {
+            await Yaml();
+            return;
             await OneTab();
             return;
             await WebSites();
@@ -58,6 +313,31 @@ namespace StankinsVariousConsole
             //Console.WriteLine("2");
         }
 
+        private static async Task Yaml()
+        {
+            var data = await File.ReadAllTextAsync("stankinsYaml.txt");
+            var st = new StringReader(data);
+            var yaml = new YamlStream();
+            yaml.Load(st);
+            var rt = yaml.Documents[0].RootNode;
+            var visit = new YamlDevOpsVisitor();
+            rt.Accept(visit);
+            Console.Write(Newtonsoft.Json.JsonConvert.SerializeObject(visit.jobs,Newtonsoft.Json.Formatting.Indented));
+            //Console.WriteLine(rt);
+            //foreach(var item in mp.Children)
+            //{
+            //    var q = item;
+            //    InterpretNodeRoot(q);
+            //}
+        }
+        //static void InterpretNodeRoot(KeyValuePair<YamlNode, YamlNode> rootNode)
+        //{
+        //    switch (rootNode.Key.NodeType)
+        //    {
+        //        case YamlNodeType.Scalar:
+        //            var                  
+        //    }
+        //}
         private static async Task OneTab()
         {
             var v = new Verifier();
