@@ -725,6 +725,202 @@ steps:
             
 
         }
+        [Fact]
+        public void TestAndroid()
+        {
+            var data = (@"# Android
+# Build your Android project with Gradle.
+# Add steps that test, sign, and distribute the APK, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/android
+
+pool:
+  vmImage: 'macOS 10.13'
+
+steps:
+- task: Gradle@2
+  inputs:
+    workingDirectory: ''
+    gradleWrapperFile: 'gradlew'
+    gradleOptions: '-Xmx3072m'
+    publishJUnitResults: false
+    testResultsFiles: '**/TEST-*.xml'
+    tasks: 'assembleDebug'
+
+- task: CopyFiles@2
+  inputs:
+    contents: '**/*.apk'
+    targetFolder: '$(build.artifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: '$(build.artifactStagingDirectory)'
+    artifactName: 'drop'
+    artifactType: 'container'");
+
+
+            var visit = new YamlDevOpsVisitor();
+            visit.LoadFromString(data);
+
+            visit.jobs.Should().NotBeNull();
+            visit.jobs.Count.Should().Be(1);
+            var j = visit.jobs[0];
+            j.pool.Value.Should().Be("macOS 10.13");
+            j.Steps.Should().NotBeNull();
+            j.Steps.Count.Should().Be(3);
+            var s = j.Steps.Last();
+            s.Should().BeOfType<TaskYaml>();
+            var t = s as TaskYaml;
+            t.Value.Should().Be("PublishBuildArtifacts@1");
+
+
+        }
+
+        [Fact]
+        public void TestAzureDocker()
+        {
+            var data = (@"# Build Docker image for this app using Azure Pipelines
+# http://docs.microsoft.com/azure/devops/pipelines/languages/docker?view=vsts
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+variables:
+  buildConfiguration: 'Release'
+  imageName: 'dotnetcore:$(Build.BuildId)'
+  # define two more variables dockerId and dockerPassword in the build pipeline in UI
+
+steps:
+- script: |
+    dotnet build --configuration $(buildConfiguration)
+    dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+    dotnet publish --configuration $(buildConfiguration) --output out
+    docker build -f Dockerfile -t $(dockerId)/$(imageName) .
+    docker login -u $(dockerId) -p $pswd
+    docker push $(dockerId)/$(imageName)
+  env:
+    pswd: $(dockerPassword)
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'");
+
+
+            var visit = new YamlDevOpsVisitor();
+            visit.LoadFromString(data);
+
+            visit.jobs.Should().NotBeNull();
+            visit.jobs.Count.Should().Be(1);
+            var j = visit.jobs[0];
+            j.pool.Value.Should().Be("Ubuntu 16.04");
+            j.Steps.Should().NotBeNull();
+            j.Steps.Count.Should().Be(2);
+            var s = j.Steps.Last();
+            s.Should().BeOfType<TaskYaml>();
+            var t = s as TaskYaml;
+            t.Value.Should().Be("PublishTestResults@2");
+            //TODO: add condition
+
+
+        }
+
+        [Fact]
+        public void TestAzureACR()
+        {
+            var data = (@"# Build Docker image for this app using Azure Pipelines
+# http://docs.microsoft.com/azure/devops/pipelines/languages/docker?view=vsts
+pool:
+  vmImage: 'Ubuntu 16.04'
+
+variables:
+  buildConfiguration: 'Release'
+  imageName: 'dotnetcore:$(Build.BuildId)'
+  # define two more variables dockerId and dockerPassword in the build pipeline in UI
+
+steps:
+- script: |
+    dotnet build --configuration $(buildConfiguration)
+    dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+    dotnet publish --configuration $(buildConfiguration) --output out
+    docker build -f Dockerfile -t $(dockerId).azurecr.io/$(imageName) .
+    docker login -u $(dockerId) -p $pswd $(dockerid).azurecr.io
+    docker push $(dockerId).azurecr.io/$(imageName)
+  env:
+    pswd: $(dockerPassword)
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
+
+#- script: |
+#    docker-compose -f docs/docker-compose.yml --project-directory . -p docs up -d |
+#    docker wait docs_sut_1 |
+#    docker-compose -f docs/docker-compose.yml --project-directory . down");
+
+
+            var visit = new YamlDevOpsVisitor();
+            visit.LoadFromString(data);
+
+            visit.jobs.Should().NotBeNull();
+            visit.jobs.Count.Should().Be(1);
+            var j = visit.jobs[0];
+            j.pool.Value.Should().Be("Ubuntu 16.04");
+            j.Steps.Should().NotBeNull();
+            j.Steps.Count.Should().Be(2);
+            var s = j.Steps.Last();
+            s.Should().BeOfType<TaskYaml>();
+            var t = s as TaskYaml;
+            t.Value.Should().Be("PublishTestResults@2");
+            //TODO: add condition
+
+
+        }
+
+        [Fact]
+        public void TestDotNetCore()
+        {
+            var data = (@"# Build ASP.NET Core project using Azure Pipelines
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core?view=vsts
+
+pool:
+  vmImage: 'Ubuntu 16.04'
+  
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- script: |
+    dotnet build --configuration $(buildConfiguration)
+    dotnet test dotnetcore-tests --configuration $(buildConfiguration) --logger trx
+    dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: VSTest
+    testResultsFiles: '**/*.trx'
+
+- task: PublishBuildArtifacts@1");
+
+
+            var visit = new YamlDevOpsVisitor();
+            visit.LoadFromString(data);
+
+            visit.jobs.Should().NotBeNull();
+            visit.jobs.Count.Should().Be(1);
+            var j = visit.jobs[0];
+            j.pool.Value.Should().Be("Ubuntu 16.04");
+            j.Steps.Should().NotBeNull();
+            j.Steps.Count.Should().Be(3);
+            var s = j.Steps.Last();
+            s.Should().BeOfType<TaskYaml>();
+            var t = s as TaskYaml;
+            t.Value.Should().Be("PublishBuildArtifacts@1");
+            //TODO: add condition
+
+
+        }
 
     }
 
