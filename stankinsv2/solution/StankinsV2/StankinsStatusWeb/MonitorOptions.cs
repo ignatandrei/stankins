@@ -39,7 +39,7 @@ namespace StankinsStatusWeb
                 }
                 var cd = new CustomData();
                 cd.UserName = this.UserName;
-                cd.Tags = item["CustomData"]["Tags"].Split(',');
+                cd.Tags = item["CustomData"]["Tags"].Split(',').Select(it=>it.Trim()).ToArray();
                 cd.Name = item["CustomData"]["Name"];
                 cd.Icon = item["CustomData"]["Icon"];
                 instance.CustomData = cd;
