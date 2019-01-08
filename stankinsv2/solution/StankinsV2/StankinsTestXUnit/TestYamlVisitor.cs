@@ -11,6 +11,7 @@ using Xunit;
 namespace StankinsTestXUnit
 {
     [Trait("yaml", "testYamlParser")]
+    [Trait("AfterPublish", "0")]
     public class TestYamlVisitor
     {
         [Fact]

@@ -40,7 +40,10 @@ namespace StankinsStatusWeb
             }));
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            services.AddSwaggerDocument();
+            services.AddSwaggerDocument(c=>
+            {
+                c.Title = "Stankins Alive Monitor";
+            });
             services.AddSignalR();
             services.Configure<MonitorOptions>(Configuration.GetSection("MonitorData"));
             services.PostConfigure<MonitorOptions>((x) =>
@@ -83,7 +86,6 @@ namespace StankinsStatusWeb
             app.UseSwagger();
             app.UseSwaggerUi3(settings =>
             {
-                
             });
             app.UseMvc();
             //redirect to angular page if do not use MVC or static files

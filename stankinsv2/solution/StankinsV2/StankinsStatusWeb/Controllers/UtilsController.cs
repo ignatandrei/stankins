@@ -15,6 +15,11 @@ namespace StankinsAliveMonitor.Controllers
     public class UtilsController : ControllerBase
     {
         [HttpGet]
+        public string Ping()
+        {
+            return DateTime.UtcNow.ToString("s", System.Globalization.CultureInfo.InvariantCulture);
+        }
+        [HttpGet]
         public FileVersionInfo[] GetVersions([FromServices] IHostingEnvironment hosting)
         {
             var dirPath = hosting.ContentRootPath;
