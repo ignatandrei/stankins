@@ -45,7 +45,14 @@ namespace StankinsStatusWeb
                 c.Title = "Stankins Alive Monitor";
             });
             services.AddSignalR();
-            services.Configure<MonitorOptions>(Configuration.GetSection("MonitorData"));
+            var dataFile = Configuration.GetValue<string>("MonitorDefaultFile");
+            var file = Path.Combine(Directory.GetCurrentDirectory(), dataFile);
+            var configFile = new ConfigurationBuilder()
+                .SetBasePath(Path.GetDirectoryName(file))
+                .AddJsonFile(Path.GetFileName(file), optional: false)
+                .Build();
+
+            services.Configure<MonitorOptions>(configFile);
             services.PostConfigure<MonitorOptions>((x) =>
             {
                 x.CreateExecutors();
