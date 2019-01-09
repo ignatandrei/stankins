@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     <p>
       dashboard-simple works!
     </p>
-    <dsh-list-card></dsh-list-card>
+    <dsh-dash-board></dsh-dash-board>
   `,
   styles: []
 })

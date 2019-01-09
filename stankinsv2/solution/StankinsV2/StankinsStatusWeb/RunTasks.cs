@@ -16,11 +16,20 @@ namespace StankinsStatusWeb
     {
         
         private readonly IServiceScopeFactory sc;
+        bool ProvideMonitorOptions ;
+
+        public MonitorOptions Mo { get; }
 
         public RunTasks(IServiceScopeFactory sc)
         {
-           
+            ProvideMonitorOptions = false;
             this.sc = sc;
+        }
+        public RunTasks(IServiceScopeFactory sc, MonitorOptions mo)
+        {
+            ProvideMonitorOptions = true;
+            this.sc = sc;
+            Mo = mo;
         }
         private async Task PublishData(MonitorOptions opt,DataTable res)
         {
@@ -48,10 +57,17 @@ namespace StankinsStatusWeb
             while (!stoppingToken.IsCancellationRequested)
             {
                 Console.WriteLine($"starting monitor again at UTC {DateTime.UtcNow.ToString("o")}");
-                using (var scope = sc.CreateScope())
+                if (this.ProvideMonitorOptions)
                 {
-                    var snap = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<MonitorOptions>>();
-                    opt = snap.Value;
+                    opt = Mo;
+                }
+                else
+                {
+                    using (var scope = sc.CreateScope())
+                    {
+                        var snap = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<MonitorOptions>>();
+                        opt = snap.Value;
+                    }
                 }
                 
                 var itemsToExec = opt.ToExecuteCRON()

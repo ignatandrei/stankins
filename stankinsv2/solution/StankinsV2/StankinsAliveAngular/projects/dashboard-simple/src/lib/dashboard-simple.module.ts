@@ -11,9 +11,10 @@ import { MatAutocompleteModule, MatBadgeModule, MatBottomSheetModule,
   MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, MatSortModule,
   MatStepperModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule, MatTreeModule } from '@angular/material';
 import { ListCardComponent } from './list-card/list-card.component';
+import { DashBoardComponent } from './dash-board/dash-board.component';
 
 @NgModule({
-  declarations: [DashboardSimpleComponent, CardComponent, ListCardComponent],
+  declarations: [DashboardSimpleComponent, CardComponent, ListCardComponent, DashBoardComponent],
   imports: [CommonModule,
     BrowserModule,
     MatAutocompleteModule,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -42,10 +43,11 @@ namespace StankinsStatusWeb.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<string> Get(string id, [FromServices]IServiceScopeFactory sc)
+        public async Task<ActionResult<string>> Get(string id, [FromServices]IServiceScopeFactory sc)
         {
-            //TODO: transform id into monitor options 
-            return "value" + id;
+            var file = Path.Combine(Directory.GetCurrentDirectory(),"MonitorData", id+".json");
+            var text = await System.IO.File.ReadAllTextAsync(file);
+            return Content(text);
         }
         // POST api/values
         [HttpPost]
@@ -54,7 +56,7 @@ namespace StankinsStatusWeb.Controllers
             var cts = new CancellationTokenSource();
             cts.CancelAfter(1000 * 60);//one minute
             //TODO: solve this with a new RunTask instance that have also monitor options
-            using (var rt = new RunTasks(sc))
+            using (var rt = new RunTasks(sc,monitorOptions))
             {
                 await rt.StartAsync(cts.Token);
             }

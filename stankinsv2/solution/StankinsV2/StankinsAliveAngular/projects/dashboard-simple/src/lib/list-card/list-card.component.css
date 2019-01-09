@@ -1,0 +1,9 @@
+.hdiv {
+    border:solid 1px black;
+    height:100%;
+    min-width:100px;
+    display:inline-flex;
+    vertical-align: top;
+    justify-content: center;
+    align-items: center;
+  }
