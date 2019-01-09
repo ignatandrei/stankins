@@ -58,6 +58,10 @@ import { TagDisplayComponent } from './tag-display/tag-display.component';
 import { ShowItemComponent } from './show-item/show-item.component';
 import { NumberToImgPipe } from './number-to-img.pipe';
 import { VersionsNetcoreAngularModule } from 'projects/versions-netcore-angular/src/lib/versions-netcore-angular.module';
+import { DashboardSimpleModule } from 'projects/dashboard-simple/src/lib/dashboard-simple.module';
+// import { DashboardSimpleModule } from 'dashboard-simple';
+
+
 
 
 @NgModule({
@@ -115,7 +119,8 @@ import { VersionsNetcoreAngularModule } from 'projects/versions-netcore-angular/
     MatTreeModule,
     HttpClientModule,
     ScrollingModule,
-    VersionsNetcoreAngularModule
+    VersionsNetcoreAngularModule,
+    DashboardSimpleModule
   ],
   providers: [],
   bootstrap: [AppComponent],

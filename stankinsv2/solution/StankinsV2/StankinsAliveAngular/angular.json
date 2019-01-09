@@ -20,7 +20,7 @@
             "tsConfig": "src/tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-			  "src/npm-shrinkwrap.json",
+              "src/npm-shrinkwrap.json",
               "src/assets"
             ],
             "styles": [
@@ -87,7 +87,7 @@
             "scripts": [],
             "assets": [
               "src/favicon.ico",
-			   "src/npm-shrinkwrap.json",
+              "src/npm-shrinkwrap.json",
               "src/assets"
             ]
           }
@@ -196,6 +196,41 @@
             "tsConfig": [
               "projects/versions-netcore-angular/tsconfig.lib.json",
               "projects/versions-netcore-angular/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "dashboard-simple": {
+      "root": "projects/dashboard-simple",
+      "sourceRoot": "projects/dashboard-simple/src",
+      "projectType": "library",
+      "prefix": "dsh",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/dashboard-simple/tsconfig.lib.json",
+            "project": "projects/dashboard-simple/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/dashboard-simple/src/test.ts",
+            "tsConfig": "projects/dashboard-simple/tsconfig.spec.json",
+            "karmaConfig": "projects/dashboard-simple/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/dashboard-simple/tsconfig.lib.json",
+              "projects/dashboard-simple/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

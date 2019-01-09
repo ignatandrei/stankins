@@ -18,12 +18,17 @@
       "dom"
     ],
     "paths": {
-      
       "versionsnetcoreangular": [
         "dist/versionsnetcoreangular"
       ],
       "versionsnetcoreangular/*": [
         "dist/versionsnetcoreangular/*"
+      ],
+      "dashboard-simple": [
+        "dist/dashboard-simple"
+      ],
+      "dashboard-simple/*": [
+        "dist/dashboard-simple/*"
       ]
     }
   }
