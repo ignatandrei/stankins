@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'dsh-list-card',
   templateUrl: './list-card.component.html',
-  styleUrls: ['./list-card.component.css']
+  styleUrls: ['./list-card.component.scss']
 })
 export class ListCardComponent implements OnInit {
 
