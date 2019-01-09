@@ -31,7 +31,6 @@ export class PeriodicElement {
   weight: number;
   symbol: string;
   description: string;
-  
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [

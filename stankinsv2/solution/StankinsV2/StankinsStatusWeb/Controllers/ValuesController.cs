@@ -49,6 +49,14 @@ namespace StankinsStatusWeb.Controllers
             var text = await System.IO.File.ReadAllTextAsync(file);
             return Content(text);
         }
+        [HttpPost("{id}")]
+        public async Task Post(string id, [FromBody] MonitorOptions monitorOptions, [FromServices]IServiceScopeFactory sc)
+        {
+            var file = Path.Combine(Directory.GetCurrentDirectory(), "MonitorData", id + ".json");
+            //TODO: seriazlie monitor options into file
+            return ;
+
+        }
         // POST api/values
         [HttpPost]
         public async Task Post([FromBody] MonitorOptions monitorOptions, [FromServices]IServiceScopeFactory sc)

@@ -25,8 +25,7 @@ namespace StankinsStatusWeb
                     //TODO: log
                     continue;
                 }
-                var instance = Activator.CreateInstance(type) as CRONExecution;
-                if (instance == null)
+                if (!(Activator.CreateInstance(type) is CRONExecution instance))
                 {
                     //TODO: log
                     continue;
