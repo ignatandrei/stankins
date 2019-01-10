@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ConfigService, RowConfiguration, Executor } from '../config.service';
 import { Observable, of } from 'rxjs';
+import { JsonHubProtocol } from '@aspnet/signalr';
 
 @Component({
   selector: 'app-about',
@@ -17,9 +18,8 @@ import { Observable, of } from 'rxjs';
 })
 export class AboutComponent implements OnInit {
 
-  dataSource = ELEMENT_DATA;
-  columnsToDisplay = ['name', 'weight', 'symbol'];
-  expandedElement: PeriodicElement | null;
+  dataSource: RowConfiguration[];
+  columnsToDisplay = [];
   constructor(private fg: ConfigService) { }
 
   ngOnInit() {
@@ -27,7 +27,7 @@ export class AboutComponent implements OnInit {
       it => {
         // window.alert(it.UserName);
         // window.alert(JSON.stringify(it.ExecutorsDynamic));
-        this.TransformToRow(it.ExecutorsDynamic);
+        this.dataSource = this.TransformToRow(it.ExecutorsDynamic);
       }
     );
   }
@@ -37,14 +37,34 @@ export class AboutComponent implements OnInit {
     const types = execs.map(it => it.Data.Type).filter((value, index, self) => {
       return self.indexOf(value) === index;
     });
-
+    this.columnsToDisplay = types;
     const ret: RowConfiguration[] = [];
     // window.alert(types);
-    const r = new RowConfiguration(types);
-    ret.push(r);
-    window.alert(ret.length + JSON.stringify(r));
+    execs.forEach(it => {
 
-    return null;
+        let foundType = false;
+        const type = it.Data.Type;
+        ret.forEach( r => {
+          const exist = (r[type] != null) ; // (JSON.stringify(r[type]).length > 0);
+          if (!exist) {
+            r[type] = it;
+            foundType = true;
+            return;
+          }
+        });
+        if (!foundType) {
+          const r = new RowConfiguration(types);
+          r[type] = it;
+          ret.push(r);
+        }
+    });
+    // const r = new RowConfiguration(types);
+    // ret.push(r);
+    // window.alert(ret.length );
+    // ret.forEach( r => {
+    //   window.alert(JSON.stringify(r));
+    // });
+    return ret;
 
   }
 

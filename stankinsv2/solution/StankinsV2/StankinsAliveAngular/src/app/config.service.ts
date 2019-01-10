@@ -29,8 +29,12 @@ export class RowConfiguration {
 
   constructor(props: string[]) {
     const self = this;
-    props.forEach(it => self[it] = '');
+    props.forEach(it => self[it] = null);
   }
+  public friendlyName(typeAlive: string) {
+    return typeAlive;
+  }
+
 
 }
 export class Configuration {
