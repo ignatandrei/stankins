@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { ConfigService, RowConfiguration, Executor } from '../config.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-about',
@@ -14,13 +16,36 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   ],
 })
 export class AboutComponent implements OnInit {
-  
+
   dataSource = ELEMENT_DATA;
   columnsToDisplay = ['name', 'weight', 'symbol'];
   expandedElement: PeriodicElement | null;
-  constructor() { }
+  constructor(private fg: ConfigService) { }
 
   ngOnInit() {
+    this.fg.GetConfig('default').subscribe(
+      it => {
+        // window.alert(it.UserName);
+        // window.alert(JSON.stringify(it.ExecutorsDynamic));
+        this.TransformToRow(it.ExecutorsDynamic);
+      }
+    );
+  }
+
+  public TransformToRow(execs: Array<Executor>): RowConfiguration[] {
+
+    const types = execs.map(it => it.Data.Type).filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
+
+    const ret: RowConfiguration[] = [];
+    // window.alert(types);
+    const r = new RowConfiguration(types);
+    ret.push(r);
+    window.alert(ret.length + JSON.stringify(r));
+
+    return null;
+
   }
 
 }
