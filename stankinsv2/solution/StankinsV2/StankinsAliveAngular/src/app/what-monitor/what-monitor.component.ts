@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RowConfiguration, ConfigService } from '../config.service';
+import { RowConfiguration, ConfigService, Configuration, Executor } from '../config.service';
 
 @Component({
   selector: 'app-what-monitor',
@@ -55,5 +55,8 @@ export class WhatMonitorComponent implements OnInit {
     // });
     return ret;
 
+  }
+  public friendlyName(fullName: string): string {
+    return Configuration.friendlyName(fullName);
   }
 }

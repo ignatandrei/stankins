@@ -31,15 +31,27 @@ export class RowConfiguration {
     const self = this;
     props.forEach(it => self[it] = null);
   }
-  public friendlyName(typeAlive: string) {
-    return typeAlive;
-  }
+
 
 
 }
 export class Configuration {
   public UserName: string;
   public ExecutorsDynamic: Executor[];
+  public static friendlyName(typeAlive: string) {
+    switch ( typeAlive) {
+      case 'StankinsStatusWeb.StartProcess, StankinsAliveMonitor':
+        return 'Process';
+      case 'StankinsStatusWeb.PingAddress, StankinsAliveMonitor':
+        return 'Ping';
+      case 'StankinsStatusWeb.WebAdress, StankinsAliveMonitor':
+        return 'Web';
+      case 'StankinsStatusWeb.DatabaseConnection, StankinsAliveMonitor':
+        return 'Database';
+      default:
+        return '!!' + typeAlive;
+    }
+  }
 }
 export class Executor {
   public Data: Data;

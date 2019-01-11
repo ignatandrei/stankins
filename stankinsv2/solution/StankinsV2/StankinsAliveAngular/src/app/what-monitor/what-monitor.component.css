@@ -1,0 +1,9 @@
+mat-card {
+    width: calc(100% - 70px);
+    height: calc(100% - 70px);
+  }
+
+  mat-header-cell {
+    display:flex;
+    justify-content:flex-end;
+   }
