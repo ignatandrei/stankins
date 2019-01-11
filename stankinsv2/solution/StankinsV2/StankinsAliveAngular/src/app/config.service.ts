@@ -41,12 +41,16 @@ export class Configuration {
   public static friendlyName(typeAlive: string) {
     switch ( typeAlive) {
       case 'StankinsStatusWeb.StartProcess, StankinsAliveMonitor':
+      case 'Stankins.Alive.ReceiverProcessAlive':
         return 'Process';
       case 'StankinsStatusWeb.PingAddress, StankinsAliveMonitor':
+      case 'Stankins.Alive.ReceiverPing':
         return 'Ping';
       case 'StankinsStatusWeb.WebAdress, StankinsAliveMonitor':
+      case 'Stankins.Alive.ReceiverWeb':
         return 'Web';
       case 'StankinsStatusWeb.DatabaseConnection, StankinsAliveMonitor':
+      case 'Stankins.Alive.ReceiverDBSqlServer':
         return 'Database';
       default:
         return '!!' + typeAlive;

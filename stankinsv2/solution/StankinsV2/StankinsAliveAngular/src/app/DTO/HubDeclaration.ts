@@ -21,6 +21,7 @@ export interface ResultWithData  {
   aliveResult: AliveResult;
   customData: CustomData;
   cronExecution: CRONExecution;
+  myType: string;
 }
 export interface CRONExecution {
   cron: string;

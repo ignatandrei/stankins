@@ -68,7 +68,7 @@ namespace StankinsStatusWeb
         public ResultWithData DataFromResult(AliveResult it)
         {
 
-            CronExecutionBase c;
+            CRONExecution c;
             CustomData cd;
             switch (it.Process.ToLower())
             {
@@ -110,7 +110,8 @@ namespace StankinsStatusWeb
             {
                 AliveResult = it,
                 CustomData = cd,
-                CRONExecution = res
+                CRONExecution = res,
+                MyType = c.baseObject().GetType().FullName
 
             };
 

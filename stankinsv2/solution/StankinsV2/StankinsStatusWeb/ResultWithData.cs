@@ -8,5 +8,6 @@ namespace StankinsStatusWeb
         public AliveResult AliveResult { get; set; }
         public CustomData CustomData { get; set; }
         public CronExecutionBase CRONExecution { get; set; }
+        public string MyType { get; internal set; }
     }
 }
