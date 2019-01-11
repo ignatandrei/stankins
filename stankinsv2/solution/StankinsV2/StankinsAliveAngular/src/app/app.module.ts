@@ -59,6 +59,7 @@ import { ShowItemComponent } from './show-item/show-item.component';
 import { NumberToImgPipe } from './number-to-img.pipe';
 import { VersionsNetcoreAngularModule } from 'projects/versions-netcore-angular/src/lib/versions-netcore-angular.module';
 import { DashboardSimpleModule } from 'projects/dashboard-simple/src/lib/dashboard-simple.module';
+import { WhatMonitorComponent } from './what-monitor/what-monitor.component';
 // import { DashboardSimpleModule } from 'dashboard-simple';
 
 
@@ -75,7 +76,8 @@ import { DashboardSimpleModule } from 'projects/dashboard-simple/src/lib/dashboa
     ResultFailedComponent,
     TagDisplayComponent,
     ShowItemComponent,
-    NumberToImgPipe
+    NumberToImgPipe,
+    WhatMonitorComponent
   ],
   imports: [
     BrowserModule,
