@@ -164,7 +164,10 @@ namespace Stankins.AzureDevOps
                         case "task":
                             {
                                 var step = item.Value as YamlScalarNode;
-                                LastJob().Steps.Add(new TaskYaml(step.Value));
+                                var t = new TaskYaml(step.Value);
+                                LastJob().Steps.Add(t);
+                                
+
                             }
                             continue;
                         case "dependsOn":
