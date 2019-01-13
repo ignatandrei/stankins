@@ -2,6 +2,7 @@
 using Stankins.AzureDevOps;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -124,6 +125,14 @@ jobs:
             jobs.Rows.Count.Should().Be(2);
             jobs.Rows[0]["name"].Should().Be("Android");
             jobs.Rows[1]["name"].Should().Be("iOS");
+            var steps = dt.FindAfterName("steps");
+            steps.Value.Rows.Count.Should().Be(9);
+            var dv = new DataView(steps.Value);
+            dv.RowFilter = "jobName='Android'";
+            dv.Count.Should().Be(5);
+            dv.RowFilter = "jobName='iOS'";
+            dv.Count.Should().Be(4);
+
 
             //var steps = dt.FindAfterName("steps").Value;
             //steps.Should().NotBeNull();
