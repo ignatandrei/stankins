@@ -61,9 +61,12 @@ namespace Stankins.AzureDevOps
             dtSteps.Columns.Add(new DataColumn("displayName", typeof(string)));
             dtSteps.Columns.Add(new DataColumn("name", typeof(string)));
             dtSteps.Columns.Add(new DataColumn("value", typeof(string)));
-            
+            int idJob = 0;
             foreach (var job in jobs)
             {
+                idJob++;
+                if (string.IsNullOrEmpty(job.Name))
+                    job.Name = $"NewJob{idJob}";
                 dtJobs.Rows.Add(job.Name, job.condition, job.pool.ToString());
                 
                 foreach(var step in job.Steps)
