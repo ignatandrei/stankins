@@ -2,6 +2,7 @@
 using StankinsCommon;
 using StankinsObjects;
 using System;
+using System.Data;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,12 @@ namespace Stankins.AzureDevOps
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
+            if (receiveData == null)
+            {
+                receiveData = new DataToSentTable();
+
+            }
+
             var file = new ReadFileToString
             {
                 FileEnconding = this.encoding,
@@ -41,12 +48,21 @@ namespace Stankins.AzureDevOps
             };
 
             var data = await file.LoadData();
-            var input = new StringReader(data);
-            var yaml = new YamlStream();
-            yaml.Load(input);
-            var node = yaml.Documents[0].RootNode;
+            var yaml = new YamlDevOpsVisitor();
+            yaml.LoadFromString(data);
+            var jobs = yaml.jobs;
+            var dt = new DataTable("jobs" );
+            dt.Columns.Add(new DataColumn("name", typeof(string)));
+            dt.Columns.Add(new DataColumn("condition", typeof(string)));
             
-            return null;
+            foreach(var job in jobs)
+            {
+                dt.Rows.Add(job.Name, job.condition);
+            }
+            var id = receiveData.AddNewTable(dt);
+            receiveData.Metadata.AddTable(dt, id);
+
+            return receiveData;
         }
 
         public override Task<IMetadata> TryLoadMetadata()
