@@ -41,10 +41,11 @@ steps:
             var jobs = dt.FindAfterName("jobs").Value;
             jobs.Should().NotBeNull();
             jobs.Rows.Count.Should().Be(1);
-
-
-
-
+            var steps = dt.FindAfterName("steps").Value;
+            steps.Should().NotBeNull();
+            steps.Rows.Count.Should().Be(1);
+            steps.Rows[0]["name"].Should().Be("task");
+            steps.Rows[0]["displayName"].Should().Be("Xcode@5");
 
         }
     }

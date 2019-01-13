@@ -332,7 +332,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishBuildArtifacts@1");
+            t.DisplayName.Should().Be("PublishBuildArtifacts@1");
             t.Inputs.Count.Should().Be(0);
 
         }
@@ -424,7 +424,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishCodeCoverageResults@1");
+            t.DisplayName.Should().Be("PublishCodeCoverageResults@1");
             t.Inputs.Count.Should().Be(3);
 
         }
@@ -477,7 +477,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishCodeCoverageResults@1");
+            t.DisplayName.Should().Be("PublishCodeCoverageResults@1");
             t.Inputs.Count.Should().Be(3);
 
         }
@@ -536,7 +536,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishBuildArtifacts@1");
+            t.DisplayName.Should().Be("PublishBuildArtifacts@1");
             t.Inputs.Count.Should().Be(2);
 
         }
@@ -595,7 +595,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishBuildArtifacts@1");
+            t.DisplayName.Should().Be("PublishBuildArtifacts@1");
             t.Inputs.Count.Should().Be(2);
 
         }
@@ -687,7 +687,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishPipelineArtifact@0");
+            t.DisplayName.Should().Be("PublishPipelineArtifact@0");
 
 
         }
@@ -771,7 +771,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishBuildArtifacts@1");
+            t.DisplayName.Should().Be("PublishBuildArtifacts@1");
 
 
         }
@@ -819,7 +819,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishTestResults@2");
+            t.DisplayName.Should().Be("PublishTestResults@2");
             //TODO: add condition
 
 
@@ -873,7 +873,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishTestResults@2");
+            t.DisplayName.Should().Be("PublishTestResults@2");
             //TODO: add condition
 
 
@@ -917,7 +917,7 @@ steps:
             var s = j.Steps.Last();
             s.Should().BeOfType<TaskYaml>();
             var t = s as TaskYaml;
-            t.Value.Should().Be("PublishBuildArtifacts@1");
+            t.DisplayName.Should().Be("PublishBuildArtifacts@1");
             //TODO: add condition
 
 

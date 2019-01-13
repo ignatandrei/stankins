@@ -51,16 +51,31 @@ namespace Stankins.AzureDevOps
             var yaml = new YamlDevOpsVisitor();
             yaml.LoadFromString(data);
             var jobs = yaml.jobs;
-            var dt = new DataTable("jobs" );
-            dt.Columns.Add(new DataColumn("name", typeof(string)));
-            dt.Columns.Add(new DataColumn("condition", typeof(string)));
+            var dtJobs = new DataTable("jobs" );
+            dtJobs.Columns.Add(new DataColumn("name", typeof(string)));
+            dtJobs.Columns.Add(new DataColumn("condition", typeof(string)));
+            dtJobs.Columns.Add(new DataColumn("pool", typeof(string)));
+
+            var dtSteps = new DataTable("steps");
+            dtSteps.Columns.Add("jobName", typeof(string));
+            dtSteps.Columns.Add(new DataColumn("displayName", typeof(string)));
+            dtSteps.Columns.Add(new DataColumn("name", typeof(string)));
+            dtSteps.Columns.Add(new DataColumn("value", typeof(string)));
             
-            foreach(var job in jobs)
+            foreach (var job in jobs)
             {
-                dt.Rows.Add(job.Name, job.condition);
+                dtJobs.Rows.Add(job.Name, job.condition, job.pool.ToString());
+                
+                foreach(var step in job.Steps)
+                {
+                    dtSteps.Rows.Add(job.Name, step.DisplayName, step.Name, step.Value);    
+                }
             }
-            var id = receiveData.AddNewTable(dt);
-            receiveData.Metadata.AddTable(dt, id);
+            var id = receiveData.AddNewTable(dtJobs);
+            receiveData.Metadata.AddTable(dtJobs, id);
+
+            id = receiveData.AddNewTable(dtSteps);
+            receiveData.Metadata.AddTable(dtSteps, id);
 
             return receiveData;
         }

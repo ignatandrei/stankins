@@ -7,7 +7,7 @@ namespace Stankins.AzureDevOps
         public TaskYaml(string value)
         {
             Name = "task";
-            Value = value;
+            DisplayName = value;
             Inputs = new List<KeyValuePair<string, string>>();
         }
         public List<KeyValuePair<string, string>> Inputs { get; set; }
