@@ -30,15 +30,15 @@ namespace Stankins.AzureDevOps
             var jobs = dataToSent.FindAfterName("jobs");
             var tasks = dataToSent.FindAfterName("steps");
             int iJob = 0;
+            var dictJobs = new Dictionary<string, (string JobNode, string lastTaskNode)>();
             foreach(DataRow job in jobs.Value.Rows)
             {
                 iJob++;
                 var jobName = job["name"].ToString();
                 result.AppendLine($@"subgraph cluster_{iJob} {{
                         label = ""job {jobName}"";");
-                
-                
-                nodes.AppendLine($"NodeJob{iJob} [label=\"{jobName}\"];");
+                var lastNode = $"NodeJob{iJob}";
+                nodes.AppendLine($"NodeJob{iJob} [label=\"{jobName}\" shape=folder color=lightblue] ;");
                 result.Append($"NodeJob{iJob} ");
                 int iTask = 0;
                 foreach ( DataRow step  in tasks.Value.Rows)
@@ -47,14 +47,30 @@ namespace Stankins.AzureDevOps
                     if (step["jobName"].ToString() != jobName)
                         continue;
                     var taskName = step["displayName"].ToString();
+                    if(string.IsNullOrWhiteSpace(taskName))
+                        taskName= step["name"].ToString();
+
                     nodes.AppendLine($"NodeJob{iJob}_{iTask} [label=\"{taskName}\"];");
                     result.Append($" -> NodeJob{iJob}_{iTask}");
+                    lastNode = $"NodeJob{iJob}_{iTask}";
                 }
+                dictJobs.Add(jobName, ($"NodeJob{iJob}", lastNode));
+
 
                 result.AppendLine("}");
 
             }
-            var res = result.ToString()+ Environment.NewLine + nodes.ToString();
+            var depends = dataToSent.FindAfterName("jobDepends");
+            var dependsString = new StringBuilder();
+            foreach (DataRow job in depends.Value.Rows)
+            {
+                var jobName= job["jobName"].ToString();
+                var jobDepends = job["jobNameDepends"].ToString();
+                var node= dictJobs[jobName];
+                var nodeDepends = dictJobs[jobDepends];
+                dependsString.AppendLine($"{nodeDepends.lastTaskNode}-> {node.JobNode} ");
+            }
+                var res = result.ToString()+ Environment.NewLine + nodes.ToString() + Environment.NewLine + dependsString.ToString();
             yield return res;
         }
         public string Result() =>  sb?.ToString();

@@ -61,6 +61,11 @@ namespace Stankins.AzureDevOps
             dtSteps.Columns.Add(new DataColumn("displayName", typeof(string)));
             dtSteps.Columns.Add(new DataColumn("name", typeof(string)));
             dtSteps.Columns.Add(new DataColumn("value", typeof(string)));
+
+            var dtDepends = new DataTable("jobDepends");
+            dtDepends.Columns.Add("jobName", typeof(string));
+            dtDepends.Columns.Add("jobNameDepends", typeof(string));
+
             int idJob = 0;
             foreach (var job in jobs)
             {
@@ -73,12 +78,20 @@ namespace Stankins.AzureDevOps
                 {
                     dtSteps.Rows.Add(job.Name, step.DisplayName, step.Name, step.Value);    
                 }
+                foreach(var name in job.DependsOn)
+                {
+                    dtDepends.Rows.Add(job.Name, name);
+                }
+
             }
             var id = receiveData.AddNewTable(dtJobs);
             receiveData.Metadata.AddTable(dtJobs, id);
 
             id = receiveData.AddNewTable(dtSteps);
             receiveData.Metadata.AddTable(dtSteps, id);
+
+            id = receiveData.AddNewTable(dtDepends);
+            receiveData.Metadata.AddTable(dtDepends, id);
 
             return receiveData;
         }
