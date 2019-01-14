@@ -9,6 +9,7 @@ namespace Stankins.Interfaces
     {
         Task<bool> Initialize();
         IEnumerable<T> StreamTo(IDataToSent dataToSent);
+
     }
     public interface IStreamingReceive<T>
     {
