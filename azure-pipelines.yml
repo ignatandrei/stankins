@@ -608,8 +608,8 @@ jobs:
   
 - job: TestAfterPublish
 
-  dependsOn: Azure
-  condition: succeeded('Azure')
+  dependsOn: DeployOnAzure
+  condition: succeeded('DeployOnAzure')
 
   pool:
     vmImage: 'vs2017-win2016'
