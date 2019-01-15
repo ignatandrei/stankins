@@ -452,7 +452,7 @@ jobs:
 
 
 
-- job: Deploy
+- job: Deploy on GitHub
   pool:
     vmImage: 'win1803'
   steps:
