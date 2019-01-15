@@ -16,7 +16,9 @@
 [Pipeline Azure Devops https://dev.azure.com/ignatandrei0674/stankinsv2/_build?definitionId=1](https://dev.azure.com/ignatandrei0674/stankinsv2/_build?definitionId=1)
 
 
-<a href='https://github.com/ignatandrei/stankins/releases'>Releases</a>
+<a href='https://github.com/ignatandrei/stankins/releases'>Releases - Windows(Desktop + Console+ Site), Linux((Console+ Site),Android apk</a>
+
+[ Docker for Windows/Linux https://hub.docker.com/u/ignatandrei](https://hub.docker.com/u/ignatandrei)
 
 <a href='https://cdn.rawgit.com/ignatandrei/stankins/74e25fbe/Documentation/Help/index.html'>Documentation</a>
 
