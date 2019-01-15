@@ -340,7 +340,7 @@ jobs:
   #     arguments: '--configuration $(buildConfiguration) --logger trx --collect "Code coverage"'
   - script:  |
         dotnet test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter AfterPublish=0 --logger trx --collect "Code coverage"
-    displayName: irun test coverage Automated
+    displayName: run test coverage Automated
 
   - task: PublishTestResults@2
     inputs:
@@ -605,17 +605,11 @@ jobs:
         action: 'Start Azure App Service'
         WebAppName: 'azurestankins'
         ResourceGroupName: 'stankins'
-  
-- job: TestAfterPublish
-
-  dependsOn: DeployOnAzure
-  condition: succeeded('DeployOnAzure')
-
-  pool:
-    vmImage: 'vs2017-win2016'
- 
-  steps:
-    - checkout: none #skip checking out the default repository resource
+    
+    - task: Delay@1
+      inputs:
+        delayForMinutes: '1'
+        
     - script: |
         dotnet test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter AfterPublish=1 
       displayName: run test after publish
