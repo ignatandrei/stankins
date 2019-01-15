@@ -606,11 +606,12 @@ jobs:
         WebAppName: 'azurestankins'
         ResourceGroupName: 'stankins'
     
-    - task: Delay@1
-      inputs:
-        delayForMinutes: '1'
+    #- task: Delay@1 #does not work in container jobs
+    #  inputs:
+    #    delayForMinutes: '1'
         
     - script: |
+        ping localhost -n 60 >NUL
         dotnet test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter AfterPublish=1 
       displayName: run test after publish
       
