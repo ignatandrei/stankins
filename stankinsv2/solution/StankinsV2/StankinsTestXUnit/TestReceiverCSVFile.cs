@@ -7,10 +7,12 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xbehave;
+using Xunit;
 using static System.Environment;
 namespace StankinsTestXUnit
 {
-    
+    [Trait("ReceiverCSV", "")]
+    [Trait("AfterPublish", "0")]
     public class TestReceiverCSVFile
     {
         [Scenario]
