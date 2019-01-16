@@ -284,25 +284,7 @@ jobs:
  
   steps:
   - checkout: none #skip checking out the default repository resource
-  - task: DownloadBuildArtifacts@0
-    displayName: 'Download Build Artifacts'
-    inputs:
-      artifactName: drop
-      downloadPath: $(Build.SourcesDirectory)
-      #downloadPath: $(Agent.BuildDirectory)
-
-  - script: |
-       dir
-       move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
-    displayName: 'moving file artifact'
-
-  - task: ExtractFiles@1
-    displayName: 'Extract zip files'
-    inputs:
-        archiveFilePatterns: '*.zip' 
-        destinationFolder: $(Build.SourcesDirectory)
-        cleanDestinationFolder: false 
-
+  - template: pipelineTemplates/restoreFromArtifact.yml
 
   - script: |
        dir
@@ -396,24 +378,7 @@ jobs:
   
   steps:
   - checkout: none #skip checking out the default repository resource
-  - task: DownloadBuildArtifacts@0
-    displayName: 'Download Build Artifacts'
-    inputs:
-      artifactName: drop
-      downloadPath: $(Build.SourcesDirectory)
-      #downloadPath: $(Agent.BuildDirectory)
-
-  - script: |
-       ls -l
-       mv drop/files-$(Build.BuildId).zip .
-    displayName: 'moving file artifact'
-
-  - task: ExtractFiles@1
-    displayName: 'Extract zip files'
-    inputs:
-        archiveFilePatterns: '*.zip' 
-        destinationFolder: $(Build.SourcesDirectory)
-        cleanDestinationFolder: false 
+  - template: pipelineTemplates/restoreFromArtifact.yml
 
   
   - script: |
@@ -547,30 +512,9 @@ jobs:
  
   steps:
     - checkout: none #skip checking out the default repository resource
-    - task: DownloadBuildArtifacts@0
-      displayName: 'Download Build Artifacts'
-      inputs:
-        artifactName: drop
-        downloadPath: $(Build.SourcesDirectory)
+    - template: pipelineTemplates/restoreFromArtifact.yml
+
   
-    - script: |
-       dir
-       move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
-      
-
-    - task: ExtractFiles@1
-      displayName: 'Extract zip files'
-      inputs:
-        archiveFilePatterns: '*.zip' 
-        destinationFolder: $(Build.SourcesDirectory)
-        cleanDestinationFolder: false 
-        
-    - script: |
-       dir
-       rmdir stankinsV1 /s /q
-       dir
-      displayName: removing stankinsV1
-
     - task: DotNetCoreCLI@2
       displayName: 'build again'
       inputs:

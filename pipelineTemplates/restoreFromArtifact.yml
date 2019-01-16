@@ -1,0 +1,35 @@
+  steps:
+    - checkout: none #skip checking out the default repository resource
+    - task: DownloadBuildArtifacts@0
+      displayName: 'Download Build Artifacts'
+      inputs:
+        artifactName: drop
+        downloadPath: $(Build.SourcesDirectory)
+  
+    - script: |
+       dir /B
+       move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
+       condition: eq( variables['Agent.OS'], 'Windows_NT' )
+       displayName: delete on windows the zip
+
+
+    - script: |
+       ls -l
+       mv drop/files-$(Build.BuildId).zip .
+       condition: eq( variables['Agent.OS'], 'Linux' )
+       displayName: delete on linux the zip
+  
+
+    - task: ExtractFiles@1
+      displayName: 'Extract zip files'
+      inputs:
+        archiveFilePatterns: '*.zip' 
+        destinationFolder: $(Build.SourcesDirectory)
+        cleanDestinationFolder: false 
+        
+    - script: |
+       dir
+       rmdir stankinsV1 /s /q
+       del files-$(Build.BuildId).zip 
+       dir
+      displayName: removing stankinsV1 and old zip
