@@ -19,6 +19,10 @@ namespace Stankins.File
             
 
         }
+        public ReceiverCSVFile(string fileCSV): this(fileCSV, Encoding.UTF8, true, ',', '\n')
+        {
+
+        }
         public ReceiverCSVFile(string fileCSV, Encoding encoding, bool firstLineHasColumnNames, char columnSeparator, char lineSeparator) : this(new CtorDictionary()
             {
                 {nameof(fileCSV),fileCSV },
