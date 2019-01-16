@@ -13,22 +13,17 @@ namespace StankinsTestXUnit
 {
     [Trait("ReceiverCSV", "")]
     [Trait("AfterPublish", "0")]
-    public class TestReceiverCSVFile
+    public class TestReceiverCSVText
     {
         [Scenario]
         [Example("Year, Car{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003",2)]
-        public async Task TestSimpleCSV(string fileContents,int NumberRows)
+        public void TestSimpleCSV(string fileContents,int NumberRows)
         {
             IReceive receiver = null;
-            fileContents = fileContents.Replace("{NewLine}", NewLine);
-            string fileName = nameof(TestSimpleCSV);
             IDataToSent data=null;
             var nl = Environment.NewLine;
-            $"Given the file {fileName} with Content {fileContents}".x(async () =>
-            {
-                await File.WriteAllTextAsync(fileName, fileContents);
-            });
-            $"When I create the receiver csv for the {fileName}".x(() => receiver = new ReceiverCSVFile(fileName));
+            fileContents = fileContents.Replace("{NewLine}", nl);
+            $"When I create the receiver csv for the content {fileContents}".x(() => receiver = new ReceiverCSVText(fileContents));
             $"And I read the data".x(async () =>data= await receiver.TransformData(null));
             $"Then should be a data".x(() => data.Should().NotBeNull());
             $"With a table".x(() =>

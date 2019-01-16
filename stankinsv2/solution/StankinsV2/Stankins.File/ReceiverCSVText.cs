@@ -10,6 +10,11 @@ namespace Stankins.File
             this.Text = GetMyDataOrThrow<string>(nameof(Text));
 
         }
+        public ReceiverCSVText(string text) : this(text,  true, ',', '\n')
+        {
+
+        }
+
         public ReceiverCSVText(string text,  bool firstLineHasColumnNames, char columnSeparator, char lineSeparator) : this(new CtorDictionary()
             {
                 {nameof(text),text},
