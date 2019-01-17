@@ -31,12 +31,12 @@ jobs:
         echo test
         dir C:\msbuild.exe /s /b
         
--job: BuildAndroid
- pool:
-   vmImage: 'ubuntu-16.04'
+- job: BuildAndroid
+  pool:
+    vmImage: 'ubuntu-16.04'
  
- steps:
- - script: |
+  steps:
+    - script: |
        cd stankinsv2/solution/
        cd ~
        mkdir git
