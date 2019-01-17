@@ -56,7 +56,7 @@ namespace StankinsObjects
                 nr++;
                 prevDataTable.Rows.Add(dr.ItemArray);
             }
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

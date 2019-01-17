@@ -76,7 +76,7 @@ namespace Stankins.Alive
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
 
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
     }
 }

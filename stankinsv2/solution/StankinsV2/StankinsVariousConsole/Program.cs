@@ -28,28 +28,28 @@ namespace StankinsVariousConsole
         {
             await Yaml();
             return;
-            await OneTab();
-            return;
-            await WebSites();
-            return;
-            await PingSites();
-            return;
-            await jordanbpeterson();
-            return;
-            await Propriu();
-            return;
-            await BillGates();
+            //await OneTab();
+            //return;
+            //await WebSites();
+            //return;
+            //await PingSites();
+            //return;
+            //await jordanbpeterson();
+            //return;
+            //await Propriu();
+            //return;
+            //await BillGates();
 
-            return;
-            await Bookmarks();
+            //return;
+            //await Bookmarks();
             
-            return;
-            await ResultsDir();
-            return;
-            await BookerPrize();
-            return;
-            await Nobel();
-            return;
+            //return;
+            //await ResultsDir();
+            //return;
+            //await BookerPrize();
+            //return;
+            //await Nobel();
+            //return;
             //var item = new DBReceiveTableNamesSqlServer("Server =.;Database=MyTestDatabase;Trusted_Connection=True;");
             //var data = await item.TransformData(null);
 

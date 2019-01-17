@@ -49,7 +49,7 @@ namespace StankinsObjects
                 var id = receiveData.AddNewTable(dt);
                 receiveData.Metadata.AddTable(dt, id);
             }
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

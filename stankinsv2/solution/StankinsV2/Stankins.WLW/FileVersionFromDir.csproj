@@ -1,25 +1,24 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
-
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+  </PropertyGroup>
   <ItemGroup>
     <None Remove="a.wpost" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="a.wpost">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="OpenMcdf" Version="2.2.1.3" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
   </ItemGroup>
-
 </Project>

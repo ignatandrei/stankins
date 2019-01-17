@@ -58,7 +58,7 @@ namespace SenderInterpretedRazor
                 File.WriteAllText(nameFile, data);
                 i++;
             }
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

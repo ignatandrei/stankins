@@ -56,7 +56,7 @@ namespace StankinsObjects
                 if (!IdTablesWithColumn.Contains(receiveData.Metadata.Columns[i].IDTable))
                     receiveData.Metadata.Columns.RemoveAt(i);
             }
-            return receiveData;       
+            return await Task.FromResult(receiveData) ;       
         }
 
         public override Task<IMetadata> TryLoadMetadata()

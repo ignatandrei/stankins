@@ -93,7 +93,7 @@ namespace Stankins.AzureDevOps
             id = receiveData.AddNewTable(dtDepends);
             receiveData.Metadata.AddTable(dtDepends, id);
 
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

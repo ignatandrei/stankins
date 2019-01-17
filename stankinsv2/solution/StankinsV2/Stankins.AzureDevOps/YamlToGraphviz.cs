@@ -20,7 +20,7 @@ namespace Stankins.AzureDevOps
         {
             sb = new StringBuilder();
             sb.AppendLine("digraph G{");
-            return true;
+            return await Task.FromResult(true);
         }
 
         public IEnumerable<string> StreamTo(IDataToSent dataToSent)
@@ -85,7 +85,7 @@ namespace Stankins.AzureDevOps
             sb.AppendLine(arr.First());
             sb.AppendLine("}");
 
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

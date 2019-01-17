@@ -86,7 +86,7 @@ namespace StankinsObjects
                 }
             }
 
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

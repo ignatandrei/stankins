@@ -39,7 +39,7 @@ namespace StankinsObjects
 
             }
 
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()
@@ -70,7 +70,7 @@ namespace StankinsObjects
             receiveData.DataToBeSentFurther.Remove(id.Key);
             
             receiveData.Metadata.Tables.RemoveAt(id.Key);
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

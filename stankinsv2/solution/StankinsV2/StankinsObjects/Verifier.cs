@@ -70,7 +70,7 @@ namespace StankinsObjects
                 if (except.Length > 0)
                     throw new NotSupportedException($"cols for {item.Value.TableName} has {except[0]} that is not a metadata column ");
             }
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

@@ -47,7 +47,7 @@ namespace StankinsObjects
                 table.Columns.Remove(NewColumnName + "@");
                 receiveData.Metadata.Columns.Add(new Column() { IDTable = item.Key, Name = NewColumnName, Id = receiveData.Metadata.Columns.Count });
             }
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

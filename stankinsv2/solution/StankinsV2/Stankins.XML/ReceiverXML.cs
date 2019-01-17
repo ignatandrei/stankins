@@ -61,7 +61,7 @@ namespace Stankins.XML
             }
             var id = ret.AddNewTable(dt);
             ret.Metadata.AddTable(dt, id);
-            return ret;
+            return await Task.FromResult(ret);
         }
         public override Task<IMetadata> TryLoadMetadata()
         {

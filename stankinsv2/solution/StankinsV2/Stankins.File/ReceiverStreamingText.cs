@@ -18,14 +18,14 @@ namespace Stankins.File
 
         public async Task<bool> Initialize()
         {
-            return true;
+            return await Task.FromResult(true);
         }
 
 
         public async Task<string[]> StreamData()
         {
             var splitLines = Text.Split(Separator);
-            return splitLines;
+            return await Task.FromResult(splitLines);
         }
     }
 }

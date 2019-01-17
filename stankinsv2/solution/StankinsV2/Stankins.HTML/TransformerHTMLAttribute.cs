@@ -64,7 +64,7 @@ namespace Stankins.HTML
 
                 }
             }
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
 
         }
 

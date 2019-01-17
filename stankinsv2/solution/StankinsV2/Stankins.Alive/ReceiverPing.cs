@@ -53,7 +53,7 @@ namespace Stankins.Alive
             //receiveData.AddNewTable(results);
             //results.TableName = "ping.exe " + NameSite; 
             //p.StartProcessAndWait();
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         

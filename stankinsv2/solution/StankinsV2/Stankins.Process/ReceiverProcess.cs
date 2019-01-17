@@ -49,7 +49,7 @@ namespace Stankins.Process
             process.ErrorDataReceived += new System.Diagnostics.DataReceivedEventHandler(Process_ErrorDataReceived);
             process.Exited += new System.EventHandler(Process_Exited);
             process.StartProcessAndWait();
-            return ret;
+            return await Task.FromResult(ret);
         }
         void Process_Exited(object sender, EventArgs e)
         {

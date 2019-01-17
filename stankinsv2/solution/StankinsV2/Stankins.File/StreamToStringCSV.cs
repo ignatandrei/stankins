@@ -12,7 +12,7 @@ namespace Stankins.File
     {
         public async Task<bool> Initialize()
         {
-            return true;
+            return await Task.FromResult(true);
         }
 
         public IEnumerable<string> StreamTo(IDataToSent dataToSent)

@@ -101,7 +101,7 @@ namespace StankinsObjects
                     Console.WriteLine("error at " + column.Name+ "-" + data?.ToString() +"-" + ex.Message);
                 }
             }
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

@@ -22,7 +22,7 @@ namespace StankinsObjects
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             if (receiveData.DataToBeSentFurther.Count == 0)
-                return receiveData;
+                return await Task.FromResult(receiveData) ;
             var firstTableId = receiveData.Metadata.Columns.Min(it => it.IDTable);
             var firstTableColumns = receiveData.Metadata
                 .Columns.Where(it => it.IDTable == firstTableId)
@@ -76,7 +76,7 @@ namespace StankinsObjects
                 //}
             }
                 
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
 
         public override Task<IMetadata> TryLoadMetadata()

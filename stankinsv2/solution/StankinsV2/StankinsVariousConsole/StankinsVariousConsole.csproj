@@ -1,33 +1,28 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <LangVersion>latest</LangVersion>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="jsonCreation.txt" />
     <None Remove="sqliteCreation.txt" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="sqliteCreation.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <Content Include="jsonCreation.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="YamlDotNet" Version="5.3.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
     <ProjectReference Include="..\Stankins.Amazon\Stankins.Amazon.csproj" />
@@ -42,11 +37,9 @@
     <ProjectReference Include="..\Stankins.XML\Stankins.XML.csproj" />
     <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Update="stankinsYaml.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
 </Project>

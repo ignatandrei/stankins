@@ -84,6 +84,7 @@ namespace StankinsObjects
                             }
                             catch (Exception ex)
                             {
+                                Console.WriteLine(ex.Message);
                                 if (item[n]?.ToString() == val)
                                     continue;
                             }
@@ -92,7 +93,7 @@ namespace StankinsObjects
                     }
                 }
             }
-            return receiveData;
+            return await Task.FromResult(receiveData);
         }
 
         public override Task<IMetadata> TryLoadMetadata()

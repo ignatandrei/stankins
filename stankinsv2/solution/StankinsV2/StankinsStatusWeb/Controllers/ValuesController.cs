@@ -54,7 +54,8 @@ namespace StankinsStatusWeb.Controllers
         {
             var file = Path.Combine(Directory.GetCurrentDirectory(), "MonitorData", id + ".json");
             //TODO: seriazlie monitor options into file
-            return ;
+            await Task.Delay(10);
+            return;
 
         }
         // POST api/values

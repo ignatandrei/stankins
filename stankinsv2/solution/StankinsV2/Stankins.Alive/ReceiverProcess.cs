@@ -57,7 +57,7 @@ namespace Stankins.Alive
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
 
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
         }
         //var m = new DataTable();
         //m.Columns.Add("Process",typeof(string));

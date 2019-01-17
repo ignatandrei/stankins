@@ -21,7 +21,7 @@ namespace Stankins.File
 
         public async Task<bool> Initialize()
         {
-            return true;
+            return await Task.FromResult(true);
         }
 
 
@@ -34,7 +34,7 @@ namespace Stankins.File
             };
             var data = await file.LoadData();
             var splitLines = data.Split(Separator);
-            return splitLines;
+            return await Task.FromResult(splitLines);
         }
     }
 }

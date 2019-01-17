@@ -31,6 +31,7 @@ namespace StankinsAliveMonitor.SignalRHubs
                 }
                 catch(Exception ex)
                 {
+                    Console.WriteLine(ex.Message);
                     //TODO: log
                 }
             });

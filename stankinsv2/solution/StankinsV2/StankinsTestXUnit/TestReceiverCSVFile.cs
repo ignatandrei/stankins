@@ -17,7 +17,7 @@ namespace StankinsTestXUnit
     {
         [Scenario]
         [Example("Year, Car{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003",2)]
-        public async Task TestSimpleCSV(string fileContents,int NumberRows)
+        public void TestSimpleCSV(string fileContents,int NumberRows)
         {
             IReceive receiver = null;
             fileContents = fileContents.Replace("{NewLine}", NewLine);

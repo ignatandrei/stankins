@@ -39,7 +39,7 @@ namespace StankinsObjects
                 cols.RemoveAt(i);
 
             }
-            return receiveData;
+            return await Task.FromResult(receiveData) ;
 
 
         }
