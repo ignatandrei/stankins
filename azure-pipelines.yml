@@ -12,9 +12,9 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    deployWindows: 1
-    deployLinux: 1
-    stop : 0
+    deployWindows: 0
+    deployLinux: 0
+    stop : 1
     
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
@@ -31,7 +31,19 @@ jobs:
         echo test
         dir C:\msbuild.exe /s /b
         
-
+-job: BuildAndroid
+ pool:
+   vmImage: 'ubuntu-16.04'
+ 
+ steps:
+ - script: |
+       cd stankinsv2/solution/
+       cd ~
+       mkdir git
+       cd git
+       git clone https://github.com/dotnet/coreclr
+       git clone https://github.com/dotnet/corefx
+       git clone https://github.com/qmfrederik/coredroid
       
       
 - job: SetProps
