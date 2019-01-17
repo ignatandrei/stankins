@@ -9,15 +9,15 @@
     - script: |
        dir /B
        move drop\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
-       condition: eq( variables['Agent.OS'], 'Windows_NT' )
-       displayName: delete on windows the zip
+      condition: eq( variables['Agent.OS'], 'Windows_NT' )
+      displayName: delete on windows the zip
 
 
     - script: |
        ls -l
        mv drop/files-$(Build.BuildId).zip .
-       condition: eq( variables['Agent.OS'], 'Linux' )
-       displayName: delete on linux the zip
+      condition: eq( variables['Agent.OS'], 'Linux' )
+      displayName: delete on linux the zip
   
 
     - task: ExtractFiles@1
