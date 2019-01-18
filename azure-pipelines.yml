@@ -351,7 +351,7 @@ jobs:
   #     projects: '**/*Test*/*Test*.csproj'
   #     arguments: '--configuration $(buildConfiguration) --logger trx --collect "Code coverage"'
   - script:  |
-        dotnet test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter AfterPublish=0 --logger trx --collect "Code coverage"
+        dotnet test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter AfterPublish=0 --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
     displayName: run test coverage Automated
 
   - task: PublishTestResults@2
