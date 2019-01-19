@@ -6,10 +6,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xbehave;
+using Xbehave.Sdk;
 using Xunit;
 
 namespace StankinsTestXUnit
 {
+    static class MyExtensionsXBehave
+    {
+        public static IStepBuilder w(this string text, Action body)
+        {
+            Console.WriteLine("!" + text);
+            return text.w(body);
+        }
+    }
     [Trait("FilterColumnDataGreaterThanLength", "")]
     [Trait("AfterPublish", "0")]
     public class FilterColumnDataGreaterThanLengthTest
@@ -22,23 +31,23 @@ namespace StankinsTestXUnit
             IDataToSent data = null;
             var nl = Environment.NewLine;
             fileContents = fileContents.Replace("{NewLine}", nl);
-            $"When I create the receiver csv for the content {fileContents}".x(() => receiver = new ReceiverCSVText(fileContents));
+            $"When I create the receiver csv for the content {fileContents}".w(()=> receiver = new ReceiverCSVText(fileContents));
             $"And I read the data".x(async () => data = await receiver.TransformData(null));
-            $"Then should be a data".x(() => data.Should().NotBeNull());
-            $"With a table".x(() =>
+            $"Then should be a data".w(() => data.Should().NotBeNull());
+            $"With a table".w(()=>
             {
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRows}".x(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
+            $"The number of rows should be {NumberRows}".w(()=> data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
             $"And when I filter".x(async () => data = await new FilterColumnDataGreaterThanLength("Car", 5).TransformData(data));
-            $"Then should be a data".x(() => data.Should().NotBeNull());
-            $"With a table".x(() =>
+            $"Then should be a data".w(()=> data.Should().NotBeNull());
+            $"With a table".w(()=>
             {
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRowsAfterFilter}".x(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRowsAfterFilter));
+            $"The number of rows should be {NumberRowsAfterFilter}".w(()=> data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRowsAfterFilter));
 
 
         }
