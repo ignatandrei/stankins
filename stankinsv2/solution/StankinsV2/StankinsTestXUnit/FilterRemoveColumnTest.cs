@@ -10,13 +10,13 @@ using Xunit;
 
 namespace StankinsTestXUnit
 {
-    [Trait("FilterColumnDataGreaterThanLength", "")]
+    [Trait("FilterRemoveColumn", "")]
     [Trait("AfterPublish", "0")]
-    public class FilterColumnDataGreaterThanLengthTest
+    public class FilterRemoveColumnTest
     {
         [Scenario]
-        [Example("Car, Year{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003{NewLine}Mercedes, 2003", 3,1)]
-        public void TestSimpleCSV(string fileContents, int NumberRows, int NumberRowsAfterFilter)
+        [Example("Car, Year{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003{NewLine}Mercedes, 2003", 2,1)]
+        public void TestSimpleCSV(string fileContents, int NumberColumns, int NumberColumnsAfterFilter)
         {
             IReceive receiver = null;
             IDataToSent data = null;
@@ -30,15 +30,15 @@ namespace StankinsTestXUnit
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRows}".w(()=> data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
-            $"And when I filter".w(async () => data = await new FilterColumnDataGreaterThanLength("Car", 5).TransformData(data));
+            $"The number of columns should be {NumberColumns}".w(()=> data.DataToBeSentFurther[0].Columns.Count.Should().Be(NumberColumns));
+            $"And when I filter".w(async () => data = await new FilterRemoveColumn("Car").TransformData(data));
             $"Then should be a data".w(()=> data.Should().NotBeNull());
             $"With a table".w(()=>
             {
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRowsAfterFilter}".w(()=> data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRowsAfterFilter));
+            $"The number of rows should be {NumberColumnsAfterFilter}".w(()=> data.DataToBeSentFurther[0].Columns.Count.Should().Be(NumberColumnsAfterFilter));
 
 
         }

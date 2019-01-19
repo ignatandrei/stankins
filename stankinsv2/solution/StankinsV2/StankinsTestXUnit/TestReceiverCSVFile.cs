@@ -24,19 +24,19 @@ namespace StankinsTestXUnit
             string fileName = nameof(TestSimpleCSV);
             IDataToSent data=null;
             var nl = Environment.NewLine;
-            $"Given the file {fileName} with Content {fileContents}".x(async () =>
+            $"Given the file {fileName} with Content {fileContents}".w(async () =>
             {
                 await File.WriteAllTextAsync(fileName, fileContents);
             });
-            $"When I create the receiver csv for the {fileName}".x(() => receiver = new ReceiverCSVFile(fileName));
-            $"And I read the data".x(async () =>data= await receiver.TransformData(null));
-            $"Then should be a data".x(() => data.Should().NotBeNull());
-            $"With a table".x(() =>
+            $"When I create the receiver csv for the {fileName}".w(() => receiver = new ReceiverCSVFile(fileName));
+            $"And I read the data".w(async () =>data= await receiver.TransformData(null));
+            $"Then should be a data".w(() => data.Should().NotBeNull());
+            $"With a table".w(() =>
             {
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRows}".x(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
+            $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
 
 
         } 

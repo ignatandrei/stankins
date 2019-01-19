@@ -92,8 +92,8 @@ namespace StankinsVariousConsole
             var data = await dr.TransformData(null);
             await v.TransformData(data);
 
-            data = await new RemoveColumn("href").TransformData(data);
-            data = await new RemoveColumn("a_text").TransformData(data);
+            data = await new FilterRemoveColumn("href").TransformData(data);
+            data = await new FilterRemoveColumn("a_text").TransformData(data);
             await v.TransformData(data);
             var firstTableName = data.Metadata.Tables[0].Name;
             
@@ -250,9 +250,9 @@ namespace StankinsVariousConsole
             //data = await v.TransformData(data);
             data = await new TransformerAddColumnExpressionByColumn("item_html", "'<li>' + item_html +'</li>'", "li").TransformData(data);
             data = await v.TransformData(data);
-            data = await new RemoveColumn("item_html").TransformData(data);
+            data = await new FilterRemoveColumn("item_html").TransformData(data);
             data = await v.TransformData(data);
-            data = await new RemoveColumn("item").TransformData(data);
+            data = await new FilterRemoveColumn("item").TransformData(data);
             data = await v.TransformData(data);
             data = await new TransformerOneColumnToMultiTablesByNumber(data.Metadata.Tables.First().Name, 20).TransformData(data);
             data = await v.TransformData(data);
@@ -324,17 +324,17 @@ namespace StankinsVariousConsole
             //data = await (new TransformerAddColumnExpressionByColumn("li_html", "Len(li_html)", "liLen")).TransformData(data);
             //var csv = new SenderFileCSV(@"D:\test");
             //data = await csv.TransformData(data);
-            data = await new RemoveColumn("li_html").TransformData(data);
-            data = await new RemoveColumn("Picture").TransformData(data);
-            data = await new RemoveColumn("Year_html").TransformData(data);
-            data = await new RemoveColumn("Genre(s)_html").TransformData(data);
-            data = await new RemoveColumn("LaureateWiki").TransformData(data);
-            data = await new RemoveColumn("Country").TransformData(data);
-            data = await new RemoveColumn("Picture_html").TransformData(data);
-            data = await new RemoveColumn("Laureate_html").TransformData(data);
-            data = await new RemoveColumn("Country_html").TransformData(data);
-            data = await new RemoveColumn("Language(s)_html").TransformData(data);
-            data = await new RemoveColumn("Citation_html").TransformData(data);
+            data = await new FilterRemoveColumn("li_html").TransformData(data);
+            data = await new FilterRemoveColumn("Picture").TransformData(data);
+            data = await new FilterRemoveColumn("Year_html").TransformData(data);
+            data = await new FilterRemoveColumn("Genre(s)_html").TransformData(data);
+            data = await new FilterRemoveColumn("LaureateWiki").TransformData(data);
+            data = await new FilterRemoveColumn("Country").TransformData(data);
+            data = await new FilterRemoveColumn("Picture_html").TransformData(data);
+            data = await new FilterRemoveColumn("Laureate_html").TransformData(data);
+            data = await new FilterRemoveColumn("Country_html").TransformData(data);
+            data = await new FilterRemoveColumn("Language(s)_html").TransformData(data);
+            data = await new FilterRemoveColumn("Citation_html").TransformData(data);
 
             data = await v.TransformData(data);
             //var regexLast = @"(?:.+\/)((?<name>.+))";
@@ -343,7 +343,7 @@ namespace StankinsVariousConsole
 
             data = await new AddColumnRegex("LaureateFullWiki", @"(?:.+\/)((?<name>.+))").TransformData(data);
 
-            data = await new RemoveColumn("LaureateFullWiki_origin").TransformData(data);
+            data = await new FilterRemoveColumn("LaureateFullWiki_origin").TransformData(data);
 
             data = await new ChangeTableNamesRegex(@"(?:.+\/)((?<name>.+))").TransformData(data);
             data = await v.TransformData(data);
@@ -402,12 +402,12 @@ namespace StankinsVariousConsole
 
             data = await new ChangeColumnName("li", "bookName").TransformData(data);
             data = await v.TransformData(data);
-            data = await new RemoveColumn("li_html").TransformData(data);
-            data = await new RemoveColumn("Year_html").TransformData(data);
-            data = await new RemoveColumn("Author_html").TransformData(data);
-            data = await new RemoveColumn("Title_html").TransformData(data);
-            data = await new RemoveColumn("Genre(s)_html").TransformData(data);
-            data = await new RemoveColumn("Country_html").TransformData(data);
+            data = await new FilterRemoveColumn("li_html").TransformData(data);
+            data = await new FilterRemoveColumn("Year_html").TransformData(data);
+            data = await new FilterRemoveColumn("Author_html").TransformData(data);
+            data = await new FilterRemoveColumn("Title_html").TransformData(data);
+            data = await new FilterRemoveColumn("Genre(s)_html").TransformData(data);
+            data = await new FilterRemoveColumn("Country_html").TransformData(data);
             data = await v.TransformData(data);
             data = await (new TransformTrim()).TransformData(data);
             data = await v.TransformData(data);

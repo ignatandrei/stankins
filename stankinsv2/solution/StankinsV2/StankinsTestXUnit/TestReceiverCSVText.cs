@@ -23,15 +23,15 @@ namespace StankinsTestXUnit
             IDataToSent data=null;
             var nl = Environment.NewLine;
             fileContents = fileContents.Replace("{NewLine}", nl);
-            $"When I create the receiver csv for the content {fileContents}".x(() => receiver = new ReceiverCSVText(fileContents));
-            $"And I read the data".x(async () =>data= await receiver.TransformData(null));
-            $"Then should be a data".x(() => data.Should().NotBeNull());
-            $"With a table".x(() =>
+            $"When I create the receiver csv for the content {fileContents}".w(() => receiver = new ReceiverCSVText(fileContents));
+            $"And I read the data".w(async () =>data= await receiver.TransformData(null));
+            $"Then should be a data".w(() => data.Should().NotBeNull());
+            $"With a table".w(() =>
             {
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRows}".x(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
+            $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
 
 
         } 

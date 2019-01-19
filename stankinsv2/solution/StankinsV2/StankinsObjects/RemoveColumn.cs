@@ -8,17 +8,17 @@ using System.Threading.Tasks;
 namespace StankinsObjects 
 {
     //TODO: make remove more columns at once
-    public class RemoveColumn : BaseObject, IFilter
+    public class FilterRemoveColumn : BaseObject, IFilter
     {
         public string NameColumn { get; }
-        public RemoveColumn(string nameColumn) : this(new CtorDictionary() {
+        public FilterRemoveColumn(string nameColumn) : this(new CtorDictionary() {
             { nameof(nameColumn), nameColumn }
             }
               )
         {
 
         }
-        public RemoveColumn(CtorDictionary dataNeeded) : base(dataNeeded)
+        public FilterRemoveColumn(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.NameColumn = base.GetMyDataOrThrow<string>(nameof(NameColumn));
         }
