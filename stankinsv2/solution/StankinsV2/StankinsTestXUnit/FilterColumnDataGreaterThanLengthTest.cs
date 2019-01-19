@@ -16,7 +16,7 @@ namespace StankinsTestXUnit
         public static IStepBuilder w(this string text, Action body)
         {
             Console.WriteLine("!" + text);
-            return text.w(body);
+            return text.x(body);
         }
     }
     [Trait("FilterColumnDataGreaterThanLength", "")]
