@@ -41,7 +41,7 @@ namespace Stankins.File
                     {
                         foreach (var item in vals)
                         {
-                            dt.Columns.Add(new DataColumn(item, typeof(string)));
+                            dt.Columns.Add(new DataColumn(item.Trim(), typeof(string)));
                         }
                     }
                     else
