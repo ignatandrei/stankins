@@ -12,9 +12,9 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    deployWindows: 1
-    deployLinux: 1
-    stop : 0
+    deployWindows: 0
+    deployLinux: 0
+    stop : 1
     
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
@@ -30,6 +30,10 @@ jobs:
     - script: |
         echo test
         dir C:\msbuild.exe /s /b
+        docker-compose -f stankinsv2\solution\StankinsV2\StankinsTestXUnit\Docker\docker-sqlserver-instance.yaml up -d   
+        docker image ls
+        docker container ls
+        docker-compose -f stankinsv2\solution\StankinsV2\StankinsTestXUnit\Docker\docker-sqlserver-instance.yaml down   
         
 - job: BuildAndroid #https://github.com/qmfrederik/coredroid
   pool:
