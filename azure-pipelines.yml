@@ -201,7 +201,7 @@ jobs:
   - DownloadFilesAndModifyBackend
   pool:
     vmImage: 'vs2017-win2016'
-  condition: or( eq(variables['startDeploy'],1),  endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy')))
+  condition: or( eq(variables['startDeploy'],1),  endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy'))
   variables:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable 
 
