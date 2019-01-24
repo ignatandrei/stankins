@@ -29,11 +29,11 @@ jobs:
     - checkout: none #skip checking out the default repository resource
     - script: |
         echo test
-        dir C:\msbuild.exe /s /b
-        docker-compose -f stankinsv2\solution\StankinsV2\StankinsTestXUnit\Docker\docker-sqlserver-instance.yaml up -d   
+        rem dir C:\msbuild.exe /s /b
+        docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance.yaml up -d   
         docker image ls
         docker container ls
-        docker-compose -f stankinsv2\solution\StankinsV2\StankinsTestXUnit\Docker\docker-sqlserver-instance.yaml down   
+        docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance.yaml down   
         
 - job: BuildAndroid #https://github.com/qmfrederik/coredroid
   pool:
