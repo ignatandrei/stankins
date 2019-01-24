@@ -16,7 +16,7 @@ namespace StankinsTestXUnit
     public class TestReceiverSqlServer
     {
         [Scenario]
-        [Example("Server=myServerAddress;Database=master;User Id=SA;Password = <YourStrong!Passw0rd>;")]
+        [Example("Server=(local);Database=master;User Id=SA;Password = <YourStrong!Passw0rd>;")]
         public void TestReceiverDBServer(string connectionString)
         {
             IReceive status = null;
@@ -33,7 +33,10 @@ namespace StankinsTestXUnit
             {
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-
+            $"and the result should be true".w(() =>
+            {
+                data.DataToBeSentFurther[0].Rows[0]["IsSuccess"].Should().Be(true);
+            });
 
 
         }

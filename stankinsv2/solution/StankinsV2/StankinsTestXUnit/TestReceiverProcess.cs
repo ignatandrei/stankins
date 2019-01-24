@@ -28,7 +28,7 @@ namespace StankinsTestXUnit
             dt.DataToBeSentFurther.Should().NotBeNull();
             dt.DataToBeSentFurther.Count.Should().Be(1);
             dt.DataToBeSentFurther.First().Value.Should().NotBeNull();
-            dt.DataToBeSentFurther.First().Value.Rows.Count.Should().Be(6);
+            dt.DataToBeSentFurther.First().Value.Rows.Count.Should().BeGreaterOrEqualTo(1);
             var row = dt.DataToBeSentFurther.First().Value.Rows[0];
             row["IsSuccess"].Should().Be(true);
             #endregion

@@ -68,6 +68,9 @@ jobs:
     - script: |
         echo test
         dotnet build stankinsv2/solution/StankinsV2/StankinsV2.sln 
+        dotnet tool install  -g coverlet.console
+    displayName: install global tools
+
       displayName: build linux
   
     
@@ -76,10 +79,19 @@ jobs:
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml up -d   
         docker image ls
         docker container ls
+
         dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
+        coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down   
       
-      displayName: external dependencies sql server linux
+      displayName: test with external dependencies sql server linux
+      
+    - bash: |
+        curl -s https://codecov.io/bash > codecov
+        chmod +x codecov
+        ./codecov -f "coverage.opencover.xml" -t $CODECOV_TOKEN
+      displayName: upload  code coverage
 
 - job: SetProps
   pool:
@@ -383,7 +395,7 @@ jobs:
         rem dotnet-thx.exe
         rem cd ../StankinsTestXUnit
         rem dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj
-        coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter ExternalDependency=0  --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
         reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
         xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
         rem restoring current dir
