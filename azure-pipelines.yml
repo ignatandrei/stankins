@@ -86,9 +86,9 @@ jobs:
         echo 'compose down'
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down 
         echo 'report generator'
-        reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
+        reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" "-reporttypes:HTMLInline;HTMLSummary;Badges"
         echo 'artifact'
-        cp -R coveragereport  $(Build.ArtifactStagingDirectory)\cc\  
+        cp -r -v coveragereport  $(Build.ArtifactStagingDirectory)\cc\  
 
           
       
@@ -412,7 +412,7 @@ jobs:
         rem cd ../StankinsTestXUnit
         rem dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj
         rem coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter ExternalDependency=0  --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
-        rem reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
+        rem reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" "-reporttypes:HTMLInline;HTMLSummary;Badges"
         rem xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
         rem restoring current dir
         rem cd ../../../../ 
