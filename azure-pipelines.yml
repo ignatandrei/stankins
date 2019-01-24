@@ -44,9 +44,9 @@ jobs:
     #- checkout: none #skip checking out the default repository resource
     
     - task: DotNetCoreInstaller@0
-    displayName: 'Use .NET Core sdk 2.1.300'
-    inputs:
-        version: 2.1.300
+      displayName: 'Use .NET Core sdk 2.1.300'
+      inputs:
+         version: 2.1.300
 
   
     - task: NuGetToolInstaller@0
