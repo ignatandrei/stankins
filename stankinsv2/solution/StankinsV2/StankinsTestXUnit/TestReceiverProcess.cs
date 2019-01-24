@@ -3,6 +3,7 @@ using Stankins.Alive;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -18,7 +19,16 @@ namespace StankinsTestXUnit
         {
 
             #region arrange
-            var r = new ReceiverProcessAlive("ping", "127.0.0.1 -n 1");
+            var args = "";
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                args = "127.0.0.1 -n 1";
+            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                args = "127.0.0.1 -c 1";
+            }
+            var r = new ReceiverProcessAlive("ping", args);
             #endregion
             #region act
             var dt = await r.TransformData(null);

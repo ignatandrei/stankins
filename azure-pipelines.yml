@@ -15,7 +15,7 @@ variables:
     deployWindows: 0
     deployLinux: 0
     stop : 1
-    
+    numberBuilds: $[counter('versioncounter', 466)]
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -79,7 +79,7 @@ jobs:
         docker image ls
         docker container ls
 
-        dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
+        dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --filter ExternalDependency=0 #--logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
         coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
         reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
         cp -R coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
@@ -92,7 +92,10 @@ jobs:
       inputs:
         testRunner: VSTest
         testResultsFiles: '**/*.trx'
-     
+    
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact: drop' 
+
     - bash: |
         curl -s https://codecov.io/bash > codecov
         chmod +x codecov
@@ -102,7 +105,7 @@ jobs:
 - job: SetProps
   pool:
     vmImage: 'vs2017-win2016'
-  condition: eq(variables['stop'],0)
+  #condition: eq(variables['stop'],0)
   steps:
     - checkout: none #skip checking out the default repository resource
     - powershell: |
@@ -153,7 +156,7 @@ jobs:
 - job: DownloadFilesAndModifyBackend
 
   dependsOn: SetProps
-  condition:  eq(variables['stop'],0)
+  condition:  and( eq(variables['stop'],0),  endsWith(variables['numberBuilds'],'0'))
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -192,7 +195,7 @@ jobs:
   - DownloadFilesAndModifyBackend
   pool:
     vmImage: 'vs2017-win2016'
-
+  condition: and( eq(variables['stop'],0),  endsWith(variables['numberBuilds'],'0'))
   variables:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable 
 
@@ -341,7 +344,7 @@ jobs:
   dependsOn: 
   - SetProps
   - BuildFrontEnd
-  condition: and( eq(variables['deployWindows'],1), succeeded('BuildFrontEnd'))
+  condition: and( eq(variables['deployWindows'],1), succeeded('BuildFrontEnd'), endsWith(variables['numberBuilds'],'0'))
   pool:
     vmImage: 'vs2017-win2016'
 
@@ -435,7 +438,7 @@ jobs:
   dependsOn: 
   - SetProps
   - BuildFrontEnd
-  condition: and(eq(variables['deployLinux'],1), succeeded('BuildFrontEnd'))
+  condition: and(eq(variables['deployLinux'],1), succeeded('BuildFrontEnd'), endsWith(variables['numberBuilds'],'0'))
   pool:
     vmImage: 'ubuntu-16.04'
 

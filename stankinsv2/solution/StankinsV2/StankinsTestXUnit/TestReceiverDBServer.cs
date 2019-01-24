@@ -11,7 +11,7 @@ using Xunit;
 
 namespace StankinsTestXUnit
 {
-    [Trait("ReceiverWeb", "")]
+    [Trait("ReceiverSqlServer", "")]
     [Trait("ExternalDependency","SqlServer")]
     public class TestReceiverSqlServer
     {
