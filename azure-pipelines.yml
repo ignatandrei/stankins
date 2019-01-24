@@ -69,7 +69,6 @@ jobs:
         echo test
         dotnet build stankinsv2/solution/StankinsV2/StankinsV2.sln 
         dotnet tool install  -g coverlet.console
-    displayName: install global tools
 
       displayName: build linux
   
