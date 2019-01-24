@@ -30,10 +30,10 @@ jobs:
     - script: |
         echo test
         rem dir C:\msbuild.exe /s /b
-        rem docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance.yaml up -d   
+        rem docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-windows.yaml up -d   
         rem docker image ls
         rem docker container ls
-        rem docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance.yaml down   
+        rem docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-windows.yaml down   
 
 - job: TestLinux
   pool:
@@ -43,10 +43,10 @@ jobs:
     #- checkout: none #skip checking out the default repository resource
     - script: |
         echo test
-        docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance.yaml up -d   
+        docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml up -d   
         docker image ls
         docker container ls
-        docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance.yaml down   
+        docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down   
           
 - job: SetProps
   pool:

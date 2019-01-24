@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    image: mcr.microsoft.com/mssql/server 
+    ports:
+      - "1433:1433"
+    environment:
+      SA_PASSWORD: "<YourStrong!Passw0rd>"
+      ACCEPT_EULA: "Y"
+    healthcheck:
+      test: sqlcmd -S (local) -U SA -P '<YourStrong!Passw0rd>' -Q 'select 1'
+
