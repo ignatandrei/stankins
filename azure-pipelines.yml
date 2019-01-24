@@ -16,7 +16,7 @@ variables:
     deployLinux: 1
     startDeploy : 0
     numberBuilds: $[counter('versioncounter', 466)]
-    message: $(Build.SourceVersionMessage)
+    messagePush: $(Build.SourceVersionMessage)
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -141,6 +141,7 @@ jobs:
         rem echo BUILD_SOURCESDIRECTORY contents:
         rem @dir %BUILD_SOURCESDIRECTORY%      
         echo $(Date:yyyyMMdd)
+        echo !!!message pushed: %messagePush%
         cmd /K set
       
       displayName: versioning
@@ -164,7 +165,7 @@ jobs:
 - job: DownloadFilesAndModifyBackend
 
   dependsOn: SetProps
-  condition:  or( eq(variables['startDeploy'],1),  endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy'))
+  condition:  or( eq(variables['startDeploy'],1),  endsWith(variables['numberBuilds'],'0'), contains(variables['messagePush'],'deploy'))
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -203,7 +204,7 @@ jobs:
   - DownloadFilesAndModifyBackend
   pool:
     vmImage: 'vs2017-win2016'
-  condition: or( eq(variables['startDeploy'],1),  endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy'))
+  condition: or( eq(variables['startDeploy'],1),  endsWith(variables['numberBuilds'],'0'), contains(variables['messagePush'],'deploy'))
   variables:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable 
 
@@ -352,7 +353,7 @@ jobs:
   dependsOn: 
   - SetProps
   - BuildFrontEnd
-  condition: and(succeeded('BuildFrontEnd'), or( eq(variables['deployWindows'],1), endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy') ) )
+  condition: and(succeeded('BuildFrontEnd'), or( eq(variables['deployWindows'],1), endsWith(variables['numberBuilds'],'0'), contains(variables['messagePush'],'deploy') ) )
   pool:
     vmImage: 'vs2017-win2016'
 
@@ -446,7 +447,7 @@ jobs:
   dependsOn: 
   - SetProps
   - BuildFrontEnd
-  condition: and(succeeded('BuildFrontEnd'),  or(eq(variables['deployLinux'],1), endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy')))
+  condition: and(succeeded('BuildFrontEnd'),  or(eq(variables['deployLinux'],1), endsWith(variables['numberBuilds'],'0'), contains(variables['messagePush'],'deploy')))
   pool:
     vmImage: 'ubuntu-16.04'
 
