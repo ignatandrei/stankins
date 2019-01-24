@@ -12,11 +12,11 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    deployWindows: 1
-    deployLinux: 1
-    stop : 0
+    deployWindows: 0
+    deployLinux: 0
+    startDeploy : 0
     numberBuilds: $[counter('versioncounter', 466)]
-    doDeploy: contains($(Build.SourceVersionMessage),'deploy')
+    message: $(Build.SourceVersionMessage)
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
 
@@ -25,7 +25,7 @@ jobs:
 - job: TestWin # docker compose 19 min
   pool:
     vmImage: 'vs2017-win2016'
-  #condition: eq(variables['stop'],1)
+  #condition: eq(variables['startDeploy'],1)
   steps:
     #- checkout: none #skip checking out the default repository resource
     - script: |
@@ -111,7 +111,7 @@ jobs:
 - job: SetProps
   pool:
     vmImage: 'vs2017-win2016'
-  #condition: eq(variables['stop'],0)
+  #condition: eq(variables['startDeploy'],0)
   steps:
     - checkout: none #skip checking out the default repository resource
     - powershell: |
@@ -145,7 +145,7 @@ jobs:
 - job: TestMyProps
 
   dependsOn: SetProps
-  condition:  eq(variables['stop'],0)
+  #condition:  eq(variables['stop'],0)
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -162,7 +162,7 @@ jobs:
 - job: DownloadFilesAndModifyBackend
 
   dependsOn: SetProps
-  condition:  and( eq(variables['stop'],0),  endsWith(variables['numberBuilds'],'0'))
+  condition:  or( eq(variables['stop'],0),  endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy'))
 
   pool:
     vmImage: 'vs2017-win2016'
@@ -201,7 +201,7 @@ jobs:
   - DownloadFilesAndModifyBackend
   pool:
     vmImage: 'vs2017-win2016'
-  condition: and( eq(variables['stop'],0),  endsWith(variables['numberBuilds'],'0'))
+  condition: or( eq(variables['startDeploy'],1),  endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy')))
   variables:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable 
 
@@ -350,7 +350,7 @@ jobs:
   dependsOn: 
   - SetProps
   - BuildFrontEnd
-  condition: and( eq(variables['deployWindows'],1), succeeded('BuildFrontEnd'), endsWith(variables['numberBuilds'],'0'))
+  condition: and(succeeded('BuildFrontEnd'), or( eq(variables['deployWindows'],1), endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy') ) )
   pool:
     vmImage: 'vs2017-win2016'
 
@@ -444,7 +444,7 @@ jobs:
   dependsOn: 
   - SetProps
   - BuildFrontEnd
-  condition: and(eq(variables['deployLinux'],1), succeeded('BuildFrontEnd'), endsWith(variables['numberBuilds'],'0'))
+  condition: and(succeeded('BuildFrontEnd'),  or(eq(variables['deployLinux'],1), endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy')))
   pool:
     vmImage: 'ubuntu-16.04'
 
