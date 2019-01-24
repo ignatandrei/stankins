@@ -69,7 +69,7 @@ jobs:
         echo test
         dotnet build -c $(buildConfiguration) stankinsv2/solution/StankinsV2/StankinsV2.sln 
         dotnet tool install  -g coverlet.console
-        dotnet tool installmd  -g dotnet-reportgenerator-globaltool 
+        dotnet tool install  -g dotnet-reportgenerator-globaltool 
       displayName: build linux
   
     

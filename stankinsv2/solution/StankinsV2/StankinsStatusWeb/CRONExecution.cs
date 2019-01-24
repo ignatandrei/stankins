@@ -1,14 +1,20 @@
 ﻿using Cronos;
 using StankinsObjects;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace StankinsStatusWeb
 {
-    
-    public abstract class CRONExecution: CronExecutionBase , IToBaseObjectExecutable
+    public  interface CRONExecutionMultiple<out T>
+        where T: CRONExecution
+    {
+        IEnumerable<T> Multiple();
+    }
+        public abstract class CRONExecution: CronExecutionBase , IToBaseObjectExecutable
     {
 
         public CustomData CustomData { get; set; }

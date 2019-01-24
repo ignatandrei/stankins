@@ -14,8 +14,9 @@ namespace StankinsStatusWeb
         private CRONExecution[] ExecutorsCache;
         public void CreateExecutors()
         {
-            ExecutorsCache = new CRONExecution[ExecutorsDynamic.Length];
-            int i = 0;
+            var allExecutors  = new List<CRONExecution>();
+            
+            var mult = typeof(CRONExecutionMultiple<>);
             foreach (var item in ExecutorsDynamic)
             {
                 //TODO: ascertain exists item["Data"]["Type"]
@@ -25,25 +26,66 @@ namespace StankinsStatusWeb
                     //TODO: log
                     continue;
                 }
-                if (!(Activator.CreateInstance(type) is CRONExecution instance))
+                var crons = new List<CRONExecution>();
+
+
+                var t = Activator.CreateInstance(type);
+                if (t is CRONExecution)
+                {
+                    foreach (var key in item["Data"].Keys)
+                    {
+                        if (key == "Type")
+                            continue;
+                        type.GetProperty(key).GetSetMethod().Invoke(t, new object[] { item["Data"][key] });
+                    }
+                    crons.Add(t as CRONExecution);
+                }
+                else
+                {
+                    var n = t as CRONExecutionMultiple<CRONExecution>;
+                    if (n != null)
+                    {
+                        foreach (var key in item["Data"].Keys)
+                        {
+                            if (key == "Type")
+                                continue;
+                            type.GetProperty(key).GetSetMethod().Invoke(n, new object[] { item["Data"][key] });
+                        }
+                        crons.AddRange(n.Multiple().ToArray());
+
+                    }
+                }
+
+
+
+                if (crons.Count == 0)
                 {
                     //TODO: log
                     continue;
                 }
-                foreach (var key in item["Data"].Keys)
+                foreach (var instance in crons)
                 {
-                    if (key == "Type")
-                        continue;
-                    type.GetProperty(key).GetSetMethod().Invoke(instance, new object[] { item["Data"][key] });
-                }
-                var cd = new CustomData();
-                cd.UserName = this.UserName;
-                cd.Tags = item["CustomData"]["Tags"].Split(',').Select(it=>it.Trim()).ToArray();
-                cd.Name = item["CustomData"]["Name"];
-                cd.Icon = item["CustomData"]["Icon"];
-                instance.CustomData = cd;
 
-                ExecutorsCache[i++] = instance;
+                    var cd = new CustomData();
+                    cd.UserName = this.UserName;
+                    var custom = item["CustomData"];
+                    if (custom.ContainsKey("Tags"))
+                    {
+                        cd.Tags = custom["Tags"].Split(',').Select(it => it.Trim()).ToArray();
+
+                    }
+                    if (custom.ContainsKey("Name"))
+                    {
+                        cd.Name = custom["Name"];
+                    }
+                    if (custom.ContainsKey("Icon"))
+                    {
+                        cd.Icon = custom["Icon"];
+                    }
+                    instance.CustomData = cd;
+                    allExecutors.Add(instance);
+                }
+                ExecutorsCache = allExecutors.ToArray();
 
             }
         }
@@ -61,7 +103,19 @@ namespace StankinsStatusWeb
         public IEnumerable<IToBaseObjectExecutable> ToExecuteCRON()
         {
             var date = DateTime.UtcNow;
-            return Executors.Where(it => it.ShouldRun(date));
+            return Executors.Where(it =>
+            {
+                try
+                {
+                    return it.ShouldRun(date);
+                }
+                catch (Exception ex)
+                {
+                    var x = it;
+                    var s = ex.Message;
+                    return false;
+                }
+            });
             
         }
 
@@ -118,4 +172,6 @@ namespace StankinsStatusWeb
         }
 
     }
+
+   
 }
