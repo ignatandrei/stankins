@@ -82,12 +82,14 @@ jobs:
         dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
         echo 'coverlet'
         coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        echo 'compose down'
+        docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down 
         echo 'report generator'
         reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
         echo 'artifact'
-        cp -R coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
+        cp -R coveragereport  $(Build.ArtifactStagingDirectory)\cc\  
 
-        docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down   
+          
       
       displayName: test with external dependencies sql server linux
  
