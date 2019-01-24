@@ -54,13 +54,22 @@ jobs:
     - task: NuGetCommand@2
       inputs:
         restoreSolution: '$(solution)'
-  
-    - task: VSBuild@1
-      inputs:
-        solution: '$(solution)'
-        platform: '$(buildPlatform)'
-        configuration: '$(buildConfiguration)'
+    #does not work on Linux
+    #The current operating system is not capable of running this task. That typically means the task was written for Windows only. For example, written for Windows Desktop PowerShell.
+    #- task: VSBuild@1
+    #  inputs:
+    #    solution: '$(solution)'
+    #    platform: '$(buildPlatform)'
+    #    configuration: '$(buildConfiguration)'
 
+    
+    
+    - script: |
+        echo test
+        dotnet build -c Release stankinsv2/solution/StankinsV2/StankinsV2.csproj 
+      displayName: build linux
+  
+    
     - script: |
         echo test
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml up -d   
