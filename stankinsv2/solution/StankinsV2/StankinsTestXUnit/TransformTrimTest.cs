@@ -13,7 +13,7 @@ using static System.Environment;
 namespace StankinsTestXUnit
 {
     [Trait("TransformTrim", "")]
-    [Trait("AfterPublish", "0")]
+    [Trait("ExternalDependency", "0")]
     public class TransformTrimTest
     {
         [Scenario]

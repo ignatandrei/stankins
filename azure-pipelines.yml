@@ -34,20 +34,42 @@ jobs:
         rem docker image ls
         rem docker container ls
         rem docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-windows.yaml down   
-
+      
+      displayName: external dependencies sql server
 - job: TestLinux
   pool:
     vmImage: 'ubuntu-16.04'
   condition: eq(variables['stop'],1)
   steps:
     #- checkout: none #skip checking out the default repository resource
+    
+    - task: DotNetCoreInstaller@0
+    displayName: 'Use .NET Core sdk 2.1.300'
+    inputs:
+        version: 2.1.300
+
+  
+    - task: NuGetToolInstaller@0
+
+    - task: NuGetCommand@2
+    inputs:
+        restoreSolution: '$(solution)'
+  
+    - task: VSBuild@1
+    inputs:
+        solution: '$(solution)'
+        platform: '$(buildPlatform)'
+        configuration: '$(buildConfiguration)'
+
     - script: |
         echo test
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml up -d   
         docker image ls
         docker container ls
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down   
-          
+      
+      displayName: external dependencies sql server linux
+
 - job: SetProps
   pool:
     vmImage: 'vs2017-win2016'
@@ -80,7 +102,8 @@ jobs:
         rem @dir %BUILD_SOURCESDIRECTORY%      
         echo $(Date:yyyyMMdd)
         cmd /K set
-
+      
+      displayName: versioning
 - job: TestMyProps
 
   dependsOn: SetProps
@@ -335,7 +358,7 @@ jobs:
   #     projects: '**/*Test*/*Test*.csproj'
   #     arguments: '--configuration $(buildConfiguration) --logger trx --collect "Code coverage"'
   - script:  |
-        dotnet test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter AfterPublish=0 --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
+        dotnet test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter ExternalDependency=0 --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
     displayName: run test coverage Automated
 
   - task: PublishTestResults@2

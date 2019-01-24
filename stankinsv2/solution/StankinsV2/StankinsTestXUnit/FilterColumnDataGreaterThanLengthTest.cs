@@ -11,7 +11,7 @@ using Xunit;
 namespace StankinsTestXUnit
 {
     [Trait("FilterColumnDataGreaterThanLength", "")]
-    [Trait("AfterPublish", "0")]
+    [Trait("ExternalDependency", "0")]
     public class FilterColumnDataGreaterThanLengthTest
     {
         [Scenario]

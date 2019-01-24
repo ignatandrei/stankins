@@ -10,8 +10,7 @@ using Xunit;
 namespace StankinsTestXUnit
 {
     [Trait("ReceiverWeb", "")]
-    [Trait("AfterPublish", "0")]
-    [Trait("ExternalDependency","1")]
+    [Trait("ExternalDependency","Azure Deploy exists")]
     public class TestReceiverWeb
     {
         [Fact]

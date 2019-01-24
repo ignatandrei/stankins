@@ -10,7 +10,7 @@ using Xunit;
 namespace StankinsTestXUnit
 {
     [Trait("ReceiverProcess", "")]
-    [Trait("AfterPublish", "0")]
+    [Trait("ExternalDependency", "0")]
     public class TestReceiverProcess
     {
         [Fact]

@@ -8,7 +8,7 @@ using Xunit;
 namespace StankinsTestXUnit
 {
     [Trait("ping", "")]
-    [Trait("AfterPublish", "0")]
+    [Trait("ExternalDependency", "0")]
     public class TestPing
     {
         [Fact]

@@ -14,7 +14,7 @@ using static System.Environment;
 namespace StankinsTestXUnit
 {
     [Trait("TransformSplitColumn ", "")]
-    [Trait("AfterPublish", "0")]
+    [Trait("ExternalDependency", "0")]
     public class TransformSplitColumnTest
     {
         [Scenario]

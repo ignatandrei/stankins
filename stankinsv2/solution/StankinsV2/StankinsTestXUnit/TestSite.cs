@@ -9,7 +9,7 @@ using Xunit;
 namespace StankinsTestXUnit
 {
     [Trait("site", "ping")]
-    [Trait("AfterPublish", "1")]
+    [Trait("ExternalDependency", "Azure Deploy exists")]
     public class TestSite
     {
         [Fact]
