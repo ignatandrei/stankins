@@ -26,7 +26,7 @@ jobs:
     vmImage: 'vs2017-win2016'
   condition: eq(variables['stop'],1)
   steps:
-    - checkout: none #skip checking out the default repository resource
+    #- checkout: none #skip checking out the default repository resource
     - script: |
         echo test
         rem dir C:\msbuild.exe /s /b
@@ -34,40 +34,7 @@ jobs:
         docker image ls
         docker container ls
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance.yaml down   
-        
-- job: BuildAndroid #https://github.com/qmfrederik/coredroid
-  pool:
-    vmImage: 'ubuntu-16.04'
-  condition: eq(variables['stop'],1)
-  
-  steps:
-    - checkout: none #skip checking out the default repository resource
-    - script: |
-       cd stankinsv2/solution/
-       cd ~
-       mkdir git
-       cd git
-       git clone https://github.com/dotnet/coreclr
-       git clone https://github.com/dotnet/corefx
-       git clone https://github.com/qmfrederik/coredroid
-       cd ~/git/coreclr
-       cross/build-android-rootfs.sh
-       cd ~/git/corefx
-       cross/build-android-rootfs.sh
-       cd ~/git/coreclr
-       CONFIG_DIR=`realpath cross/android/arm64` ROOTFS_DIR=`realpath cross/android-rootfs/toolchain/arm64/sysroot` ./build.sh cross arm64 skipgenerateversion skipnuget
-       cd ~/git/corefx
-       CONFIG_DIR=`realpath cross/android/arm64` ROOTFS_DIR=`realpath cross/android-rootfs/toolchain/arm64/sysroot` ./build-native.sh -debug -buildArch=arm64 -- verbose cross
-       cd ~/git/coredroid
-       mkdir cli
-       cd cli
-       wget https://dotnetcli.blob.core.windows.net/dotnet/Sdk/master/dotnet-dev-ubuntu.16.04-x64.latest.tar.gz
-       tar -xvzf dotnet-dev-ubuntu.16.04-x64.latest.tar.gz
-       cd ~/git/coredroid/apps/helloworld
-       ~/git/coredroid/cli/dotnet restore
-       ~/git/coredroid/cli/dotnet publish
-
-
+     
 - job: SetProps
   pool:
     vmImage: 'vs2017-win2016'
