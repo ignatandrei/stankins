@@ -37,7 +37,7 @@ jobs:
       
       displayName: external dependencies sql server
 
-- job: TestLinux
+- job: FullTestOnLinux
   pool:
     vmImage: 'ubuntu-16.04'
   condition: eq(variables['stop'],1)
@@ -69,7 +69,7 @@ jobs:
         echo test
         dotnet build stankinsv2/solution/StankinsV2/StankinsV2.sln 
         dotnet tool install  -g coverlet.console
-
+        dotnet tool install  -g dotnet-reportgenerator-globaltool 
       displayName: build linux
   
     
@@ -81,11 +81,18 @@ jobs:
 
         dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
         coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
+        cp -R coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
 
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down   
       
       displayName: test with external dependencies sql server linux
-      
+ 
+    - task: PublishTestResults@2
+      inputs:
+        testRunner: VSTest
+        testResultsFiles: '**/*.trx'
+     
     - bash: |
         curl -s https://codecov.io/bash > codecov
         chmod +x codecov
@@ -389,24 +396,25 @@ jobs:
       testResultsFiles: '**/*.trx'
 
   - script: |
+        echo done in FullTestOnLinux
         dir StankinsTestXUnit.dll  /s /b
         rem cd stankinsv2/solution/StankinsV2/StankinsStatusWeb
         rem dotnet-thx.exe
         rem cd ../StankinsTestXUnit
         rem dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj
-        coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter ExternalDependency=0  --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
-        reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
-        xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
+        rem coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter ExternalDependency=0  --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        rem reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
+        rem xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
         rem restoring current dir
         rem cd ../../../../ 
         dir 
     displayName: test dot net
   
-  - bash: |
-      curl -s https://codecov.io/bash > codecov
-      chmod +x codecov
-      ./codecov -f "coverage.opencover.xml" -t $CODECOV_TOKEN
-    displayName: upload  code coverage
+  #- bash: |
+   #   curl -s https://codecov.io/bash > codecov
+    #  chmod +x codecov
+     # ./codecov -f "coverage.opencover.xml" -t $CODECOV_TOKEN
+    #displayName: upload  code coverage
 
   - script: |
         echo start publish windows
