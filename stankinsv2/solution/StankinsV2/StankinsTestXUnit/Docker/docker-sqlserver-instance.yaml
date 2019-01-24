@@ -9,7 +9,7 @@ services:
       ACCEPT_EULA: "Y"
     healthcheck:
       test: sqlcmd -S (local) -U SA -P '<YourStrong!Passw0rd>' -Q 'select 1'
-networks:
-  default:
-    external:
-      name: nat   
+#networks:
+#  default:
+#    external:
+#      name: nat   
