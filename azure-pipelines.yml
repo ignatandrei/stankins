@@ -164,7 +164,7 @@ jobs:
 - job: DownloadFilesAndModifyBackend
 
   dependsOn: SetProps
-  condition:  or( eq(variables['stop'],0),  endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy'))
+  condition:  or( eq(variables['startDeploy'],1),  endsWith(variables['numberBuilds'],'0'), contains(variables['message'],'deploy'))
 
   pool:
     vmImage: 'vs2017-win2016'
