@@ -12,9 +12,9 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    deployWindows: 0
-    deployLinux: 0
-    stop : 1
+    deployWindows: 1
+    deployLinux: 1
+    stop : 0
     numberBuilds: $[counter('versioncounter', 466)]
 
 name: $(TeamProject)_$(BuildDefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
@@ -24,7 +24,7 @@ jobs:
 - job: TestWin # docker compose 19 min
   pool:
     vmImage: 'vs2017-win2016'
-  condition: eq(variables['stop'],1)
+  #condition: eq(variables['stop'],1)
   steps:
     #- checkout: none #skip checking out the default repository resource
     - script: |
@@ -40,7 +40,7 @@ jobs:
 - job: FullTestOnLinux
   pool:
     vmImage: 'ubuntu-16.04'
-  condition: eq(variables['stop'],1)
+   #condition: eq(variables['stop'],1)
   steps:
     #- checkout: none #skip checking out the default repository resource
     
@@ -78,10 +78,13 @@ jobs:
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml up -d   
         docker image ls
         docker container ls
-
-        dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --filter ExternalDependency=0 #--logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
+        echo 'start regular test'
+        dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
+        echo 'coverlet'
         coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        echo 'report generator'
         reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" -reporttypes:HTMLInline;HTMLSummary;Badges
+        echo 'artifact'
         cp -R coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
 
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down   
