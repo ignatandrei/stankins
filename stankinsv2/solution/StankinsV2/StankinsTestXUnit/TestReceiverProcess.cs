@@ -18,7 +18,7 @@ namespace StankinsTestXUnit
         {
 
             #region arrange
-            var r = new ReceiverProcessAlive("ping.exe", "localhost -n 1");
+            var r = new ReceiverProcessAlive("ping.exe", "127.0.0.1 -n 1");
             #endregion
             #region act
             var dt = await r.TransformData(null);
