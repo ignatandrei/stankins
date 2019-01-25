@@ -9,30 +9,22 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
-    public class ReceiverHtmlList : Receiver
+    public class ReceiverHtmlList : ReceiverHtml
     {
         public ReceiverHtmlList(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.Name = nameof(ReceiverHtmlTables);
-            File = GetMyDataOrThrow<string>(nameof(File));
-            Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
 
         }
-        public ReceiverHtmlList(string file) : this(file, null)
+        public ReceiverHtmlList(string file) : this(file, Encoding.UTF8)
         {
 
         }
-        public ReceiverHtmlList(string file, Encoding encoding) : this(new CtorDictionary()
-            {
-                {nameof(file),file },
-                {nameof(encoding),encoding },
-            })
+        public ReceiverHtmlList(string file, Encoding encoding) : base(file,encoding)
         {
 
         }
 
-        public string File { get; }
-        public Encoding Encoding { get; }
         public bool PrettifyColumnNames { get; set; } = true;
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         { 

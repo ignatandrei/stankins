@@ -11,26 +11,39 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
-    public class ReceiverHtmlTables : Receiver
+    public abstract class ReceiverHtml: Receiver
     {
-        public ReceiverHtmlTables(CtorDictionary dataNeeded) :base(dataNeeded)
+        public ReceiverHtml(string file, Encoding encoding) : this(new CtorDictionary()
+            {
+                {nameof(file),file },
+                {nameof(encoding),encoding },
+            })
+        {
+
+        }
+        public ReceiverHtml(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.Name = nameof(ReceiverHtmlTables);
             File = GetMyDataOrThrow<string>(nameof(File));
             Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
 
         }
-        public ReceiverHtmlTables(string file, Encoding encoding) : this(new CtorDictionary()
-            {
-                {nameof(file),file },
-                {nameof(encoding),encoding },                
-            })
+        public string File { get; }
+        public Encoding Encoding { get; }
+
+    }
+    public class ReceiverHtmlTables : ReceiverHtml
+    {
+        public ReceiverHtmlTables(CtorDictionary dataNeeded) :base(dataNeeded)
+        {
+            this.Name = nameof(ReceiverHtmlTables);
+           
+        }
+        public ReceiverHtmlTables(string file, Encoding encoding) : base(file,encoding)
         {
            
         }
 
-        public string File { get; }
-        public Encoding Encoding { get; }
         public bool PrettifyColumnNames { get; set; } = true;
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
