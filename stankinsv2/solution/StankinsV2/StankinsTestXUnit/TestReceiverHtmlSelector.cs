@@ -2,6 +2,7 @@
 using Stankins.File;
 using Stankins.HTML;
 using Stankins.Interfaces;
+using StankinsObjects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,7 +36,9 @@ namespace StankinsTestXUnit
             });
             $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
 
+            $"and verifier is ok".w(async () => data= await new Verifier().TransformData(data));
+            
 
-        } 
+        }
     }
 }
