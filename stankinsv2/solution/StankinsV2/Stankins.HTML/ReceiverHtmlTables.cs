@@ -93,6 +93,9 @@ namespace Stankins.HTML
                     {
                         cells = row.SelectNodes("th");
                     }
+                    if ((cells?.Count ?? 0) == 0)
+                        continue;
+
                     if ((columnsNames?.Length ?? 0) == 0)
                     {
                         columnsNames = new string[cells.Count];

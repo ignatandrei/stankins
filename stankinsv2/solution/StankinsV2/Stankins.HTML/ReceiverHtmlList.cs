@@ -47,10 +47,12 @@ namespace Stankins.HTML
                 dt.Columns.Add("li_html");
 
                 var rows = table.SelectNodes("li");
-                if(rows?.Count >0)
-                foreach (var row in rows)
-                {                    
-                    dt.Rows.Add(row.InnerText,row.InnerHtml);
+                if (rows?.Count > 0)
+                {
+                    foreach (var row in rows)
+                    {
+                        dt.Rows.Add(row.InnerText, row.InnerHtml);
+                    }
                 }
                 var id= ret.AddNewTable(dt);
                 ret.Metadata.AddTable(dt,id);
