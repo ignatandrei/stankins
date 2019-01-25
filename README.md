@@ -7,7 +7,10 @@
 
 [![codecov](https://codecov.io/gh/ignatandrei/stankins/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/stankins)
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ignatandrei_stankins&metric=alert_status)](https://sonarcloud.io/dashboard?id=ignatandrei_stankins)
+
 [Live demo https://azurestankins.azurewebsites.net](https://azurestankins.azurewebsites.net)
+
 
 
 [Live swagger https://azurestankins.azurewebsites.net/swagger](https://azurestankins.azurewebsites.net/swagger)
