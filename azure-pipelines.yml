@@ -73,9 +73,6 @@ jobs:
         dotnet tool install  -g coverlet.console
         dotnet tool install  -g dotnet-reportgenerator-globaltool 
         dotnet tool install  -g dotnet-sonarscanner
-        dotnet sonarscanner begin /k:"ignatandrei_stankins" /d:sonar.organization="ignatandrei-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonarLogin)"
-        dotnet build -c $(buildConfiguration) stankinsv2/solution/StankinsV2/StankinsV2.sln 
-        dotnet sonarscanner end /d:sonar.login="$(sonarLogin)"
       displayName: build linux
   
     
@@ -85,9 +82,12 @@ jobs:
         docker image ls
         docker container ls
         echo 'start regular test'
+        dotnet sonarscanner begin /k:"ignatandrei_stankins" /d:sonar.organization="ignatandrei-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonarLogin)"
+        dotnet build -c $(buildConfiguration) stankinsv2/solution/StankinsV2/StankinsV2.sln 
         dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
         echo 'coverlet'
         coverlet stankinsv2/solution/StankinsV2/StankinsTestXUnit/bin/$(buildConfiguration)/netcoreapp2.1/StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        dotnet sonarscanner end /d:sonar.login="$(sonarLogin)"
         echo 'compose down'
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down 
         echo 'report generator'

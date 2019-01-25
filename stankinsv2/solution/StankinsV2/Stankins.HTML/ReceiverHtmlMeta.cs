@@ -55,6 +55,7 @@ namespace Stankins.HTML
             };
             dt.Columns.Add("meta_name");
             dt.Columns.Add("meta_content");
+            if(metas != null)
             foreach (var meta in metas)
             {
                 var attr = meta.Attributes;

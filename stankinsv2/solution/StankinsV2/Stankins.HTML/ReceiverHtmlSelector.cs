@@ -62,7 +62,7 @@ namespace Stankins.HTML
             dt.Columns.Add("item_html");
             var id = ret.AddNewTable(dt);
             ret.Metadata.AddTable(dt, id);
-
+            if(nodes != null)
             foreach (var node in nodes)
             {
                 
