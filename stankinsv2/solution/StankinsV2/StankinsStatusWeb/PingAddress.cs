@@ -37,7 +37,11 @@ namespace StankinsStatusWeb
                 yield return new PingAddress()
                 {
                     NameSite = item.Trim(),
-                    CRON = this.CRON
+                    CRON = this.CRON,
+                    CustomData = new CustomData()
+                    {
+                        Name = item.Trim()
+                    }
                 };
             }
         }

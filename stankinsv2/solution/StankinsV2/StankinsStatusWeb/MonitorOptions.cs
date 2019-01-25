@@ -16,7 +16,7 @@ namespace StankinsStatusWeb
         {
             var allExecutors  = new List<CRONExecution>();
             
-            var mult = typeof(CRONExecutionMultiple<>);
+            //var mult = typeof(CRONExecutionMultiple<>);
             foreach (var item in ExecutorsDynamic)
             {
                 //TODO: ascertain exists item["Data"]["Type"]
@@ -66,7 +66,7 @@ namespace StankinsStatusWeb
                 foreach (var instance in crons)
                 {
 
-                    var cd = new CustomData();
+                    var cd =instance.CustomData?? new CustomData();
                     cd.UserName = this.UserName;
                     var custom = item["CustomData"];
                     if (custom.ContainsKey("Tags"))

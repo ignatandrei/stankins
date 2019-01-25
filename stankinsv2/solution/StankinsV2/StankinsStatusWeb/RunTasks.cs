@@ -85,7 +85,7 @@ namespace StankinsStatusWeb
                     
                 }
                 //existingNames.AddRange(itemsToExec.Select(it => it.baseObject().Name).ToArray());
-                Console.WriteLine(string.Join(',', toExecTask.Keys));
+                Console.WriteLine(string.Join('|', toExecTask.Keys));
 
                 if (toExecTask.Count > 0)
                 {
