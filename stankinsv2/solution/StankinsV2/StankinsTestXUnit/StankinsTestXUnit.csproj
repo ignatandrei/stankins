@@ -10,6 +10,14 @@
     <None Remove="TestResults\**" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\bookmarks_11_17_17.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\bookmarks_11_17_17.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="Xbehave" Version="2.4.0" />
@@ -23,5 +31,6 @@
     <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
     <ProjectReference Include="..\Stankins.File\Stankins.File.csproj" />
+    <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />
   </ItemGroup>
 </Project>
