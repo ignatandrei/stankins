@@ -26,17 +26,8 @@ namespace Stankins.HTML
         }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
-        { 
-            var file = new ReadFileToString
-            {
-                FileEnconding = this.Encoding,
-                FileToRead = this.File
-            };
-
-            var data = await file.LoadData();
-            var doc = new HtmlDocument();
-            doc.LoadHtml(data);
-            var tables = doc.DocumentNode.SelectNodes("//ul | //ol | //dl");
+        {
+            var tables = await base.Find("//ul | //ol | //dl");
 
             if ((tables?.Count ?? 0) == 0)
                 throw new ArgumentException("not found ul, ol, dl");

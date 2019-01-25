@@ -87,8 +87,7 @@ jobs:
         dotnet build -c $(buildConfiguration) stankinsv2/solution/StankinsV2/StankinsV2.sln 
         
         dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
-        echo 'coverlet'
-        coverlet stankinsv2/solution/StankinsV2/StankinsTestXUnit/bin/$(buildConfiguration)/netcoreapp2.1/StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        echo 'coverlet' var tables = doc.DocumentNode.SelectNodes("//ul | //ol | //dl");        coverlet stankinsv2/solution/StankinsV2/StankinsTestXUnit/bin/$(buildConfiguration)/netcoreapp2.1/StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
         
         echo 'compose down'
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down 
@@ -101,7 +100,7 @@ jobs:
     
     - script: |
         ls -l $(Build.ArtifactStagingDirectory)/cc/coverage.opencover.xml
-        dotnet sonarscanner begin /k:"ignatandrei_stankins" /d:sonar.cs.opencover.reportsPaths="$(Build.ArtifactStagingDirectory)/cc/coverage.opencover.xml" /v:$(numberBuilds) /d:sonar.coverage.exclusions="**/StankinsTestXUnit/*.cs"  /d:sonar.organization="ignatandrei-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonarLogin)"
+        dotnet sonarscanner begin /k:"ignatandrei_stankins" /d:sonar.cs.opencover.reportsPaths="$(Build.ArtifactStagingDirectory)/cc/coverage.opencover.xml" /v:$(numberBuilds) /d:sonar.coverage.exclusions="file:**/StankinsTestXUnit/*.cs"  /d:sonar.organization="ignatandrei-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonarLogin)"
         dotnet build -c $(buildConfiguration) stankinsv2/solution/StankinsV2/StankinsV2.sln 
         dotnet sonarscanner end /d:sonar.login="$(sonarLogin)"
           

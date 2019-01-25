@@ -1,6 +1,8 @@
-﻿using StankinsCommon;
+﻿using HtmlAgilityPack;
+using StankinsCommon;
 using StankinsObjects;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
@@ -36,6 +38,19 @@ namespace Stankins.HTML
                 colName = colName.Replace("  ", " ");
 
             return colName;
+        }
+        protected async Task<HtmlNodeCollection> Find(string find)
+        {
+            var file = new ReadFileToString
+            {
+                FileEnconding = this.Encoding,
+                FileToRead = this.File
+            };
+
+            var data = await file.LoadData();
+            var doc = new HtmlDocument();
+            doc.LoadHtml(data);
+            return  doc.DocumentNode.SelectNodes(find);
         }
     }
 }
