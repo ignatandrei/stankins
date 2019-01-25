@@ -20,7 +20,7 @@ namespace Stankins.AzureDevOps
         {
             jobs = new List<JobYaml>();
         }
-        public List<JobYaml> jobs;
+        public List<JobYaml> jobs { get; set; }
         public void Visit(YamlStream stream)
         {
             Console.WriteLine("stream");

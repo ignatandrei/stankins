@@ -55,7 +55,9 @@ namespace StankinsObjects
                 }
                 nr++;
                 if (prevDataTable != null)
+                {
                     prevDataTable.Rows.Add(dr.ItemArray);
+                }
             }
             return await Task.FromResult(receiveData) ;
         }

@@ -62,11 +62,13 @@ namespace Stankins.HTML
             dt.Columns.Add("item_html");
             var id = ret.AddNewTable(dt);
             ret.Metadata.AddTable(dt, id);
-            if(nodes != null)
-            foreach (var node in nodes)
+            if (nodes != null)
             {
-                
-                dt.Rows.Add(new[] { node.InnerText, node.OuterHtml });
+                foreach (var node in nodes)
+                {
+
+                    dt.Rows.Add(new[] { node.InnerText, node.OuterHtml });
+                }
             }
             return ret;
         }

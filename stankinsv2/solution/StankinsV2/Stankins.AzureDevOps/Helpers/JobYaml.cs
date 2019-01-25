@@ -9,10 +9,10 @@ namespace Stankins.AzureDevOps
             DependsOn = new List<string>();
             Steps = new List<Step>();
         }
-        public string condition;
-        public List<string> DependsOn;
-        public KeyValuePair<string, string> pool;
-        public List<Step> Steps;
+        public string condition { get; set; }
+        public List<string> DependsOn { get; set; }
+        public KeyValuePair<string, string> pool { get; set; }
+        public List<Step> Steps { get; set; }
         public string Name { get; set; }
     }
 

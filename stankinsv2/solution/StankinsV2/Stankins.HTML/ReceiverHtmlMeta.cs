@@ -55,14 +55,16 @@ namespace Stankins.HTML
             };
             dt.Columns.Add("meta_name");
             dt.Columns.Add("meta_content");
-            if(metas != null)
-            foreach (var meta in metas)
+            if (metas != null)
             {
-                var attr = meta.Attributes;
-                if (!attr.Contains("name"))
-                    continue;
-                var arr = new string[] { attr["name"].Value, attr["content"].Value };
-                dt.Rows.Add(arr);
+                foreach (var meta in metas)
+                {
+                    var attr = meta.Attributes;
+                    if (!attr.Contains("name"))
+                        continue;
+                    var arr = new string[] { attr["name"].Value, attr["content"].Value };
+                    dt.Rows.Add(arr);
+                }
             }
             var id = ret.AddNewTable(dt);
             ret.Metadata.AddTable(dt, id);
