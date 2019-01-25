@@ -12,17 +12,17 @@ using Xunit;
 using static System.Environment;
 namespace StankinsTestXUnit
 {
-    [Trait("TransformerAddColumnExpressionByColumn", "")]
+    [Trait("TransformerAggregateString", "")]
     [Trait("ExternalDependency", "0")]
-    public class TransformerAddColumnExpressionByColumnTest
+    public class TransformerAggregateStringTest
     {
         [Scenario]
-        [Example("Car,Year{NewLine}Ford,2000","Car","'a'+Car","Ford","aFord")]
-        public void TestSimpleCSV(string fileContents,string columnExisting, string newCol, string existingValue, string newValue)
+        [Example("Car,Year{NewLine}Ford,2000{NewLine}Mercedes,2001","Year", "2000,2001")]
+        public void TestSimpleCSV(string fileContents,string columnExisting, string newValue)
         {
             IReceive receiver = null;
             IDataToSent data=null;
-            var nl = Environment.NewLine;
+            var nl = "\n";
             fileContents = fileContents.Replace("{NewLine}", nl);
             $"When I create the receiver csv for the content {fileContents}".w(() => receiver = new ReceiverCSVText(fileContents));
             $"And I read the data".w(async () =>data= await receiver.TransformData(null));
@@ -32,11 +32,10 @@ namespace StankinsTestXUnit
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"and I transform from {columnExisting} to {newCol}".w(async () =>  data= await new TransformerAddColumnExpressionByColumn(columnExisting,newCol,columnExisting+"_New" ).TransformData(data));
+            $"and I aggregate all values from {columnExisting} ".w(async () =>  data= await new TransformerAggregateString(columnExisting,",").TransformData(data));
           
-            $"The first row should have the values {existingValue} and {newValue}".w(() => {
-                data.DataToBeSentFurther[0].Rows[0][columnExisting].Should().Be(existingValue);
-                data.DataToBeSentFurther[0].Rows[0][columnExisting + "_New"].Should().Be(newValue);
+            $"The first row should have the values  {newValue}".w(() => {
+                data.DataToBeSentFurther[1].Rows[0][0].Should().Be(newValue);
 
             });
 

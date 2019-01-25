@@ -12,7 +12,7 @@ using Xunit;
 using static System.Environment;
 namespace StankinsTestXUnit
 {
-    [Trait("TransformTrim", "")]
+    [Trait("TransformerAddColumnExpressionByTable", "")]
     [Trait("ExternalDependency", "0")]
     public class TransformerAddColumnExpressionByTableTest
     {

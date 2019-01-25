@@ -3,6 +3,7 @@ using StankinsCommon;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,7 +33,7 @@ namespace StankinsObjects
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
-            var tables = base.FindTableAfterColumnName(NameColumn, receiveData);
+            var tables = base.FindTableAfterColumnName(NameColumn, receiveData).ToArray();
             foreach(var t in tables)
             {
                 var table = t.Value;
