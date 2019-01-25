@@ -25,7 +25,7 @@ namespace Stankins.File
         public abstract string NameTable();
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
-            var ret = new DataToSentTable();
+            var ret = receiveData?? new DataToSentTable();
             var file = Create();
             var splitLines = await file.StreamData();
             var dt = new DataTable
