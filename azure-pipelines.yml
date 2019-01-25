@@ -14,7 +14,7 @@ variables:
     uk: $(Date:yyyyMMdd)
     deployWindows: 1
     deployLinux: 1
-    startDeploy : 0
+    startDeploy : 1
     numberBuilds: $[counter('versioncounter', 466)]
     messagePush: $(Build.SourceVersionMessage)
 
