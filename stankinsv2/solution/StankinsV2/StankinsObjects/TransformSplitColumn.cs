@@ -47,7 +47,7 @@ namespace StankinsObjects
             foreach (DataRow dr in tbl.Rows)
             {
                 var val = dr[nameColumn]?.ToString();
-                if (val.Length == 0)
+                if ((val?.Length ?? 0) == 0)
                     continue;
                 var arr = val.Split(separator);
                 if (arr.Length == 1)
@@ -74,7 +74,7 @@ namespace StankinsObjects
             foreach (DataRow dr in tbl.Rows)
             {
                 var val = dr[nameColumn]?.ToString();
-                if (val.Length == 0)
+                if ((val?.Length ?? 0) == 0)
                     continue;
                 var arr = val.Split(separator);
                 if (arr.Length == 1)
