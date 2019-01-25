@@ -9,27 +9,18 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
-    public class ReceiverHtmlMeta : Receiver
+    public class ReceiverHtmlMeta : ReceiverHtml
     {
         public ReceiverHtmlMeta(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.Name = nameof(ReceiverHtmlTables);
-            File = GetMyDataOrThrow<string>(nameof(File));
-            Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
 
         }
-        public ReceiverHtmlMeta(string file, Encoding encoding) : this(new CtorDictionary()
-            {
-                {nameof(file),file },
-                {nameof(encoding),encoding },
-            })
+        public ReceiverHtmlMeta(string file, Encoding encoding) : base(file,encoding)
         {
 
         }
 
-        public string File { get; }
-        public Encoding Encoding { get; }
-        public bool PrettifyColumnNames { get; set; } = true;
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var file = new ReadFileToString
@@ -77,18 +68,5 @@ namespace Stankins.HTML
             throw new NotImplementedException();
         }
 
-        private string MakePretty(string colName)
-        {
-            if (!PrettifyColumnNames)
-                return colName;
-            if (string.IsNullOrWhiteSpace(colName))
-                return colName;
-            colName = colName.Trim();
-            colName = colName.Replace("\n", " ");
-            while (colName.IndexOf("  ") > -1)
-                colName = colName.Replace("  ", " ");
-
-            return colName;
-        }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using HtmlAgilityPack;
 using Stankins.Interfaces;
 using StankinsCommon;
-using StankinsObjects ;
+using StankinsObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,27 +11,6 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
-    public abstract class ReceiverHtml: Receiver
-    {
-        public ReceiverHtml(string file, Encoding encoding) : this(new CtorDictionary()
-            {
-                {nameof(file),file },
-                {nameof(encoding),encoding },
-            })
-        {
-
-        }
-        public ReceiverHtml(CtorDictionary dataNeeded) : base(dataNeeded)
-        {
-            this.Name = nameof(ReceiverHtmlTables);
-            File = GetMyDataOrThrow<string>(nameof(File));
-            Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
-
-        }
-        public string File { get; }
-        public Encoding Encoding { get; }
-
-    }
     public class ReceiverHtmlTables : ReceiverHtml
     {
         public ReceiverHtmlTables(CtorDictionary dataNeeded) :base(dataNeeded)
@@ -44,7 +23,6 @@ namespace Stankins.HTML
            
         }
 
-        public bool PrettifyColumnNames { get; set; } = true;
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var file = new ReadFileToString
@@ -161,18 +139,6 @@ namespace Stankins.HTML
             throw new NotImplementedException();
         }
 
-        private string MakePretty(string colName)
-        {
-            if (!PrettifyColumnNames)
-                return colName;
-            if (string.IsNullOrWhiteSpace(colName))
-                return colName;
-            colName = colName.Trim();
-            colName = colName.Replace("\n", " ");
-            while (colName.IndexOf("  ") > -1)
-                colName = colName.Replace("  ", " ");
-
-            return colName;
-        }
+        
     }
 }

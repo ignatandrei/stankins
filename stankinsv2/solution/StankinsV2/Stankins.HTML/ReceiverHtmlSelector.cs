@@ -10,13 +10,11 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
-    public class ReceiverHtmlSelector: Receiver
+    public class ReceiverHtmlSelector: ReceiverHtml
     {
         public ReceiverHtmlSelector(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.Name = nameof(ReceiverHtmlTables);
-            File = GetMyDataOrThrow<string>(nameof(File));
-            Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
             XPathExpression = GetMyDataOrThrow<string>(nameof(XPathExpression));
         }
         public ReceiverHtmlSelector(string file, Encoding encoding,string xPathExpression) : this(new CtorDictionary()
@@ -29,9 +27,6 @@ namespace Stankins.HTML
             
         }
 
-        public string File { get; }
-        public Encoding Encoding { get; }
-        public bool PrettifyColumnNames { get; set; } = true;
         public string XPathExpression { get; }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
@@ -79,18 +74,6 @@ namespace Stankins.HTML
             throw new NotImplementedException();
         }
 
-        private string MakePretty(string colName)
-        {
-            if (!PrettifyColumnNames)
-                return colName;
-            if (string.IsNullOrWhiteSpace(colName))
-                return colName;
-            colName = colName.Trim();
-            colName = colName.Replace("\n", " ");
-            while (colName.IndexOf("  ") > -1)
-                colName = colName.Replace("  ", " ");
-
-            return colName;
-        }
+       
     }
 }

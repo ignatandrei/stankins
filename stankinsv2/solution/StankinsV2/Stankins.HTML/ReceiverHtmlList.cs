@@ -25,7 +25,6 @@ namespace Stankins.HTML
 
         }
 
-        public bool PrettifyColumnNames { get; set; } = true;
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         { 
             var file = new ReadFileToString
@@ -73,18 +72,6 @@ namespace Stankins.HTML
             throw new NotImplementedException();
         }
 
-        private string MakePretty(string colName)
-        {
-            if (!PrettifyColumnNames)
-                return colName;
-            if (string.IsNullOrWhiteSpace(colName))
-                return colName;
-            colName = colName.Trim();
-            colName = colName.Replace("\n", " ");
-            while (colName.IndexOf("  ") > -1)
-                colName = colName.Replace("  ", " ");
-
-            return colName;
-        }
+        
     }
 }
