@@ -77,6 +77,7 @@ jobs:
   
     
     - script: |
+
         echo test
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml up -d   
         docker image ls
@@ -96,15 +97,16 @@ jobs:
         echo 'artifact'
         cp -r -v coveragereport  $(Build.ArtifactStagingDirectory)/cc/  
         cp -v coverage.opencover.xml $(Build.ArtifactStagingDirectory)/cc/  
+      displayName: test with external dependencies sql server linux
+    
+    - script: |
 
         dotnet sonarscanner begin /k:"ignatandrei_stankins" /d:sonar.cs.opencover.reportsPaths="coverage.opencover.xml" /v:$(numberBuilds) /d:sonar.coverage.exclusions="**/*Test*.cs"  /d:sonar.organization="ignatandrei-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="$(sonarLogin)"
         dotnet build -c $(buildConfiguration) stankinsv2/solution/StankinsV2/StankinsV2.sln 
         dotnet sonarscanner end /d:sonar.login="$(sonarLogin)"
-
           
-      
-      displayName: test with external dependencies sql server linux
- 
+      displayName: sonar
+
     - task: PublishTestResults@2
       inputs:
         testRunner: VSTest
