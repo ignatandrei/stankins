@@ -29,12 +29,14 @@ namespace StankinsReceiverDB
         }
         protected virtual DbConnection NewConnection()
         {
-            return Activator.CreateInstance(Type.GetType(connectionType)) as DbConnection;
+            var t = Type.GetType(connectionType);
+            return Activator.CreateInstance(t) as DbConnection;
         }
         protected async Task<DataTable> FromSql(string stmtSql)
         {
             using (var cn = NewConnection())
             {
+                cn.ConnectionString = connectionString;
                 await cn.OpenAsync();
                 using (var cmd = cn.CreateCommand())
                 {

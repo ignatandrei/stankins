@@ -36,5 +36,6 @@
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
     <ProjectReference Include="..\Stankins.File\Stankins.File.csproj" />
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />
+    <ProjectReference Include="..\Stankins.SqlServer\Stankins.SqlServer.csproj" />
   </ItemGroup>
 </Project>
