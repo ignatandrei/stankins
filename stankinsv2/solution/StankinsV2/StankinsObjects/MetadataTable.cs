@@ -6,6 +6,13 @@ using System.Text;
 
 namespace StankinsObjects 
 {
+    public class Relation : IRelation
+    {
+        public long IdTableParent { get ; set ; }
+        public long IdTableChild { get ; set ; }
+        public string ColumnParent { get ; set ; }
+        public string ColumnChild { get ; set ; }
+    }
     public class MetadataTable: IMetadata
     {
         public MetadataTable()

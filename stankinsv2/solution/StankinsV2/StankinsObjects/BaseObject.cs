@@ -21,12 +21,13 @@ namespace StankinsObjects
         protected readonly CtorDictionary dataNeeded;
         public string Name { get ; set ; }
         public IDictionary<string, object> StoringDataBetweenCalls { get ; set ; }
-        protected void FastAddTables(IDataToSent receiveData , params DataTable[] items)
+        protected IEnumerable<int> FastAddTables(IDataToSent receiveData , params DataTable[] items)
         {
             foreach (var dt in items)
             {
                 var id = receiveData.AddNewTable(dt);
                 receiveData.Metadata.AddTable(dt, id);
+                yield return id;
             }
             
         }

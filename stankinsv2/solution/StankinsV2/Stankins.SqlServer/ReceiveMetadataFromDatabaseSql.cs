@@ -6,6 +6,7 @@ using System;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Stankins.SqlServer
@@ -52,7 +53,22 @@ namespace Stankins.SqlServer
                 columns.Merge(newCols, true, MissingSchemaAction.Add);
             }
 
-            FastAddTables(receiveData,databases, tables,columns);
+            var ids=FastAddTables(receiveData,databases, tables,columns).ToArray();
+            var r = new Relation();
+            r.IdTableParent = ids[0];
+            r.IdTableChild = ids[1];
+            r.ColumnParent = "id";
+            r.ColumnChild = "databaseId";
+            receiveData.Metadata.Relations.Add(r);
+
+            r = new Relation();
+            r.IdTableParent = ids[1];
+            r.IdTableChild = ids[2];
+            r.ColumnParent = "id";
+            r.ColumnChild = "tableId";
+            receiveData.Metadata.Relations.Add(r);
+
+
 
             return receiveData;
 

@@ -2,7 +2,9 @@
 {
     public interface IRelation
     {
-        long IdColumnParent { get; set; }
-        long IdColumnChild { get; set; }
+        long IdTableParent { get; set; }
+        long IdTableChild { get; set; }
+        string ColumnParent { get; set; }
+        string ColumnChild { get; set; }
     }
 }
