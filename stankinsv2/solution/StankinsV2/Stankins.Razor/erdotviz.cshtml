@@ -17,13 +17,22 @@
 
 @foreach (DataRow db in databases.Rows)
 {
+    var relation = "";
     var id = db["id"].ToString();
+    if (db["name"].ToString() != "model")
+    {
+        continue;
+    }
     foreach (DataRow table in tables.Rows)
     {
+
         if (table["databaseId"].ToString() != id)
         {
             continue;
         }
+
+        var idTable = table["id"].ToString();
+        relation += string.Format("{0};", table["name"]);
 
         @string.Format("table{0}", @table["id"])
 
@@ -31,19 +40,36 @@
 
         <table border="0" cellborder="1" cellspacing="0">
             <tr><td><i>@table["name"]</i></td></tr>
-            <tr><td port="1">one</td></tr>
-            <tr><td port="2">two</td></tr>
-            <tr><td port="3">three</td></tr>
-            <tr><td port="4">four</td></tr>
-            <tr><td port="5">five</td></tr>
-            <tr><td port="6">six</td></tr>
+            @foreach (DataRow col in columns.Rows)
+            {
+                if (col["tableId"].ToString() != idTable)
+                {
+                    continue;
+                }
+                <tr><td port='@col["id"]'>@col["name"]</td></tr>
+            }
         </table>
 
+        @Raw(">];");
+        @string.Format("subgraph cluster_{0}", id);
+        @Raw("{");
+        @Raw("style = filled;");
+
+        @Raw("color = lightgrey;");
+
+        @Raw("node[style = filled, color = white];");
+        @if (!string.IsNullOrWhiteSpace(relation))
+        {
+            @Raw(relation)
+        }
 
 
-
-
+        @Raw(string.Format("label = '{0}';", db["name"]));
+        @relation
+        @Raw("}");
     }
+}
 
 
-            }//end digraph
+
+}//end digraph
