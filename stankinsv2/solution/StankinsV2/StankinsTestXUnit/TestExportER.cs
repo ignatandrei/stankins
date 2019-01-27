@@ -20,7 +20,7 @@ namespace StankinsTestXUnit
     public class TestExportER
     {
         [Scenario]
-        [Example("Server=(local);Database=master;User Id=SA;Password = <YourStrong!Passw0rd>;")]
+        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;")]
         public void SenderToDot(string connectionString)
         {
             IReceive status = null;
@@ -47,7 +47,7 @@ namespace StankinsTestXUnit
             {
                 sender.OutputContents.Should().NotBeNull();
                 sender.OutputContents.Length.Should().Be(1);
-                //File.WriteAllText("a.txt",sender.OutputContents.First().Value);
+                //File.WriteAllText(@"C:\Users\Surface1\Desktop\viz.html", sender.OutputContents.First().Value);
                 //Process.Start("notepad.exe","a.txt");
 
             });

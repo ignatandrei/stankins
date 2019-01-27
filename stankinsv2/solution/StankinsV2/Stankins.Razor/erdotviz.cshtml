@@ -3,88 +3,104 @@
 @using Stankins.Interfaces;
 @model IDataToSent
 @{
-    
+
     var tables = Model.FindAfterName("tables").Value;
     var columns = Model.FindAfterName("columns").Value;
     var relations = Model.FindAfterName("relations").Value;
     var nl = Environment.NewLine;
 
 }
+<div></div>
+<script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/viz.js'></script>
+<script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/full.render.js'></script>
 
+<script>
 
-        digraph {
+    var t = `
+    digraph {
     graph [pad="0.5", nodesep="0.5", ranksep="2"];
     node [shape=plain]
     rankdir=LR;
 
 
-@{
-    var relation = "";
-    
-    foreach (DataRow table in tables.Rows)
-    {
+    @{
+        var relation = "";
 
-       
-        var idNode = string.Format("table{0}", @table["id"]);
-        var idTable = table["id"].ToString();
-        bool existRelation = false;
-
-        foreach (DataRow rel in relations.Rows)
+        foreach (DataRow table in tables.Rows)
         {
-            if (rel["parent_object_id"].ToString() != idTable)
+
+
+            var idNode = string.Format("table{0}", @table["id"]);
+            var idTable = table["id"].ToString();
+            bool existRelation = false;
+
+            foreach (DataRow rel in relations.Rows)
             {
-                continue;
-            }
-
-            existRelation = true;
-
-            relation += string.Format("table{0}:{1} -> table{2}:{3};", rel["parent_object_id"], rel["parent_column_id"], rel["referenced_object_id"], rel["referenced_column_id"]);
-
-
-        }//end foreach relation
-        if (!existRelation)
-        {
-            relation += string.Format("{0};", idNode);
-        }
-        relation += nl;
-        @idNode
-
-        @Raw("[label =<" + nl);
-
-        <table border="0" cellborder="1" cellspacing="0">
-            <tr><td><i>@table["name"]</i></td></tr>
-            @foreach (DataRow col in columns.Rows)
-            {
-                if (col["tableId"].ToString() != idTable)
+                if (rel["parent_object_id"].ToString() != idTable)
                 {
                     continue;
                 }
-                <tr><td port='@col["id"]'>@col["name"]</td></tr>
+
+                existRelation = true;
+
+                relation += string.Format("table{0}:{1} -> table{2}:{3};", rel["parent_object_id"], rel["parent_column_id"], rel["referenced_object_id"], rel["referenced_column_id"]);
+
+
+            }//end foreach relation
+            if (!existRelation)
+            {
+                relation += string.Format("{0};", idNode);
             }
-        </table>
+            relation += nl;
+            @idNode
 
-        @Raw(">];"+nl);
+            @Raw("[label =<" + nl);
 
-    }//end foreach table
-    @string.Format("subgraph cluster_database");
-    @Raw("{"+nl);
-    @Raw("style = filled;" + nl);
+            <table border="0" cellborder="1" cellspacing="0">
+                <tr><td><i>@table["name"]</i></td></tr>
+                @foreach (DataRow col in columns.Rows)
+                {
+                    if (col["tableId"].ToString() != idTable)
+                    {
+                        continue;
+                    }
+                    <tr><td port='@col["id"]'>@col["name"]</td></tr>
+                }
+            </table>
 
-    @Raw("color = lightgrey;" + nl);
+            @Raw(">];" + nl);
 
-    @Raw("node[style = filled, color = white];" + nl);
+        }//end foreach table
+        @string.Format("subgraph cluster_database");
+        @Raw("{" + nl);
+        @Raw("style = filled;" + nl);
+
+        @Raw("color = lightgrey;" + nl);
+
+        @Raw("node[style = filled, color = white];" + nl);
 
 
-    @Raw(string.Format("label = \"Database {0}\";" + nl,""));
-    @if (!string.IsNullOrWhiteSpace(relation))
-    {
-        @Raw(relation)
+        @Raw(string.Format("label = \"Database {0}\";" + nl, ""));
+        @if (!string.IsNullOrWhiteSpace(relation))
+        {
+            @Raw(relation)
+        }
+        @Raw("}");
+
+
     }
-    @Raw("}");
-
-
-}// end foreach database
 
 
 
-}//end digraph
+    }//end digraph
+
+    `;
+
+
+    let viz = new Viz();
+    viz.renderSVGElement(t)
+        .then(function (element) {
+            document.body.appendChild(element);
+        })
+        .catch(error => window.alert('please debug the error' + error));
+</script>
