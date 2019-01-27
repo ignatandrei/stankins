@@ -85,7 +85,7 @@ namespace StankinsTestXUnit
             {
                 sender.OutputContents.Should().NotBeNull();
                 sender.OutputContents.Length.Should().Be(1);
-                File.WriteAllText(@"C:\Users\Surface1\Desktop\viz.html", sender.OutputContents.First().Value);
+                //File.WriteAllText(@"C:\Users\Surface1\Desktop\viz.html", sender.OutputContents.First().Value);
                 //Process.Start("notepad.exe","a.txt");
 
             });
