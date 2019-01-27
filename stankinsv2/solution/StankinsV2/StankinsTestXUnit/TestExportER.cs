@@ -34,14 +34,11 @@ namespace StankinsTestXUnit
             {
                 data = await status.TransformData(null);
             });
-            $"the data should have a databases, tables, columns".w(() =>
+            $"the data should have a tables, columns, relations".w(() =>
             {
                 data.DataToBeSentFurther.Count.Should().Be(3);
             });
-            $"and should be 4 databases - master, model, msdb, tempdb".w(() =>
-            {
-                data.DataToBeSentFurther[0].Rows.Count.Should().Be(4);
-            });
+           
             $"and now export to SenderToDot".w(async () => {
                 sender = new SenderDBDiagramToDot("");
                 data = await sender.TransformData(data);
@@ -50,8 +47,8 @@ namespace StankinsTestXUnit
             {
                 sender.OutputContents.Should().NotBeNull();
                 sender.OutputContents.Length.Should().Be(1);
-                File.WriteAllText("a.txt",sender.OutputContents.First().Value);
-                Process.Start("notepad.exe","a.txt");
+                //File.WriteAllText("a.txt",sender.OutputContents.First().Value);
+                //Process.Start("notepad.exe","a.txt");
 
             });
 

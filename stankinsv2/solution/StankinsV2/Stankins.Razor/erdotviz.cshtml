@@ -3,9 +3,12 @@
 @using Stankins.Interfaces;
 @model IDataToSent
 @{
-    var databases = Model.FindAfterName("databases").Value;
+    
     var tables = Model.FindAfterName("tables").Value;
     var columns = Model.FindAfterName("columns").Value;
+    var relations = Model.FindAfterName("relations").Value;
+    var nl = Environment.NewLine;
+
 }
 
 
@@ -15,28 +18,38 @@
     rankdir=LR;
 
 
-@foreach (DataRow db in databases.Rows)
-{
+@{
     var relation = "";
-    var id = db["id"].ToString();
-    if (db["name"].ToString() != "model")
-    {
-        continue;
-    }
+    
     foreach (DataRow table in tables.Rows)
     {
 
-        if (table["databaseId"].ToString() != id)
-        {
-            continue;
-        }
-
+       
+        var idNode = string.Format("table{0}", @table["id"]);
         var idTable = table["id"].ToString();
-        relation += string.Format("{0};", table["name"]);
+        bool existRelation = false;
 
-        @string.Format("table{0}", @table["id"])
+        foreach (DataRow rel in relations.Rows)
+        {
+            if (rel["parent_object_id"].ToString() != idTable)
+            {
+                continue;
+            }
 
-        @Raw("[label =<");
+            existRelation = true;
+
+            relation += string.Format("table{0}:{1} -> table{2}:{3};", rel["parent_object_id"], rel["parent_column_id"], rel["referenced_object_id"], rel["referenced_column_id"]);
+
+
+        }//end foreach relation
+        if (!existRelation)
+        {
+            relation += string.Format("{0};", idNode);
+        }
+        relation += nl;
+        @idNode
+
+        @Raw("[label =<" + nl);
 
         <table border="0" cellborder="1" cellspacing="0">
             <tr><td><i>@table["name"]</i></td></tr>
@@ -50,25 +63,27 @@
             }
         </table>
 
-        @Raw(">];");
-        @string.Format("subgraph cluster_{0}", id);
-        @Raw("{");
-        @Raw("style = filled;");
+        @Raw(">];"+nl);
 
-        @Raw("color = lightgrey;");
+    }//end foreach table
+    @string.Format("subgraph cluster_database");
+    @Raw("{"+nl);
+    @Raw("style = filled;" + nl);
 
-        @Raw("node[style = filled, color = white];");
-        @if (!string.IsNullOrWhiteSpace(relation))
-        {
-            @Raw(relation)
-        }
+    @Raw("color = lightgrey;" + nl);
+
+    @Raw("node[style = filled, color = white];" + nl);
 
 
-        @Raw(string.Format("label = '{0}';", db["name"]));
-        @relation
-        @Raw("}");
+    @Raw(string.Format("label = \"Database {0}\";" + nl,""));
+    @if (!string.IsNullOrWhiteSpace(relation))
+    {
+        @Raw(relation)
     }
-}
+    @Raw("}");
+
+
+}// end foreach database
 
 
 
