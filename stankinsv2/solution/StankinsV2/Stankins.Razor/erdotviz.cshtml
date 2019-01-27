@@ -10,7 +10,7 @@
     var nl = Environment.NewLine;
 
 }
-<div></div>
+<div id="mydb"></div>
 <script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/viz.js'></script>
 <script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/full.render.js'></script>
 
@@ -42,7 +42,7 @@
                 }
 
                 existRelation = true;
-
+                //TODO: edge labels: http://www.graphviz.org/doc/info/shapes.html#html
                 relation += string.Format("table{0}:{1} -> table{2}:{3};", rel["parent_object_id"], rel["parent_column_id"], rel["referenced_object_id"], rel["referenced_column_id"]);
 
 
@@ -57,14 +57,14 @@
             @Raw("[label =<" + nl);
 
             <table border="0" cellborder="1" cellspacing="0">
-                <tr><td><em>@table["name"]</em></td></tr>
+                <tr><td href='#@idNode'>@table["name"]</td></tr>
                 @foreach (DataRow col in columns.Rows)
                 {
                     if (col["tableId"].ToString() != idTable)
                     {
                         continue;
                     }
-                    <tr><td port='@col["id"]' href='#@idNode' >@col["name"]</td></tr>
+                    <tr><td port='@col["id"]'  >@col["name"]</td></tr>
                 }
             </table>
 
@@ -100,7 +100,7 @@
     let viz = new Viz();
     viz.renderSVGElement(t)
         .then(function (element) {
-            document.body.appendChild(element);
+            document.getElementById('mydb').appendChild(element);
         })
         .catch(error => window.alert('please debug the error' + error));
 </script>
