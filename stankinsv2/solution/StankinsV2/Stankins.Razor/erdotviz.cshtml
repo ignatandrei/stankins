@@ -57,7 +57,7 @@
             @Raw("[label =<" + nl);
 
             <table border="0" cellborder="1" cellspacing="0">
-                <tr><td><i>@table["name"]</i></td></tr>
+                <tr><td><em>@table["name"]</em></td></tr>
                 @foreach (DataRow col in columns.Rows)
                 {
                     if (col["tableId"].ToString() != idTable)

@@ -6,9 +6,13 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="database.cshtml" />
     <None Remove="erdotviz.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="database.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="erdotviz.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

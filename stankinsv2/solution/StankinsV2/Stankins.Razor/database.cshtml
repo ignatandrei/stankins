@@ -1,0 +1,91 @@
+﻿@using  System.Data;
+@using  System;
+@using Stankins.Interfaces;
+@model IDataToSent
+@{
+
+    var tables = Model.FindAfterName("tables").Value;
+    var columns = Model.FindAfterName("columns").Value;
+    var relations = Model.FindAfterName("relations").Value;
+    var nl = Environment.NewLine;
+
+}
+<div></div>
+
+
+@{
+
+    <table border="1">
+        <tr>
+            <td>Name</td>
+
+            <td>Relations</td>
+            <td>Usage</td>
+        </tr>
+
+        @foreach (DataRow table in tables.Rows)
+    {
+        var idTable = table["id"].ToString();
+        var idNode = string.Format("table{0}", idTable);
+
+         var relation = "";
+        bool existRelation = false;
+
+            foreach (DataRow rel in relations.Rows)
+            {
+                if (rel["parent_object_id"].ToString() != idTable && rel["referenced_object_id"].ToString() != idTable)
+                {
+                    continue;
+                }
+
+                existRelation = true;
+                var idTableRelated= int.Parse(rel["parent_object_id"].ToString())+int.Parse(rel["referenced_object_id"].ToString()) -int.Parse( idTable);
+                var nameRelated= tables.Select("id="+idTableRelated)[0]["name"];
+                relation +=string.Format("<a href='#table{0}'>{1}</a>;<br />",idTableRelated,nameRelated);
+
+
+
+            }//end foreach relation
+            if (!existRelation)
+            {
+                relation = "-";
+            }
+        <tr>
+            <td><a href="#@idNode"> @table["name"]</a></td>
+            <td>@Raw(relation)</td>
+            <td>This is used for </td>
+        </tr>
+    }
+    </table>
+    <br />
+
+        foreach (DataRow table in tables.Rows)
+        {
+
+            var idTable = table["id"].ToString();
+            var idNode = string.Format("table{0}", idTable);
+
+
+    <br />
+    <a id="@idNode">Table <em> @table["name"]</em></a>
+    <br />
+
+    <table border="1" cellborder="1" cellspacing="0">
+
+        @foreach (DataRow col in columns.Rows)
+                {
+                    if (col["tableId"].ToString() != idTable)
+                    {
+                        continue;
+                    }
+        <tr><td port='@col["id"]'>@col["name"]</td><td>The field @col["name"] is used for </td></tr>
+                }
+    </table>
+
+    <br />
+
+        }//end foreach table
+
+
+}
+
