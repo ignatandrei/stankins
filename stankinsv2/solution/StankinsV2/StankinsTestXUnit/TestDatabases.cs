@@ -1,9 +1,12 @@
 ﻿using FluentAssertions;
 using Stankins.Alive;
 using Stankins.Interfaces;
+using Stankins.Razor;
 using Stankins.SqlServer;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,29 +15,37 @@ using Xunit;
 
 namespace StankinsTestXUnit
 {
-    [Trait("ReceiverSqlServer", "")]
+    [Trait("ReceiveDatabasesSql", "")]
     [Trait("ExternalDependency","SqlServer")]
-    public class TestReceiveMetadataFromDatabaseSql
+    public class TestReceiveDatabasesSql
     {
         [Scenario]
         [Example("Server=(local);Database=master;User Id=SA;Password = <YourStrong!Passw0rd>;")]
-        public void TestReceiverDBServer(string connectionString)
+        public void SenderToDot(string connectionString)
         {
             IReceive status = null;
+        
             IDataToSent data = null;
             $"Assume Sql Server instance {connectionString} exists , if not see docker folder".w(() => {
 
             });
-            $"When I create the ReceiverDBServer ".w(() => status = new ReceiveMetadataFromDatabaseSql(connectionString));
+            $"When I create the ReceiverDBServer ".w(() => status = new ReceiveDatabasesSql(connectionString));
             $"and receive data".w(async () =>
             {
                 data = await status.TransformData(null);
             });
-            $"the data should have tables, columns, relations".w(() =>
+            $"the data should have a databases".w(() =>
             {
-                data.DataToBeSentFurther.Count.Should().Be(3);
+                data.DataToBeSentFurther.Count.Should().Be(1);
             });
-          
+           
+            $"should be some content".w(() =>
+            {
+                data.DataToBeSentFurther[0].Rows.Count.Should().BeGreaterOrEqualTo(4);//master,msdb,tempdb,model 
+
+            });
+
+
 
         }
     }
