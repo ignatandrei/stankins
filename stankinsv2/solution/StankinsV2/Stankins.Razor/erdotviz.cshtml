@@ -1,0 +1,49 @@
+﻿@using  System.Data;
+@using  System;
+@using Stankins.Interfaces;
+@model IDataToSent
+@{
+    var databases = Model.FindAfterName("databases").Value;
+    var tables = Model.FindAfterName("tables").Value;
+    var columns = Model.FindAfterName("columns").Value;
+}
+
+
+        digraph {
+    graph [pad="0.5", nodesep="0.5", ranksep="2"];
+    node [shape=plain]
+    rankdir=LR;
+
+
+@foreach (DataRow db in databases.Rows)
+{
+    var id = db["id"].ToString();
+    foreach (DataRow table in tables.Rows)
+    {
+        if (table["databaseId"].ToString() != id)
+        {
+            continue;
+        }
+
+        @string.Format("table{0}", @table["id"])
+
+        @Raw("[label =<");
+
+        <table border="0" cellborder="1" cellspacing="0">
+            <tr><td><i>@table["name"]</i></td></tr>
+            <tr><td port="1">one</td></tr>
+            <tr><td port="2">two</td></tr>
+            <tr><td port="3">three</td></tr>
+            <tr><td port="4">four</td></tr>
+            <tr><td port="5">five</td></tr>
+            <tr><td port="6">six</td></tr>
+        </table>
+
+
+
+
+
+    }
+
+
+            }//end digraph
