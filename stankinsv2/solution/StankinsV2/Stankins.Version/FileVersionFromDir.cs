@@ -57,7 +57,7 @@ namespace Stankins.Version
             }
             int id = receiveData.AddNewTable(dt);
             receiveData.Metadata.AddTable(dt, id);
-            return receiveData;
+            return await Task.FromResult( receiveData);
 
         }
 

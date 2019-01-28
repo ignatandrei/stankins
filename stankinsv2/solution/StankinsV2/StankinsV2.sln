@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.SqlServer", "Stank
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Console", "Stankins.Console\Stankins.Console.csproj", "{DFBA0C30-44CE-4F72-8D03-3B7D96477F3F}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Version", "Stankins.Version\Stankins.Version.csproj", "{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -123,6 +125,10 @@ Global
 		{DFBA0C30-44CE-4F72-8D03-3B7D96477F3F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DFBA0C30-44CE-4F72-8D03-3B7D96477F3F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DFBA0C30-44CE-4F72-8D03-3B7D96477F3F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
