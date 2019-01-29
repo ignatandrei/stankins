@@ -33,6 +33,10 @@
 
 Console Global tool:
 
-dotnet Stankins.Console.dll execute -o ReceiveMetadataFromDatabaseSql -a "Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;"  -o SenderDBDiagramToDot
-dotnet Stankins.Console.dll execute -o ReceiveMetadataFromDatabaseSql -a "Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;"  -o SenderDBDiagramHTMLDocument
+dotnet tool install --global stankins.console
+
+stankins execute -o ReceiveMetadataFromDatabaseSql -a "Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;"  -o SenderDBDiagramToDot
+
+
+stankins.Console.dll execute -o ReceiveMetadataFromDatabaseSql -a "Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;"  -o SenderDBDiagramHTMLDocument
 
