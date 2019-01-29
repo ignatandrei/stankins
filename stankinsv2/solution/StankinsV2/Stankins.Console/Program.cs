@@ -23,10 +23,10 @@ namespace Stankins.Console
             
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
-            //var versionString = Assembly.GetEntryAssembly()
-            //                             .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-            //                             .InformationalVersion
-            //                             .ToString();
+            var versionString = Assembly.GetEntryAssembly()
+                                         .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                                         .InformationalVersion
+                                         .ToString();
 
             //System.Console.WriteLine($"Stankins.Console v{versionString}");
             app.HelpOption("-?|-h|--help");
