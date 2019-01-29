@@ -6,29 +6,31 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
+using Stankins.HTML;
 using Xbehave;
 using Xunit;
 using static System.Environment;
 namespace StankinsTestXUnit
 {
-    [Trait("ReceiverCSV", "")]
+    [Trait("ReceiverHtmlAHref", "")]
     [Trait("ExternalDependency", "0")]
-    public class TestReceiverCSVFile
+    public class TestReceiverHtmlAHref
     {
         [Scenario]
-        [Example("Year, Car{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003",2)]
-        public void TestSimpleCSV(string fileContents,int NumberRows)
+        [Example("<a href='http://msprogrammer.serviciipeweb.ro/'>MyBlog</a>", 1)]
+        public void TestSimpleCSV(string fileContents,int numberRows)
         {
             IReceive receiver = null;
-            fileContents = fileContents.Replace("{NewLine}", NewLine);
-            string fileName =nameof(TestReceiverCSVFile) +nameof(TestSimpleCSV);
-            IDataToSent data=null;
             var nl = Environment.NewLine;
+            fileContents = fileContents.Replace("{NewLine}", nl);
+            string fileName = nameof(TestReceiverHtmlAHref)+nameof(TestSimpleCSV);
+            IDataToSent data=null;
+            
             $"Given the file {fileName} with Content {fileContents}".w(async () =>
             {
                 await File.WriteAllTextAsync(fileName, fileContents);
             });
-            $"When I create the receiver csv for the {fileName}".w(() => receiver = new ReceiverCSVFile(fileName));
+            $"When I create the receiver csv for the {fileName}".w(() => receiver = new ReceiverHtmlAHref(fileName));
             $"And I read the data".w(async () =>data= await receiver.TransformData(null));
             $"Then should be a data".w(() => data.Should().NotBeNull());
             $"With a table".w(() =>
@@ -36,7 +38,7 @@ namespace StankinsTestXUnit
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
+            $"The number of rows should be {numberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(numberRows));
 
 
         } 

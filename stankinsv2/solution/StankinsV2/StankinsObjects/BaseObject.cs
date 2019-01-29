@@ -3,13 +3,38 @@ using StankinsCommon;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace StankinsObjects
 {
+    public abstract class BaseObjectSender: BaseObject, ISenderToOutput{
+
+        
+
+        protected BaseObjectSender(CtorDictionary dataNeeded) : base(dataNeeded)
+        {
+        }
+
+        public string InputContents { get; set; }
+        public KeyValuePair<string, string>[] OutputContents { get; set; }
+
+        protected string ReadFile(string fileName)
+        {
+            if (File.Exists(fileName))
+                return File.ReadAllText(fileName);
+
+            var pathDll = Assembly.GetEntryAssembly().Location;
+            var path = Path.GetDirectoryName(pathDll);
+            var f = Path.Combine(path, fileName);
+            return File.ReadAllText(f);
+        }
+    }
     public abstract class BaseObject : IBaseObject
     {
+        
         //TODO: maybe reflection to get properties values from dataNeeded?
         public BaseObject(CtorDictionary dataNeeded)
         {
