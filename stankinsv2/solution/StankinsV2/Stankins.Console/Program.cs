@@ -28,7 +28,7 @@ namespace Stankins.Console
                                          .InformationalVersion
                                          .ToString();
 
-            //System.Console.WriteLine($"Stankins.Console v{versionString}");
+            System.Console.WriteLine($"Stankins.Console v{versionString}");
             app.HelpOption("-?|-h|--help");
 
             app.Command("list", (command) =>
