@@ -99,6 +99,7 @@ namespace StankinsObjects
                 {
                     //TODO: log or put into error table
                     Console.WriteLine("error at " + column.Name+ "-" + data?.ToString() +"-" + ex.Message);
+                    throw;
                 }
             }
             return await Task.FromResult(receiveData) ;

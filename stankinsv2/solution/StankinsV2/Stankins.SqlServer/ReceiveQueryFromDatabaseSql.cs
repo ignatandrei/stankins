@@ -17,6 +17,7 @@ namespace Stankins.SqlServer
         public ReceiveQueryFromDatabaseSql(CtorDictionary dict) : base(dict)
         {
             this.sql = GetMyDataOrThrow<string>(nameof(sql));
+            this.connectionType = typeof(SqlConnection).FullName;
         }
         public ReceiveQueryFromDatabaseSql(string connectionString, string sql) : base(connectionString, typeof(SqlConnection).FullName)
         {

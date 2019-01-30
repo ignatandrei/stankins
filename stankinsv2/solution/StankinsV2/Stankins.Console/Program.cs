@@ -78,7 +78,8 @@ namespace Stankins.Console
                                     var dot = new SenderDBDiagramToDot("");
                                     data = await dot.TransformData(data);
                                     var f = dot.OutputContents.First();
-                                    File.WriteAllText(f.Key + ".html", f.Value);
+                                    System.IO.File.WriteAllText(f.Key + ".html", f.Value);
+                                    
                                 }
                                 break;
                             case "SenderDBDiagramHTMLDocument":
@@ -86,7 +87,7 @@ namespace Stankins.Console
                                     var ht = new SenderDBDiagramHTMLDocument("");
                                     data = await ht.TransformData(data);
                                     var f = ht.OutputContents.First();
-                                    File.WriteAllText(f.Key+".html", f.Value);
+                                    System.IO.File.WriteAllText(f.Key+".html", f.Value);
                                 }
                                 break;
                             default:

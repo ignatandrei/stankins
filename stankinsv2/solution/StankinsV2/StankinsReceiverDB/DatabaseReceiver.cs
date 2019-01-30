@@ -11,7 +11,7 @@ namespace StankinsReceiverDB
     public abstract class DatabaseReceiver: BaseObject, IReceive
     {
         protected readonly string connectionString;
-        protected readonly string connectionType;
+        protected string connectionType;
 
         
         public DatabaseReceiver(CtorDictionary dict) : base(dict)
