@@ -56,6 +56,11 @@ namespace StankinsObjects
             }
             
         }
+        protected int FastAddTable(IDataToSent receiveData, DataTable item)
+        {
+            return FastAddTables(receiveData, item).ToArray()[0];
+
+        }
         //todo : this should stay into IDataToSent
         public IEnumerable<KeyValuePair<int,DataTable>> FindTableAfterColumnName(string nameColumn, IDataToSent receiveData)
         {

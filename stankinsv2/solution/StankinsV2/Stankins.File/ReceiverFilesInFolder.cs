@@ -5,16 +5,17 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Stankins.File
 {
-    public class ReceiverFilesInFolder : BaseObject
+    public class ReceiverFilesInFolder : BaseObject,IReceive
     {
         public ReceiverFilesInFolder(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            this.Name = nameof(ReceiverCSVFile);
+            this.Name = nameof(ReceiverFilesInFolder);
             PathFolder = GetMyDataOrThrow<string>(nameof(PathFolder));
             Filter = GetMyDataOrDefault<string>(nameof(Filter), "*.*");
 
@@ -35,7 +36,8 @@ namespace Stankins.File
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
-            var ret = new DataToSentTable();
+            if(receiveData == null)
+                receiveData= new DataToSentTable();
             var dt = new DataTable
             {
                 TableName = Path.GetDirectoryName(PathFolder)
@@ -46,9 +48,8 @@ namespace Stankins.File
             {
                 dt.Rows.Add(new[] { Path.GetFileName(item), item });
             }
-            var id = ret.AddNewTable(dt);
-            ret.Metadata.AddTable(dt, id);
-            return await Task.FromResult(ret);
+            var id = FastAddTable(receiveData,dt);
+            return await Task.FromResult(receiveData);
 
         }
 
