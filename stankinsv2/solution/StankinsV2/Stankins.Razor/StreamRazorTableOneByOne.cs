@@ -31,7 +31,7 @@ namespace SenderInterpretedRazor
             //return true;
         }
 
-        public IEnumerable<string> StreamTo(IDataToSent dataToSent)
+        public  IEnumerable<string> StreamTo(IDataToSent dataToSent)
         {
             
             var found = engine.TemplateCache.RetrieveTemplate(key);
