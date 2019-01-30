@@ -9,17 +9,17 @@ using StankinsObjects ;
 
 namespace Stankins.File
 {
-    public class SenderFileCSV: BaseObject, ISender
+    public class SenderAllTablesToFileCSV: BaseObject, ISender
     {
         public string FolderToSave { get; }
-        public SenderFileCSV(string folderToSave) : this(new CtorDictionary()
+        public SenderAllTablesToFileCSV(string folderToSave) : this(new CtorDictionary()
         {
             { nameof(folderToSave), folderToSave }
         })
         {
 
         }
-        public SenderFileCSV(CtorDictionary dataNeeded) : base(dataNeeded)
+        public SenderAllTablesToFileCSV(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             FolderToSave = GetMyDataOrDefault<string>(nameof(FolderToSave), Environment.CurrentDirectory);
         }

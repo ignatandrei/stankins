@@ -6,6 +6,7 @@ using Stankins.SqlServer;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using Stankins.File;
 
 namespace Stankins.Console
 {
@@ -39,9 +40,11 @@ namespace Stankins.Console
                 
                 command.OnExecute(() =>
                 {
-                    System.Console.WriteLine("ReceiveMetadataFromDatabaseSql");
-                    System.Console.WriteLine("SenderDBDiagramToDot");
-                    System.Console.WriteLine("SenderDBDiagramHTMLDocument");
+                    System.Console.WriteLine(nameof(ReceiveMetadataFromDatabaseSql));
+                    System.Console.WriteLine(nameof(SenderDBDiagramToDot));
+                    System.Console.WriteLine(nameof(SenderDBDiagramHTMLDocument));
+                    System.Console.WriteLine(nameof(ReceiveQueryFromFileSql));
+                    System.Console.WriteLine(nameof(SenderAllTablesToFileCSV));
                     return 0;
                 });
 
@@ -64,31 +67,49 @@ namespace Stankins.Console
                         return 0;
                     }
                     IDataToSent data = null;
+                    var argNr = 0;
                     for (int i = 0; i < opt.Values.Count; i++)
                     {
+                        
                         var item = opt.Values[i];
                         switch (item)
                         {
-                            case "ReceiveMetadataFromDatabaseSql":
-                                var r=new ReceiveMetadataFromDatabaseSql(argObjects.Values[i]);
-                                data = await r.TransformData(data); 
+                            case nameof(ReceiveMetadataFromDatabaseSql):
+                                var r = new ReceiveMetadataFromDatabaseSql(argObjects.Values[argNr]);
+                                argNr++;
+                                data = await r.TransformData(data);
                                 break;
-                            case "SenderDBDiagramToDot":
-                                {
-                                    var dot = new SenderDBDiagramToDot("");
-                                    data = await dot.TransformData(data);
-                                    var f = dot.OutputContents.First();
-                                    System.IO.File.WriteAllText(f.Key + ".html", f.Value);
-                                    
-                                }
+                            case nameof(SenderDBDiagramToDot):
+                            {
+                                var dot = new SenderDBDiagramToDot("");
+                                data = await dot.TransformData(data);
+                                var f = dot.OutputContents.First();
+                                System.IO.File.WriteAllText(f.Key + ".html", f.Value);
+
+                            }
                                 break;
-                            case "SenderDBDiagramHTMLDocument":
-                                {
-                                    var ht = new SenderDBDiagramHTMLDocument("");
-                                    data = await ht.TransformData(data);
-                                    var f = ht.OutputContents.First();
-                                    System.IO.File.WriteAllText(f.Key+".html", f.Value);
-                                }
+                            case nameof(SenderDBDiagramHTMLDocument):
+                            {
+                                var ht = new SenderDBDiagramHTMLDocument("");
+                                data = await ht.TransformData(data);
+                                var f = ht.OutputContents.First();
+                                System.IO.File.WriteAllText(f.Key + ".html", f.Value);
+                            }
+                                break;
+                            case nameof(ReceiveQueryFromFileSql):
+                            {
+                                var ht = new ReceiveQueryFromFileSql(argObjects.Values[argNr],
+                                    argObjects.Values[argNr + 1]);
+                                argNr += 2;
+                                data = await ht.TransformData(data);
+                            }
+                                break;
+                            case nameof(SenderAllTablesToFileCSV):
+                            {
+                                var ht = new SenderAllTablesToFileCSV(argObjects.Values[argNr]);
+                                argNr++;
+                                data = await ht.TransformData(data);
+                            }
                                 break;
                             default:
                                 System.Console.WriteLine($"not an existing object {item} -  see list");
