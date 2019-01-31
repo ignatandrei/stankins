@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Stankins.File\Stankins.File.csproj" />
+    <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />
     <ProjectReference Include="..\StankinsReceiverDB\StankinsReceiverDB.csproj" />
   </ItemGroup>
