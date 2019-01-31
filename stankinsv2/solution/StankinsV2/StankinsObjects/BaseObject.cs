@@ -43,7 +43,7 @@ namespace StankinsObjects
             StoringDataBetweenCalls = new Dictionary<string, object>();
             this.dataNeeded = dataNeeded;
         }
-        protected readonly CtorDictionary dataNeeded;
+        public readonly CtorDictionary dataNeeded;
         public string Name { get ; set ; }
         public IDictionary<string, object> StoringDataBetweenCalls { get ; set ; }
         protected IEnumerable<int> FastAddTables(IDataToSent receiveData , params DataTable[] items)

@@ -12,8 +12,8 @@ namespace StankinsObjects
 
     public class FilterTablesWithColumn : BaseObject, IFilter
     {
-        public FilterTablesWithColumn(string nameColumn) : this(new CtorDictionary() {
-            { nameof(nameColumn), nameColumn }
+        public FilterTablesWithColumn(string nameColumnToRemove) : this(new CtorDictionary() {
+            { nameof(nameColumnToRemove), nameColumnToRemove }
             }
             )
         {
@@ -21,17 +21,17 @@ namespace StankinsObjects
         }
         public FilterTablesWithColumn(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            this.NameColumn = base.GetMyDataOrThrow<string>(nameof(NameColumn));
+            this.NameColumnToKeep = base.GetMyDataOrThrow<string>(nameof(NameColumnToKeep));
         }
 
-        public string NameColumn { get; }
+        public string NameColumnToKeep { get; }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             
             var IdTablesWithColumn = receiveData
                 .Metadata
                 .Columns
-                .Where(it => string.Equals(it.Name, NameColumn, StringComparison.CurrentCultureIgnoreCase))
+                .Where(it => string.Equals(it.Name, NameColumnToKeep, StringComparison.CurrentCultureIgnoreCase))
                 .Select(it => it.IDTable)
                 .Distinct()
                 .ToArray();

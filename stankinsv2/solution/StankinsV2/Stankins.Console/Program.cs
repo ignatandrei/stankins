@@ -1,4 +1,6 @@
 ﻿
+using System;
+using System.Collections.Generic;
 using Microsoft.Extensions.CommandLineUtils;
 using Stankins.Interfaces;
 using Stankins.Razor;
@@ -21,7 +23,13 @@ namespace Stankins.Console
             {
                 args =new[] { "-h" };
             }
-            
+            var commands=new List<string>();
+            commands.Add (nameof(ReceiveMetadataFromDatabaseSql));
+            commands.Add(nameof(SenderDBDiagramToDot));
+            commands.Add(nameof(SenderDBDiagramHTMLDocument));
+            commands.Add(nameof(ReceiveQueryFromFileSql));
+            commands.Add(nameof(SenderAllTablesToFileCSV));
+            commands.Add(nameof(ReceiveQueryFromFolderSql));
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
             var versionString = Assembly.GetEntryAssembly()
@@ -40,11 +48,44 @@ namespace Stankins.Console
                 
                 command.OnExecute(() =>
                 {
-                    System.Console.WriteLine(nameof(ReceiveMetadataFromDatabaseSql));
-                    System.Console.WriteLine(nameof(SenderDBDiagramToDot));
-                    System.Console.WriteLine(nameof(SenderDBDiagramHTMLDocument));
-                    System.Console.WriteLine(nameof(ReceiveQueryFromFileSql));
-                    System.Console.WriteLine(nameof(SenderAllTablesToFileCSV));
+                    commands.ForEach(System.Console.WriteLine);
+                    
+                    return 0;
+                });
+
+            });
+            app.Command("explainAll", (command) =>
+            {
+                command.Description = "Explain arguments  for supported objects";
+                command.HelpOption("-?|-h|--help");
+
+
+                command.OnExecute(() =>
+                {
+                    commands.ForEach(it =>
+                    {
+                        Type t = Type.GetType(it);
+                        System.Console.WriteLine(it);
+                        foreach (var ctor in t.GetConstructors())
+                        {
+                            var paramsCtor = ctor.GetParameters();
+                            if (paramsCtor.Length == 1)//eliminate default ctor with dataneeded dictionary
+                            {
+                                var param = paramsCtor[0];
+                                if(param.Name.ToLower()=="dataneeded")
+                                    continue;
+                                
+                            }
+
+                            foreach (var parameterInfo in paramsCtor)
+                            {
+                                System.Console.WriteLine($"     {parameterInfo.Name}");
+                            }
+                        }
+
+                       
+                    });
+
                     return 0;
                 });
 
@@ -57,7 +98,7 @@ namespace Stankins.Console
                 command.HelpOption("-?|-h|--help");
                 var opt = command.Option("-o", "execute object", CommandOptionType.MultipleValue);
                 var argObjects = command.Option("-a", "arguments for the object", CommandOptionType.MultipleValue);
-                var locationArgument = command.Argument("[location]", "The object to execute -see list command ", true);
+                //var locationArgument = command.Argument("[location]", "The object to execute -see list command ", true);
 
                 command.OnExecute(async () =>
                 {
@@ -109,6 +150,13 @@ namespace Stankins.Console
                                 var ht = new SenderAllTablesToFileCSV(argObjects.Values[argNr]);
                                 argNr++;
                                 data = await ht.TransformData(data);
+                            }
+                                break;
+                            case nameof(ReceiveQueryFromFolderSql):
+                            {
+                                var ht = new ReceiveQueryFromFolderSql(argObjects.Values[argNr],
+                                    argObjects.Values[argNr + 1], argObjects.Values[argNr + 2]);
+                                argNr += 3;
                             }
                                 break;
                             default:

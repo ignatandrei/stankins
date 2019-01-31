@@ -12,6 +12,7 @@ namespace StankinsObjects
     public class TransformerOneTableToMulti<T> : BaseObject, ITransformer
         where T:IBaseObject
     {
+        public  static readonly string separator="|";
         
         private readonly string ReceiverProperty;
         protected readonly string ColumnNameWithData;
@@ -35,17 +36,32 @@ namespace StankinsObjects
         
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
+            string colName = ColumnNameWithData;
+            string receiver = ReceiverProperty;
             //TODO : remove from release builds
             var v = new Verifier();
+            if (ColumnNameWithData.Contains(separator))
+            {
+                var arr = ColumnNameWithData.Split(new []{separator},StringSplitOptions.RemoveEmptyEntries);
+                colName = arr[0];
+                base.dataNeeded[nameof(ColumnNameWithData)] = string.Join(separator, arr.Skip(1).ToArray());
 
-            var column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name == ColumnNameWithData);
+            }
+
+            if (ReceiverProperty.Contains(separator))
+            {
+                var arr = ReceiverProperty.Split(new[] { separator }, StringSplitOptions.RemoveEmptyEntries);
+                receiver = arr[0];
+                base.dataNeeded[nameof(ReceiverProperty)] = string.Join(separator, arr.Skip(1).ToArray());
+            }
+            var column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name == colName);
             if(column == null)
             {
-                column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name.Equals(ColumnNameWithData, StringComparison.InvariantCultureIgnoreCase));
+                column = receiveData.Metadata.Columns.FirstOrDefault(it => it.Name.Equals(colName, StringComparison.InvariantCultureIgnoreCase));
             }
             if (column == null)
             {
-                throw new ArgumentException($"no column {ColumnNameWithData} in metadata");
+                throw new ArgumentException($"no column {colName} in metadata");
 
             }
             var table = receiveData.DataToBeSentFurther[column.IDTable];
@@ -58,7 +74,7 @@ namespace StankinsObjects
                     data = item[column.Name];
                     var d = new CtorDictionary(dataNeeded)
                 {
-                    { this.ReceiverProperty, data }
+                    { receiver, data }
                 };
                     var r = Activator.CreateInstance(typeof(T), d) as BaseObject;
                     r.Name = data.ToString();

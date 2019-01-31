@@ -19,6 +19,7 @@ namespace StankinsTestXUnit
     [Trait("ExternalDependency","SqlServer")]
     public class TestReceiveQueryFromFileSql
     {
+       
         [Scenario]
         [Trait("ReceiveQueryFromFileSql", "")]
         [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;","select 234 as val", 1, "234")]
