@@ -448,7 +448,7 @@ jobs:
         docker build . -t stankins_windows -f Dockerfile_win
         docker tag stankins_windows ignatandrei/stankins_windows
         docker image ls
-        echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
+        docker login --username ignatandrei --password %MY_PASSWORD_DOCKER%
         docker push ignatandrei/stankins_windows
     displayName: 'docker'
 
