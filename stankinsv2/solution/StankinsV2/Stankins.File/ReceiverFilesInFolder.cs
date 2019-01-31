@@ -48,7 +48,7 @@ namespace Stankins.File
             {
                 dt.Rows.Add(new[] { Path.GetFileName(item), item });
             }
-            var id = FastAddTable(receiveData,dt);
+            FastAddTable(receiveData,dt);
             return await Task.FromResult(receiveData);
 
         }

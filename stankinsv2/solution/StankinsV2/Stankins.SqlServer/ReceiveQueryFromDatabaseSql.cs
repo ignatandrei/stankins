@@ -50,7 +50,7 @@ namespace Stankins.SqlServer
                 receiveData=new DataToSentTable();
 
             var dt = await FromSql(sql);
-            var arr= FastAddTables(receiveData, dt).ToArray();
+            FastAddTables(receiveData, dt).ToArray();
             return receiveData;
         }
 

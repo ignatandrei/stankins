@@ -119,9 +119,9 @@ namespace StankinsObjects
                 return def;
 
             var ret= (T)dataNeeded[name];
-            if (typeof(T).IsClass)
+            if (typeof(T).IsClass && object.Equals(ret, default(T)))
             {
-                if (object.Equals(ret, default(T)))
+            
                     return def;
             }
 

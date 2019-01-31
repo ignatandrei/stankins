@@ -103,7 +103,7 @@ namespace Stankins.Console
                 .InformationalVersion
                 .ToString();
 
-            //System.Console.WriteLine($"Stankins.Console v{versionString}");
+           
 
             app.HelpOption("-?|-h|--help");
             app.VersionOption("-v|--version", app.Name + "v" + versionString, app.Name + "v" + versionString);
@@ -233,10 +233,8 @@ namespace Stankins.Console
                                 int i = 0;
                                 do
                                 {
-                                    //System.Console.WriteLine($"{item} reading {argNr} from {argObjects.Values.Count}");
                                     var item1= argObjects.Values[argNr];
-                                    //System.Console.WriteLine($"{item} writing {i} from {ctorArgs.Length}");
-
+                                    
                                     ctorArgs[i] = item1; 
                                     i++;
                                     argNr++;

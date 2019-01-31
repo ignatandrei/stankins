@@ -28,15 +28,15 @@ namespace StankinsObjects
         
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         { 
-            string res = null;
+            StringBuilder res = new StringBuilder();
             var dt = receiveData.FindAfterName("OutputString").Value;
             foreach (DataRow valueRow in dt.Rows)
             {
-                res += valueRow["Contents"]?.ToString();
+                res.Append(valueRow["Contents"]?.ToString());
 
             }
             dt.Clear();
-            dt.Rows.Add(null, NewTotalNameOutput, res);
+            dt.Rows.Add(null, NewTotalNameOutput, res.ToString());
             return await Task.FromResult(receiveData);
         }
 

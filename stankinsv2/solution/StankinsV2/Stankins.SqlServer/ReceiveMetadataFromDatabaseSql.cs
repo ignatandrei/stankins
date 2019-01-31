@@ -37,9 +37,7 @@ namespace Stankins.SqlServer
             columns.TableName = "columns";
             var relations = new DataTable();
             relations.TableName = "relations";
-            //tables.Columns.Add(new DataColumn("id", typeof(long)));
-            //tables.Columns.Add(new DataColumn("name", typeof(string)));
-            //tables.Columns.Add(new DataColumn("databaseId", typeof(long)));
+            
            
             var tablesString = $@"select t.object_id as id, s.name +'.'+ t.name as name from sys.tables t
                             inner join sys.schemas s on t.schema_id = s.schema_id order by 2 ";

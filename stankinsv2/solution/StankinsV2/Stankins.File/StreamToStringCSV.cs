@@ -23,10 +23,9 @@ namespace Stankins.File
                 var cols = new List<string>();
                 foreach (DataColumn dc in dt.Value.Columns)
                 {
-                    //if (dc.DataType == typeof(string))
-                    {
-                        cols.Add(dc.ColumnName);
-                    }
+                   
+                   cols.Add(dc.ColumnName);
+
                 }
                 sb.AppendLine(string.Join(",", cols.ToArray()));
                 foreach (DataRow dr in dt.Value.Rows)
