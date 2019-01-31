@@ -2,9 +2,11 @@
 using StankinsCommon;
 using System.IO;
 using System.Text;
+using StankinsObjects;
 
 namespace Stankins.Razor
 {
+    
     public class SenderDBDiagramToDot : SenderDBDiagram, ISenderToOutput
     {
 

@@ -12,8 +12,8 @@ namespace StankinsObjects
 
     public class FilterTablesWithColumn : BaseObject, IFilter
     {
-        public FilterTablesWithColumn(string nameColumnToRemove) : this(new CtorDictionary() {
-            { nameof(nameColumnToRemove), nameColumnToRemove }
+        public FilterTablesWithColumn(string nameColumnToKeep) : this(new CtorDictionary() {
+            { nameof(nameColumnToKeep ), nameColumnToKeep }
             }
             )
         {

@@ -22,9 +22,9 @@ namespace Stankins.Razor
         public SenderDBDiagram(CtorDictionary dataNeeded) : base(dataNeeded)
         {
 
-            this.InputContents = base.GetMyDataOrDefault<string>(nameof(InputContents), null);
-            if (string.IsNullOrWhiteSpace(this.InputContents))
-                this.InputContents =DefaultText();
+            this.InputTemplate = base.GetMyDataOrDefault<string>(nameof(InputTemplate), null);
+            if (string.IsNullOrWhiteSpace(this.InputTemplate))
+                this.InputTemplate =DefaultText();
 
 
 
@@ -36,10 +36,12 @@ namespace Stankins.Razor
                 .UseMemoryCachingProvider()
                 .Build();
             var key = Guid.NewGuid().ToString();
-            var found = await engine.CompileRenderAsync<IDataToSent>(key, InputContents, receiveData);
+            var found = await engine.CompileRenderAsync<IDataToSent>(key, InputTemplate, receiveData);
 
+            base.CreateOutputIfNotExists(receiveData);
 
-            OutputContents = new KeyValuePair<string, string>[] { new KeyValuePair<string, string>(key, found) };
+            base.OutputString.Rows.Add(null, key, found);
+            
 
 
 

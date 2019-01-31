@@ -18,8 +18,36 @@ namespace StankinsObjects
         {
         }
 
-        public string InputContents { get; set; }
-        public KeyValuePair<string, string>[] OutputContents { get; set; }
+        public string InputTemplate { get; set; }
+        public DataTableString OutputString { get; set; }
+
+        
+        public DataTableString OutputByte { get; set; }
+
+        public  void CreateOutputIfNotExists(IDataToSent receiveData)
+        {
+            try
+            {
+                OutputString = receiveData.FindAfterName("OutputString").Value as DataTableString;
+            }
+            catch
+            {
+                OutputString = new DataTableString();
+                OutputString.TableName = "OutputString";
+                FastAddTable(receiveData, OutputString);
+            }
+            try
+            {
+                OutputByte = receiveData.FindAfterName("OutputByte").Value as DataTableString;
+            }
+            catch
+            {
+                OutputByte = new DataTableString();
+                OutputByte.TableName = "OutputByte";
+                FastAddTable(receiveData, OutputByte);
+            }
+        }
+        
 
         protected string ReadFile(string fileName)
         {
@@ -86,12 +114,16 @@ namespace StankinsObjects
             if (dataNeeded == null)
                 return def;
             name = name?.ToLowerInvariant();
+
             if (!dataNeeded.ContainsKey(name))
                 return def;
 
             var ret= (T)dataNeeded[name];
-            if (object.Equals(ret , default(T)))
-                return def;
+            if (typeof(T).IsClass)
+            {
+                if (object.Equals(ret, default(T)))
+                    return def;
+            }
 
             return ret;
 

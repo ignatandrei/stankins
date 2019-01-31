@@ -10,6 +10,7 @@ using System.Linq;
 using System.Reflection;
 using Stankins.File;
 using Stankins.Office;
+using StankinsObjects;
 
 namespace Stankins.Console
 {
@@ -32,6 +33,8 @@ namespace Stankins.Console
             commands.Add(nameof(SenderAllTablesToFileCSV));
             commands.Add(nameof(ReceiveQueryFromFolderSql));
             commands.Add(nameof(SenderExcel));
+            commands.Add(nameof(ExportDBDiagramHtmlAndDot));
+
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
             var versionString = Assembly.GetEntryAssembly()
@@ -70,6 +73,11 @@ namespace Stankins.Console
                         System.Console.WriteLine(it);
                         foreach (var ctor in t.GetConstructors())
                         {
+                            if(ctor.IsPrivate)
+                                continue;
+                            if(ctor.IsStatic)
+                                continue;
+
                             var paramsCtor = ctor.GetParameters();
                             if (paramsCtor.Length == 1)//eliminate default ctor with dataneeded dictionary
                             {
@@ -78,7 +86,7 @@ namespace Stankins.Console
                                     continue;
                                 
                             }
-
+                            System.Console.WriteLine($"{ctor.MetadataToken})Arguments ");
                             foreach (var parameterInfo in paramsCtor)
                             {
                                 System.Console.WriteLine($"     {parameterInfo.Name}");
@@ -109,6 +117,7 @@ namespace Stankins.Console
                         System.Console.WriteLine("see list command for objects");
                         return 0;
                     }
+                    IBaseObject last = null;
                     IDataToSent data = null;
                     var argNr = 0;
                     for (int i = 0; i < opt.Values.Count; i++)
@@ -117,58 +126,63 @@ namespace Stankins.Console
                         var item = opt.Values[i];
                         switch (item)
                         {
+                            case nameof(ExportDBDiagramHtmlAndDot):
+                            {
+                                last = new ExportDBDiagramHtmlAndDot(argObjects.Values[argNr],
+                                    argObjects.Values[argNr]);
+                                argNr += 2;
+                                data = await last.TransformData(data);
+                            }
+                                break;
                             case nameof(ReceiveMetadataFromDatabaseSql):
                             {
-                                var baseObject = new ReceiveMetadataFromDatabaseSql(argObjects.Values[argNr]);
+                                last = new ReceiveMetadataFromDatabaseSql(argObjects.Values[argNr]);
                                 argNr++;
-                                data = await baseObject.TransformData(data);
+                                data = await last.TransformData(data);
                             }
                                 break;
                             case nameof(SenderDBDiagramToDot):
                             {
-                                var baseObject = new SenderDBDiagramToDot("");
-                                data = await baseObject.TransformData(data);
-                                var f = baseObject.OutputContents.First();
-                                System.IO.File.WriteAllText(f.Key + ".html", f.Value);
+                                last = new SenderDBDiagramToDot("");
+                                data = await last.TransformData(data);
+                               
 
                             }
                                 break;
                             case nameof(SenderDBDiagramHTMLDocument):
                             {
-                                var baseObject = new SenderDBDiagramHTMLDocument("");
-                                data = await baseObject.TransformData(data);
-                                var f = baseObject.OutputContents.First();
-                                System.IO.File.WriteAllText(f.Key + ".html", f.Value);
+                                last = new SenderDBDiagramHTMLDocument("");
+                                data = await last.TransformData(data);
                             }
                                 break;
                             case nameof(ReceiveQueryFromFileSql):
                             {
-                                var baseObject = new ReceiveQueryFromFileSql(argObjects.Values[argNr],
+                                last= new ReceiveQueryFromFileSql(argObjects.Values[argNr],
                                     argObjects.Values[argNr + 1]);
                                 argNr += 2;
-                                data = await baseObject.TransformData(data);
+                                data = await last.TransformData(data);
                             }
                                 break;
                             case nameof(SenderAllTablesToFileCSV):
                             {
-                                var baseObject = new SenderAllTablesToFileCSV(argObjects.Values[argNr]);
+                                last = new SenderAllTablesToFileCSV(argObjects.Values[argNr]);
                                 argNr++;
-                                data = await baseObject.TransformData(data);
+                                data = await last.TransformData(data);
                             }
                                 break;
                             case nameof(ReceiveQueryFromFolderSql):
                             {
-                                var baseObject = new ReceiveQueryFromFolderSql(argObjects.Values[argNr],
+                                last = new ReceiveQueryFromFolderSql(argObjects.Values[argNr],
                                     argObjects.Values[argNr + 1], argObjects.Values[argNr + 2]);
                                 argNr += 3;
-                                data = await baseObject.TransformData(data);
+                                data = await last.TransformData(data);
                                 }
                                 break;
                             case nameof(SenderExcel):
                             {
-                                var baseObject = new SenderExcel(argObjects.Values[argNr]);
+                                last = new SenderExcel(argObjects.Values[argNr]);
                                 argNr++;
-                                data = await baseObject.TransformData(data);
+                                data = await last.TransformData(data);
 
                             }
                                 break;
@@ -177,6 +191,15 @@ namespace Stankins.Console
                                 break;
                         }
                     }
+
+                   
+                   var sender = last as ISender;
+                   if (last == null)
+                   {
+                       sender=new SenderOutputToFolder("",true);
+                       await sender.TransformData(data);
+                   }
+                    
                     return 0;
                 });
             }

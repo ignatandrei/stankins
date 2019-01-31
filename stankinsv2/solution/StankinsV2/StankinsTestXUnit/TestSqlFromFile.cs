@@ -76,8 +76,8 @@ namespace StankinsTestXUnit
             });
             $"should be some content".w(() =>
             {
-                sender.OutputContents.Should().NotBeNull();
-                sender.OutputContents.Length.Should().Be(1);
+                sender.OutputString.Should().NotBeNull();
+                sender.OutputString.Rows.Count.Should().Be(1);
                 //File.WriteAllText(@"C:\Users\Surface1\Desktop\viz.html", sender.OutputContents.First().Value);
                 //Process.Start("notepad.exe","a.txt");
 
@@ -113,8 +113,8 @@ namespace StankinsTestXUnit
             });
             $"should be some content".w(() =>
             {
-                sender.OutputContents.Should().NotBeNull();
-                sender.OutputContents.Length.Should().Be(1);
+                sender.OutputString.Should().NotBeNull();
+                sender.OutputString.Rows.Count.Should().Be(1);
                 //File.WriteAllText(@"C:\Users\Surface1\Desktop\viz.html", sender.OutputContents.First().Value);
                 //Process.Start("notepad.exe","a.txt");
 

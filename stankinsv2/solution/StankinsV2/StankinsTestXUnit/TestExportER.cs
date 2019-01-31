@@ -15,33 +15,34 @@ using Xunit;
 
 namespace StankinsTestXUnit
 {
-   
     [Trait("ExternalDependency","SqlServer")]
     public class TestExportER
     {
         [Scenario]
-        [Trait("ReceiveQueryFromDatabaseSql", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;","select 234", 1)]
-        public void SelectFromDb(string connectionString, string select, int nrRows)
+        [Trait("ExportDBDiagramHtmlAndDot", "")]
+        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "a.html")]
+        public void ExportDBDiagramHtmlAndDot(string connectionString, string fileName)
         {
-            IReceive status = null;
-           
+            IBaseObject status = null;
             IDataToSent data = null;
+            fileName = Guid.NewGuid().ToString("N") + fileName;
+            $"Assume file does not exists".w(() => File.Exists(fileName).Should().BeFalse());
             $"Assume Sql Server instance {connectionString} exists , if not see docker folder".w(() => {
 
             });
-            $"When I create the ReceiveQueryFromDatabaseSql ".w(() => status = new ReceiveQueryFromDatabaseSql(connectionString, select));
+            $"When I create the ReceiverDBServer ".w(() => status = new ExportDBDiagramHtmlAndDot(connectionString,fileName));
             $"and receive data".w(async () =>
             {
                 data = await status.TransformData(null);
             });
-            $"the data should have a table".w(() =>
+
+            $"the data should have a tables, columns, relations".w(() =>
             {
-                data.DataToBeSentFurther.Count.Should().Be(1);
+                data.DataToBeSentFurther.Count.Should().Be(5);
             });
 
-          
-            $"should be {nrRows} rows".w(() => { data.DataToBeSentFurther[0].Rows.Count.Should().Be(nrRows); });
+
+            $"Assume file  exists".w(() => File.Exists(fileName).Should().BeTrue());
 
 
 
@@ -73,8 +74,8 @@ namespace StankinsTestXUnit
             });
             $"should be some content".w(() =>
             {
-                sender.OutputContents.Should().NotBeNull();
-                sender.OutputContents.Length.Should().Be(1);
+                sender.OutputString.Should().NotBeNull();
+                sender.OutputString.Rows.Count.Should().Be(1);
                 //File.WriteAllText(@"C:\Users\Surface1\Desktop\viz.html", sender.OutputContents.First().Value);
                 //Process.Start("notepad.exe","a.txt");
 
@@ -110,8 +111,8 @@ namespace StankinsTestXUnit
             });
             $"should be some content".w(() =>
             {
-                sender.OutputContents.Should().NotBeNull();
-                sender.OutputContents.Length.Should().Be(1);
+                sender.OutputString.Should().NotBeNull();
+                sender.OutputString.Rows.Count.Should().Be(1);
                 //File.WriteAllText(@"C:\Users\Surface1\Desktop\viz.html", sender.OutputContents.First().Value);
                 //Process.Start("notepad.exe","a.txt");
 
