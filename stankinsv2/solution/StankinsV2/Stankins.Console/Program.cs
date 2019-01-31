@@ -25,15 +25,15 @@ namespace Stankins.Console
             {
                 args =new[] { "-h" };
             }
-            var commands=new List<string>();
-            commands.Add (nameof(ReceiveMetadataFromDatabaseSql));
-            commands.Add(nameof(SenderDBDiagramToDot));
-            commands.Add(nameof(SenderDBDiagramHTMLDocument));
-            commands.Add(nameof(ReceiveQueryFromFileSql));
-            commands.Add(nameof(SenderAllTablesToFileCSV));
-            commands.Add(nameof(ReceiveQueryFromFolderSql));
-            commands.Add(nameof(SenderExcel));
-            commands.Add(nameof(ExportDBDiagramHtmlAndDot));
+            var commands=new List<Type>();
+            commands.Add (typeof(ReceiveMetadataFromDatabaseSql));
+            commands.Add(typeof(SenderDBDiagramToDot));
+            commands.Add(typeof(SenderDBDiagramHTMLDocument));
+            commands.Add(typeof(ReceiveQueryFromFileSql));
+            commands.Add(typeof(SenderAllTablesToFileCSV));
+            commands.Add(typeof(ReceiveQueryFromFolderSql));
+            commands.Add(typeof(SenderExcel));
+            commands.Add(typeof(ExportDBDiagramHtmlAndDot));
 
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
@@ -53,7 +53,7 @@ namespace Stankins.Console
                 
                 command.OnExecute(() =>
                 {
-                    commands.ForEach(System.Console.WriteLine);
+                    commands.ForEach(it=>System.Console.WriteLine(it.Name));
                     
                     return 0;
                 });
@@ -69,8 +69,8 @@ namespace Stankins.Console
                 {
                     commands.ForEach(it =>
                     {
-                        Type t = Type.GetType(it);
-                        System.Console.WriteLine(it);
+                        Type t = it;
+                        System.Console.WriteLine(it.Name);
                         foreach (var ctor in t.GetConstructors())
                         {
                             if(ctor.IsPrivate)
@@ -129,7 +129,7 @@ namespace Stankins.Console
                             case nameof(ExportDBDiagramHtmlAndDot):
                             {
                                 last = new ExportDBDiagramHtmlAndDot(argObjects.Values[argNr],
-                                    argObjects.Values[argNr]);
+                                    argObjects.Values[argNr+1]);
                                 argNr += 2;
                                 data = await last.TransformData(data);
                             }
@@ -196,6 +196,7 @@ namespace Stankins.Console
                    var sender = last as ISender;
                    if (last == null)
                    {
+                       System.Console.WriteLine("exporting default output");
                        sender=new SenderOutputToFolder("",true);
                        await sender.TransformData(data);
                    }
