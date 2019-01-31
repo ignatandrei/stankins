@@ -4,7 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <PackAsTool>true</PackAsTool>
-    <ToolCommandName>stankins</ToolCommandName>
+    <ToolCommandName>stankins.console</ToolCommandName>
     <PackageOutputPath>./nupkg</PackageOutputPath>
     <PackageId>stankins.console</PackageId>
     <PackageVersion>1.0.0</PackageVersion>
