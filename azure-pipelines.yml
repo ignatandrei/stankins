@@ -98,6 +98,7 @@ jobs:
         cp -r -v coveragereport  $(Build.ArtifactStagingDirectory)/cc/  
         cp -v coverage.opencover.xml $(Build.ArtifactStagingDirectory)/cc/  
         dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
+        rem dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
         dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
       displayName: test with external dependencies sql server linux
     

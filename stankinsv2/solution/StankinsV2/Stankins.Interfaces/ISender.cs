@@ -12,7 +12,7 @@ namespace Stankins.Interfaces
     {
         string InputTemplate { get; set; }
         DataTableString OutputString { get; set; }
-        DataTableString OutputByte { get; set; }
+        DataTableByte OutputByte { get; set; }
 
     }
 
@@ -33,7 +33,7 @@ namespace Stankins.Interfaces
         {
             this.Columns.Add("ID", typeof(long));
             this.Columns.Add("Name", typeof(string));
-            this.Columns.Add("Contents", typeof(byte));
+            this.Columns.Add("Contents", typeof(byte[]));
 
 
         }

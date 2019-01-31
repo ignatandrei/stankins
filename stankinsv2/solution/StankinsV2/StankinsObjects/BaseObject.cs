@@ -22,7 +22,7 @@ namespace StankinsObjects
         public DataTableString OutputString { get; set; }
 
         
-        public DataTableString OutputByte { get; set; }
+        public DataTableByte OutputByte { get; set; }
 
         public  void CreateOutputIfNotExists(IDataToSent receiveData)
         {
@@ -38,11 +38,11 @@ namespace StankinsObjects
             }
             try
             {
-                OutputByte = receiveData.FindAfterName("OutputByte").Value as DataTableString;
+                OutputByte = receiveData.FindAfterName("OutputByte").Value as DataTableByte;
             }
             catch
             {
-                OutputByte = new DataTableString();
+                OutputByte = new DataTableByte();
                 OutputByte.TableName = "OutputByte";
                 FastAddTable(receiveData, OutputByte);
             }

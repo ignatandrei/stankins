@@ -12,26 +12,45 @@ using System.Threading.Tasks;
 
 namespace Stankins.Office
 {
-    //TODO: use IStream to put in memory also
-    public class SenderExcel : BaseObject, ISender
+    public class SenderExcel : BaseObjectInSerial<SenderOutputExcel,SenderOutputToFolder>
     {
         public SenderExcel(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            FileName = base.GetMyDataOrThrow<string>(nameof(FileName));
             
+
 
         }
         public SenderExcel(string fileName) : this(new CtorDictionary()
         {
 
+            { nameof(fileName),fileName},
+            {"addKey",false }
+        })
+        {
+
+        }
+
+        
+
+
+    }
+    public class SenderOutputExcel : BaseObjectSender, ISender
+    {
+        public string FileName { get; }
+        public SenderOutputExcel(CtorDictionary dataNeeded) : base(dataNeeded)
+        {
+            FileName = base.GetMyDataOrThrow<string>(nameof(FileName));
+
+
+        }
+        public SenderOutputExcel(string fileName) : this(new CtorDictionary()
+        {
+
             { nameof(FileName),fileName},
         })
         {
-            
+
         }
-
-        public string FileName { get; }
-
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var illegalInFileName = new Regex(string.Format("[{0}]", Regex.Escape(new string(Path.GetInvalidFileNameChars()))), RegexOptions.Compiled);
@@ -61,12 +80,17 @@ namespace Stankins.Office
                     }
 
                 }
-
             }
-            using (var fs = new FileStream(FileName, FileMode.Create, FileAccess.Write))
+            this.CreateOutputIfNotExists(receiveData);
+            using (var fs = new MemoryStream())
             {
                 workbook.Write(fs);
+                this.OutputByte.Rows.Add(null, this.FileName, fs.ToArray());
             }
+            
+
+            
+
             return await Task.FromResult(receiveData) ;
         }
 

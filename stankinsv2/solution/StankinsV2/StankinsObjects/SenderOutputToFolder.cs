@@ -71,7 +71,11 @@ namespace StankinsObjects
             {
                 foreach (DataRow outputRow in output.Rows)
                 {
-                    string nameFile = $"{outputRow["ID"]}_{outputRow["Name"]}";
+                    string nameFile = $"{outputRow["Name"]}";
+                    if (addKey)
+                    {
+                        nameFile = $"{outputRow["ID"]}_" + nameFile;
+                    }
                     nameFile = illegalInFileName.Replace(nameFile, "_");
                     nameFile = Path.Combine(FolderToSave, nameFile);
                     File.WriteAllBytes(nameFile,(byte[]) outputRow["Contents"]);

@@ -14,8 +14,7 @@ namespace StankinsObjects
 
         public TransformerConcatenateOutputString(CtorDictionary dataNeeded):base(dataNeeded)
         {
-            
-        
+       
             this.Name = nameof(TransformerConcatenateOutputString);
             this.NewTotalNameOutput = base.GetMyDataOrDefault<string>(nameof(NewTotalNameOutput), "total");
         }
