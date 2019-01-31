@@ -18,13 +18,24 @@ namespace StankinsCommon
             return obj.ToLower().GetHashCode();
         }
     }
-    public class CtorDictionary: Dictionary<string, object>
+    public class CtorDictionaryGeneric<T> : Dictionary<string, T>
     {
-        public CtorDictionary():base(new CompareStrings())
+        public CtorDictionaryGeneric() : base(new CompareStrings())
         {
 
         }
-        public CtorDictionary(IDictionary<string,object> data):base(data,new CompareStrings())
+        public CtorDictionaryGeneric(IDictionary<string, T> data) : base(data, new CompareStrings())
+        {
+
+        }
+    }
+    public class CtorDictionary: CtorDictionaryGeneric<object>
+    {
+        public CtorDictionary():base()
+        {
+
+        }
+        public CtorDictionary(IDictionary<string,object> data):base(data)
         {
 
         }

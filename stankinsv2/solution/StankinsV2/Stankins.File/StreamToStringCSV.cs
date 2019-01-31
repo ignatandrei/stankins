@@ -23,7 +23,7 @@ namespace Stankins.File
                 var cols = new List<string>();
                 foreach (DataColumn dc in dt.Value.Columns)
                 {
-                    if (dc.DataType == typeof(string))
+                    //if (dc.DataType == typeof(string))
                     {
                         cols.Add(dc.ColumnName);
                     }

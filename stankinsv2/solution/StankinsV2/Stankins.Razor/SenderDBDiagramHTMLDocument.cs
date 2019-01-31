@@ -5,7 +5,7 @@ namespace Stankins.Razor
 {
     public class SenderDBDiagramHTMLDocument : SenderDBDiagram, ISenderToOutput
     {
-        public SenderDBDiagramHTMLDocument(string inputContents) : base(inputContents)
+        public SenderDBDiagramHTMLDocument(string inputContents=null) : base(inputContents)
         {
         }
 

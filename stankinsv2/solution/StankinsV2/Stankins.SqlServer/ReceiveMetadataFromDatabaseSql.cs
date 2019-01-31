@@ -13,7 +13,7 @@ namespace Stankins.SqlServer
 {
     public class ReceiveMetadataFromDatabaseSql : DatabaseReceiver
     {
-        public ReceiveMetadataFromDatabaseSql(CtorDictionary dict) : base(dict)
+        public ReceiveMetadataFromDatabaseSql(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             
         }

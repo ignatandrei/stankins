@@ -9,8 +9,12 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using NPOI.HSSF.Record;
+using NPOI.HSSF.Record.Cont;
+using NPOI.OpenXmlFormats.Wordprocessing;
 using Stankins.File;
 using Stankins.Office;
+using StankinsCommon;
 using StankinsObjects;
 
 namespace Stankins.Console
@@ -32,51 +36,89 @@ namespace Stankins.Console
                 $"     1.1)To export diagram :{nl} stankins.console execute -o ExportDBDiagramHtmlAndDot -a {connectionString} -a metadata.html");
 
             sb.AppendLine(
-                $"     1.2)To export a table to excel:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString}  -a nameofTheTable -a nameofTheTable.xlsx");
-            //sb.AppendLine(
-                //$"     1.3)To export a table to csv:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString}  -a nameofTheTable -a nameofTheTable.xlsx");
+                $"     1.2)To export a table to excel:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString} -a nameofTheTable -a nameofTheTable.xlsx");
+            sb.AppendLine(
+                $"     1.3)To export a table to csv:{nl} stankins.console execute -o ReceiveTableDatabaseSql -a {connectionString} -a nameofTheTable -o SenderAllTablesToFileCSV -a folderToSave");
 
             return sb.ToString();
 
         }
 
+        private class CreatorBaseObject
+        {
+            public readonly Type typeOfObject;
+            public readonly int nrArguments;
+
+            public CreatorBaseObject(Type typeOfObject, int nrArguments)
+            {
+                this.typeOfObject = typeOfObject;
+                this.nrArguments = nrArguments;
+            }
+
+
+            public BaseObject Create(object[] ctorStrings)
+            {
+                if (ctorStrings?.Length != nrArguments)
+                {
+                    throw new ArgumentException($"number of args {nrArguments} != {ctorStrings?.Length}");
+                }
+
+                BaseObject act;
+                if (ctorStrings?.Length > 0)
+                {
+                    act = Activator.CreateInstance(typeOfObject, ctorStrings) as BaseObject;
+
+                }
+                else
+                {
+                    act = Activator.CreateInstance(typeOfObject) as BaseObject;
+
+                }
+
+                return act;
+            }
+
+        }
+
         static void Main(string[] args)
         {
-           
-            var commands=new List<Type>();
-            commands.Add (typeof(ReceiveMetadataFromDatabaseSql));
-            commands.Add(typeof(SenderDBDiagramToDot));
-            commands.Add(typeof(SenderDBDiagramHTMLDocument));
-            commands.Add(typeof(ReceiveQueryFromFileSql));
-            commands.Add(typeof(SenderAllTablesToFileCSV));
-            commands.Add(typeof(ReceiveQueryFromFolderSql));
-            commands.Add(typeof(SenderExcel));
-            commands.Add(typeof(ExportDBDiagramHtmlAndDot));
-            commands.Add(typeof(ExportTableToExcelSql));
 
+            var commands = new CtorDictionaryGeneric<CreatorBaseObject>();
+            Action<Type, int> createItem = (t, nr) => { commands.Add(t.Name, new CreatorBaseObject(t, nr)); };
+            createItem(typeof(ReceiveMetadataFromDatabaseSql), 1);
+            createItem(typeof(SenderDBDiagramToDot), 0);
+            createItem(typeof(SenderDBDiagramHTMLDocument), 0);
+            createItem(typeof(ReceiveQueryFromFileSql), 2);
+            createItem(typeof(SenderAllTablesToFileCSV), 1);
+            createItem(typeof(ReceiveQueryFromFolderSql), 3);
+            createItem(typeof(SenderExcel), 1);
+            createItem(typeof(ExportDBDiagramHtmlAndDot), 2);
+            createItem(typeof(ExportTableToExcelSql), 3);
+            createItem(typeof(ReceiveTableDatabaseSql), 2);
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
-           
             var versionString = Assembly.GetEntryAssembly()
-                                         .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
-                                         .InformationalVersion
-                                         .ToString();
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                .InformationalVersion
+                .ToString();
 
             //System.Console.WriteLine($"Stankins.Console v{versionString}");
 
             app.HelpOption("-?|-h|--help");
-            app.VersionOption("-v|--version", app.Name+"v"+versionString , app.Name + "v" + versionString);
+            app.VersionOption("-v|--version", app.Name + "v" + versionString, app.Name + "v" + versionString);
             app.ExtendedHelpText = ExtendedHelpText();
             app.Command("list", (command) =>
             {
                 command.Description = "List all supported objects";
                 command.HelpOption("-?|-h|--help");
 
-                
+
                 command.OnExecute(() =>
                 {
-                    commands.ForEach(it=>System.Console.WriteLine(it.Name));
-                    
+                    var all = commands.Select(it => it.Key.ToString()).ToList();
+                    all.Sort();
+                    all.ForEach(it => System.Console.WriteLine(it));
+
                     return 0;
                 });
 
@@ -89,33 +131,45 @@ namespace Stankins.Console
 
                 command.OnExecute(() =>
                 {
-                    commands.ForEach(it =>
+                    var all = commands.Select(it => it.Value).ToList();
+                    all.ForEach(it =>
                     {
-                        Type t = it;
-                        System.Console.WriteLine(it.Name);
+                        Type t = it.typeOfObject;
+                        System.Console.WriteLine(t.Name);
+                        if (it.nrArguments == 0)
+                        {
+                            System.Console.WriteLine($"Arguments : {it.nrArguments}");
+                            return;
+                        }
+
                         foreach (var ctor in t.GetConstructors())
                         {
-                            if(ctor.IsPrivate)
+                            if (ctor.IsPrivate)
                                 continue;
-                            if(ctor.IsStatic)
+                            if (ctor.IsStatic)
                                 continue;
 
                             var paramsCtor = ctor.GetParameters();
-                            if (paramsCtor.Length == 1)//eliminate default ctor with dataneeded dictionary
+                            if (paramsCtor.Length == 1) //eliminate default ctor  dictionary
                             {
                                 var param = paramsCtor[0];
-                                if(param.Name.ToLower()=="dataneeded")
+                                if (param.ParameterType.FullName == typeof(CtorDictionary).FullName)
                                     continue;
-                                
+
                             }
-                            System.Console.WriteLine($"{ctor.MetadataToken})Arguments ");
+
+                            if (paramsCtor.Length != it.nrArguments)
+                                continue;
+
+                            System.Console.WriteLine($"Arguments : {it.nrArguments}");
+
                             foreach (var parameterInfo in paramsCtor)
                             {
                                 System.Console.WriteLine($"     {parameterInfo.Name}");
                             }
                         }
 
-                       
+
                     });
 
                     return 0;
@@ -125,114 +179,91 @@ namespace Stankins.Console
 
 
             app.Command("execute", (command) =>
-            {
-                command.Description = "Execute multiple ";
-                command.HelpOption("-?|-h|--help");
-                var opt = command.Option("-o", "execute object", CommandOptionType.MultipleValue);
-                var argObjects = command.Option("-a", "arguments for the object", CommandOptionType.MultipleValue);
-                //var locationArgument = command.Argument("[location]", "The object to execute -see list command ", true);
-
-                command.OnExecute(async () =>
                 {
-                    if (!opt.HasValue())
+                    command.Description = "Execute multiple ";
+                    command.HelpOption("-?|-h|--help");
+                    var opt = command.Option("-o", "execute object", CommandOptionType.MultipleValue);
+                    var argObjects = command.Option("-a", "arguments for the object", CommandOptionType.MultipleValue);
+                    //var locationArgument = command.Argument("[location]", "The object to execute -see list command ", true);
+
+                    command.OnExecute(async () =>
                     {
-                        System.Console.WriteLine("see list command for objects");
-                        return 0;
-                    }
-                    IBaseObject last = null;
-                    IDataToSent data = null;
-                    var argNr = 0;
-                    for (int i = 0; i < opt.Values.Count; i++)
-                    {
-                        
-                        var item = opt.Values[i];
-                        switch (item)
+                        if (!opt.HasValue())
                         {
-                            case nameof(ExportDBDiagramHtmlAndDot):
-                            {
-                                last = new ExportDBDiagramHtmlAndDot(argObjects.Values[argNr],
-                                    argObjects.Values[argNr+1]);
-                                argNr += 2;
-                                data = await last.TransformData(data);
-                            }
-                                break;
-                            case nameof(ReceiveMetadataFromDatabaseSql):
-                            {
-                                last = new ReceiveMetadataFromDatabaseSql(argObjects.Values[argNr]);
-                                argNr++;
-                                data = await last.TransformData(data);
-                            }
-                                break;
-                            case nameof(SenderDBDiagramToDot):
-                            {
-                                last = new SenderDBDiagramToDot("");
-                                data = await last.TransformData(data);
-                               
-
-                            }
-                                break;
-                            case nameof(SenderDBDiagramHTMLDocument):
-                            {
-                                last = new SenderDBDiagramHTMLDocument("");
-                                data = await last.TransformData(data);
-                            }
-                                break;
-                            case nameof(ReceiveQueryFromFileSql):
-                            {
-                                last= new ReceiveQueryFromFileSql(argObjects.Values[argNr],
-                                    argObjects.Values[argNr + 1]);
-                                argNr += 2;
-                                data = await last.TransformData(data);
-                            }
-                                break;
-                            case nameof(SenderAllTablesToFileCSV):
-                            {
-                                last = new SenderAllTablesToFileCSV(argObjects.Values[argNr]);
-                                argNr++;
-                                data = await last.TransformData(data);
-                            }
-                                break;
-                            case nameof(ReceiveQueryFromFolderSql):
-                            {
-                                last = new ReceiveQueryFromFolderSql(argObjects.Values[argNr],
-                                    argObjects.Values[argNr + 1], argObjects.Values[argNr + 2]);
-                                argNr += 3;
-                                data = await last.TransformData(data);
-                                }
-                                break;
-                            case nameof(SenderExcel):
-                            {
-                                last = new SenderExcel(argObjects.Values[argNr]);
-                                argNr++;
-                                data = await last.TransformData(data);
-
-                            }
-                                break;
-                            case nameof(ExportTableToExcelSql):
-                            {
-                                last = new ExportTableToExcelSql(argObjects.Values[argNr], argObjects.Values[argNr+1], argObjects.Values[argNr+2]);
-                                argNr+=3;
-                                data = await last.TransformData(data);
-                                }
-                                break;
-                            default:
-                                System.Console.WriteLine($"not an existing object {item} -  see list");
-                                break;
+                            System.Console.WriteLine("see list command for objects");
+                            return 0;
                         }
-                    }
 
-                   
-                   var sender = last as ISender;
-                   if (last == null)
-                   {
-                       System.Console.WriteLine("exporting default output");
-                       sender=new SenderOutputToFolder("",true);
-                       await sender.TransformData(data);
-                   }
+
+                        var argNr = 0;
+                        var lenValuesCount = opt.Values.Count;
+                        for (int i = 0; i < lenValuesCount; i++)
+                        {
+
+                            var item = opt.Values[i].ToLowerInvariant();
+                            if (!commands.ContainsKey(item))
+                            {
+                                System.Console.WriteLine($"not an existing object {item} - please see list command");
+                                return -1;
+                            }
+
+                            argNr += commands[item].nrArguments;
+                        }
+
+                        if (argNr != argObjects.Values.Count)
+                        {
+                            System.Console.WriteLine($"not equal nr args -a {lenValuesCount} with  nr args for objects {argNr} - please see list command");
+                            return -1;
+                        }
                     
-                    return 0;
-                });
-            }
+
+                        IBaseObject last = null;
+                        IDataToSent data = null;
+                        argNr = 0;
+                        for (int value = 0; value < lenValuesCount; value++)
+                        {
+
+                            var item = opt.Values[value].ToLowerInvariant();
+                            var cmd = commands[item];
+                            object[] ctorArgs = null;
+                            if (cmd.nrArguments > 0)
+                            {
+                                ctorArgs = new object[cmd.nrArguments];
+                                int i = 0;
+                                do
+                                {
+                                    //System.Console.WriteLine($"{item} reading {argNr} from {argObjects.Values.Count}");
+                                    var item1= argObjects.Values[argNr];
+                                    //System.Console.WriteLine($"{item} writing {i} from {ctorArgs.Length}");
+
+                                    ctorArgs[i] = item1; 
+                                    i++;
+                                    argNr++;
+
+                                } while (i < cmd.nrArguments);
+                                System.Console.WriteLine(cmd.typeOfObject +"=>"+ string.Join(',', ctorArgs));
+                            }
+                            
+                            last = cmd.Create(ctorArgs);
+                            data = await last.TransformData(data);
+
+
+                        }
+
+                        var sender = last as ISender;
+                        if (sender == null)
+                        {
+                            System.Console.WriteLine("exporting default output");
+                            sender = new SenderOutputToFolder("", true);
+                            data=await sender.TransformData(data);
+                            System.Console.WriteLine("exporting all tables to csv");
+                            await new SenderAllTablesToFileCSV("").TransformData(data);
+
+                        }
+
+                        return 0;
+                    });
+                }
             );
 
             if (args?.Length < 1)
@@ -242,6 +273,7 @@ namespace Stankins.Console
 
                 return;
             }
+
             app.Execute(args);
         }
     }

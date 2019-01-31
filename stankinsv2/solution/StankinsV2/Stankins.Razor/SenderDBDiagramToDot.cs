@@ -10,7 +10,7 @@ namespace Stankins.Razor
     public class SenderDBDiagramToDot : SenderDBDiagram, ISenderToOutput
     {
 
-        public SenderDBDiagramToDot(string inputContents) : base(inputContents)
+        public SenderDBDiagramToDot(string inputContents=null) : base(inputContents)
         {
 
         }

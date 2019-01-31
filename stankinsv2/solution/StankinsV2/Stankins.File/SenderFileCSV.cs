@@ -31,8 +31,13 @@ namespace Stankins.File
             var names = receiveData.DataToBeSentFurther
                 .Select(it => it.Value.TableName)
                 .Select(it=> illegalInFileName.Replace(it, "_"))
+                .Select(it=>string.IsNullOrWhiteSpace(it)?Guid.NewGuid().ToString("N"):it)
+                .Select(it=>it+".csv")
                 .ToArray();
             int i = 0;
+            if (!string.IsNullOrWhiteSpace(FolderToSave) && !Directory.Exists(FolderToSave))
+                Directory.CreateDirectory(FolderToSave);
+
             foreach (var item in sender.StreamTo(receiveData))
             {
 
