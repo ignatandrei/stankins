@@ -26,7 +26,8 @@ namespace Stankins.Console
         static string ExtendedHelpText()
         {
             string connectionString = "\"Server=..;Database=..;User Id=...;Password=...\"";
-            connectionString = "\"Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;\"";
+            //docker example
+            //connectionString = "\"Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;\"";
             string nl = Environment.NewLine;
             var sb = new StringBuilder();
             sb.AppendLine("");
