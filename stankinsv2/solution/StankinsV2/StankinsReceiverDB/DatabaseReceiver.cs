@@ -2,6 +2,7 @@
 using StankinsCommon;
 using StankinsObjects;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Threading.Tasks;
@@ -48,6 +49,50 @@ namespace StankinsReceiverDB
                         dt.Load(ir);
                         return dt;
 
+
+                    }
+                }
+            }
+        }
+        protected async Task<DataTable> FromSqlToProperties(string stmtSql)
+        {
+            DataTable dt=new DataTable();
+            dt.Columns.Add("id", typeof(string));
+            dt.Columns.Add("TableName", typeof(string));
+            dt.Columns.Add("valueName", typeof(string));
+            dt.Columns.Add("value", typeof(object));
+            using (var cn = NewConnection())
+            {
+                cn.ConnectionString = connectionString;
+                await cn.OpenAsync();
+                using (var cmd = cn.CreateCommand())
+                {
+                    cmd.CommandText = stmtSql;
+                    cmd.CommandType = CommandType.Text;
+                    using (var ir = await cmd.ExecuteReaderAsync())
+                    {
+                        var l = ir.FieldCount;
+                        var names = new Dictionary<int,string>();
+                        for (int i = 0; i < l; i++)
+                        {
+                            string name = ir.GetName(i);
+                            if(name == "id" || name=="TableName")
+                                continue;
+                            names.Add(i,name);
+
+                        }
+                        while (await ir.ReadAsync())
+                        {
+                            var id = ir["id"].ToString();
+                            var nameTable = ir["TableName"].ToString();
+                            foreach (var name in names)
+                            {
+                                dt.Rows.Add(id, nameTable, ir[name.Key], name.Value);
+                            }
+
+                        }
+
+                        return dt;
 
                     }
                 }

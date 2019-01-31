@@ -30,9 +30,9 @@ namespace StankinsTestXUnit
             {
                 data = await status.TransformData(null);
             });
-            $"the data should have tables, columns, relations".w(() =>
+            $"the data should have tables, columns, relations,properties".w(() =>
             {
-                data.DataToBeSentFurther.Count.Should().Be(3);
+                data.DataToBeSentFurther.Count.Should().Be(4);
             });
           
 
