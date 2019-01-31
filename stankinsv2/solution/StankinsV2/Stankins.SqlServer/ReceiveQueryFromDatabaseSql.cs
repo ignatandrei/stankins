@@ -10,6 +10,21 @@ using StankinsReceiverDB;
 
 namespace Stankins.SqlServer
 {
+    public class ReceiveTableDatabaseSql : ReceiveQueryFromDatabaseSql
+    {
+        public ReceiveTableDatabaseSql(CtorDictionary dict) : base(dict)
+        {
+           
+            this.Name = typeof(ReceiveTableDatabaseSql).FullName;
+            
+        }
+        public ReceiveTableDatabaseSql(string connectionString, string nameTable) : base(connectionString, $"select * from {nameTable}")
+        {
+           
+           
+        }
+    }
+
     public class ReceiveQueryFromDatabaseSql : DatabaseReceiver
     {
         private readonly string sql;

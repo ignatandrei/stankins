@@ -11,7 +11,7 @@ using StankinsObjects;
 
 namespace Stankins.SqlServer
 {
-    public class ExportTableToExcelSql  :BaseObjectInSerial<ReceiveQueryFromDatabaseSql, SenderExcel> , IReceive,ISender
+    public class ExportTableToExcelSql  :BaseObjectInSerial<ReceiveTableDatabaseSql, SenderExcel> , IReceive,ISender
     {
         public ExportTableToExcelSql(CtorDictionary dataNeeded) : base(dataNeeded)
         {

@@ -8,6 +8,7 @@ using Stankins.SqlServer;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using Stankins.File;
 using Stankins.Office;
 using StankinsObjects;
@@ -17,14 +18,31 @@ namespace Stankins.Console
     //https://gist.github.com/iamarcel/8047384bfbe9941e52817cf14a79dc34
     class Program
     {
-        
+
+        static string ExtendedHelpText()
+        {
+            string connectionString = "\"Server=..;Database=..;User Id=...;Password=...\"";
+            connectionString = "\"Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;\"";
+            string nl = Environment.NewLine;
+            var sb = new StringBuilder();
+            sb.AppendLine("");
+            sb.AppendLine("Some fast usage  ");
+            sb.AppendLine("1)SqlServer:");
+            sb.AppendLine(
+                $"     1.1)To export diagram :{nl} stankins.console execute -o ExportDBDiagramHtmlAndDot -a {connectionString} -a metadata.html");
+
+            sb.AppendLine(
+                $"     1.2)To export a table to excel:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString}  -a nameofTheTable -a nameofTheTable.xlsx");
+            //sb.AppendLine(
+                //$"     1.3)To export a table to csv:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString}  -a nameofTheTable -a nameofTheTable.xlsx");
+
+            return sb.ToString();
+
+        }
 
         static void Main(string[] args)
         {
-            if (args?.Length < 1)
-            {
-                args =new[] { "-h" };
-            }
+           
             var commands=new List<Type>();
             commands.Add (typeof(ReceiveMetadataFromDatabaseSql));
             commands.Add(typeof(SenderDBDiagramToDot));
@@ -34,17 +52,21 @@ namespace Stankins.Console
             commands.Add(typeof(ReceiveQueryFromFolderSql));
             commands.Add(typeof(SenderExcel));
             commands.Add(typeof(ExportDBDiagramHtmlAndDot));
+            commands.Add(typeof(ExportTableToExcelSql));
 
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
+           
             var versionString = Assembly.GetEntryAssembly()
                                          .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
                                          .InformationalVersion
                                          .ToString();
 
-            System.Console.WriteLine($"Stankins.Console v{versionString}");
-            app.HelpOption("-?|-h|--help");
+            //System.Console.WriteLine($"Stankins.Console v{versionString}");
 
+            app.HelpOption("-?|-h|--help");
+            app.VersionOption("-v|--version", app.Name+"v"+versionString , app.Name + "v" + versionString);
+            app.ExtendedHelpText = ExtendedHelpText();
             app.Command("list", (command) =>
             {
                 command.Description = "List all supported objects";
@@ -186,6 +208,13 @@ namespace Stankins.Console
 
                             }
                                 break;
+                            case nameof(ExportTableToExcelSql):
+                            {
+                                last = new ExportTableToExcelSql(argObjects.Values[argNr], argObjects.Values[argNr+1], argObjects.Values[argNr+2]);
+                                argNr+=3;
+                                data = await last.TransformData(data);
+                                }
+                                break;
                             default:
                                 System.Console.WriteLine($"not an existing object {item} -  see list");
                                 break;
@@ -205,6 +234,14 @@ namespace Stankins.Console
                 });
             }
             );
+
+            if (args?.Length < 1)
+            {
+                app.ShowRootCommandFullNameAndVersion();
+                app.ShowHint();
+
+                return;
+            }
             app.Execute(args);
         }
     }
