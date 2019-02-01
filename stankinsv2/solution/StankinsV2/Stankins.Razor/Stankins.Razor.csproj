@@ -6,10 +6,14 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="ProcessModelToDB.cshtml" />
     <None Remove="SenderDBDiagramHTMLDocument.cshtml" />
     <None Remove="SenderDBDiagramToDot.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ProcessModelToDB.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SenderDBDiagramHTMLDocument.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

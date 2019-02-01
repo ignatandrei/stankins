@@ -18,12 +18,12 @@ namespace StankinsTestXUnit
     {
         [Scenario]
         [Example("<a href='http://msprogrammer.serviciipeweb.ro/'>MyBlog</a>", 1)]
-        public void TestSimpleCSV(string fileContents,int numberRows)
+        public void TestSimple(string fileContents,int numberRows)
         {
             IReceive receiver = null;
             var nl = Environment.NewLine;
             fileContents = fileContents.Replace("{NewLine}", nl);
-            string fileName = nameof(TestReceiverHtmlAHref)+nameof(TestSimpleCSV);
+            string fileName = nameof(TestReceiverHtmlAHref)+nameof(TestSimple);
             IDataToSent data=null;
             
             $"Given the file {fileName} with Content {fileContents}".w(async () =>

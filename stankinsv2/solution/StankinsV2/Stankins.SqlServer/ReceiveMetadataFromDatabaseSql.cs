@@ -43,12 +43,19 @@ namespace Stankins.SqlServer
                             inner join sys.schemas s on t.schema_id = s.schema_id order by 2 ";
             var newTables = await FromSql(tablesString);
             tables.Merge(newTables, true, MissingSchemaAction.Add);
-            var cols = $@"select c.column_id as id, c.name,c.object_id as tableId  
+            var cols = $@"select cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, c.name,c.object_id as tableId  
                         from sys.columns c
                         inner join sys.tables o on o.object_id = c.object_id order by 2";
             var newCols =await FromSql(cols);
             columns.Merge(newCols, true, MissingSchemaAction.Add);
-            var rels = $@"select a.object_id as id , a.name,b.parent_object_id,b.parent_column_id,b.referenced_object_id,b.referenced_column_id
+            var rels = $@"select 
+
+a.object_id as id , a.name,
+
+b.parent_object_id,cast(b.parent_column_id as nvarchar)+'_'+ cast(b.parent_object_id as nvarchar) as parent_column_id,
+b.referenced_object_id,cast(b.referenced_column_id as nvarchar) + '_'+ cast(b.referenced_object_id as nvarchar) as referenced_column_id
+
+
 from sys.foreign_keys a
     join sys.foreign_key_columns b
                 on a.object_id=b.constraint_object_id order by 2";
@@ -64,7 +71,7 @@ from sys.foreign_keys a
 
 
             props =
-                "select c.column_id as id, 'columns' as TableName,c.* from sys.columns c inner join sys.tables o on o.object_id = c.object_id";
+                "select cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, 'columns' as TableName,c.* from sys.columns c inner join sys.tables o on o.object_id = c.object_id";
 
             tablesPropertiesNew = await FromSqlToProperties(props);
             tablesProperties.Merge(tablesPropertiesNew, true, MissingSchemaAction.Add);

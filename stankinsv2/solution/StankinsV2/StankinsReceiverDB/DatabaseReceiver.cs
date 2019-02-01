@@ -87,7 +87,7 @@ namespace StankinsReceiverDB
                             var nameTable = ir["TableName"].ToString();
                             foreach (var name in names)
                             {
-                                dt.Rows.Add(id, nameTable, ir[name.Key], name.Value);
+                                dt.Rows.Add(id, nameTable,  name.Value, ir[name.Key]);
                             }
 
                         }

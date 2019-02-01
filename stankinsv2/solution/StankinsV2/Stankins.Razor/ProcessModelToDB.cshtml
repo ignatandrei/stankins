@@ -5,8 +5,6 @@
 @using  System.Collections.Generic;
 @using RazorLight
 @inherits TemplatePage<IDataToSent>
-@model IDataToSent
-
 
 @{
 
@@ -17,7 +15,9 @@
     var nl = Environment.NewLine;
 
 
+
 }
+<div></div>
 @functions{
 
 
@@ -124,96 +124,10 @@
     }
 
 }
+<div id="header">
+    <span>Some content here</span>
+</div>
 
-
-
-<div id="mydb"></div>
-<script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/viz.js'></script>
-<script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/full.render.js'></script>
-
-<script>
-    
-    var t = `
-    digraph {
-    graph [pad="0.5", nodesep="0.5", ranksep="2"];
-    node [shape=plain]
-    rankdir=LR;
-
-
-    @{
-        var relation = "";
-
-        foreach (var kv in tablesList)
-        {
-
-            var table = kv.Value;
-            var idNode = table.IdNode();
-            bool existRelation = false;
-
-            foreach (var rel in table.Relations)
-            {
-
-                existRelation = true;
-                var tblRelated = tablesList[rel.referenced_object_id];
-                var colRelate = tblRelated.Columns.First(it => it.Id == rel.referenced_column_id);
-
-                //TODO: edge labels: http://www.graphviz.org/doc/info/shapes.html#html
-                relation += $"{idNode}:{rel.parent_column_id.Replace("_","")} -> {tblRelated.IdNode()}:{rel.referenced_column_id.Replace("_", "")};";
-
-
-
-            }//end foreach relation
-            if (!existRelation)
-            {
-                relation += string.Format("{0};", idNode);
-            }
-            relation += nl;
-            @idNode
-
-            @Raw("[label =<" + nl);
-
-            <table border="0" cellborder="1" cellspacing="0">
-                <tr><td href='#@idNode'>@table.Name</td></tr>
-                @foreach (var col in table.Columns)
-                {
-                   
-                    <tr><td port='@col.Id.Replace("_", "")'  >@col.Name</td></tr>
-                }
-            </table>
-
-            @Raw(">];" + nl);
-
-        }//end foreach table
-        @string.Format("subgraph cluster_database");
-        @Raw("{" + nl);
-        @Raw("style = filled;" + nl);
-
-        @Raw("color = lightgrey;" + nl);
-
-        @Raw("node[style = filled, color = white];" + nl);
-
-
-        @Raw(string.Format("label = \"Database {0}\";" + nl, ""));
-        @if (!string.IsNullOrWhiteSpace(relation))
-        {
-            @Raw(relation)
-        }
-        @Raw("}");
-
-
-    }
-
-
-
-    }//end digraph
-
-    `;
-
-
-    let viz = new Viz();
-    viz.renderSVGElement(t)
-        .then(function (element) {
-            document.getElementById('mydb').appendChild(element);
-        })
-        .catch(error => window.alert('please debug the error' + error));
-</script>
+<div id="body">
+    @RenderBody()
+</div>

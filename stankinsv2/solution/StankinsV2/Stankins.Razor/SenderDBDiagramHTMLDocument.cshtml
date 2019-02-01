@@ -1,96 +1,297 @@
 ﻿@using  System.Data;
 @using  System;
+@using  System.Linq;
 @using Stankins.Interfaces;
-@model IDataToSent
+@using  System.Collections.Generic;
+@using RazorLight
+@inherits TemplatePage<IDataToSent>
 @{
 
     var tables = Model.FindAfterName("tables").Value;
     var columns = Model.FindAfterName("columns").Value;
     var relations = Model.FindAfterName("relations").Value;
+    var properties = Model.FindAfterName("properties").Value;
     var nl = Environment.NewLine;
     var iTable = 0;
 
+
 }
 <div></div>
+@functions{
 
+
+    class Column
+    {
+
+        public string Id;
+        public string Name;
+        public Dictionary<string, string> Properties = new Dictionary<string, string>();
+
+    }
+    class Relation
+    {
+        public string parent_object_id;
+        public string parent_column_id;
+        public string referenced_object_id;
+        public string referenced_column_id;
+    }
+    class Table
+    {
+        public string Id;
+        public string Name;
+        public List<Column> Columns = new List<Column>();
+        public Dictionary<string, string> Properties = new Dictionary<string, string>();
+        public List<Relation> Relations = new List<Relation>();
+        public string IdNode()
+        {
+            return string.Format("table{0}", Id);
+        }
+        public float RelPerCols()
+        {
+            float r = Relations.Count;
+            float c = Columns.Count;
+            return r / c;
+        }
+    }
+}
 
 @{
-
-    <table border="1">
-        <tr>
-            <td>Number</td>
-            <td>Name</td>
-
-            <td>Relations</td>
-            <td>Usage</td>
-        </tr>
-
-        @foreach (DataRow table in tables.Rows)
+    var tablesList = new Dictionary<string, Table>();
+    foreach (DataRow table in tables.Rows)
+    {
+        var t = new Table();
+        t.Id = table["id"].ToString();
+        t.Name = table["name"].ToString();
+        var select = "TableName='tables' And id='" + t.Id + "'";
+        var tableProperties = properties.Select(select);
+        foreach (DataRow prop in tableProperties)
         {
-            iTable++;
-            var idTable = table["id"].ToString();
-            var idNode = string.Format("table{0}", idTable);
 
-            var relation = "";
-            bool existRelation = false;
-            var iRel = 0;
-            foreach (DataRow rel in relations.Rows)
+            var val = prop["value"];
+            if (val == null || val == DBNull.Value)
             {
-                if (rel["parent_object_id"].ToString() != idTable && rel["referenced_object_id"].ToString() != idTable)
-                {
-                    continue;
-                }
-                iRel++;
-                existRelation = true;
-                var idTableRelated= int.Parse(rel["parent_object_id"].ToString())+int.Parse(rel["referenced_object_id"].ToString()) -int.Parse( idTable);
-                var nameRelated= tables.Select("id="+idTableRelated)[0]["name"];
-                relation +=string.Format("{2})<a href='#table{0}'>{1}</a>;<br />",idTableRelated,nameRelated, iRel);
-
-
-
-            }//end foreach relation
-            if (!existRelation)
-            {
-                relation = "-";
+                val = "(null)";
             }
-            <tr>
-                <td>@iTable</td>
-                <td><a href="#@idNode"> @table["name"]</a></td>
-                <td>@Raw(relation)</td>
-                <td>This is used for </td>
-            </tr>
-    }
-    </table>
-    <br />
+            else
+            {
+                val = val.ToString();
+            }
+            t.Properties.Add(prop["valueName"].ToString(), val.ToString());
 
-        foreach (DataRow table in tables.Rows)
+        }
+        select = "tableId = '" + t.Id + "'";
+        var cols = columns.Select(select);
+        foreach (DataRow col in cols)
         {
-            var iColumn = 0;
-            var idTable = table["id"].ToString();
-            var idNode = string.Format("table{0}", idTable);
+            var c = new Column();
+            c.Id = col["id"].ToString();
+            c.Name = col["name"].ToString();
+            t.Columns.Add(c);
+            select = "TableName='columns' And id='" + c.Id + "'";
+            tableProperties = properties.Select(select);
+            foreach (DataRow prop in tableProperties)
+            {
 
+                var val = prop["value"];
+                if (val == null || val == DBNull.Value)
+                {
+                    val = "(null)";
+                }
+                else
+                {
+                    val = val.ToString();
+                }
+                c.Properties.Add(prop["valueName"].ToString(), val.ToString());
+
+            }
+
+        }
+        select = "parent_object_id =  '" + t.Id + "'";
+        var rels = relations.Select(select);
+        foreach (var rel in rels)
+        {
+
+            var r = new Relation();
+            r.parent_object_id = t.Id;
+            r.parent_column_id = rel["parent_column_id"].ToString();
+            r.referenced_object_id = rel["referenced_object_id"].ToString();
+            r.referenced_column_id = rel["referenced_column_id"].ToString();
+            t.Relations.Add(r);
+        }
+        tablesList.Add(t.Id, t);
+
+    }
+
+    var nrTables = tablesList.Count;
+    var nrCols = tablesList.Sum(it => it.Value.Columns.Count);
+    var avgCols = nrCols / nrTables;
+    var nrRels = tablesList.SelectMany(it => it.Value.Relations).Count();
+    var avgRelsTable = nrRels / nrTables;
+    var avgRelsCol = nrRels / nrCols;
+    var tblMaxRels = tablesList.OrderByDescending(it => it.Value.Relations.Count).First().Value;
+    var tblMaxRelsPerCols = tablesList.OrderByDescending(it => it.Value.RelPerCols()).First().Value;
+    var avgRelPerCol = tblMaxRelsPerCols.RelPerCols();
+}
+Summary:
+<table border="1">
+    <tr><td>Number of Tables</td><td>@nrTables</td></tr>
+    <tr><td>Avg of Columns per Table</td><td>@avgCols</td></tr>
+    <tr><td>Relations: Total</td><td>@nrRels</td></tr>
+    <tr><td>Relation Avg / table</td><td>@avgRelsTable </td></tr>
+    <tr><td>Relation Avg / column</td><td>@avgRelsCol</td></tr>
+    <tr>
+        <td>Table with Absolute Max relations </td>
+        <td><a href="#@tblMaxRels.IdNode()">@tblMaxRels.Name</a> : @tblMaxRels.Relations.Count</td>
+    </tr>
+    <tr>
+        <td>Table with Max relation per column</td>
+        <td>
+            <a href="#@tblMaxRelsPerCols.IdNode()">@tblMaxRelsPerCols.Name</a>
+            : @avgRelPerCol.ToString("0.0")
+        </td>
+    </tr>
+</table>
+
+<br />
+Tables:
+
+<table border="1">
+    <tr>
+        <td>Number</td>
+        <td>Table Name</td>
+
+        <td>Relations</td>
+        <td>Usage</td>
+    </tr>
+    @foreach (var kv in tablesList)
+    {
+        var curTable = kv.Value;
+        iTable++;
+        var idTable = curTable.Id;
+        var idNode = curTable.IdNode();
+        var relation = "";
+       
+        var iRel = 0;
+        foreach (var rel in curTable.Relations)
+        {
+            iRel++;
+            
+
+            var tblRelated = tablesList[rel.referenced_object_id];
+            var colRelate = tblRelated.Columns.First(it => it.Id == rel.referenced_column_id);
+
+            relation += string.Format("{2})<a href='#{0}'>{1}</a>;<br />", tblRelated.IdNode(), tblRelated.Name + "." + colRelate.Name, iRel);
+
+        }//end foreach relation
+        if (iRel == 0)
+        {
+            relation = "-";
+        }
+        <tr>
+            <td>@iTable </td>
+            <td><a href="#@idNode">@curTable.Name</a></td>
+            <td>@Raw(relation)</td>
+            <td>This is used for </td>
+        </tr>
+    }
+</table>
+<br />
+@foreach (var kv in tablesList)
+{
+    var curTable = kv.Value;
+
+    var iColumn = 0;
+    var idTable = curTable.Id;
+    var idNode = string.Format("table{0}", idTable);
+    var divProps = "props" + idNode;
+    var iProp = 0;
 
     <br />
-    <a id="@idNode">Table <em> @table["name"]</em></a>
-    <br />
 
+    <a id="@idNode">Table <em> @curTable.Name </em></a>
+    <span onclick="javascript:toggledisplay('@divProps')">
+        Show/hide properties
+    </span>
+    <div id='@divProps' style="display:none">
+
+        <table border="1" cellborder="1" cellspacing="0">
+            <tr><td>Nr</td><td>Name</td><td>Value</td></tr>
+            @foreach (var prop in curTable.Properties.OrderBy(it => it.Key))
+            {
+                <tr><td>@(++iProp)</td><td>@prop.Key</td><td>@prop.Value</td></tr>
+            }
+        </table>
+    </div>
+
+    <p>
+        Columns : @curTable.Columns.Count
+    </p>
     <table border="1" cellborder="1" cellspacing="0">
-
-        @foreach (DataRow col in columns.Rows)
+        <tr>
+            <td>Nr.</td>
+            <td>Name</td>
+            <td>Relations</td>
+            <td>Description</td>
+        </tr>
+        @foreach (var col in curTable.Columns)
         {
             iColumn++;
-            if (col["tableId"].ToString() != idTable)
+            var iRel = 0;
+            var rel = "";
+            var relColumns = curTable.Relations.Where(it => it.parent_column_id == col.Id).ToArray();
+            foreach (var rel1 in relColumns)
             {
-                continue;
+                iRel++;
+
+                var tableRel = tablesList[rel1.referenced_object_id];
+                var colRel = tableRel.Columns.First(it => it.Id == rel1.referenced_column_id);
+
+                rel += string.Format("{2})<a href='#{0}'>{1}</a>;<br />", tableRel.IdNode(), tableRel.Name + "." + colRel.Name, iRel);
+
             }
-            <tr><td>@iColumn</td><td port='@col["id"]'>@col["name"]</td><td>The field @col["name"] is used for </td></tr>
+
+            if (iRel == 0)
+            {
+                rel = "-";
+            }
+            var divPropsCol = "col_" + col.Id;
+
+
+
+
+            <tr>
+                <td>@iColumn</td>
+                <td port='@col.Id'>
+                    <b>@col.Name</b>
+
+                    <span onclick="javascript:toggledisplay('@divPropsCol')">
+                        (click for properties)
+                    </span>
+                    <div id='@divPropsCol' style="display:none">
+                        <table border="1" cellborder="1" cellspacing="0">
+                            <tr><td>Name</td><td>Value</td></tr>
+                            @foreach (var colProperty in col.Properties.OrderBy(it => it.Key))
+                            {
+                                <tr><td>@colProperty.Key</td><td>@colProperty.Value</td></tr>
+                            }
+                        </table>
+                    </div>
+                </td>
+                <td>@Raw(rel)</td>
+                <td>The field @col.Name is used for </td>
+            </tr>
         }
     </table>
 
     <br />
 
-        }//end foreach table
-
-
 }
 
+
+<script>
+    function toggledisplay(elementID) {
+        (function (style) {
+            style.display = style.display === 'none' ? '' : 'none';
+        })(document.getElementById(elementID).style);
+    }
+</script>

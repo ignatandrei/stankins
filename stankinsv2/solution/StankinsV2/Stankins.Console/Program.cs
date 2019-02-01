@@ -247,7 +247,6 @@ namespace Stankins.Console
                                     argNr++;
 
                                 } while (i < cmd.nrArguments);
-                                System.Console.WriteLine(cmd.typeOfObject +"=>"+ string.Join(',', ctorArgs));
                             }
                             
                             last = cmd.Create(ctorArgs);
