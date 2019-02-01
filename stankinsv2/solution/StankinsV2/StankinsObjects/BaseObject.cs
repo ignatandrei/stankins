@@ -74,19 +74,26 @@ namespace StankinsObjects
         public readonly CtorDictionary dataNeeded;
         public string Name { get ; set ; }
         public IDictionary<string, object> StoringDataBetweenCalls { get ; set ; }
-        protected IEnumerable<int> FastAddTables(IDataToSent receiveData , params DataTable[] items)
+        protected int[] FastAddTables(IDataToSent receiveData , params DataTable[] items)
         {
+            if (items?.Length < 0)
+                return null;
+            var res = new int[items.Length];
+            int i=0;
             foreach (var dt in items)
             {
-                var id = receiveData.AddNewTable(dt);
-                receiveData.Metadata.AddTable(dt, id);
-                yield return id;
-            }
             
+                res[i++] = FastAddTable(receiveData,dt);
+            }
+
+            return res;
+
         }
-        protected int FastAddTable(IDataToSent receiveData, DataTable item)
+        protected int FastAddTable(IDataToSent receiveData, DataTable dt)
         {
-            return FastAddTables(receiveData, item).ToArray()[0];
+            var id = receiveData.AddNewTable(dt);
+            receiveData.Metadata.AddTable(dt, id);
+            return id;
 
         }
         //todo : this should stay into IDataToSent

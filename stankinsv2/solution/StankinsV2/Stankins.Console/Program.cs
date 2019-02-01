@@ -12,6 +12,7 @@ using System.Text;
 using NPOI.HSSF.Record;
 using NPOI.HSSF.Record.Cont;
 using NPOI.OpenXmlFormats.Wordprocessing;
+using Stankins.AnalyzeSolution;
 using Stankins.File;
 using Stankins.Office;
 using StankinsCommon;
@@ -32,6 +33,8 @@ namespace Stankins.Console
             var sb = new StringBuilder();
             sb.AppendLine("");
             sb.AppendLine("Some fast usage  ");
+
+
             sb.AppendLine("1)SqlServer:");
             sb.AppendLine(
                 $"     1.1)To export diagram :{nl} stankins.console execute -o ExportDBDiagramHtmlAndDot -a {connectionString} -a metadata.html");
@@ -40,6 +43,9 @@ namespace Stankins.Console
                 $"     1.2)To export a table to excel:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString} -a nameofTheTable -a nameofTheTable.xlsx");
             sb.AppendLine(
                 $"     1.3)To export a table to csv:{nl} stankins.console execute -o ReceiveTableDatabaseSql -a {connectionString} -a nameofTheTable -o SenderAllTablesToFileCSV -a folderToSave");
+            sb.AppendLine("2)Solution:");
+            sb.AppendLine(
+                $"     2.2)execute - o ReceiverFromSolution - a path.to.the.sln");
 
             return sb.ToString();
 
@@ -96,6 +102,7 @@ namespace Stankins.Console
             createItem(typeof(ExportDBDiagramHtmlAndDot), 2);
             createItem(typeof(ExportTableToExcelSql), 3);
             createItem(typeof(ReceiveTableDatabaseSql), 2);
+            createItem(typeof(ReceiverFromSolution), 1);
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
             var versionString = Assembly.GetEntryAssembly()

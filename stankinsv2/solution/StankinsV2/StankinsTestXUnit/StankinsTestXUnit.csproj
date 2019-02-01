@@ -11,6 +11,9 @@
     <None Remove="TestResults\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Assets\TestSolutionAnalyzer\ConsoleApp1\Program.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Assets\bookmarks_11_17_17.html" />
     <None Remove="Assets\otherbooksmarks.html" />
   </ItemGroup>
@@ -19,6 +22,19 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\bookmarks_11_17_17.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\TestSolutionAnalyzer\ConsoleApp1\ConsoleApp1.csproj">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\TestSolutionAnalyzer\ConsoleApp1\Program.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\TestSolutionAnalyzer\TestSolutionAnalyzer.sln">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -34,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
+    <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
     <ProjectReference Include="..\Stankins.File\Stankins.File.csproj" />
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />

@@ -71,7 +71,7 @@ from sys.foreign_keys a
 
 
 
-            var ids=FastAddTables(receiveData, tables,columns,relations, tablesProperties).ToArray();
+            var ids=FastAddTables(receiveData, tables,columns,relations, tablesProperties);
             var r = new Relation();
             r.IdTableParent = ids[0];
             r.IdTableChild = ids[1];

@@ -43,6 +43,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Console", "Stankin
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Version", "Stankins.Version\Stankins.Version.csproj", "{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.AnalyzeSolution", "Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj", "{9B34C9FF-18B1-430E-8C13-2CED82B3509C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -129,6 +131,10 @@ Global
 		{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{67E45ED6-AF66-43FD-A9D5-91520F5DD8DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B34C9FF-18B1-430E-8C13-2CED82B3509C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B34C9FF-18B1-430E-8C13-2CED82B3509C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B34C9FF-18B1-430E-8C13-2CED82B3509C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B34C9FF-18B1-430E-8C13-2CED82B3509C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

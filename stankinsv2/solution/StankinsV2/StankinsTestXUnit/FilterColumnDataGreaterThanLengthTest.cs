@@ -5,40 +5,58 @@ using StankinsObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Stankins.AnalyzeSolution;
 using Xbehave;
 using Xunit;
 
 namespace StankinsTestXUnit
 {
+    [Trait("SolutionReceiverTest", "")]
+    [Trait("ExternalDependency", "0")]
+    public class SolutionReceiverTest
+    {
+        [Scenario]
+        public void TestSol()
+        {
+            var r = new ReceiverFromSolution(@"E:\ignatandrei\stankins\stankinsv2\solution\StankinsV2\StankinsV2.sln");
+            "Load".w(async () => await r.TransformData(null));
+
+        }
+    }
+
     [Trait("FilterColumnDataGreaterThanLength", "")]
     [Trait("ExternalDependency", "0")]
     public class FilterColumnDataGreaterThanLengthTest
     {
         [Scenario]
-        [Example("Car, Year{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003{NewLine}Mercedes, 2003", 3,1)]
+        [Example("Car, Year{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003{NewLine}Mercedes, 2003", 3, 1)]
         public void TestSimpleCSV(string fileContents, int NumberRows, int NumberRowsAfterFilter)
         {
             IReceive receiver = null;
             IDataToSent data = null;
             var nl = Environment.NewLine;
             fileContents = fileContents.Replace("{NewLine}", nl);
-            $"When I create the receiver csv for the content {fileContents}".w(()=> receiver = new ReceiverCSVText(fileContents));
+            $"When I create the receiver csv for the content {fileContents}".w(() =>
+                receiver = new ReceiverCSVText(fileContents));
             $"And I read the data".w(async () => data = await receiver.TransformData(null));
             $"Then should be a data".w(() => data.Should().NotBeNull());
-            $"With a table".w(()=>
+            $"With a table".w(() =>
             {
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRows}".w(()=> data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
-            $"And when I filter".w(async () => data = await new FilterColumnDataGreaterThanLength("Car", 5).TransformData(data));
-            $"Then should be a data".w(()=> data.Should().NotBeNull());
-            $"With a table".w(()=>
+            $"The number of rows should be {NumberRows}".w(() =>
+                data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
+            $"And when I filter".w(async () =>
+                data = await new FilterColumnDataGreaterThanLength("Car", 5).TransformData(data));
+            $"Then should be a data".w(() => data.Should().NotBeNull());
+            $"With a table".w(() =>
             {
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"The number of rows should be {NumberRowsAfterFilter}".w(()=> data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRowsAfterFilter));
+            $"The number of rows should be {NumberRowsAfterFilter}".w(() =>
+                data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRowsAfterFilter));
 
 
         }
