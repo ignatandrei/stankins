@@ -1,8 +1,9 @@
 # stankins
 
 
-##Version 2 right away
+## Version 2 
 
+# Continous Deploy
 [![Build Status](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master)](https://dev.azure.com/ignatandrei0674/stankinsv2/_build/latest?definitionId=1?branchName=master)
 
 [![codecov](https://codecov.io/gh/ignatandrei/stankins/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/stankins)
@@ -12,6 +13,7 @@
 [![DepShield Badge](https://depshield.sonatype.org/badges/ignatandrei/stankins/depshield.svg)](https://depshield.github.io)
 
 
+# Demo
 [Live demo https://azurestankins.azurewebsites.net](https://azurestankins.azurewebsites.net)
 
 
@@ -31,7 +33,7 @@
 <a href='https://cdn.rawgit.com/ignatandrei/stankins/74e25fbe/Documentation/Help/html/e6e8966d-f7ce-8571-98f2-b26beb8d1666.htm'>Example SQL Server to Elasticsearch</a>
 
 
-Console Global tool:
+Console Global tool:![Stankins.Console](https://img.shields.io/nuget/v/stankins.console.svg?label=Stankins%20Console&style=flat)
 
 dotnet tool install --global stankins.console
 
