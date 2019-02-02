@@ -53,7 +53,7 @@ namespace Stankins.AnalyzeSolution
 
             var dtProjects = new DataTable();
             dtProjects.TableName = "projects";
-            dtProjects.Columns.Add("ID", typeof(string));
+            dtProjects.Columns.Add("Id", typeof(string));
             dtProjects.Columns.Add("SolutionFilePath", typeof(string));
             dtProjects.Columns.Add("Name", typeof(string));
             dtProjects.Columns.Add("FilePath", typeof(string));
@@ -69,16 +69,15 @@ namespace Stankins.AnalyzeSolution
             dtAssemblies.TableName = "assemblies";
             dtAssemblies.Columns.Add("Name", typeof(string));
             dtAssemblies.Columns.Add("DisplayNameToken", typeof(string));
-            dtAssemblies.Columns.Add("DisplayName", typeof(string));
+            dtAssemblies.Columns.Add("FullName", typeof(string));
             dtAssemblies.Columns.Add("Version", typeof(string));
-            
-            var dtRelProjectAssemblies=new DataTable();
+
+            var dtRelProjectAssemblies = new DataTable();
             dtRelProjectAssemblies.TableName = "projectAssemblies";
             dtRelProjectAssemblies.Columns.Add("PrjId", typeof(string));
             dtRelProjectAssemblies.Columns.Add("DisplayName", typeof(string));
 
             var existsAssemblies = new List<string>();
-            FastAddTables(receiveData, dtSolution, dtProjects, dtRelationProject, dtAssemblies, dtRelProjectAssemblies);
             foreach (var prj in sol.Projects)
             {
                 var id = prj.Id.Id.ToString("N");
@@ -95,26 +94,29 @@ namespace Stankins.AnalyzeSolution
                     dtRelationProject.Rows.Add(id, prjProjectReference.ProjectId.Id.ToString("N"));
 
                 }
-                
+
                 var c = await prj.GetCompilationAsync();
+
                 foreach (var referencedAssemblyName in c.ReferencedAssemblyNames)
                 {
-                    var name = referencedAssemblyName.GetDisplayName(true);
-                    if (!existsAssemblies.Contains(name))
+                    var fullName = referencedAssemblyName.GetDisplayName(true);
+                    if (!existsAssemblies.Contains(fullName))
                     {
 
-                        existsAssemblies.Add(name);
+                        existsAssemblies.Add(fullName);
                         dtAssemblies.Rows.Add(referencedAssemblyName.Name,
                             referencedAssemblyName.GetDisplayName(false),
-                            name,
+                            fullName,
                             referencedAssemblyName.Version.ToString());
                     }
 
-                    dtRelProjectAssemblies.Rows.Add(id, name);
+                    dtRelProjectAssemblies.Rows.Add(id, fullName);
                 }
                 //TODO: project.MetadataReferences
 
             }
+
+            FastAddTables(receiveData, dtSolution, dtProjects, dtRelationProject, dtAssemblies, dtRelProjectAssemblies);
 
             return receiveData;
         }

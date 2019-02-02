@@ -8,7 +8,7 @@ using StankinsObjects;
 
 namespace Stankins.Razor
 {
-    public abstract class SenderToRazor : BaseObjectSender
+    public abstract class SenderToRazor : BaseObjectSender, ISenderToOutput
     {
 
         public SenderToRazor(string inputContents) : this(new CtorDictionary() {
@@ -26,7 +26,7 @@ namespace Stankins.Razor
             if (string.IsNullOrWhiteSpace(this.InputTemplate))
                 this.InputTemplate =DefaultText();
 
-            this.Name = nameof(SenderDBDiagramToDot);
+            this.Name = nameof(SenderToRazor);
 
 
 

@@ -9,10 +9,14 @@
     <None Remove="images\pk.png" />
     <None Remove="SenderDBDiagramHTMLDocument.cshtml" />
     <None Remove="SenderDBDiagramToDot.cshtml" />
+    <None Remove="SenderSolutionToDot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\pk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SenderSolutionToDot.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SenderDBDiagramHTMLDocument.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

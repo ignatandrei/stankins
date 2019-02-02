@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Stankins.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "execute -o ReceiverFromSolution -a \"E:\\StankinsV2\\StankinsV2.sln\" -o SenderSolutionToDot -a \"\""
+    }
+  }
+}

@@ -1,0 +1,149 @@
+﻿@using  System.Data;
+@using  System;
+@using  System.Linq;
+@using Stankins.Interfaces;
+@using  System.Collections.Generic;
+@using RazorLight
+
+@inherits TemplatePage<IDataToSent>
+@{
+
+    var projects = Model.FindAfterName("projects").Value;
+    var projectReferences = Model.FindAfterName("projectReferences").Value;
+    var projectAssemblies =  Model.FindAfterName("projectAssemblies").Value;
+    var assemblies = Model.FindAfterName("assemblies").Value;
+    var nl=Environment.NewLine;
+    var iTable = 0;
+
+
+}
+<div></div>
+@functions{
+
+
+    class Project
+    {
+
+        public string Id;
+        public string Name;
+        public Dictionary<string, Project> RefProjects = new Dictionary<string, Project>();
+        public Dictionary<string, AssemblyPrj> Assemblies= new  Dictionary<string, AssemblyPrj>();
+        public string IdNode(){
+            return "prj"+Id;
+        }
+    }
+    class AssemblyPrj
+    {
+        public string Name;
+        public string FullName;
+        public string Version;
+    }
+
+}
+
+@{
+    var projectList = new Dictionary<string, Project>();
+    foreach (DataRow proj in projects.Rows)
+    {
+        var p = new Project();
+        p.Id = proj["Id"].ToString();
+        p.Name = proj["Name"].ToString();
+        projectList.Add(p.Id,p);
+
+    }
+    foreach(DataRow prjRef in projectReferences.Rows)
+    {
+
+        var prj=projectList[prjRef["PrjId"].ToString()];
+        var prejReferenced=projectList[prjRef["RefPrjId"].ToString()];
+        prj.RefProjects.Add(prejReferenced.Id,prejReferenced);
+    }
+
+}
+<div id="mydb"></div>
+<script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/viz.js'></script>
+<script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/full.render.js'></script>
+
+<script>
+
+    var t = `
+    digraph {
+    graph [pad="0.5", nodesep="0.5", ranksep="2"];
+    node [shape=plain]
+    rankdir=LR;
+
+
+    @{
+        var relation = "";
+
+        foreach (var kv in projectList)
+        {
+
+            var table = kv.Value;
+            var idNode = table.IdNode();
+            bool existRelation = false;
+
+            foreach (var rel in table.RefProjects)
+            {
+
+                existRelation = true;
+                var tblRelated = rel.Value;
+
+
+                //TODO: edge labels: http://www.graphviz.org/doc/info/shapes.html#html
+                relation += $"{idNode} -> {tblRelated.IdNode()};";
+
+
+
+            }//end foreach relation
+            if (!existRelation)
+            {
+                relation += string.Format("{0};", idNode);
+            }
+            relation += nl;
+            @idNode
+
+            @Raw("[label =<" + nl);
+
+            <table border="0" cellborder="1" cellspacing="0">
+                <tr><td href='#@idNode'>@table.Name</td></tr>
+
+            </table>
+
+            @Raw(">];" + nl);
+
+        }//end foreach table
+        @string.Format("subgraph cluster_database");
+        @Raw("{" + nl);
+        @Raw("style = filled;" + nl);
+
+        @Raw("color = lightgrey;" + nl);
+
+        @Raw("node[style = filled, color = white];" + nl);
+
+
+        @Raw(string.Format("label = \"Solution {0}\";" + nl, ""));
+        @if (!string.IsNullOrWhiteSpace(relation))
+        {
+            @Raw(relation)
+        }
+        @Raw("}");
+
+
+    }
+
+
+
+    }//end digraph
+
+    `;
+
+
+    let viz = new Viz();
+    viz.renderSVGElement(t)
+        .then(function (element) {
+            document.getElementById('mydb').appendChild(element);
+        })
+        .catch(error => window.alert('please debug the error' + error));
+
+  </script>  

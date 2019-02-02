@@ -103,6 +103,8 @@ namespace Stankins.Console
             createItem(typeof(ExportTableToExcelSql), 3);
             createItem(typeof(ReceiveTableDatabaseSql), 2);
             createItem(typeof(ReceiverFromSolution), 1);
+            createItem(typeof(SenderSolutionToDot), 1);
+            //createItem(typeof(SenderOutputToFolder), 2);
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
             var versionString = Assembly.GetEntryAssembly()
@@ -255,14 +257,15 @@ namespace Stankins.Console
 
                         }
 
-                        var sender = last as ISender;
-                        if (sender == null)
+                       
+                        var output = last as ISenderToOutput;
+                        if (output != null)
                         {
                             System.Console.WriteLine("exporting default output");
-                            sender = new SenderOutputToFolder("", true);
+                            var sender = new SenderOutputToFolder("", true);
                             data=await sender.TransformData(data);
-                            System.Console.WriteLine("exporting all tables to csv");
-                            await new SenderAllTablesToFileCSV("").TransformData(data);
+                            //System.Console.WriteLine("exporting all tables to csv");
+                            //await new SenderAllTablesToFileCSV("").TransformData(data);
 
                         }
 
