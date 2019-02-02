@@ -12,7 +12,7 @@ using Xunit;
 using static System.Environment;
 namespace StankinsTestXUnit
 {
-    [Trait("TransformerHtmlAttribute", "")]
+    [Trait("ReceiverHtmlRegex", "")]
     [Trait("ExternalDependency", "0")]
     public class TestReceiverHtmlRegex
     {
