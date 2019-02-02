@@ -70,7 +70,7 @@
         {
             return this.Keys.Exists(it => it.ColumnId == columnId && it.TypeKey == "PRIMARY_KEY_CONSTRAINT");
         }
-        public IEnumerable<Column> ArrangeByPKName()
+        public IEnumerable<Column> ArrangeColsByPKName()
         {
             var pks = this.Columns.Where(it => this.IsPK(it.Id)).OrderBy(it => it.Name).ToArray();
             foreach (var c in pks)
@@ -329,7 +329,7 @@ Tables:
             <td>Relations</td>
             <td>Description</td>
         </tr>
-        @foreach (var col in curTable.ArrangeByPKName())
+        @foreach (var col in curTable.ArrangeColsByPKName())
         {
             iColumn++;
             var iRel = 0;
@@ -358,10 +358,10 @@ Tables:
             <tr>
                 <td>@iColumn</td>
                 <td port='@col.Id'>
-                    <b>@col.Name</b>
+                    <strong>@col.Name</strong>
                     @if (isPK)
                     {
-                        <img src='http://pngimg.com/uploads/key/key_PNG1180.png' height="20" width="20" />
+                        <img src='http://pngimg.com/uploads/key/key_PNG1180.png' height="20" width="20" alt="PK" />
                     }
 
 
