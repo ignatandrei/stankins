@@ -66,16 +66,27 @@ from sys.foreign_keys a
             var props=
                 "select t.object_id as id, 'tables' as TableName,t.* from sys.tables t inner join sys.schemas s on t.schema_id = s.schema_id";
 
-            var tablesPropertiesNew=await FromSqlToProperties(props);
-            tablesProperties.Merge(tablesPropertiesNew,true,MissingSchemaAction.Add);
+            var propsNew=await FromSqlToProperties(props);
+            tablesProperties.Merge(propsNew,true,MissingSchemaAction.Add);
 
 
             props =
                 "select cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, 'columns' as TableName,c.* from sys.columns c inner join sys.tables o on o.object_id = c.object_id";
 
-            tablesPropertiesNew = await FromSqlToProperties(props);
-            tablesProperties.Merge(tablesPropertiesNew, true, MissingSchemaAction.Add);
+            propsNew = await FromSqlToProperties(props);
+            tablesProperties.Merge(propsNew, true, MissingSchemaAction.Add);
 
+            props = @"SELECT 
+cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, 
+ 'columns' as TableName,
+
+schemacols.* FROM INFORMATION_SCHEMA.COLUMNS schemaCols
+inner join sys.columns c on schemaCols.COLUMN_NAME = c.name
+inner join sys.tables t on t.object_id = c.object_id and t.name = schemaCols.TABLE_NAME
+inner join sys.schemas s on t.schema_id = s.schema_id and s.name = schemaCols.TABLE_SCHEMA
+";
+            propsNew = await FromSqlToProperties(props);
+            tablesProperties.Merge(propsNew, true, MissingSchemaAction.Add);
 
 
             var ids=FastAddTables(receiveData, tables,columns,relations, tablesProperties);

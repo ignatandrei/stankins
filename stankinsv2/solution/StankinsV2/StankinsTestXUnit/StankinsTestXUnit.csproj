@@ -14,10 +14,14 @@
     <Compile Remove="Assets\TestSolutionAnalyzer\ConsoleApp1\Program.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Assets\bg.html" />
     <None Remove="Assets\bookmarks_11_17_17.html" />
     <None Remove="Assets\otherbooksmarks.html" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\bg.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\otherbooksmarks.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
