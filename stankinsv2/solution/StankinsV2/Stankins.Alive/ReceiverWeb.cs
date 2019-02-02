@@ -20,6 +20,8 @@ namespace Stankins.Alive
             Method = GetMyDataOrDefault<string>(nameof(Method), "GET");
             if (string.IsNullOrWhiteSpace(Method))
                 Method = "GET";
+
+            Name = nameof(ReceiverWeb);
         }
         public ReceiverWeb(string url) : this(url, null)
         {

@@ -3,14 +3,16 @@ using StankinsCommon;
 
 namespace Stankins.Razor
 {
-    public class SenderDBDiagramHTMLDocument : SenderDBDiagram, ISenderToOutput
+    public class SenderDBDiagramHTMLDocument : SenderToRazor, ISenderToOutput
     {
         public SenderDBDiagramHTMLDocument(string inputContents=null) : base(inputContents)
         {
+            this.Name = nameof(SenderDBDiagramHTMLDocument);
         }
 
         public SenderDBDiagramHTMLDocument(CtorDictionary dataNeeded) : base(dataNeeded)
         {
+            this.Name = nameof(SenderDBDiagramHTMLDocument);
         }
 
         public override string DefaultText()

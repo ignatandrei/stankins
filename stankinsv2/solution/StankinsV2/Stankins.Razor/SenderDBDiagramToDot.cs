@@ -7,16 +7,16 @@ using StankinsObjects;
 namespace Stankins.Razor
 {
     
-    public class SenderDBDiagramToDot : SenderDBDiagram, ISenderToOutput
+    public class SenderDBDiagramToDot : SenderToRazor, ISenderToOutput
     {
 
         public SenderDBDiagramToDot(string inputContents=null) : base(inputContents)
         {
-
+            this.Name = nameof(SenderDBDiagramToDot);
         }
         public SenderDBDiagramToDot(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-           
+            this.Name = nameof(SenderDBDiagramToDot);
         }
 
         public override string DefaultText()

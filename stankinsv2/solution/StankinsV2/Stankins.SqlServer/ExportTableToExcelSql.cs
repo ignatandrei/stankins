@@ -15,7 +15,7 @@ namespace Stankins.SqlServer
     {
         public ExportTableToExcelSql(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-
+            this.Name = nameof(ExportTableToExcelSql);
         }
         //sql injection?
         public ExportTableToExcelSql(string connectionString, string nameTable,string fileName) : this(new CtorDictionary()

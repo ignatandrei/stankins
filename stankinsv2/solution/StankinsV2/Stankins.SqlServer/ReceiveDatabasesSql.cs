@@ -18,10 +18,11 @@ namespace Stankins.SqlServer
         }
         public ReceiveDatabasesSql(CtorDictionary dict) : base(dict)
         {
-
+            this.Name = nameof(ReceiveDatabasesSql);
         }
         public ReceiveDatabasesSql(string connectionString) : base(connectionString, typeof(SqlConnection).FullName)
         {
+            this.Name = nameof(ReceiveDatabasesSql);
         }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {

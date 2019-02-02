@@ -17,6 +17,7 @@ namespace StankinsObjects
         }
         public TransformerToOneTable(CtorDictionary dataNeeded) : base(null)
         {
+            this.Name = nameof(TransformerToOneTable);
         }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)

@@ -16,7 +16,7 @@ namespace StankinsObjects
         }
         public TransformTrim(CtorDictionary dataNeeded) : base(null)
         {
-            
+            this.Name = nameof(TransformTrim);
         }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {

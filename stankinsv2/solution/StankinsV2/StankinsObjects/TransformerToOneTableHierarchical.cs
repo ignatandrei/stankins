@@ -23,6 +23,7 @@ namespace StankinsObjects
             this.nameTable2 = GetMyDataOrThrow<string>(nameof(nameTable2));
             this.field2 = GetMyDataOrThrow<string>(nameof(field2));
             this.nameTableResult = GetMyDataOrThrow<string>(nameof(nameTableResult));
+            this.Name = nameof(TransformerToOneTableHierarchical);
 
         }
         public TransformerToOneTableHierarchical(string nameTable1, string field1, string nameTable2,string field2, string nameTableResult)

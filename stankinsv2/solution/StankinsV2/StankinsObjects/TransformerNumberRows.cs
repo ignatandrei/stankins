@@ -16,6 +16,7 @@ namespace StankinsObjects
 
             NameColumn= base.GetMyDataOrThrow<string>(nameof(NameColumn));
             Separator = base.GetMyDataOrDefault<string>(nameof(Separator), Environment.NewLine);
+            Name = nameof(TransformerAggregateString);
         }
         public TransformerAggregateString(string nameColumn,string separator) : this(new CtorDictionary()
         {
@@ -24,8 +25,7 @@ namespace StankinsObjects
 
         })
         {
-            NameColumn = nameColumn;
-            Separator = separator;
+           
         }
 
         public string NameColumn { get; }

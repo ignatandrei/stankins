@@ -27,6 +27,7 @@ namespace Stankins.Alive
         {
             this.FileName = GetMyDataOrThrow<string>(nameof(FileName));
             this.Arguments = GetMyDataOrDefault<string>(nameof(Arguments), "");
+            this.Name = nameof(ReceiverProcessAlive);
         }
         DataTable results;
         Stopwatch sw;

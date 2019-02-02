@@ -17,7 +17,7 @@ namespace StankinsObjects
         }
         public Verifier(CtorDictionary dataNeeded): base(null)
         {
-
+            this.Name = nameof(Verifier);
         }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {

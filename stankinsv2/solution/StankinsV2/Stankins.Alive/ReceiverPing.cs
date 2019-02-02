@@ -15,6 +15,7 @@ namespace Stankins.Alive
         public ReceiverPing(CtorDictionary dict) : base(dict)
         {
             NameSite =GetMyDataOrThrow<string>(nameof(NameSite));
+            Name = nameof(ReceiverPing);
         }
         public ReceiverPing(string nameSite):this(new CtorDictionary()
         {

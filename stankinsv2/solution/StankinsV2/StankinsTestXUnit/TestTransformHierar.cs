@@ -10,7 +10,7 @@ using Xunit;
 
 namespace StankinsTestXUnit
 {
-    [Trait("objects", "transformer")]
+    [Trait("TransformerToOneTableHierarchical", "")]
     [Trait("ExternalDependency", "0")]
 
     public class TestTransformHierar

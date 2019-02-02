@@ -19,6 +19,7 @@ namespace StankinsObjects
         {
             this.FormatName = base.GetMyDataOrThrow<string>(nameof(FormatName));
             this.NrStart = base.GetMyDataOrThrow<int>(nameof(NrStart));
+            this.Name = nameof(FilterRenameTablesInOrder);
         }
 
         public string FormatName { get; }

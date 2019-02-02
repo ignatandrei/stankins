@@ -11,8 +11,9 @@ namespace StankinsObjects
             }
            )
         {
-            
+            this.Name = nameof(FilterColumnDataGreaterThanLength);
         }
+       
         public FilterColumnDataGreaterThanLength(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             

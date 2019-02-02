@@ -19,6 +19,7 @@ namespace StankinsObjects
         public FilterRemoveTable(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.NameTable = base.GetMyDataOrThrow<string>(nameof(NameTable));
+            this.Name = nameof(FilterRemoveTable);
         }
 
         public string NameTable { get; }

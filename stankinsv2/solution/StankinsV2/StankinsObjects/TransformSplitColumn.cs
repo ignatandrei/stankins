@@ -17,9 +17,10 @@ namespace StankinsObjects
 
         public TransformSplitColumn(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-                this.nameTable = base.GetMyDataOrThrow<string>(nameof(nameTable));
-                this.nameColumn = base.GetMyDataOrThrow<string>(nameof(nameColumn));
-                this.separator = base.GetMyDataOrThrow<char>(nameof(separator));            
+            this.nameTable = base.GetMyDataOrThrow<string>(nameof(nameTable));
+            this.nameColumn = base.GetMyDataOrThrow<string>(nameof(nameColumn));
+            this.separator = base.GetMyDataOrThrow<char>(nameof(separator));
+            Name = nameof(TransformSplitColumn);
         }
 
         public TransformSplitColumn(string nameTable, string nameColumn, char separator)

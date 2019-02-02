@@ -16,10 +16,11 @@ namespace Stankins.SqlServer
     {
         public ReceiveMetadataFromDatabaseSql(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            
+            this.Name = nameof(ReceiveMetadataFromDatabaseSql);
         }
         public ReceiveMetadataFromDatabaseSql(string connectionString) : base(connectionString, typeof(SqlConnection).FullName)
         {
+            this.Name = nameof(ReceiveMetadataFromDatabaseSql);
         }
         protected override DbConnection NewConnection()
         {

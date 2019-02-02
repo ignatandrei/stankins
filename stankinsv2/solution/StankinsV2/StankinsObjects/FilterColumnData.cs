@@ -23,6 +23,7 @@ namespace StankinsObjects
         {
             this.NameColumn = base.GetMyDataOrThrow<string>(nameof(NameColumn));
             this.Expression = base.GetMyDataOrThrow<string>(nameof(Expression));
+            this.Name = nameof(FilterColumnData);
         }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)

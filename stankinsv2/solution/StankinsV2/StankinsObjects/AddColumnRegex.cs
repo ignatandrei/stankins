@@ -24,6 +24,7 @@ namespace StankinsObjects
         {
             ColumnName = GetMyDataOrThrow<string>(nameof( ColumnName));
             Expression = GetMyDataOrThrow<string>(nameof(Expression));
+            this.Name = nameof(AddColumnRegex);
         }
 
         public string ColumnName { get; }

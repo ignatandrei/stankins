@@ -16,7 +16,7 @@ namespace Stankins.SqlServer
     {
         public ExportDBDiagramHtmlAndDot(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-
+            this.Name = nameof(ExportDBDiagramHtmlAndDot);
         }
 
         public ExportDBDiagramHtmlAndDot(string connectionString, string fileName) : this(new CtorDictionary()

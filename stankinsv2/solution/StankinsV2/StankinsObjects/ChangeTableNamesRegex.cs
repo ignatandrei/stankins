@@ -27,6 +27,7 @@ namespace StankinsObjects
         {
             
             Expression = GetMyDataOrThrow<string>(nameof(Expression));
+            this.Name = nameof(ChangeTableNamesRegex);
         }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)

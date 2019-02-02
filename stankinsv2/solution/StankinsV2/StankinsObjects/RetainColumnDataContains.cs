@@ -14,7 +14,7 @@ namespace StankinsObjects
         }
         public FilterRetainColumnDataContains(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            
+            this.Name = nameof(FilterRetainColumnDataContains);
         }
 
     }

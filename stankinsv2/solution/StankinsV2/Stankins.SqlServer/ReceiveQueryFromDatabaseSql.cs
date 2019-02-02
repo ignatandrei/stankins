@@ -14,14 +14,14 @@ namespace Stankins.SqlServer
     {
         public ReceiveTableDatabaseSql(CtorDictionary dict) : base(dict)
         {
-           
-            this.Name = typeof(ReceiveTableDatabaseSql).FullName;
+
+            this.Name = nameof(ReceiveTableDatabaseSql);
             
         }
         public ReceiveTableDatabaseSql(string connectionString, string nameTable) : base(connectionString, $"select * from {nameTable}")
         {
-           
-           
+
+            this.Name = nameof(ReceiveTableDatabaseSql);
         }
     }
 
@@ -33,11 +33,13 @@ namespace Stankins.SqlServer
         {
             this.sql = GetMyDataOrThrow<string>(nameof(sql));
             this.connectionType = typeof(SqlConnection).FullName;
+            this.Name = nameof(ReceiveQueryFromDatabaseSql);
         }
         public ReceiveQueryFromDatabaseSql(string connectionString, string sql) : base(connectionString, typeof(SqlConnection).FullName)
         {
             this.sql = sql;
             base.dataNeeded.Add(nameof(sql),sql);
+            this.Name = nameof(ReceiveQueryFromDatabaseSql);
         }
         protected override DbConnection NewConnection()
         {

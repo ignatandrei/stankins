@@ -8,10 +8,10 @@ using StankinsObjects;
 
 namespace Stankins.Razor
 {
-    public abstract class SenderDBDiagram : BaseObjectSender
+    public abstract class SenderToRazor : BaseObjectSender
     {
 
-        public SenderDBDiagram(string inputContents) : this(new CtorDictionary() {
+        public SenderToRazor(string inputContents) : this(new CtorDictionary() {
                 { nameof(inputContents), inputContents}
 
             }
@@ -19,12 +19,14 @@ namespace Stankins.Razor
         {
 
         }
-        public SenderDBDiagram(CtorDictionary dataNeeded) : base(dataNeeded)
+        public SenderToRazor(CtorDictionary dataNeeded) : base(dataNeeded)
         {
 
             this.InputTemplate = base.GetMyDataOrDefault<string>(nameof(InputTemplate), null);
             if (string.IsNullOrWhiteSpace(this.InputTemplate))
                 this.InputTemplate =DefaultText();
+
+            this.Name = nameof(SenderDBDiagramToDot);
 
 
 

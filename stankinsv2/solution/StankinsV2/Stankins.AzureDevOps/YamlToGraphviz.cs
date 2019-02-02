@@ -1,4 +1,5 @@
 ﻿using Stankins.Interfaces;
+using StankinsCommon;
 using StankinsObjects;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,10 @@ namespace Stankins.AzureDevOps
 {
     public class YamlToGraphviz : BaseObject, ISender, IStreaming<string>
     {
-
+        public YamlToGraphviz(CtorDictionary dict) : base(dict)
+        {
+            this.Name = nameof(YamlToGraphviz);
+        }
         public YamlToGraphviz() : base(null)
         {
         }

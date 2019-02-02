@@ -28,6 +28,7 @@ namespace SenderInterpretedRazor
 
             this.ContentFile = base.GetMyDataOrThrow<string>(nameof(ContentFile));
             this.FolderName =  base.GetMyDataOrThrow<string>(nameof(FolderName));
+            this.Name = nameof(SenderRazorTableOneByOne);
 
         }
 

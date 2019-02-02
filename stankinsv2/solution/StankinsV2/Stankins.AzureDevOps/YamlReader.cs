@@ -19,6 +19,7 @@ namespace Stankins.AzureDevOps
         {
             this.fileName = GetMyDataOrThrow<string>(nameof(fileName));
             this.encoding = GetMyDataOrDefault(nameof(encoding), Encoding.UTF8);
+            this.Name = nameof(YamlReader);
         }
         public YamlReader(string fileName, Encoding encoding) :this(new CtorDictionary()
         {

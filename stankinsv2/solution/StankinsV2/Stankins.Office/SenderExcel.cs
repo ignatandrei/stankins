@@ -16,8 +16,7 @@ namespace Stankins.Office
     {
         public SenderExcel(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            
-
+            this.Name = nameof(SenderExcel);
 
         }
         public SenderExcel(string fileName) : this(new CtorDictionary()
@@ -27,7 +26,7 @@ namespace Stankins.Office
             {"addKey",false }
         })
         {
-
+            this.Name = nameof(SenderExcel);
         }
 
         
@@ -41,7 +40,7 @@ namespace Stankins.Office
         {
             FileName = base.GetMyDataOrThrow<string>(nameof(FileName));
 
-
+            this.Name = nameof(SenderOutputExcel);
         }
         public SenderOutputExcel(string fileName) : this(new CtorDictionary()
         {

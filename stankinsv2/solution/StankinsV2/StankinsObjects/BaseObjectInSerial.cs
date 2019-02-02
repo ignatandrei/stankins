@@ -12,6 +12,7 @@ namespace StankinsObjects
         public BaseObjectInSerial(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             Types = new List<string>();
+            this.Name = nameof(BaseObjectInSerial);
         }
         public void AddType(string type)
         {

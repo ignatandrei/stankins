@@ -22,6 +22,7 @@ namespace Stankins.File
         public SenderAllTablesToFileCSV(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             FolderToSave = GetMyDataOrDefault<string>(nameof(FolderToSave), Environment.CurrentDirectory);
+            Name = nameof(SenderAllTablesToFileCSV);
         }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {

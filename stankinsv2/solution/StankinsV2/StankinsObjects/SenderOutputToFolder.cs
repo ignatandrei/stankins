@@ -27,6 +27,7 @@ namespace StankinsObjects
         {
             FolderToSave = GetMyDataOrDefault<string>(nameof(FolderToSave), Environment.CurrentDirectory);
             addKey = GetMyDataOrDefault<bool>(nameof(addKey), true);
+            Name = nameof(SenderOutputToFolder);
         }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {

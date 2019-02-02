@@ -14,6 +14,7 @@ namespace StankinsObjects
 
             NameTable = base.GetMyDataOrThrow<string>(nameof(NameTable));
             NrRows = base.GetMyDataOrThrow<int>(nameof(NrRows));
+            Name = nameof(TransformerOneColumnToMultiTablesByNumber);
         }
         public TransformerOneColumnToMultiTablesByNumber(string nameTable, int nrRows) : this(new CtorDictionary()
         {

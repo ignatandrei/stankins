@@ -21,6 +21,7 @@ namespace StankinsObjects
         public FilterRemoveColumn(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.NameColumn = base.GetMyDataOrThrow<string>(nameof(NameColumn));
+            this.Name = nameof(FilterRemoveColumn);
         }
 
         public async override Task<IDataToSent> TransformData(IDataToSent receiveData)

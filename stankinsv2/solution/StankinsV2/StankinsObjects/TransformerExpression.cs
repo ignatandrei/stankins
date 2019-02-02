@@ -13,6 +13,7 @@ namespace StankinsObjects
         {
            
             NameTable = base.GetMyDataOrThrow<string>(nameof(NameTable));
+            Name = nameof(TransformerAddColumnExpressionByTable);
         }
         public TransformerAddColumnExpressionByTable(string nameTable, string expression, string newColumnName) : this(new CtorDictionary()
         {

@@ -22,6 +22,7 @@ namespace StankinsObjects
         public FilterTablesWithColumn(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.NameColumnToKeep = base.GetMyDataOrThrow<string>(nameof(NameColumnToKeep));
+            this.Name = nameof(FilterTablesWithColumn);
         }
 
         public string NameColumnToKeep { get; }

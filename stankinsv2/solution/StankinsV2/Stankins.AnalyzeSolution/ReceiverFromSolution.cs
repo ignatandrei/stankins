@@ -19,6 +19,7 @@ namespace Stankins.AnalyzeSolution
         public ReceiverFromSolution(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.fileNameSln = GetMyDataOrThrow<string>(nameof(fileNameSln));
+            this.Name = nameof(ReceiverFromSolution);
         }
         public ReceiverFromSolution(string fileNameSln) : this(new CtorDictionary()
         {
@@ -26,7 +27,7 @@ namespace Stankins.AnalyzeSolution
             
         })
         {
-            this.fileNameSln = fileNameSln;
+           
         }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
@@ -94,7 +95,7 @@ namespace Stankins.AnalyzeSolution
                     dtRelationProject.Rows.Add(id, prjProjectReference.ProjectId.Id.ToString("N"));
 
                 }
-
+                
                 var c = await prj.GetCompilationAsync();
                 foreach (var referencedAssemblyName in c.ReferencedAssemblyNames)
                 {

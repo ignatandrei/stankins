@@ -13,7 +13,7 @@ namespace Stankins.SqlServer
     {
         public ReceiveQueryFromFileSql(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            
+            this.Name = nameof(ReceiveQueryFromFileSql);
         }
 
         public ReceiveQueryFromFileSql(string fileName, string connectionString) : this(new CtorDictionary()
@@ -26,7 +26,7 @@ namespace Stankins.SqlServer
 
         })
         {
-
+            
         }
     }
 }

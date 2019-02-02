@@ -12,11 +12,12 @@ namespace StankinsReceiverDB
         public DBReceiverStatement(CtorDictionary dict) : base(dict)
         {
             stmtSql = GetMyDataOrThrow<string>(nameof(stmtSql));
+            this.Name = nameof(DBReceiverStatement);
         }
         public DBReceiverStatement(string connectionString, string connectionType, string sql) : base(connectionString,connectionType)
         {
             this.stmtSql = sql;
-            
+            this.Name = nameof(DBReceiverStatement);
         }
         
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)

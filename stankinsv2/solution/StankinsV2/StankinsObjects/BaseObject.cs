@@ -70,6 +70,7 @@ namespace StankinsObjects
             //TODO: read this from somewhere
             StoringDataBetweenCalls = new Dictionary<string, object>();
             this.dataNeeded = dataNeeded;
+            //this.Name = this.GetType().Name;
         }
         public readonly CtorDictionary dataNeeded;
         public string Name { get ; set ; }
@@ -140,10 +141,10 @@ namespace StankinsObjects
         protected T GetMyDataOrThrow<T>(string name)
         {
             if (dataNeeded == null)
-                throw new ArgumentException($"{nameof(dataNeeded)} is null");
+                throw new ArgumentException($"{nameof(dataNeeded)} is null", nameof(dataNeeded));
             name = name?.ToLowerInvariant();
             if (!dataNeeded.ContainsKey(name))
-                throw new ArgumentException($"{nameof(dataNeeded)} does not contain {name}");
+                throw new ArgumentException($"{nameof(dataNeeded)} does not contain {name}", name);
 
             return (T)dataNeeded[name];
         }

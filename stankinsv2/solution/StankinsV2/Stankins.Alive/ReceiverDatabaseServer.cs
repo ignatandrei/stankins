@@ -21,6 +21,7 @@ namespace Stankins.Alive
         {
             connectionString = GetMyDataOrThrow<string>(nameof(connectionString));
             connectionType = GetMyDataOrThrow<string>(nameof(connectionType));
+            this.Name = nameof(ReceiverDBServer);
         }
         public ReceiverDBServer(string connectionString,string connectionType) : this(new CtorDictionary()
         {
@@ -77,7 +78,7 @@ namespace Stankins.Alive
             {nameof(connectionType),typeof(T).ToString() }
         })
         {
-
+            this.Name = nameof(ReceiverDBSqlServer);
         }
         protected override DbConnection NewConnection()
         {
@@ -94,7 +95,7 @@ namespace Stankins.Alive
         }
         public ReceiverDBSqlServer(string connectionString) : base(connectionString)
         {
-
+            this.Name = nameof(ReceiverDBSqlServer);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Stankins.HTML
         }
         public ReceiverHtmlTables(string file, Encoding encoding) : base(file,encoding)
         {
-           
+            this.Name = nameof(ReceiverHtmlTables);
         }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)

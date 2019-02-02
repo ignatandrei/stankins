@@ -26,6 +26,7 @@ namespace StankinsObjects
 
             this.OldName = base.GetMyDataOrThrow<string>(nameof(OldName));
             this.NewName = base.GetMyDataOrThrow<string>(nameof(NewName));
+            this.Name = nameof(ChangeColumnName);
 
         }
 
@@ -60,13 +61,14 @@ namespace StankinsObjects
             }
            )
         {
-            NameColumn = nameColumn;
-            Expression = expression;
+            
+
         }
         public FilterColumnDataWithRegex(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.NameColumn = base.GetMyDataOrThrow<string>(nameof(NameColumn));
             this.Expression = base.GetMyDataOrThrow<string>(nameof(Expression));
+            this.Name = nameof(FilterColumnDataWithRegex);
         }
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
