@@ -16,6 +16,7 @@ namespace StankinsReceiverDB
         public DBReceiverStatement(string connectionString, string connectionType, string sql) : base(connectionString,connectionType)
         {
             this.stmtSql = sql;
+            
         }
         
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
@@ -26,9 +27,8 @@ namespace StankinsReceiverDB
                 receiveData = new DataToSentTable();
 
             }
-            var dt = await FromSql(stmtSql);
-            var id = receiveData.AddNewTable(dt);
-            receiveData.Metadata.AddTable(dt, id);
+            var dt = await FromSql(stmtSql,"");
+            FastAddTable(receiveData,dt);
             return receiveData;
         }
 

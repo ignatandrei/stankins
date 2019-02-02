@@ -33,7 +33,7 @@ namespace StankinsReceiverDB
             var t = Type.GetType(connectionType);
             return Activator.CreateInstance(t) as DbConnection;
         }
-        protected async Task<DataTable> FromSql(string stmtSql)
+        protected async Task<DataTable> FromSql(string stmtSql,string name)
         {
             using (var cn = NewConnection())
             {
@@ -45,8 +45,9 @@ namespace StankinsReceiverDB
                     cmd.CommandType = CommandType.Text;
                     using (var ir = await cmd.ExecuteReaderAsync())
                     {
-                        var dt = new DataTable();
+                        var dt = new DataTable();                     
                         dt.Load(ir);
+                        dt.TableName = name;
                         return dt;
 
 

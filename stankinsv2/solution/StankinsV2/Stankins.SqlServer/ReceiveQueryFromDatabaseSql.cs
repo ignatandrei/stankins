@@ -49,7 +49,7 @@ namespace Stankins.SqlServer
             if(receiveData == null)
                 receiveData=new DataToSentTable();
 
-            var dt = await FromSql(sql);
+            var dt = await FromSql(sql,"");
             FastAddTables(receiveData, dt);
             return receiveData;
         }

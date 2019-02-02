@@ -4,6 +4,7 @@
 @using Stankins.Interfaces;
 @using  System.Collections.Generic;
 @using RazorLight
+
 @inherits TemplatePage<IDataToSent>
 @{
 
@@ -11,6 +12,7 @@
     var columns = Model.FindAfterName("columns").Value;
     var relations = Model.FindAfterName("relations").Value;
     var properties = Model.FindAfterName("properties").Value;
+    var keys = Model.FindAfterName("keys").Value;
     var nl = Environment.NewLine;
     var iTable = 0;
 
@@ -35,6 +37,13 @@
         public string referenced_object_id;
         public string referenced_column_id;
     }
+    class KeyTable
+    {
+        public string Id;
+        public string Name;
+        public string TypeKey;
+        public string ColumnId;
+    }
     class Table
     {
         public string Id;
@@ -42,6 +51,7 @@
         public List<Column> Columns = new List<Column>();
         public Dictionary<string, string> Properties = new Dictionary<string, string>();
         public List<Relation> Relations = new List<Relation>();
+        public List<KeyTable> Keys = new List<KeyTable>();
         public string IdNode()
         {
             return string.Format("table{0}", Id);
@@ -51,6 +61,23 @@
             float r = Relations.Count;
             float c = Columns.Count;
             return r / c;
+        }
+        public bool IsPK(string columnId)
+        {
+            return this.Keys.Exists(it => it.ColumnId == columnId && it.TypeKey == "PRIMARY_KEY_CONSTRAINT");
+        }
+        public bool HasPk()
+        {
+            foreach (var col in Columns)
+            {
+                var exist = IsPK(col.Id);
+                if (exist)
+                {
+                    return true;
+                }
+
+            }
+            return false;
         }
     }
 }
@@ -106,6 +133,19 @@
             }
 
         }
+
+        select = "tableId =  '" + t.Id + "'";
+        var keysRows = keys.Select(select);
+        foreach (var keyRow in keysRows)
+        {
+
+            var k = new KeyTable();
+            k.Id = keyRow["id"].ToString();
+            k.Name = keyRow["name"].ToString();
+            k.TypeKey = keyRow["type_desc"].ToString();
+            k.ColumnId = keyRow["column_id"].ToString();
+            t.Keys.Add(k);
+        }
         select = "parent_object_id =  '" + t.Id + "'";
         var rels = relations.Select(select);
         foreach (var rel in rels)
@@ -118,6 +158,8 @@
             r.referenced_column_id = rel["referenced_column_id"].ToString();
             t.Relations.Add(r);
         }
+
+
         tablesList.Add(t.Id, t);
 
     }
@@ -131,6 +173,8 @@
     var tblMaxRels = tablesList.OrderByDescending(it => it.Value.Relations.Count).First().Value;
     var tblMaxRelsPerCols = tablesList.OrderByDescending(it => it.Value.RelPerCols()).First().Value;
     var avgRelPerCol = tblMaxRelsPerCols.RelPerCols();
+    var tablesNoPK = tablesList.Where(it => !it.Value.HasPk()).ToArray();
+
 }
 Summary:
 <table border="1">
@@ -150,6 +194,12 @@ Summary:
             : @avgRelPerCol.ToString("0.0")
         </td>
     </tr>
+    <tr><td>Tables Without PK</td><td>
+    @foreach (var t in tablesNoPK)
+    {
+        <a href="#@t.Value.IdNode()">@t.Value.Name</a>
+    }
+</td></tr>
 </table>
 
 <br />
@@ -256,14 +306,20 @@ Tables:
                 rel = "-";
             }
             var divPropsCol = "col_" + col.Id;
-
-
+            bool isPK = false;
+            isPK = curTable.IsPK(col.Id);
 
 
             <tr>
                 <td>@iColumn</td>
                 <td port='@col.Id'>
-                    <b>@col.Name</b>
+                    <b>@col.Name</b> 
+                    @if (isPK)
+                    {
+                       <img src='http://pngimg.com/uploads/key/key_PNG1180.png' height="20" width="20" />
+                    }
+                        
+                    
 
                     <span onclick="javascript:toggledisplay('@divPropsCol')">
                         (click for properties)
@@ -297,3 +353,4 @@ Tables:
         })(document.getElementById(elementID).style);
     }
 </script>
+

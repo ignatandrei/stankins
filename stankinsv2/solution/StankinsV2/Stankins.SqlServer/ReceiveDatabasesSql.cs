@@ -30,7 +30,7 @@ namespace Stankins.SqlServer
                 receiveData = new DataToSentTable();
             }
             var databasesString = "select database_id as id ,name from sys.databases";//2008+
-            var databases = await FromSql(databasesString);
+            var databases = await FromSql(databasesString,"databases");
             databases.TableName = "databases";
             FastAddTables(receiveData, databases);
             return receiveData;

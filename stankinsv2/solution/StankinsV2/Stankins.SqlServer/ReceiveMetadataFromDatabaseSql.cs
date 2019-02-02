@@ -3,6 +3,7 @@ using StankinsCommon;
 using StankinsObjects;
 using StankinsReceiverDB;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -24,6 +25,7 @@ namespace Stankins.SqlServer
         {
             return new SqlConnection();
         }
+        
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             if(receiveData == null)
@@ -31,25 +33,18 @@ namespace Stankins.SqlServer
                 receiveData = new DataToSentTable();
             }
             var tablesProperties =new DataTable("properties");
-            var tables = new DataTable();
-            tables.TableName = "tables";
-            var columns = new DataTable();
-            columns.TableName = "columns";
-            var relations = new DataTable();
-            relations.TableName = "relations";
-            var keys = new DataTable();
-            keys.TableName = "keys";
+            
+           
             
            
             var tablesString = $@"select t.object_id as id, s.name +'.'+ t.name as name from sys.tables t
                             inner join sys.schemas s on t.schema_id = s.schema_id order by 2 ";
-            var newTables = await FromSql(tablesString);
-            tables.Merge(newTables, true, MissingSchemaAction.Add);
+            var newTables = FromSql(tablesString,"tables");
+
             var cols = $@"select cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, c.name,c.object_id as tableId  
                         from sys.columns c
                         inner join sys.tables o on o.object_id = c.object_id order by 2";
-            var newCols =await FromSql(cols);
-            columns.Merge(newCols, true, MissingSchemaAction.Add);
+            var newCols =FromSql(cols, "columns");
             var rels = $@"select 
 
 a.object_id as id , a.name,
@@ -61,21 +56,25 @@ b.referenced_object_id,cast(b.referenced_column_id as nvarchar) + '_'+ cast(b.re
 from sys.foreign_keys a
     join sys.foreign_key_columns b
                 on a.object_id=b.constraint_object_id order by 2";
-            var newRels = await FromSql(rels);
-            relations.Merge(newRels, true, MissingSchemaAction.Add);
+            var newRels = FromSql(rels, "relations");
+            
 
 
             var keySql = @"SELECT
-OBJECT_ID as id,
- OBJECT_NAME(OBJECT_ID) AS name,
-parent_object_id AS tableId,
-type_desc
-FROM sys.objects 
-where is_ms_shipped =0
-and type_desc IN ('FOREIGN_KEY_CONSTRAINT','PRIMARY_KEY_CONSTRAINT')";
+DISTINCT
+OBJECT_ID(Table_Schema +'.'+ Constraint_Name) as id,
+Table_Schema +'.'+ Constraint_Name AS name,
+OBJECT_ID(Table_Schema +'.'+ TABLE_NAME) as tableId,
+cast(ORDINAL_POSITION as varchar)+'_'+ cast(OBJECT_ID(Table_Schema +'.'+ TABLE_NAME) as varchar) as column_id,
+o.type_desc
+FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
+inner join sys.objects o on o.object_id = OBJECT_ID(Table_Schema +'.'+ Constraint_Name)";
 
-            var newKeys = await FromSql(keySql);
-            keys.Merge(newKeys, true, MissingSchemaAction.Add);
+            var newKeys = FromSql(keySql,"keys");
+            await Task.WhenAll(newTables, newCols, newRels, newKeys);
+
+            
+            
 
             var props=
                 "select t.object_id as id, 'tables' as TableName,t.* from sys.tables t inner join sys.schemas s on t.schema_id = s.schema_id";
@@ -103,7 +102,7 @@ inner join sys.schemas s on t.schema_id = s.schema_id and s.name = schemaCols.TA
             tablesProperties.Merge(propsNew, true, MissingSchemaAction.Add);
 
 
-            var ids=FastAddTables(receiveData, tables,columns,relations, keys,tablesProperties);
+            var ids=FastAddTables(receiveData, newTables.Result,newCols.Result,newRels.Result, newKeys.Result,tablesProperties);
             var r = new Relation();
             r.IdTableParent = ids[0];
             r.IdTableChild = ids[1];
