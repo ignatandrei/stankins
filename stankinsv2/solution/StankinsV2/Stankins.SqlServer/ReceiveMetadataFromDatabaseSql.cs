@@ -37,6 +37,8 @@ namespace Stankins.SqlServer
             columns.TableName = "columns";
             var relations = new DataTable();
             relations.TableName = "relations";
+            var keys = new DataTable();
+            keys.TableName = "keys";
             
            
             var tablesString = $@"select t.object_id as id, s.name +'.'+ t.name as name from sys.tables t
@@ -62,6 +64,18 @@ from sys.foreign_keys a
             var newRels = await FromSql(rels);
             relations.Merge(newRels, true, MissingSchemaAction.Add);
 
+
+            var keySql = @"SELECT
+OBJECT_ID as id,
+ OBJECT_NAME(OBJECT_ID) AS name,
+parent_object_id AS tableId,
+type_desc
+FROM sys.objects 
+where is_ms_shipped =0
+and type_desc IN ('FOREIGN_KEY_CONSTRAINT','PRIMARY_KEY_CONSTRAINT')";
+
+            var newKeys = await FromSql(keySql);
+            keys.Merge(newKeys, true, MissingSchemaAction.Add);
 
             var props=
                 "select t.object_id as id, 'tables' as TableName,t.* from sys.tables t inner join sys.schemas s on t.schema_id = s.schema_id";
@@ -89,7 +103,7 @@ inner join sys.schemas s on t.schema_id = s.schema_id and s.name = schemaCols.TA
             tablesProperties.Merge(propsNew, true, MissingSchemaAction.Add);
 
 
-            var ids=FastAddTables(receiveData, tables,columns,relations, tablesProperties);
+            var ids=FastAddTables(receiveData, tables,columns,relations, keys,tablesProperties);
             var r = new Relation();
             r.IdTableParent = ids[0];
             r.IdTableChild = ids[1];

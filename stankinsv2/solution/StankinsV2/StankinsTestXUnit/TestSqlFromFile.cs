@@ -65,9 +65,9 @@ namespace StankinsTestXUnit
             {
                 data = await status.TransformData(null);
             });
-            $"the data should have a tables, columns, relations, properties".w(() =>
+            $"the data should have a tables, columns, relations,keys, properties".w(() =>
             {
-                data.DataToBeSentFurther.Count.Should().Be(4);
+                data.DataToBeSentFurther.Count.Should().Be(5);
             });
            
             $"and now export to SenderToDot".w(async () => {
@@ -102,9 +102,9 @@ namespace StankinsTestXUnit
             {
                 data = await status.TransformData(null);
             });
-            $"the data should have a tables, columns, relations, properties".w(() =>
+            $"the data should have a tables, columns, relations,keys, properties".w(() =>
             {
-                data.DataToBeSentFurther.Count.Should().Be(4);
+                data.DataToBeSentFurther.Count.Should().Be(5);
             });
 
             $"and now export to SenderToDot".w(async () => {
