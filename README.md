@@ -35,6 +35,11 @@ stankins.console execute -o ReceiveMetadataFromDatabaseSql -a "Server=(local);Da
 
 stankins.console execute -o ReceiveMetadataFromDatabaseSql -a "Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;"  -o SenderDBDiagramHTMLDocument
 
+stankins.Console.exe execute -o ExportDBDiagramHtmlAndDot -a "Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>" -a a.html
+
+dotnet Stankins.Console.dll execute -o ReceiverFromSolution -a "E:\StankinsV2\StankinsV2.sln" -o SenderSolutionToHTMLDocument -a "" -o TransformerOutputStringColumnName -a "'a.html'"
+
+
 <a href='https://cdn.rawgit.com/ignatandrei/stankins/74e25fbe/Documentation/Help/index.html'>Documentation</a>
 
 <a href='https://cdn.rawgit.com/ignatandrei/stankins/74e25fbe/Documentation/Help/html/e6e8966d-f7ce-8571-98f2-b26beb8d1666.htm'>Example SQL Server to Elasticsearch</a>

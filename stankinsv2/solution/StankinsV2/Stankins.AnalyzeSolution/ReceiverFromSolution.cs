@@ -75,7 +75,7 @@ namespace Stankins.AnalyzeSolution
             var dtRelProjectAssemblies = new DataTable();
             dtRelProjectAssemblies.TableName = "projectAssemblies";
             dtRelProjectAssemblies.Columns.Add("PrjId", typeof(string));
-            dtRelProjectAssemblies.Columns.Add("DisplayName", typeof(string));
+            dtRelProjectAssemblies.Columns.Add("FullName", typeof(string));
 
             var existsAssemblies = new List<string>();
             foreach (var prj in sol.Projects)

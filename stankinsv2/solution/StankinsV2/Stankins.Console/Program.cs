@@ -104,7 +104,9 @@ namespace Stankins.Console
             createItem(typeof(ReceiveTableDatabaseSql), 2);
             createItem(typeof(ReceiverFromSolution), 1);
             createItem(typeof(SenderSolutionToDot), 1);
+            createItem(typeof(SenderSolutionToHTMLDocument), 1);
             //createItem(typeof(SenderOutputToFolder), 2);
+            createItem(typeof(TransformerOutputStringColumnName), 1);
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
             var versionString = Assembly.GetEntryAssembly()
@@ -259,7 +261,7 @@ namespace Stankins.Console
 
                        
                         var output = last as ISenderToOutput;
-                        if (output != null)
+                        if (output == null)
                         {
                             System.Console.WriteLine("exporting default output");
                             var sender = new SenderOutputToFolder("", true);

@@ -1,0 +1,88 @@
+﻿@using  System.Data;
+@using  System;
+@using  System.Linq;
+@using Stankins.Interfaces;
+@using  System.Collections.Generic;
+@using RazorLight
+
+@inherits TemplatePage<IDataToSent>
+@{
+
+    var projects = Model.FindAfterName("projects").Value;
+    var projectReferences = Model.FindAfterName("projectReferences").Value;
+    var projectAssemblies =  Model.FindAfterName("projectAssemblies").Value;
+    var assemblies = Model.FindAfterName("assemblies").Value;
+    var nl=Environment.NewLine;
+    var iProject = 0;
+
+
+}
+<div></div>
+@functions{
+
+
+    class Project
+    {
+
+        public string Id;
+        public string Name;
+        public Dictionary<string, Project> RefProjects = new Dictionary<string, Project>();
+        public Dictionary<string, AssemblyPrj> Assemblies= new  Dictionary<string, AssemblyPrj>();
+        public string IdNode(){
+            return "prj"+Id;
+        }
+    }
+    class AssemblyPrj
+    {
+        public string Name;
+        public string FullName;
+        public string Version;
+    }
+
+}
+
+@{
+    var projectList = new Dictionary<string, Project>();
+    var assemblyList= new Dictionary<string, AssemblyPrj>();
+    foreach (DataRow proj in projects.Rows)
+    {
+        var p = new Project();
+        p.Id = proj["Id"].ToString();
+        p.Name = proj["Name"].ToString();
+        projectList.Add(p.Id,p);
+
+    }
+    foreach(DataRow prjRef in projectReferences.Rows)
+    {
+
+        var prj=projectList[prjRef["PrjId"].ToString()];
+        var prejReferenced=projectList[prjRef["RefPrjId"].ToString()];
+        prj.RefProjects.Add(prejReferenced.Id,prejReferenced);
+    }
+    foreach(DataRow assRow in assemblies.Rows){
+        var ass= new AssemblyPrj();
+        ass.Name= assRow["Name"].ToString();
+        ass.FullName= assRow["FullName"].ToString();
+        ass.Version= assRow["Version"].ToString();
+        assemblyList.Add(ass.FullName, ass);
+    }
+    foreach(DataRow pa in projectAssemblies.Rows){
+        var idPrj= pa["PrjId"].ToString();
+        var idAss = pa["FullName"].ToString();
+        projectList[idPrj].Assemblies.Add(idAss, assemblyList[idAss]);
+    }
+
+}
+@foreach(var p in projectList){
+
+@string.Format("{0}){1}",++iProject,p.Value.Name)
+
+<table>
+    <tr>
+        <td></td>
+    </tr>
+</table>
+
+
+
+}

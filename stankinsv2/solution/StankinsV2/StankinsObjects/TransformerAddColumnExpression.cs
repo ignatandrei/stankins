@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace StankinsObjects
 {
+    
     public abstract class TransformerAddColumnExpression: BaseObject, ITransformer
     {
         public string Expression { get; }

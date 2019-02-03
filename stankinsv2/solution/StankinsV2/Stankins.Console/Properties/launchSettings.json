@@ -2,7 +2,7 @@
   "profiles": {
     "Stankins.Console": {
       "commandName": "Project",
-      "commandLineArgs": "execute -o ReceiverFromSolution -a \"E:\\StankinsV2\\StankinsV2.sln\" -o SenderSolutionToDot -a \"\""
+      "commandLineArgs": "execute -o ReceiverFromSolution -a \"E:\\StankinsV2\\StankinsV2.sln\" -o SenderSolutionToHTMLDocument -a \"\" -o TransformerOutputStringColumnName -a \"'a.html'\""
     }
   }
 }

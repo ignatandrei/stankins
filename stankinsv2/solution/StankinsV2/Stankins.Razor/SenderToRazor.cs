@@ -8,6 +8,31 @@ using StankinsObjects;
 
 namespace Stankins.Razor
 {
+    public class SenderToRazorWithContents : SenderToRazor
+    {
+        public SenderToRazorWithContents(string InputTemplate) : this(new CtorDictionary() {
+                { nameof(InputTemplate), InputTemplate}
+
+            }
+        )
+        {
+
+        }
+        public SenderToRazorWithContents(CtorDictionary dataNeeded) : base(dataNeeded)
+        {
+
+          
+
+            this.Name = nameof(SenderToRazorWithContents);
+
+
+
+        }
+        public override string DefaultText()
+        {
+            throw new NotImplementedException();
+        }
+    }
     public abstract class SenderToRazor : BaseObjectSender, ISenderToOutput
     {
 
