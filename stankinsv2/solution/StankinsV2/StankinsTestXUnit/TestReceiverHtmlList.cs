@@ -17,7 +17,7 @@ namespace StankinsTestXUnit
     public class TestReceiverHtmlList
     {
         [Scenario]
-        [Example(@"Assets\otherbooksmarks.html", 4)]
+        [Example(@"Assets/otherbooksmarks.html", 4)]
         public void TestSimpleHtml(string filepath,int numberTables)
         {
 

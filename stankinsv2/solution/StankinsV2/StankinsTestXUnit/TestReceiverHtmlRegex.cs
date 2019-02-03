@@ -17,7 +17,7 @@ namespace StankinsTestXUnit
     public class TestReceiverHtmlRegex
     {
         [Scenario]
-        [Example(@"Assets\bg.html", @"\b(?<FirstWord>\w+)\s?((\w+)\s)*(?<LastWord>\w+)?(?<Punctuation>\p{Po})", 3, 1)]//https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex.getgroupnames?view=netframework-4.7.2
+        [Example(@"Assets/bg.html", @"\b(?<FirstWord>\w+)\s?((\w+)\s)*(?<LastWord>\w+)?(?<Punctuation>\p{Po})", 3, 1)]//https://docs.microsoft.com/en-us/dotnet/api/system.text.regularexpressions.regex.getgroupnames?view=netframework-4.7.2
         public void TestSimple(string fileName,string regEx,int numberCols,int numberRows)
         {
 

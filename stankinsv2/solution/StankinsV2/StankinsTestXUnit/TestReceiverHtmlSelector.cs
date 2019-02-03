@@ -18,7 +18,7 @@ namespace StankinsTestXUnit
     public class TestReceiverHtmlSelector
     {
         [Scenario]
-        [Example(@"Assets\bookmarks_11_17_17N.html", "//dt/a",22)]
+        [Example(@"Assets/bookmarks_11_17_17N.html", "//dt/a",22)]
         public void TestSimpleCSV(string filepath,string selectgor, int NumberRows)
         {
 

@@ -18,7 +18,7 @@ namespace StankinsTestXUnit
     public class TestReceiverFromSolution
     {
         [Scenario]
-        [Example(@"Assets\TestSolutionAnalyzer\TestSolutionAnalyzer.sln", 5)]
+        [Example(@"Assets\TestSolutionAnalyzer/TestSolutionAnalyzer.sln", 5)]
         public void TestSimpleSln(string filepath,int numberTables)
         {
 

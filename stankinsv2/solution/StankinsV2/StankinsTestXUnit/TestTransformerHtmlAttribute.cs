@@ -17,7 +17,7 @@ namespace StankinsTestXUnit
     public class TestTransformerHtmlAttribute
     {
         [Scenario]
-        [Example(@"Assets\bookmarks_11_17_17.html",2,3)]
+        [Example(@"Assets/bookmarks_11_17_17.html",2,3)]
         public void TestSimple(string fileName,int numberColsBefore,int numberColsAfter)
         {
 
