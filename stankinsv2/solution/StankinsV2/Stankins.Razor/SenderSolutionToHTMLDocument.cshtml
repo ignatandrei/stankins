@@ -38,6 +38,10 @@
         public string Name;
         public string FullName;
         public string Version;
+        public string IdNode()
+        {
+            return "ass" + FullName;
+        }
     }
 
 }
@@ -81,7 +85,7 @@
     var avgAssembliesProject = nrAssemblies / nrProjects;
     var maxAssembliesPrj = projectList.OrderByDescending(it => it.Value.Assemblies.Count).First().Value;
 
-    var nrRefs = projectList.SelectMany(it => it.Value.RefProjects).Distinct().Count();
+    var nrRefs = projectList.SelectMany(it => it.Value.RefProjects).Count();
     var maxReferencesPrj = projectList.OrderByDescending(it => it.Value.RefProjects.Count).First().Value;
     var avgRefPerProject = nrRefs / nrProjects;
 }
@@ -131,6 +135,68 @@ Summary:
         </tr>
     }
 </table>
+@foreach (var p in projectList.OrderBy(it => it.Value.Name))
+{
+    var curProj = p.Value;
+    var idNode = curProj.IdNode();
+    var divRefs = "refs" + idNode;
+    var iRef = 0;
+    var divAss = "ass" + idNode;
+    var iAss = 0;
+
+    <br />
+    <a id="@idNode">Project <em> @curProj.Name </em></a>
+    <span onclick="javascript:toggledisplay('@divRefs')">
+        Show/hide project References
+    </span>
+    <div id='@divRefs' style="display:none">
+
+        <table border="1" cellborder="1" cellspacing="0">
+            <tr>
+                <td>Nr</td>
+                <td>Name</td>
+            </tr>
+            @foreach (var prop in curProj.RefProjects.OrderBy(it => it.Value.Name))
+            {
+                var refProj = prop.Value;
+
+                <tr>
+                    <td>@(++iRef)</td>
+                    <td>
+                        <a href="#@refProj.IdNode()">@refProj.Name</a>
+                </tr>
+            }
+        </table>
+    </div>
+
+
+    <span onclick="javascript:toggledisplay('@divAss')">
+        Show/hide Assemblies
+    </span>
+    <div id='@divAss' style="display:none">
+
+        <table border="1" cellborder="1" cellspacing="0">
+            <tr>
+                <td>Nr</td>
+                <td>Name</td>
+                <td>FullName</td>
+            </tr>
+            @foreach (var prop in curProj.Assemblies.OrderBy(it => it.Value.Name))
+            {
+                var ass = prop.Value;
+
+                <tr>
+                    <td>@(++iAss)</td>
+                    <td>
+                        <a href="#@ass.IdNode()">@ass.Name</a>
+                    </td>
+                    <td>@ass.FullName</td>
+                </tr>
+            }
+        </table>
+    </div>
+
+}
 
 <script>
     function toggledisplay(elementID) {
@@ -142,4 +208,3 @@ Summary:
 
 
 
-}
