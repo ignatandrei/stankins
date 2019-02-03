@@ -10,9 +10,9 @@
 
     var projects = Model.FindAfterName("projects").Value;
     var projectReferences = Model.FindAfterName("projectReferences").Value;
-    var projectAssemblies =  Model.FindAfterName("projectAssemblies").Value;
+    var projectAssemblies = Model.FindAfterName("projectAssemblies").Value;
     var assemblies = Model.FindAfterName("assemblies").Value;
-    var nl=Environment.NewLine;
+    var nl = Environment.NewLine;
     var iProject = 0;
 
 
@@ -27,9 +27,10 @@
         public string Id;
         public string Name;
         public Dictionary<string, Project> RefProjects = new Dictionary<string, Project>();
-        public Dictionary<string, AssemblyPrj> Assemblies= new  Dictionary<string, AssemblyPrj>();
-        public string IdNode(){
-            return "prj"+Id;
+        public Dictionary<string, AssemblyPrj> Assemblies = new Dictionary<string, AssemblyPrj>();
+        public string IdNode()
+        {
+            return "prj" + Id;
         }
     }
     class AssemblyPrj
@@ -43,45 +44,101 @@
 
 @{
     var projectList = new Dictionary<string, Project>();
-    var assemblyList= new Dictionary<string, AssemblyPrj>();
+    var assemblyList = new Dictionary<string, AssemblyPrj>();
     foreach (DataRow proj in projects.Rows)
     {
         var p = new Project();
         p.Id = proj["Id"].ToString();
         p.Name = proj["Name"].ToString();
-        projectList.Add(p.Id,p);
+        projectList.Add(p.Id, p);
 
     }
-    foreach(DataRow prjRef in projectReferences.Rows)
+    foreach (DataRow prjRef in projectReferences.Rows)
     {
 
-        var prj=projectList[prjRef["PrjId"].ToString()];
-        var prejReferenced=projectList[prjRef["RefPrjId"].ToString()];
-        prj.RefProjects.Add(prejReferenced.Id,prejReferenced);
+        var prj = projectList[prjRef["PrjId"].ToString()];
+        var prejReferenced = projectList[prjRef["RefPrjId"].ToString()];
+        prj.RefProjects.Add(prejReferenced.Id, prejReferenced);
     }
-    foreach(DataRow assRow in assemblies.Rows){
-        var ass= new AssemblyPrj();
-        ass.Name= assRow["Name"].ToString();
-        ass.FullName= assRow["FullName"].ToString();
-        ass.Version= assRow["Version"].ToString();
+    foreach (DataRow assRow in assemblies.Rows)
+    {
+        var ass = new AssemblyPrj();
+        ass.Name = assRow["Name"].ToString();
+        ass.FullName = assRow["FullName"].ToString();
+        ass.Version = assRow["Version"].ToString();
         assemblyList.Add(ass.FullName, ass);
     }
-    foreach(DataRow pa in projectAssemblies.Rows){
-        var idPrj= pa["PrjId"].ToString();
+    foreach (DataRow pa in projectAssemblies.Rows)
+    {
+        var idPrj = pa["PrjId"].ToString();
         var idAss = pa["FullName"].ToString();
         projectList[idPrj].Assemblies.Add(idAss, assemblyList[idAss]);
     }
 
+    var nrProjects = projectList.Count;
+
+    var nrAssemblies = assemblyList.Count;
+    var avgAssembliesProject = nrAssemblies / nrProjects;
+    var maxAssembliesPrj = projectList.OrderByDescending(it => it.Value.Assemblies.Count).First().Value;
+
+    var nrRefs = projectList.SelectMany(it => it.Value.RefProjects).Distinct().Count();
+    var maxReferencesPrj = projectList.OrderByDescending(it => it.Value.RefProjects.Count).First().Value;
+    var avgRefPerProject = nrRefs / nrProjects;
 }
-@foreach(var p in projectList){
+Summary:
+<table border="1">
+    <tr><td>Number of Projects</td><td>@nrProjects</td></tr>
+    <tr><td>Number of Assemblies</td><td>@nrAssemblies</td></tr>
+    <tr><td>Avg of Assemblies </td><td>@avgAssembliesProject</td></tr>
 
-@string.Format("{0}){1}",++iProject,p.Value.Name)
+    <tr><td>Number of Project references</td><td>@nrRefs</td></tr>
+    <tr><td>Avg of Project References </td><td>@avgRefPerProject</td></tr>
 
-<table>
     <tr>
-        <td></td>
+        <td>Project with Max Assemblies </td>
+        <td>
+            <a href="#@maxAssembliesPrj.IdNode()">@maxAssembliesPrj.Name</a>
+            : @maxAssembliesPrj.Assemblies.Count
+        </td>
+    </tr>
+
+    <tr>
+        <td>Project with Max references </td>
+        <td>
+            <a href="#@maxReferencesPrj.IdNode()">@maxReferencesPrj.Name</a>
+            : @maxReferencesPrj.RefProjects.Count
+        </td>
     </tr>
 </table>
+
+
+<table border="1">
+    <tr>
+        <td>Number</td>
+        <td>Project</td>
+    </tr>
+    @foreach (var p in projectList.OrderBy(it => it.Value.Name))
+    {
+        iProject++;
+        var proj = p.Value;
+        var idNode = proj.IdNode();
+
+        <tr>
+            <td>@iProject </td>
+
+            <td><a href="#@idNode">@proj.Name</a></td>
+
+        </tr>
+    }
+</table>
+
+<script>
+    function toggledisplay(elementID) {
+        (function (style) {
+            style.display = style.display === 'none' ? '' : 'none';
+        })(document.getElementById(elementID).style);
+    }
+</script>
 
 
 

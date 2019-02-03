@@ -8,13 +8,12 @@
 @inherits TemplatePage<IDataToSent>
 @{
 
-    var tables = Model.FindAfterName("tables").Value;
-    var columns = Model.FindAfterName("columns").Value;
-    var relations = Model.FindAfterName("relations").Value;
-    var properties = Model.FindAfterName("properties").Value;
-    var keys = Model.FindAfterName("keys").Value;
+    var projects = Model.FindAfterName("projects").Value;
+    var projectReferences = Model.FindAfterName("projectReferences").Value;
+    var projectAssemblies = Model.FindAfterName("projectAssemblies").Value;
+    var assemblies = Model.FindAfterName("assemblies").Value;
     var nl = Environment.NewLine;
-    var iTable = 0;
+    var iProject = 0;
 
 
 }
@@ -22,376 +21,182 @@
 @functions{
 
 
-    class Column
+    class Project
     {
 
         public string Id;
         public string Name;
-        public Dictionary<string, string> Properties = new Dictionary<string, string>();
-
-    }
-    class Relation
-    {
-        public string parent_object_id;
-        public string parent_column_id;
-        public string referenced_object_id;
-        public string referenced_column_id;
-    }
-    class KeyTable
-    {
-        public string Id;
-        public string Name;
-        public string TypeKey;
-        public string ColumnId;
-    }
-    class Table
-    {
-        public string Id;
-        public string Name;
-        public List<Column> Columns = new List<Column>();
-        public Dictionary<string, string> Properties = new Dictionary<string, string>();
-        public List<Relation> Relations = new List<Relation>();
-        public List<KeyTable> Keys = new List<KeyTable>();
-        public Column FromId(string id)
-        {
-            return Columns.First(it => it.Id == id);
-        }
+        public Dictionary<string, Project> RefProjects = new Dictionary<string, Project>();
+        public Dictionary<string, AssemblyPrj> Assemblies = new Dictionary<string, AssemblyPrj>();
         public string IdNode()
         {
-            return string.Format("table{0}", Id);
-        }
-        public float RelPerCols()
-        {
-            float r = Relations.Count;
-            float c = Columns.Count;
-            return r / c;
-        }
-        public bool IsPK(string columnId)
-        {
-            return this.Keys.Exists(it => it.ColumnId == columnId && it.TypeKey == "PRIMARY_KEY_CONSTRAINT");
-        }
-        public IEnumerable<Column> ArrangeColsByPKName()
-        {
-            var pks = this.Columns.Where(it => this.IsPK(it.Id)).OrderBy(it => it.Name).ToArray();
-            foreach (var c in pks)
-            {
-                yield return c;
-            }
-            var notPK = Columns.Except(pks).ToArray();
-            foreach (var c in notPK)
-            {
-                yield return c;
-            }
-
-        }
-        public bool HasPk()
-        {
-            foreach (var col in Columns)
-            {
-                var exist = IsPK(col.Id);
-                if (exist)
-                {
-                    return true;
-                }
-
-            }
-            return false;
+            return "prj" + Id;
         }
     }
+    class AssemblyPrj
+    {
+        public string Name;
+        public string FullName;
+        public string Version;
+        public string IdNode()
+        {
+            return "ass" + FullName;
+        }
+    }
+
 }
 
 @{
-    var tablesList = new Dictionary<string, Table>();
-    foreach (DataRow table in tables.Rows)
+    var projectList = new Dictionary<string, Project>();
+    var assemblyList = new Dictionary<string, AssemblyPrj>();
+    foreach (DataRow proj in projects.Rows)
     {
-        var t = new Table();
-        t.Id = table["id"].ToString();
-        t.Name = table["name"].ToString();
-        var select = "TableName='tables' And id='" + t.Id + "'";
-        var tableProperties = properties.Select(select);
-        foreach (DataRow prop in tableProperties)
-        {
-
-            var val = prop["value"];
-            if (val == null || val == DBNull.Value)
-            {
-                val = "(null)";
-            }
-            else
-            {
-                val = val.ToString();
-            }
-            t.Properties.Add(prop["valueName"].ToString(), val.ToString());
-
-        }
-        select = "tableId = '" + t.Id + "'";
-        var cols = columns.Select(select);
-        foreach (DataRow col in cols)
-        {
-            var c = new Column();
-            c.Id = col["id"].ToString();
-            c.Name = col["name"].ToString();
-            t.Columns.Add(c);
-            select = "TableName='columns' And id='" + c.Id + "'";
-            tableProperties = properties.Select(select);
-            foreach (DataRow prop in tableProperties)
-            {
-
-                var val = prop["value"];
-                if (val == null || val == DBNull.Value)
-                {
-                    val = "(null)";
-                }
-                else
-                {
-                    val = val.ToString();
-                }
-                c.Properties.Add(prop["valueName"].ToString(), val.ToString());
-
-            }
-
-        }
-
-        select = "tableId =  '" + t.Id + "'";
-        var keysRows = keys.Select(select);
-        foreach (var keyRow in keysRows)
-        {
-
-            var k = new KeyTable();
-            k.Id = keyRow["id"].ToString();
-            k.Name = keyRow["name"].ToString();
-            k.TypeKey = keyRow["type_desc"].ToString();
-            k.ColumnId = keyRow["column_id"].ToString();
-            t.Keys.Add(k);
-        }
-        select = "parent_object_id =  '" + t.Id + "'";
-        var rels = relations.Select(select);
-        foreach (var rel in rels)
-        {
-
-            var r = new Relation();
-            r.parent_object_id = t.Id;
-            r.parent_column_id = rel["parent_column_id"].ToString();
-            r.referenced_object_id = rel["referenced_object_id"].ToString();
-            r.referenced_column_id = rel["referenced_column_id"].ToString();
-            t.Relations.Add(r);
-        }
-
-
-        tablesList.Add(t.Id, t);
+        var p = new Project();
+        p.Id = proj["Id"].ToString();
+        p.Name = proj["Name"].ToString();
+        projectList.Add(p.Id, p);
 
     }
+    foreach (DataRow prjRef in projectReferences.Rows)
+    {
 
-    var nrTables = tablesList.Count;
-    var nrCols = tablesList.Sum(it => it.Value.Columns.Count);
-    var avgCols = nrCols / nrTables;
-    var nrRels = tablesList.SelectMany(it => it.Value.Relations).Count();
-    var avgRelsTable = nrRels / nrTables;
-    var avgRelsCol = nrRels / nrCols;
-    var tblMaxRels = tablesList.OrderByDescending(it => it.Value.Relations.Count).First().Value;
-    var tblMaxRelsPerCols = tablesList.OrderByDescending(it => it.Value.RelPerCols()).First().Value;
-    var avgRelPerCol = tblMaxRelsPerCols.RelPerCols();
-    var tablesNoPK = tablesList.Where(it => !it.Value.HasPk()).ToArray();
+        var prj = projectList[prjRef["PrjId"].ToString()];
+        var prejReferenced = projectList[prjRef["RefPrjId"].ToString()];
+        prj.RefProjects.Add(prejReferenced.Id, prejReferenced);
+    }
+    foreach (DataRow assRow in assemblies.Rows)
+    {
+        var ass = new AssemblyPrj();
+        ass.Name = assRow["Name"].ToString();
+        ass.FullName = assRow["FullName"].ToString();
+        ass.Version = assRow["Version"].ToString();
+        assemblyList.Add(ass.FullName, ass);
+    }
+    foreach (DataRow pa in projectAssemblies.Rows)
+    {
+        var idPrj = pa["PrjId"].ToString();
+        var idAss = pa["FullName"].ToString();
+        projectList[idPrj].Assemblies.Add(idAss, assemblyList[idAss]);
+    }
 
+    var nrProjects = projectList.Count;
+
+    var nrAssemblies = assemblyList.Count;
+    var avgAssembliesProject = nrAssemblies / nrProjects;
+    var maxAssembliesPrj = projectList.OrderByDescending(it => it.Value.Assemblies.Count).First().Value;
+
+    var nrRefs = projectList.SelectMany(it => it.Value.RefProjects).Count();
+    var maxReferencesPrj = projectList.OrderByDescending(it => it.Value.RefProjects.Count).First().Value;
+    var avgRefPerProject = nrRefs / nrProjects;
 }
 Summary:
 <table border="1">
-    <tr><td>Number of Tables</td><td>@nrTables</td></tr>
-    <tr><td>Avg of Columns per Table</td><td>@avgCols</td></tr>
-    <tr><td>Relations: Total</td><td>@nrRels</td></tr>
-    <tr><td>Relation Avg / table</td><td>@avgRelsTable </td></tr>
-    <tr><td>Relation Avg / column</td><td>@avgRelsCol</td></tr>
+    <tr><td>Number of Projects</td><td>@nrProjects</td></tr>
+    <tr><td>Number of Assemblies</td><td>@nrAssemblies</td></tr>
+    <tr><td>Avg of Assemblies </td><td>@avgAssembliesProject</td></tr>
+
+    <tr><td>Number of Project references</td><td>@nrRefs</td></tr>
+    <tr><td>Avg of Project References </td><td>@avgRefPerProject</td></tr>
+
     <tr>
-        <td>Table with Absolute Max relations </td>
-        <td><a href="#@tblMaxRels.IdNode()">@tblMaxRels.Name</a> : @tblMaxRels.Relations.Count</td>
-    </tr>
-    <tr>
-        <td>Table with Max relation per column</td>
+        <td>Project with Max Assemblies </td>
         <td>
-            <a href="#@tblMaxRelsPerCols.IdNode()">@tblMaxRelsPerCols.Name</a>
-            : @avgRelPerCol.ToString("0.0")
+            <a href="#@maxAssembliesPrj.IdNode()">@maxAssembliesPrj.Name</a>
+            : @maxAssembliesPrj.Assemblies.Count
         </td>
     </tr>
+
     <tr>
-        <td>Tables Without PK</td>
+        <td>Project with Max references </td>
         <td>
-            @foreach (var t in tablesNoPK)
-            {
-                <a href="#@t.Value.IdNode()">@t.Value.Name</a>
-            }
+            <a href="#@maxReferencesPrj.IdNode()">@maxReferencesPrj.Name</a>
+            : @maxReferencesPrj.RefProjects.Count
         </td>
     </tr>
 </table>
 
-<br />
-Tables:
 
 <table border="1">
     <tr>
         <td>Number</td>
-        <td>Table Name</td>
-
-        <td>Relations</td>
-        <td>Usage</td>
+        <td>Project</td>
     </tr>
-    @foreach (var kv in tablesList)
+    @foreach (var p in projectList.OrderBy(it => it.Value.Name))
     {
-        var curTable = kv.Value;
-        iTable++;
-        var idTable = curTable.Id;
-        var idNode = curTable.IdNode();
-        var relation = "";
+        iProject++;
+        var proj = p.Value;
+        var idNode = proj.IdNode();
 
-        var iRel = 0;
-        foreach (var rel in curTable.Relations)
-        {
-            iRel++;
-
-
-            var tblRelated = tablesList[rel.referenced_object_id];
-            var colRelate = tblRelated.Columns.First(it => it.Id == rel.referenced_column_id);
-
-            relation += string.Format("{2})<a href='#{0}'>{1}</a>;<br />", tblRelated.IdNode(), tblRelated.Name + "." + colRelate.Name, iRel);
-
-        }//end foreach relation
-        if (iRel == 0)
-        {
-            relation = "-";
-        }
         <tr>
-            <td>@iTable </td>
-            <td><a href="#@idNode">@curTable.Name</a></td>
-            <td>@Raw(relation)</td>
-            <td>This is used for </td>
+            <td>@iProject </td>
+
+            <td><a href="#@idNode">@proj.Name</a></td>
+
         </tr>
     }
 </table>
-<br />
-@foreach (var kv in tablesList)
+@foreach (var p in projectList.OrderBy(it => it.Value.Name))
 {
-    var curTable = kv.Value;
-
-    var iColumn = 0;
-    var idTable = curTable.Id;
-    var idNode = string.Format("table{0}", idTable);
-    var divProps = "props" + idNode;
-    var iProp = 0;
-    var divKeys = "key" + idNode;
+    var curProj = p.Value;
+    var idNode = curProj.IdNode();
+    var divRefs = "refs" + idNode;
+    var iRef = 0;
+    var divAss = "ass" + idNode;
+    var iAss = 0;
 
     <br />
-
-    <a id="@idNode">Table <em> @curTable.Name </em></a>
-    <span onclick="javascript:toggledisplay('@divProps')">
-        Show/hide properties
+    <a id="@idNode">Project <em> @curProj.Name </em></a>
+    <span onclick="javascript:toggledisplay('@divRefs')">
+        Show/hide project References
     </span>
-    <div id='@divProps' style="display:none">
+    <div id='@divRefs' style="display:none">
 
         <table border="1" cellborder="1" cellspacing="0">
-            <tr><td>Nr</td><td>Name</td><td>Value</td></tr>
-            @foreach (var prop in curTable.Properties.OrderBy(it => it.Key))
+            <tr>
+                <td>Nr</td>
+                <td>Name</td>
+            </tr>
+            @foreach (var prop in curProj.RefProjects.OrderBy(it => it.Value.Name))
             {
-                <tr><td>@(++iProp)</td><td>@prop.Key</td><td>@prop.Value</td></tr>
-            }
-        </table>
-    </div>
-    <span onclick="javascript:toggledisplay('@divKeys')">
-        Show/hide Keys
-    </span>
-    <div id='@divKeys' style="display:none">
+                var refProj = prop.Value;
 
-        <table border="1" cellborder="1" cellspacing="0">
-            <tr><td>Nr</td><td>Key</td><td>Value</td><td>Column</td></tr>
-            @{
-                iProp = 0;
-            }
-
-            @foreach (var keyTable in curTable.Keys.OrderBy(it => it.Name))
-            {
                 <tr>
-                    <td>@(++iProp)</td>
-                    <td>@keyTable.Name</td>
-                    <td>@keyTable.TypeKey</td>
-                    <td>@curTable.FromId(keyTable.ColumnId).Name</td>
+                    <td>@(++iRef)</td>
+                    <td>
+                        <a href="#@refProj.IdNode()">@refProj.Name</a>
                 </tr>
             }
-
         </table>
     </div>
 
-    <p>
-        Columns : @curTable.Columns.Count
-    </p>
-    <table border="1" cellborder="1" cellspacing="0">
-        <tr>
-            <td>Nr.</td>
-            <td>Name</td>
-            <td>Type</td>
-            <td>Relations</td>
-            <td>Description</td>
-        </tr>
-        @foreach (var col in curTable.ArrangeColsByPKName())
-        {
-            iColumn++;
-            var iRel = 0;
-            var rel = "";
-            var relColumns = curTable.Relations.Where(it => it.parent_column_id == col.Id).ToArray();
-            foreach (var rel1 in relColumns)
-            {
-                iRel++;
 
-                var tableRel = tablesList[rel1.referenced_object_id];
-                var colRel = tableRel.Columns.First(it => it.Id == rel1.referenced_column_id);
+    <span onclick="javascript:toggledisplay('@divAss')">
+        Show/hide Assemblies
+    </span>
+    <div id='@divAss' style="display:none">
 
-                rel += string.Format("{2})<a href='#{0}'>{1}</a>;<br />", tableRel.IdNode(), tableRel.Name + "." + colRel.Name, iRel);
-
-            }
-
-            if (iRel == 0)
-            {
-                rel = "-";
-            }
-            var divPropsCol = "col_" + col.Id;
-            bool isPK = false;
-            isPK = curTable.IsPK(col.Id);
-
-
+        <table border="1" cellborder="1" cellspacing="0">
             <tr>
-                <td>@iColumn</td>
-                <td port='@col.Id'>
-                    <strong>@col.Name</strong>
-                    @if (isPK)
-                    {
-                        <img src='http://pngimg.com/uploads/key/key_PNG1180.png' height="20" width="20" alt="PK" />
-                    }
-
-
-
-                    <span onclick="javascript:toggledisplay('@divPropsCol')">
-                        (click for properties)
-                    </span>
-                    <div id='@divPropsCol' style="display:none">
-                        <table border="1" cellborder="1" cellspacing="0">
-                            <tr><td>Name</td><td>Value</td></tr>
-                            @foreach (var colProperty in col.Properties.OrderBy(it => it.Key))
-                            {
-                                <tr><td>@colProperty.Key</td><td>@colProperty.Value</td></tr>
-                            }
-                        </table>
-                    </div>
-                </td>
-                <td>@col.Properties["DATA_TYPE"]</td>
-                <td>@Raw(rel)</td>
-                <td>The field @col.Name is used for </td>
+                <td>Nr</td>
+                <td>Name</td>
+                <td>FullName</td>
             </tr>
-        }
+            @foreach (var prop in curProj.Assemblies.OrderBy(it => it.Value.Name))
+            {
+                var ass = prop.Value;
 
-
-    </table>
-
-    <br />
+                <tr>
+                    <td>@(++iAss)</td>
+                    <td>
+                        <a href="#@ass.IdNode()">@ass.Name</a>
+                    </td>
+                    <td>@ass.FullName</td>
+                </tr>
+            }
+        </table>
+    </div>
 
 }
-
 
 <script>
     function toggledisplay(elementID) {
@@ -400,4 +205,6 @@ Tables:
         })(document.getElementById(elementID).style);
     }
 </script>
+
+
 
