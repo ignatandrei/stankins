@@ -121,7 +121,7 @@ namespace Stankins.AnalyzeSolution
             return receiveData;
         }
 
-        public override async Task<IMetadata> TryLoadMetadata()
+        public override  Task<IMetadata> TryLoadMetadata()
         {
             throw new NotImplementedException();
         }
