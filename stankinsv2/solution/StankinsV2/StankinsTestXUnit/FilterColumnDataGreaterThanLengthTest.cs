@@ -8,6 +8,8 @@ using System.Text;
 using Stankins.AnalyzeSolution;
 using Xbehave;
 using Xunit;
+using System.IO;
+using System.Linq;
 
 namespace StankinsTestXUnit
 {
@@ -18,7 +20,9 @@ namespace StankinsTestXUnit
         [Scenario]
         public void TestSol()
         {
-            var r = new ReceiverFromSolution(@"E:\ignatandrei\stankins\stankinsv2\solution\StankinsV2\StankinsV2.sln");
+            var root =Path.GetPathRoot( Directory.GetCurrentDirectory());
+            var f = Directory.GetFiles(root, "StankinsV2.sln", SearchOption.AllDirectories).First();
+            var r = new ReceiverFromSolution(f);
             "Load".w(async () => await r.TransformData(null));
 
         }
