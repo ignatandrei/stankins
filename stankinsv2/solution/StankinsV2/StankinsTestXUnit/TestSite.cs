@@ -20,7 +20,7 @@ namespace StankinsTestXUnit
             var dt = DateTime.ParseExact(str, "s", System.Globalization.CultureInfo.InvariantCulture);
             var dateNow = DateTime.UtcNow;
             var diff = DateTime.UtcNow - dt;
-            diff.TotalSeconds.Should().BeInRange(-2, 2);
+            diff.TotalSeconds.Should().BeInRange(-20, 20);
         }
 
     }
