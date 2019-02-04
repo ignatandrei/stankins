@@ -17,16 +17,16 @@ namespace StankinsTestXUnit
     [Trait("ExternalDependency", "0")]
     public class SolutionReceiverTest
     {
-        [Scenario]
-        public void TestSol()
-        {
-            var root = Path.GetPathRoot(Directory.GetCurrentDirectory());
-            //var f = Directory.GetFiles(root, "StankinsV2.sln", SearchOption.AllDirectories).First();
-            var f = FindAllFilesWithoutRaisingException(root, "StankinsV2.sln").First();
-            var r = new ReceiverFromSolution(f);
-            "Load".w(async () => await r.TransformData(null));
+        //[Scenario]
+        //public void TestSol()
+        //{
+        //    var root = Path.GetPathRoot(Directory.GetCurrentDirectory());
+        //    //var f = Directory.GetFiles(root, "StankinsV2.sln", SearchOption.AllDirectories).First();
+        //    var f = FindAllFilesWithoutRaisingException(root, "StankinsV2.sln").First();
+        //    var r = new ReceiverFromSolution(f);
+        //    "Load".w(async () => await r.TransformData(null));
 
-        }
+        //}
         private string[] FindAllFilesWithoutRaisingException(string folder, string file)
         {
             var lst = new List<string>();
