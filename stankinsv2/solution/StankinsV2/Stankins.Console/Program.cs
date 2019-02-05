@@ -54,20 +54,20 @@ namespace Stankins.Console
         private class CreatorBaseObject
         {
             public readonly Type typeOfObject;
-            public readonly int nrArguments;
+            public readonly CtorDictionary arguments;
 
-            public CreatorBaseObject(Type typeOfObject, int nrArguments)
+            public CreatorBaseObject(Type typeOfObject, CtorDictionary arguments)
             {
                 this.typeOfObject = typeOfObject;
-                this.nrArguments = nrArguments;
+                this.arguments = arguments;
             }
 
 
             public BaseObject Create(object[] ctorStrings)
             {
-                if (ctorStrings?.Length != nrArguments)
+                if (ctorStrings?.Length != arguments.Count())
                 {
-                    throw new ArgumentException($"number of args {nrArguments} != {ctorStrings?.Length}");
+                    throw new ArgumentException($"number of args {arguments} != {ctorStrings?.Length}");
                 }
 
                 BaseObject act;
@@ -86,27 +86,53 @@ namespace Stankins.Console
             }
 
         }
+        static void WriteLines(CreatorBaseObject[] b)
+        {
+            foreach (var it in b)
+            {
+                Type t = it.typeOfObject;
+                System.Console.WriteLine("");
+                System.Console.Write($"- o {t.Name}");
 
+                foreach (var item in it.arguments)
+                {
+                    System.Console.Write($" -a {item.Key}");
+                }
+
+
+
+            };
+        }
         static void Main(string[] args)
         {
 
             var commands = new CtorDictionaryGeneric<CreatorBaseObject>();
-            Action<Type, int> createItem = (t, nr) => { commands.Add(t.Name, new CreatorBaseObject(t, nr)); };
-            createItem(typeof(ReceiveMetadataFromDatabaseSql), 1);
-            createItem(typeof(SenderDBDiagramToDot), 0);
-            createItem(typeof(SenderDBDiagramHTMLDocument), 0);
-            createItem(typeof(ReceiveQueryFromFileSql), 2);
-            createItem(typeof(SenderAllTablesToFileCSV), 1);
-            createItem(typeof(ReceiveQueryFromFolderSql), 3);
-            createItem(typeof(SenderExcel), 1);
-            createItem(typeof(ExportDBDiagramHtmlAndDot), 2);
-            createItem(typeof(ExportTableToExcelSql), 3);
-            createItem(typeof(ReceiveTableDatabaseSql), 2);
-            createItem(typeof(ReceiverFromSolution), 1);
-            createItem(typeof(SenderSolutionToDot), 1);
-            createItem(typeof(SenderSolutionToHTMLDocument), 1);
-            //createItem(typeof(SenderOutputToFolder), 2);
-            createItem(typeof(TransformerOutputStringColumnName), 1);
+            Action< KeyValuePair<Type, CtorDictionary>, int> createItem = (t, nr) => { commands.Add(t.Key.Name, new CreatorBaseObject(t.Key, t.Value)); };
+            foreach(var item in (new FindAssembliesToExecute()).FindNamesToBeExecuted())
+            {
+                createItem(item, 1);
+            }
+            //foreach (var item in commands)
+            //{
+            //    System.Console.WriteLine(item.Key);
+            //}
+            //System.Console.WriteLine(commands.Count);
+            
+            //createItem(typeof(ReceiveMetadataFromDatabaseSql), 1);
+            //createItem(typeof(SenderDBDiagramToDot), 0);
+            //createItem(typeof(SenderDBDiagramHTMLDocument), 0);
+            //createItem(typeof(ReceiveQueryFromFileSql), 2);
+            //createItem(typeof(SenderAllTablesToFileCSV), 1);
+            //createItem(typeof(ReceiveQueryFromFolderSql), 3);
+            //createItem(typeof(SenderExcel), 1);
+            //createItem(typeof(ExportDBDiagramHtmlAndDot), 2);
+            //createItem(typeof(ExportTableToExcelSql), 3);
+            //createItem(typeof(ReceiveTableDatabaseSql), 2);
+            //createItem(typeof(ReceiverFromSolution), 1);
+            //createItem(typeof(SenderSolutionToDot), 1);
+            //createItem(typeof(SenderSolutionToHTMLDocument), 1);
+            ////createItem(typeof(SenderOutputToFolder), 2);
+            //createItem(typeof(TransformerOutputStringColumnName), 1);
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
             var versionString = Assembly.GetEntryAssembly()
@@ -119,71 +145,56 @@ namespace Stankins.Console
             app.HelpOption("-?|-h|--help");
             app.VersionOption("-v|--version", app.Name + "v" + versionString, app.Name + "v" + versionString);
             app.ExtendedHelpText = ExtendedHelpText();
+            //app.Command("list", (command) =>
+            //{
+            //    command.Description = "List all supported objects";
+            //    command.HelpOption("-?|-h|--help");
+
+
+            //    command.OnExecute(() =>
+            //    {
+            //        var all = commands.Select(it => it.Key.ToString()).ToList();
+            //        all.Sort();
+            //        all.ForEach(it => System.Console.WriteLine(it));
+
+            //        return 0;
+            //    });
+
+            //});
             app.Command("list", (command) =>
             {
-                command.Description = "List all supported objects";
-                command.HelpOption("-?|-h|--help");
-
-
-                command.OnExecute(() =>
-                {
-                    var all = commands.Select(it => it.Key.ToString()).ToList();
-                    all.Sort();
-                    all.ForEach(it => System.Console.WriteLine(it));
-
-                    return 0;
-                });
-
-            });
-            app.Command("explainAll", (command) =>
-            {
                 command.Description = "Explain arguments  for supported objects";
-                command.HelpOption("-?|-h|--help");
+                command.HelpOption("-?|-h|--help"); 
 
 
                 command.OnExecute(() =>
                 {
+                    
                     var all = commands.Select(it => it.Value).ToList();
-                    all.ForEach(it =>
-                    {
-                        Type t = it.typeOfObject;
-                        System.Console.WriteLine(t.Name);
-                        if (it.nrArguments == 0)
-                        {
-                            System.Console.WriteLine($"Arguments : {it.nrArguments}");
-                            return;
-                        }
+                    var receivers = all.Where(it => typeof(IReceive).IsAssignableFrom(it.typeOfObject)).ToArray();
+                    System.Console.WriteLine("!start with receivers");
+                    WriteLines(receivers);
 
-                        foreach (var ctor in t.GetConstructors())
-                        {
-                            if (ctor.IsPrivate)
-                                continue;
-                            if (ctor.IsStatic)
-                                continue;
+                    System.Console.WriteLine("!then with transformers, filters");
 
-                            var paramsCtor = ctor.GetParameters();
-                            if (paramsCtor.Length == 1) //eliminate default ctor  dictionary
-                            {
-                                var param = paramsCtor[0];
-                                if (param.ParameterType.FullName == typeof(CtorDictionary).FullName)
-                                    continue;
+                    WriteLines(receivers);
+                    var next = all.Where(it => 
+                        typeof(IFilter).IsAssignableFrom(it.typeOfObject)
+                        ||
+                        typeof(ITransformer).IsAssignableFrom(it.typeOfObject)
+                    ).ToArray();
+                    WriteLines(next);
 
-                            }
+                    var sender = all.Where(it =>
+                        typeof(ISender).IsAssignableFrom(it.typeOfObject)
+                    ).ToArray();
 
-                            if (paramsCtor.Length != it.nrArguments)
-                                continue;
-
-                            System.Console.WriteLine($"Arguments : {it.nrArguments}");
-
-                            foreach (var parameterInfo in paramsCtor)
-                            {
-                                System.Console.WriteLine($"     {parameterInfo.Name}");
-                            }
-                        }
+                    System.Console.WriteLine("!then with senders");
+                    WriteLines(sender);
 
 
-                    });
 
+                    System.Console.WriteLine("!for often used  commands , see -h option");
                     return 0;
                 });
 
@@ -219,7 +230,7 @@ namespace Stankins.Console
                                 return -1;
                             }
 
-                            argNr += commands[item].nrArguments;
+                            argNr += commands[item].arguments.Count;
                         }
 
                         if (argNr != argObjects.Values.Count)
@@ -238,9 +249,9 @@ namespace Stankins.Console
                             var item = opt.Values[value].ToLowerInvariant();
                             var cmd = commands[item];
                             object[] ctorArgs = null;
-                            if (cmd.nrArguments > 0)
+                            if (cmd.arguments.Count > 0)
                             {
-                                ctorArgs = new object[cmd.nrArguments];
+                                ctorArgs = new object[cmd.arguments.Count];
                                 int i = 0;
                                 do
                                 {
@@ -250,7 +261,7 @@ namespace Stankins.Console
                                     i++;
                                     argNr++;
 
-                                } while (i < cmd.nrArguments);
+                                } while (i < cmd.arguments.Count);
                             }
                             
                             last = cmd.Create(ctorArgs);
