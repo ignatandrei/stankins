@@ -14,6 +14,8 @@ namespace Stankins.Console
         static List<string> verifiedAssembly = new List<string>();
         public IEnumerable<KeyValuePair<Type, CtorDictionary>> FindNamesToBeExecuted()
         {
+            var q= AppDomain.CurrentDomain.GetAssemblies();
+
             return VerifyName(Assembly.GetExecutingAssembly());
         }
 
@@ -29,14 +31,14 @@ namespace Stankins.Console
             foreach(var item in VerifyTypes(a)){
                 yield return item;
             }
-
-            foreach (var ass in a.GetReferencedAssemblies())
+            var refs = a.GetReferencedAssemblies();
+            foreach (var ass in refs)
             {
                 Assembly assembly;
                 try
                 {
                     assembly = Assembly.Load(ass);
-
+                    
                 }
                 catch (FileNotFoundException)
                 {
@@ -57,13 +59,22 @@ namespace Stankins.Console
 
             var interf = typeof(IBaseObject);
             var types = a.GetTypes();
+           
+
             foreach (var t in types)
             {
+                var x = t.FullName;
+                var s = x.Contains("ExportDBDiagramHtmlAndDot");
+                s = s;
                 if (!t.IsClass || t.IsAbstract)
                 {
                     continue;
                 }
                 if (!interf.IsAssignableFrom(t))
+                {
+                    continue;
+                }
+                if (t.FullName.Contains("BaseObjectInSerial"))
                 {
                     continue;
                 }
@@ -83,8 +94,7 @@ namespace Stankins.Console
                 //{
                 //    continue;
                 //}
-                var x = t.FullName;
-                var s = x.Contains("FilterColumnDataGreaterThanLength");
+
                 var obj = TryToConstruct(t) as CtorDictionary;
                 if (obj != null)
                 {

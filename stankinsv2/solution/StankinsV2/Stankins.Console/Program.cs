@@ -33,11 +33,11 @@ namespace Stankins.Console
             var sb = new StringBuilder();
             sb.AppendLine("");
             sb.AppendLine("Some fast usage  ");
-
-
+            
+            
             sb.AppendLine("1)SqlServer:");
             sb.AppendLine(
-                $"     1.1)To export diagram :{nl} stankins.console execute -o ExportDBDiagramHtmlAndDot -a {connectionString} -a metadata.html");
+                $"     1.1)To export diagram :{nl} stankins.console execute -o {nameof(ExportDBDiagramHtmlAndDot)} -a {connectionString} -a metadata.html");
 
             sb.AppendLine(
                 $"     1.2)To export a table to excel:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString} -a nameofTheTable -a nameofTheTable.xlsx");
@@ -193,7 +193,7 @@ namespace Stankins.Console
                     WriteLines(sender);
 
 
-
+                    System.Console.WriteLine("");
                     System.Console.WriteLine("!for often used  commands , see -h option");
                     return 0;
                 });
