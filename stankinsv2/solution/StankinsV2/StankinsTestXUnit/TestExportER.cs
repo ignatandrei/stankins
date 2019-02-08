@@ -21,7 +21,7 @@ namespace StankinsTestXUnit
         [Scenario]
         [Trait("ExportDBDiagramHtmlAndDot", "")]
         [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "a.html")]
-        public void ExportDBDiagramHtmlAndDot(string connectionString, string fileName)
+        public void TestExportDBDiagramHtmlAndDot(string connectionString, string fileName)
         {
             IBaseObject status = null;
             IDataToSent data = null;

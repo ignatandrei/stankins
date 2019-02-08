@@ -218,8 +218,19 @@ namespace Stankins.Console
 
                 command.OnExecute(() =>
                 {
-                    
+                  
                     var all = commands.Select(it => it.Value).ToList();
+
+                    var both = all.Where(it => typeof(IReceive).IsAssignableFrom(it.typeOfObject)
+                                && typeof(ISender).IsAssignableFrom(it.typeOfObject)
+                    ).ToArray();
+
+                    System.Console.WriteLine("");
+                    System.Console.WriteLine("!start with full example");
+                    System.Console.WriteLine("");
+                    WriteLines(both);
+
+                    System.Console.WriteLine("");
                     var receivers = all.Where(it => typeof(IReceive).IsAssignableFrom(it.typeOfObject)).ToArray();
                     System.Console.WriteLine("");
                     System.Console.WriteLine("!start with receivers");
