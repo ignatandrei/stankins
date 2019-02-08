@@ -73,6 +73,30 @@ namespace StankinsHelperCommands
                 try
                 {
                     var res = Activator.CreateInstance(t, c);
+                    if(c.Count() == 0)
+                    {
+                        //we need to add the arguments of a ctor 
+                        var ctors = t.GetConstructors();
+                        if (ctors.Any(it => it.GetParameters().Length == 0)){
+                            return c;
+                        }
+
+                        foreach (var ctor in ctors)
+                        {
+                            if (!ctor.IsPublic)
+                                continue;
+
+                            var pars = ctor.GetParameters();
+                            if (pars[0].ParameterType == typeof(CtorDictionary))
+                                continue;
+                            //first constructor ok
+                            foreach(var parm in pars)
+                            {
+                                c.Add(parm.Name, GetDefault(parm.ParameterType));
+                            }
+                            break;
+                        }
+                    }
                     return c;
                 }
                 catch (TargetInvocationException tex)
