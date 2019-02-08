@@ -435,7 +435,7 @@ jobs:
         rem restoring current dir
         rem cd ../../../../ 
         dir 
-    displayName: test dot net
+    displayName: obsolete test dot net now on linux
   
   #- bash: |
    #   curl -s https://codecov.io/bash > codecov
@@ -452,11 +452,24 @@ jobs:
         docker tag stankins_windows ignatandrei/stankins_windows
         docker image ls
         echo before login
-        docker login --username ignatandrei --password %MY_PASSWORD_DOCKER%
+        echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
         echo after login
-        docker push ignatandrei/stankins_windows
+        call docker push ignatandrei/stankins_windows
     displayName: 'docker'
 
+  - script: |
+        echo start publish windows
+        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
+        cd stankinsv2/solution/
+        xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
+        docker build . -t stankins_windows -f Dockerfile_win
+        docker tag stankins_windows ignatandrei/stankins_windows
+        docker image ls
+        echo before login
+        echo %MY_PASSWORD_DOCKER%| docker login --username ignatandrei --password-stdin
+        echo after login
+        call docker push ignatandrei/stankins_windows
+    displayName: 'console utility'
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: drop'
 
