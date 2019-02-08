@@ -17,6 +17,12 @@ using Stankins.File;
 using Stankins.Office;
 using StankinsCommon;
 using StankinsObjects;
+using StankinsHelperCommands;
+using Stankins.AzureDevOps;
+using System.Threading.Tasks;
+using Stankins.Process;
+using Stankins.Version;
+using Stankins.XML;
 
 namespace Stankins.Console
 {
@@ -103,36 +109,79 @@ namespace Stankins.Console
 
             };
         }
+        static KeyValuePair<Type, CtorDictionary>[] AddReferences()
+        {
+            var allTypes = new List<KeyValuePair<Type, CtorDictionary>>();
+           
+
+            FindAssembliesToExecute f;
+
+            f = new FindAssembliesToExecute(typeof(Stankins.Amazon.AmazonMeta).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+
+            f = new FindAssembliesToExecute(typeof(Stankins.AnalyzeSolution.ReceiverFromSolution).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+
+            f = new FindAssembliesToExecute(typeof(Stankins.AzureDevOps.YamlReader).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+
+          
+
+            f = new FindAssembliesToExecute(typeof(Stankins.File.ReceiverCSV).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+
+            f = new FindAssembliesToExecute(typeof(Stankins.HTML.ReceiverHtml).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+            
+            f = new FindAssembliesToExecute(typeof(Stankins.Office.SenderExcel).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+           
+
+            f = new FindAssembliesToExecute(typeof(Stankins.Process.ReceiverProcess).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+
+            f = new FindAssembliesToExecute(typeof(Stankins.Razor.SenderDBDiagramToDot).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+
+            f = new FindAssembliesToExecute(typeof(Stankins.SqlServer.ExportDBDiagramHtmlAndDot).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+           
+            f = new FindAssembliesToExecute(typeof(Stankins.Version.FileVersionFromDir).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+           
+            f = new FindAssembliesToExecute(typeof(Stankins.XML.ReceiverXML).Assembly);
+
+            allTypes.AddRange( f.FindAssemblies());
+
+
+
+
+            return allTypes.ToArray() ;
+        }
         static void Main(string[] args)
         {
 
+            var refs= AddReferences();
+
             var commands = new CtorDictionaryGeneric<CreatorBaseObject>();
-            Action< KeyValuePair<Type, CtorDictionary>, int> createItem = (t, nr) => { commands.Add(t.Key.Name, new CreatorBaseObject(t.Key, t.Value)); };
-            foreach(var item in (new FindAssembliesToExecute()).FindNamesToBeExecuted())
+
+            Action<KeyValuePair<Type, CtorDictionary>> createItem = (t) => { commands.Add(t.Key.Name, new CreatorBaseObject(t.Key, t.Value)); };
+            foreach (var item in refs)
             {
-                createItem(item, 1);
+                createItem(item);
             }
-            //foreach (var item in commands)
-            //{
-            //    System.Console.WriteLine(item.Key);
-            //}
-            //System.Console.WriteLine(commands.Count);
-            
-            //createItem(typeof(ReceiveMetadataFromDatabaseSql), 1);
-            //createItem(typeof(SenderDBDiagramToDot), 0);
-            //createItem(typeof(SenderDBDiagramHTMLDocument), 0);
-            //createItem(typeof(ReceiveQueryFromFileSql), 2);
-            //createItem(typeof(SenderAllTablesToFileCSV), 1);
-            //createItem(typeof(ReceiveQueryFromFolderSql), 3);
-            //createItem(typeof(SenderExcel), 1);
-            //createItem(typeof(ExportDBDiagramHtmlAndDot), 2);
-            //createItem(typeof(ExportTableToExcelSql), 3);
-            //createItem(typeof(ReceiveTableDatabaseSql), 2);
-            //createItem(typeof(ReceiverFromSolution), 1);
-            //createItem(typeof(SenderSolutionToDot), 1);
-            //createItem(typeof(SenderSolutionToHTMLDocument), 1);
-            ////createItem(typeof(SenderOutputToFolder), 2);
-            //createItem(typeof(TransformerOutputStringColumnName), 1);
+          
+
             var app = new CommandLineApplication();
             app.Name = "Stankins.Console";
             var versionString = Assembly.GetEntryAssembly()
@@ -172,12 +221,18 @@ namespace Stankins.Console
                     
                     var all = commands.Select(it => it.Value).ToList();
                     var receivers = all.Where(it => typeof(IReceive).IsAssignableFrom(it.typeOfObject)).ToArray();
+                    System.Console.WriteLine("");
                     System.Console.WriteLine("!start with receivers");
+
+                    System.Console.WriteLine("");
                     WriteLines(receivers);
 
+                    System.Console.WriteLine("");
                     System.Console.WriteLine("!then with transformers, filters");
+                    System.Console.WriteLine("");
 
-                    WriteLines(receivers);
+                  
+
                     var next = all.Where(it => 
                         typeof(IFilter).IsAssignableFrom(it.typeOfObject)
                         ||
@@ -189,7 +244,9 @@ namespace Stankins.Console
                         typeof(ISender).IsAssignableFrom(it.typeOfObject)
                     ).ToArray();
 
+                    System.Console.WriteLine("");
                     System.Console.WriteLine("!then with senders");
+                    System.Console.WriteLine("");
                     WriteLines(sender);
 
 

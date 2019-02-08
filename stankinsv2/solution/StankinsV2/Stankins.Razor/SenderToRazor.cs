@@ -16,7 +16,7 @@ namespace Stankins.Razor
             }
         )
         {
-
+           
         }
         public SenderToRazorWithContents(CtorDictionary dataNeeded) : base(dataNeeded)
         {
@@ -30,7 +30,7 @@ namespace Stankins.Razor
         }
         public override string DefaultText()
         {
-            throw new NotImplementedException();
+            return "please construct with a InputTemplate string that is relevant";
         }
     }
     public abstract class SenderToRazor : BaseObjectSender, ISenderToOutput

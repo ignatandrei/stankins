@@ -134,6 +134,10 @@ namespace Stankins.HTML
         {
 
         }
+        public ReceiverLinkOneTab(CtorDictionary dataNeeded):base(dataNeeded)
+        {
+
+        }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var beforeTables = new List<int>();
