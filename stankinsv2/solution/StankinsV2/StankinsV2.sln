@@ -47,7 +47,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.AnalyzeSolution", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.AssemblyLoad", "Stankins.AssemblyLoad\Stankins.AssemblyLoad.csproj", "{B89F2335-01E6-4E81-A977-BBCB1046390E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StankinsHelperCommands", "StankinsHelperCommands\StankinsHelperCommands.csproj", "{AD7374B3-2321-4578-9146-7DD9F86E318B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsHelperCommands", "StankinsHelperCommands\StankinsHelperCommands.csproj", "{AD7374B3-2321-4578-9146-7DD9F86E318B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

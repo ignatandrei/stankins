@@ -73,6 +73,7 @@ jobs:
         dotnet tool install  -g coverlet.console
         dotnet tool install  -g dotnet-reportgenerator-globaltool 
         dotnet tool install  -g dotnet-sonarscanner
+        dotnet tool install  -g dotnet-warp
       displayName: build linux
   
     
@@ -110,6 +111,24 @@ jobs:
         dotnet sonarscanner end /d:sonar.login="$(sonarLogin)"
           
       displayName: sonar
+    
+    - task: MatthewThomas.netstandard-project-property-tools.project-var-writer.ProjectVarWriter@0
+      displayName: 'Write Custom'
+      inputs:
+        searchPattern: '**\Stankins.Console.csproj'
+        value: false
+        propertyName: Custom
+        customPropertyName: PackAsTool
+
+    - script: |
+        echo console utility self contained
+        cd stankinsv2\solution\StankinsV2\Stankins.Console
+        dotnet-warp  --verbose
+        copy Stankins.Console.exe $(Build.ArtifactStagingDirectory)
+        
+      displayName: 'console utility Full self contained'
+
+
 
     - task: PublishTestResults@2
       inputs:
