@@ -42,24 +42,29 @@ namespace StankinsObjects
             var nr = 0;
             var tableFound = receiveData.DataToBeSentFurther[table.Id];
             DataTable prevDataTable = null;
-            foreach (DataRow dr in tableFound.Rows)
+            var nrRowsTable = tableFound.Rows.Count;
+            foreach(DataRow dr in tableFound.Rows )
             {
-                if(nr % NrRows == 0)
+                if (nr % NrRows == 0)
                 {
-                    if (prevDataTable != null) {
-                        prevDataTable.TableName = $"{tableFound.TableName}_{nr-NrRows}_{nr-1}";
-                        var id = receiveData.AddNewTable(prevDataTable);
-                        receiveData.Metadata.AddTable(prevDataTable, id);
-                    }
-                    prevDataTable = tableFound.Clone();
-                    
+                    //create a new one later
+                    prevDataTable = null;
+
+
                 }
                 nr++;
-                if (prevDataTable != null)
+                if (prevDataTable == null)
                 {
-                    prevDataTable.Rows.Add(dr.ItemArray);
+                    prevDataTable = tableFound.Clone();
+                    prevDataTable.TableName = $"{tableFound.TableName}_{nr - NrRows}_{nr - 1}";
+                    var id = receiveData.AddNewTable(prevDataTable);
+                    receiveData.Metadata.AddTable(prevDataTable, id);
                 }
+
+                prevDataTable.Rows.Add(dr.ItemArray);
+                
             }
+
             return await Task.FromResult(receiveData) ;
         }
 
