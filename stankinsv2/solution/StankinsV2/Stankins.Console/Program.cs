@@ -99,7 +99,7 @@ namespace Stankins.Console
             {
                 Type t = it.typeOfObject;
                 System.Console.WriteLine("");
-                System.Console.Write($"-o {t.Name}");
+                System.Console.Write($"stankins.console execute -o {t.Name}");
 
                 foreach (var item in it.arguments)
                 {
