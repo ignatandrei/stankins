@@ -1,5 +1,9 @@
+ <a href="about#npmvers">View Npm components ({{dataSourceNPM?.data.length}} )</a>
+&nbsp;
+ <a href="about#netvers">View  NET components ( {{dataSourceNET?.data.length}} )</a>
+
 <p>
-    .NET Version files
+    <a id="netvers" name="netvers">.NET components: {{dataSourceNET?.data.length}}</a>    
   </p>
 
   <mat-form-field>
@@ -8,8 +12,8 @@
 <table mat-table [dataSource]="dataSourceNET" matSort class="mat-elevation-z8">
     <ng-container matColumnDef="internalName" sticky>
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-        <td mat-cell *matCellDef="let element" matTooltip={{element.fileName}}> 
-          {{element.internalName}} </td>
+        <td mat-cell *matCellDef="let element;let i=index" matTooltip={{element.fileName}}> 
+            {{i+1}})   {{element.internalName}} </td>
       </ng-container>
       <ng-container matColumnDef="companyName">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> companyName </th>
@@ -30,15 +34,15 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumnsNET;"></tr>
 </table>
 
-NPM Versions:
+<a id="npmvers" name="npmvers">NPM Components: {{dataSourceNPM?.data.length}}</a>
 <mat-form-field>
   <input matInput (keyup)="applyFilterNPM($event.target.value)" placeholder="Filter">
 </mat-form-field> 
 <table mat-table [dataSource]="dataSourceNPM" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="name" sticky>
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
-      <td mat-cell *matCellDef="let element" matTooltip={{element.name}}> 
-        {{element.name}} </td>
+      <td mat-cell *matCellDef="let element;let i=index" matTooltip={{element.name}}> 
+      {{i+1}}) {{element.name}} </td>
     </ng-container>
     <ng-container matColumnDef="version">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> fileVersion </th>
