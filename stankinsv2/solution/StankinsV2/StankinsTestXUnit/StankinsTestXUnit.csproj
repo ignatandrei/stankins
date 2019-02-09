@@ -18,6 +18,12 @@
     <None Remove="Assets\bookmarks_11_17_17.html" />
     <None Remove="Assets\bookmarks_11_17_17N.html" />
     <None Remove="Assets\otherbooksmarks.html" />
+    <None Remove="Assets\yaml\myp.myml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\yaml\myp.myml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\bg.html">
@@ -64,6 +70,7 @@
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />
     <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />
+    <ProjectReference Include="..\Stankins.SimpleRecipes\Stankins.SimpleRecipes.csproj" />
     <ProjectReference Include="..\Stankins.SqlServer\Stankins.SqlServer.csproj" />
   </ItemGroup>
 </Project>

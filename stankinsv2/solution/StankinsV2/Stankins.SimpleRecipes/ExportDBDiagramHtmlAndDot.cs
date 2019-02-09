@@ -5,14 +5,15 @@ using System.IO;
 using System.Text;
 using Stankins.Interfaces;
 using Stankins.Razor;
+using Stankins.SqlServer;
 using StankinsCommon;
 using StankinsObjects;
 
-namespace Stankins.SqlServer
+namespace Stankins.SimpleRecipes
 {
     public class ExportDBDiagramHtmlAndDot :
         BaseObjectInSerial<ReceiveMetadataFromDatabaseSql, SenderDBDiagramToDot, SenderDBDiagramHTMLDocument, TransformerConcatenateOutputString, SenderOutputToFolder>
-    ,IReceive,ISender
+    , IReceive, ISender
     {
         public ExportDBDiagramHtmlAndDot(CtorDictionary dataNeeded) : base(dataNeeded)
         {
@@ -27,12 +28,10 @@ namespace Stankins.SqlServer
             {"newTotalNameOutput",fileName },
             {"folderToSave", Path.GetDirectoryName(fileName)},
             {"addKey",false }
- 
+
         })
         {
 
         }
     }
-
-    
 }

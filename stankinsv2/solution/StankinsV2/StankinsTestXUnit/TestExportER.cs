@@ -2,6 +2,7 @@
 using Stankins.Alive;
 using Stankins.Interfaces;
 using Stankins.Razor;
+using Stankins.SimpleRecipes;
 using Stankins.SqlServer;
 using System;
 using System.Collections.Generic;

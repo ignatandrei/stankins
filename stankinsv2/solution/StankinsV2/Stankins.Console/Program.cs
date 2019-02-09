@@ -23,6 +23,7 @@ using System.Threading.Tasks;
 using Stankins.Process;
 using Stankins.Version;
 using Stankins.XML;
+using Stankins.SimpleRecipes;
 
 namespace Stankins.Console
 {
@@ -151,7 +152,7 @@ namespace Stankins.Console
 
             allTypes.AddRange( f.FindAssemblies());
 
-            f = new FindAssembliesToExecute(typeof(Stankins.SqlServer.ExportDBDiagramHtmlAndDot).Assembly);
+            f = new FindAssembliesToExecute(typeof(Stankins.SimpleRecipes.ExportDBDiagramHtmlAndDot).Assembly);
 
             allTypes.AddRange( f.FindAssemblies());
            

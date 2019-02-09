@@ -33,7 +33,10 @@ namespace StankinsObjects
         {
             if (receiveData == null)
                 return receiveData;
-
+            if ((!string.IsNullOrWhiteSpace(FolderToSave)) && (!Directory.Exists(FolderToSave)))
+            {
+                Directory.CreateDirectory(FolderToSave);
+            }
             Regex illegalInFileName = new Regex(string.Format("[{0}]", Regex.Escape(new string(Path.GetInvalidFileNameChars()))), RegexOptions.Compiled);
             DataTable output=null;
             try
@@ -56,6 +59,7 @@ namespace StankinsObjects
                     }
                     nameFile = illegalInFileName.Replace(nameFile, "_");
                     nameFile = Path.Combine(FolderToSave, nameFile);
+                    
                     File.WriteAllText(nameFile, outputRow["Contents"]?.ToString());
                 }
             }

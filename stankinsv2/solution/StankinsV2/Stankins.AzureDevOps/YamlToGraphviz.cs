@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Stankins.AzureDevOps
 {
-    public class YamlToGraphviz : BaseObject, ISender, IStreaming<string>
+    public class YamlToGraphviz : BaseObjectSender,  ISenderToOutput, IStreaming<string>
     {
         public YamlToGraphviz(CtorDictionary dict) : base(dict)
         {
@@ -20,6 +20,8 @@ namespace Stankins.AzureDevOps
         {
         }
         StringBuilder sb;
+
+       
         public async Task<bool> Initialize()
         {
             sb = new StringBuilder();
@@ -27,7 +29,7 @@ namespace Stankins.AzureDevOps
             return await Task.FromResult(true);
         }
 
-        public IEnumerable<string> StreamTo(IDataToSent dataToSent)
+        public   IEnumerable<string> StreamTo(IDataToSent dataToSent)
         {
             var result = new StringBuilder();
             var nodes = new StringBuilder();
@@ -89,6 +91,9 @@ namespace Stankins.AzureDevOps
             sb.AppendLine(arr.First());
             sb.AppendLine("}");
 
+            base.CreateOutputIfNotExists(receiveData);
+            var key = Guid.NewGuid().ToString();
+            base.OutputString.Rows.Add(null, key, sb.ToString());
             return await Task.FromResult(receiveData) ;
         }
 

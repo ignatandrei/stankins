@@ -2,6 +2,7 @@
 using System.IO;
 using FluentAssertions;
 using Stankins.Interfaces;
+using Stankins.SimpleRecipes;
 using Stankins.SqlServer;
 using Xbehave;
 using Xunit;

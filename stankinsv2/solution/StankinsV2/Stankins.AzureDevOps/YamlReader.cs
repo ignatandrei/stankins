@@ -12,19 +12,19 @@ namespace Stankins.AzureDevOps
 {
     public class YamlReader : Receiver
     {
-        private readonly string fileName;
+        private readonly string fileNameYaml;
         private readonly Encoding encoding;
 
         public YamlReader(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            this.fileName = GetMyDataOrThrow<string>(nameof(fileName));
+            this.fileNameYaml = GetMyDataOrThrow<string>(nameof(fileNameYaml));
             this.encoding = GetMyDataOrDefault(nameof(encoding), Encoding.UTF8);
             this.Name = nameof(YamlReader);
         }
-        public YamlReader(string fileName, Encoding encoding) :this(new CtorDictionary()
+        public YamlReader(string fileNameYaml, Encoding encoding) :this(new CtorDictionary()
         {
             {
-                nameof(fileName),fileName
+                nameof(fileNameYaml),fileNameYaml
             },
             {
                 nameof(encoding),encoding
@@ -45,7 +45,7 @@ namespace Stankins.AzureDevOps
             var file = new ReadFileToString
             {
                 FileEnconding = this.encoding,
-                FileToRead = this.fileName
+                FileToRead = this.fileNameYaml
             };
 
             var data = await file.LoadData();

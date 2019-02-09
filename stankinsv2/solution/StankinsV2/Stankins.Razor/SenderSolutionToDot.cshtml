@@ -13,7 +13,7 @@
     var projectAssemblies =  Model.FindAfterName("projectAssemblies").Value;
     var assemblies = Model.FindAfterName("assemblies").Value;
     var nl=Environment.NewLine;
-    var iTable = 0;
+    //var iTable = 0;
 
 
 }
@@ -27,17 +27,17 @@
         public string Id;
         public string Name;
         public Dictionary<string, Project> RefProjects = new Dictionary<string, Project>();
-        public Dictionary<string, AssemblyPrj> Assemblies= new  Dictionary<string, AssemblyPrj>();
+        //public Dictionary<string, AssemblyPrj> Assemblies= new  Dictionary<string, AssemblyPrj>();
         public string IdNode(){
             return "prj"+Id;
         }
     }
-    class AssemblyPrj
-    {
-        public string Name;
-        public string FullName;
-        public string Version;
-    }
+    //class AssemblyPrj
+    //{
+    //    public string Name;
+    //    public string FullName;
+    //    public string Version;
+    //}
 
 }
 

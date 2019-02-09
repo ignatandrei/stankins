@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
+    <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
+    <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />
+    <ProjectReference Include="..\Stankins.SqlServer\Stankins.SqlServer.csproj" />
+    <ProjectReference Include="..\StankinsCommon\StankinsCommon.csproj" />
+    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
+  </ItemGroup>
+
+</Project>
