@@ -39,7 +39,7 @@ namespace StankinsTestXUnit
                 data.DataToBeSentFurther.Count.Should().Be(numberTables);
             });
             $"And the file should exists".w(() => File.Exists(fileName));
-            $"and run".w(() => Process.Start("notepad.exe", fileName));
+            //$"and run".w(() => Process.Start("notepad.exe", fileName));
 
         }
     }
