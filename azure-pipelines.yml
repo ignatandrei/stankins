@@ -114,7 +114,14 @@ jobs:
     - script: |
           stankins.console execute -o ExportAzurePipelinesToDot -a https://raw.githubusercontent.com/ignatandrei/stankins/master/azure-pipelines.yml -a  $(Build.ArtifactStagingDirectory)/analysis/azurePipeline.html
           stankins.console execute -o ExportSolutionToHtmlAndDot -a stankinsv2/solution/StankinsV2/StankinsV2.sln  -a  $(Build.ArtifactStagingDirectory)/analysis/stankins.html
-
+          
+          docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml up -d   
+        
+          stankins.console execute -o ExportDBDiagramHtmlAndDot -a "Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>" -a $(Build.ArtifactStagingDirectory)/analysis/db.html
+          stankins.console execute -o ExportTableToExcelSql -a "Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>" -a Employee -a $(Build.ArtifactStagingDirectory)/analysis/emp.xlsx
+          
+          docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down 
+        
       displayName: stankins console
     
 
@@ -580,6 +587,15 @@ jobs:
       includeRootFolder: true
       archiveType: 'zip' 
       archiveFile: '$(Build.ArtifactStagingDirectory)/CodeCoverage-$(Build.BuildId).zip' 
+      replaceExistingArchive: true 
+      
+  - task: ArchiveFiles@2
+    displayName: 'arhive stankins examples'
+    inputs:
+      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/analysis'
+      includeRootFolder: true
+      archiveType: 'zip' 
+      archiveFile: '$(Build.ArtifactStagingDirectory)/Analysis-$(Build.BuildId).zip' 
       replaceExistingArchive: true 
       
   - task: ArchiveFiles@2
