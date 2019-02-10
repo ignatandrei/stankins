@@ -91,7 +91,7 @@
     digraph {
     graph [pad="0.5", nodesep="0.5", ranksep="2"];
     node [shape=plain]
-    rankdir=LR;
+
 
 
     @{
@@ -112,9 +112,14 @@
         //definition of nodes
         foreach (var jobIter in allJobs.Values)
         {
-             <text>@Raw(nl)</text>
+            <text>@Raw(nl)</text>
             <text>@jobIter.NodeId()  [label="@jobIter.jobName" shape=folder color=lightblue] ;</text>
             <text>@Raw(nl)</text>
+            foreach(var sIter in jobIter.Steps){
+                <text>@Raw(nl)</text>
+                <text>@sIter.NodeId()  [label="@sIter.displayName"] ;</text>
+                <text>@Raw(nl)</text>
+            }
         }
 
         //definition of depends
@@ -122,14 +127,14 @@
             var nodeId=jobIter.NodeId();
 
             foreach(var jDep in jobIter.JobDepends){
-                @Raw(string.Format("{0}->{1}{2}", nodeId,jDep.NodeId(),nl));
+                @Raw(string.Format("{0}->{1}{2}", jDep.NodeId(),nodeId,nl));
             }
         }
 
 
-    }//end digraph
+    }
 
-  @Raw("}");
+  @Raw("}")
     `;
 
 

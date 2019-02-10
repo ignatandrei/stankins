@@ -27,7 +27,7 @@ namespace StankinsTestXUnit
             $"when find enum for {t.Name} it is {what.ToString()}".w(() =>
             {
                 var res=new ResultTypeStankins(t,null);
-                res.FromType().Should().Be(what);
+                res.FromType().Should().HaveFlag(what);
             });
         }
     }
