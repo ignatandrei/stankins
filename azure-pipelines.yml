@@ -592,10 +592,10 @@ jobs:
   - task: ArchiveFiles@2
     displayName: 'arhive stankins examples'
     inputs:
-      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/analysis'
+      rootFolderOrFile: '$(System.ArtifactStagingDirectory)/drop/analysis'
       includeRootFolder: true
       archiveType: 'zip' 
-      archiveFile: '$(Build.ArtifactStagingDirectory)/Analysis-$(Build.BuildId).zip' 
+      archiveFile: '$(Build.ArtifactStagingDirectory)/StamkinsAnalysis-$(Build.BuildId).zip' 
       replaceExistingArchive: true 
       
   - task: ArchiveFiles@2
@@ -633,6 +633,7 @@ jobs:
   dependsOn: 
   - Windows
   - Linux
+  - FullTestOnLinux
   condition: or(succeeded('Windows') , succeeded('Linux'))
 
 
