@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
@@ -37,11 +38,11 @@ steps:
             File.WriteAllText(nameFile, data);
             var visit = new YamlReader(nameFile, Encoding.UTF8);
             var dt = await visit.TransformData(null);
-            var graph = new YamlToGraphviz();
+            var graph = new SenderYamlAzurePipelineToDot();
             dt = await graph.TransformData(dt);
             //await File.WriteAllTextAsync("a.txt",graph.Result());
             //Process.Start("notepad.exe","a.txt");
-            var res = graph.Result().Replace(Environment.NewLine, "");
+            var res = graph.OutputString.Rows[0][0].ToString().Replace(Environment.NewLine, "");
             res.Should().ContainAll("Xcode@5", "->");
             res.Should().NotContain("2");// not 2 jobs, not 2 tasks
 
@@ -115,11 +116,11 @@ jobs:
             File.WriteAllText(nameFile, data);
             var visit = new YamlReader(nameFile, Encoding.UTF8);
             var dt = await visit.TransformData(null);
-            var graph = new YamlToGraphviz();
+            var graph = new SenderYamlAzurePipelineToDot();
             dt = await graph.TransformData(dt);
             //await File.WriteAllTextAsync("a.txt", graph.Result());
             //Process.Start("notepad.exe", "a.txt");
-            var res = graph.Result().Replace(Environment.NewLine, "");
+            var res = graph.OutputString.Rows[0][0].ToString().Replace(Environment.NewLine, "");
             res.Should().ContainAll("Android", "iOS", "XamarinAndroid@1", "XamariniOS@2");
 
         }
@@ -740,11 +741,11 @@ jobs:
             File.WriteAllText(nameFile, data);
             var visit = new YamlReader(nameFile, Encoding.UTF8);
             var dt = await visit.TransformData(null);
-            var graph = new YamlToGraphviz();
+            var graph = new SenderYamlAzurePipelineToDot();
             dt = await graph.TransformData(dt);
             //await File.WriteAllTextAsync("a.txt", graph.Result());
             //Process.Start("notepad.exe", "a.txt");
-            var res = graph.Result().Replace(Environment.NewLine, "");
+            var res = graph.OutputString.Rows[0][0].ToString().Replace(Environment.NewLine, "");
             res.Should().ContainAll("Publish", "macOS", "Windows", "Azure","docker");
         }
     }

@@ -1,0 +1,143 @@
+﻿@using  System.Data;
+@using  System;
+@using  System.Linq;
+@using Stankins.Interfaces;
+@using  System.Collections.Generic;
+@using RazorLight
+
+@inherits TemplatePage<IDataToSent>
+@{
+
+    var jobs = Model.FindAfterName("jobs").Value;
+    var steps = Model.FindAfterName("steps").Value;
+    var depends=Model.FindAfterName("jobDepends").Value;
+    var nl=Environment.NewLine;
+
+
+}
+<div></div>
+@functions{
+
+
+    class Job
+    {
+
+        public int Id;
+        public string jobName;
+        public List<Step> Steps = new List<Step>();
+        public List<Job> JobDepends = new List<Job>();
+        public string NodeId(){
+            return "NodeJob"+Id;
+        }
+
+    }
+    class Step
+    {
+        public int JobId;
+        public int Id;
+        public string displayName;
+        public string name;
+        public string NodeId(){
+            return "NodeJob" + JobId + "_" + Id;
+        }
+
+    }
+
+}
+
+@{
+    var allJobs=new Dictionary<string,Job>();
+    foreach(DataRow drJob in jobs.Rows)
+    {
+        var j=new Job();
+        j.Id= allJobs.Count;
+        j.jobName=drJob["name"].ToString();
+        allJobs.Add(j.jobName,j);
+    }
+    foreach ( DataRow step  in steps.Rows)
+    {
+
+        var j=allJobs[step["jobName"].ToString()];
+        var s=new Step();
+        s.Id= j.Steps.Count;
+        s.JobId = j.Id;
+        s.name = step["name"].ToString();
+        var display = step["displayName"].ToString();
+        if(string.IsNullOrWhiteSpace(display))
+        {
+            display =s.name;
+        }
+        s.displayName = display;
+        j.Steps.Add(s);
+
+    }
+
+    foreach (DataRow job in depends.Rows)
+    {
+        var jobName= job["jobName"].ToString();
+        var jobDepends = job["jobNameDepends"].ToString();
+        var j=allJobs[jobName];
+        j.JobDepends.Add(allJobs[jobDepends]);
+
+    }
+}
+<div id="mydb"></div>
+<script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/viz.js'></script>
+<script src='https://github.com/mdaines/viz.js/releases/download/v2.1.2/full.render.js'></script>
+
+<script>
+
+    var t = `
+    digraph {
+    graph [pad="0.5", nodesep="0.5", ranksep="2"];
+    node [shape=plain]
+    rankdir=LR;
+
+
+    @{
+
+        //definition of graphs
+        foreach (var jobIter in allJobs.Values)
+        {
+            var stepsString =jobIter.Steps.Select(it=>" -> "+ it.NodeId()).ToArray();
+            <text>@Raw(nl)</text>
+            <text>subgraph @string.Format("cluster_{0}",jobIter.Id) {</text>
+            <text>label="@jobIter.jobName";</text>
+            @jobIter.NodeId() @Raw(string.Join(' ',stepsString))
+
+            <text>}</text>
+        }
+        <text>@Raw(nl)</text>
+
+        //definition of nodes
+        foreach (var jobIter in allJobs.Values)
+        {
+             <text>@Raw(nl)</text>
+            <text>@jobIter.NodeId()  [label="@jobIter.jobName" shape=folder color=lightblue] ;</text>
+            <text>@Raw(nl)</text>
+        }
+
+        //definition of depends
+        foreach (var jobIter in allJobs.Values){
+            var nodeId=jobIter.NodeId();
+
+            foreach(var jDep in jobIter.JobDepends){
+                @Raw(string.Format("{0}->{1}{2}", nodeId,jDep.NodeId(),nl));
+            }
+        }
+
+
+    }//end digraph
+
+  @Raw("}");
+    `;
+
+
+    let viz = new Viz();
+    viz.renderSVGElement(t)
+        .then(function (element) {
+            document.getElementById('mydb').appendChild(element);
+        })
+        .catch(error => window.alert('please debug the error' + error));
+
+</script>  

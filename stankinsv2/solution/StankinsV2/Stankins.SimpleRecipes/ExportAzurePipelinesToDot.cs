@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Stankins.SimpleRecipes
 {
-    public class ExportAzurePipelinesToDot :BaseObjectInSerial<YamlReader, YamlToGraphviz, TransformerConcatenateOutputString, SenderOutputToFolder>
+    public class ExportAzurePipelinesToDot :BaseObjectInSerial<YamlReader, SenderYamlAzurePipelineToDot, TransformerConcatenateOutputString, SenderOutputToFolder>
     , IReceive, ISender
     {
         public ExportAzurePipelinesToDot(CtorDictionary dataNeeded) : base(dataNeeded)

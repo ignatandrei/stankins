@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using FluentAssertions;
 using Stankins.File;
+using Stankins.SimpleRecipes;
 using StankinsHelperCommands;
 using StankinsObjects;
 using Xbehave;
@@ -20,6 +21,7 @@ namespace StankinsTestXUnit
         [Example(typeof(SenderAllTablesToFileCSV), WhatToList.Senders)]
         [Example(typeof(TransformSplitColumn), WhatToList.Transformers)]
         [Example(typeof(FilterColumnDataGreaterThanLength), WhatToList.Filters)]
+        [Example(typeof(ExportAzurePipelinesToDot),WhatToList.RecipeSimple)]
         public void TestFindEnum(Type t, WhatToList what)
         {
             $"when find enum for {t.Name} it is {what.ToString()}".w(() =>
