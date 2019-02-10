@@ -72,5 +72,6 @@
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />
     <ProjectReference Include="..\Stankins.SimpleRecipes\Stankins.SimpleRecipes.csproj" />
     <ProjectReference Include="..\Stankins.SqlServer\Stankins.SqlServer.csproj" />
+    <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
   </ItemGroup>
 </Project>

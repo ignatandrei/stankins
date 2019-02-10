@@ -42,66 +42,32 @@ namespace Stankins.Console
             sb.AppendLine("Some fast usage  ");
             
             
-            sb.AppendLine("1)SqlServer:");
+            sb.AppendLine("SqlServer:");
             sb.AppendLine(
-                $"     1.1)To export diagram :{nl} stankins.console execute -o {nameof(ExportDBDiagramHtmlAndDot)} -a {connectionString} -a metadata.html");
+                $"     SqlServer1)To export diagram :{nl} stankins.console execute -o {nameof(ExportDBDiagramHtmlAndDot)} -a {connectionString} -a metadata.html");
 
             sb.AppendLine(
-                $"     1.2)To export a table to excel:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString} -a nameofTheTable -a nameofTheTable.xlsx");
+                $"     SqlServer2)To export a table to excel:{nl} stankins.console execute -o ExportTableToExcelSql -a {connectionString} -a nameofTheTable -a nameofTheTable.xlsx");
             sb.AppendLine(
-                $"     1.3)To export a table to csv:{nl} stankins.console execute -o ReceiveTableDatabaseSql -a {connectionString} -a nameofTheTable -o SenderAllTablesToFileCSV -a folderToSave");
-            sb.AppendLine("2)Solution:");
+                $"     SqlServer3)To export a table to csv:{nl} stankins.console execute -o ReceiveTableDatabaseSql -a {connectionString} -a nameofTheTable -o SenderAllTablesToFileCSV -a folderToSave");
+            sb.AppendLine("Solution:");
             sb.AppendLine(
-                $"     2.2)execute - o ReceiverFromSolution - a path.to.the.sln");
+                $"     Solution1)stankins.console execute - o ReceiverFromSolution - a path.to.the.sln");
 
             return sb.ToString();
 
         }
 
-        private class CreatorBaseObject
-        {
-            public readonly Type typeOfObject;
-            public readonly CtorDictionary arguments;
-
-            public CreatorBaseObject(Type typeOfObject, CtorDictionary arguments)
-            {
-                this.typeOfObject = typeOfObject;
-                this.arguments = arguments;
-            }
-
-
-            public BaseObject Create(object[] ctorStrings)
-            {
-                if (ctorStrings?.Length != arguments.Count())
-                {
-                    throw new ArgumentException($"number of args {arguments} != {ctorStrings?.Length}");
-                }
-
-                BaseObject act;
-                if (ctorStrings?.Length > 0)
-                {
-                    act = Activator.CreateInstance(typeOfObject, ctorStrings) as BaseObject;
-
-                }
-                else
-                {
-                    act = Activator.CreateInstance(typeOfObject) as BaseObject;
-
-                }
-
-                return act;
-            }
-
-        }
-        static void WriteLines(CreatorBaseObject[] b)
+        
+        static void WriteLines(ResultTypeStankins[] b)
         {
             foreach (var it in b)
             {
-                Type t = it.typeOfObject;
+                Type t = it.Type;
                 System.Console.WriteLine("");
                 System.Console.Write($"stankins.console execute -o {t.Name}");
 
-                foreach (var item in it.arguments)
+                foreach (var item in it.ConstructorParam)
                 {
                     System.Console.Write($" -a {item.Key}");
                 }
@@ -110,12 +76,12 @@ namespace Stankins.Console
 
             };
         }
-        static KeyValuePair<Type, CtorDictionary>[] AddReferences()
+        static ResultTypeStankins[] AddReferences()
         {
-            var allTypes = new List<KeyValuePair<Type, CtorDictionary>>();
+            var allTypes = new List<ResultTypeStankins>();
            
 
-            FindAssembliesToExecute f;
+            FindAssembliesToExecute f=null;
 
             f = new FindAssembliesToExecute(typeof(Stankins.Amazon.AmazonMeta).Assembly);
 
@@ -174,9 +140,9 @@ namespace Stankins.Console
 
             var refs= AddReferences();
 
-            var commands = new CtorDictionaryGeneric<CreatorBaseObject>();
+            var commands = new CtorDictionaryGeneric<ResultTypeStankins>();
 
-            Action<KeyValuePair<Type, CtorDictionary>> createItem = (t) => { commands.Add(t.Key.Name, new CreatorBaseObject(t.Key, t.Value)); };
+            Action<ResultTypeStankins> createItem = (t) => { commands.Add(t.Type.Name, t); };
             foreach (var item in refs)
             {
                 createItem(item);
@@ -213,53 +179,29 @@ namespace Stankins.Console
             //});
             app.Command("list", (command) =>
             {
-                command.Description = "Explain arguments  for supported objects";
+                var names=string.Join(',', Enum.GetNames(typeof(WhatToList)));
+
+                command.Description = "Explain arguments  for supported objects - could be " + names;
+
                 command.HelpOption("-?|-h|--help"); 
+                var optWhat = command.Option("-what", "what to list", CommandOptionType.SingleValue);
+                
 
 
                 command.OnExecute(() =>
                 {
-                  
+                    if (!optWhat.HasValue())
+                    {
+                        System.Console.WriteLine("please add -what " +names);
+                        return -1;
+                    }
+                    var val =(WhatToList) (int) Enum.Parse(typeof(WhatToList), optWhat.Value());
+                    
                     var all = commands.Select(it => it.Value).ToList();
 
-                    var both = all.Where(it => typeof(IReceive).IsAssignableFrom(it.typeOfObject)
-                                && typeof(ISender).IsAssignableFrom(it.typeOfObject)
-                    ).ToArray();
+                    var find = all.Where(it => val == (val & it.FromType())).ToArray();
 
-                    System.Console.WriteLine("");
-                    System.Console.WriteLine("!start with full example");
-                    System.Console.WriteLine("");
-                    WriteLines(both);
-
-                    System.Console.WriteLine("");
-                    var receivers = all.Where(it => typeof(IReceive).IsAssignableFrom(it.typeOfObject)).ToArray();
-                    System.Console.WriteLine("");
-                    System.Console.WriteLine("!start with receivers");
-
-                    System.Console.WriteLine("");
-                    WriteLines(receivers);
-
-                    System.Console.WriteLine("");
-                    System.Console.WriteLine("!then with transformers, filters");
-                    System.Console.WriteLine("");
-
-                  
-
-                    var next = all.Where(it => 
-                        typeof(IFilter).IsAssignableFrom(it.typeOfObject)
-                        ||
-                        typeof(ITransformer).IsAssignableFrom(it.typeOfObject)
-                    ).ToArray();
-                    WriteLines(next);
-
-                    var sender = all.Where(it =>
-                        typeof(ISender).IsAssignableFrom(it.typeOfObject)
-                    ).ToArray();
-
-                    System.Console.WriteLine("");
-                    System.Console.WriteLine("!then with senders");
-                    System.Console.WriteLine("");
-                    WriteLines(sender);
+                    WriteLines(find);
 
 
                     System.Console.WriteLine("");
@@ -299,12 +241,14 @@ namespace Stankins.Console
                                 return -1;
                             }
 
-                            argNr += commands[item].arguments.Count;
+                            argNr += commands[item].ConstructorParam.Count;
                         }
 
                         if (argNr != argObjects.Values.Count)
                         {
+
                             System.Console.WriteLine($"not equal nr args -a {lenValuesCount} with  nr args for objects {argNr} - please see list command");
+                            
                             return -1;
                         }
                     
@@ -318,9 +262,9 @@ namespace Stankins.Console
                             var item = opt.Values[value].ToLowerInvariant();
                             var cmd = commands[item];
                             object[] ctorArgs = null;
-                            if (cmd.arguments.Count > 0)
+                            if (cmd.ConstructorParam.Count > 0)
                             {
-                                ctorArgs = new object[cmd.arguments.Count];
+                                ctorArgs = new object[cmd.ConstructorParam.Count];
                                 int i = 0;
                                 do
                                 {
@@ -330,7 +274,7 @@ namespace Stankins.Console
                                     i++;
                                     argNr++;
 
-                                } while (i < cmd.arguments.Count);
+                                } while (i < cmd.ConstructorParam.Count);
                             }
                             
                             last = cmd.Create(ctorArgs);

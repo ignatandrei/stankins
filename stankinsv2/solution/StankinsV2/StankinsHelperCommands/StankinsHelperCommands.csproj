@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
     <ProjectReference Include="..\StankinsCommon\StankinsCommon.csproj" />
+    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
   </ItemGroup>
 
 </Project>

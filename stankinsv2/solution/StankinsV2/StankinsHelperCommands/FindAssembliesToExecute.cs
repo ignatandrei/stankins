@@ -5,10 +5,82 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using StankinsObjects;
 
 namespace StankinsHelperCommands
 {
+    [Flags]
+    public enum WhatToList
+    {
+        None=0,
+        Receivers=0x1,
+        Senders=0x2,
+        Transformers=0x3,
+        Filters=0x4,
+
+        RecipeSimple= Receivers | Senders
+    }
+
+    public class ResultTypeStankins
+    {
+        public ResultTypeStankins(Type type,CtorDictionary constructorParam)
+        {
+            Type = type;
+            ConstructorParam = constructorParam;
+        }
+        private WhatToList cacheWhatToList =WhatToList.None;
+        public Type Type { get;  }
+        public CtorDictionary ConstructorParam { get; }
+
+        public WhatToList FromType()
+        {
+            if (cacheWhatToList != WhatToList.None)
+                return cacheWhatToList;
+
+            if (typeof(IReceive).IsAssignableFrom(Type))
+            {
+                cacheWhatToList |= WhatToList.Receivers;
+            }
+            if (typeof(ISender).IsAssignableFrom(Type))
+            {
+                cacheWhatToList |= WhatToList.Senders;
+            }
+            if (typeof(IFilter).IsAssignableFrom(Type))
+            {
+                cacheWhatToList |= WhatToList.Filters;
+            }
+            if (typeof(ITransformer).IsAssignableFrom(Type))
+            {
+                cacheWhatToList |= WhatToList.Transformers;
+            }
+
+            return cacheWhatToList;
+        }
+        public BaseObject Create(object[] ctorStrings)
+        {
+            if (ctorStrings?.Length != ConstructorParam.Count())
+            {
+                throw new ArgumentException($"number of args {ConstructorParam.Count} != {ctorStrings?.Length}");
+            }
+
+            BaseObject act;
+            if (ctorStrings?.Length > 0)
+            {
+                act = Activator.CreateInstance(Type, ctorStrings) as BaseObject;
+
+            }
+            else
+            {
+                act = Activator.CreateInstance(Type) as BaseObject;
+
+            }
+
+            return act;
+        }
+    }
+    
     public class FindAssembliesToExecute
     {
         private readonly Assembly a;
@@ -17,9 +89,9 @@ namespace StankinsHelperCommands
         {
             this.a = a;
         }
-        public KeyValuePair<Type, CtorDictionary>[] FindAssemblies()
+        public ResultTypeStankins[] FindAssemblies()
         {
-            var ret = new List<KeyValuePair<Type, CtorDictionary>>();
+            var ret = new List<ResultTypeStankins>();
             var types = a.GetExportedTypes();
             
             foreach (Type type in types)
@@ -29,7 +101,10 @@ namespace StankinsHelperCommands
                 {
                     continue;
                 }
-                ret.Add(new KeyValuePair<Type, CtorDictionary>( type, ctor));
+
+                
+                
+                ret.Add(new ResultTypeStankins( type, ctor));
 
             }
             return ret.ToArray();
