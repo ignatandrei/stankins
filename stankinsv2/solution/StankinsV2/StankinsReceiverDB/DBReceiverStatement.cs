@@ -8,16 +8,22 @@ namespace StankinsReceiverDB
 {
     public class DBReceiverStatement : DatabaseReceiver
     {
-        protected readonly string stmtSql;
+        protected readonly string sql;
         public DBReceiverStatement(CtorDictionary dict) : base(dict)
         {
-            stmtSql = GetMyDataOrThrow<string>(nameof(stmtSql));
+            sql = GetMyDataOrThrow<string>(nameof(sql));
             this.Name = nameof(DBReceiverStatement);
         }
-        public DBReceiverStatement(string connectionString, string connectionType, string sql) : base(connectionString,connectionType)
+        public DBReceiverStatement(string connectionString, string connectionType, string sql) : this(
+            new CtorDictionary()
+            {
+                {nameof(connectionString),connectionString},
+                {nameof(connectionType),connectionType},
+                {nameof(sql),sql}
+            })
         {
-            this.stmtSql = sql;
-            this.Name = nameof(DBReceiverStatement);
+        
+            
         }
         
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
@@ -28,7 +34,7 @@ namespace StankinsReceiverDB
                 receiveData = new DataToSentTable();
 
             }
-            var dt = await FromSql(stmtSql,"");
+            var dt = await FromSql(sql,"");
             FastAddTable(receiveData,dt);
             return receiveData;
         }

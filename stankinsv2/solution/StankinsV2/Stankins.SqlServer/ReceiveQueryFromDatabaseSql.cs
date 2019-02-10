@@ -10,35 +10,18 @@ using StankinsReceiverDB;
 
 namespace Stankins.SqlServer
 {
-    public class ReceiveTableDatabaseSql : ReceiveQueryFromDatabaseSql
-    {
-        public ReceiveTableDatabaseSql(CtorDictionary dict) : base(dict)
-        {
-
-            this.Name = nameof(ReceiveTableDatabaseSql);
-            
-        }
-        public ReceiveTableDatabaseSql(string connectionString, string nameTable) : base(connectionString, $"select * from {nameTable}")
-        {
-
-            this.Name = nameof(ReceiveTableDatabaseSql);
-        }
-    }
-
-    public class ReceiveQueryFromDatabaseSql : DatabaseReceiver
+    public class ReceiveQueryFromDatabaseSql : DBReceiverStatement 
     {
         private readonly string sql;
 
         public ReceiveQueryFromDatabaseSql(CtorDictionary dict) : base(dict)
         {
-            this.sql = GetMyDataOrThrow<string>(nameof(sql));
-            this.connectionType = typeof(SqlConnection).FullName;
+           
             this.Name = nameof(ReceiveQueryFromDatabaseSql);
         }
-        public ReceiveQueryFromDatabaseSql(string connectionString, string sql) : base(connectionString, typeof(SqlConnection).FullName)
+        public ReceiveQueryFromDatabaseSql(string connectionString, string sql) : base(connectionString, typeof(SqlConnection).FullName,sql)
         {
-            this.sql = sql;
-            base.dataNeeded.Add(nameof(sql),sql);
+           
             this.Name = nameof(ReceiveQueryFromDatabaseSql);
         }
         protected override DbConnection NewConnection()
@@ -46,15 +29,7 @@ namespace Stankins.SqlServer
             return new SqlConnection();
         }
 
-        public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
-        {
-            if(receiveData == null)
-                receiveData=new DataToSentTable();
-
-            var dt = await FromSql(sql,"");
-            FastAddTables(receiveData, dt);
-            return receiveData;
-        }
+        
 
         public override Task<IMetadata> TryLoadMetadata()
         {
