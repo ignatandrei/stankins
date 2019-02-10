@@ -72,7 +72,7 @@ jobs:
         dotnet tool install  -g coverlet.console
         dotnet tool install  -g dotnet-reportgenerator-globaltool 
         dotnet tool install  -g dotnet-sonarscanner
-        
+        dotnet tool install  -g stankins.console
       displayName: build linux
   
     
@@ -111,6 +111,11 @@ jobs:
           
       displayName: sonar
     
+    - script: |
+          stankins.console execute -o ExportAzurePipelinesToDot -a https://raw.githubusercontent.com/ignatandrei/stankins/master/azure-pipelines.yml -a  $(Build.ArtifactStagingDirectory)/analysis/azurePipeline.html
+          stankins.console execute -o ExportSolutionToHtmlAndDot -a stankinsv2/solution/StankinsV2/StankinsV2.sln  -a  $(Build.ArtifactStagingDirectory)/analysis/stankins.html
+
+      displayName: stankins console
     
 
 

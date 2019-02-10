@@ -58,11 +58,13 @@ namespace StankinsHelperCommands
 
             return cacheWhatToList;
         }
-        public BaseObject Create(object[] ctorStrings)
+        
+        public BaseObject Create(in object[] ctorStrings)
         {
-            if (ctorStrings?.Length != ConstructorParam.Count())
+            var nrArgs = (ctorStrings?.Length ?? 0);
+            if (nrArgs != ConstructorParam.Count())
             {
-                throw new ArgumentException($"number of args {ConstructorParam.Count} != {ctorStrings?.Length}");
+                throw new ArgumentException($"number of args {ConstructorParam.Count} != {nrArgs}");
             }
 
             BaseObject act;
@@ -89,7 +91,7 @@ namespace StankinsHelperCommands
         {
             this.a = a;
         }
-        public ResultTypeStankins[] FindAssemblies()
+        public ResultTypeStankins[] FindTypes()
         {
             var ret = new List<ResultTypeStankins>();
             var types = a.GetExportedTypes();

@@ -85,50 +85,50 @@ namespace Stankins.Console
 
             f = new FindAssembliesToExecute(typeof(Stankins.Amazon.AmazonMeta).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
 
             f = new FindAssembliesToExecute(typeof(Stankins.AnalyzeSolution.ReceiverFromSolution).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
 
             f = new FindAssembliesToExecute(typeof(Stankins.AzureDevOps.YamlReader).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
 
           
 
             f = new FindAssembliesToExecute(typeof(Stankins.File.ReceiverCSV).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
 
             f = new FindAssembliesToExecute(typeof(Stankins.HTML.ReceiverHtml).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
             
             f = new FindAssembliesToExecute(typeof(Stankins.Office.SenderExcel).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
            
 
             f = new FindAssembliesToExecute(typeof(Stankins.Process.ReceiverProcess).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
 
             f = new FindAssembliesToExecute(typeof(Stankins.Razor.SenderDBDiagramToDot).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
 
             f = new FindAssembliesToExecute(typeof(Stankins.SimpleRecipes.ExportDBDiagramHtmlAndDot).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
            
             f = new FindAssembliesToExecute(typeof(Stankins.Version.FileVersionFromDir).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
            
             f = new FindAssembliesToExecute(typeof(Stankins.XML.ReceiverXML).Assembly);
 
-            allTypes.AddRange( f.FindAssemblies());
+            allTypes.AddRange( f.FindTypes());
 
 
 
