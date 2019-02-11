@@ -2,19 +2,20 @@
 using StankinsCommon;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
 using System.Threading.Tasks;
 
 namespace StankinsObjects 
 {
     public class BaseObjectInSerial : BaseObject, ITransformer
     {
-        public List<string> Types { get; set; }
+        public List<Type> Types { get; set; }
         public BaseObjectInSerial(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            Types = new List<string>();
+            Types = new List<Type>();
             this.Name = nameof(BaseObjectInSerial);
         }
-        public void AddType(string type)
+        public void AddType(Type type)
         {
             Types.Add(type);
         }
@@ -22,10 +23,12 @@ namespace StankinsObjects
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var data = receiveData;
+            var dataToSent = this.dataNeeded;
             foreach(var type in Types)
             {
-                var constructType = Activator.CreateInstance(Type.GetType(type), dataNeeded) as BaseObject;
+                var constructType = Activator.CreateInstance(type, dataToSent) as BaseObject;
                 data = await constructType.TransformData(data);
+                dataToSent = constructType.dataNeeded;
 
             }
             return data;
@@ -103,25 +106,26 @@ namespace StankinsObjects
         }
     }
 
-    public class BaseObjectInSerial<T1,T2> : BaseObject, ITransformer
+    public class BaseObjectInSerial<T1,T2> : BaseObjectInSerial, ITransformer
         where T1: BaseObject
         where T2 : BaseObject
     {
         public BaseObjectInSerial(CtorDictionary dataNeeded):base(dataNeeded)
         {
-            
+            base.AddType(typeof(T1));
+            base.AddType(typeof(T2));
         }
 
-        public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
-        {
+        //public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
+        //{
            
-            var first = Activator.CreateInstance(typeof(T1), dataNeeded) as BaseObject;          
-            var data = await first.TransformData(receiveData);
-            var second = Activator.CreateInstance(typeof(T2),first.dataNeeded) as BaseObject;
-            data = await second.TransformData(data);
-            return data;
+        //    var first = Activator.CreateInstance(typeof(T1), dataNeeded) as BaseObject;          
+        //    var data = await first.TransformData(receiveData);
+        //    var second = Activator.CreateInstance(typeof(T2),first.dataNeeded) as BaseObject;
+        //    data = await second.TransformData(data);
+        //    return data;
             
-        }
+        //}
 
         public override Task<IMetadata> TryLoadMetadata()
         {
