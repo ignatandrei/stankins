@@ -14,7 +14,7 @@ namespace StankinsObjects
         {
             
         }
-        public TransformTrim(CtorDictionary dataNeeded) : base(null)
+        public TransformTrim(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.Name = nameof(TransformTrim);
         }

@@ -36,7 +36,26 @@ namespace StankinsObjects
             throw new NotImplementedException();
         }
     }
-    public class BaseObjectInSerial<T1, T2, T3, T4,T5> : BaseObject, ITransformer
+    public class BaseObjectInSerial<T1, T2, T3, T4,T5> : BaseObjectInSerial<T1, BaseObjectInSerial<T2,T3,T4,T5>>, ITransformer
+        where T1 : BaseObject
+        where T2 : BaseObject
+        where T3 : BaseObject
+        where T4 : BaseObject
+        where T5: BaseObject
+    {
+        public BaseObjectInSerial(CtorDictionary dataNeeded) : base(dataNeeded)
+        {
+
+        }
+
+        
+
+        public override Task<IMetadata> TryLoadMetadata()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class BaseObjectInSerial<T1, T2, T3,T4> : BaseObjectInSerial<T1, BaseObjectInSerial<T2,T3,T4>>, ITransformer
         where T1 : BaseObject
         where T2 : BaseObject
         where T3 : BaseObject
@@ -47,62 +66,14 @@ namespace StankinsObjects
 
         }
 
-        public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
-        {
-
-            var f1 = Activator.CreateInstance(typeof(T1), dataNeeded) as BaseObject;
-
-            var data = await f1.TransformData(receiveData);
-            var f2 = Activator.CreateInstance(typeof(T2), f1.dataNeeded) as BaseObject;
-            data = await f2.TransformData(data);
-            var f3 = Activator.CreateInstance(typeof(T3), f2.dataNeeded) as BaseObject;
-            data = await f3.TransformData(data);
-            var f4 = Activator.CreateInstance(typeof(T4), f2.dataNeeded) as BaseObject;
-            data = await f4.TransformData(data);
-            var f5 = Activator.CreateInstance(typeof(T5), f2.dataNeeded) as BaseObject;
-            data = await f5.TransformData(data);
-            return data;
-
-        }
+        
 
         public override Task<IMetadata> TryLoadMetadata()
         {
             throw new NotImplementedException();
         }
     }
-    public class BaseObjectInSerial<T1, T2, T3,T4> : BaseObject, ITransformer
-        where T1 : BaseObject
-        where T2 : BaseObject
-        where T3 : BaseObject
-        where T4 : BaseObject
-    {
-        public BaseObjectInSerial(CtorDictionary dataNeeded) : base(dataNeeded)
-        {
-
-        }
-
-        public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
-        {
-
-            var f1 = Activator.CreateInstance(typeof(T1), dataNeeded) as BaseObject;
-
-            var data = await f1.TransformData(receiveData);
-            var f2 = Activator.CreateInstance(typeof(T2), f1.dataNeeded) as BaseObject;
-            data = await f2.TransformData(data);
-            var f3 = Activator.CreateInstance(typeof(T3), f2.dataNeeded) as BaseObject;
-            data = await f3.TransformData(data);
-            var f4 = Activator.CreateInstance(typeof(T4), f2.dataNeeded) as BaseObject;
-            data = await f4.TransformData(data);
-            return data;
-
-        }
-
-        public override Task<IMetadata> TryLoadMetadata()
-        {
-            throw new NotImplementedException();
-        }
-    }
-    public class BaseObjectInSerial<T1, T2, T3> : BaseObject, ITransformer
+    public class BaseObjectInSerial<T1, T2, T3> : BaseObjectInSerial<T1, BaseObjectInSerial<T2,T3>>, ITransformer
         where T1 : BaseObject
         where T2 : BaseObject
         where T3:BaseObject
@@ -112,19 +83,19 @@ namespace StankinsObjects
 
         }
 
-        public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
-        {
+        //public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
+        //{
            
-            var f1 = Activator.CreateInstance(typeof(T1), dataNeeded) as BaseObject;
+        //    var f1 = Activator.CreateInstance(typeof(T1), dataNeeded) as BaseObject;
           
-            var data = await f1.TransformData(receiveData);
-            var f2 = Activator.CreateInstance(typeof(T2), f1.dataNeeded) as BaseObject;
-            data = await f2.TransformData(data);
-            var f3 = Activator.CreateInstance(typeof(T3), f2.dataNeeded) as BaseObject;
-            data = await f3.TransformData(data);
-            return data;
+        //    var data = await f1.TransformData(receiveData);
+        //    var f2 = Activator.CreateInstance(typeof(T2), f1.dataNeeded) as BaseObject;
+        //    data = await f2.TransformData(data);
+        //    var f3 = Activator.CreateInstance(typeof(T3), f2.dataNeeded) as BaseObject;
+        //    data = await f3.TransformData(data);
+        //    return data;
 
-        }
+        //}
 
         public override Task<IMetadata> TryLoadMetadata()
         {

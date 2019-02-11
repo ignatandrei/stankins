@@ -15,7 +15,7 @@ namespace StankinsObjects
         public TransformerToOneTable() : base(null)
         {
         }
-        public TransformerToOneTable(CtorDictionary dataNeeded) : base(null)
+        public TransformerToOneTable(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.Name = nameof(TransformerToOneTable);
         }

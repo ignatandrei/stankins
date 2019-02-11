@@ -15,7 +15,7 @@ namespace StankinsObjects
         {
 
         }
-        public Verifier(CtorDictionary dataNeeded): base(null)
+        public Verifier(CtorDictionary dataNeeded): base(dataNeeded)
         {
             this.Name = nameof(Verifier);
         }
