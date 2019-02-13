@@ -13,19 +13,75 @@ using StankinsCommon;
 using StankinsObjects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using YamlDotNet.RepresentationModel;
 
 namespace StankinsVariousConsole
 {
     class Program
     {
+        //taken from https://stackoverflow.com/questions/11981282/convert-json-to-datatable/11982180#11982180
+        public static DataTable Tabulate(string json)
+        {
+            var jsonLinq = JObject.Parse(json);
+
+            // Find the first array using Linq
+            var srcArray = jsonLinq.Descendants().Where(d => d is JArray).First();
+            var trgArray = new JArray();
+            foreach (JObject row in srcArray.Children<JObject>())
+            {
+                var cleanRow = new JObject();
+                foreach (JProperty column in row.Properties())
+                {
+                    // Only include JValue types
+                    if (column.Value is JValue)
+                    {
+                        cleanRow.Add(column.Name, column.Value);
+                    }
+                }
+
+                trgArray.Add(cleanRow);
+            }
+
+            return JsonConvert.DeserializeObject<DataTable>(trgArray.ToString());
+        }
+        static DataTable FromJSon(string json)
+        {
+            var token=JToken.Parse(json);
+            if (!(token is JArray))
+            {
+                json = "[" + json + "]";
+                token=JToken.Parse(json);
+                
+            }
+            JArray tok=token as JArray;
+         
+            return token.ToObject<DataTable>();
+           
+
+
+        }
         static async Task Main(string[] args)
         {
+            string json = @"[{""Name"":""AAA"",""Age"":""22"",""Job"":""PPP""},"
+                                + @"{""Name"":""BBB"",""Age"":""25"",""Job"":""QQQ""},"
+                                + @"{""Name"":""CCC"",""Age"":""38"",""Job"":""RRR""}]";
+            var dt = FromJSon(json);
+           
+            //var table = JsonConvert.DeserializeObject<DataTable>(json);
+             json = @"{""Name"":""AAA"",""Age"":""22"",""Job"":""PPP""}";
+            
+            dt= FromJSon(json);
+            
+            return ;
+
             await Yaml();
             return;
             //await OneTab();
