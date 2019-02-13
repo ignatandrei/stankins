@@ -1,0 +1,4 @@
+﻿[
+{"name":"ignatandrei", "blog": "http://msprogrammer.serviciipeweb.ro/"},
+{"name":"andreiignat", "blog": "http://serviciipeweb.ro/propriu/"}
+]

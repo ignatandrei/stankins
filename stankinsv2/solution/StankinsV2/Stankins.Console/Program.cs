@@ -21,6 +21,7 @@ using StankinsHelperCommands;
 using Stankins.AzureDevOps;
 using System.Threading.Tasks;
 using Stankins.Process;
+using Stankins.Rest;
 using Stankins.Version;
 using Stankins.XML;
 using Stankins.SimpleRecipes;
@@ -82,6 +83,10 @@ namespace Stankins.Console
            
 
             FindAssembliesToExecute f=null;
+
+            f=new FindAssembliesToExecute(typeof(ReceiveRest).Assembly);
+            allTypes.AddRange( f.FindTypes());
+
 
             f = new FindAssembliesToExecute(typeof(Stankins.Amazon.AmazonMeta).Assembly);
 

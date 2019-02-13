@@ -49,7 +49,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.AssemblyLoad", "St
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsHelperCommands", "StankinsHelperCommands\StankinsHelperCommands.csproj", "{AD7374B3-2321-4578-9146-7DD9F86E318B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.SimpleRecipes", "Stankins.SimpleRecipes\Stankins.SimpleRecipes.csproj", "{4E0843C2-1375-42F3-8B8A-10F4CA959A85}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.SimpleRecipes", "Stankins.SimpleRecipes\Stankins.SimpleRecipes.csproj", "{4E0843C2-1375-42F3-8B8A-10F4CA959A85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Rest", "Stankins.Rest\Stankins.Rest.csproj", "{1F036AA4-0E9D-4A43-9DE2-D74EABBF44D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -153,6 +155,10 @@ Global
 		{4E0843C2-1375-42F3-8B8A-10F4CA959A85}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E0843C2-1375-42F3-8B8A-10F4CA959A85}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E0843C2-1375-42F3-8B8A-10F4CA959A85}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F036AA4-0E9D-4A43-9DE2-D74EABBF44D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F036AA4-0E9D-4A43-9DE2-D74EABBF44D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F036AA4-0E9D-4A43-9DE2-D74EABBF44D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F036AA4-0E9D-4A43-9DE2-D74EABBF44D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
