@@ -1,7 +1,7 @@
 {
   "name": "versions-netcore-angular",
   
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "A simple angular library for displaying versions of .NET Core and Angular files",
   "author": "Andrei Ignat",
   "repository": {

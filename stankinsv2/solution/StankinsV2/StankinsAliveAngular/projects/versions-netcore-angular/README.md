@@ -8,7 +8,7 @@ For a live demo, see https://azurestankins.azurewebsites.net/about
 
 
 
-## Installing
+## Installing in an Angular 
 
 npm i versions-netcore-angular
 
@@ -21,13 +21,13 @@ imports: [
 
 
 
-Then in the HTML file
-<vers-versions-netcore-angular></vers-versions-netcore-angular>
+Then in the HTML file just put
+&lt;vers-versions-netcore-angular&gt;&lt;/vers-versions-netcore-angular&gt;
 
 
 
 
-## Instructions for Angular
+## Instructions for show Angular components
 
 Create npm-shrinkwrap.json ( https://docs.npmjs.com/files/shrinkwrap.json.html ) by running
 
@@ -38,7 +38,7 @@ and copy into the site.
 For windows  :  copy npm-shrinkwrap.json src/npm-shrinkwrap.json /Y
 
 
-## Instructions for .NET Core
+## Instructions for show .NET Core components
 
 Create a controller with the code
 ```csharp
@@ -77,3 +77,4 @@ Create a controller with the code
      }
 ```
     
+For more details, please see http://msprogrammer.serviciipeweb.ro/category/version/
