@@ -77,6 +77,7 @@ jobs:
         dotnet tool install  -g dotnet-reportgenerator-globaltool 
         dotnet tool install  -g dotnet-sonarscanner
         dotnet tool install  -g stankins.console
+        dotnet tool install  -g dotnet-property
       displayName: build linux
   
     
@@ -101,9 +102,10 @@ jobs:
         echo 'artifact'
         cp -r -v coveragereport  $(Build.ArtifactStagingDirectory)/cc/  
         cp -v coverage.opencover.xml $(Build.ArtifactStagingDirectory)/cc/  
-        # dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj 
+        dotnet-property stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj   PackAsTool:'false'
+        dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
         # dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
-        # dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj 
+        dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
       displayName: test with external dependencies sql server linux
     
     - script: |
