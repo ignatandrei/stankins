@@ -49,7 +49,7 @@ jobs:
     - task: DotNetCoreInstaller@0
       displayName: 'Use .NET Core sdk 2.1.503'
       inputs:
-         version:2.2.104 
+         version: 2.2.104 
   
     - task: NuGetToolInstaller@0
 
