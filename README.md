@@ -1,9 +1,28 @@
 # stankins
 
+Stankins want to be the general data query / transformation / export tool. 
+
+It is an ETL tool, aimed to be easy to use by either programmers, either common people .
+
+You can with Stankins:
+
+- query and monitor the exchange rates
+
+- take any part of an web site ( tables, meta )and export to excel / pdf
+
+- take any table of database and export to excel / pdf
+
+- make documentation for a database
+
+- make documentation for a .sln file
+
+- and many, many more. It will have already predefined way to do stuff , but you can define your own
+
 
 ## Version 2 
 
-# Continous Deploy
+# Continous Integration / Deploy
+
 [![Build Status](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master)](https://dev.azure.com/ignatandrei0674/stankinsv2/_build/latest?definitionId=1?branchName=master)
 
 [![codecov](https://codecov.io/gh/ignatandrei/stankins/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/stankins)
@@ -12,11 +31,8 @@
 
 [![DepShield Badge](https://depshield.sonatype.org/badges/ignatandrei/stankins/depshield.svg)](https://depshield.github.io)
 
-
 # Demo
 [Live demo https://azurestankins.azurewebsites.net](https://azurestankins.azurewebsites.net)
-
-
 
 [Live swagger https://azurestankins.azurewebsites.net/swagger](https://azurestankins.azurewebsites.net/swagger)
 
@@ -26,8 +42,9 @@
 
 [ Docker for Windows/Linux https://hub.docker.com/u/ignatandrei](https://hub.docker.com/u/ignatandrei)
 
-
 Console Global tool:![Stankins.Console](https://img.shields.io/nuget/v/stankins.console.svg?label=Stankins%20Console&style=flat)
+
+Usage:
 
 dotnet tool install --global stankins.console
 

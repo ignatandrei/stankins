@@ -17,8 +17,8 @@ namespace StankinsTestXUnit
     public class TestReceiveRest
     {
         [Scenario]
-        [Example("Assets/json/json1.txt",2)]
-        [Example("Assets/json/json1Record.txt",1)]
+        [Example("Assets/JSON/json1.txt",2)]
+        [Example("Assets/JSON/json1Record.txt",1)]
         public void TestSimpleJSON(string fileName,int NumberRows)
         {
             IReceive receiver = null;
@@ -27,7 +27,7 @@ namespace StankinsTestXUnit
             var nl = Environment.NewLine;
             $"Given the file {fileName}".w(() =>
             {
-                //File.Exists(fileName).Should().BeTrue();
+                File.Exists(fileName).Should().BeTrue();
             });
             $"When I create the receiver csv for the {fileName}".w(() => receiver = new ReceiveRest(fileName));
             $"And I read the data".w(async () =>data= await receiver.TransformData(null));
