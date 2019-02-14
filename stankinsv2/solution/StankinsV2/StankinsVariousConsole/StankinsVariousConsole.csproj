@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
     <LangVersion>latest</LangVersion>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
@@ -25,7 +25,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
-    <PackageReference Include="YamlDotNet" Version="5.3.0" />
+    <PackageReference Include="YamlDotNet" Version="5.4.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
