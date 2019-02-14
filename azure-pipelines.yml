@@ -412,9 +412,9 @@ jobs:
   
   - task: NuGetToolInstaller@0
  
-    - script: |
+  - script: |
         dotnet restore stankinsv2/solution/StankinsV2/StankinsV2.sln 
-      displayName: restore manually
+    displayName: restore manually
       
   #- task: NuGetCommand@2
   #  inputs:
