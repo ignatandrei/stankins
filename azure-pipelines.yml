@@ -101,9 +101,9 @@ jobs:
         echo 'artifact'
         cp -r -v coveragereport  $(Build.ArtifactStagingDirectory)/cc/  
         cp -v coverage.opencover.xml $(Build.ArtifactStagingDirectory)/cc/  
-        rem dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj 
-        rem dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
-        rem dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj 
+        # dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj 
+        # dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
+        # dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj 
       displayName: test with external dependencies sql server linux
     
     - script: |
