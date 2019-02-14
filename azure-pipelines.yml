@@ -57,9 +57,9 @@ jobs:
         dotnet restore stankinsv2/solution/StankinsV2/StankinsV2.sln 
       displayName: restore manually
       
-    - task: NuGetCommand@2
-      inputs:
-        restoreSolution: '$(solution)'
+    #- task: NuGetCommand@2
+    #  inputs:
+    #    restoreSolution: '$(solution)'
     #does not work on Linux
     #The current operating system is not capable of running this task. That typically means the task was written for Windows only. For example, written for Windows Desktop PowerShell.
     #- task: VSBuild@1
