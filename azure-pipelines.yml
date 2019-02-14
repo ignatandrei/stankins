@@ -92,7 +92,7 @@ jobs:
         
         dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"
         echo 'coverlet' 
-        coverlet stankinsv2/solution/StankinsV2/StankinsTestXUnit/bin/$(buildConfiguration)/netcoreapp2.1/StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        coverlet stankinsv2/solution/StankinsV2/StankinsTestXUnit/bin/$(buildConfiguration)/netcoreapp2.2/StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
         
         echo 'compose down'
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml down 
@@ -407,7 +407,7 @@ jobs:
   - task: DotNetCoreInstaller@0
     displayName: 'Use .NET Core sdk 2.1.300'
     inputs:
-        version: 2.1.300
+        version: 2.2.100
 
   
   - task: NuGetToolInstaller@0
@@ -449,7 +449,7 @@ jobs:
         rem dotnet-thx.exe
         rem cd ../StankinsTestXUnit
         rem dotnet test /p:CollectCoverage=true /p:CoverletOutputFormat=opencover stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj
-        rem coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.1\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter ExternalDependency=0  --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
+        rem coverlet stankinsv2\solution\StankinsV2\StankinsTestXUnit\bin\$(buildConfiguration)\netcoreapp2.2\StankinsTestXUnit.dll --target "dotnet" --targetargs "test stankinsv2\solution\StankinsV2\StankinsTestXUnit\StankinsTestXUnit.csproj --filter ExternalDependency=0  --configuration $(buildConfiguration) --no-build" --format opencover --exclude "[xunit*]*"
         rem reportgenerator "-reports:coverage.opencover.xml" "-targetdir:coveragereport" "-reporttypes:HTMLInline;HTMLSummary;Badges"
         rem xcopy coveragereport  $(Build.ArtifactStagingDirectory)\cc\ /S  
         rem restoring current dir
@@ -465,7 +465,7 @@ jobs:
 
   - script: |
         echo start publish windows
-        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
+        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.2 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
         cd stankinsv2/solution/
         xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
         docker build . -t stankins_windows -f Dockerfile_win
@@ -479,7 +479,7 @@ jobs:
 
   - script: |
         echo start publish windows
-        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.1 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
+        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.2 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
         cd stankinsv2/solution/
         xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
         docker build . -t stankins_windows -f Dockerfile_win
