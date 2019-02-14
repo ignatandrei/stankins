@@ -52,7 +52,11 @@ jobs:
          version: 2.2.100
   
     - task: NuGetToolInstaller@0
-
+    
+    - script: |
+        dotnet restore '$(solution)'
+      displayName: restore manually
+      
     - task: NuGetCommand@2
       inputs:
         restoreSolution: '$(solution)'
