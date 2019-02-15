@@ -113,9 +113,9 @@ jobs:
         dotnet-property stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj   PackAsTool:'false'
         dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
         echo start warp
-        dotnet-warp stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --verbose
+        # dotnet-warp               stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --verbose
         ls -R | grep "\.*.exe$" 
-        cp stankins.console.exe $(Build.ArtifactStagingDirectory)
+        #cp stankins.console.exe $(Build.ArtifactStagingDirectory)
         # dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
         #dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
       displayName: warp publish
