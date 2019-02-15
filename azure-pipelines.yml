@@ -78,6 +78,7 @@ jobs:
         dotnet tool install  -g dotnet-sonarscanner
         dotnet tool install  -g stankins.console
         dotnet tool install  -g dotnet-property
+        dotnet tool install  -g dotnet-warp
       displayName: build linux
   
     
@@ -104,8 +105,11 @@ jobs:
         cp -v coverage.opencover.xml $(Build.ArtifactStagingDirectory)/cc/  
         dotnet-property stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj   PackAsTool:'false'
         dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
+        dotnet-warp stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  
+        ls -R | grep "\.*.exe$" 
+        cp stankins.console.exe $(Build.ArtifactStagingDirectory)
         # dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
-        dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
+        #dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
       displayName: test with external dependencies sql server linux
     
     - script: |
