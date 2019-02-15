@@ -111,14 +111,18 @@ jobs:
 
         echo before publish
         dotnet-property stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj   PackAsTool:'false'
-        dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
+        dotnet publish -r linux-x64 -o outLinux stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
+        cp outLinux $(Build.ArtifactStagingDirectory)/console-linux-x64
+        dotnet publish -r win-x64 -o outWindows stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
+        cp outWindows $(Build.ArtifactStagingDirectory)/console-windows-x64
         echo start warp
         # dotnet-warp               stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --verbose
-        ls -R | grep "\.*.exe$" 
+        #ls -R | grep "\.*.exe$" 
+        #ls bin/Debug/netcoreapp2.2/linux-x64/publish/*
         #cp stankins.console.exe $(Build.ArtifactStagingDirectory)
         # dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
         #dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
-      displayName: warp publish
+      displayName: publish console
     
     - script: |
         

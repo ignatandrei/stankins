@@ -17,7 +17,7 @@ namespace StankinsTestXUnit
     public class TestAddColumnRegex
     {
         [Scenario]
-        [Example(@"Car_Year{NewLine}Ford/2000{NewLine}Rolls Royce/2003",1,2)]
+        [Example(@"Car_Year{NewLine}Ford/2000{NewLine}Rolls Royce/2003",1,2,"Ford/2000","2000")]
         public void TestSimple(string fileContents,int NumberCols, int NumberColsAfter, string fRow1,string fRow2)
         {
             IReceive receiver = null;
@@ -33,8 +33,9 @@ namespace StankinsTestXUnit
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
             $"The number of cols should be {NumberCols}".w(() => data.DataToBeSentFurther[0].Columns.Count.Should().Be(NumberCols));
-            $"And I applyu the data".w(async () =>data= await new AddColumnRegex("Car", @"(?:.+\/)((?<nameAuthor>.+))").TransformData(null));
-            $"The number of cols should be {NumberCols}".w(() => data.DataToBeSentFurther[0].Columns.Count.Should().Be(NumberCols));
+            $"and applying {nameof(TransformTrim)}".w(async () => data = await new TransformTrim().TransformData(data));
+            $"And I apply the data".w(async () =>data= await new AddColumnRegex("Car_Year", @"(?:.+\/)((?<nameAuthor>.+))").TransformData(data));
+            $"The number of cols should be {NumberColsAfter}".w(() => data.DataToBeSentFurther[0].Columns.Count.Should().Be(NumberColsAfter));
             $"The first row should have {fRow1} and {fRow2}".w(() =>{ 
                 data.DataToBeSentFurther[0].Rows[0][0].Should().Be(fRow1);
                 data.DataToBeSentFurther[0].Rows[0][1].Should().Be(fRow2);});
