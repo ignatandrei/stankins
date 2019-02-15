@@ -7,7 +7,19 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Stankins.Amazon;
+using Stankins.AnalyzeSolution;
+using Stankins.AzureDevOps;
+using Stankins.File;
+using Stankins.HTML;
+using Stankins.Office;
+using Stankins.Process;
+using Stankins.Razor;
+using Stankins.Rest;
+using Stankins.Version;
+using Stankins.XML;
 using StankinsObjects;
+using Stankins.SimpleRecipes;
 
 namespace StankinsHelperCommands
 {
@@ -85,6 +97,69 @@ namespace StankinsHelperCommands
     
     public class FindAssembliesToExecute
     {
+        public static ResultTypeStankins[] AddReferences()
+        {
+            var allTypes = new List<ResultTypeStankins>();
+           
+
+            FindAssembliesToExecute f=null;
+
+            f=new FindAssembliesToExecute(typeof(ReceiveRest).Assembly);
+            allTypes.AddRange( f.FindTypes());
+
+
+            f = new FindAssembliesToExecute(typeof(AmazonMeta).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+
+            f = new FindAssembliesToExecute(typeof(ReceiverFromSolution).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+
+            f = new FindAssembliesToExecute(typeof(YamlReader).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+
+          
+
+            f = new FindAssembliesToExecute(typeof(ReceiverCSV).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+
+            f = new FindAssembliesToExecute(typeof(ReceiverHtml).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+            
+            f = new FindAssembliesToExecute(typeof(SenderExcel).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+           
+
+            f = new FindAssembliesToExecute(typeof(ReceiverProcess).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+
+            f = new FindAssembliesToExecute(typeof(SenderDBDiagramToDot).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+
+            f = new FindAssembliesToExecute(typeof(ExportDBDiagramHtmlAndDot).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+           
+            f = new FindAssembliesToExecute(typeof(FileVersionFromDir).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+           
+            f = new FindAssembliesToExecute(typeof(ReceiverXML).Assembly);
+
+            allTypes.AddRange( f.FindTypes());
+
+
+
+
+            return allTypes.ToArray() ;
+        }
         private readonly Assembly a;
 
         public FindAssembliesToExecute(Assembly a)

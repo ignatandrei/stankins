@@ -26,6 +26,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.0" />
     <PackageReference Include="NSwag.AspNetCore" Version="12.0.13" />
     <!--
 <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
@@ -34,5 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
+    <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
   </ItemGroup>
 </Project>

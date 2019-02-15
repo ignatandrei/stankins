@@ -6,6 +6,7 @@ import { ResultSuccessComponent } from './result-success/result-success.componen
 import { ResultFailedComponent } from './result-failed/result-failed.component';
 import { TagDisplayComponent } from './tag-display/tag-display.component';
 import { WhatMonitorComponent } from './what-monitor/what-monitor.component';
+import { WhatsimpleComponent } from './whatsimple/whatsimple.component';
 
 const routes: Routes = [
   {
@@ -13,11 +14,13 @@ const routes: Routes = [
     component: AboutComponent
   },
   { path: 'dashboard', component: DashboardComponent },
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/whatsimple', pathMatch: 'full' },
   { path: 'resultSuccess', component: ResultSuccessComponent },
   { path: 'resultFailed', component: ResultFailedComponent },
   { path: 'tag/:id', component: TagDisplayComponent},
-  { path: 'monitorData', component: WhatMonitorComponent}
+  { path: 'monitorData', component: WhatMonitorComponent},
+  { path: 'whatsimple', component: WhatsimpleComponent}
+
 ];
 
 @NgModule({

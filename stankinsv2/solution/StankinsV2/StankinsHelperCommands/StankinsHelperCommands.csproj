@@ -6,7 +6,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Stankins.Amazon\Stankins.Amazon.csproj" />
+    <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
+    <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
+    <ProjectReference Include="..\Stankins.Process\Stankins.Process.csproj" />
+    <ProjectReference Include="..\Stankins.Rest\Stankins.Rest.csproj" />
+    <ProjectReference Include="..\Stankins.SimpleRecipes\Stankins.SimpleRecipes.csproj" />
+    <ProjectReference Include="..\Stankins.Version\Stankins.Version.csproj" />
+    <ProjectReference Include="..\Stankins.XML\Stankins.XML.csproj" />
     <ProjectReference Include="..\StankinsCommon\StankinsCommon.csproj" />
     <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
   </ItemGroup>
