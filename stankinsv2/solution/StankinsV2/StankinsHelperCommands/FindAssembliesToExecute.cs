@@ -18,83 +18,10 @@ using Stankins.Razor;
 using Stankins.Rest;
 using Stankins.Version;
 using Stankins.XML;
-using StankinsObjects;
 using Stankins.SimpleRecipes;
 
 namespace StankinsHelperCommands
 {
-    [Flags]
-    public enum WhatToList
-    {
-        None=0,
-        Receivers=0x1,
-        Senders=0x2,
-        Transformers=0x4,
-        Filters=0x8,
-
-        RecipeSimple= Receivers | Senders
-    }
-
-    public class ResultTypeStankins
-    {
-        public ResultTypeStankins(Type type,CtorDictionary constructorParam)
-        {
-            Type = type;
-            ConstructorParam = constructorParam;
-        }
-        private WhatToList cacheWhatToList =WhatToList.None;
-        public Type Type { get;  }
-        public CtorDictionary ConstructorParam { get; }
-
-        public WhatToList FromType()
-        {
-            if (cacheWhatToList != WhatToList.None)
-                return cacheWhatToList;
-
-            if (typeof(IReceive).IsAssignableFrom(Type))
-            {
-                cacheWhatToList |= WhatToList.Receivers;
-            }
-            if (typeof(ISender).IsAssignableFrom(Type))
-            {
-                cacheWhatToList |= WhatToList.Senders;
-            }
-            if (typeof(IFilter).IsAssignableFrom(Type))
-            {
-                cacheWhatToList |= WhatToList.Filters;
-            }
-            if (typeof(ITransformer).IsAssignableFrom(Type))
-            {
-                cacheWhatToList |= WhatToList.Transformers;
-            }
-
-            return cacheWhatToList;
-        }
-        
-        public BaseObject Create(in object[] ctorStrings)
-        {
-            var nrArgs = (ctorStrings?.Length ?? 0);
-            if (nrArgs != ConstructorParam.Count())
-            {
-                throw new ArgumentException($"number of args {ConstructorParam.Count} != {nrArgs}");
-            }
-
-            BaseObject act;
-            if (ctorStrings?.Length > 0)
-            {
-                act = Activator.CreateInstance(Type, ctorStrings) as BaseObject;
-
-            }
-            else
-            {
-                act = Activator.CreateInstance(Type) as BaseObject;
-
-            }
-
-            return act;
-        }
-    }
-    
     public class FindAssembliesToExecute
     {
         public static ResultTypeStankins[] AddReferences()

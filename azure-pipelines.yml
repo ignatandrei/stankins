@@ -112,9 +112,9 @@ jobs:
         echo before publish
         dotnet-property stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj   PackAsTool:'false'
         dotnet publish -r linux-x64 -o outLinux stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
-        cp stankinsv2/solution/StankinsV2/Stankins.Console/outLinux $(Build.ArtifactStagingDirectory)/console-linux-x64
+        cp -r -v stankinsv2/solution/StankinsV2/Stankins.Console/outLinux $(Build.ArtifactStagingDirectory)/console-linux-x64
         dotnet publish -r win-x64 -o outWindows stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
-        cp stankinsv2/solution/StankinsV2/Stankins.Console/outWindows $(Build.ArtifactStagingDirectory)/console-windows-x64
+        cp -r -v stankinsv2/solution/StankinsV2/Stankins.Console/outWindows $(Build.ArtifactStagingDirectory)/console-windows-x64
         echo start warp
         # dotnet-warp               stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --verbose
         #ls -R | grep "\.*.exe$" 

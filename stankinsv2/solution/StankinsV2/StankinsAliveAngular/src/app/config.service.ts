@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { switchMap, tap, map } from 'rxjs/operators';
+import { ResultTypeStankins } from './whatsimple/ResultTypeStankins';
 const httpOptionsPlain = {
   headers: new HttpHeaders({
     'Content-Type':  'text/plain'
@@ -22,6 +23,11 @@ export class ConfigService {
       return this.http.get<Configuration>(url, httpOptionsPlain);
 
       // return of(new Configuration());
+  }
+  public GetStankinsAll(): Observable<ResultTypeStankins[]>{
+    const url = '/api/whatexecutesimple/';
+    return this.http.get<ResultTypeStankins[]>(url);
+
   }
 }
 
