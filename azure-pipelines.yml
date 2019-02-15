@@ -103,14 +103,22 @@ jobs:
         echo 'artifact'
         cp -r -v coveragereport  $(Build.ArtifactStagingDirectory)/cc/  
         cp -v coverage.opencover.xml $(Build.ArtifactStagingDirectory)/cc/  
+       
+    
+      displayName: test with external dependencies sql server linux and code coverage
+    
+    - script: |
+
+        echo before publish
         dotnet-property stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj   PackAsTool:'false'
         dotnet publish -r linux-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
-        dotnet-warp stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  
+        echo start warp
+        dotnet-warp stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --verbose
         ls -R | grep "\.*.exe$" 
         cp stankins.console.exe $(Build.ArtifactStagingDirectory)
         # dotnet publish -r android stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj --self-contained true
         #dotnet publish -r win-x64 stankinsv2/solution/StankinsV2/Stankins.Console/Stankins.Console.csproj  --self-contained true
-      displayName: test with external dependencies sql server linux
+      displayName: warp publish
     
     - script: |
         
