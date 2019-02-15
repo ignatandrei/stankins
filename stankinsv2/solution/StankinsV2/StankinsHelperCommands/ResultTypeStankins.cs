@@ -15,6 +15,10 @@ namespace StankinsHelperCommands
             CacheWhatToList = FromType();
         }
 
+        public string Name
+        {
+            get { return Type.Name; }
+        }
         public WhatToList CacheWhatToList { get; private set; } 
         public Type Type { get;  }
         public CtorDictionary ConstructorParam { get; }

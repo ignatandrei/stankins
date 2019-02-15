@@ -61,6 +61,7 @@ import { VersionsNetcoreAngularModule } from 'projects/versions-netcore-angular/
 import { DashboardSimpleModule } from 'projects/dashboard-simple/src/lib/dashboard-simple.module';
 import { WhatMonitorComponent } from './what-monitor/what-monitor.component';
 import { WhatsimpleComponent } from './whatsimple/whatsimple.component';
+import { FormsModule } from '@angular/forms';
 // import { DashboardSimpleModule } from 'dashboard-simple';
 
 
@@ -82,6 +83,7 @@ import { WhatsimpleComponent } from './whatsimple/whatsimple.component';
     WhatsimpleComponent
   ],
   imports: [
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,

@@ -85,7 +85,7 @@ namespace Stankins.Console
 
             var commands = new CtorDictionaryGeneric<ResultTypeStankins>();
 
-            Action<ResultTypeStankins> createItem = (t) => { commands.Add(t.Type.Name, t); };
+            Action<ResultTypeStankins> createItem = (t) => { commands.Add(t.Name, t); };
             foreach (var item in refs)
             {
                 createItem(item);
