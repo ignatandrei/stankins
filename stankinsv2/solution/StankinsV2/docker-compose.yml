@@ -1,0 +1,32 @@
+version: "3"
+services:
+    angular:
+        build:
+            context: .
+            dockerfile: dockerAliveAngular            
+        command: 
+            - /bin/sh
+            - -c
+            - |
+                npm i
+                ng serve --host 0.0.0.0 --poll 500
+            
+        volumes:
+             - "./StankinsAliveAngular:/usr/app/"
+             
+        ports:
+            - "4200:4200"
+            - "49153:49153"
+    netcore:
+        build:
+            context: .
+            dockerfile: dockerNETCore   
+            
+        command: dotnet watch -p StankinsStatusWeb/StankinsAliveMonitor.csproj build    
+            
+        volumes:
+             - "./:/usr/app/"
+             
+        ports:
+            - "5000:5000"
+    

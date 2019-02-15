@@ -1,0 +1,23 @@
+FROM node:10.5
+
+#RUN apt-get update && apt-get install -y apt-utils build-essential 
+
+# Sets the path where the app is going to be installed
+ENV NODE_ROOT usr/app/
+
+
+RUN mkdir -p $NODE_ROOT
+
+RUN npm install -g @angular/cli
+
+RUN echo finish
+
+WORKDIR $NODE_ROOT
+
+EXPOSE 4200 
+EXPOSE 49153
+
+#CMD tail -f /dev/null
+
+#RUN ng new mytest --defaults=true --directory=$NODE_ROOT
+#CMD ng serve --host 0.0.0.0 --poll 500

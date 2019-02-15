@@ -1,0 +1,12 @@
+FROM microsoft/dotnet:2.2.104-sdk-alpine3.8
+# Sets the path where the app is going to be installed
+ENV NODE_ROOT usr/app/
+ENV DOTNET_USE_POLLING_FILE_WATCHER 1
+WORKDIR $NODE_ROOT
+ENV ASPNETCORE_URLS=http://+:5000
+EXPOSE 5000/tcp
+
+#CMD tail -f /dev/null
+
+
+
