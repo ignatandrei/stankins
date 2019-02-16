@@ -12,18 +12,19 @@ import { filter } from 'rxjs/operators';
 })
 export class WhatsimpleComponent implements OnInit {
 
+  WhatToList = WhatToList;
   constructor(private cfg: ConfigService) { }
   // rs: ResultTypeStankins[] ;
   rsRecipes: ResultTypeStankins[] ;
-  
+  allWhat: WhatToList[];
+  recipeSelected: ResultTypeStankins;
   rsAll = new  Map<WhatToList, ResultTypeStankins[]>();
   ngOnInit() {
     this.cfg.GetStankinsAll().subscribe(it => {
       // this.rs = it;
-
+      console.log(`TOTAL : ${it.len}`);
       for (const value in WhatToList) {
         if (typeof WhatToList[value] === 'number') {
-            console.log(WhatToList[value]);
             const w: WhatToList = +WhatToList[value];
             this.rsAll = this.rsAll.set(w, this.filterArr(it, w));
         }
@@ -31,17 +32,22 @@ export class WhatsimpleComponent implements OnInit {
         // const w: WhatToList  = what;
         // this.rsAll.set(w, this.filterArr(it, w));
      }
-     
+
+     this.allWhat = Array.from(this.rsAll.keys());
+
      const setReceivers = new Set(this.rsAll.get(WhatToList.Receivers));
      const setSenders = new Set(this.rsAll.get(WhatToList.Senders));
+     console.log(`${setReceivers.size} ---- ${setSenders.size}`);
      this.rsRecipes = Array.from(setReceivers).filter(x => setSenders.has(x));
 
     });
   }
   private filterArr(arr: ResultTypeStankins[] , w: WhatToList ): ResultTypeStankins[] {
-
-    const f = arr.filter(it => w === (it.cacheWhatToList & w));
-    console.log(`enter ${w} number ${f.length}`);
+    // tslint:disable-next-line:no-bitwise
+    let f = arr.filter(it => w === (w & it.cacheWhatToList) );
+    if (w === WhatToList.None) {
+      f = arr.filter(it => w ===  it.cacheWhatToList) ;
+    }
     return f;
   }
 }
