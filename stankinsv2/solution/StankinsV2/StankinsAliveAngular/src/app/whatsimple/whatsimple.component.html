@@ -1,27 +1,39 @@
-<p>
-  Simple recipes executors:
+<p *ngIf="rsAll != null">
+  Number of data {{rsAll.size}}
 </p>
+<mat-tab-group>
+  <mat-tab label="Recipes"> 
 
-<div *ngFor="let r of rsRecipes; let i = index">
-  {{i+1}}
-  <mat-card class="example-card">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>{{r.name}}</mat-card-title>
-      <mat-card-subtitle>{{r.type}}</mat-card-subtitle>
-    </mat-card-header>
-    Explanation
-    <mat-card-content>
-      <p>
-        The following arguments are mandatory
-      </p>
-      aaa {{r.constructorParam.length}}
-      <div *ngFor="let p of r.constructorParam | keyvalue ; let jParam = index">
-        {{jParam+1}} {{p.key}} <input [(ngModel)]="p.value" />
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>Execute</button>      
-    </mat-card-actions>
-  </mat-card>
-</div>
+
+
+  </mat-tab>
+  <mat-tab label="All recipes"> 
+    <div *ngFor="let r of rsRecipes; let i = index">
+      {{i+1}}
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{r.name}}</mat-card-title>
+          <mat-card-subtitle>{{r.type}}</mat-card-subtitle>
+        </mat-card-header>
+        Explanation
+        <mat-card-content>
+          <p>
+            The following arguments are mandatory
+          </p>
+          {{r.constructorParam.length}}
+          <div *ngFor="let p of r.constructorParam | keyvalue ; let jParam = index">
+            {{jParam+1}} {{p.key}} <input [(ngModel)]="p.value" />
+          </div>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button>Execute</button>      
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+
+  </mat-tab>
+  
+</mat-tab-group>
+
