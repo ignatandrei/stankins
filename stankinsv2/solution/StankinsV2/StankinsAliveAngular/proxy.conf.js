@@ -4,7 +4,7 @@ const PROXY_CONFIG = [
           "/DataHub" , 
           "/api",                
       ],
-      target: "https://localhost:44334/",
+      target: "http://netcore:5000/",
       secure: false,
       "changeOrigin": true,
       "logLevel": "debug",

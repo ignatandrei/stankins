@@ -3,8 +3,10 @@ FROM microsoft/dotnet:2.2.104-sdk-alpine3.8
 ENV NODE_ROOT usr/app/
 ENV DOTNET_USE_POLLING_FILE_WATCHER 1
 WORKDIR $NODE_ROOT
-ENV ASPNETCORE_URLS=http://+:5000
+ENV ASPNETCORE_URLS=http://0.0.0.0:5000
+
 EXPOSE 5000/tcp
+EXPOSE 5001/tcp
 
 #CMD tail -f /dev/null
 
