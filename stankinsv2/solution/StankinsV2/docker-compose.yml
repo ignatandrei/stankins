@@ -9,7 +9,7 @@ services:
             - -c
             - |
                 npm i
-                ng serve --host 0.0.0.0 --proxy-config proxy.conf.js --poll 500                
+                ng serve --host 0.0.0.0 --proxy-config proxy.docker.conf.js --poll 500                
 
         volumes:
              - "./StankinsAliveAngular:/usr/app/"
