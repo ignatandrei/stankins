@@ -90,6 +90,7 @@
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
     <ProjectReference Include="..\Stankins.File\Stankins.File.csproj" />
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />
+    <ProjectReference Include="..\Stankins.Interpreter\Stankins.Interpreter.csproj" />
     <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />
     <ProjectReference Include="..\Stankins.Rest\Stankins.Rest.csproj" />

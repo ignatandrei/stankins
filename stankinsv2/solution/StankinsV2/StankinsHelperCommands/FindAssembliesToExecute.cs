@@ -24,8 +24,14 @@ namespace StankinsHelperCommands
 {
     public class FindAssembliesToExecute
     {
+        private static ResultTypeStankins[] refs;
         public static ResultTypeStankins[] AddReferences()
         {
+            if (refs != null)
+                return refs;
+            
+            
+            
             var allTypes = new List<ResultTypeStankins>();
            
 
@@ -82,10 +88,10 @@ namespace StankinsHelperCommands
 
             allTypes.AddRange( f.FindTypes());
 
+            refs = allTypes.ToArray();
+                
 
-
-
-            return allTypes.ToArray() ;
+            return refs;
         }
         private readonly Assembly a;
 

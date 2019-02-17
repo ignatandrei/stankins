@@ -18,6 +18,14 @@ namespace Stankins.XML
             Encoding = GetMyDataOrDefault<Encoding>(nameof(Encoding), Encoding.UTF8);
             XPath = GetMyDataOrThrow<string>(nameof(XPath));
         }
+        public ReceiverXML(string file, string xPath) : this(new CtorDictionary()
+        {
+            {nameof(file),file },
+            {nameof(xPath),xPath},
+        })
+        {
+
+        }
         public ReceiverXML(string file, Encoding encoding, string xPath) : this(new CtorDictionary()
             {
                 {nameof(file),file },
