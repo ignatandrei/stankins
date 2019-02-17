@@ -101,7 +101,7 @@ Irrationally Yours: On Missing Socks, Pickup Lines, and Other Existential Puzzle
                     var splitSecond = items[1].Split(',');
 
                     table.Rows.Add(new[] { "category", splitSecond[splitSecond.Length - 1] });
-                    table.Rows.Add(new[] { "author", splitSecond[splitSecond.Length - 2] });
+                    table.Rows.Add(new[] { "author", splitSecond[splitSecond.Length - 2].Trim() });
 
                     break;
                     //throw new ArgumentException("Just one : " + title);
