@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using dia= System.Diagnostics;
 namespace Stankins.Process
 {
-    public class ReceiverProcess : BaseObject, IReceiver
+    public class ReceiverProcess : BaseObject,  IReceive
     {
         public ReceiverProcess(string fileName, string arguments):this(new CtorDictionary()
         {
