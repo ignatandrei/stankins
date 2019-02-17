@@ -55,5 +55,22 @@ namespace StankinsTestXUnit
                 b.GetType().Should().Be(t);
             });
         }
+
+        [Scenario]
+        public void TestFindingAll()
+        {
+            
+            ResultTypeStankins[] r = null;
+            $"when find types in the assembly ".w(() =>
+            {
+                r = FindAssembliesToExecute.AddReferences();
+            });
+            $"can find data".w(() =>
+            {
+                r.Should().NotBeNull();
+                r.Length.Should().BeGreaterThan(20);
+            });
+            
+        }
     }
 }
