@@ -54,6 +54,7 @@ namespace Stankins.XML
             var document = new XPathDocument(File);
             var navig = document.CreateNavigator();
             var nodes = navig.Select(XPath);
+          
             while (nodes.MoveNext())
             {
                 var n = nodes.Current;
