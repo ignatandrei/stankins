@@ -95,8 +95,16 @@ Irrationally Yours: On Missing Socks, Pickup Lines, and Other Existential Puzzle
                     }
                     break;
 
-                case 2://Irrationally Yours: On Missing Socks, Pickup Lines, and Other Existential Puzzles, Dan Ariely, William Haefeli - Amazon.com
-                    throw new ArgumentException("Just one : " + title);
+                case 2:
+                    //Irrationally Yours: On Missing Socks, Pickup Lines, and Other Existential Puzzles, Dan Ariely, William Haefeli - Amazon.com
+                    //Smart Copy Paste from Stack Overflow( or any other site): A book for normal programmers, Andrei Ignat, eBook - Amazon.com
+                    var splitSecond = items[1].Split(',');
+
+                    table.Rows.Add(new[] { "category", splitSecond[splitSecond.Length - 1] });
+                    table.Rows.Add(new[] { "author", splitSecond[splitSecond.Length - 2] });
+
+                    break;
+                    //throw new ArgumentException("Just one : " + title);
                 default:
                     throw new ArgumentException("Cannot interpret amazon title " + title);
             }

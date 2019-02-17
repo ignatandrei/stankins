@@ -17,6 +17,7 @@
     <None Remove="Assets\bg.html" />
     <None Remove="Assets\bookmarks_11_17_17.html" />
     <None Remove="Assets\bookmarks_11_17_17N.html" />
+    <None Remove="Assets\HTML\AmazonCopyStackOverflow.html" />
     <None Remove="Assets\JSON\json1.txt" />
     <None Remove="Assets\JSON\json1Record.txt" />
     <None Remove="Assets\otherbooksmarks.html" />
@@ -25,6 +26,9 @@
     <None Remove="Assets\dll\Stankins.File.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\HTML\AmazonCopyStackOverflow.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\JSON\json1Record.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
