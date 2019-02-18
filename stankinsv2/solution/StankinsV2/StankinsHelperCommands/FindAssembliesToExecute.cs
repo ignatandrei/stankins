@@ -19,6 +19,7 @@ using Stankins.Rest;
 using Stankins.Version;
 using Stankins.XML;
 using Stankins.SimpleRecipes;
+using StankinsObjects;
 
 namespace StankinsHelperCommands
 {
@@ -36,6 +37,10 @@ namespace StankinsHelperCommands
            
 
             FindAssembliesToExecute f=null;
+
+            f=new FindAssembliesToExecute(typeof(FilterRemoveColumn).Assembly);
+            allTypes.AddRange( f.FindTypes());
+
 
             f=new FindAssembliesToExecute(typeof(ReceiveRest).Assembly);
             allTypes.AddRange( f.FindTypes());

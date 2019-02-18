@@ -20,7 +20,7 @@ namespace Stankins.Interpreter
             ObjectType = all.FirstOrDefault(it => string.Equals(it.Name, name, StringComparison.InvariantCultureIgnoreCase));
             if (ObjectType == null)
             {
-                valid.Add(new ValidationResult($"cannot find object {instr}"));
+                valid.Add(new ValidationResult($"cannot find object {name}"));
                 return false;
             }
 

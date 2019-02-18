@@ -7,17 +7,32 @@ using System.Threading.Tasks;
 
 namespace StankinsObjects 
 {
+    class BaseObjectData
+    {
+        public BaseObjectData(Type t, CtorDictionary data)
+        {
+            this.Type=t;
+            if(data!= null)
+            {
+                this.dataNeeded=new CtorDictionary( data);
+            }
+            
+
+        }
+        public Type Type { get; set; }
+        public CtorDictionary dataNeeded { get; set; }=null;
+    }
     public class BaseObjectInSerial : BaseObject, ITransformer
     {
-        private Dictionary<Type, CtorDictionary> Types { get; set; }
+        private List<BaseObjectData> Types { get; set; }
         public BaseObjectInSerial(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            Types = new Dictionary<Type, CtorDictionary>();
+            Types = new  List<BaseObjectData>();
             this.Name = nameof(BaseObjectInSerial);
         }
         public void AddType(Type t, CtorDictionary data =null)
         {
-             Types.Add(t, data);
+             Types.Add(new BaseObjectData( t, data));
         }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
@@ -25,8 +40,8 @@ namespace StankinsObjects
             var dataToSent = this.dataNeeded;
             foreach(var kv in Types)
             {
-                var type=kv.Key;
-                var vals=kv.Value;
+                var type=kv.Type;
+                var vals=kv.dataNeeded;
                 if(vals != null)
                 {
                     foreach (var val in vals)

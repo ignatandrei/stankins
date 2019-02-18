@@ -35,8 +35,6 @@ namespace Stankins.Interpreter
                     var v = i.Validate(null).First();
                     throw new ArgumentException(v.ErrorMessage);
                 }
-               
-                
                 base.AddType(i.ObjectType.Type, i.ObjectType.ConstructorParam);
             }
             return base.TransformData(receiveData);
