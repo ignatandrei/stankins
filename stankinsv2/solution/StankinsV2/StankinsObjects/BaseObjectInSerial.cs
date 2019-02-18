@@ -9,23 +9,31 @@ namespace StankinsObjects
 {
     public class BaseObjectInSerial : BaseObject, ITransformer
     {
-        public List<Type> Types { get; set; }
+        private Dictionary<Type, CtorDictionary> Types { get; set; }
         public BaseObjectInSerial(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            Types = new List<Type>();
+            Types = new Dictionary<Type, CtorDictionary>();
             this.Name = nameof(BaseObjectInSerial);
         }
-        public void AddType(Type type)
+        public void AddType(Type t, CtorDictionary data =null)
         {
-            Types.Add(type);
+             Types.Add(t, data);
         }
-
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var data = receiveData;
             var dataToSent = this.dataNeeded;
-            foreach(var type in Types)
+            foreach(var kv in Types)
             {
+                var type=kv.Key;
+                var vals=kv.Value;
+                if(vals != null)
+                {
+                    foreach (var val in vals)
+                    {
+                        dataToSent[val.Key]=val.Value;
+                    }
+                }
                 var constructType = Activator.CreateInstance(type, dataToSent) as BaseObject;
                 data = await constructType.TransformData(data);
                 dataToSent = constructType.dataNeeded;
