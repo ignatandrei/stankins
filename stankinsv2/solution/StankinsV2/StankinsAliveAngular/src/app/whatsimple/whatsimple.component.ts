@@ -22,7 +22,7 @@ export class WhatsimpleComponent implements OnInit {
   ngOnInit() {
     this.cfg.GetStankinsAll().subscribe(it => {
       // this.rs = it;
-      console.log(`TOTAL : ${it.len}`);
+      console.log(`TOTAL : ${it.length}`);
       for (const value in WhatToList) {
         if (typeof WhatToList[value] === 'number') {
             const w: WhatToList = +WhatToList[value];

@@ -50,6 +50,8 @@ namespace StankinsTestXUnit
         {
             string s = $"ReceiverXML file={fileName} xpath=//*[name()='Rate']";
             s+=Environment.NewLine;
+            s += $"#just a comment";
+            s+=Environment.NewLine;            
             s+=$"TransformerXMLToColumn columnName=OuterXML xPath=//@{currencyName} newColumnName={currencyName}";
             s+=Environment.NewLine;
             s+=$"FilterRemoveColumn nameColumn=OuterXML";

@@ -5,6 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Recipes\v1\BNR.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Recipes\v1\BNR.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
     <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
   </ItemGroup>

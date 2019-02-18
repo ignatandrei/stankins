@@ -20,11 +20,30 @@ using Stankins.Version;
 using Stankins.XML;
 using Stankins.SimpleRecipes;
 using StankinsObjects;
+using System.IO;
 
 namespace StankinsHelperCommands
 {
     public class FindAssembliesToExecute
     {
+        public static RecipeText[] Recipes()
+        {
+            string folderRecipes="Recipes";
+            if (!Directory.Exists(folderRecipes))
+            {
+                var pathDll = Assembly.GetEntryAssembly().Location;
+                var path = Path.GetDirectoryName(pathDll);
+                folderRecipes = Path.Combine(path, folderRecipes);
+                
+                
+            }
+
+            var files = Directory.GetFiles("Recipes/v1","*.txt");
+
+            return files.Select(it=>new RecipeText(it)).ToArray();
+
+        }
+
         private static ResultTypeStankins[] refs;
         public static ResultTypeStankins[] AddReferences()
         {
