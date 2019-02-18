@@ -7,7 +7,7 @@ using StankinsObjects;
 
 namespace Stankins.Interpreter
 {
-    public class RecipeFromString : BaseObjectInSerial,IReceive, ISender
+    public class RecipeFromString : BaseObjectInSerial, IReceive
     {
         private readonly string content;
 

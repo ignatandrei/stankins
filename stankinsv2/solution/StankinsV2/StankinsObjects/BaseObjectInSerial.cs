@@ -24,6 +24,7 @@ namespace StankinsObjects
     }
     public class BaseObjectInSerial : BaseObject, ITransformer
     {
+        
         private List<BaseObjectData> Types { get; set; }
         public BaseObjectInSerial(CtorDictionary dataNeeded) : base(dataNeeded)
         {

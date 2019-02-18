@@ -47,7 +47,10 @@ namespace StankinsObjects
             {
                 //do nothing
             }
-
+            if((!string.IsNullOrWhiteSpace(FolderToSave))&&(! Directory.Exists(FolderToSave)))
+            {
+                Directory.CreateDirectory(FolderToSave);
+            }
             if (output != null)
             {
                 foreach (DataRow outputRow in output.Rows)

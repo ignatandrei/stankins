@@ -10,7 +10,8 @@ namespace StankinsHelperCommands
         Senders=0x2,
         Transformers=0x4,
         Filters=0x8,
-
+        
+        
         RecipeSimple= Receivers | Senders
     }
 }

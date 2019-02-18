@@ -125,8 +125,14 @@ namespace StankinsObjects
 
             if (!dataNeeded.ContainsKey(name))
                 return def;
-
-            var ret= (T)dataNeeded[name];
+            T ret;
+            try{
+                ret= (T)dataNeeded[name];
+            }
+            catch (InvalidCastException)
+            {
+                ret=(T)Convert.ChangeType(dataNeeded[name],typeof(T));
+            }
             if (typeof(T).IsClass && object.Equals(ret, default(T)))
             {
             

@@ -56,7 +56,10 @@ namespace StankinsTestXUnit
             s+=Environment.NewLine;
             s+=$"FilterRemoveColumn nameColumn=Name";
             s+=Environment.NewLine;
-            s+=$"SenderExcel fileName=a.xlsx";
+            s+=$"SenderOutputExcel fileName=a.xlsx";
+            s+=Environment.NewLine;
+            s+=$"SenderOutputToFolder folderToSave=exports addKey=false";
+
 
             IReceive receiver = null;
             IDataToSent data=null;

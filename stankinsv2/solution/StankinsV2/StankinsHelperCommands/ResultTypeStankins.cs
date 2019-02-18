@@ -44,7 +44,7 @@ namespace StankinsHelperCommands
             {
                 CacheWhatToList |= WhatToList.Transformers;
             }
-
+            
             return CacheWhatToList;
         }
         

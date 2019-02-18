@@ -12,7 +12,7 @@ namespace Stankins.SqlServer
 {
     public class ReceiveQueryFromDatabaseSql : DBReceiverStatement 
     {
-        private readonly string sql;
+       
 
         public ReceiveQueryFromDatabaseSql(CtorDictionary dict) : base(dict)
         {
