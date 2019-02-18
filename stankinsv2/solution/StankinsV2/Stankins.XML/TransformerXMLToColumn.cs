@@ -22,7 +22,7 @@ namespace Stankins.XML
             this.NewColumnName = base.GetMyDataOrThrow<string>(nameof(NewColumnName));
             this.Separator = base.GetMyDataOrDefault<string>(nameof(Separator),","); 
         }
-        public TransformerXMLToColumn(string columnName, string xPath,string newColumnName, string separator)  :this(new CtorDictionary()
+        public TransformerXMLToColumn(string columnName, string xPath,string newColumnName, string separator=",")  :this(new CtorDictionary()
         {
             { nameof(columnName),columnName },
                 { nameof(xPath),xPath },

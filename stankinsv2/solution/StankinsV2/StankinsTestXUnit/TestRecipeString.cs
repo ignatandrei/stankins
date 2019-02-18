@@ -44,31 +44,24 @@ namespace StankinsTestXUnit
             });
             $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
         } 
-
-        [Scenario]
-        [Example("Assets/XML/nbrfxrates.xml",32,"currency", "Value","4.7383")]
-        public void TestTransformerToColumns(string fileName,int NumberRows, string currencyName,string ValueName, string valueEur)
+         [Scenario]
+         [Example("Assets/XML/nbrfxrates.xml",32,"currency", "Value","4.7383")]
+        public void ObtainExchangeRates(string fileName,int NumberRows, string currencyName,string ValueName, string valueEur)
         {
+            string s = $"ReceiverXML file={fileName} xpath=//*[name()='Rate']";
+            s+=Environment.NewLine;
+            s+=$"TransformerXMLToColumn columnName=OuterXML xPath=//@{currencyName} newColumnName={currencyName}";
             IReceive receiver = null;
             IDataToSent data=null;
 
-            $"Given the file {fileName} ".w( () =>
+            $"Given the recipe {s} ".w( () =>
             {
                 File.Exists(fileName).Should().BeTrue();
             });
-            $"When I create the {nameof(ReceiverXML)} for the {fileName}".w(() => receiver = new ReceiverXML(fileName,null,"//*[name()='Rate']"));
+            $"When I create the r{nameof(RecipeFromString)} ".w(() =>
+                receiver = new RecipeFromString(s));
 
             $"And I read the data".w(async () =>data= await receiver.TransformData(null));
-            $"Then should be a data".w(() => data.Should().NotBeNull());
-            $"With a table".w(() =>
-            {
-                data.DataToBeSentFurther.Should().NotBeNull();
-                data.DataToBeSentFurther.Count.Should().Be(1);
-            });
-            $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
-            $"And I transform  the data with {nameof(TransformerXMLToColumn)} for {currencyName}".w(async
-                () =>data= await new TransformerXMLToColumn("OuterXML",$"//@{currencyName}",currencyName,",").TransformData(data));
-
             $"the table should contain {nameof(currencyName)}".w(() =>
                 data.Metadata.Columns.FirstOrDefault(it => it.Name == currencyName).Should().NotBeNull());
 
@@ -86,5 +79,7 @@ namespace StankinsTestXUnit
 
             });
         } 
+
+       
     }
 }

@@ -38,7 +38,8 @@ namespace Stankins.Interpreter
                 base.AddType(i.ObjectType.Type);
                 foreach (var ctorParam in i.ObjectType.ConstructorParam)
                 {
-                    base.dataNeeded.Add(ctorParam.Key,ctorParam.Value);
+                    
+                    base.dataNeeded[ctorParam.Key]=ctorParam.Value;
                 }
             }
             return base.TransformData(receiveData);
