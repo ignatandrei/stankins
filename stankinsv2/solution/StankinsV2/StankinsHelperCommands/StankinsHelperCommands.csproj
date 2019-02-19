@@ -8,6 +8,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Amazon\Stankins.Amazon.csproj" />
     <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
+    <ProjectReference Include="..\Stankins.AssemblyLoad\Stankins.AssemblyLoad.csproj" />
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
     <ProjectReference Include="..\Stankins.Process\Stankins.Process.csproj" />
