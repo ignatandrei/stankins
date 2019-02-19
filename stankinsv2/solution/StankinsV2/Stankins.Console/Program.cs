@@ -13,7 +13,7 @@ using NPOI.HSSF.Record;
 using NPOI.HSSF.Record.Cont;
 using NPOI.OpenXmlFormats.Wordprocessing;
 using Stankins.AnalyzeSolution;
-using Stankins.File;
+using Stankins.FileOps;
 using Stankins.Office;
 using StankinsCommon;
 using StankinsObjects;
@@ -25,6 +25,7 @@ using Stankins.Rest;
 using Stankins.Version;
 using Stankins.XML;
 using Stankins.SimpleRecipes;
+using Stankins.Interpreter;
 
 namespace Stankins.Console
 {
@@ -120,6 +121,41 @@ namespace Stankins.Console
             //    });
 
             //});
+            app.Command("recipes",(command)=>{
+                command.Description = "execute/list recipes already in system" ;
+                var list=command.Option("-l|--list","list recipes",CommandOptionType.NoValue);
+                var execute=command.Option("-e|--execute","execute recipe",CommandOptionType.SingleValue);
+                command.OnExecute(async () =>
+                {
+                    if(list.HasValue())
+                    {
+                        var recipes = RecipeFromString.Recipes();
+                        foreach(var item in recipes)
+                        {
+                            System.Console.Write(item.Name);
+                        }
+                        return 0;
+                    }
+                    if (execute.HasValue())
+                    {
+                        var recipeString=  execute.Value();
+                        var recipe=RecipeFromString.Recipes().FirstOrDefault(it=>string.Equals(it.Name,recipeString,StringComparison.InvariantCultureIgnoreCase));
+                        if(recipe == null)
+                        {
+                            System.Console.Error.WriteLine($"can not found {recipeString}");
+                            return 0;//maybe return error?
+                        }   
+                        var r=new RecipeFromString(recipe.RecipeContent);
+                        await r.TransformData(null);
+                        return 0;
+
+                    }
+
+                    command.ShowHelp();
+                    return 0;
+                });
+
+            });
             app.Command("list", (command) =>
             {
                 var names=string.Join(',', Enum.GetNames(typeof(WhatToList)));

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Stankins.Interfaces;
 using StankinsCommon;
@@ -9,6 +11,21 @@ namespace Stankins.Interpreter
 {
     public class RecipeFromString : BaseObjectInSerial, IReceive
     {
+        public static RecipeText[] Recipes()
+        {
+            string folderRecipes="Recipes";
+            if (!Directory.Exists(folderRecipes))
+            {
+                var pathDll = Assembly.GetEntryAssembly().Location;
+                var path = Path.GetDirectoryName(pathDll);
+                folderRecipes = Path.Combine(path, folderRecipes);
+            }
+            folderRecipes=Path.Combine(folderRecipes,"v1");
+            var files = Directory.GetFiles(folderRecipes,"*.txt");
+
+            return files.Select(it=>new RecipeText(it)).ToArray();
+
+        }
         private readonly string content;
 
         public RecipeFromString(CtorDictionary dataNeeded) : base(dataNeeded)

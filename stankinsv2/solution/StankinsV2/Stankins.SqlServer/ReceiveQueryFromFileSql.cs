@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Text;
-using Stankins.File;
+using Stankins.FileOps;
 using Stankins.Interfaces;
 using StankinsCommon;
 using StankinsObjects;

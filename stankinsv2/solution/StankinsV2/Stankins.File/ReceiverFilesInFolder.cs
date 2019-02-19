@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stankins.File
+namespace Stankins.FileOps
 {
     public class ReceiverFilesInFolder : BaseObject,IReceive
     {

@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using StankinsObjects ;
 
-namespace Stankins.File
+namespace Stankins.FileOps
 {
     public class SenderAllTablesToFileCSV: BaseObject, ISender
     {

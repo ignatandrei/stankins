@@ -5,7 +5,7 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stankins.File
+namespace Stankins.FileOps
 {
 
     public class StreamToStringCSV : IStreaming<String>

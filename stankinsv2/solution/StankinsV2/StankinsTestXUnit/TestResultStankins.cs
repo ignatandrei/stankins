@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using FluentAssertions;
 using Stankins.AzureDevOps;
-using Stankins.File;
+using Stankins.FileOps;
 using Stankins.SimpleRecipes;
 using StankinsHelperCommands;
 using StankinsObjects;

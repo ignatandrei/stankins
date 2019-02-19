@@ -88,7 +88,7 @@
     <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
     <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
-    <ProjectReference Include="..\Stankins.File\Stankins.File.csproj" />
+    <ProjectReference Include="..\Stankins.File\Stankins.FileOps.csproj" />
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />
     <ProjectReference Include="..\Stankins.Interpreter\Stankins.Interpreter.csproj" />
     <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />

@@ -2,7 +2,7 @@
 using Stankins.Alive;
 using Stankins.Amazon;
 using Stankins.AzureDevOps;
-using Stankins.File;
+using Stankins.FileOps;
 using Stankins.HTML;
 using Stankins.Interfaces;
 using Stankins.Office;

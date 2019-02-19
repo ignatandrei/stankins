@@ -1,5 +1,5 @@
 ﻿using FluentAssertions;
-using Stankins.File;
+using Stankins.FileOps;
 using Stankins.HTML;
 using Stankins.Interfaces;
 using StankinsObjects;

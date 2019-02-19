@@ -1,6 +1,6 @@
 ﻿using StankinsCommon;
 
-namespace Stankins.File
+namespace Stankins.FileOps
 {
     public class ReceiverCSVText : ReceiveCSV<ReceiverStreamingText>
     {

@@ -2,7 +2,7 @@
 using System.IO;
 using FluentAssertions;
 using SenderInterpretedRazor;
-using Stankins.File;
+using Stankins.FileOps;
 using Stankins.Interfaces;
 using Xbehave;
 using Xunit;

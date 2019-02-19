@@ -21,6 +21,7 @@
     <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
+    <ProjectReference Include="..\Stankins.Interpreter\Stankins.Interpreter.csproj" />
     <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />
     <ProjectReference Include="..\Stankins.Process\Stankins.Process.csproj" />
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />

@@ -7,7 +7,7 @@ using Stankins.Interfaces;
 using StankinsCommon;
 using StankinsObjects;
 
-namespace Stankins.File
+namespace Stankins.FileOps
 {
     public class ReceiverReadFileText : BaseObject, IReceive
     {

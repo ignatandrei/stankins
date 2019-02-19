@@ -1,7 +1,7 @@
 ﻿#exchange rates nbr
 #cursuri valutare BNR
 ReceiverXML file=https://www.bnr.ro/nbrfxrates.xml xpath=//*[name()='Rate']
-TransformerXMLToColumn columnName=OuterXML xPath=//@{currencyName} newColumnName={currencyName}
+TransformerXMLToColumn columnName=OuterXML xPath=//@currency newColumnName=currency
 FilterRemoveColumn nameColumn=OuterXML
 FilterRemoveColumn nameColumn=Name
 SenderOutputExcel fileName=a.xlsx

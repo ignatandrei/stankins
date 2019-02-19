@@ -1,6 +1,6 @@
 ﻿using System;
 using FluentAssertions;
-using Stankins.File;
+using Stankins.FileOps;
 using Stankins.Interfaces;
 using StankinsObjects;
 using Xbehave;

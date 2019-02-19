@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsCommon", "StankinsC
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsObjects", "StankinsObjects\StankinsObjects.csproj", "{04A65750-0511-4B62-B5B9-AFB2974384DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.File", "Stankins.File\Stankins.File.csproj", "{FB78070A-A487-48A9-B1F5-30F1432B8F0D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.FileOps", "Stankins.File\Stankins.FileOps.csproj", "{FB78070A-A487-48A9-B1F5-30F1432B8F0D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Office", "Stankins.Office\Stankins.Office.csproj", "{3D31BFDA-9F51-474F-B33D-91D3041B540A}"
 EndProject
@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.SimpleRecipes", "S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Rest", "Stankins.Rest\Stankins.Rest.csproj", "{1F036AA4-0E9D-4A43-9DE2-D74EABBF44D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Interpreter", "Stankins.Interpreter\Stankins.Interpreter.csproj", "{026B243F-D55D-4BDC-B762-140F2477B9C7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Interpreter", "Stankins.Interpreter\Stankins.Interpreter.csproj", "{026B243F-D55D-4BDC-B762-140F2477B9C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

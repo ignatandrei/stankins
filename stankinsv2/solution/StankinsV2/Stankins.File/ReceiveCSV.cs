@@ -5,7 +5,7 @@ using System;
 using System.Data;
 using System.Threading.Tasks;
 
-namespace Stankins.File
+namespace Stankins.FileOps
 {
     public abstract class ReceiveCSV<T>: Receiver
         where T:IStreamingReceive<string>

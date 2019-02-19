@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Stankins.File
+namespace Stankins.FileOps
 {
     public class ReceiverCSVFile : ReceiveCSV<ReceiverCSV>
     {
