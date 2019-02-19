@@ -1,4 +1,5 @@
 ﻿using StankinsCommon;
+using System.Data.SqlClient;
 
 namespace Stankins.SqlServer
 {
@@ -15,7 +16,7 @@ namespace Stankins.SqlServer
             new CtorDictionary()
             {
                 {nameof(connectionString), connectionString},
-
+                {nameof(connectionType),typeof(SqlConnection).FullName},
                 {nameof(sql),$"select * from {nameTable}"}
 
             })

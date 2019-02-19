@@ -178,9 +178,10 @@ namespace Stankins.Console
                     
                     var all = commands.Select(it => it.Value).ToList();
 
-                    var find = all.Where(it => val == (val & it.FromType())).ToArray();
+                    var find = all.Where(it => val == (val & it.FromType())).ToList();
+                    find.Sort((a,b)=>a.Name.CompareTo(b.Name));
 
-                    WriteLines(find);
+                    WriteLines(find.ToArray());
 
 
                     System.Console.WriteLine("");

@@ -45,12 +45,7 @@ namespace StankinsHelperCommands
 
             f=new FindAssembliesToExecute(typeof(ReceiveTableDatabaseSql).Assembly);
             allTypes.AddRange( f.FindTypes());
-            Console.WriteLine("Alltypes");
-            foreach(var item in allTypes)
-            {
-                Console.WriteLine(item.Name);
-            }
-
+            return allTypes.ToArray();
             
             f=new FindAssembliesToExecute(typeof(FilterRemoveColumn).Assembly);
             allTypes.AddRange( f.FindTypes());
@@ -242,12 +237,43 @@ namespace StankinsHelperCommands
             //trying to find with the constructor - not ctor dictionary
             try
             {
+
                 var res=Activator.CreateInstance(t,c.Values.Select(it=>it).ToArray());
                 return c;
             }
             catch (Exception)
             {
-                //do nothing - not successull
+                //do nothing - not successfull
+                //trying to construct with first constructor that matches the values
+                foreach (var ctor in t.GetConstructors())
+                {
+                    var pars=ctor.GetParameters().ToList();
+                    var lenght= pars.Count;
+                    pars.RemoveAll(it=> c.ContainsKey(it.Name));
+                    if(pars.Count == lenght)//not found arguments matching
+                    {
+                        continue;
+                    }
+                    var c1=new CtorDictionary(c);
+                    foreach(var par in pars)
+                    {
+                        var def = GetDefault(par.ParameterType);
+                        c1[par.Name]=def;
+                    }
+                    try
+                    {
+
+                    var res=Activator.CreateInstance(t,c1.Values.Select(it=>it).ToArray());
+                    return c1;
+                    }
+                    catch (Exception)
+                    {
+                        //DO NOTHING-CTOR NOT GOOD
+                    }
+
+                }
+
+
             }
             return null;
         }
