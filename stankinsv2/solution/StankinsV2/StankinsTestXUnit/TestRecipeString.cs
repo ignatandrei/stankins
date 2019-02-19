@@ -92,6 +92,16 @@ namespace StankinsTestXUnit
             });
             $"and should be just 2 columns".w(()=>data.DataToBeSentFurther[0].Columns.Count.Should().Be(2));
         } 
+          [Scenario]
+            [Example("BNR")]
+        public void TestRecipeFind(string nameRecipe)
+        {
+            $"trying to find {nameRecipe}".w(() =>
+            {
+                var r=RecipeFromString.FindRecipe(nameRecipe);
+                r.Should().NotBeNull();
+            });
+        }
 
        
     }
