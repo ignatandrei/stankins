@@ -1,4 +1,5 @@
-﻿using StankinsCommon;
+﻿using Stankins.Interfaces;
+using StankinsCommon;
 
 namespace Stankins.SqlServer
 {

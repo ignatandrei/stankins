@@ -1,4 +1,4 @@
-﻿#azure pipelines to html
+﻿#solution documentation
 ReceiverFromSolution fileNameSln=E:\ignatandrei\stankins\stankinsv2\solution\StankinsV2\StankinsTestXUnit\Assets\TestSolutionAnalyzer\TestSolutionAnalyzer.sln 
 #default template SenderSolutionToDot.cshtml
 SenderSolutionToDot

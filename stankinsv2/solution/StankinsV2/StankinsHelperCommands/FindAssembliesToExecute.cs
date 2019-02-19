@@ -21,6 +21,7 @@ using Stankins.XML;
 using Stankins.SimpleRecipes;
 using StankinsObjects;
 using System.IO;
+using Stankins.SqlServer;
 
 namespace StankinsHelperCommands
 {
@@ -40,7 +41,17 @@ namespace StankinsHelperCommands
            
 
             FindAssembliesToExecute f=null;
+            //throw new ArgumentException("cannot find ReceiveTableDatabaseSql" );
 
+            f=new FindAssembliesToExecute(typeof(ReceiveTableDatabaseSql).Assembly);
+            allTypes.AddRange( f.FindTypes());
+            Console.WriteLine("Alltypes");
+            foreach(var item in allTypes)
+            {
+                Console.WriteLine(item.Name);
+            }
+
+            
             f=new FindAssembliesToExecute(typeof(FilterRemoveColumn).Assembly);
             allTypes.AddRange( f.FindTypes());
 
