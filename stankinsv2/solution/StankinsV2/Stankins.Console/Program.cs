@@ -129,10 +129,11 @@ namespace Stankins.Console
                 {
                     if(list.HasValue())
                     {
-                        var recipes = RecipeFromString.Recipes();
+                        var recipes = RecipeFromString.Recipes().ToList();
+                        recipes.Sort((a,b)=>a.Name.CompareTo(b.Name));
                         foreach(var item in recipes)
                         {
-                            System.Console.Write(item.Name);
+                            System.Console.WriteLine($"Stankins.Console recipes -e {item.Name}");
                         }
                         return 0;
                     }

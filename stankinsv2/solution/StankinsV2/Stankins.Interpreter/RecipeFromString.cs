@@ -72,6 +72,15 @@ namespace Stankins.Interpreter
                     var v = i.Validate(null).First();
                     throw new ArgumentException(v.ErrorMessage);
                 }
+                //validate from prev shows errors and warnings
+                var ValidWarnings = i.Validate(null).ToArray();
+                if (ValidWarnings?.Length > 0)
+                {
+                    foreach (var item in ValidWarnings)
+                    {
+                        Console.WriteLine(item.ErrorMessage);
+                    }
+                }
                 base.AddType(i.ObjectType.Type, i.ObjectType.ConstructorParam);
             }
             return base.TransformData(receiveData);

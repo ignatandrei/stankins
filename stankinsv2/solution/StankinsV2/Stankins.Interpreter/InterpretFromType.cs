@@ -8,6 +8,13 @@ using StankinsObjects;
 
 namespace Stankins.Interpreter
 {
+    public class ValidationResultWarning:ValidationResult
+    {
+        public ValidationResultWarning(ValidationResult vr):base(vr)
+        {
+
+        }
+    }
     public class InterpretFromType:IInterpreter
     {
         List<ValidationResult> valid=new List<ValidationResult>();
@@ -25,8 +32,8 @@ namespace Stankins.Interpreter
             }
 
            if(instr.Length -1 != ObjectType.ConstructorParam.Keys.Count)
-           {
-               valid.Add(new ValidationResult($"constructor items length different:{instr.Length -1} {ObjectType.ConstructorParam.Keys.Count}"));
+           {                
+               valid.Add(new ValidationResultWarning(new ValidationResult($"for {name} constructor items length different:{instr.Length -1} {ObjectType.ConstructorParam.Keys.Count}")));
            }
            var keys = ObjectType.ConstructorParam.Keys;
            for (int i = 1; i < instr.Length; i++)
@@ -49,7 +56,9 @@ namespace Stankins.Interpreter
 
            }
 
-           return (valid.Count == 0);
+           var warning=typeof(ValidationResultWarning).FullName;
+            
+           return (valid.Count(it=>it.GetType().FullName!=warning) == 0);
 
         }
 

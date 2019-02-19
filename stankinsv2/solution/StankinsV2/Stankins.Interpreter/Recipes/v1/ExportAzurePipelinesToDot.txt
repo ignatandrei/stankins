@@ -1,0 +1,6 @@
+﻿#azure pipelines to html
+YamlReader fileNameYaml=https://raw.githubusercontent.com/ignatandrei/stankins/master/azure-pipelines.yml 
+#default template SenderYamlAzurePipelineToDot.cshtml
+SenderYamlAzurePipelineToDot 
+TransformerConcatenateOutputString newTotalNameOutput=a.html
+SenderOutputToFolder folderToSave=exports addKey=false

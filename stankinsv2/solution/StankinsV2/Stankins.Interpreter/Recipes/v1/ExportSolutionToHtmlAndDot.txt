@@ -1,0 +1,9 @@
+﻿#azure pipelines to html
+ReceiverFromSolution fileNameSln=E:\ignatandrei\stankins\stankinsv2\solution\StankinsV2\StankinsTestXUnit\Assets\TestSolutionAnalyzer\TestSolutionAnalyzer.sln 
+#default template SenderSolutionToDot.cshtml
+SenderSolutionToDot
+#default template SenderSolutionToHTMLDocument
+SenderSolutionToHTMLDocument 
+#concatenate the results
+TransformerConcatenateOutputString newTotalNameOutput=sol.html
+SenderOutputToFolder folderToSave=exports addKey=false
