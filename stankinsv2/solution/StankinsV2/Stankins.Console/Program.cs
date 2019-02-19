@@ -145,7 +145,7 @@ namespace Stankins.Console
                             System.Console.Error.WriteLine($"can not found {recipeString}");
                             return 0;//maybe return error?
                         }   
-                        await r.TransformData(null);
+                        await recipe.TransformData(null);
                         return 0;
 
                     }
