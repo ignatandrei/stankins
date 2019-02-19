@@ -239,6 +239,16 @@ namespace StankinsHelperCommands
 
                 }
             }
+            //trying to find with the constructor - not ctor dictionary
+            try
+            {
+                var res=Activator.CreateInstance(t,c.Values.Select(it=>it).ToArray());
+                return c;
+            }
+            catch (Exception)
+            {
+                //do nothing - not successull
+            }
             return null;
         }
         object GetDefault<T>(T type)

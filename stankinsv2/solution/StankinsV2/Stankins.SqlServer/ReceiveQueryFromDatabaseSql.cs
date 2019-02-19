@@ -11,18 +11,23 @@ using StankinsReceiverDB;
 namespace Stankins.SqlServer
 {
     public class ReceiveQueryFromDatabaseSql : DBReceiverStatement 
-    {
-       
-
+    {       
+     
         public ReceiveQueryFromDatabaseSql(CtorDictionary dict) : base(dict)
-        {
-           
+        {           
             this.Name = nameof(ReceiveQueryFromDatabaseSql);
         }
-        public ReceiveQueryFromDatabaseSql(string connectionString, string sql) : base(connectionString, typeof(SqlConnection).FullName,sql)
+        
+        public ReceiveQueryFromDatabaseSql(string connectionString, string sql) : this(
+            new CtorDictionary()
+            {
+                {nameof(connectionString), connectionString},
+                {nameof(connectionType), typeof(SqlConnection).FullName},
+                {nameof(sql),sql}
+
+            }            )
         {
            
-            this.Name = nameof(ReceiveQueryFromDatabaseSql);
         }
         protected override DbConnection NewConnection()
         {

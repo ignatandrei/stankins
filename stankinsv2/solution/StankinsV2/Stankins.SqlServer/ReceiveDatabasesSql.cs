@@ -20,7 +20,13 @@ namespace Stankins.SqlServer
         {
             this.Name = nameof(ReceiveDatabasesSql);
         }
-        public ReceiveDatabasesSql(string connectionString) : base(connectionString, typeof(SqlConnection).FullName)
+        public ReceiveDatabasesSql(string connectionString) : this(
+            new CtorDictionary()
+            {
+                {nameof(connectionString),connectionString },
+                {nameof(connectionType), typeof(SqlConnection).FullName}
+            }
+            )
         {
             this.Name = nameof(ReceiveDatabasesSql);
         }

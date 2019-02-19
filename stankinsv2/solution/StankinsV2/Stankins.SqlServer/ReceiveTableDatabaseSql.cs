@@ -1,5 +1,4 @@
-﻿using Stankins.Interfaces;
-using StankinsCommon;
+﻿using StankinsCommon;
 
 namespace Stankins.SqlServer
 {
@@ -8,13 +7,22 @@ namespace Stankins.SqlServer
         public ReceiveTableDatabaseSql(CtorDictionary dict) : base(dict)
         {
 
-            this.Name = nameof(ReceiveTableDatabaseSql);
-            
+            Name = nameof(ReceiveTableDatabaseSql);
+
         }
-        public ReceiveTableDatabaseSql(string connectionString, string nameTable) : base(connectionString, $"select * from {nameTable}")
+        public ReceiveTableDatabaseSql(string connectionString, string nameTable) :
+            this(
+            new CtorDictionary()
+            {
+                {nameof(connectionString), connectionString},
+
+                {nameof(sql),$"select * from {nameTable}"}
+
+            })
+
         {
 
-            this.Name = nameof(ReceiveTableDatabaseSql);
+            Name = nameof(ReceiveTableDatabaseSql);
         }
     }
 }
