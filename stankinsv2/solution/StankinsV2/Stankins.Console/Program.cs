@@ -139,13 +139,12 @@ namespace Stankins.Console
                     if (execute.HasValue())
                     {
                         var recipeString=  execute.Value();
-                        var recipe=RecipeFromString.Recipes().FirstOrDefault(it=>string.Equals(it.Name,recipeString,StringComparison.InvariantCultureIgnoreCase));
+                        var recipe=RecipeFromString.FindRecipe(recipeString);
                         if(recipe == null)
                         {
                             System.Console.Error.WriteLine($"can not found {recipeString}");
                             return 0;//maybe return error?
                         }   
-                        var r=new RecipeFromString(recipe.RecipeContent);
                         await r.TransformData(null);
                         return 0;
 

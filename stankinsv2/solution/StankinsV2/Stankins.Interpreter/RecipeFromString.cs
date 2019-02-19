@@ -11,19 +11,37 @@ namespace Stankins.Interpreter
 {
     public class RecipeFromString : BaseObjectInSerial, IReceive
     {
+        static RecipeText[] recipes = null;
+        public static RecipeFromString FindRecipe(string name)
+        {
+            var recipe = RecipeFromString.Recipes().FirstOrDefault(it => string.Equals(it.Name, name, StringComparison.InvariantCultureIgnoreCase));
+            if (recipe == null)
+            {
+                System.Console.Error.WriteLine($"can not found {name}");
+                return null;//maybe throw the error?
+            }
+            return new RecipeFromString(recipe.RecipeContent);
+            
+
+        }
         public static RecipeText[] Recipes()
         {
-            string folderRecipes="Recipes";
+            if (recipes != null)
+            {
+                return recipes;
+            }
+            string folderRecipes = "Recipes";
             if (!Directory.Exists(folderRecipes))
             {
                 var pathDll = Assembly.GetEntryAssembly().Location;
                 var path = Path.GetDirectoryName(pathDll);
                 folderRecipes = Path.Combine(path, folderRecipes);
             }
-            folderRecipes=Path.Combine(folderRecipes,"v1");
-            var files = Directory.GetFiles(folderRecipes,"*.txt");
+            folderRecipes = Path.Combine(folderRecipes, "v1");
+            var files = Directory.GetFiles(folderRecipes, "*.txt");
+            recipes = files.Select(it => new RecipeText(it)).ToArray();
 
-            return files.Select(it=>new RecipeText(it)).ToArray();
+            return recipes;
 
         }
         private readonly string content;
@@ -38,7 +56,7 @@ namespace Stankins.Interpreter
             {nameof(content), content}
         })
         {
-           
+
         }
 
         public override Task<IDataToSent> TransformData(IDataToSent receiveData)
@@ -46,9 +64,9 @@ namespace Stankins.Interpreter
             var lines = content.Split(Environment.NewLine);
             foreach (var line in lines)
             {
-                if(line.Trim().StartsWith("#"))
+                if (line.Trim().StartsWith("#"))
                     continue;
-                IInterpreter i=new InterpretFromType();
+                IInterpreter i = new InterpretFromType();
                 if (!i.CanInterpretString(line.Trim()))
                 {
                     var v = i.Validate(null).First();
