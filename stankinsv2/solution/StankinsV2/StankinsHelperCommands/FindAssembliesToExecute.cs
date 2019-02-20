@@ -45,7 +45,7 @@ namespace StankinsHelperCommands
 
             f=new FindAssembliesToExecute(typeof(ReceiveTableDatabaseSql).Assembly);
             allTypes.AddRange( f.FindTypes());
-            return allTypes.ToArray();
+            
             
             f=new FindAssembliesToExecute(typeof(FilterRemoveColumn).Assembly);
             allTypes.AddRange( f.FindTypes());

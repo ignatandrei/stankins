@@ -1,29 +1,33 @@
 ﻿using StankinsCommon;
+using System;
 using System.Data.SqlClient;
 
 namespace Stankins.SqlServer
 {
     public class ReceiveTableDatabaseSql : ReceiveQueryFromDatabaseSql
     {
-        public ReceiveTableDatabaseSql(CtorDictionary dict) : base(dict)
+        protected string nameTable;
+        public ReceiveTableDatabaseSql(CtorDictionary dict) : base(
+            new CtorDictionary( dict).AddMyValue(nameof(sql),
+                dict.ContainsKey(nameof(nameTable))? 
+                $"select * from {dict[nameof(nameTable)]}":
+                throw new ArgumentException(nameof(nameTable))))
         {
-
             Name = nameof(ReceiveTableDatabaseSql);
-
+           // this.nameTable=GetMyDataOrThrow<string>(nameTable);
         }
+
         public ReceiveTableDatabaseSql(string connectionString, string nameTable) :
             this(
             new CtorDictionary()
             {
                 {nameof(connectionString), connectionString},
-                {nameof(connectionType),typeof(SqlConnection).FullName},
-                {nameof(sql),$"select * from {nameTable}"}
+                {nameof(nameTable),nameTable}
 
             })
 
         {
-
-            Name = nameof(ReceiveTableDatabaseSql);
+            
         }
     }
 }

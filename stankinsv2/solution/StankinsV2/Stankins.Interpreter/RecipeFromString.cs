@@ -64,6 +64,9 @@ namespace Stankins.Interpreter
             var lines = content.Split(Environment.NewLine);
             foreach (var line in lines)
             {
+                var str=line.Trim();
+                if(string.IsNullOrWhiteSpace(str))
+                    continue;
                 if (line.Trim().StartsWith("#"))
                     continue;
                 IInterpreter i = new InterpretFromType();

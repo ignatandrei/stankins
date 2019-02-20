@@ -18,11 +18,37 @@ namespace Stankins.Interpreter
     public class InterpretFromType:IInterpreter
     {
         List<ValidationResult> valid=new List<ValidationResult>();
-        
+        /// <summary>
+        /// ReceiveTableDatabaseSql connectionString="Server=(local);Database=test;User Id=SA;Password = <YourStrong!Passw0rd>;" nameTable=department
+        /// </summary>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private string[] SplitString(string data)
+        {
+            var result=new List<string>();
+            var res= data.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            for(int i = 0; i < res.Length; i++)
+            {
+                string item=res[i];
+                if (res[i].Contains("\""))
+                {
+                    while (!res[i+1].EndsWith("\""))
+                    {
+                        item += res[i+1]; 
+                        i++;
+                    }
+                    item += res[i+1]; 
+                    i++;
+
+                }
+                result.Add(item);
+            }
+            return result.ToArray();
+        }
         public bool CanInterpretString(string data)
         {
             var all = FindAssembliesToExecute.AddReferences();
-            var instr = data.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+            var instr = SplitString(data);
             var name = instr[0];
             ObjectType = all.FirstOrDefault(it => string.Equals(it.Name, name, StringComparison.InvariantCultureIgnoreCase));
             if (ObjectType == null)
