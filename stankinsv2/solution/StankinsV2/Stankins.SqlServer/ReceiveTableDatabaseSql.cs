@@ -11,7 +11,7 @@ namespace Stankins.SqlServer
             new CtorDictionary( dict).AddMyValue(nameof(sql),
                 dict.ContainsKey(nameof(nameTable))? 
                 $"select * from {dict[nameof(nameTable)]}":
-                throw new ArgumentException(nameof(nameTable))))
+                throw new ArgumentException($"missing nameof(nameTable)",nameof(nameTable))))
         {
             Name = nameof(ReceiveTableDatabaseSql);
            // this.nameTable=GetMyDataOrThrow<string>(nameTable);

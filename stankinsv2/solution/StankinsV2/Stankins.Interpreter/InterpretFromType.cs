@@ -34,11 +34,12 @@ namespace Stankins.Interpreter
                 {
                     while (!res[i+1].EndsWith("\""))
                     {
-                        item += res[i+1]; 
+                        item += ' '+res[i+1]; 
                         i++;
                     }
                     item += res[i+1]; 
                     i++;
+                    item=item.Replace("\"","");
 
                 }
                 result.Add(item);
