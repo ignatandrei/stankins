@@ -129,7 +129,7 @@ namespace Stankins.Console
                 {
                     if(list.HasValue())
                     {
-                        var recipes = RecipeFromString.Recipes().ToList();
+                        var recipes = RecipeFromString.RecipesFromFolder().ToList();
                         recipes.Sort((a,b)=>a.Name.CompareTo(b.Name));
                         foreach(var item in recipes)
                         {

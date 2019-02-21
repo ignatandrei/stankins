@@ -10,9 +10,11 @@ namespace StankinsObjects
     {
         public DataToSentTable()
         {
+            id=Guid.NewGuid().ToString("N");
             Metadata = new MetadataTable();
             DataToBeSentFurther = new Dictionary<int, DataTable>();
         }
+        public string id{get;protected set;}
         public Dictionary<int,DataTable> DataToBeSentFurther { get ; set ; }
         public IMetadata Metadata { get ; set ; }
 
