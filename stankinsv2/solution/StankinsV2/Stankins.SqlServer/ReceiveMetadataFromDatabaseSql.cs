@@ -14,11 +14,17 @@ namespace Stankins.SqlServer
 {
     public class ReceiveMetadataFromDatabaseSql : DatabaseReceiver
     {
-        public ReceiveMetadataFromDatabaseSql(CtorDictionary dataNeeded) : base(dataNeeded)
+        public ReceiveMetadataFromDatabaseSql(CtorDictionary dataNeeded) : base(new CtorDictionary(dataNeeded)
+            .AddMyValue(
+                nameof(connectionType), typeof(SqlConnection).FullName)
+            )
         {
             this.Name = nameof(ReceiveMetadataFromDatabaseSql);
         }
-        public ReceiveMetadataFromDatabaseSql(string connectionString) : base(connectionString, typeof(SqlConnection).FullName)
+        public ReceiveMetadataFromDatabaseSql(string connectionString) : this(
+            new CtorDictionary(){
+              {nameof(  connectionString),connectionString }
+            })
         {
             this.Name = nameof(ReceiveMetadataFromDatabaseSql);
         }
@@ -34,9 +40,6 @@ namespace Stankins.SqlServer
                 receiveData = new DataToSentTable();
             }
             var tablesProperties =new DataTable("properties");
-            
-           
-            
            
             var tablesString = $@"select t.object_id as id, s.name +'.'+ t.name as name from sys.tables t
                             inner join sys.schemas s on t.schema_id = s.schema_id order by 2 ";

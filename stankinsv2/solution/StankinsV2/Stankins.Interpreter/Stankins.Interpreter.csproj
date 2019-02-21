@@ -7,11 +7,15 @@
   <ItemGroup>
     <None Remove="Recipes\v1\BNR.txt" />
     <None Remove="Recipes\v1\ExportAzurePipelinesToDot.txt" />
+    <None Remove="Recipes\v1\ExportDBDiagramHtmlAndDot.txt" />
     <None Remove="Recipes\v1\ExportSolutionToHtmlAndDot.txt" />
     <None Remove="Recipes\v1\ExportTableToExcelSql.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Recipes\v1\ExportDBDiagramHtmlAndDot.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recipes\v1\ExportTableToExcelSql.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

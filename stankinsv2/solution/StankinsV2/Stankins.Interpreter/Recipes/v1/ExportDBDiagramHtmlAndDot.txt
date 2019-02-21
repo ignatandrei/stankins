@@ -1,0 +1,8 @@
+﻿#table to excel 
+ReceiveMetadataFromDatabaseSql connectionString="Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;" 
+#name template SenderDBDiagramToDot.cshtml
+SenderDBDiagramToDot 
+#name template SenderDBDiagramToDot.cshtml
+SenderDBDiagramHTMLDocument
+TransformerConcatenateOutputString newTotalNameOutput=dbdiagram.html
+SenderOutputToFolder folderToSave=exports addKey=false
