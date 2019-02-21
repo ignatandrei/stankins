@@ -1,112 +1,118 @@
-﻿using Stankins.Interfaces;
-using StankinsCommon;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Stankins.Amazon;
+﻿using Stankins.Amazon;
 using Stankins.AnalyzeSolution;
 using Stankins.AzureDevOps;
 using Stankins.FileOps;
 using Stankins.HTML;
+using Stankins.Interfaces;
 using Stankins.Office;
 using Stankins.Process;
 using Stankins.Razor;
 using Stankins.Rest;
+using Stankins.SimpleRecipes;
+using Stankins.SqlServer;
 using Stankins.Version;
 using Stankins.XML;
-using Stankins.SimpleRecipes;
+using StankinsCommon;
 using StankinsObjects;
-using System.IO;
-using Stankins.SqlServer;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 
 namespace StankinsHelperCommands
 {
     public class FindAssembliesToExecute
     {
-        
+
 
         private static ResultTypeStankins[] refs;
+        private static readonly object lockObj = new object();
         public static ResultTypeStankins[] AddReferences()
         {
             if (refs != null)
+            {
                 return refs;
-            
-            
-            
-            var allTypes = new List<ResultTypeStankins>();
-           
+            }
 
-            FindAssembliesToExecute f=null;
-            //throw new ArgumentException("cannot find ReceiveTableDatabaseSql" );
+            lock (lockObj)
+            {
+                if (refs != null)
+                {
+                    return refs;
+                }
 
-            f=new FindAssembliesToExecute(typeof(ReceiveTableDatabaseSql).Assembly);
-            allTypes.AddRange( f.FindTypes());
-            
-            
-            f=new FindAssembliesToExecute(typeof(FilterRemoveColumn).Assembly);
-            allTypes.AddRange( f.FindTypes());
+                List<ResultTypeStankins> allTypes = new List<ResultTypeStankins>();
 
 
-            f=new FindAssembliesToExecute(typeof(ReceiveRest).Assembly);
-            allTypes.AddRange( f.FindTypes());
+                FindAssembliesToExecute f = null;
+                //throw new ArgumentException("cannot find ReceiveTableDatabaseSql" );
+
+                f = new FindAssembliesToExecute(typeof(ReceiveTableDatabaseSql).Assembly);
+                allTypes.AddRange(f.FindTypes());
 
 
-            f = new FindAssembliesToExecute(typeof(AmazonMeta).Assembly);
+                f = new FindAssembliesToExecute(typeof(FilterRemoveColumn).Assembly);
+                allTypes.AddRange(f.FindTypes());
 
-            allTypes.AddRange( f.FindTypes());
 
-            f = new FindAssembliesToExecute(typeof(ReceiverFromSolution).Assembly);
+                f = new FindAssembliesToExecute(typeof(ReceiveRest).Assembly);
+                allTypes.AddRange(f.FindTypes());
 
-            allTypes.AddRange( f.FindTypes());
 
-            f = new FindAssembliesToExecute(typeof(YamlReader).Assembly);
+                f = new FindAssembliesToExecute(typeof(AmazonMeta).Assembly);
 
-            allTypes.AddRange( f.FindTypes());
+                allTypes.AddRange(f.FindTypes());
 
-          
+                f = new FindAssembliesToExecute(typeof(ReceiverFromSolution).Assembly);
 
-            f = new FindAssembliesToExecute(typeof(ReceiverCSV).Assembly);
+                allTypes.AddRange(f.FindTypes());
 
-            allTypes.AddRange( f.FindTypes());
+                f = new FindAssembliesToExecute(typeof(YamlReader).Assembly);
 
-            f = new FindAssembliesToExecute(typeof(ReceiverHtml).Assembly);
+                allTypes.AddRange(f.FindTypes());
 
-            allTypes.AddRange( f.FindTypes());
-            
-            f = new FindAssembliesToExecute(typeof(SenderExcel).Assembly);
 
-            allTypes.AddRange( f.FindTypes());
-           
 
-            f = new FindAssembliesToExecute(typeof(ReceiverProcess).Assembly);
+                f = new FindAssembliesToExecute(typeof(ReceiverCSV).Assembly);
 
-            allTypes.AddRange( f.FindTypes());
+                allTypes.AddRange(f.FindTypes());
 
-            f = new FindAssembliesToExecute(typeof(SenderDBDiagramToDot).Assembly);
+                f = new FindAssembliesToExecute(typeof(ReceiverHtml).Assembly);
 
-            allTypes.AddRange( f.FindTypes());
+                allTypes.AddRange(f.FindTypes());
 
-            f = new FindAssembliesToExecute(typeof(ExportDBDiagramHtmlAndDot).Assembly);
+                f = new FindAssembliesToExecute(typeof(SenderExcel).Assembly);
 
-            allTypes.AddRange( f.FindTypes());
-           
-            f = new FindAssembliesToExecute(typeof(FileVersionFromDir).Assembly);
+                allTypes.AddRange(f.FindTypes());
 
-            allTypes.AddRange( f.FindTypes());
-           
-            f = new FindAssembliesToExecute(typeof(ReceiverXML).Assembly);
 
-            allTypes.AddRange( f.FindTypes());
+                f = new FindAssembliesToExecute(typeof(ReceiverProcess).Assembly);
 
-            refs = allTypes.ToArray();
-                
+                allTypes.AddRange(f.FindTypes());
 
-            return refs;
+                f = new FindAssembliesToExecute(typeof(SenderDBDiagramToDot).Assembly);
+
+                allTypes.AddRange(f.FindTypes());
+
+                f = new FindAssembliesToExecute(typeof(ExportDBDiagramHtmlAndDot).Assembly);
+
+                allTypes.AddRange(f.FindTypes());
+
+                f = new FindAssembliesToExecute(typeof(FileVersionFromDir).Assembly);
+
+                allTypes.AddRange(f.FindTypes());
+
+                f = new FindAssembliesToExecute(typeof(ReceiverXML).Assembly);
+
+                allTypes.AddRange(f.FindTypes());
+
+                refs = allTypes.ToArray();
+
+
+                return refs;
+            }
         }
+
         private readonly Assembly a;
 
         public FindAssembliesToExecute(Assembly a)
@@ -115,20 +121,20 @@ namespace StankinsHelperCommands
         }
         public ResultTypeStankins[] FindTypes()
         {
-            var ret = new List<ResultTypeStankins>();
-            var types = a.GetExportedTypes();
-            
+            List<ResultTypeStankins> ret = new List<ResultTypeStankins>();
+            Type[] types = a.GetExportedTypes();
+
             foreach (Type type in types)
             {
-                var ctor = TryToConstruct(type);
-                if(ctor == null)
+                CtorDictionary ctor = TryToConstruct(type);
+                if (ctor == null)
                 {
                     continue;
                 }
 
-                
-                
-                ret.Add(new ResultTypeStankins( type, ctor));
+
+
+                ret.Add(new ResultTypeStankins(type, ctor));
 
             }
             return ret.ToArray();
@@ -153,43 +159,49 @@ namespace StankinsHelperCommands
                 return false;
             }
 
-            var interf = typeof(IBaseObject);
+            Type interf = typeof(IBaseObject);
             if (!interf.IsAssignableFrom(t))
             {
                 return false;
             }
             return true;
         }
-        CtorDictionary TryToConstruct(Type t)
+
+        private CtorDictionary TryToConstruct(Type t)
         {
             if (!CanConstruct(t))
             {
                 return null;
             }
-            var c = new CtorDictionary();
+            CtorDictionary c = new CtorDictionary();
             while (true)
             {
                 try
                 {
-                    var res = Activator.CreateInstance(t, c);
-                    if(c.Count() == 0)
+                    object res = Activator.CreateInstance(t, c);
+                    if (c.Count() == 0)
                     {
                         //we need to add the arguments of a ctor 
-                        var ctors = t.GetConstructors();
-                        if (ctors.Any(it => it.GetParameters().Length == 0)){
+                        ConstructorInfo[] ctors = t.GetConstructors();
+                        if (ctors.Any(it => it.GetParameters().Length == 0))
+                        {
                             return c;
                         }
 
-                        foreach (var ctor in ctors)
+                        foreach (ConstructorInfo ctor in ctors)
                         {
                             if (!ctor.IsPublic)
+                            {
                                 continue;
+                            }
 
-                            var pars = ctor.GetParameters();
+                            ParameterInfo[] pars = ctor.GetParameters();
                             if (pars[0].ParameterType == typeof(CtorDictionary))
+                            {
                                 continue;
+                            }
                             //first constructor ok
-                            foreach(var parm in pars)
+                            foreach (ParameterInfo parm in pars)
                             {
                                 c.Add(parm.Name, GetDefault(parm.ParameterType));
                             }
@@ -200,25 +212,25 @@ namespace StankinsHelperCommands
                 }
                 catch (TargetInvocationException tex)
                 {
-                    var lenArgs = c.Count;
-                    var ex = tex.InnerException as ArgumentException;
+                    int lenArgs = c.Count;
+                    ArgumentException ex = tex.InnerException as ArgumentException;
                     if (ex == null)
                     {
                         throw new Exception($"for {t.Name} tex.InnerException is {tex.InnerException} ");
                     }
-                    var name = ex.ParamName;
+                    string name = ex.ParamName;
                     if (c.ContainsKey(name))
                     {
                         throw new Exception($"type {t} has {name} twice");
                     }
-                    foreach (var ctor in t.GetConstructors())
+                    foreach (ConstructorInfo ctor in t.GetConstructors())
                     {
-                        var par = ctor.GetParameters().FirstOrDefault(p => p.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
+                        ParameterInfo par = ctor.GetParameters().FirstOrDefault(p => p.Name.Equals(name, StringComparison.InvariantCultureIgnoreCase));
                         if (par == null)
                         {
                             continue;
                         }
-                        var def = GetDefault(par.ParameterType);
+                        object def = GetDefault(par.ParameterType);
                         if (c.ContainsKey(name))
                         {
                             throw new Exception($"type {t} has {name} twice");
@@ -228,43 +240,46 @@ namespace StankinsHelperCommands
 
                     }
                     if (c.Count != lenArgs)
+                    {
                         continue;
+                    }
                     else
+                    {
                         break;
-
+                    }
                 }
             }
             //trying to find with the constructor - not ctor dictionary
             try
             {
 
-                var res=Activator.CreateInstance(t,c.Values.Select(it=>it).ToArray());
+                object res = Activator.CreateInstance(t, c.Values.Select(it => it).ToArray());
                 return c;
             }
             catch (Exception)
             {
                 //do nothing - not successfull
                 //trying to construct with first constructor that matches the values
-                foreach (var ctor in t.GetConstructors())
+                foreach (ConstructorInfo ctor in t.GetConstructors())
                 {
-                    var pars=ctor.GetParameters().ToList();
-                    var lenght= pars.Count;
-                    pars.RemoveAll(it=> c.ContainsKey(it.Name));
-                    if(pars.Count == lenght)//not found arguments matching
+                    List<ParameterInfo> pars = ctor.GetParameters().ToList();
+                    int lenght = pars.Count;
+                    pars.RemoveAll(it => c.ContainsKey(it.Name));
+                    if (pars.Count == lenght)//not found arguments matching
                     {
                         continue;
                     }
-                    var c1=new CtorDictionary(c);
-                    foreach(var par in pars)
+                    CtorDictionary c1 = new CtorDictionary(c);
+                    foreach (ParameterInfo par in pars)
                     {
-                        var def = GetDefault(par.ParameterType);
-                        c1[par.Name]=def;
+                        object def = GetDefault(par.ParameterType);
+                        c1[par.Name] = def;
                     }
                     try
                     {
 
-                    var res=Activator.CreateInstance(t,c1.Values.Select(it=>it).ToArray());
-                    return c1;
+                        object res = Activator.CreateInstance(t, c1.Values.Select(it => it).ToArray());
+                        return c1;
                     }
                     catch (Exception)
                     {
@@ -277,7 +292,8 @@ namespace StankinsHelperCommands
             }
             return null;
         }
-        object GetDefault<T>(T type)
+
+        private object GetDefault<T>(T type)
             where T : Type
         {
             if (type.IsValueType)
