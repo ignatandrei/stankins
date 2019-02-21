@@ -1,4 +1,4 @@
 ﻿#table to excel 
 ReceiveTableDatabaseSql connectionString="Server=(local);Database=tests;User Id=SA;Password = <YourStrong!Passw0rd>;" nameTable=Department
-#default template SenderSolutionToDot.cshtml
-SenderExcel fileName=Exports/name.xlsx
+SenderOutputExcel fileName=name.xlsx
+SenderOutputToFolder folderToSave=exports addKey=false
