@@ -95,6 +95,14 @@ namespace Stankins.Interpreter
         public override Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             string[] lines = content.Split(Environment.NewLine);
+            if(lines.Length == 1)
+            {
+                lines = content.Split("\n");
+            }
+            if(lines.Length == 1)
+            {
+                lines = content.Split(@"\n");
+            }
             foreach (string line in lines)
             {
                 string str = line.Trim();

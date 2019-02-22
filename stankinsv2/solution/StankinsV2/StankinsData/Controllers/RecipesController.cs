@@ -57,6 +57,10 @@ namespace StankinsData.Controllers
         {
             RecipeFromString r = new RecipeFromString(recipe.Content);
             var data = await r.TransformData(null);
+            if(data == null)
+            {
+                return this.BadRequest($"cannot process {recipe.Content}");
+            }
             await memoryCache.GetOrCreateAsync(data.id, entry =>
             {
                 entry.SlidingExpiration = TimeSpan.FromMinutes(1);
