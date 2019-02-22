@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StankinsHelperCommands;
 
-namespace StankinsData.Controllers
+namespace StankinsDataWeb.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion( "1.0" )]

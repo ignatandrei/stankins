@@ -10,7 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StankinsData.Controllers
+namespace StankinsDataWeb.Controllers
 {
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiVersion( "1.0" )]
