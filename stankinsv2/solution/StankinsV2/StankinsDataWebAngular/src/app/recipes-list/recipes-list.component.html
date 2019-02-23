@@ -1,3 +1,14 @@
 <p>
-  recipes-list works!
+  List of recipes {{numberRecipes}}
 </p>
+<form class="example-form">
+  <mat-form-field class="example-full-width">
+    <input matInput placeholder="Try beer or exchange" value="" [formControl]="searchRecipe" >
+  </mat-form-field>
+
+</form>
+
+Found {{findRecipes?.length}}
+<mat-form-field class="example-full-width">
+  <textarea matInput placeholder="Recipe text"></textarea>
+</mat-form-field>
