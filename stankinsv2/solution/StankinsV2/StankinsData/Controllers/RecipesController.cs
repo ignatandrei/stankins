@@ -55,6 +55,7 @@ namespace StankinsDataWeb.Controllers
         [HttpPost]
         public async Task<ActionResult<string>> Post([FromBody] Recipe recipe)
         {
+            
             RecipeFromString r = new RecipeFromString(recipe.Content);
             var data = await r.TransformData(null);
             if(data == null)

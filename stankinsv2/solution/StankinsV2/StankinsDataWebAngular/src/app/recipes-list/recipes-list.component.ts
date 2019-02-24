@@ -46,6 +46,7 @@ export class SearchRecipe {
   // private findRecipes=new  Subject<number>();
 
   private allRecipes: Recipe[];
+
   constructor(private recipeService: RecipesService) {
 
   }
@@ -55,7 +56,7 @@ export class SearchRecipe {
     return this.recipeService.GetStankinsAll()
     .pipe(
       tap(it => {
-        return window.console.table(it);
+         window.console.table(it);
       } ),
       map ((rec) => {
         const list = new Array<Recipe>();
@@ -80,5 +81,12 @@ export class SearchRecipe {
       return null;
     }
     return this.allRecipes.filter(it => it.searchString().indexOf(s) > -1);
+  }
+  public SearchRecipeByName(s: string): Recipe {
+    s = s.toLowerCase();
+    return this.allRecipes.find(it => it.name.toLowerCase() === s);
+  }
+  public execute(r: Recipe): Observable<string> {
+    return this.recipeService.execute(r);
   }
 }

@@ -1,4 +1,4 @@
-<p>List of recipes {{ numberRecipes }}</p>
+<p>List of recipes {{ numberRecipes }} </p>
 <form class="example-form">
   <mat-form-field class="example-full-width">
     <input
@@ -15,16 +15,18 @@
   <div *ngFor="let recipe of findRecipes; let i = index">
     <mat-card>
       <mat-card-header>
-        <mat-card-title>{{ i + 1 }} {{ recipe.name }} </mat-card-title>
-        <mat-card-subtitle> <a routerLink="/recipe/{{recipe.name}}" >Link</a> </mat-card-subtitle>
+        <mat-card-title>{{ i + 1 }} <a routerLink="/recipe/{{recipe.name}}" >{{ recipe.name }}</a> </mat-card-title>
+        <mat-card-subtitle> {{recipe.description}}</mat-card-subtitle>
       </mat-card-header>
 
       <mat-card-content>
-          {{ recipe.description }}
+          {{ recipe.content }}
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button>Execute</button>
-        <button mat-button>Modify and share</button>
+        <button mat-button  *ngIf="recipe.CanExecuteDirectly()" routerLink="/recipe/{{recipe.name}}" >
+            Execute</button>
+        <button mat-button *ngIf="!recipe.CanExecuteDirectly()" > <a routerLink="/recipe/{{recipe.name}}" >
+          Modify and share</a></button>
       </mat-card-actions>
     </mat-card>
   </div>
