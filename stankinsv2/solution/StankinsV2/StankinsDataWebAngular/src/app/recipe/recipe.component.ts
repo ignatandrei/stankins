@@ -40,7 +40,7 @@ export class RecipeComponent implements OnInit {
 
   }
   execute() {
-     this.search.execute(this.selectedRecipe).subscribe(it => console.log('done'+ it));
+     this.search.execute(this.selectedRecipe).subscribe(it => console.log('done ' + it.length));
 
   }
 

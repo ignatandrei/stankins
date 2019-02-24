@@ -1,7 +1,7 @@
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../Recipe';
-import { tap, map, switchMap, flatMap, concatMapTo, concatMap, mergeMap, scan } from 'rxjs/operators';
-import { Observable, from } from 'rxjs';
+import { tap, map, switchMap, flatMap, concatMapTo, concatMap, mergeMap, scan, switchAll, combineAll, mergeMapTo } from 'rxjs/operators';
+import { Observable, from, combineLatest, forkJoin } from 'rxjs';
 export class SearchRecipe {
   // private findRecipes=new  Subject<number>();
   private allRecipes: Recipe[];
@@ -45,26 +45,29 @@ export class SearchRecipe {
             console.log(`getting ${id} `);
 
         } ),
-        map(it =>
+
+        mergeMap(it =>
             this.recipeService.getTables(it).pipe(
                 map($ => $.map(table => ({table, it}) ))
             )
 
         ),
-        switchMap(v => v ),
-        map(v =>
-             v.map(val =>
-                 this.recipeService.getTablesValues(val.it, val.table)
-                 .pipe(
-                     map($ => [val.table , ...$] )
-                 )
-                 )
-         ),
+
+        mergeMap(vals =>
+            vals.map(val => this.recipeService.getTablesValues(val.it, val.table)
+                .pipe(
+                    map($ => [val.table, ...$])
+                )
+            )),
 
 
-         switchMap(v => v )
+        combineAll(),
+        mergeMap(val => val),
+
+
     );
-    // const  q = ret1.subscribe();
+
+
     return ret1;
   }
 }
