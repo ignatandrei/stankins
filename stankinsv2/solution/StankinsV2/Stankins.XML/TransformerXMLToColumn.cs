@@ -43,7 +43,8 @@ namespace Stankins.XML
             foreach (var tablePosition in tableAndPosition)
             {
                 var table = tablePosition.Value;
-                table.Columns.Add(NewColumnName);
+                var dc= table.Columns.Add(NewColumnName);
+                dc.SetOrdinal(0);
                 receiveData.Metadata.Columns.Add(new Column() { IDTable = tablePosition.Key, Name = NewColumnName, Id = receiveData.Metadata.Columns.Count });
                 foreach (DataRow dr in table.Rows)
                 {

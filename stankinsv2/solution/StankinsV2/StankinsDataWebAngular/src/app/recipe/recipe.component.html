@@ -1,6 +1,57 @@
-<a routerLink="/recipeList" >All recipes({{nr}})</a> 
+<a routerLink="/recipeList">All recipes({{nr}})</a>
 <p>
   Recipe {{selectedRecipe?.name}}
 </p>
-<textarea style="width:90%;height:175px" >{{selectedRecipe?.content}}
-</textarea>
+<mat-accordion multi="true">
+
+  <mat-expansion-panel [expanded]="whatToOpen == WhatToOpen.Definition">
+    <mat-expansion-panel-header>
+      Definition
+    </mat-expansion-panel-header>
+
+    <textarea style="width:90%;height:175px">{{selectedRecipe?.content}}
+    </textarea>
+   
+    <mat-action-row>
+        <button mat-button [disabled]="executing" (click)="execute()"> Execute! </button>
+     
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel [expanded]="whatToOpen == WhatToOpen.Results">
+    <mat-expansion-panel-header>
+      Results
+    </mat-expansion-panel-header>
+    <div *ngFor="let x of nameTables()">
+     <h1> {{x}}</h1>
+
+      <table mat-table
+      [dataSource]="executed.get(x)[1]" multiTemplateDataRows
+      class="mat-elevation-z8">
+ <ng-container matColumnDef="{{column}}" *ngFor="let column of executed.get(x)[0]">
+   <th mat-header-cell *matHeaderCellDef ><h1>  {{column}}</h1> </th>
+   <td mat-cell *matCellDef="let element" > 
+      
+      {{ element[column]}}
+
+      </td>
+ </ng-container>
+
+
+
+ <tr mat-header-row *matHeaderRowDef="executed.get(x)[0]" ></tr>
+ <tr mat-row *matRowDef="let element; columns: executed.get(x)[0];"
+     class="example-element-row"
+     [class.example-expanded-row]="expandedElement === element"
+     (click)="expandedElement = expandedElement === element ? null : element">
+ </tr>
+
+</table>
+
+    </div>
+
+
+
+  </mat-expansion-panel>
+
+</mat-accordion>
