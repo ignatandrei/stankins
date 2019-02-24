@@ -36,7 +36,7 @@ namespace StankinsDataWeb.Controllers
             {
                 return NotFound($"id not found {id}");
             }
-            var tables=data.Metadata.Tables;
+            var tables=data.Metadata.Tables;    
             if (string.IsNullOrWhiteSpace(table))
             {
                 return tables.Select(it=>it.Name).ToArray();

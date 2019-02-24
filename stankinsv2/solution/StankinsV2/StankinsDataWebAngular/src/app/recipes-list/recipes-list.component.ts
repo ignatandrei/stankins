@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../Recipe';
-import { tap, switchMap, map, filter, distinctUntilChanged, debounceTime } from 'rxjs/operators';
-import { Subject, Observable, fromEvent } from 'rxjs';
+import { tap, switchMap, filter, distinctUntilChanged, debounceTime } from 'rxjs/operators';
+import { Subject, fromEvent } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { SearchRecipe } from './SearchRecipe';
 @Component({
   selector: 'app-recipes-list',
   templateUrl: './recipes-list.component.html',
@@ -42,51 +43,4 @@ export class RecipesListComponent implements OnInit {
 
 }
 
-export class SearchRecipe {
-  // private findRecipes=new  Subject<number>();
 
-  private allRecipes: Recipe[];
-
-  constructor(private recipeService: RecipesService) {
-
-  }
-
-  loadRecipes(): Observable<number> {
-
-    return this.recipeService.GetStankinsAll()
-    .pipe(
-      tap(it => {
-         window.console.table(it);
-      } ),
-      map ((rec) => {
-        const list = new Array<Recipe>();
-        rec.forEach(element => {
-          list.push(new Recipe(element));
-        });
-        this.allRecipes = list.sort((x, y) => x.name.localeCompare(y.name));
-        return list.length;
-      } )
-
-    );
-    // .subscribe(it => {
-    //     this.allRecipes = it;
-    //     this.findRecipes.next(it.length);
-    //   });
-  }
-  // public findRecs(): Observable<number> {
-  //   return this.findRecipes.asObservable();
-  // }
-  public SearchRecipe(s: string): Recipe[] {
-    if (s == null || s.length === 0) {
-      return null;
-    }
-    return this.allRecipes.filter(it => it.searchString().indexOf(s) > -1);
-  }
-  public SearchRecipeByName(s: string): Recipe {
-    s = s.toLowerCase();
-    return this.allRecipes.find(it => it.name.toLowerCase() === s);
-  }
-  public execute(r: Recipe): Observable<string> {
-    return this.recipeService.execute(r);
-  }
-}

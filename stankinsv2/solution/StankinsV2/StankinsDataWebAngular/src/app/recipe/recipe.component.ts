@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap, tap } from 'rxjs/operators';
 import { Recipe } from '../Recipe';
-import { SearchRecipe } from '../recipes-list/recipes-list.component';
+import { SearchRecipe } from "../recipes-list/SearchRecipe";
 import {  of, zip } from 'rxjs';
 import { RecipesService } from '../recipes.service';
 
