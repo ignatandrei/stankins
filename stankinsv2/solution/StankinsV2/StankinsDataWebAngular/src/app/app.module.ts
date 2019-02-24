@@ -17,12 +17,14 @@ import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollingModule, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { RecipeComponent } from './recipe/recipe.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipesComponent,
-    RecipesListComponent
+    RecipesListComponent,
+    RecipeComponent
   ],
   imports: [
     FormsModule,
