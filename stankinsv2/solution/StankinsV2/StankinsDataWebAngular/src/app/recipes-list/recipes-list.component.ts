@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../Recipe';
 import { tap, switchMap, map, filter, distinctUntilChanged, debounceTime } from 'rxjs/operators';
@@ -7,12 +7,14 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-recipes-list',
   templateUrl: './recipes-list.component.html',
-  styleUrls: ['./recipes-list.component.css']
+  styleUrls: ['./recipes-list.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 
 export class RecipesListComponent implements OnInit {
 
+  items = Array.from({length: 100000}).map((_, i) => `Item #${i}`);
   search: SearchRecipe;
   numberRecipes: number;
   findRecipes: Recipe[];
@@ -25,16 +27,17 @@ export class RecipesListComponent implements OnInit {
   ngOnInit() {
     this.search = new SearchRecipe(this.recipeService);
     this.search.loadRecipes().subscribe(it => this.numberRecipes = it);
+
   this.searchRecipe.valueChanges.pipe(
     // filter(it => it != null && it.length > 1),
-    debounceTime(10),
+    debounceTime(100),
     distinctUntilChanged(),
     tap(it => {
 
-      this.findRecipes = this.search.SearchRecipe(it);
+      console.log(it);
 
     })
-  ).subscribe();
+  ).subscribe(it => this.findRecipes = this.search.SearchRecipe(it)  );
   }
 
 }
@@ -59,7 +62,7 @@ export class SearchRecipe {
         rec.forEach(element => {
           list.push(new Recipe(element));
         });
-        this.allRecipes = list;
+        this.allRecipes = list.sort((x, y) => x.name.localeCompare(y.name));
         return list.length;
       } )
 
