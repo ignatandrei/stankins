@@ -46,6 +46,11 @@ namespace StankinsCommon
         }
         public CtorDictionary  AddMyValue(string key, object val)
         {
+            if (this.ContainsKey(key))
+            {
+                Console.WriteLine($"key exists {key} with {val}");
+                this.Remove(key);
+            }
             this.Add(key,val);
             return this;
         }

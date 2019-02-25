@@ -54,7 +54,7 @@ namespace StankinsTestXUnit
             $"the Excel {fileName} should not exists".w(() => File.Exists(fileName).Should().BeFalse());
             $"Assume Sql Server instance {connectionString} exists , if not see docker folder".w(() => { });
 
-            $"When I create the ReceiveQueryFromDatabaseSql ".w(() =>
+            $"When I create the ExportTableToExcelSql ".w(() =>
                 status = new ExportTableToExcelSql(connectionString, tableName, fileName));
             $"and receive data".w(async () => { data = await status.TransformData(null); });
             $"the data should have a table".w(() =>

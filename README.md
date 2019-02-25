@@ -29,7 +29,6 @@ You can with Stankins:
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ignatandrei_stankins&metric=alert_status)](https://sonarcloud.io/dashboard?id=ignatandrei_stankins)
 
-[![DepShield Badge](https://depshield.sonatype.org/badges/ignatandrei/stankins/depshield.svg)](https://depshield.github.io)
 
 # Demo
 [Live demo https://azurestankins.azurewebsites.net](https://azurestankins.azurewebsites.net)

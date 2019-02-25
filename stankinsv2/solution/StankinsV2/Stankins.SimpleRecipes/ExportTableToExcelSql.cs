@@ -26,7 +26,8 @@ namespace Stankins.SimpleRecipes
             {nameof(connectionString),connectionString },
             {"folderToSave", Path.GetDirectoryName(fileName)},
             {"connectionType",typeof(SqlConnection).FullName },
-            {"addKey",false }
+            {"addKey",false },
+            {nameof(nameTable),nameTable}
 
         })
         {

@@ -23,8 +23,8 @@ namespace Stankins.SqlServer
             {nameof(connectionString),connectionString },
             {"NameColumnToKeep","FileContents" },
             {"receiverProperty","fileName|sql" },
-            {"columnNameWithData","FullFileName|FileContents" },
-            {"connectionType",typeof(SqlConnection).FullName }
+            {"columnNameWithData","FullFileName|FileContents" }//,
+            //{"connectionType",typeof(SqlConnection).FullName }
 
         })
         {
