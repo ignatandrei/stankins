@@ -681,7 +681,7 @@ jobs:
       inputs:
         command: publish
         publishWebProjects: True
-        projects: 'StankinsDataWeb'
+        projects: '**/StankinsDataWeb.csproj'
         workingDirectory: 'stankinsv2/solution/StankinsV2/'
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
