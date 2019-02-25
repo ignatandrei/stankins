@@ -72,7 +72,6 @@ export class RecipeComponent implements OnInit {
         self.executed.set(tableName, self.search.TransformToRow(it));
         // console.table(self.executed.get(tableName)[0]);
         // console.table(self.executed.get(tableName)[1]);
-       
        }
     });
 

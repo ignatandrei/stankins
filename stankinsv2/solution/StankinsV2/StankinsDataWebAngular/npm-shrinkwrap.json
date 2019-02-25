@@ -10508,6 +10508,14 @@
         "extsprintf": "^1.2.0"
       }
     },
+    "versions-netcore-angular": {
+      "version": "0.0.7",
+      "resolved": "https://registry.npmjs.org/versions-netcore-angular/-/versions-netcore-angular-0.0.7.tgz",
+      "integrity": "sha512-GlPF+z9cTjb+LfUvjgUmPDPG2o7+PXdjU2Bv/mjpN86qEkfHQW3w80rRTT5VC8JBpijCXcriDzCPbOu+ThYnJQ==",
+      "requires": {
+        "tslib": "^1.9.0"
+      }
+    },
     "vm-browserify": {
       "version": "0.0.4",
       "resolved": "https://registry.npmjs.org/vm-browserify/-/vm-browserify-0.0.4.tgz",

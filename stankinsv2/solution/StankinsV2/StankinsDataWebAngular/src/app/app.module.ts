@@ -18,13 +18,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollingModule, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { RecipeComponent } from './recipe/recipe.component';
+import { VersionsComponent } from './versions/versions.component';
+import { VersionsNetcoreAngularModule} from 'versions-netcore-angular';
 
 @NgModule({
   declarations: [
     AppComponent,
     RecipesComponent,
     RecipesListComponent,
-    RecipeComponent
+    RecipeComponent,
+    VersionsComponent
   ],
   imports: [
     FormsModule,
@@ -69,7 +72,8 @@ import { RecipeComponent } from './recipe/recipe.component';
     MatTreeModule,
     HttpClientModule,
     ScrollingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    VersionsNetcoreAngularModule
   ],
   providers: [ScrollDispatcher],
   bootstrap: [AppComponent]

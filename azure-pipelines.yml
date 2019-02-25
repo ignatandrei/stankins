@@ -14,7 +14,7 @@ variables:
     uk: $(Date:yyyyMMdd)
     deployWindows: 1
     deployLinux: 1
-    startDeploy : 0
+    startDeploy : 1
     numberBuilds: $[counter('versioncounter', 466)]
     messagePush: $(Build.SourceVersionMessage)
 
@@ -288,7 +288,7 @@ jobs:
        rem delete old artifact files
        del files-$(Build.BuildId).zip 
        dir
-       cd stankinsv2\solution\StankinsV2\StankinsAliveAngular
+       cd stankinsv2\solution\StankinsV2\StankinsDataWebAngular
        echo before install angular
        rem https://docs.microsoft.com/en-us/azure/devops/pipelines/tasks/package/npm?view=vsts
        call npm install -g @angular/cli
@@ -487,7 +487,7 @@ jobs:
 
   - script: |
         echo start publish windows
-        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.2 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
+        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.2 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
         cd stankinsv2/solution/
         xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
         docker build . -t stankins_windows -f Dockerfile_win
@@ -501,7 +501,7 @@ jobs:
 
   - script: |
         echo start publish windows
-        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.2 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsStatusWeb/StankinsAliveMonitor.csproj
+        dotnet publish -o $(Build.ArtifactStagingDirectory)\win10-x64  -f netcoreapp2.2 -c Release -r win10-x64 stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
         cd stankinsv2/solution/
         xcopy $(Build.ArtifactStagingDirectory)\win10-x64 win10-x64\ /I /E
         docker build . -t stankins_windows -f Dockerfile_win
