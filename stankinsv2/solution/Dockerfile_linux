@@ -15,5 +15,5 @@ WORKDIR /app
 COPY --from=build-env /app/StankinsV2/StankinsData/out ./
 ENV ASPNETCORE_URLS=http://+:5000
 EXPOSE 5000/tcp
-ENTRYPOINT ["./StankinsData"]
+ENTRYPOINT ["./StankinsDataWeb"]
 
