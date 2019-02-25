@@ -702,7 +702,7 @@ jobs:
       inputs:
         azureSubscription: 'azurestankins'
         WebAppName: 'azurestankins'
-        Package: $(System.ArtifactsDirectory)/*StankinsDataWeb*.zip
+        Package: $(System.ArtifactsDirectory)/*StankinsData*.zip
         ResourceGroupName: 'stankins'
                
     - task: AzureAppServiceManage@0
