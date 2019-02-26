@@ -14,6 +14,7 @@ namespace Stankins.Interpreter
         public string Content{get;set;}
         public string Description{get;set;}
         public string[] Arguments {get;set;}
+        public WhatToList? WhatToList{get;set;}
     }
 
     public class RecipeFromFile:Recipe
@@ -50,7 +51,7 @@ namespace Stankins.Interpreter
             {
                 Content=(attr[0] as DescriptionAttribute).Description;
             }
-
+            WhatToList = r.CacheWhatToList;
         }
 
     }

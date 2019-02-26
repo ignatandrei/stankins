@@ -10,8 +10,10 @@
   </mat-form-field>
 </form>
 <div *ngIf="findRecipes?.length > 0">
-  Found {{ findRecipes?.length }} recipes with {{ searchRecipe.value }}
-
+  Found {{ findRecipes?.length }} recipes with  {{ searchRecipe.value }} 
+  <span *ngIf="searchRecipe.value?.length>0" >
+ ( <a [routerLink]="['/recipeList']" [queryParams]="{id:searchRecipe.value}"> Direct search link </a> )
+</span>
   <div *ngFor="let recipe of findRecipes; let i = index">
     <mat-card>
       <mat-card-header>

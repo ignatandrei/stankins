@@ -57,6 +57,9 @@ export class SearchRecipe {
     s = s.toLowerCase();
     return this.allRecipes.find(it => it.name.toLowerCase() === s);
   }
+  public FileRecipes(): Recipe[] {
+    return this.allRecipes.filter(it => it.IsFileRecipe());
+  }
   public execute(r: Recipe): Observable<string[]> {
 
     const ret1 = this.recipeService.execute(r).pipe
