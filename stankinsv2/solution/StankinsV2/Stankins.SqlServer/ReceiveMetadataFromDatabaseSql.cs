@@ -16,7 +16,7 @@ namespace Stankins.SqlServer
     {
         public ReceiveMetadataFromDatabaseSql(CtorDictionary dataNeeded) : base(new CtorDictionary(dataNeeded)
             .AddMyValue(
-                nameof(connectionType), typeof(SqlConnection).FullName)
+                nameof(connectionType), typeof(SqlConnection).AssemblyQualifiedName)
             )
         {
             this.Name = nameof(ReceiveMetadataFromDatabaseSql);
@@ -28,10 +28,7 @@ namespace Stankins.SqlServer
         {
             this.Name = nameof(ReceiveMetadataFromDatabaseSql);
         }
-        protected override DbConnection NewConnection()
-        {
-            return new SqlConnection();
-        }
+        
         
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {

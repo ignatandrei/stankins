@@ -24,7 +24,7 @@ namespace Stankins.SqlServer
             new CtorDictionary()
             {
                 {nameof(connectionString),connectionString },
-                {nameof(connectionType), typeof(SqlConnection).FullName}
+                {nameof(connectionType), typeof(SqlConnection).AssemblyQualifiedName}
             }
             )
         {

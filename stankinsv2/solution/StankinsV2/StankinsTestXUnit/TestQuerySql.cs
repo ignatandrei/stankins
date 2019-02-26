@@ -47,12 +47,13 @@ namespace StankinsTestXUnit
         public void SelectFromDbReceiver(string connectionString, string select, int nrRows)
         {
             IReceive status = null;
-
+            string connectionType=typeof(SqlConnection).AssemblyQualifiedName;
+            
             IDataToSent data = null;
             $"Assume Sql Server instance {connectionString} exists , if not see docker folder".w(() => {
 
             });
-            $"When I create the DBReceiverStatement ".w(() => status = new DBReceiverStatement(connectionString,typeof(SqlConnection).FullName, select));
+            $"When I create the DBReceiverStatement ".w(() => status = new DBReceiverStatement(connectionString,connectionType, select));
             $"and receive data".w(async () =>
             {
                 data = await status.TransformData(null);

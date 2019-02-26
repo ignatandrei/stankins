@@ -22,7 +22,7 @@ namespace Stankins.SqlServer
             {nameof(connectionString),connectionString },
             {"receiverProperty","sql" },
             {"columnNameWithData","FileContents" },
-            {"connectionType",typeof(SqlConnection).FullName }
+            {"connectionType",typeof(SqlConnection).AssemblyQualifiedName }
 
         })
         {

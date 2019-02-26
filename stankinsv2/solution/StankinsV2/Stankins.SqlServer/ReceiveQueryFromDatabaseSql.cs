@@ -14,7 +14,7 @@ namespace Stankins.SqlServer
         public ReceiveQueryFromDatabaseSql(CtorDictionary dict) : base(
             new CtorDictionary(dict)
             .AddMyValue(
-                nameof(connectionType), typeof(SqlConnection).FullName)
+                nameof(connectionType), typeof(SqlConnection).AssemblyQualifiedName)
             )
         {
             Name = nameof(ReceiveQueryFromDatabaseSql);
@@ -30,10 +30,7 @@ namespace Stankins.SqlServer
         {
 
         }
-        protected override DbConnection NewConnection()
-        {
-            return new SqlConnection();
-        }
+       
 
 
 
