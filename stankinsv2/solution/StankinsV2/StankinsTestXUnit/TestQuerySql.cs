@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.IO;
 using FluentAssertions;
 using Stankins.Interfaces;
 using Stankins.SimpleRecipes;
 using Stankins.SqlServer;
+using StankinsReceiverDB;
 using Xbehave;
 using Xunit;
 
@@ -24,6 +26,33 @@ namespace StankinsTestXUnit
 
             });
             $"When I create the ReceiveQueryFromDatabaseSql ".w(() => status = new ReceiveQueryFromDatabaseSql(connectionString, select));
+            $"and receive data".w(async () =>
+            {
+                data = await status.TransformData(null);
+            });
+            $"the data should have a table".w(() =>
+            {
+                data.DataToBeSentFurther.Count.Should().Be(1);
+            });
+
+
+            $"should be {nrRows} rows".w(() => { data.DataToBeSentFurther[0].Rows.Count.Should().Be(nrRows); });
+
+
+
+        }
+         [Scenario]
+        [Trait("DBReceiverStatement", "")]
+        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "select 234", 1)]
+        public void SelectFromDbReceiver(string connectionString, string select, int nrRows)
+        {
+            IReceive status = null;
+
+            IDataToSent data = null;
+            $"Assume Sql Server instance {connectionString} exists , if not see docker folder".w(() => {
+
+            });
+            $"When I create the DBReceiverStatement ".w(() => status = new DBReceiverStatement(connectionString,typeof(SqlConnection).FullName, select));
             $"and receive data".w(async () =>
             {
                 data = await status.TransformData(null);
