@@ -8,10 +8,10 @@
     <mat-expansion-panel-header>
       Definition
     </mat-expansion-panel-header>
-
-    <textarea style="width:90%;height:175px">{{selectedRecipe?.content}}
+    <span *ngIf="selectedRecipe != null">
+    <textarea style="width:90%;height:175px" [(ngModel)]="selectedRecipe.content" >
     </textarea>
-   
+  </span>
     <mat-action-row>
         <button mat-button [disabled]="executing" (click)="execute()"> Execute! </button>
      
