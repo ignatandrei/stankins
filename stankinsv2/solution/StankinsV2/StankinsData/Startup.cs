@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,9 +13,41 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace StankinsDataWeb
 {
+    public class ErrorHandlingMiddleware
+{
+    private readonly RequestDelegate next;
+
+    public ErrorHandlingMiddleware(RequestDelegate next)
+    {
+        this.next = next;
+    }
+
+    public async Task Invoke(HttpContext context /* other dependencies */)
+    {
+        try
+        {
+            await next(context);
+        }
+        catch (Exception ex)
+        {
+            await HandleExceptionAsync(context, ex);
+        }
+    }
+
+    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+    {
+        var code = HttpStatusCode.InternalServerError; // 500 if unexpected
+
+        var result = JsonConvert.SerializeObject(new { error = exception.Message, st=exception.StackTrace });
+        context.Response.ContentType = "application/json";
+        context.Response.StatusCode = (int)code;
+        return context.Response.WriteAsync(result);
+    }
+}
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -59,6 +92,7 @@ namespace StankinsDataWeb
             //app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseMvc();
             //redirect to angular page if do not use MVC or static files
             app.Run(async (context) =>
