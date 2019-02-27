@@ -58,8 +58,15 @@ namespace Stankins.XML
             dt.Columns.Add("Name");
             dt.Columns.Add("Value");
             dt.Columns.Add("OuterXML");
-
-            var document = new XPathDocument(File);
+            XPathDocument document;
+            try
+            {
+                document = new XPathDocument(File);
+            }
+            catch(Exception ex)
+            {
+                throw new ArgumentException($"cannot load {File} because {ex.Message}",ex);
+            }
             var navig = document.CreateNavigator();
             var nodes = navig.Select(XPath);
           
