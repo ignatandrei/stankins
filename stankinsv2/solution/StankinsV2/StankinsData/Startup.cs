@@ -74,6 +74,10 @@ namespace StankinsDataWeb
                 o.DefaultApiVersion = new ApiVersion(1, 0);
                 });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddSwaggerDocument(c=>
+            {
+                c.Title = "Stankins Alive Monitor";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +97,10 @@ namespace StankinsDataWeb
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseSwagger();
+            app.UseSwaggerUi3(settings =>
+            {
+            });
             app.UseMvc();
             //redirect to angular page if do not use MVC or static files
             app.Run(async (context) =>
