@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
+﻿using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -13,49 +8,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
 
 namespace StankinsDataWeb
 {
-    public class ErrorHandlingMiddleware
-{
-    private readonly RequestDelegate next;
-
-    public ErrorHandlingMiddleware(RequestDelegate next)
-    {
-        this.next = next;
-    }
-
-    public async Task Invoke(HttpContext context /* other dependencies */)
-    {
-        try
-        {
-            await next(context);
-        }
-        catch (Exception ex)
-        {
-            await HandleExceptionAsync(context, ex);
-        }
-    }
-
-    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-    {
-        var code = HttpStatusCode.InternalServerError; // 500 if unexpected
-
-        var result = JsonConvert.SerializeObject(new { error = exception.Message, st=exception.StackTrace });
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)code;
-        return context.Response.WriteAsync(result);
-    }
-}
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment hosting)
         {
             Configuration = configuration;
+            Hosting = hosting;
         }
 
         public IConfiguration Configuration { get; }
+        public IHostingEnvironment Hosting { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -73,7 +38,10 @@ namespace StankinsDataWeb
 		        o.AssumeDefaultVersionWhenUnspecified = true;
                 o.DefaultApiVersion = new ApiVersion(1, 0);
                 });
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .ConfigureApplicationPartManager(apm => 
+                    apm.FeatureProviders.Add(new GenericControllerFeatureProvider(Hosting)));;
             services.AddSwaggerDocument(c=>
             {
                 c.Title = "Stankins Alive Monitor";
