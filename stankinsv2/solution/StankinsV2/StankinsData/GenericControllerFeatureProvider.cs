@@ -51,7 +51,8 @@ namespace StankinsDataWeb
                 refs.Add(MetadataReference.CreateFromFile(ass.Location));
             }
             refs.Add(MetadataReference.CreateFromFile(typeof(Attribute).Assembly.Location));
-            MetadataReference NetStandard = MetadataReference.CreateFromFile(Assembly.Load("netstandard, Version=2.0.0.0").Location);
+            //MetadataReference NetStandard = MetadataReference.CreateFromFile(Assembly.Load("netstandard, Version=2.0.0.0").Location);
+            MetadataReference NetStandard = MetadataReference.CreateFromFile(Assembly.Load("netstandard").Location);
             refs.Add(NetStandard);
             refs.Add(MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location) ); 
 
