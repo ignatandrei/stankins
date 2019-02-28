@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
@@ -12,11 +13,17 @@ namespace StankinsDataWeb
 {
     public class Program
     {
-        public static void Main(string[] args)
+        static readonly CancellationTokenSource cancel = new CancellationTokenSource();
+        
+        public async static Task Main(string[] args)
         {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+            await CreateWebHostBuilder(args).Build().RunAsync(cancel.Token);
 
+        }
+        public static void Shutdown()
+        {
+            cancel.Cancel();
+        }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();

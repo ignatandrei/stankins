@@ -44,7 +44,7 @@ namespace StankinsDataWeb
                     apm.FeatureProviders.Add(new GenericControllerFeatureProvider(Hosting)));;
             services.AddSwaggerDocument(c=>
             {
-                c.Title = "Stankins Alive Monitor";
+                c.Title = "Stankins Data Web";
             });
         }
 
