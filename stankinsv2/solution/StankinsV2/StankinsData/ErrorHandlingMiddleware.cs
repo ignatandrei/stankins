@@ -32,13 +32,15 @@ namespace StankinsDataWeb
         {
             HttpStatusCode code = HttpStatusCode.InternalServerError; // 500 if unexpected
             string types = "";
+            string message="";
             Exception ex = exception;
             while (ex != null)
             {
+                message += ex.Message + "=>";
                 types += ex.GetType().FullName + "=>";
                 ex = ex.InnerException;
             }
-            string result = JsonConvert.SerializeObject(new { error = exception.Message,exType=types,  st = exception.StackTrace });
+            string result = JsonConvert.SerializeObject(new { error = message, exType=types,  st = exception.StackTrace });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);
