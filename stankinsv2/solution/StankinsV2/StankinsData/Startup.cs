@@ -66,7 +66,7 @@ namespace StankinsDataWeb
             //app.UseHttpsRedirection();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            app.UseMiddleware<ErrorHandlingMiddleware>();
+            //app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseSwagger(c=>{
             });
             app.UseSwaggerUi3(settings =>

@@ -20,6 +20,7 @@ import { ScrollingModule, ScrollDispatcher } from '@angular/cdk/scrolling';
 import { RecipeComponent } from './recipe/recipe.component';
 import { VersionsComponent } from './versions/versions.component';
 import { VersionsNetcoreAngularModule} from 'versions-netcore-angular';
+import { ReceiveDataComponent } from './receive-data/receive-data.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { VersionsNetcoreAngularModule} from 'versions-netcore-angular';
     RecipesComponent,
     RecipesListComponent,
     RecipeComponent,
-    VersionsComponent
+    VersionsComponent,
+    ReceiveDataComponent
   ],
   imports: [
     FormsModule,

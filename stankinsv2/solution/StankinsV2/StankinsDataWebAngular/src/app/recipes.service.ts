@@ -27,7 +27,7 @@ export class RecipesService {
     url += '/api/v1.0/recipes/' + id;
     return this.http.get<string[]>(url);
   }
-  public getTablesValues(id: string, idTable: string) : Observable<Array<string>>{
+  public getTablesValues(id: string, idTable: string): Observable<Array<string>> {
     let url = environment.url;
     url += '/api/v1.0/recipes/' + id + '/' + idTable;
     return this.http.get<string[]>(url);
