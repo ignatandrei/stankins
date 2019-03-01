@@ -45,6 +45,8 @@ namespace StankinsDataWeb
             services.AddSwaggerDocument(c=>
             {
                 c.Title = "Stankins Data Web";
+                c.Description=" A generic ETL site; see https://github.com/ignatandrei/stankins";
+                
             });
         }
 
@@ -65,9 +67,11 @@ namespace StankinsDataWeb
             app.UseDefaultFiles();
             app.UseStaticFiles();
             app.UseMiddleware<ErrorHandlingMiddleware>();
-            app.UseSwagger();
+            app.UseSwagger(c=>{
+            });
             app.UseSwaggerUi3(settings =>
             {
+                
             });
             app.UseMvc();
             //redirect to angular page if do not use MVC or static files
