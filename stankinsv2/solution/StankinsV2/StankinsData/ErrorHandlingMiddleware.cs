@@ -1,41 +1,47 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Newtonsoft.Json;
 
 namespace StankinsDataWeb
 {
     public class ErrorHandlingMiddleware
-{
-    private readonly RequestDelegate next;
-
-    public ErrorHandlingMiddleware(RequestDelegate next)
     {
-        this.next = next;
-    }
+        private readonly RequestDelegate next;
 
-    public async Task Invoke(HttpContext context /* other dependencies */)
-    {
-        try
+        public ErrorHandlingMiddleware(RequestDelegate next)
         {
-            await next(context);
+            this.next = next;
         }
-        catch (Exception ex)
+
+        public async Task Invoke(HttpContext context /* other dependencies */)
         {
-            await HandleExceptionAsync(context, ex);
+            try
+            {
+                await next(context);
+            }
+            catch (Exception ex)
+            {
+                await HandleExceptionAsync(context, ex);
+            }
+        }
+
+        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        {
+            HttpStatusCode code = HttpStatusCode.InternalServerError; // 500 if unexpected
+            string types = "";
+            Exception ex = exception;
+            while (ex != null)
+            {
+                types += ex.GetType().FullName + "=>";
+                ex = ex.InnerException;
+            }
+            string result = JsonConvert.SerializeObject(new { error = exception.Message,exType=types,  st = exception.StackTrace });
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)code;
+            return context.Response.WriteAsync(result);
         }
     }
-
-    private static Task HandleExceptionAsync(HttpContext context, Exception exception)
-    {
-        var code = HttpStatusCode.InternalServerError; // 500 if unexpected
-
-        var result = JsonConvert.SerializeObject(new { error = exception.Message, st=exception.StackTrace });
-        context.Response.ContentType = "application/json";
-        context.Response.StatusCode = (int)code;
-        return context.Response.WriteAsync(result);
-    }
-}
 }
