@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 
 namespace StankinsDataWeb.Controllers
 {
@@ -16,27 +15,28 @@ namespace StankinsDataWeb.Controllers
     {
         // GET: api/Writables
         [HttpGet]
-        public IEnumerable<KeyValuePair<string,string>> Get([FromServices]IHostingEnvironment hosting)
+        public IEnumerable<KeyValuePair<string, string>> Get([FromServices]IHostingEnvironment hosting)
         {
-            var dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
+           
+            string dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
             return new Writables(dir).Files();
         }
 
         // GET: api/Writables/5
         [HttpGet("{id}", Name = "Get")]
-        public async Task<string> Get([FromRoute] string id,[FromServices] IHostingEnvironment hosting)
+        public async Task<string> Get([FromRoute] string id, [FromServices] IHostingEnvironment hosting)
         {
-            var dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
+            string dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
 
             return await new Writables(dir).GetFileContents(id);
         }
 
         // POST: api/Writables
         [HttpPost]
-        public async Task Post([FromBody] KeyValuePair<string,string> val, [FromServices]IHostingEnvironment hosting)
+        public async Task Post([FromBody] KeyValuePair<string, string> val, [FromServices]IHostingEnvironment hosting)
         {
-            var dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
-            await new Writables(dir).WriteFileContents(val.Key,val.Value);
+            string dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
+            await new Writables(dir).WriteFileContents(val.Key, val.Value);
             Program.Shutdown();
         }
 
@@ -48,11 +48,22 @@ namespace StankinsDataWeb.Controllers
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(string id,[FromServices]IHostingEnvironment hosting)
+        public void Delete(string id, [FromServices]IHostingEnvironment hosting)
         {
-            var dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
-            new Writables(dir).DeleteFile(id);
+
+            string dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
+            if(id != null){
+                new Writables(dir).DeleteFile(id);
+            }
+            else
+            {
+                var w=new Writables(dir);
+                var files=this.Get(hosting);
+                files.ToList().ForEach(it=> w.DeleteFile(id));
+            }
             Program.Shutdown();
         }
+
+        
     }
 }
