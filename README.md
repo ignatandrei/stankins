@@ -29,7 +29,7 @@ You can with Stankins:
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ignatandrei_stankins&metric=alert_status)](https://sonarcloud.io/dashboard?id=ignatandrei_stankins)
 
-[![tests](https://img.shields.io/azure-devops/tests/ignatandrei0674/stankinsv2/1.svg)
+<img src='https://img.shields.io/azure-devops/tests/ignatandrei0674/stankinsv2/1.svg'></a>
 
 # Demo
 [Live demo https://azurestankins.azurewebsites.net](https://azurestankins.azurewebsites.net)
