@@ -19,26 +19,24 @@ namespace StankinsDataWeb.Controllers
         public IEnumerable<KeyValuePair<string,string>> Get([FromServices]IHostingEnvironment hosting)
         {
             var dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
-            return Directory.GetFiles(dir)
-                .Select(it=>new KeyValuePair<string,string>(Path.GetFileName(it),System.IO.File.ReadAllText(it)))
-                .ToArray();
+            return new Writables(dir).Files();
         }
 
         // GET: api/Writables/5
         [HttpGet("{id}", Name = "Get")]
-        public string Get([FromRoute] string id,[FromServices] IHostingEnvironment hosting)
+        public async Task<string> Get([FromRoute] string id,[FromServices] IHostingEnvironment hosting)
         {
             var dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
 
-            return System.IO.File.ReadAllText(Path.Combine(dir,id));
+            return await new Writables(dir).GetFileContents(id);
         }
 
         // POST: api/Writables
         [HttpPost]
-        public void Post([FromBody] KeyValuePair<string,string> val, [FromServices]IHostingEnvironment hosting)
+        public async Task Post([FromBody] KeyValuePair<string,string> val, [FromServices]IHostingEnvironment hosting)
         {
             var dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
-            System.IO.File.WriteAllText(Path.Combine(dir,val.Key),val.Value);
+            await new Writables(dir).WriteFileContents(val.Key,val.Value);
             Program.Shutdown();
         }
 
@@ -53,7 +51,7 @@ namespace StankinsDataWeb.Controllers
         public void Delete(string id,[FromServices]IHostingEnvironment hosting)
         {
             var dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
-            System.IO.File.Delete(Path.Combine(dir,id));
+            new Writables(dir).DeleteFile(id);
             Program.Shutdown();
         }
     }
