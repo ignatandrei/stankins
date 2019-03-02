@@ -263,9 +263,9 @@ jobs:
     MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable 
 
   steps:
-  - checkout: none #skip checking out the default repository resource
+  #- checkout: none #skip checking out the default repository resource
   
-  - template: pipelineTemplates/restoreFromArtifact.yml
+  #- template: pipelineTemplates/restoreFromArtifact.yml
   
   - script: |
        rem delete old artifact files
