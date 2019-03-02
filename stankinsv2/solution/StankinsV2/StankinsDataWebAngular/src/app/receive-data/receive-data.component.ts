@@ -9,7 +9,7 @@ import { finalize, tap, switchMap } from 'rxjs/operators';
   styleUrls: ['./receive-data.component.css']
 })
 export class ReceiveDataComponent implements OnInit {
-  private dyn: DynamicControllers;
+  dyn: DynamicControllers;
   constructor(private service: WritablesService) {
     this.dyn = new DynamicControllers(service);
   }
