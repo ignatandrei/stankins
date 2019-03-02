@@ -19,7 +19,7 @@ export class ReceiveDataComponent implements OnInit {
   }
   save(item: KeyValuePair) {
     this.dyn.save(item).subscribe(
-      () => window.location.reload()
+      () => window.setTimeout(function() { window.location.reload(); }, 3000)
     );
 
   }
