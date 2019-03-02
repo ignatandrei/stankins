@@ -23,13 +23,7 @@ You can with Stankins:
 
 # Continous Integration / Deploy
 
-[![Build Status](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master)](https://dev.azure.com/ignatandrei0674/stankinsv2/_build/latest?definitionId=1?branchName=master)
-
-[![codecov](https://codecov.io/gh/ignatandrei/stankins/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/stankins)
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ignatandrei_stankins&metric=alert_status)](https://sonarcloud.io/dashboard?id=ignatandrei_stankins)
-
-<img src='https://img.shields.io/azure-devops/tests/ignatandrei0674/stankinsv2/1.svg'></a>
+[![Build Status](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master)](https://dev.azure.com/ignatandrei0674/stankinsv2/_build/latest?definitionId=1?branchName=master)  [![codecov](https://codecov.io/gh/ignatandrei/stankins/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/stankins) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ignatandrei_stankins&metric=alert_status)](https://sonarcloud.io/dashboard?id=ignatandrei_stankins)  <img src='https://img.shields.io/azure-devops/tests/ignatandrei0674/stankinsv2/1.svg'></a>
 
 # Demo
 [Live demo https://azurestankins.azurewebsites.net](https://azurestankins.azurewebsites.net)
