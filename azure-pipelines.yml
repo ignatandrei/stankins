@@ -264,30 +264,12 @@ jobs:
 
   steps:
   - checkout: none #skip checking out the default repository resource
-  - task: DownloadBuildArtifacts@0
-    displayName: 'Download Build Artifacts'
-    inputs:
-      artifactName: dotNetModifs
-      downloadPath: $(Build.SourcesDirectory)
-      #downloadPath: $(Agent.BuildDirectory)
-
-  - script: |
-       dir 
-       dir dotNetModifs
-       dir dotNetModifs\files-$(Build.BuildId).zip
-       move dotNetModifs\files-$(Build.BuildId).zip files-$(Build.BuildId).zip 
-    displayName: 'moving file artifact'
-
-  - task: ExtractFiles@1
-    displayName: 'Extract zip files'
-    inputs:
-        archiveFilePatterns: '*.zip' 
-        destinationFolder: $(Build.SourcesDirectory)
-        cleanDestinationFolder: false 
-
+  
+  - template: pipelineTemplates/restoreFromArtifact.yml
+  
   - script: |
        rem delete old artifact files
-       del files-$(Build.BuildId).zip 
+       del *$(Build.BuildId)*.zip 
        dir
        cd stankinsv2\solution\StankinsV2\StankinsDataWebAngular
        echo before install angular
@@ -306,6 +288,36 @@ jobs:
        build.bat 
        echo finish
     displayName: 'npm and angular publish'
+    
+
+  - task: ArchiveFiles@2
+    displayName: 'arhive files'
+    inputs:
+        rootFolderOrFile: '$(Build.SourcesDirectory)'
+        includeRootFolder: false
+        archiveType: 'zip' 
+        archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
+        replaceExistingArchive: true 
+
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish files as Artifact
+
+- job: BuildMobileAndDesktop
+  dependsOn: 
+  - SetProps
+  - BuildFrontEnd
+  pool:
+    vmImage: 'vs2017-win2016'
+  condition: or( eq(variables['startDeploy'],1), contains(variables['messagePush'],'deploy'),  endsWith(variables['numberBuilds'],'0'))
+  variables:
+    MyVersion: $[ dependencies.SetProps.outputs['setvarStep.PWversion'] ]  # map in the variable 
+
+  steps:
+  - checkout: none #skip checking out the default repository resource
+  
+  - template: pipelineTemplates/restoreFromArtifact.yml
+
 
   - script: |
        dir
@@ -385,17 +397,6 @@ jobs:
         targetFolder: '$(Build.ArtifactStagingDirectory)/electronwin64'
         flattenFolders: true
   
-
-  - task: ArchiveFiles@2
-    displayName: 'arhive files'
-    inputs:
-        rootFolderOrFile: '$(Build.SourcesDirectory)'
-        includeRootFolder: false
-        archiveType: 'zip' 
-        archiveFile: '$(Build.ArtifactStagingDirectory)/files-$(Build.BuildId).zip' 
-        replaceExistingArchive: true 
-
-
   - task: PublishBuildArtifacts@1
     displayName: Publish files as Artifact
       
