@@ -677,20 +677,28 @@ jobs:
     - template: pipelineTemplates/restoreFromArtifact.yml
 
   
-    - task: DotNetCoreCLI@2
-      displayName: 'build again'
-      inputs:
-        command: publish
-        publishWebProjects: True
-        projects: '**/StankinsDataWeb.csproj'
-        workingDirectory: 'stankinsv2/solution/StankinsV2/'
-        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: True
+    #- task: DotNetCoreCLI@2 # removed because does not comply , at one moment, with projects
+    #  displayName: 'build again'
+     # inputs:
+     #   command: publish
+     #   publishWebProjects: True
+     #   projects: '**/StankinsDataWeb.csproj'
+     #   workingDirectory: 'stankinsv2/solution/StankinsV2/'
+     #   arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      #  zipAfterPublish: True
           
-    #- script: |
-    #    dotnet publish -c $(buildConfiguration) --self-contained --output $(Build.ArtifactStagingDirectory) stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
-    #  displayName: publish again
+    - script: |
+        dotnet publish -c $(buildConfiguration) --self-contained --output $(Build.ArtifactStagingDirectory)/StankinsData stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
+      displayName: publish again
     
+    - task: ArchiveFiles@2
+      displayName: 'arhive files'
+      inputs:
+        rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/StankinsData'
+        includeRootFolder: false
+        archiveType: 'zip' 
+        archiveFile: '$(Build.ArtifactStagingDirectory)/StankinsData.zip' 
+        replaceExistingArchive: true 
     - script: |
        dir $(System.ArtifactsDirectory)\*.zip /s /b
       displayName: finding zip after Publish
@@ -716,6 +724,7 @@ jobs:
         action: 'Start Azure App Service'
         WebAppName: 'azurestankins'
         ResourceGroupName: 'stankins'
+      condition: always() # always restart azure
     
     #- task: Delay@1 #does not work in container jobs
     #  inputs:
