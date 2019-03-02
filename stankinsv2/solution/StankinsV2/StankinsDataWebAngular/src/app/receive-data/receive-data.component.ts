@@ -18,7 +18,10 @@ export class ReceiveDataComponent implements OnInit {
     this.dyn.onInit().subscribe(it => window.alert(`Number loaded ${it}`));
   }
   save(item: KeyValuePair) {
-    this.dyn.save(item);
+    this.dyn.save(item).subscribe(
+      () => window.location.reload()
+    );
+
   }
   addNew() {
    // window.alert(this.dyn.kv.length);
@@ -40,8 +43,8 @@ export class DynamicControllers {
       switchMap(it => of(it.length))
     );
   }
-  save(item: KeyValuePair) {
-    this.service.Save(item).subscribe(() => this.onInit().subscribe());
+  save(item: KeyValuePair): Observable<any> {
+    return this.service.Save(item);
   }
   private newGuid(): string {
     let result: string;
