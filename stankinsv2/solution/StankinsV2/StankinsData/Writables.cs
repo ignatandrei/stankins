@@ -48,8 +48,10 @@ namespace StankinsDataWeb
         }
         private static bool Verify(string id)
         {
-            // Restrict the username to letters and digits only
-            if (!Regex.IsMatch(id, "^[a-zA-Z0-9]+$"))
+            if(id.Contains(".."))
+                return false;
+            // Restrict the username to letters and digits only and .
+            if (!Regex.IsMatch(id, "^[a-zA-Z0-9.]+$"))
             {
                 return false;
             }

@@ -31,4 +31,8 @@
     <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="exports\" />
+  </ItemGroup>
+
 </Project>

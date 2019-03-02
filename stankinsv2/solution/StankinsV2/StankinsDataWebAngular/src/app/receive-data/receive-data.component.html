@@ -1,3 +1,7 @@
-<p>
-  receive-data works!
-</p>
+<div *ngFor='let item of dyn.kv'>
+  {{item.key}}
+  <br />
+  <textarea [(ngModel)]="item.value" style="width:90%;height:175px"  ></textarea>
+  <br />
+  <button mat-button (click)="save(item)"> Save! </button>
+</div>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +10,10 @@ namespace StankinsDataWeb.Controllers
     [ApiController]
     public class MyNewReceiveData : ControllerBase
     {
-        [HttpPost]
-        public bool ReceiveData(dynamic data)
+        [HttpGet]
+        public string Get()
         {
-            return false;
+            return "Andrei" ;
         }
     }
 }

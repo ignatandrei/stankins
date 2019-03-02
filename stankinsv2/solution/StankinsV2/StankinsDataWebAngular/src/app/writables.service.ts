@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
-interface KeyValuePair {
+export interface KeyValuePair {
   key: string;
   value: string;
 }
@@ -20,10 +20,10 @@ export class WritablesService {
     return this.http.get<KeyValuePair[]>(url);
 
   }
-  public Save(kv: KeyValuePair) {
+  public Save(kv: KeyValuePair): Observable<any> {
     let url = environment.url;
     url += '/api/v1.0/Writables';
-    this.http.post(url, kv);
+    return this.http.post(url, kv);
   }
   public Delete(id: string) {
     let url = environment.url;
