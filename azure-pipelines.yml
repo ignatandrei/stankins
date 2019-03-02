@@ -686,7 +686,11 @@ jobs:
         workingDirectory: 'stankinsv2/solution/StankinsV2/'
         arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: True
-        
+          
+    #- script: |
+    #    dotnet publish -c $(buildConfiguration) --self-contained --output $(Build.ArtifactStagingDirectory) stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
+    #  displayName: publish again
+    
     - script: |
        dir $(System.ArtifactsDirectory)\*.zip /s /b
       displayName: finding zip after Publish
