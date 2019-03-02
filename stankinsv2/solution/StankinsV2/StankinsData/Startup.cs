@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Polly;
 
 namespace StankinsDataWeb
 {
@@ -48,11 +50,27 @@ namespace StankinsDataWeb
                 c.Description=" A generic ETL site; see https://github.com/ignatandrei/stankins";
                 
             });
+            services.AddScoped<IAsyncPolicy>((s)=> Define());
         }
+        private IAsyncPolicy Define()
+        {
+            var timeout = Policy
+                .TimeoutAsync(TimeSpan.FromMinutes(1));
+                
+                
+            var retry = Policy.HandleInner<Exception>().WaitAndRetryAsync(
+                3,
+                retryAttempt=>TimeSpan.FromSeconds(2* retryAttempt)
+                );
 
+            return retry.WrapAsync(timeout);
+
+
+        }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -64,9 +82,10 @@ namespace StankinsDataWeb
             }
               app.UseCors("CorsPolicy");
             //app.UseHttpsRedirection();
+
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            //app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
             app.UseSwagger(c=>{
             });
             app.UseSwaggerUi3(settings =>

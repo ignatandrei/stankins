@@ -31,7 +31,7 @@ namespace StankinsDataWeb
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             HttpStatusCode code = HttpStatusCode.InternalServerError; // 500 if unexpected
-            string st= exception == null? "" : exception.StackTrace;
+            string st= exception == null? "<no exception defined>" : exception.StackTrace;
             string types = "";
             string message="";
             Exception ex = exception;
@@ -41,7 +41,7 @@ namespace StankinsDataWeb
                 types += ex.GetType().FullName + "=>";
                 ex = ex.InnerException;
             }
-            string result = JsonConvert.SerializeObject(new { error = message, exType=types,  st = st });
+            string result = JsonConvert.SerializeObject(new { error = message, exType=types, st });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);
