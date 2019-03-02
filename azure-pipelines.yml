@@ -688,7 +688,7 @@ jobs:
       #  zipAfterPublish: True
           
     - script: |
-        dotnet publish -c $(buildConfiguration) --self-contained  -r win10-x64 --output $(Build.ArtifactStagingDirectory)/StankinsData stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
+        dotnet publish -c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/StankinsData stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
       displayName: publish again
     
     - task: ArchiveFiles@2
