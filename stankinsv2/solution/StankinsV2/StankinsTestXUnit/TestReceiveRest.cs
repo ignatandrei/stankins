@@ -44,8 +44,8 @@ namespace StankinsTestXUnit
 
         } 
         [Scenario]
-        //[Example("Assets/JSON/trello.txt",3)]
-        [Example("Assets/JSON/trelloAlphabet.txt",3,2,22,10)]
+        [Example("Assets/JSON/trello.txt",3,19,46,32)]
+        [Example("Assets/JSON/trelloAlphabet.txt",3,2,22,54)]
         //[Example("https://trello.com/b/SQYjpHEf.json",3)]
         public void TestTrelloJson(string fileName,int numberTables,int nrLists,int nrCards,int nrComments)
         {
@@ -75,12 +75,12 @@ namespace StankinsTestXUnit
                 var list=data.FindAfterName("card");
                 list.Value.Rows.Count.Should().Be(nrCards);
             });
-            //$"with {nrComments} comments".w(() =>
-            //{
-            //    var list=data.FindAfterName("comment");
-            //    list.Value.Rows.Count.Should().Be(nrComments);
-            //});
-            //$"The number of rows should be {numberTables} tables".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
+            $"with {nrComments} comments".w(() =>
+            {
+                var list = data.FindAfterName("comment");
+                list.Value.Rows.Count.Should().Be(nrComments);
+            });
+            
 
 
         } 

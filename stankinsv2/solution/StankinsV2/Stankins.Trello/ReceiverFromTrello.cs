@@ -59,12 +59,15 @@ namespace Stankins.Trello
             foreach (var c in cards)
             {
                 dtCards.Rows.Add(c.Id,c.Name,c.IdList,c.Url);
-                foreach(var com in c.Attachments)
-                {
-                    dtComments.Rows.Add(com.Id,com.Name,c.Id,c.Url);
-                }
+                
             }
+            foreach(var act in trello.Actions)
+            {
+                if(!string.Equals(act.Type,"commentCard", StringComparison.CurrentCultureIgnoreCase))
+                    continue;
+                dtComments.Rows.Add(act.Id,act.Data.Text,act.Data.Card.Id);
 
+            }
 
             yield return dtCards;
             yield return dtComments;
