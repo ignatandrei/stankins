@@ -16,7 +16,7 @@ export class Recipe {
   public arguments: string[];
   public whatToList: WhatToList;
   public searchString(): string {
-    return this.content + this.name + this.description;
+    return (this.content + this.name + this.description).toLocaleLowerCase();
   }
   public CanExecuteDirectly(): boolean {
     return this.arguments == null || this.arguments.length === 0;

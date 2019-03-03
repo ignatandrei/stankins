@@ -41,7 +41,7 @@ namespace Stankins.Interpreter
             Content = r.Type.FullName;
             foreach(var item in r.ConstructorParam)
             {
-                Content+=$" {item.Key}={item.Value} ";
+                Content+=$" {item.Key}={item.Value}";
                 args.Add(item.Key);
             }
             this.Arguments=args.ToArray();

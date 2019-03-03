@@ -49,7 +49,7 @@ export class RecipesListComponent implements OnInit {
       });
 
 
-  this.searchRecipe.valueChanges.pipe(
+  self.searchRecipe.valueChanges.pipe(
     // filter(it => it != null && it.length > 1),
     debounceTime(100),
     distinctUntilChanged(),
@@ -58,7 +58,10 @@ export class RecipesListComponent implements OnInit {
       console.log(it);
 
     })
-  ).subscribe(it => this.findRecipes = this.search.SearchRecipe(it)  );
+  ).subscribe(it => {
+    self.findRecipes = this.search.SearchRecipe(it);
+    console.log(`founded ${self.findRecipes.length}`);
+  }  );
   }
 
 }

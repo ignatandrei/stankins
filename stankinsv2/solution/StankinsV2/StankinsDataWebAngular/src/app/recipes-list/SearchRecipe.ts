@@ -51,9 +51,10 @@ export class SearchRecipe {
     if (s == null || s.length === 0) {
       return this.allRecipes;
     }
-
+    s = s.toLocaleLowerCase();
     const ret =  this.allRecipes.filter(it => it.searchString().indexOf(s) > -1);
     console.log(`searching ${s}=> ${ret.length} from ${this.allRecipes.length}`);
+    return ret;
   }
   public SearchRecipeByName(s: string): Recipe {
     s = s.toLowerCase();
