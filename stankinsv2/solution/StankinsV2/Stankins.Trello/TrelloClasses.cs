@@ -2,7 +2,7 @@
 //generated with https://app.quicktype.io/
 namespace Stankins.Trello
 {
-    partial class TrelloJSON
+    partial class BoardTrello
     {
         public string Id { get; set; }
         public string Name { get; set; }

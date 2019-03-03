@@ -15,9 +15,18 @@ namespace Stankins.Trello
         {
 
         }
+        public ReceiverFromTrello(string adress) : this(new CtorDictionary()
+        {
+            {nameof(adress),adress },
+          
+
+        })
+        {
+
+        }
         protected override IEnumerable<DataTable> FromJSon(string json)
         {
-            TrelloJSON trello= JsonConvert.DeserializeObject<TrelloJSON>(json);
+            var trello= JsonConvert.DeserializeObject<BoardTrello>(json);
             var cards= trello.Cards;
             var lists=trello.Lists;
             
@@ -30,6 +39,13 @@ namespace Stankins.Trello
             dtCards.Columns.Add("id",typeof(string));
             dtCards.Columns.Add("name",typeof(string));
             dtCards.Columns.Add("idlist",typeof(string));
+            dtCards.Columns.Add("url",typeof(string));
+            
+            var dtComments=new DataTable();
+            dtComments.Columns.Add("id",typeof(string));
+            dtComments.Columns.Add("name",typeof(string));
+            dtComments.Columns.Add("idcard",typeof(string));
+            dtComments.Columns.Add("url",typeof(string));
             
             
             foreach(var l in lists)
@@ -39,11 +55,16 @@ namespace Stankins.Trello
             yield return dtList;
             foreach (var c in cards)
             {
-                dtCards.Rows.Add(c.Id,c.Name,c.IdList);
-                
+                dtCards.Rows.Add(c.Id,c.Name,c.IdList,c.Url);
+                foreach(var com in c.Attachments)
+                {
+                    dtComments.Rows.Add(com.Id,com.Name,c.Id,c.Url);
+                }
             }
 
+
             yield return dtCards;
+            yield return dtComments;
 
         }
 

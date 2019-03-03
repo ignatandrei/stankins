@@ -10,6 +10,8 @@ using Stankins.Rest;
 using Xbehave;
 using Xunit;
 using static System.Environment;
+using Stankins.Trello;
+
 namespace StankinsTestXUnit
 {
     [Trait("ReceiveRest", "")]
@@ -41,5 +43,31 @@ namespace StankinsTestXUnit
 
 
         } 
+        [Scenario]
+        [Example("Assets/JSON/trello.txt",3)]
+        public void TestTrelloJson(string fileName,int numberTables)
+        {
+            IReceive receiver = null;
+           
+            IDataToSent data=null;
+            var nl = Environment.NewLine;
+            $"Given the file {fileName}".w(() =>
+            {
+                File.Exists(fileName).Should().BeTrue();
+            });
+            $"When I create the receiver trello for the {fileName}".w(() => receiver = new ReceiverFromTrello(fileName));
+            $"And I read the data".w(async () =>data= await receiver.TransformData(null));
+            $"Then should be a data".w(() => data.Should().NotBeNull());
+            $"With a {numberTables}:   tables: list, card , tables".w(() =>
+            {
+                data.DataToBeSentFurther.Should().NotBeNull();
+                data.DataToBeSentFurther.Count.Should().Be(numberTables);
+            });
+
+            //$"The number of rows should be {numberTables} tables".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
+
+
+        } 
+
     }
 }

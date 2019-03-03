@@ -106,6 +106,7 @@
     <ProjectReference Include="..\Stankins.Rest\Stankins.Rest.csproj" />
     <ProjectReference Include="..\Stankins.SimpleRecipes\Stankins.SimpleRecipes.csproj" />
     <ProjectReference Include="..\Stankins.SqlServer\Stankins.SqlServer.csproj" />
+    <ProjectReference Include="..\Stankins.Trello\Stankins.Trello.csproj" />
     <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
   </ItemGroup>
 </Project>
