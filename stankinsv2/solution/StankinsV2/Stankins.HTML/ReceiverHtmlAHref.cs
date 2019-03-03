@@ -53,7 +53,7 @@ namespace Stankins.HTML
         }
     }
 
-    public class ReceiverHtmlAHref: Receiver
+    public class ReceiverHtmlAHref: Receive
     {
         public ReceiverHtmlAHref(CtorDictionary dataNeeded) : base(dataNeeded)
         {

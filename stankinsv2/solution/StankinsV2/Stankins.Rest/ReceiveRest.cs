@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
@@ -8,10 +10,10 @@ using StankinsObjects;
 
 namespace Stankins.Rest
 {
-    public class ReceiveRest:Receiver
+    public class ReceiveRest: BaseObject,IReceive
     {
         private string adress;
-        static DataTable FromJSon(string json)
+        protected virtual IEnumerable<DataTable> FromJSon(string json)
         {
             var token=JToken.Parse(json);
             if (!(token is JArray))
@@ -22,7 +24,7 @@ namespace Stankins.Rest
             }
             JArray tok=token as JArray;
          
-            return token.ToObject<DataTable>();
+            yield return token.ToObject<DataTable>();
            
 
 
@@ -57,8 +59,8 @@ namespace Stankins.Rest
                 FileToRead = this.adress
             };
             var data = await file.LoadData();
-            var dt = FromJSon(data);
-            FastAddTable(receiveData,dt);
+            var dt = FromJSon(data).ToArray();
+            FastAddTables(receiveData,dt);
             return receiveData;
 
         }

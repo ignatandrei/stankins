@@ -55,7 +55,7 @@ namespace StankinsHelperCommands
                 allTypes.AddRange(f.FindTypes());
 
 
-                f = new FindAssembliesToExecute(typeof(ReceiveRest).Assembly);
+                f = new FindAssembliesToExecute(typeof(Stankins.Rest.ReceiveRest).Assembly);
                 allTypes.AddRange(f.FindTypes());
 
 

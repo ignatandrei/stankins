@@ -10,7 +10,7 @@ using YamlDotNet.RepresentationModel;
 
 namespace Stankins.AzureDevOps
 {
-    public class YamlReader : Receiver
+    public class YamlReader : Receive
     {
         private readonly string fileNameYaml;
         private readonly Encoding encoding;

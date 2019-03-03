@@ -26,6 +26,7 @@
     <None Remove="Assets\HTML\AmazonCopyStackOverflow.html" />
     <None Remove="Assets\JSON\json1.txt" />
     <None Remove="Assets\JSON\json1Record.txt" />
+    <None Remove="Assets\JSON\trello.txt" />
     <None Remove="Assets\otherbooksmarks.html" />
     <None Remove="Assets\XML\nbrfxrates.xml" />
     <None Remove="Assets\yaml\myp.myml" />
@@ -33,6 +34,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\HTML\AmazonCopyStackOverflow.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\JSON\trello.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\JSON\json1Record.txt">

@@ -9,7 +9,7 @@ using System.Xml.XPath;
 
 namespace Stankins.XML
 {
-    public class ReceiverXML : Receiver
+    public class ReceiverXML : Receive
     {
         public ReceiverXML(CtorDictionary dataNeeded) : base(dataNeeded)
         {

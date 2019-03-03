@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
-    public abstract class ReceiverHtml: Receiver
+    public abstract class ReceiverHtml: Receive
     {
         public ReceiverHtml(string file, Encoding encoding) : this(new CtorDictionary()
             {

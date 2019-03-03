@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Stankins.Version
 {
-    public class FileVersionFromDir : Receiver
+    public class FileVersionFromDir : Receive
     {
         private readonly string dirPath;
 

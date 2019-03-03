@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Stankins.HTML
 {
-    public class ReceiverHtmlRegex: Receiver
+    public class ReceiverHtmlRegex: Receive
     {
         public string File { get; }
         public Encoding Encoding { get; }

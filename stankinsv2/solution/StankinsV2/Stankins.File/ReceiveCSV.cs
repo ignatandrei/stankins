@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Stankins.FileOps
 {
-    public abstract class ReceiveCSV<T>: Receiver
+    public abstract class ReceiveCSV<T>: Receive
         where T:IStreamingReceive<string>
     {
         public char ColumnSeparator { get; protected set; }
