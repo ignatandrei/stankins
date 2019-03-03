@@ -66,7 +66,13 @@ namespace StankinsCommon
         {
             using (var wc = new WebClient())
             {                
-                return  await wc.DownloadStringTaskAsync(FileToRead);                
+                wc.Headers["User-Agent"] = "Mozilla/5.0 (Windows; U; Windows NT 6.0; en-US; rv:1.9.2.6) Gecko/20100625 Firefox/3.6.6 (.NET CLR 3.5.30729)";
+                wc.Headers["Accept"] = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+                wc.Headers["Accept-Language"] = "en-us,en;q=0.5";
+                //wc.Headers["Accept-Encoding"] = "gzip,deflate";
+                wc.Headers["Accept-Charset"] = "ISO-8859-1,utf-8;q=0.7,*;q=0.7";
+                var data=await wc.DownloadStringTaskAsync(FileToRead);                
+                return data;
             }
         }
 

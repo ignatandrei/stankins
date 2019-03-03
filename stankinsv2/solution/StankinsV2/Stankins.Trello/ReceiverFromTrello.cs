@@ -31,17 +31,20 @@ namespace Stankins.Trello
             var lists=trello.Lists;
             
             var dtList=new DataTable();
+            dtList.TableName="list";
             dtList.Columns.Add("id",typeof(string));
             dtList.Columns.Add("name",typeof(string));
             dtList.Columns.Add("idboard",typeof(string));
 
             var dtCards=new DataTable();
+            dtCards.TableName="card";
             dtCards.Columns.Add("id",typeof(string));
             dtCards.Columns.Add("name",typeof(string));
             dtCards.Columns.Add("idlist",typeof(string));
             dtCards.Columns.Add("url",typeof(string));
             
             var dtComments=new DataTable();
+            dtComments.TableName="comment";
             dtComments.Columns.Add("id",typeof(string));
             dtComments.Columns.Add("name",typeof(string));
             dtComments.Columns.Add("idcard",typeof(string));
