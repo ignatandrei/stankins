@@ -49,9 +49,11 @@ export class SearchRecipe {
   }
   public SearchRecipe(s: string): Recipe[] {
     if (s == null || s.length === 0) {
-      return null;
+      return this.allRecipes;
     }
-    return this.allRecipes.filter(it => it.searchString().indexOf(s) > -1);
+
+    const ret =  this.allRecipes.filter(it => it.searchString().indexOf(s) > -1);
+    console.log(`searching ${s}=> ${ret.length} from ${this.allRecipes.length}`);
   }
   public SearchRecipeByName(s: string): Recipe {
     s = s.toLowerCase();

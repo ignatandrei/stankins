@@ -10,6 +10,7 @@ using Stankins.Razor;
 using Stankins.Rest;
 using Stankins.SimpleRecipes;
 using Stankins.SqlServer;
+using Stankins.Trello;
 using Stankins.Version;
 using Stankins.XML;
 using StankinsCommon;
@@ -46,6 +47,9 @@ namespace StankinsHelperCommands
 
                 FindAssembliesToExecute f = null;
                 //throw new ArgumentException("cannot find ReceiveTableDatabaseSql" );
+
+                f = new FindAssembliesToExecute(typeof(ReceiverFromTrello).Assembly);
+                allTypes.AddRange(f.FindTypes());
 
                 f = new FindAssembliesToExecute(typeof(ReceiveTableDatabaseSql).Assembly);
                 allTypes.AddRange(f.FindTypes());

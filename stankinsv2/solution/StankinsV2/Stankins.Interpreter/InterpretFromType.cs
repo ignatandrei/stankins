@@ -51,7 +51,15 @@ namespace Stankins.Interpreter
             var all = FindAssembliesToExecute.AddReferences();
             var instr = SplitString(data);
             var name = instr[0];
-            ObjectType = all.FirstOrDefault(it => string.Equals(it.Name, name, StringComparison.InvariantCultureIgnoreCase));
+            ObjectType = all.FirstOrDefault(it => 
+            string.Equals(it.Name, name, StringComparison.InvariantCultureIgnoreCase));
+            if(ObjectType == null)
+            {
+                ObjectType = all.FirstOrDefault(it => 
+                 string.Equals(it.Type.FullName,name,StringComparison.InvariantCultureIgnoreCase)
+                 );
+           
+            }
             if (ObjectType == null)
             {
                 valid.Add(new ValidationResult($"cannot find object {name}"));
