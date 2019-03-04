@@ -10,9 +10,10 @@ using System.Threading.Tasks;
 
 namespace StankinsObjects
 {
-    public abstract class BaseObjectSender: BaseObject, ISenderToOutput{
+    public abstract class BaseObjectSender : BaseObject, ISenderToOutput
+    {
 
-        
+
 
         protected BaseObjectSender(CtorDictionary dataNeeded) : base(dataNeeded)
         {
@@ -21,10 +22,10 @@ namespace StankinsObjects
         public string InputTemplate { get; set; }
         public DataTableString OutputString { get; set; }
 
-        
+
         public DataTableByte OutputByte { get; set; }
 
-        public  void CreateOutputIfNotExists(IDataToSent receiveData)
+        public void CreateOutputIfNotExists(IDataToSent receiveData)
         {
             try
             {
@@ -32,8 +33,10 @@ namespace StankinsObjects
             }
             catch
             {
-                OutputString = new DataTableString();
-                OutputString.TableName = "OutputString";
+                OutputString = new DataTableString
+                {
+                    TableName = "OutputString"
+                };
                 FastAddTable(receiveData, OutputString);
             }
             try
@@ -42,27 +45,53 @@ namespace StankinsObjects
             }
             catch
             {
-                OutputByte = new DataTableByte();
-                OutputByte.TableName = "OutputByte";
+                OutputByte = new DataTableByte
+                {
+                    TableName = "OutputByte"
+                };
                 FastAddTable(receiveData, OutputByte);
             }
         }
-        
 
+        protected string FullFileNameFromPath(string fileName)
+        {
+            try
+            {
+                if (File.Exists(fileName))
+                {
+                    return fileName;
+                }
+
+                string pathDll = Assembly.GetEntryAssembly().Location;
+                string path = Path.GetDirectoryName(pathDll);
+                string f = Path.Combine(path, fileName);
+                if (File.Exists(f))
+                {
+                    return f;
+                }
+            }
+            catch (Exception)
+            {
+                //TODO:log
+            }
+            return null;
+        }
         protected string ReadFile(string fileName)
         {
             if (File.Exists(fileName))
+            {
                 return File.ReadAllText(fileName);
+            }
 
-            var pathDll = Assembly.GetEntryAssembly().Location;
-            var path = Path.GetDirectoryName(pathDll);
-            var f = Path.Combine(path, fileName);
+            string pathDll = Assembly.GetEntryAssembly().Location;
+            string path = Path.GetDirectoryName(pathDll);
+            string f = Path.Combine(path, fileName);
             return File.ReadAllText(f);
         }
     }
     public abstract class BaseObject : IBaseObject
     {
-        
+
         //TODO: maybe reflection to get properties values from dataNeeded?
         public BaseObject(CtorDictionary dataNeeded)
         {
@@ -73,18 +102,21 @@ namespace StankinsObjects
             //this.Name = this.GetType().Name;
         }
         public readonly CtorDictionary dataNeeded;
-        public string Name { get ; set ; }
-        public IDictionary<string, object> StoringDataBetweenCalls { get ; set ; }
-        protected int[] FastAddTables(IDataToSent receiveData , params DataTable[] items)
+        public string Name { get; set; }
+        public IDictionary<string, object> StoringDataBetweenCalls { get; set; }
+        protected int[] FastAddTables(IDataToSent receiveData, params DataTable[] items)
         {
             if (items?.Length < 0)
-                return null;
-            var res = new int[items.Length];
-            int i=0;
-            foreach (var dt in items)
             {
-            
-                res[i++] = FastAddTable(receiveData,dt);
+                return null;
+            }
+
+            int[] res = new int[items.Length];
+            int i = 0;
+            foreach (DataTable dt in items)
+            {
+
+                res[i++] = FastAddTable(receiveData, dt);
             }
 
             return res;
@@ -92,51 +124,60 @@ namespace StankinsObjects
         }
         protected int FastAddTable(IDataToSent receiveData, DataTable dt)
         {
-            var id = receiveData.AddNewTable(dt);
+            int id = receiveData.AddNewTable(dt);
             receiveData.Metadata.AddTable(dt, id);
             return id;
 
         }
         //todo : this should stay into IDataToSent
-        public IEnumerable<KeyValuePair<int,DataTable>> FindTableAfterColumnName(string nameColumn, IDataToSent receiveData)
+        public IEnumerable<KeyValuePair<int, DataTable>> FindTableAfterColumnName(string nameColumn, IDataToSent receiveData)
         {
-            
-            var cols = receiveData.Metadata.Columns
+
+            int[] cols = receiveData.Metadata.Columns
                 .Where(it => string.Equals(nameColumn, it.Name))
-                .Select(it=>it.IDTable)
+                .Select(it => it.IDTable)
                 .ToArray();
-            var tables = receiveData.DataToBeSentFurther;
-            foreach(var i in tables.Keys)
+            Dictionary<int, DataTable> tables = receiveData.DataToBeSentFurther;
+            foreach (int i in tables.Keys)
             {
                 if (!cols.Contains(i))
+                {
                     continue;
+                }
 
                 yield return new KeyValuePair<int, DataTable>(i, tables[i]);
             }
-            
+
         }
         public Version Version { get; }
 
         protected T GetMyDataOrDefault<T>(string name, T def)
         {
             if (dataNeeded == null)
+            {
                 return def;
+            }
+
             name = name?.ToLowerInvariant();
 
             if (!dataNeeded.ContainsKey(name))
+            {
                 return def;
+            }
+
             T ret;
-            try{
-                ret= (T)dataNeeded[name];
+            try
+            {
+                ret = (T)dataNeeded[name];
             }
             catch (InvalidCastException)
             {
-                ret=(T)Convert.ChangeType(dataNeeded[name],typeof(T));
+                ret = (T)Convert.ChangeType(dataNeeded[name], typeof(T));
             }
             if (typeof(T).IsClass && object.Equals(ret, default(T)))
             {
-            
-                    return def;
+
+                return def;
             }
 
             return ret;
@@ -147,10 +188,15 @@ namespace StankinsObjects
         protected T GetMyDataOrThrow<T>(string name)
         {
             if (dataNeeded == null)
+            {
                 throw new ArgumentException($"{nameof(dataNeeded)} is null", nameof(dataNeeded));
+            }
+
             name = name?.ToLowerInvariant();
             if (!dataNeeded.ContainsKey(name))
+            {
                 throw new ArgumentException($"{nameof(dataNeeded)} does not contain {name}", name);
+            }
 
             return (T)dataNeeded[name];
         }

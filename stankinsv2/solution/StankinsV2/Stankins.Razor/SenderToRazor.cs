@@ -11,8 +11,8 @@ namespace Stankins.Razor
     public abstract class SenderToRazor : BaseObjectSender, ISenderToOutput
     {
 
-        public SenderToRazor(string inputContents) : this(new CtorDictionary() {
-                { nameof(inputContents), inputContents}
+        public SenderToRazor(string inputTemplate) : this(new CtorDictionary() {
+                { nameof(inputTemplate), inputTemplate}
 
             }
         )
@@ -23,8 +23,18 @@ namespace Stankins.Razor
         {
 
             this.InputTemplate = base.GetMyDataOrDefault<string>(nameof(InputTemplate), null);
-            if (string.IsNullOrWhiteSpace(this.InputTemplate))
+            
+            if (string.IsNullOrWhiteSpace(this.InputTemplate)){
                 this.InputTemplate =DefaultText();
+            }
+            else
+            {
+                var f=base.FullFileNameFromPath(InputTemplate);
+                if (f != null)
+                {
+                    this.InputTemplate = base.ReadFile(f);
+                }
+            }
 
             this.Name = nameof(SenderToRazor);
 
