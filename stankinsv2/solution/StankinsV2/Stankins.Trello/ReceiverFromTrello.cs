@@ -48,7 +48,7 @@ namespace Stankins.Trello
             dtComments.Columns.Add("id",typeof(string));
             dtComments.Columns.Add("name",typeof(string));
             dtComments.Columns.Add("idcard",typeof(string));
-            dtComments.Columns.Add("url",typeof(string));
+            dtComments.Columns.Add("idlist",typeof(string));
             
             
             foreach(var l in lists)
@@ -65,7 +65,7 @@ namespace Stankins.Trello
             {
                 if(!string.Equals(act.Type,"commentCard", StringComparison.CurrentCultureIgnoreCase))
                     continue;
-                dtComments.Rows.Add(act.Id,act.Data.Text,act.Data.Card.Id);
+                dtComments.Rows.Add(act.Id,act.Data.Text,act.Data.Card.Id,act.Data.List.Id);
 
             }
 
