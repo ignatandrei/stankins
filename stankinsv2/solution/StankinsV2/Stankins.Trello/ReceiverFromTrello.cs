@@ -6,6 +6,7 @@ using StankinsObjects;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace Stankins.Trello
 {
@@ -64,8 +65,9 @@ namespace Stankins.Trello
             foreach(var act in trello.Actions)
             {
                 if(!string.Equals(act.Type,"commentCard", StringComparison.CurrentCultureIgnoreCase))
-                    continue;
-                dtComments.Rows.Add(act.Id,act.Data.Text,act.Data.Card.Id,act.Data.List.Id);
+                    continue;   
+                var idList=cards.First(c=>c.Id == act.Data.Card.Id).IdList;
+                dtComments.Rows.Add(act.Id,act.Data.Text,act.Data.Card.Id,idList);
 
             }
 
