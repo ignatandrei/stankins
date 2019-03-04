@@ -2,7 +2,7 @@
   "profiles": {
     "Stankins.Console": {
       "commandName": "Project",
-      "commandLineArgs": "recipes -e ExportDBDiagramHtmlAndDot"
+      "commandLineArgs": "execute  -o SenderOutputToFolder -a exports -a false"
     }
   }
 }

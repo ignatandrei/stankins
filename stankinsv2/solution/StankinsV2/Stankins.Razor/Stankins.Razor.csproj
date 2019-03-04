@@ -11,11 +11,15 @@
     <None Remove="SenderDBDiagramToDot.cshtml" />
     <None Remove="SenderSolutionToDot.cshtml" />
     <None Remove="SenderSolutionToHTMLDocument.cshtml" />
+    <None Remove="SenderTrelloToMarkdown.cshtml" />
     <None Remove="SenderYamlAzurePipelineToDot.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="images\pk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SenderTrelloToMarkdown.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SenderYamlAzurePipelineToDot.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -662,7 +662,7 @@ jobs:
   - Windows
   - Linux
   - FullTestOnLinux
-  condition: or(succeeded('Windows') , succeeded('Linux'))
+  condition: and(false, succeeded('Windows') , succeeded('Linux'))
 
 
 - job: DeployOnAzure
