@@ -1,0 +1,21 @@
+﻿[{
+"component":"andrei",
+"incidentName":"testIncident",
+"incidentMessage": "this is an incident",
+"incidentStatus": 2
+},
+{
+"component":"andrei",
+"incidentName":"another",
+"incidentMessage": "this is another  incident",
+"incidentStatus": 3
+}
+,
+{
+"component":"andrei",
+"incidentName":"another",
+"incidentMessage": "second time",
+"incidentStatus": 3
+}
+
+]

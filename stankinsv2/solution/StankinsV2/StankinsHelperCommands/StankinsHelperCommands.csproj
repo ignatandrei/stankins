@@ -10,6 +10,7 @@
     <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
     <ProjectReference Include="..\Stankins.AssemblyLoad\Stankins.AssemblyLoad.csproj" />
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
+    <ProjectReference Include="..\Stankins.Cachet\Stankins.Cachet.csproj" />
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
     <ProjectReference Include="..\Stankins.Process\Stankins.Process.csproj" />
     <ProjectReference Include="..\Stankins.Rest\Stankins.Rest.csproj" />

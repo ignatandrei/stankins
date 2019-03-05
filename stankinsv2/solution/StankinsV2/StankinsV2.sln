@@ -57,7 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Interpreter", "Sta
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsDataWeb", "StankinsData\StankinsDataWeb.csproj", "{CC865AA7-337C-40DA-92A6-65EF21F40E1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Trello", "Stankins.Trello\Stankins.Trello.csproj", "{F9D88775-4040-42F2-B07C-E0D27C49F7B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Trello", "Stankins.Trello\Stankins.Trello.csproj", "{F9D88775-4040-42F2-B07C-E0D27C49F7B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.Cachet", "Stankins.Cachet\Stankins.Cachet.csproj", "{B4910E1E-D8A9-4310-9A54-A980E73528D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -177,6 +179,10 @@ Global
 		{F9D88775-4040-42F2-B07C-E0D27C49F7B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9D88775-4040-42F2-B07C-E0D27C49F7B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9D88775-4040-42F2-B07C-E0D27C49F7B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4910E1E-D8A9-4310-9A54-A980E73528D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4910E1E-D8A9-4310-9A54-A980E73528D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4910E1E-D8A9-4310-9A54-A980E73528D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4910E1E-D8A9-4310-9A54-A980E73528D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
