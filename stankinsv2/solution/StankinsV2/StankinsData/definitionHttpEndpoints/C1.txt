@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace StankinsDataWeb.Controllers
 {
@@ -11,9 +12,17 @@ namespace StankinsDataWeb.Controllers
     public class MyNewReceiveData : ControllerBase
     {
         [HttpGet]
-        public string Get()
+        public async Task<string> Get()
         {
-            return "Andrei" ;
+		var s=new Stankins.Rest.ReceiverRestFromText("{id:1,name:'andrei'}");
+		var data=await s.TransformData(null);
+		//var x=new Stankins.Cachet.SenderCachet("ASD" ,"ASD");
+		var dt=data.DataToBeSentFurther.First().Value;
+		string res = string.Join(Environment.NewLine, 
+			dt.Rows.OfType<System.Data.DataRow>()
+			.Select(x => string.Join(" ; ", x.ItemArray)));
+
+		return res;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace StankinsDataWeb
         }
         public static void Shutdown()
         {
+            
             cancel.Cancel();
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

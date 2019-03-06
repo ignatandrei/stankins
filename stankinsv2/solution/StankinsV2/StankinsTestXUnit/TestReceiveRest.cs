@@ -31,7 +31,7 @@ namespace StankinsTestXUnit
             {
                 File.Exists(fileName).Should().BeTrue();
             });
-            $"When I create the receiver csv for the {fileName}".w(() => receiver = new ReceiveRest(fileName));
+            $"When I create the ReceiveRest for the {fileName}".w(() => receiver = new ReceiveRestFromFile(fileName));
             $"And I read the data".w(async () =>data= await receiver.TransformData(null));
             $"Then should be a data".w(() => data.Should().NotBeNull());
             $"With a table".w(() =>

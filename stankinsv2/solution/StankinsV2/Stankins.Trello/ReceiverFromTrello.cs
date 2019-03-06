@@ -10,7 +10,7 @@ using System.Linq;
 
 namespace Stankins.Trello
 {
-    public class ReceiverFromTrello: ReceiveRest
+    public class ReceiverFromTrello: ReceiveRestFromFile
     {
         public ReceiverFromTrello(CtorDictionary dataNeeded):base(dataNeeded)
         {

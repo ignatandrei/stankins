@@ -2,7 +2,7 @@
   "profiles": {
     "Stankins.Console": {
       "commandName": "Project",
-      "commandLineArgs": "execute -o ReceiverFromTrello -a E:\\ignatandrei\\stankins\\stankinsv2\\solution\\StankinsV2\\StankinsTestXUnit\\Assets\\JSON\\trelloAlphabet.txt -o SenderTrelloTo -a \"SenderTrelloToJSON.cshtml\" -o SenderOutputToFolder -a exports -a false"
+      "commandLineArgs": "execute -o ReceiverFromTrello -a E:\\ignatandrei\\stankins\\stankinsv2\\solution\\StankinsV2\\StankinsTestXUnit\\Assets\\JSON\\trelloAlphabet.txt -o SenderTrelloTo -a \"SenderTrelloToMarkdown.cshtml\" -o SenderOutputToFolder -a exports -a false"
     }
   }
 }

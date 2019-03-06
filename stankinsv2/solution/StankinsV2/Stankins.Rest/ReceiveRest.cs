@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using Stankins.Interfaces;
@@ -10,9 +9,12 @@ using StankinsObjects;
 
 namespace Stankins.Rest
 {
-    public class ReceiveRest: BaseObject,IReceive
+    public abstract class ReceiveRest: BaseObject,IReceive
     {
-        private string adress;
+        public ReceiveRest(CtorDictionary dataNeeded) : base(dataNeeded)
+        {
+        }
+
         protected virtual IEnumerable<DataTable> FromJSon(string json)
         {
             var token=JToken.Parse(json);
@@ -29,23 +31,7 @@ namespace Stankins.Rest
 
 
         }
-        public ReceiveRest (CtorDictionary dataNeeded) : base(dataNeeded)
-        {
-            this.Name = nameof(ReceiveRest);
-            adress = GetMyDataOrThrow<string>(nameof(adress));
-
-        }
-       
-        public ReceiveRest(string adress) : this(new CtorDictionary()
-        {
-            {nameof(adress),adress },
-          
-
-        })
-        {
-
-        }
-
+        public abstract Task<string> GetData();        
 
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
@@ -53,13 +39,7 @@ namespace Stankins.Rest
             {
                 receiveData=new DataToSentTable();
             }
-             var file = new ReadFileToString
-            {
-                FileEnconding = Encoding.UTF8,
-                FileToRead = this.adress
-            };
-            var data = await file.LoadData();
-            var dt = FromJSon(data).ToArray();
+            var dt = FromJSon(await GetData()).ToArray();
             FastAddTables(receiveData,dt);
             return receiveData;
 

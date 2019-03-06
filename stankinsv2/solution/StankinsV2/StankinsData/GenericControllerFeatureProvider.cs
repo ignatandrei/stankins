@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using StankinsCommon;
+using StankinsHelperCommands;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -55,7 +58,15 @@ namespace StankinsDataWeb
             MetadataReference NetStandard = MetadataReference.CreateFromFile(Assembly.Load("netstandard").Location);
             refs.Add(NetStandard);
             refs.Add(MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location) ); 
+            var refs1= FindAssembliesToExecute.AddReferences()
+                .Select(it=>it.Type.Assembly.Location)
+                .Distinct()
+                .Select(it=>MetadataReference.CreateFromFile(it));
 
+            refs.AddRange(refs1);
+            refs.Add(MetadataReference.CreateFromFile(typeof(CtorDictionary).Assembly.Location));
+            refs.Add(MetadataReference.CreateFromFile(typeof(MarshalByValueComponent).Assembly.Location));
+            
             var g=Guid.NewGuid().ToString("N");
             var compilation = CSharpCompilation.Create(g, 
                 new[] { CSharpSyntaxTree.ParseText(File.ReadAllText(fileName)) }, 
@@ -67,7 +78,8 @@ namespace StankinsDataWeb
  
                 if (!res.Success)
                 {           
-                    //TODO: log
+                    string diag=string.Join(Environment.NewLine, res.Diagnostics.Select(it=>it.ToString()));
+                    File.AppendAllText(fileName,"/*"+diag+"*/");
                     return null;
                 }
  
