@@ -66,6 +66,7 @@ namespace StankinsDataWeb
             refs.AddRange(refs1);
             refs.Add(MetadataReference.CreateFromFile(typeof(CtorDictionary).Assembly.Location));
             refs.Add(MetadataReference.CreateFromFile(typeof(MarshalByValueComponent).Assembly.Location));
+            refs.Add(MetadataReference.CreateFromFile(typeof(System.Console).Assembly.Location));
             
             var g=Guid.NewGuid().ToString("N");
             var compilation = CSharpCompilation.Create(g, 
