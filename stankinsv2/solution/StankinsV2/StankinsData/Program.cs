@@ -14,20 +14,21 @@ namespace StankinsDataWeb
     public class Program
     {
         static CancellationTokenSource cancel ;
-        static bool ExternalShutdown;
+        static bool InternalRequestRestart;
         public async static Task Main(string[] args)
         {
             do{
-                ExternalShutdown=true;
+                InternalRequestRestart=false;
                 cancel= new CancellationTokenSource();
                 await CreateWebHostBuilder(args).Build().RunAsync(cancel.Token);
                 await Task.Delay(10);//just waiting some time
-            }while(ExternalShutdown);
+                Console.WriteLine("restarting");
+            }while(InternalRequestRestart);
 
         }
         public static void Shutdown()
         {
-            ExternalShutdown=false;
+            InternalRequestRestart=true;
             cancel.Cancel();
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
