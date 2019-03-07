@@ -33,12 +33,12 @@ namespace Stankins.AzureDevOps
 
         public void Visit(YamlScalarNode scalar)
         {
-            //Console.WriteLine("scalar" + scalar.Value);
+            
         }
 
         public void Visit(YamlSequenceNode sequence)
         {
-            //Console.WriteLine("sequence" + sequence.Style);
+           
             foreach (var item in sequence.Children)
             {
                 item.Accept(this);

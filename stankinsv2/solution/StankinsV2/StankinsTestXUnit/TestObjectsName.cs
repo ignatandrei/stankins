@@ -81,6 +81,7 @@ namespace StankinsTestXUnit
                     ,"DBReceiverStatement"
                 }.Contains(t.Name))
                 {
+                    //TODO: verify this!!!!!
                     continue;
                 }
                 var obj = TryToConstruct(t) as IBaseObject;

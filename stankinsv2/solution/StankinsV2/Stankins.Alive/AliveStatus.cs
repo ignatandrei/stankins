@@ -52,6 +52,7 @@ namespace Stankins.Alive
                 catch(Exception ex)
                 {
                     string s = ex.Message;
+                    System.Console.WriteLine(s);
                 }
                 m.Exception = row[nameof(m.Exception)]?.ToString();
                 m.IsSuccess =bool.Parse( row[nameof(m.IsSuccess)].ToString());

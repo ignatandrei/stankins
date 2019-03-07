@@ -104,7 +104,6 @@ Irrationally Yours: On Missing Socks, Pickup Lines, and Other Existential Puzzle
                     table.Rows.Add(new[] { "author", splitSecond[splitSecond.Length - 2].Trim() });
 
                     break;
-                    //throw new ArgumentException("Just one : " + title);
                 default:
                     throw new ArgumentException("Cannot interpret amazon title " + title);
             }

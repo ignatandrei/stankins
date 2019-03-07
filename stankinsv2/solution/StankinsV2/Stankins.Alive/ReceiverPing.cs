@@ -38,7 +38,7 @@ namespace Stankins.Alive
             try
             {
                 var reply = pingSender.Send(NameSite);
-                var status = reply.Status;
+                
                 results.Rows.Add("ping", "", NameSite,true, (int)reply.Status, reply.RoundtripTime.ToString(), reply.RoundtripTime.ToString(),null,StartedDate);
             }
             catch(Exception ex)
@@ -48,22 +48,11 @@ namespace Stankins.Alive
             receiveData.AddNewTable(results);
             receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
 
-            //var p = new ProcessIntercept("ping.exe",NameSite);
-            //p.OutputDataReceived += P_OutputDataReceived;
-
-            //receiveData.AddNewTable(results);
-            //results.TableName = "ping.exe " + NameSite; 
-            //p.StartProcessAndWait();
+            
             return await Task.FromResult(receiveData) ;
         }
 
         
-        //private void P_OutputDataReceived(object sender, DataReceivedEventArgs e)
-        //{
-        //    var str = e?.Data?.Trim();
-        //    if ((str?.Length ?? 0) == 0)
-        //        return;
 
-        //}
     }
 }

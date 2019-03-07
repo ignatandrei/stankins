@@ -60,16 +60,6 @@ namespace Stankins.Alive
 
             return await Task.FromResult(receiveData) ;
         }
-        //var m = new DataTable();
-        //m.Columns.Add("Process",typeof(string));
-        //    m.Columns.Add("Arguments", typeof(string));
-        //    m.Columns.Add("To", typeof(string));            
-        //    m.Columns.Add("IsSuccess", typeof(bool));
-        //    m.Columns.Add("Result", typeof(string));
-        //    m.Columns.Add("Duration", typeof(long));
-        //    m.Columns.Add("DetailedResult", typeof(string));
-        //    m.Columns.Add("Exception", typeof(string));
-        //    m.Columns.Add("StartedDate", typeof(DateTime));
         void Process_ErrorDataReceived(object sender, dia.DataReceivedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(e?.Data))
