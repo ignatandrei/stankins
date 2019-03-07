@@ -678,19 +678,19 @@ jobs:
     - template: pipelineTemplates/restoreFromArtifact.yml
 
   
-    - task: DotNetCoreCLI@2 # removed because does not comply , at one moment, with projects
-      displayName: 'build again'
-      inputs:
-        command: publish
-        publishWebProjects: True
-        projects: '**/StankinsDataWeb.csproj'
-        workingDirectory: 'stankinsv2/solution/StankinsV2/'
-        arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-        zipAfterPublish: True
+    #- task: DotNetCoreCLI@2 # removed because does not comply , at one moment, with projects
+    #  displayName: 'build again'
+    #  inputs:
+    #    command: publish
+    #    publishWebProjects: True
+    #    projects: '**/StankinsDataWeb.csproj'
+    #    workingDirectory: 'stankinsv2/solution/StankinsV2/'
+    #    arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+    #    zipAfterPublish: True
           
-    #- script: |
-    #    dotnet publish -c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/StankinsData stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
-    #  displayName: publish again
+    - script: |
+        dotnet publish -c $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/StankinsData stankinsv2/solution/StankinsV2/StankinsData/StankinsDataWeb.csproj
+      displayName: publish again
     
     - task: ArchiveFiles@2
       displayName: 'arhive files'
