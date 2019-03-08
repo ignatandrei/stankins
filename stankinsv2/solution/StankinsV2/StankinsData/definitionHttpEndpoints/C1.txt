@@ -28,6 +28,14 @@ namespace StankinsDataWeb.Controllers
         public async Task<string> Get(dynamic id)
         {
 			var x=Convert.ToString(id);
+			System.Console.WriteLine("!!!!!!" );
+			System.Console.WriteLine("!!!!!!" );
+			System.Console.WriteLine("!!!!!!" );
+			System.Console.WriteLine(x); 
+			System.Console.WriteLine("!!!!!!" );
+			System.Console.WriteLine("!!!!!!" );
+			System.Console.WriteLine("!!!!!!" );
+			System.Console.WriteLine("!!!!!!" );
 
 			return x;
         }

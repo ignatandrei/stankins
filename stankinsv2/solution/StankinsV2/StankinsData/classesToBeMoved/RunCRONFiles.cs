@@ -37,8 +37,8 @@ namespace StankinsDataWeb.classesToBeMoved
             string dirPath = hosting.ContentRootPath;
             dirPath = Path.Combine(dirPath, "cronItems", "v1");
             files = Directory.GetFiles(dirPath)
-                .Select(it => new { name = Path.GetFileNameWithoutExtension(it), content = File.ReadAllText(it) })
-                .Select(it => new CronExecutionFileWithCRON(it.name, it.content))
+                //.Select(it => new { name = Path.GetFileNameWithoutExtension(it), content = File.ReadAllText(it) })
+                .Select(it => new CronExecutionFileWithCRON(it))
                 .ToArray();
 
         }
@@ -50,14 +50,21 @@ namespace StankinsDataWeb.classesToBeMoved
                 
                 foreach (CronExecutionFileWithCRON item in files)
                 {
-                    if (item.ShouldRun(DateTime.Now))
+                    if (item.ShouldRun(DateTime.UtcNow))
                     {
                         var itemCache=item;
                         
-                        toExecTask.TryAdd(item.Name,new AsyncLazy<bool>(()=> {
-                            return itemCache.execute(); 
-                            }));
+                        if(toExecTask.TryAdd(item.Name,new AsyncLazy<bool>(()=> {
+                            return itemCache.execute();
+                        })))
+                        {
+                            Console.WriteLine($"scheduling {item.Name}");
+                        }
 
+                    }
+                    else
+                    {
+                        item.reload();
                     }
                     await Task.WhenAny(toExecTask.Values.Select(it=>it.Value).ToArray());
                     var remove = new List<string>();

@@ -1,6 +1,8 @@
-﻿using Stankins.Interpreter;
+﻿using Cronos;
+using Stankins.Interpreter;
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,43 +14,72 @@ namespace StankinsDataWeb.classesToBeMoved
         public class CronExecutionFileWithCRON
         {
             public string CRON { get; set; }
-            public string Name{get;set;}
-            private readonly RecipeFromString Recipe;
+            public string Name { get; set; }
+            private RecipeFromString Recipe;
+            private readonly string fileName;
 
             public DateTime? LastRunTime { get; set; }
             public DateTime? NextRunTime { get; set; }
 
-
-            public CronExecutionFileWithCRON(string name,string contents)
+            public CronExecutionFileWithCRON(string fileName) : this(Path.GetFileNameWithoutExtension(fileName), File.ReadAllText(fileName))
             {
-                this.Name= name;
+                this.fileName = fileName;
+            }
+            public bool reload()
+            {
+                if (string.IsNullOrWhiteSpace(fileName))
+                {
+                    return false;
+                }
+                //TODO: create a backup if not work
+                loadFromContent(File.ReadAllText(fileName));
+                return true;
+            }
+            private void loadFromContent(string contents)
+            {
                 string[] lines = contents.Split('\n')
-                .Select(it => it.Replace("\r", ""))
-                .ToArray();
+               .Select(it => it.Replace("\r", ""))
+               .ToArray();
                 CRON = lines[0];
 
                 Recipe = new RecipeFromString(string.Join(Environment.NewLine, lines.Skip(1)));
+
+            }
+            public CronExecutionFileWithCRON(string name, string contents)
+            {
+                Name = name;
+                loadFromContent(contents);
+
             }
             //TODO : error transmitting
             public async Task<bool> execute()
             {
-                try{
+                try
+                {
                     await Recipe.TransformData(null);
                     return true;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine($"error executing{ Name}=> {ex.Message}");
                     return false;
                 }
 
             }
+
+            private void MakeNextExecute()
+            {
+                LastRunTime = NextRunTime;
+                //todo: cache this
+                var expression = CronExpression.Parse(CRON, CronFormat.IncludeSeconds);
+                NextRunTime = expression.GetNextOccurrence(DateTime.UtcNow);
+            }
             public bool ShouldRun(DateTime currentTime)
             {
+                try{
                 if (NextRunTime == null && LastRunTime == null)
                 {
-                    
-
+                    MakeNextExecute();
                     return true;//execute once
                 }
                 if (NextRunTime == null)
@@ -58,11 +89,16 @@ namespace StankinsDataWeb.classesToBeMoved
 
                 if (NextRunTime < currentTime)
                 {
-                   
-
+                    MakeNextExecute();
                     return true;
                 }
                 return false;
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine($"cannot determine when to run - {ex.Message}");
+                    return false;
+                }
             }
         }
     }

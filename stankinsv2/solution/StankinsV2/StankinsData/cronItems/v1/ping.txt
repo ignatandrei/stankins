@@ -1,2 +1,3 @@
 */30 * * * * *
 Stankins.Alive.ReceiverPing nameSite=www.yahoo.com
+SenderJSONPOST adress=http://localhost:5000/api/v1.0/MyNewReceiveData
