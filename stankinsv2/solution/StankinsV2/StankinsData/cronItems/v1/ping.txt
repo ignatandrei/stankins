@@ -1,0 +1,2 @@
+*/30 * * * * *
+Stankins.Alive.ReceiverPing nameSite=www.yahoo.com

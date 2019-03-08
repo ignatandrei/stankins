@@ -8,10 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="cronItems\v1\ping.txt" />
     <None Remove="definitionHttpEndpoints\C1.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="cronItems\v1\ping.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="definitionHttpEndpoints\C1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

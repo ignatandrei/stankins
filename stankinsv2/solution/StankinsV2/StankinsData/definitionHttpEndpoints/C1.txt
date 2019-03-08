@@ -24,5 +24,12 @@ namespace StankinsDataWeb.Controllers
 
 		return res;
         }
+		[HttpPost]
+        public async Task<string> Get(dynamic id)
+        {
+			var x=Convert.ToString(id);
+
+			return x;
+        }
     }
 }
