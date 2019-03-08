@@ -38,6 +38,14 @@ You can with Stankins:
 
 Console Global tool:![Stankins.Console](https://img.shields.io/nuget/v/stankins.console.svg?label=Stankins%20Console&style=flat)
 
+For docker , you can just run 
+docker run -p 5000:5000 ignatandrei/stankins_windows
+or
+docker run -p 5000:5000 ignatandrei/stankins_linux
+
+And then access http://localhost:5000
+( if error, restart docker)
+
 Usage:
 
 dotnet tool install --global stankins.console
