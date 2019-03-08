@@ -85,7 +85,8 @@ namespace StankinsDataWeb
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            //app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<ErrorHandlingMiddleware>();
+            app.UseMiddleware<AngularMiddlerware>(env);            
             app.UseSwagger(c=>{
             });
             app.UseSwaggerUi3(settings =>
@@ -93,18 +94,7 @@ namespace StankinsDataWeb
                 
             });
             app.UseMvc();
-            //redirect to angular page if do not use MVC or static files
-            app.Run(async (context) =>
-            {
-                context.Response.ContentType = "text/html";
-                var fileBytes = await File.ReadAllBytesAsync(Path.Combine(env.WebRootPath, "index.html"));
-                var ms = new MemoryStream(fileBytes)
-                {
-                    Position = 0
-                };
-                await ms.CopyToAsync(context.Response.Body);
-                context.Response.StatusCode = StatusCodes.Status200OK;
-            });
+            
         }
     }
 }

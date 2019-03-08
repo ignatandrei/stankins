@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.IO;
@@ -7,6 +8,40 @@ using System.Threading.Tasks;
 
 namespace StankinsDataWeb
 {
+    public class AngularMiddlerware
+    {
+        private readonly RequestDelegate next;
+        private readonly IHostingEnvironment env;
+
+        public AngularMiddlerware(RequestDelegate next, IHostingEnvironment env)
+        {
+            this.next = next;
+            this.env = env;
+        }
+
+        public async Task Invoke(HttpContext context /* other dependencies */)
+        {
+            await next(context);
+            int sc = context.Response.StatusCode;
+            if (sc != 404)
+            {
+                return;
+            }
+
+            context.Response.StatusCode = 200;
+            context.Response.ContentType = "text/html";
+            byte[] fileBytes = await File.ReadAllBytesAsync(Path.Combine(env.WebRootPath, "index.html"));
+            MemoryStream ms = new MemoryStream(fileBytes)
+            {
+                Position = 0
+            };
+            await ms.CopyToAsync(context.Response.Body);
+
+
+
+        }
+
+    }
     public class ErrorHandlingMiddleware
     {
         private readonly RequestDelegate next;
@@ -31,9 +66,9 @@ namespace StankinsDataWeb
         private static Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             HttpStatusCode code = HttpStatusCode.InternalServerError; // 500 if unexpected
-            string st= exception == null? "<no exception defined>" : exception.StackTrace;
+            string st = exception == null ? "<no exception defined>" : exception.StackTrace;
             string types = "";
-            string message="";
+            string message = "";
             Exception ex = exception;
             while (ex != null)
             {
@@ -41,7 +76,7 @@ namespace StankinsDataWeb
                 types += ex.GetType().FullName + "=>";
                 ex = ex.InnerException;
             }
-            string result = JsonConvert.SerializeObject(new { error = message, exType=types, st });
+            string result = JsonConvert.SerializeObject(new { error = message, exType = types, st });
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = (int)code;
             return context.Response.WriteAsync(result);
