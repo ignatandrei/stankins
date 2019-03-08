@@ -30,7 +30,7 @@ namespace StankinsDataWeb.classesToBeMoved
     }
     public class RunCRONFiles : BackgroundService
     {
-        private readonly CronExecutionFileWithCRON[] files;
+        private readonly CronExecutionFile[] files;
 
         public RunCRONFiles(IHostingEnvironment hosting)
         {
@@ -38,7 +38,7 @@ namespace StankinsDataWeb.classesToBeMoved
             dirPath = Path.Combine(dirPath, "cronItems", "v1");
             files = Directory.GetFiles(dirPath)
                 //.Select(it => new { name = Path.GetFileNameWithoutExtension(it), content = File.ReadAllText(it) })
-                .Select(it => new CronExecutionFileWithCRON(it))
+                .Select(it => new CronExecutionFile(it))
                 .ToArray();
 
         }
@@ -48,7 +48,7 @@ namespace StankinsDataWeb.classesToBeMoved
             while (!stoppingToken.IsCancellationRequested)
             {
                 
-                foreach (CronExecutionFileWithCRON item in files)
+                foreach (CronExecutionFile item in files)
                 {
                     if (item.ShouldRun(DateTime.UtcNow))
                     {

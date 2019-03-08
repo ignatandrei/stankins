@@ -11,23 +11,29 @@ namespace StankinsDataWeb.classesToBeMoved
     public class CronExecution
     {
         [DebuggerDisplay("{CRON} {LastRunTime} {NextRunTime}")]
-        public class CronExecutionFileWithCRON
+        public class CronExecutionFile
         {
             public string CRON { get; set; }
             public string Name { get; set; }
             private RecipeFromString Recipe;
             private readonly string fileName;
 
-            public DateTime? LastRunTime { get; set; }
-            public DateTime? NextRunTime { get; set; }
+            internal DateTime? LastRunTime { get; set; }
+            internal DateTime? NextRunTime { get; set; }
 
-            public CronExecutionFileWithCRON(string fileName) : this(Path.GetFileNameWithoutExtension(fileName), File.ReadAllText(fileName))
+            public CronExecutionFile(string fileName) : this(Path.GetFileNameWithoutExtension(fileName), File.ReadAllText(fileName))
             {
                 this.fileName = fileName;
             }
+            private bool Deleted=false;
             public bool reload()
             {
                 if (string.IsNullOrWhiteSpace(fileName))
+                {
+                    return false;
+                }
+                Deleted=(!File.Exists(fileName));
+                if(Deleted)
                 {
                     return false;
                 }
@@ -45,7 +51,7 @@ namespace StankinsDataWeb.classesToBeMoved
                 Recipe = new RecipeFromString(string.Join(Environment.NewLine, lines.Skip(1)));
 
             }
-            public CronExecutionFileWithCRON(string name, string contents)
+            public CronExecutionFile(string name, string contents)
             {
                 Name = name;
                 loadFromContent(contents);
@@ -54,6 +60,8 @@ namespace StankinsDataWeb.classesToBeMoved
             //TODO : error transmitting
             public async Task<bool> execute()
             {
+                if(Deleted)
+                    return false;
                 try
                 {
                     await Recipe.TransformData(null);
@@ -76,6 +84,8 @@ namespace StankinsDataWeb.classesToBeMoved
             }
             public bool ShouldRun(DateTime currentTime)
             {
+                if(Deleted)
+                    return false;
                 try{
                 if (NextRunTime == null && LastRunTime == null)
                 {

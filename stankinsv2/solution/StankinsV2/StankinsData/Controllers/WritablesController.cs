@@ -23,7 +23,7 @@ namespace StankinsDataWeb.Controllers
         }
 
         // GET: api/Writables/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public async Task<string> Get([FromRoute] string id, [FromServices] IHostingEnvironment hosting)
         {
             string dir = Path.Combine(hosting.ContentRootPath, "definitionHttpEndpoints");
