@@ -1,4 +1,5 @@
-﻿using Stankins.Amazon;
+﻿using Stankins.Alive;
+using Stankins.Amazon;
 using Stankins.AnalyzeSolution;
 using Stankins.AzureDevOps;
 using Stankins.Cachet;
@@ -43,12 +44,15 @@ namespace StankinsHelperCommands
                     return refs;
                 }
 
-                List<ResultTypeStankins> allTypes = new List<ResultTypeStankins>();
+                var allTypes = new List<ResultTypeStankins>();
 
-
+                
                 FindAssembliesToExecute f = null;
                 //throw new ArgumentException("cannot find ReceiveTableDatabaseSql" );
                 f = new FindAssembliesToExecute(typeof(SenderCachet).Assembly);
+                allTypes.AddRange(f.FindTypes());
+
+                f = new FindAssembliesToExecute(typeof(AliveStatus).Assembly);
                 allTypes.AddRange(f.FindTypes());
 
                 f = new FindAssembliesToExecute(typeof(ReceiverFromTrello).Assembly);

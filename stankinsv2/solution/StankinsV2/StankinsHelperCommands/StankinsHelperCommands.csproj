@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Stankins.Alive\Stankins.Alive.csproj" />
     <ProjectReference Include="..\Stankins.Amazon\Stankins.Amazon.csproj" />
     <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
     <ProjectReference Include="..\Stankins.AssemblyLoad\Stankins.AssemblyLoad.csproj" />

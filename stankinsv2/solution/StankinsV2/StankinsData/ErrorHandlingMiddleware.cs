@@ -31,7 +31,7 @@ namespace StankinsDataWeb
             context.Response.StatusCode = 200;
             context.Response.ContentType = "text/html";
             byte[] fileBytes = await File.ReadAllBytesAsync(Path.Combine(env.WebRootPath, "index.html"));
-            MemoryStream ms = new MemoryStream(fileBytes)
+            var ms = new MemoryStream(fileBytes)
             {
                 Position = 0
             };
