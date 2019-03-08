@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,13 +21,13 @@ namespace StankinsDataWeb.Controllers
         }
         // GET: api/CronExecutionFile
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<CronExecutionFile> Get()
         {
             string dirPath = env.ContentRootPath;
 
             dirPath = Path.Combine(dirPath, "cronItems", "v1");
             return Directory.GetFiles(dirPath)
-                .Select(it => Path.GetFileName(it))
+                .Select(it => new CronExecutionFile(it))
                 .ToArray();
 
         }
@@ -49,30 +50,39 @@ namespace StankinsDataWeb.Controllers
         }
 
         // POST: api/CronExecutionFile
-        [HttpPost("{id}")]
-        public void Post([FromRoute]string id, [FromBody] string value)
+        [HttpPost]
+        public void Post([FromBody] CronExecutionFile value)
         {
+            
             string dirPath = env.ContentRootPath;
-
-            dirPath = Path.Combine(dirPath, "cronItems", "v1", id);
-            System.IO.File.WriteAllText(dirPath, value);
+            
+            dirPath = Path.Combine(dirPath, "cronItems", "v1", value.Name);
+            if (System.IO.File.Exists(dirPath))
+            {
+                throw new ArgumentException($"file {value.Name} already exists");
+            }
+            System.IO.File.WriteAllText(dirPath, value.WholeContent());
 
 
         }
 
         // PUT: api/CronExecutionFile/5
-        [HttpPut("{id}")]
-        public void Put(string id, [FromBody] string value)
+        [HttpPut]
+        public void Put( [FromBody] CronExecutionFile value)
         {
-            CronExecutionFile data = Get(id).Value;
+            CronExecutionFile data = Get(value.Name).Value;
             if (data == null)
             {
                 return;
             }
 
             string dirPath = env.ContentRootPath;
-            dirPath = Path.Combine(dirPath, "cronItems", "v1", id);
-            System.IO.File.WriteAllText(dirPath, value);
+            dirPath = Path.Combine(dirPath, "cronItems", "v1", value.Name);
+            if (!System.IO.File.Exists(dirPath))
+            {
+                throw new FileNotFoundException($"file {value.Name} already exists");
+            }
+            System.IO.File.WriteAllText(dirPath, value.WholeContent());
 
 
         }

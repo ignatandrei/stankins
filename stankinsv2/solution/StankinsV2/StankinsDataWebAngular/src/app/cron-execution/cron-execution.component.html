@@ -1,0 +1,8 @@
+<div *ngFor='let item of cronArr'>
+  {{item.name}} Schedule : <input type='text' [(ngModel)]="item.cron" /> 
+  <br />
+  <textarea [(ngModel)]="item.content" style="width:90%;height:175px"  ></textarea>
+  <br />
+  <button mat-button (click)="save(item)"> Save! </button>
+</div>
+<button mat-button (click)="addNew()"> Add New </button>

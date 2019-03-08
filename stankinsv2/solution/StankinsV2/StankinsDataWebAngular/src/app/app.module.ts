@@ -21,6 +21,7 @@ import { RecipeComponent } from './recipe/recipe.component';
 import { VersionsComponent } from './versions/versions.component';
 import { VersionsNetcoreAngularModule} from 'versions-netcore-angular';
 import { ReceiveDataComponent } from './receive-data/receive-data.component';
+import { CronExecutionComponent } from './cron-execution/cron-execution.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ReceiveDataComponent } from './receive-data/receive-data.component';
     RecipesListComponent,
     RecipeComponent,
     VersionsComponent,
-    ReceiveDataComponent
+    ReceiveDataComponent,
+    CronExecutionComponent
   ],
   imports: [
     FormsModule,

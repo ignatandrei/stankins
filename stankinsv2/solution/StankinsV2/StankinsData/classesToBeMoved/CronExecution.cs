@@ -15,13 +15,17 @@ namespace StankinsDataWeb.classesToBeMoved
         {
             public string CRON { get; set; }
             public string Name { get; set; }
+            public string Content{get;set;}
             private RecipeFromString Recipe;
             private readonly string fileName;
 
             internal DateTime? LastRunTime { get; set; }
             internal DateTime? NextRunTime { get; set; }
+            public CronExecutionFile()
+            {
 
-            public CronExecutionFile(string fileName) : this(Path.GetFileNameWithoutExtension(fileName), File.ReadAllText(fileName))
+            }
+            public CronExecutionFile(string fileName) : this(Path.GetFileName(fileName), File.ReadAllText(fileName))
             {
                 this.fileName = fileName;
             }
@@ -47,9 +51,13 @@ namespace StankinsDataWeb.classesToBeMoved
                .Select(it => it.Replace("\r", ""))
                .ToArray();
                 CRON = lines[0];
+                Content=string.Join(Environment.NewLine, lines.Skip(1));
+                Recipe = new RecipeFromString(Content);
 
-                Recipe = new RecipeFromString(string.Join(Environment.NewLine, lines.Skip(1)));
-
+            }
+            public string WholeContent()
+            {
+                return CRON + Environment.NewLine + Content;
             }
             public CronExecutionFile(string name, string contents)
             {
