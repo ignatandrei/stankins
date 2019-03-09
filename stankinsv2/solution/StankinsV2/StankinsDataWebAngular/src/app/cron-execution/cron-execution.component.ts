@@ -17,4 +17,8 @@ export class CronExecutionComponent implements OnInit {
   save(cronexec: CronExecutionFile) {
     this.cronexec.Save(cronexec).subscribe(() => window.alert('saved'));
   }
+  addNew() {
+    const c = CronExecutionFile.NewCron();
+    this.cronexec.addNew(c).subscribe(() => this.cronArr.push(c));
+  }
 }
