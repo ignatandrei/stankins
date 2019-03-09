@@ -53,9 +53,9 @@ namespace StankinsDataWeb.Controllers
         [HttpPost]
         public void Post([FromBody] CronExecutionFile value)
         {
-            
+
             string dirPath = env.ContentRootPath;
-            
+
             dirPath = Path.Combine(dirPath, "cronItems", "v1", value.Name);
             if (System.IO.File.Exists(dirPath))
             {
@@ -68,7 +68,7 @@ namespace StankinsDataWeb.Controllers
 
         // PUT: api/CronExecutionFile/5
         [HttpPut]
-        public void Put( [FromBody] CronExecutionFile value)
+        public void Put([FromBody] CronExecutionFile value)
         {
             CronExecutionFile data = Get(value.Name).Value;
             if (data == null)
@@ -91,9 +91,11 @@ namespace StankinsDataWeb.Controllers
         [HttpDelete("{id}")]
         public void Delete(string id)
         {
+            
             string dirPath = env.ContentRootPath;
-            dirPath = Path.Combine(dirPath, "cronItems", "v1", id);
-            System.IO.File.Delete(dirPath);
+            dirPath = Path.Combine(dirPath, "cronItems", "v1");
+            var writ=new Writables(dirPath);
+            writ.DeleteFile(id);
 
         }
     }
