@@ -48,6 +48,12 @@ export class CronExecutionService {
     return this.http.put(url, cronexec);
 
   }
+  public Delete(cronexec: CronExecutionFile): Observable<object>{
+    let url = environment.url;
+    url += '/api/v1.0/CronExecutionFile';
+    url += '/'+ cronexec.name;
+    return this.http.delete(url);
+  }
   addNew(cronexec: CronExecutionFile): Observable<object> {
     let url = environment.url;
     url += '/api/v1.0/CronExecutionFile';
