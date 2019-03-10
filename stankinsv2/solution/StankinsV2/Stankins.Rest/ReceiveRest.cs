@@ -16,7 +16,7 @@ namespace Stankins.Rest
         {
         }
 
-        protected virtual IEnumerable<DataTable> FromJSon(string json)
+        protected virtual DataSet FromJSon(string json)
         {
             JToken token = JToken.Parse(json);
             if (!(token is JArray))
@@ -29,10 +29,10 @@ namespace Stankins.Rest
             return FromArray(tok);
             
         }
-        private DataTable[] FromArray(JArray arr)
+        private DataSet FromArray(JArray arr)
         {
             long id = 0;
-            var tables = new Dictionary<string, DataTable>();
+            var tables = new DataSet();
             JArray res = new JArray();
             bool HasArrayInside = false;
             foreach (JObject row in arr.Children())
@@ -53,32 +53,19 @@ namespace Stankins.Rest
                             clean.Add("ID", ++id);
                             HasArrayInside = true;
                         }
-                        DataTable[] dt = FromArray(prop.Value as JArray);
-                        var count =dt.Count(it=>string.IsNullOrWhiteSpace(it.TableName));
-                        if (count > 1)
-                        {
-                            string s=";";
+                        var ds=FromArray(prop.Value as JArray);
+                        var dt = ds.Tables.Cast<DataTable>().ToArray();
+                        var dtName = dt.FirstOrDefault(it=>string.IsNullOrWhiteSpace(it.TableName) || it.TableName=="Table1");
+                        if(dtName == null){
+                            string s="";
                         }
-                        var dtName = dt.First(it=>string.IsNullOrWhiteSpace(it.TableName));
                         dtName.TableName = prop.Name;
-                        var dc=new DataColumn("Owner_ID",typeof(long));
+                        var p=((arr.Parent as JProperty)?.Name ??"Owner");
+                        var dc=new DataColumn(p+"ID",typeof(long));
                         dc.DefaultValue = id;
-                        dtName.Columns.Add(dc);
-                        foreach(var item in dt)
-                        {
-                            if (!tables.ContainsKey(item.TableName))
-                            {
-                                tables.Add(item.TableName,new DataTable(){ TableName = item.TableName });
+                        dtName.Columns.Add(dc);                        
+                        tables.Merge(ds,true,MissingSchemaAction.Add);
 
-                                
-                            }
-                            tables[item.TableName].Merge(item,true,MissingSchemaAction.Add);
-                            if (tables.ContainsKey(""))
-                            {
-                                var rows=tables[""].Rows[0].ItemArray;
-                                string s=string.Join(",",rows);
-                            }
-                        }
                         continue;
                     }
                     throw new ArgumentException("cannot understand json on " + prop.Name);
@@ -86,14 +73,9 @@ namespace Stankins.Rest
                 res.Add(clean);
 
             }
-            DataTable ret = res.ToObject<DataTable>();
-            if (tables.ContainsKey(""))
-            {
-                var rows=tables[""].Rows[0].ItemArray;
-                string s=string.Join(",",rows);
-            }
-            tables.Add("",ret);
-            return tables.Select(it=>it.Value).ToArray();
+            DataTable ret = res.ToObject<DataTable>();            
+            tables.Tables.Add(ret);
+            return tables;
         }
         public abstract Task<string> GetData();
 
@@ -103,7 +85,11 @@ namespace Stankins.Rest
             {
                 receiveData = new DataToSentTable();
             }
-            DataTable[] dt = FromJSon(await GetData()).ToArray();
+            DataTable[] dt = FromJSon(await GetData()).Tables.Cast<DataTable>().ToArray();
+            foreach(var firstTable in dt)
+            {
+                
+            }
             FastAddTables(receiveData, dt);
             return receiveData;
 

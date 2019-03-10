@@ -25,7 +25,7 @@ namespace Stankins.Trello
         {
 
         }
-        protected override IEnumerable<DataTable> FromJSon(string json)
+        protected override DataSet FromJSon(string json)
         {
             var trello= JsonConvert.DeserializeObject<BoardTrello>(json);
             var cards= trello.Cards;
@@ -56,7 +56,7 @@ namespace Stankins.Trello
             {
                 dtList.Rows.Add(l.Id,l.Name,l.IdBoard);
             }
-            yield return dtList;
+            
             foreach (var c in cards)
             {
                 dtCards.Rows.Add(c.Id,c.Name,c.IdList,c.Url);
@@ -70,9 +70,11 @@ namespace Stankins.Trello
                 dtComments.Rows.Add(act.Id,act.Data.Text,act.Data.Card.Id,idList);
 
             }
-
-            yield return dtCards;
-            yield return dtComments;
+            var ds=new DataSet();
+            ds.Tables.Add(dtList);
+            ds.Tables.Add(dtCards);
+            ds.Tables.Add(dtComments);
+            return ds;
 
         }
 
