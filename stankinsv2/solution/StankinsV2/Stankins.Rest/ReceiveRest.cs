@@ -35,6 +35,7 @@ namespace Stankins.Rest
             var tables = new DataSet();
             JArray res = new JArray();
             bool HasArrayInside = false;
+            var relCols = new List<KeyValuePair<string,string>>();
             foreach (JObject row in arr.Children())
             {
                 HasArrayInside = false;
@@ -56,16 +57,15 @@ namespace Stankins.Rest
                         var ds=FromArray(prop.Value as JArray);
                         var dt = ds.Tables.Cast<DataTable>().ToArray();
                         var dtName = dt.FirstOrDefault(it=>string.IsNullOrWhiteSpace(it.TableName) || it.TableName=="Table1");
-                        if(dtName == null){
-                            string s="";
-                        }
+                       
                         dtName.TableName = prop.Name;
                         var p=((arr.Parent as JProperty)?.Name ??"Owner");
                         var dc=new DataColumn(p+"ID",typeof(long));
                         dc.DefaultValue = id;
                         dtName.Columns.Add(dc);                        
                         tables.Merge(ds,true,MissingSchemaAction.Add);
-
+                        
+                        relCols.Add(new KeyValuePair<string, string>(prop.Name,dc.ColumnName));
                         continue;
                     }
                     throw new ArgumentException("cannot understand json on " + prop.Name);
@@ -73,8 +73,14 @@ namespace Stankins.Rest
                 res.Add(clean);
 
             }
-            DataTable ret = res.ToObject<DataTable>();            
+            DataTable ret = res.ToObject<DataTable>();
+            
             tables.Tables.Add(ret);
+            foreach (var item in relCols.Distinct())
+            {
+                var colRel= tables.Tables[item.Key].Columns[item.Value];
+                tables.Relations.Add("FK_ID_"+item.Key + "_"+item.Value ,ret.Columns["ID"],colRel);                
+            }
             return tables;
         }
         public abstract Task<string> GetData();
