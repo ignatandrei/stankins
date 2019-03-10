@@ -91,12 +91,22 @@ namespace Stankins.Rest
             {
                 receiveData = new DataToSentTable();
             }
-            DataTable[] dt = FromJSon(await GetData()).Tables.Cast<DataTable>().ToArray();
-            foreach(var firstTable in dt)
-            {
-                
-            }
+            var ds = FromJSon(await GetData());
+            
+            var  dt=ds.Tables.Cast<DataTable>().ToArray();
             FastAddTables(receiveData, dt);
+            var meta=receiveData.Metadata;
+            foreach(DataRelation rel in ds.Relations)
+            {
+                meta.Relations.Add(new Relation()
+                {
+                    IdTableParent = receiveData.FindAfterName(rel.ParentTable.TableName).Key,
+                    IdTableChild =receiveData.FindAfterName(rel.ChildTable.TableName).Key,
+                    ColumnParent = rel.ParentColumns.First().ColumnName,
+                    ColumnChild =rel.ChildColumns.First().ColumnName
+
+                });
+            }
             return receiveData;
 
         }
