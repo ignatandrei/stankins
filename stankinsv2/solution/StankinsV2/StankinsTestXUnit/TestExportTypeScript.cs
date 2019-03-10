@@ -42,7 +42,7 @@ namespace StankinsTestXUnit
             });
             $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
             $"and now I export to typescript definition ".w(async ()=> 
-                        data= await new SenderToTypeScriptDefinition().TransformData(data) );
+                        data= await new SenderToTypeScript().TransformData(data) );
 
             $"should have 1 record in ExportOutput".w(()=>
                 data.FindAfterName("OutputString").Value.Rows.Count.Should().Be(1));

@@ -2,7 +2,7 @@
   "profiles": {
     "Stankins.Console": {
       "commandName": "Project",
-      "commandLineArgs": "execute -o ReceiveRestFromFile -a e:\\ignatandrei\\stankins\\stankinsv2\\solution\\StankinsV2\\StankinsTestXUnit\\Assets\\JSON\\jsonAlphabetMoreTables.txt"
+      "commandLineArgs": "execute -o ReceiveRestFromFile -a e:\\ignatandrei\\stankins\\stankinsv2\\solution\\StankinsV2\\StankinsTestXUnit\\Assets\\JSON\\jsonAlphabetMoreTables.txt -o SenderToTypeScript -a \"\" "
     }
   }
 }

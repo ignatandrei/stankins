@@ -1,0 +1,225 @@
+﻿@using  System.Data;
+@using System;
+@using System.Linq;
+@using Stankins.Interfaces;
+@using System.Collections.Generic;
+@using RazorLight
+@using Stankins.Razor
+@using System.Text;
+
+@inherits TemplatePage<IDataToSent>
+@{
+
+    var data = Model.DataToBeSentFurther;
+
+    var nl = Environment.NewLine;
+
+}
+@functions{
+    public string FromTypeCode(TypeCode t)
+    {
+        switch (t)
+
+        {
+
+            case TypeCode.Byte:
+
+            case TypeCode.Int16:
+
+            case TypeCode.Int32:
+
+            case TypeCode.Int64:
+
+
+                return "number";
+
+            case TypeCode.Boolean:
+
+                return "boolean";
+
+            case TypeCode.String:
+
+                return "string";
+
+            case TypeCode.DateTime:
+
+                return "Date";
+
+            case TypeCode.Object:
+
+                return "any";
+
+            default:
+
+                return "any ;//should be : " + t;
+
+        }
+
+    }
+
+}
+}
+
+@{
+    var sb = new StringBuilder();
+    foreach (var item in data)
+    {
+        var dt = item.Value;
+        string nameClass = dt.TableName;
+        sb.AppendLine("public export class " + nameClass + "{");
+        sb.AppendLine(@"public constructor(init?:Partial<" + nameClass + @">) {
+    if(init) Object.assign(this, init);
+}");
+        foreach (DataColumn col in dt.Columns)
+        {
+            var t = Type.GetTypeCode(col.DataType);
+            sb.AppendLine("public " + col.ColumnName + ":" + FromTypeCode(t) + ";");
+        }
+        sb.AppendLine("}");
+    }
+    foreach (var item in data)
+    {
+        var dt = item.Value;
+        string nameClass = dt.TableName;@using  System.Data;
+        @using System;
+        @using System.Linq;
+        @using Stankins.Interfaces;
+        @using System.Collections.Generic;
+        @using RazorLight
+        @using Stankins.Razor
+        @using System.Text;
+
+        @inherits TemplatePage<IDataToSent>
+        @{
+
+            var data = Model.DataToBeSentFurther;
+
+            var nl = Environment.NewLine;
+
+        }
+        @functions{
+            public string FirstCharToUpper(string input)
+            {
+                switch (input)
+                {
+                    case null: return null;
+                    case "": return "";
+                    default: return input.First().ToString().ToUpper() + input.Substring(1);
+                }
+            }
+            public string FromTypeCode(TypeCode t)
+            {
+                switch (t)
+
+                {
+
+                    case TypeCode.Byte:
+
+                    case TypeCode.Int16:
+
+                    case TypeCode.Int32:
+
+                    case TypeCode.Int64:
+
+
+                        return "number";
+
+                    case TypeCode.Boolean:
+
+                        return "boolean";
+
+                    case TypeCode.String:
+
+                        return "string";
+
+                    case TypeCode.DateTime:
+
+                        return "Date";
+
+                    case TypeCode.Object:
+
+                        return "any";
+
+                    default:
+
+                        return "any ;//should be : " + t;
+
+                }
+
+            }
+
+        }
+    }
+
+    @{
+        var sb = new StringBuilder();
+        foreach (var item in data)
+        {
+            var dt = item.Value;
+            string nameClass = FirstCharToUpper(dt.TableName);
+            sb.AppendLine("export class " + nameClass + "{");
+            sb.AppendLine(@"public constructor(init?: Partial<" + nameClass + @">) {
+        if(init){Object.assign(this, init);}
+    }");
+            foreach (DataColumn col in dt.Columns)
+            {
+                var t = Type.GetTypeCode(col.DataType);
+                sb.AppendLine("public " + col.ColumnName + ": " + FromTypeCode(t) + ";");
+            }
+            sb.AppendLine("}");
+        }
+        foreach (var item in data)
+        {
+            var dt = item.Value;
+            string nameClass = FirstCharToUpper(dt.TableName);
+            var arrName = "arr" + nameClass;
+            sb.AppendLine("const " + arrName + " = Array<" + nameClass + ">();");
+            foreach (DataRow dr in dt.Rows)
+            {
+                sb.AppendLine(arrName + ".push({");
+                foreach (DataColumn col in dt.Columns)
+                {
+                    var t = FromTypeCode(Type.GetTypeCode(col.DataType));
+                    sb.Append(col.ColumnName + ": ");
+                    if (t != "number")
+                    {
+                        sb.Append("'" + dr[col.ColumnName] + "'");
+                    }
+                    else
+                    {
+                        sb.Append(dr[col.ColumnName]);
+                    }
+                    sb.AppendLine(",");
+                }
+                sb.AppendLine("}); // end push to" + arrName);
+            }
+        }
+
+    }
+    @Raw(sb.ToString())
+
+    var arrName = "arr" + nameClass;
+    sb.AppendLine("var " + arrName + " = Array<" + nameClass + ">;");
+    foreach (DataRow dr in dt.Rows)
+    {
+        sb.AppendLine(arrName + ".push({");
+        foreach (DataColumn col in dt.Columns)
+        {
+            var t = FromTypeCode(Type.GetTypeCode(col.DataType));
+            sb.AppendLine(col.ColumnName + ":");
+            if (t != "number")
+            {
+                sb.Append("'" + dr[col.ColumnName] + "'");
+            }
+            else
+            {
+                sb.Append(dr[col.ColumnName]);
+            }
+
+        }
+        sb.AppendLine(arrName + "};//end push");
+    }
+}
+
+}
+@Raw(sb.ToString())

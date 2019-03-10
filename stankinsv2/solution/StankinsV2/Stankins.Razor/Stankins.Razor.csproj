@@ -11,7 +11,7 @@
     <None Remove="SenderDBDiagramToDot.cshtml" />
     <None Remove="SenderSolutionToDot.cshtml" />
     <None Remove="SenderSolutionToHTMLDocument.cshtml" />
-    <None Remove="SenderToTypeScriptDefinition.cshtml" />
+    <None Remove="SenderToTypeScript.cshtml" />
     <None Remove="SenderTrelloToJson.cshtml" />
     <None Remove="SenderTrelloToMarkdown.cshtml" />
     <None Remove="SenderYamlAzurePipelineToDot.cshtml" />
@@ -20,7 +20,7 @@
     <Content Include="images\pk.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="SenderToTypeScriptDefinition.cshtml">
+    <Content Include="SenderToTypeScript.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SenderTrelloToJson.cshtml">
