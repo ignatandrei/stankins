@@ -1,0 +1,74 @@
+﻿@using  System.Data;
+@using System;
+@using System.Linq;
+@using Stankins.Interfaces;
+@using System.Collections.Generic;
+@using RazorLight
+@using Stankins.Razor
+@using System.Text;
+
+@inherits TemplatePage<IDataToSent>
+@{
+
+    var data = Model.DataToBeSentFurther;
+
+    var nl = Environment.NewLine;
+
+}
+@functions{
+	public string FromTypeCode(TypeCode t){
+		switch (t)
+
+            {
+
+                case TypeCode.Byte:
+
+                case TypeCode.Int16:
+
+                case TypeCode.Int32:
+
+                case TypeCode.Int64:
+
+
+                    return "number";
+
+                case TypeCode.Boolean:
+
+                    return "boolean";
+
+                case TypeCode.String:
+
+                    return "string";
+
+                case TypeCode.DateTime:
+
+                    return "Date";
+
+                case TypeCode.Object:
+
+                        return "any";
+
+                default:
+
+                    return "any ;//should be : " + t;
+
+            }
+
+        }
+
+}
+}
+
+@{
+    var sb= new StringBuilder();
+    foreach(var item in data){
+        var dt= item.Value;
+		sb.AppendLine("public export class " + dt.TableName +"{");
+		foreach(DataColumn col in dt.Columns){
+			var t =Type.GetTypeCode(col.DataType);
+			sb.AppendLine("public " + col.ColumnName + ":" + FromTypeCode(t)+";");
+		}
+		sb.AppendLine("}");
+    }
+}
+@Raw(sb.ToString())
