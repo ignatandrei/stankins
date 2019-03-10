@@ -27,6 +27,7 @@
     <None Remove="Assets\JSON\CachetV1Simple.txt" />
     <None Remove="Assets\JSON\json1.txt" />
     <None Remove="Assets\JSON\json1Record.txt" />
+    <None Remove="Assets\JSON\jsonAlphabetMoreTables.txt" />
     <None Remove="Assets\JSON\trello.txt" />
     <None Remove="Assets\JSON\trelloAlphabet.txt" />
     <None Remove="Assets\otherbooksmarks.html" />
@@ -39,6 +40,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\JSON\CachetV1Simple.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\JSON\jsonAlphabetMoreTables.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\JSON\trelloAlphabet.txt">

@@ -270,8 +270,8 @@ namespace Stankins.Console
                             System.Console.WriteLine("exporting default output");
                             var sender = new SenderOutputToFolder("", true);
                             data=await sender.TransformData(data);
-                            //System.Console.WriteLine("exporting all tables to csv");
-                            //await new SenderAllTablesToFileCSV("").TransformData(data);
+                            System.Console.WriteLine("exporting all tables to csv");
+                            await new SenderAllTablesToFileCSV("").TransformData(data);
 
                         }
 

@@ -1,0 +1,258 @@
+﻿{
+   "name":".net Core A To Z",
+   "cards":[
+      {
+         "name":"A",
+         "words":[            
+            {
+               "name":"async / await"
+            },
+            {
+               "name":"Auto implemented properties"
+            },
+            {
+               "name":"Anonymous methods"
+            },
+            {
+               "name":"attributes"
+            },
+            {
+               "name":"Asp.Net"
+            }
+         ]
+      },
+      {
+         "name":"B",
+         "words":[
+            {
+               "name":"Boxing"
+            }
+         ]
+      },
+      {
+         "name":"C",
+         "words":[
+            {
+               "name":"CallerInfo attributes"
+            },
+            {
+               "name":"classes"
+            }
+         ]
+      },
+      {
+         "name":"D",
+         "words":[
+            {
+               "name":"Delegates"
+            },
+            {
+               "name":"Dynamic"
+            }
+         ]
+      },
+      {
+         "name":"E",
+         "words":[
+            {
+               "name":"Expando"
+            },
+            {
+               "name":"Expression bodied members"
+            },
+            {
+               "name":"Exception filters"
+            },
+            {
+               "name":"extension methods"
+            },
+            {
+               "name":"Entity Framework"
+            },
+            {
+               "name":"Events"
+            }
+         ]
+      },
+      {
+         "name":"G",
+         "words":[
+            {
+               "name":"Generic Constraints"
+            },
+            {
+               "name":"Generics covariance / contravariance"
+            },
+            {
+               "name":"Generics"
+            }
+         ]
+      },
+      {
+         "name":"H",
+         "words":[
+            {
+               "name":"health check"
+            }
+         ]
+      },
+      {
+         "name":"I",
+         "words":[
+            {
+               "name":"IDisosable"
+            },
+            {
+               "name":"Iterators"
+            },
+            {
+               "name":"interfaces"
+            }
+         ]
+      },
+      {
+         "name":"J",
+         "words":[
+            {
+               "name":" jwt validation, authorization ,authentication "
+            }
+         ]
+      },
+      {
+         "name":"K",
+         "words":[
+            {
+               "name":"kestrel"
+            }
+         ]
+      },
+      {
+         "name":"L",
+         "words":[
+            {
+               "name":"Local functions"
+            },
+            {
+               "name":"Linq"
+            },
+            {
+               "name":"Lambda"
+            }
+         ]
+      },
+      {
+         "name":"M",
+         "words":[
+            {
+               "name":"Memory<T>"
+            }
+         ]
+      },
+      {
+         "name":"N",
+         "words":[
+            {
+               "name":"Nameof"
+            },
+            {
+               "name":"Null propagator"
+            },
+            {
+               "name":"Nullable types"
+            }
+         ]
+      },
+      {
+         "name":"O",
+         "words":[
+            {
+               "name":"Out"
+            }
+         ]
+      },
+      {
+         "name":"P",
+         "words":[
+            {
+               "name":"Pattern matching"
+            },
+            {
+               "name":"Property initializers"
+            },
+            {
+               "name":"Partial types + methods"
+            }
+         ]
+      },
+      {
+         "name":"R",
+         "words":[
+            {
+               "name":"Ref variables ( in function + local )"
+            },
+            {
+               "name":"Razor"
+            },
+            {
+               "name":"Roslyn"
+            }
+         ]
+      },
+      {
+         "name":"S",
+         "words":[
+            {
+               "name":"(.NET) Standard"
+            },
+            {
+               "name":"Span<T>"
+            },
+            {
+               "name":"string interpolation"
+            },
+            {
+               "name":"Static imports"
+            },
+            {
+               "name":"SignalR"
+            },
+            {
+               "name":"structs"
+            },
+            {
+               "name":"Static classes"
+            }
+         ]
+      },
+      {
+         "name":"T",
+         "words":[
+            {
+               "name":"tuple"
+            },
+            {
+               "name":"task"
+            }
+         ]
+      },
+      {
+         "name":"U",
+         "words":[
+            {
+               "name":"Using for IDisposable"
+            },
+            {
+               "name":"unboxing"
+            }
+         ]
+      },
+      {
+         "name":"V",
+         "words":[
+            {
+               "name":"var"
+            }
+         ]
+      }
+   ]
+}

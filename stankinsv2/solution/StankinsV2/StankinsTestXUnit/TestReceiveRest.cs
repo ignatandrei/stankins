@@ -18,6 +18,30 @@ namespace StankinsTestXUnit
     [Trait("ExternalDependency", "0")]
     public class TestReceiveRest
     {
+         [Scenario]
+        [Example("Assets/JSON/jsonAlphabetMoreTables.txt",3)]        
+        public void TestAlphabet(string fileName,int numberTables)
+        {
+            IReceive receiver = null;
+           
+            IDataToSent data=null;
+            var nl = Environment.NewLine;
+            $"Given the file {fileName}".w(() =>
+            {
+                File.Exists(fileName).Should().BeTrue();
+            });
+            $"When I create the ReceiveRest for the {fileName}".w(() => receiver = new ReceiveRestFromFile(fileName));
+            $"And I read the data".w(async () =>data= await receiver.TransformData(null));
+            $"Then should be a data".w(() => data.Should().NotBeNull());
+            $"With {numberTables} table".w(() =>
+            {
+                data.DataToBeSentFurther.Should().NotBeNull();
+                data.DataToBeSentFurther.Count.Should().Be(numberTables);
+            });
+            
+
+
+        } 
         [Scenario]
         [Example("Assets/JSON/json1.txt",2)]
         [Example("Assets/JSON/json1Record.txt",1)]
