@@ -20,8 +20,8 @@ namespace StankinsTestXUnit
     public class TestExportTypeScript
     {
         [Scenario]
-        [Example("Assets/JSON/json1.txt",2)]
-        [Example("Assets/JSON/json1Record.txt",1)]
+        [Example("Assets/JSON/json1Copy.txt",2)]
+        [Example("Assets/JSON/json1RecordCopy.txt",1)]
         public void TestSimpleJSON(string fileName,int NumberRows)
         {
             IReceive receiver = null;

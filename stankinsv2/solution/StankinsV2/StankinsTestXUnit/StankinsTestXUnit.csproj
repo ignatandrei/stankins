@@ -26,7 +26,9 @@
     <None Remove="Assets\HTML\AmazonCopyStackOverflow.html" />
     <None Remove="Assets\JSON\CachetV1Simple.txt" />
     <None Remove="Assets\JSON\json1.txt" />
+    <None Remove="Assets\JSON\json1Copy.txt" />
     <None Remove="Assets\JSON\json1Record.txt" />
+    <None Remove="Assets\JSON\json1RecordCopy.txt" />
     <None Remove="Assets\JSON\jsonAlphabetMoreTables.txt" />
     <None Remove="Assets\JSON\trello.txt" />
     <None Remove="Assets\JSON\trelloAlphabet.txt" />
@@ -40,6 +42,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\JSON\CachetV1Simple.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\JSON\json1Copy.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\JSON\json1RecordCopy.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\JSON\jsonAlphabetMoreTables.txt">
