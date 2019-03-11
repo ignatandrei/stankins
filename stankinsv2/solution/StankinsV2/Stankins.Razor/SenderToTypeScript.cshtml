@@ -70,11 +70,14 @@
 }
 
 @{
+    var exports ="export{";
     var sb = new StringBuilder();
     foreach (var item in data)
     {
         var dt = item.Value;
         string nameClass = FirstCharToUpper(dt.TableName);
+        var arrName = "arr" + nameClass;
+        exports+=arrName +",";
         sb.AppendLine("export class " + nameClass + "{");
         sb.AppendLine(@"public constructor(init?: Partial<" + nameClass + @">) {
     if(init){Object.assign(this, init);}
@@ -86,6 +89,8 @@
         }
         sb.AppendLine("}");
     }
+    exports+="}";
+    sb.AppendLine(exports);
     foreach (var item in data)
     {
         var dt = item.Value;
