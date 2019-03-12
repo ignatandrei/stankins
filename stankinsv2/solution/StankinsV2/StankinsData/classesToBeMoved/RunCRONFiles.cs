@@ -53,11 +53,11 @@ namespace StankinsDataWeb.classesToBeMoved
                 {
                     if (item.ShouldRun(DateTime.UtcNow))
                     {
-                        CronExecutionFile itemCache = item;
+                        //CronExecutionFile itemCache = item;
                         if(!toExecTask.ContainsKey(item.Name))
                         if (toExecTask.TryAdd(item.Name, new AsyncLazy<bool>(() =>
                         {
-                            return itemCache.execute();
+                            return item.execute();
                         })))
                         {
                             Console.WriteLine($"scheduling {item.Name}");
