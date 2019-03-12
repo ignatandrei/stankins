@@ -12,47 +12,6 @@ using static StankinsDataWeb.classesToBeMoved.CronExecution;
 namespace StankinsDataWeb.classesToBeMoved
 {
 
-   public sealed class AsyncLazy<T>
-{
-    /// <summary>
-    /// The underlying lazy task.
-    /// </summary>
-    private readonly Lazy<Task<T>> instance;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AsyncLazy&lt;T&gt;"/> class.
-    /// </summary>
-    /// <param name="factory">The delegate that is invoked on a background thread to produce the value when it is needed.</param>
-    public AsyncLazy(Func<T> factory)
-    {
-        instance = new Lazy<Task<T>>(() => Task.Run(factory));
-    }
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="AsyncLazy&lt;T&gt;"/> class.
-    /// </summary>
-    /// <param name="factory">The asynchronous delegate that is invoked on a background thread to produce the value when it is needed.</param>
-    public AsyncLazy(Func<Task<T>> factory)
-    {
-        instance = new Lazy<Task<T>>(() => Task.Run(factory));
-    }
-
-    /// <summary>
-    /// Asynchronous infrastructure support. This method permits instances of <see cref="AsyncLazy&lt;T&gt;"/> to be await'ed.
-    /// </summary>
-    public TaskAwaiter<T> GetAwaiter()
-    {
-        return instance.Value.GetAwaiter();
-    }
-
-    /// <summary>
-    /// Starts the asynchronous initialization, if it has not already started.
-    /// </summary>
-    public void Start()
-    {
-        var unused = instance.Value;
-    }
-}
     public class RunCRONFiles : BackgroundService
     {
         private readonly CronExecutionFile[] files;
@@ -70,7 +29,7 @@ namespace StankinsDataWeb.classesToBeMoved
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var toExecTask = new ConcurrentDictionary<string, Task<bool>>();
+            var toExecTask = new Dictionary<string, Task<bool>>();
             while (!stoppingToken.IsCancellationRequested)
             {
                 Console.WriteLine($"starting again at {DateTime.UtcNow}");
@@ -78,11 +37,9 @@ namespace StankinsDataWeb.classesToBeMoved
                 {
                     if (item.ShouldRun(DateTime.UtcNow))
                     {
-                        CronExecutionFile itemCache = item;
-                        if(!toExecTask.ContainsKey(item.Name))
-                        if (toExecTask.TryAdd(item.Name,item.execute()))
-                        {
-                            Console.WriteLine($"scheduling {item.Name}");
+                        //CronExecutionFile itemCache = item;
+                        if(!toExecTask.ContainsKey(item.Name)){
+                        toExecTask[item.Name]=item.execute();
                         }
 
                     }
