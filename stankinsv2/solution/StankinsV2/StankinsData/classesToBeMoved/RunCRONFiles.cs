@@ -42,19 +42,21 @@ namespace StankinsDataWeb.classesToBeMoved
                 .ToArray();
 
         }
+
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var toExecTask = new ConcurrentDictionary<string, AsyncLazy<bool>>();
+            ConcurrentDictionary<string, AsyncLazy<bool>> toExecTask = new ConcurrentDictionary<string, AsyncLazy<bool>>();
             while (!stoppingToken.IsCancellationRequested)
             {
-                
+                Console.WriteLine($"starting again at {DateTime.UtcNow}");
                 foreach (CronExecutionFile item in files)
                 {
                     if (item.ShouldRun(DateTime.UtcNow))
                     {
-                        var itemCache=item;
-                        
-                        if(toExecTask.TryAdd(item.Name,new AsyncLazy<bool>(()=> {
+                        CronExecutionFile itemCache = item;
+
+                        if (toExecTask.TryAdd(item.Name, new AsyncLazy<bool>(() =>
+                        {
                             return itemCache.execute();
                         })))
                         {
@@ -64,28 +66,32 @@ namespace StankinsDataWeb.classesToBeMoved
                     }
                     else
                     {
-                        item.reload();
+                        Console.WriteLine($"{item.Name} => {item.NextRunTime}");
+                        //item.reload();
                     }
-                    await Task.WhenAny(toExecTask.Values.Select(it=>it.Value).ToArray());
-                    var remove = new List<string>();
-                    foreach(var fileItem in toExecTask)
+                    if (toExecTask.Count > 0)
                     {
-                        //TODO: make a class to make it easy to understand this line
-                        if (fileItem.Value.Value.IsCompleted)
+                        await Task.WhenAny(toExecTask.Values.Select(it => it.Value).ToArray());
+                        List<string> remove = new List<string>();
+                        foreach (KeyValuePair<string, AsyncLazy<bool>> fileItem in toExecTask)
                         {
-                            Console.WriteLine($"was executed {fileItem.Key} with value {fileItem.Value.Value.Result}");
-                            remove.Add(fileItem.Key);
-                        }                        
+                            //TODO: make a class to make it easy to understand this line
+                            if (fileItem.Value.Value.IsCompleted)
+                            {
+                                Console.WriteLine($"was executed {fileItem.Key} with value {fileItem.Value.Value.Result}");
+                                remove.Add(fileItem.Key);
+                            }
+                        }
+                        foreach (string name in remove)
+                        {
+                            toExecTask.Remove(name, out _);
+                        }
                     }
-                    foreach(var name in remove)
-                    {
-                        toExecTask.Remove(name,out _);
-                    }
-
                 }
                 //TODO: make a proper log
                 Console.WriteLine($"remains to be executed {toExecTask.Count}");
-                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(10));
+                
             }
         }
     }
