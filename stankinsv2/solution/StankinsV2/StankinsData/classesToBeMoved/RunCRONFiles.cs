@@ -98,7 +98,7 @@ namespace StankinsDataWeb.classesToBeMoved
                     {
                          Console.WriteLine($" number of tasks to execute " + toExecTask.Count);
                     
-                        await Task.WhenAny(toExecTask.Values.Select(it => it.Value).ToArray());
+                        await Task.WhenAny(toExecTask.Values.Select(it => it.GetAwaiter()).ToArray());
                         List<string> remove = new List<string>();
                         foreach (KeyValuePair<string, AsyncLazy<bool>> fileItem in toExecTask)
                         {
