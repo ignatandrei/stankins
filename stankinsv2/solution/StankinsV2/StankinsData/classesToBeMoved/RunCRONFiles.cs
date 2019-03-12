@@ -12,22 +12,47 @@ using static StankinsDataWeb.classesToBeMoved.CronExecution;
 namespace StankinsDataWeb.classesToBeMoved
 {
 
+   public sealed class AsyncLazy<T>
+{
     /// <summary>
-    /// shameless copy from https://devblogs.microsoft.com/pfxteam/asynclazyt/
+    /// The underlying lazy task.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class AsyncLazy<T> : Lazy<Task<T>>
+    private readonly Lazy<Task<T>> instance;
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AsyncLazy&lt;T&gt;"/> class.
+    /// </summary>
+    /// <param name="factory">The delegate that is invoked on a background thread to produce the value when it is needed.</param>
+    public AsyncLazy(Func<T> factory)
     {
-        public AsyncLazy(Func<T> valueFactory) :
-            base(() => Task.Factory.StartNew(valueFactory))
-        { }
-
-        public AsyncLazy(Func<Task<T>> taskFactory) :
-            base(() => Task.Factory.StartNew(() => taskFactory()).Unwrap())
-        { }
-
-        public TaskAwaiter<T> GetAwaiter() { return Value.GetAwaiter(); }
+        instance = new Lazy<Task<T>>(() => Task.Run(factory));
     }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="AsyncLazy&lt;T&gt;"/> class.
+    /// </summary>
+    /// <param name="factory">The asynchronous delegate that is invoked on a background thread to produce the value when it is needed.</param>
+    public AsyncLazy(Func<Task<T>> factory)
+    {
+        instance = new Lazy<Task<T>>(() => Task.Run(factory));
+    }
+
+    /// <summary>
+    /// Asynchronous infrastructure support. This method permits instances of <see cref="AsyncLazy&lt;T&gt;"/> to be await'ed.
+    /// </summary>
+    public TaskAwaiter<T> GetAwaiter()
+    {
+        return instance.Value.GetAwaiter();
+    }
+
+    /// <summary>
+    /// Starts the asynchronous initialization, if it has not already started.
+    /// </summary>
+    public void Start()
+    {
+        var unused = instance.Value;
+    }
+}
     public class RunCRONFiles : BackgroundService
     {
         private readonly CronExecutionFile[] files;
