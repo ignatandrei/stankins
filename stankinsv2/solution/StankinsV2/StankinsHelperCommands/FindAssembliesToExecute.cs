@@ -49,8 +49,6 @@ namespace StankinsHelperCommands
                 
                 FindAssembliesToExecute f = null;
                 
-                f = new FindAssembliesToExecute(typeof(SenderToTypeScript).Assembly);
-                allTypes.AddRange(f.FindTypes());
 
                 //throw new ArgumentException("cannot find ReceiveTableDatabaseSql" );
                 f = new FindAssembliesToExecute(typeof(SenderCachet).Assembly);
