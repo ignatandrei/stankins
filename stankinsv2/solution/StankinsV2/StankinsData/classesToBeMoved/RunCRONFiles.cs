@@ -54,7 +54,7 @@ namespace StankinsDataWeb.classesToBeMoved
                     if (item.ShouldRun(DateTime.UtcNow))
                     {
                         CronExecutionFile itemCache = item;
-
+                        if(!toExecTask.ContainsKey(item.Name)
                         if (toExecTask.TryAdd(item.Name, new AsyncLazy<bool>(() =>
                         {
                             return itemCache.execute();
@@ -71,6 +71,8 @@ namespace StankinsDataWeb.classesToBeMoved
                     }
                     if (toExecTask.Count > 0)
                     {
+                         Console.WriteLine($" number of tasks to execute " + toExecTask.Count);
+                    
                         await Task.WhenAny(toExecTask.Values.Select(it => it.Value).ToArray());
                         List<string> remove = new List<string>();
                         foreach (KeyValuePair<string, AsyncLazy<bool>> fileItem in toExecTask)
