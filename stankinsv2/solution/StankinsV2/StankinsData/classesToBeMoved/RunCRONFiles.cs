@@ -100,7 +100,7 @@ namespace StankinsDataWeb.classesToBeMoved
                         foreach (KeyValuePair<string, Task<bool>> fileItem in toExecTask)
                         {
                             //TODO: make a class to make it easy to understand this line
-                            if (fileItem.IsCompleted)
+                            if (fileItem.Value.IsCompleted)
                             {
                                 Console.WriteLine($"was executed {fileItem.Key} with value {fileItem.Value.Result}");
                                 remove.Add(fileItem.Key);
