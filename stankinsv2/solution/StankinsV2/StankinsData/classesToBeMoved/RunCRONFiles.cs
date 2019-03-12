@@ -97,12 +97,12 @@ namespace StankinsDataWeb.classesToBeMoved
                     
                         await Task.WhenAny(toExecTask.Values.Select(it => it).ToArray());
                         List<string> remove = new List<string>();
-                        foreach (KeyValuePair<string, AsyncLazy<bool>> fileItem in toExecTask)
+                        foreach (KeyValuePair<string, Task<bool>> fileItem in toExecTask)
                         {
                             //TODO: make a class to make it easy to understand this line
-                            if (fileItem.Value.Value.IsCompleted)
+                            if (fileItem.IsCompleted)
                             {
-                                Console.WriteLine($"was executed {fileItem.Key} with value {fileItem.Value.Value.Result}");
+                                Console.WriteLine($"was executed {fileItem.Key} with value {fileItem.Value.Result}");
                                 remove.Add(fileItem.Key);
                             }
                         }
