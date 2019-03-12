@@ -80,7 +80,7 @@ namespace StankinsDataWeb.classesToBeMoved
                     {
                         CronExecutionFile itemCache = item;
                         if(!toExecTask.ContainsKey(item.Name))
-                        if (toExecTask.TryAdd(item.Name,item.execute())
+                        if (toExecTask.TryAdd(item.Name,item.execute()))
                         {
                             Console.WriteLine($"scheduling {item.Name}");
                         }
