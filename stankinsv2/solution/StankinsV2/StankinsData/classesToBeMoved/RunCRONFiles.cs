@@ -70,7 +70,7 @@ namespace StankinsDataWeb.classesToBeMoved
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            ConcurrentDictionary<string, AsyncLazy<bool>> toExecTask = new ConcurrentDictionary<string, AsyncLazy<bool>>();
+            var toExecTask = new ConcurrentDictionary<string, Task<bool>>();
             while (!stoppingToken.IsCancellationRequested)
             {
                 Console.WriteLine($"starting again at {DateTime.UtcNow}");
@@ -78,12 +78,9 @@ namespace StankinsDataWeb.classesToBeMoved
                 {
                     if (item.ShouldRun(DateTime.UtcNow))
                     {
-                        //CronExecutionFile itemCache = item;
+                        CronExecutionFile itemCache = item;
                         if(!toExecTask.ContainsKey(item.Name))
-                        if (toExecTask.TryAdd(item.Name, new AsyncLazy<bool>(() =>
-                        {
-                            return item.execute();
-                        })))
+                        if (toExecTask.TryAdd(item.Name,item.execute())
                         {
                             Console.WriteLine($"scheduling {item.Name}");
                         }
@@ -98,7 +95,7 @@ namespace StankinsDataWeb.classesToBeMoved
                     {
                          Console.WriteLine($" number of tasks to execute " + toExecTask.Count);
                     
-                        await Task.WhenAny(toExecTask.Values.Select(it => it.GetAwaiter()).ToArray());
+                        await Task.WhenAny(toExecTask.Values.Select(it => it).ToArray());
                         List<string> remove = new List<string>();
                         foreach (KeyValuePair<string, AsyncLazy<bool>> fileItem in toExecTask)
                         {
