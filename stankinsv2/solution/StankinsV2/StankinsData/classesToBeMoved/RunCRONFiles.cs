@@ -25,53 +25,41 @@ namespace StankinsDataWeb.classesToBeMoved
                 .ToArray();
 
         }
-
+        
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            Dictionary<string, Task<bool>> toExecTask = new Dictionary<string, Task<bool>>();
+            var executing = new HashSet<string>();
+
             while (!stoppingToken.IsCancellationRequested)
             {
-                Console.WriteLine($"starting again at {DateTime.UtcNow}");
-                foreach (CronExecutionFile item in files)
+                DateTime dt = DateTime.UtcNow;
+                Console.WriteLine($"starting again at {dt}");
+                List<CronExecutionFile> f = files
+                    .Where(it => it.ShouldRun(dt))
+                    .Where(it => !executing.Contains(it.Name))
+                    .ToList();
+                if (f.Count > 0)
                 {
-                    if (item.ShouldRun(DateTime.UtcNow))
+                    foreach (var item in f)
                     {
-                        //CronExecutionFile itemCache = item;
-                        if (!toExecTask.ContainsKey(item.Name))
-                        {
-                            toExecTask[item.Name] = item.execute();
-                        }
+                        executing.Add(item.Name);
+                    }
 
-                    }
-                    else
+                    var q = f.Select<CronExecutionFile, Func<Task<string>>>(it => async () =>
                     {
-                        Console.WriteLine($"{item.Name} => {item.NextRunTime}");
-                        //item.reload();
-                    }
-                    if (toExecTask.Count > 0)
-                    {
-                        Console.WriteLine($" number of tasks to execute " + toExecTask.Count);
+                        Console.WriteLine($"before execute {it.Name}");
+                        await it.execute();
+                        executing.Remove(it.Name);
+                        return it.Name;
+                    }).ToArray();
+                    await Task.WhenAny(q.Select(it=>it()).ToArray());
 
-                        await Task.WhenAny(toExecTask.Values.Select(it => it).ToArray());
-                        List<string> remove = new List<string>();
-                        foreach (var fileItem in toExecTask)
-                        {
-                            //TODO: make a class to make it easy to understand this line
-                            if (fileItem.Value.IsCompleted)
-                            {
-                                Console.WriteLine($"was executed {fileItem.Key} with value {fileItem.Value.Result}");
-                                remove.Add(fileItem.Key);
-                            }
-                        }
-                        foreach (string name in remove)
-                        {
-                            toExecTask.Remove(name, out _);
-                        }
-                    }
+                    Console.WriteLine($"remains to be executed {q.Length}");
+
                 }
+
                 //TODO: make a proper log
-                Console.WriteLine($"remains to be executed {toExecTask.Count}");
-                await Task.Delay(TimeSpan.FromSeconds(10));
+                await Task.Delay(TimeSpan.FromSeconds(10), stoppingToken);
 
             }
         }
