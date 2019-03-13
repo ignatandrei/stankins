@@ -94,6 +94,7 @@ namespace Stankins.Interpreter
 
         public override Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
+            base.Clear();
             string[] lines = content.Split(Environment.NewLine);
             if(lines.Length == 1)
             {
@@ -105,6 +106,7 @@ namespace Stankins.Interpreter
             }
             foreach (string line in lines)
             {
+
                 string str = line.Trim();
                 if (string.IsNullOrWhiteSpace(str))
                 {

@@ -31,6 +31,10 @@ namespace StankinsObjects
             Types = new  List<BaseObjectData>();
             this.Name = nameof(BaseObjectInSerial);
         }
+        public void Clear()
+        {
+            this.Types.Clear();
+        }
         public void AddType(Type t, CtorDictionary data =null)
         {
              Types.Add(new BaseObjectData( t, data));

@@ -33,7 +33,7 @@ namespace StankinsDataWeb.classesToBeMoved
             while (!stoppingToken.IsCancellationRequested)
             {
                 DateTime dt = DateTime.UtcNow;
-                Console.WriteLine($"starting again at {dt}");
+                Console.WriteLine($"starting again at {dt} and remains to be executed {executing.Count}");
                 List<CronExecutionFile> f = files
                     .Where(it => it.ShouldRun(dt))
                     .Where(it => !executing.Contains(it.Name))
@@ -54,7 +54,7 @@ namespace StankinsDataWeb.classesToBeMoved
                     }).ToArray();
                     await Task.WhenAny(q.Select(it=>it()).ToArray());
 
-                    Console.WriteLine($"remains to be executed {q.Length}");
+                    Console.WriteLine($"remains to be executed {executing.Count}");
 
                 }
 

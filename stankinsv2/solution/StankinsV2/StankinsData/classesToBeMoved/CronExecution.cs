@@ -70,6 +70,7 @@ namespace StankinsDataWeb.classesToBeMoved
             {
                 if(Deleted)
                     return false;
+
                 try
                 {
                     await Recipe.TransformData(null);
