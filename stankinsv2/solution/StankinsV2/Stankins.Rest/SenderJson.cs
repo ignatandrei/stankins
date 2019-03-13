@@ -45,6 +45,7 @@ namespace Stankins.Rest
                 dt=receiveData.FindAfterName(tableName).Value;
             }
             var rows= JArray.FromObject(dt).Select(it => it.ToString(Formatting.None)).ToArray();
+            System.Console.WriteLine("NUMBER ROWS: "+rows.Length);
             SendDataWeb send =new SendDataWeb();
             foreach (string item in rows)
             {

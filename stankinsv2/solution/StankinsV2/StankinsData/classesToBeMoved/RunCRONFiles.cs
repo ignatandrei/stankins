@@ -1,10 +1,8 @@
 ﻿using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Threading.Tasks;
 using static StankinsDataWeb.classesToBeMoved.CronExecution;
@@ -18,6 +16,7 @@ namespace StankinsDataWeb.classesToBeMoved
 
         public RunCRONFiles(IHostingEnvironment hosting)
         {
+            System.Console.WriteLine("starting cron files");
             string dirPath = hosting.ContentRootPath;
             dirPath = Path.Combine(dirPath, "cronItems", "v1");
             files = Directory.GetFiles(dirPath)
@@ -29,7 +28,7 @@ namespace StankinsDataWeb.classesToBeMoved
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            var toExecTask = new Dictionary<string, Task<bool>>();
+            Dictionary<string, Task<bool>> toExecTask = new Dictionary<string, Task<bool>>();
             while (!stoppingToken.IsCancellationRequested)
             {
                 Console.WriteLine($"starting again at {DateTime.UtcNow}");
@@ -38,8 +37,9 @@ namespace StankinsDataWeb.classesToBeMoved
                     if (item.ShouldRun(DateTime.UtcNow))
                     {
                         //CronExecutionFile itemCache = item;
-                        if(!toExecTask.ContainsKey(item.Name)){
-                        toExecTask[item.Name]=item.execute();
+                        if (!toExecTask.ContainsKey(item.Name))
+                        {
+                            toExecTask[item.Name] = item.execute();
                         }
 
                     }
@@ -50,11 +50,11 @@ namespace StankinsDataWeb.classesToBeMoved
                     }
                     if (toExecTask.Count > 0)
                     {
-                         Console.WriteLine($" number of tasks to execute " + toExecTask.Count);
-                    
+                        Console.WriteLine($" number of tasks to execute " + toExecTask.Count);
+
                         await Task.WhenAny(toExecTask.Values.Select(it => it).ToArray());
                         List<string> remove = new List<string>();
-                        foreach (KeyValuePair<string, Task<bool>> fileItem in toExecTask)
+                        foreach (var fileItem in toExecTask)
                         {
                             //TODO: make a class to make it easy to understand this line
                             if (fileItem.Value.IsCompleted)
@@ -72,7 +72,7 @@ namespace StankinsDataWeb.classesToBeMoved
                 //TODO: make a proper log
                 Console.WriteLine($"remains to be executed {toExecTask.Count}");
                 await Task.Delay(TimeSpan.FromSeconds(10));
-                
+
             }
         }
     }
