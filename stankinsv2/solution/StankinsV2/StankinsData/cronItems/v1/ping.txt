@@ -1,4 +1,5 @@
 */30 * * * * *
 Stankins.Alive.ReceiverPing nameSite=www.yahoo.com
+Stankins.Alive.ReceiverPing nameSite=www.google.com
 #SenderJSONPOST adress=http://localhost:5000/api/v1.0/MyNewReceiveData
 SenderJSONPOST adress=http://localhost:5000/api/v1.0/ReceiveData

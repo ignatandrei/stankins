@@ -32,7 +32,7 @@ namespace Stankins.Alive
             if (receiveData == null)
                 receiveData = new DataToSentTable();
             var sw = Stopwatch.StartNew();
-            DataTable results = CreateTable();
+            DataTable results = CreateTable(receiveData);
             var pingSender = new Ping();
             var StartedDate = DateTime.UtcNow;
             try
@@ -45,8 +45,6 @@ namespace Stankins.Alive
             {
                 results.Rows.Add("ping", "", NameSite,false, null, sw.ElapsedMilliseconds, null, ex.Message,StartedDate);
             }
-            receiveData.AddNewTable(results);
-            receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
 
             
             return await Task.FromResult(receiveData) ;

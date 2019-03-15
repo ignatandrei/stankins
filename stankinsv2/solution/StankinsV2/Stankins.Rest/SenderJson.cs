@@ -3,6 +3,7 @@ using Newtonsoft.Json.Linq;
 using Stankins.Interfaces;
 using StankinsCommon;
 using StankinsObjects;
+using System;
 using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
@@ -49,8 +50,16 @@ namespace Stankins.Rest
             SendDataWeb send =new SendDataWeb();
             foreach (string item in rows)
             {
+                System.Console.WriteLine("!!!!!sent " + item);
+                try{
                 var res=await send.PostJSON(this.adress,item);
-                
+                }
+                catch(Exception ex)
+                {
+                    //TODO: log
+                    string s=ex.Message;
+                    System.Console.WriteLine(s);
+                }
             }
             return receiveData;
         }

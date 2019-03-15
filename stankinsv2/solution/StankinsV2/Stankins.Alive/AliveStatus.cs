@@ -15,9 +15,20 @@ namespace Stankins.Alive
         {
 
         }
-        protected DataTable CreateTable()
+
+        protected DataTable CreateTable(IDataToSent dataToSent)
         {
+
+            string nameTable = nameof(AliveStatus);
+            try{
+                return dataToSent.FindAfterName(nameTable).Value;
+            }
+            catch
+            {
+                //do nothing, create table is following
+            }
             var m = new DataTable();
+            m.TableName = nameTable;
             m.Columns.Add("Process",typeof(string));
             m.Columns.Add("Arguments", typeof(string));
             m.Columns.Add("To", typeof(string));            
@@ -27,6 +38,9 @@ namespace Stankins.Alive
             m.Columns.Add("DetailedResult", typeof(string));
             m.Columns.Add("Exception", typeof(string));
             m.Columns.Add("StartedDate", typeof(DateTime));
+            dataToSent.AddNewTable(m);
+            dataToSent.Metadata.AddTable(m, dataToSent.Metadata.Tables.Count);
+
             return m;
         }
 

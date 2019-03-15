@@ -37,7 +37,7 @@ namespace Stankins.Alive
         {
             if (receiveData == null)
                 receiveData = new DataToSentTable();
-            results = CreateTable();
+            results = CreateTable(receiveData);
             sw = Stopwatch.StartNew();
             StartedDate = DateTime.UtcNow;
             try
@@ -55,8 +55,7 @@ namespace Stankins.Alive
                 results.Rows.Add("process",Arguments, FileName + Arguments , false, ex.Message, sw.ElapsedMilliseconds, "", ex.Message, StartedDate);
             }
 
-            receiveData.AddNewTable(results);
-            receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
+          
 
             return await Task.FromResult(receiveData) ;
         }

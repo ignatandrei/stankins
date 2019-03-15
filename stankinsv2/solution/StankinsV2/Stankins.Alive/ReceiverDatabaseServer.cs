@@ -39,7 +39,7 @@ namespace Stankins.Alive
         {
             if (receiveData == null)
                 receiveData = new DataToSentTable();
-            DataTable results = CreateTable();
+            DataTable results = CreateTable(receiveData);
             var sw = Stopwatch.StartNew();
             var StartedDate = DateTime.UtcNow;
             try
@@ -59,9 +59,7 @@ namespace Stankins.Alive
             {
                 results.Rows.Add("receiverdatabaseserver", "", connectionString, false, null, sw.ElapsedMilliseconds, null, ex.Message,StartedDate);
             }
-            receiveData.AddNewTable(results);
-            receiveData.Metadata.AddTable(results, receiveData.Metadata.Tables.Count);
-
+           
             return await Task.FromResult(receiveData) ;
         }
     }
