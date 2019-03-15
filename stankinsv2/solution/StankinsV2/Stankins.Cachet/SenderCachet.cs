@@ -49,15 +49,16 @@ namespace Stankins.Cachet
             }
             return ret;
         }
-        private async Task CreateNewIncident(long componentId, string incidentName, string incidentMessage, int incidentStatus)
+        private async Task CreateNewIncident(long componentId, int componentStatus,string incidentName, string incidentMessage, int incidentStatus)
         {
             var url=urlCachet +"/api/v1/incidents";
             var obj=new{
             name = incidentName,
             message=incidentMessage,
             status =incidentStatus,
+            component_status= componentStatus,
             visible=1,
-            componentid=componentId };
+            component_id=componentId };
             var data= JsonConvert.SerializeObject(obj);
 
             using(var wc=new WebClient())
@@ -104,7 +105,8 @@ namespace Stankins.Cachet
                 var incidentName = dr["incidentName"].ToString();
                 var incidentMessage = dr["incidentMessage"].ToString();
                 var incidentStatus= int.Parse(dr["incidentStatus"].ToString());
-                await CreateNewIncident(componentId,incidentName,incidentMessage,incidentStatus);
+                var componentStatus =int.Parse(dr["componentStatus"].ToString());
+                await CreateNewIncident(componentId,componentStatus, incidentName,incidentMessage,incidentStatus);
 
 
 

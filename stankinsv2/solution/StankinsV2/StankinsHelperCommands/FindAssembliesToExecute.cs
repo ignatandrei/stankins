@@ -237,7 +237,7 @@ namespace StankinsHelperCommands
                     {
                         var innerKeyEx= tex.InnerException as KeyNotFoundException;
                         if(innerKeyEx != null){
-                            
+                            // The given key 'nameColumn' was not present in the dictionary.
                             name =innerKeyEx.Message;
                             var first=name.IndexOf("'");
                             var last= name.IndexOf("'",first+1);

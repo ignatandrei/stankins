@@ -1,11 +1,13 @@
 ﻿[{
 "component":"andrei",
+"componentStatus":1,
 "incidentName":"testIncident",
 "incidentMessage": "this is an incident",
 "incidentStatus": 2
 },
 {
 "component":"andrei",
+"componentStatus":2,
 "incidentName":"another",
 "incidentMessage": "this is another  incident",
 "incidentStatus": 3
@@ -13,6 +15,7 @@
 ,
 {
 "component":"andrei",
+"componentStatus":3,
 "incidentName":"another",
 "incidentMessage": "second time",
 "incidentStatus": 3
