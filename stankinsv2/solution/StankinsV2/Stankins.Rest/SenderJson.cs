@@ -46,11 +46,11 @@ namespace Stankins.Rest
                 dt=receiveData.FindAfterName(tableName).Value;
             }
             var rows= JArray.FromObject(dt).Select(it => it.ToString(Formatting.None)).ToArray();
-            
+            System.Console.WriteLine("!!!!!number rows " + rows.Length);
             SendDataWeb send =new SendDataWeb();
             foreach (string item in rows)
             {
-                System.Console.WriteLine("!!!!!sent " + item);
+                
                 try{
                 var res=await send.PostJSON(this.adress,item);
                 }

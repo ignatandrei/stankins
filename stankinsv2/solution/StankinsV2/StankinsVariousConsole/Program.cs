@@ -376,7 +376,7 @@ namespace StankinsVariousConsole
             data = await v.TransformData(data);
             data = await (new TransformTrim()).TransformData(data);
             data = await v.TransformData(data);
-            data = await (new FilterColumnDataGreaterThanLength("li_html", 400)).TransformData(data);
+            data = await (new FilterRemoveColumnDataGreaterThanLength("li_html", 400)).TransformData(data);
             //data = await (new TransformerAddColumnExpressionByColumn("li_html", "Len(li_html)", "liLen")).TransformData(data);
             //var csv = new SenderFileCSV(@"D:\test");
             //data = await csv.TransformData(data);

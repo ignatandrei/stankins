@@ -1,5 +1,6 @@
 */30 * * * * *
 Stankins.Alive.ReceiverPing nameSite=www.yahoo.com
 Stankins.Alive.ReceiverPing nameSite=www.google.com
+StankinsObjects.FilterRemoveColumnDataLessThan nameColumn=Duration value=20
 #SenderJSONPOST adress=http://localhost:5000/api/v1.0/MyNewReceiveData
 SenderJSONPOST adress=http://localhost:5000/api/v1.0/ReceiveData

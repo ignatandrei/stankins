@@ -77,7 +77,7 @@ namespace StankinsTestXUnit
                 $"The number of rows should be {NumberRows}".w(() =>
                     data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
                 $"And when I filter".w(async () =>
-                    data = await new FilterColumnDataGreaterThanLength("Car", 5).TransformData(data));
+                    data = await new FilterRemoveColumnDataGreaterThanLength("Car", 5).TransformData(data));
                 $"Then should be a data".w(() => data.Should().NotBeNull());
                 $"With a table".w(() =>
                 {

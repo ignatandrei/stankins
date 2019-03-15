@@ -223,15 +223,32 @@ namespace StankinsHelperCommands
                     }
                     return c;
                 }
+                
                 catch (TargetInvocationException tex)
                 {
                     int lenArgs = c.Count;
-                    ArgumentException ex = tex.InnerException as ArgumentException;
-                    if (ex == null)
+                    string name =null;
+                    var  innerArgEx = tex.InnerException as ArgumentException;
+                    if (innerArgEx != null)
+                    {
+                        name=innerArgEx.ParamName;
+                    }
+                    if(innerArgEx == null)
+                    {
+                        var innerKeyEx= tex.InnerException as KeyNotFoundException;
+                        if(innerKeyEx != null){
+                            
+                            name =innerKeyEx.Message;
+                            var first=name.IndexOf("'");
+                            var last= name.IndexOf("'",first+1);
+                            name= name.Substring(first+1,last-first-1);
+                        }
+                    }
+                    if (string.IsNullOrWhiteSpace(name))
                     {
                         throw new Exception($"for {t.Name} tex.InnerException is {tex.InnerException} ");
+                    
                     }
-                    string name = ex.ParamName;
                     if (c.ContainsKey(name))
                     {
                         throw new Exception($"type {t} has {name} twice");

@@ -22,7 +22,7 @@ namespace StankinsTestXUnit
         [Example(typeof(ReceiverCSVFile), WhatToList.Receivers)]
         [Example(typeof(SenderAllTablesToFileCSV), WhatToList.Senders)]
         [Example(typeof(TransformSplitColumn), WhatToList.Transformers)]
-        [Example(typeof(FilterColumnDataGreaterThanLength), WhatToList.Filters)]
+        [Example(typeof(FilterRemoveColumnDataGreaterThanLength), WhatToList.Filters)]
         [Example(typeof(ExportAzurePipelinesToDot),WhatToList.RecipeSimple)]
         public void TestFindEnum(Type t, WhatToList what)
         {
