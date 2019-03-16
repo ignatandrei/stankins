@@ -1,9 +1,3 @@
 FROM jenkins/jenkins:lts
-
-
-ENV JENKINS_OPTS --argumentsRealm.passwd.admin=andrei  --argumentsRealm.roles.user=admin --argumentsRealm.roles.admin=admin    
-COPY ./jenkinsjob.xml jenkinsjob.xml
-USER jenkins
-RUN java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080 create-job newmyjob < jenkinsjob.xml
-
+COPY ./jenkinsjob.xml /var/jenkins_home/jenkinsjob.xml
 EXPOSE 8080
