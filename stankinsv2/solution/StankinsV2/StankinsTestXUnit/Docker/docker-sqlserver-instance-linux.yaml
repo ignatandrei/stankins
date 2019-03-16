@@ -10,3 +10,17 @@ services:
     healthcheck:
       test: sqlcmd -S (local) -U SA -P '<YourStrong!Passw0rd>' -Q 'select 1'
 
+  cachet:
+    image: ignatandrei/ci_cachet 
+    ports:
+      - "8000:8000"
+      
+    environment:
+      APP_KEY: "base64:ybug5it9Koxwhfi5a6CORbWdpjVqXxkz/Tyj4K45GKc="
+      DEBUG: "false" 
+      DB_DRIVER: "sqlite"
+       
+    user: "1001"    
+    working_dir: "/var/www/html" 
+    entrypoint: "/sbin/entrypoint.sh"
+

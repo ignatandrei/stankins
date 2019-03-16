@@ -15,12 +15,12 @@ using Stankins.Cachet;
 
 namespace StankinsTestXUnit
 {
-    //[Trait("ReceiveRest", "")]
-    //[Trait("ExternalDependency", "Cachet")]
+    [Trait("Cachet", "")]
+    [Trait("ExternalDependency", "Cachet")]
     public class TestSenderCachet
     {
-        //[Scenario]
-        //[Example("Assets/JSON/CachetV1Simple.txt", 3)]
+        [Scenario]
+        [Example("Assets/JSON/CachetV1Simple.txt", 3)]
         public void TestSimpleJSON(string fileName,int NumberRows)
         {
             IReceive receiver = null;
@@ -41,7 +41,7 @@ namespace StankinsTestXUnit
             });
             $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
             $"and now I transform with {nameof(SenderCachet)}".w(async ()=>
-                data=await new SenderCachet("http://localhost:8000","5nHbYkbKO9UOZCV8OmJt").TransformData(data)
+                data=await new SenderCachet("http://localhost:8000","TpJGWCVZPMBCf8MfoMZf").TransformData(data)
             );
 
         } 
