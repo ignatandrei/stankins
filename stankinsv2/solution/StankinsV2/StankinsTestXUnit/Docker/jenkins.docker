@@ -1,0 +1,6 @@
+FROM jenkins/jenkins:lts
+
+
+ENV JENKINS_OPTS --argumentsRealm.passwd.admin=andrei  --argumentsRealm.roles.user=admin --argumentsRealm.roles.admin=admin    
+
+EXPOSE 8080

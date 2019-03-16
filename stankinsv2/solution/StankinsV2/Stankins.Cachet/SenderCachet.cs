@@ -38,7 +38,7 @@ namespace Stankins.Cachet
             //TODO: replace with json stankins
             //TODO: replace with another component that does better cachet
             var f=new ReadFileToString();
-            f.FileToRead=urlCachet +"/api/v1/components??per_page=1000";
+            f.FileToRead=urlCachet +"/api/v1/components?per_page=1000";
             var data=await f.LoadData();
             var token=  JToken.Parse(data);
             var comps= token["data"]as JArray;

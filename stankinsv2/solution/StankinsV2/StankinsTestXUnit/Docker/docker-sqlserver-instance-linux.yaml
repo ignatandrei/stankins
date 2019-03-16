@@ -9,7 +9,15 @@ services:
       ACCEPT_EULA: "Y"
     healthcheck:
       test: sqlcmd -S (local) -U SA -P '<YourStrong!Passw0rd>' -Q 'select 1'
-
+  jenkins:
+    image: jenkins/jenkins:lts
+    ports:
+      - "8080:8080"
+      
+    environment:
+      JENKINS_OPTS: "--argumentsRealm.passwd.admin=${PASSWORD} --argumentsRealm.roles.user=admin --argumentsRealm.roles.admin=admin"
+      JAVA_OPTS: "-Xmx4096m -Djenkins.install.runSetupWizard=false"
+      
   cachet:
     image: ignatandrei/ci_cachet 
     ports:
