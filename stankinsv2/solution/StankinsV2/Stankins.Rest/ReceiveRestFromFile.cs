@@ -6,7 +6,7 @@ namespace Stankins.Rest
 {
     public class ReceiveRestFromFile: ReceiveRest
     {
-        private string adress;
+        protected string adress;
         public ReceiveRestFromFile(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.Name = nameof(ReceiveRestFromFile);
