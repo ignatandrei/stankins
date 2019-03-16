@@ -89,6 +89,9 @@ jobs:
         docker-compose -f stankinsv2/solution/StankinsV2/StankinsTestXUnit/Docker/docker-sqlserver-instance-linux.yaml up -d   
         docker image ls
         docker container ls
+        sleep 30
+        echo 'create jenkins job'
+        docker exec docker_jenkins_1 bash -c "cat /var/jenkins_home/jenkinsjob.xml | java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080 create-job newmyjob"
         echo 'start regular test'
         
         dotnet build -c $(buildConfiguration) stankinsv2/solution/StankinsV2/StankinsV2.sln 
