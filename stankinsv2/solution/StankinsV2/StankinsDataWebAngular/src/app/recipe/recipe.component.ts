@@ -3,10 +3,10 @@ import { ActivatedRoute, Router, ParamMap } from '@angular/router';
 import { switchMap, tap, finalize } from 'rxjs/operators';
 import { Recipe } from '../Recipe';
 import { SearchRecipe, RowConfiguration } from '../recipes-list/SearchRecipe';
-import {  of, zip } from 'rxjs';
+import { of, zip } from 'rxjs';
 import { RecipesService } from '../recipes.service';
 export enum WhatToOpen {
-  None= 0,
+  None = 0,
   Definition = 1,
   Results = 2
 }
@@ -23,22 +23,22 @@ export class RecipeComponent implements OnInit {
   search: SearchRecipe;
   nr: Number;
   executed = new Map<string, [string[], RowConfiguration[]]>();
-  constructor( private route: ActivatedRoute,
+  constructor(private route: ActivatedRoute,
     private router: Router, private recipeService: RecipesService) {
-      this.search = new SearchRecipe(recipeService);
+    this.search = new SearchRecipe(recipeService);
 
-    }
+  }
 
   ngOnInit() {
 
     const self = this;
     self.whatToOpen = WhatToOpen.Definition;
     const id$ =
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) => of(params.get('id')))
-    );
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) => of(params.get('id')))
+      );
     const searchN = this.search.loadRecipes();
-    zip(id$, searchN).subscribe( val => {
+    zip(id$, searchN).subscribe(val => {
       self.selectedRecipe = this.search.SearchRecipeByName(val[0]);
       self.nr = val[1];
       if (self.selectedRecipe.arguments == null) {
@@ -56,24 +56,39 @@ export class RecipeComponent implements OnInit {
     self.executing = true;
     self.executed = new Map<string, [string[], RowConfiguration[]]>();
     self.whatToOpen = WhatToOpen.Definition;
-     this.search.execute(this.selectedRecipe)
+    this.search.execute(this.selectedRecipe)
       .pipe(
         finalize(() => {
           self.executing = false;
-          self.whatToOpen = WhatToOpen.Results;
+
         })
       )
-      .subscribe(it => {
+      //   .subscribe(
+      //     res => { console.log('HTTP response', res); } ,
+      //     err => console.log('HTTP Error', err),
+      //     () => console.log('HTTP request completed.')
+      // );
+      .subscribe(
+        it => {
 
-       // console.log('done ' + it.length );
-       if (it.length > 1) {
-        const tableName = it.shift();
-        // console.log(it.length);
-        self.executed.set(tableName, self.search.TransformToRow(it));
-        // console.table(self.executed.get(tableName)[0]);
-        // console.table(self.executed.get(tableName)[1]);
-       }
-    });
+          // console.log('done ' + it.length );
+          if (it.length > 1) {
+            const tableName = it.shift();
+            // console.log(it.length);
+            self.executed.set(tableName, self.search.TransformToRow(it));
+            // console.table(self.executed.get(tableName)[0]);
+            // console.table(self.executed.get(tableName)[1]);
+          }
+        },
+
+        err => {
+          console.log('HTTP Error', err);
+          window.alert('error -see log for more details');
+        },
+
+        () => self.whatToOpen = WhatToOpen.Results
+
+      );
 
 
   }
