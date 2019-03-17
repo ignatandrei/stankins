@@ -8,9 +8,12 @@ namespace Stankins.Razor
 {
     public class SenderSolutionToDot : SenderToRazor, ISenderToOutput
     {
-        public SenderSolutionToDot(string inputContents = null) : base(inputContents)
+        public SenderSolutionToDot(string inputTemplate = null) :this(new CtorDictionary() {
+                { nameof(InputTemplate), inputTemplate}
+
+            })
         {
-            this.Name = nameof(SenderSolutionToDot);
+           
         }
 
         public SenderSolutionToDot(CtorDictionary dataNeeded) : base(dataNeeded)

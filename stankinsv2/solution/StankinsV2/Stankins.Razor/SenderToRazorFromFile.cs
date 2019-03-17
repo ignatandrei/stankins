@@ -8,7 +8,7 @@ namespace Stankins.Razor
 
         public SenderToRazorFromFile(string nameFile) : this(new CtorDictionary()
         {
-            { "inputContents", File.ReadAllText(nameFile)}
+            { nameof(InputTemplate), File.ReadAllText(nameFile)}
 
         })
         {

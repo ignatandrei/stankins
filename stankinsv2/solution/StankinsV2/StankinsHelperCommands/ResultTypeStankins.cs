@@ -52,7 +52,7 @@ namespace StankinsHelperCommands
             int nrArgs = (ctorStrings?.Length ?? 0);
             if (nrArgs != ConstructorParam.Count())
             {
-                throw new ArgumentException($"number of args {ConstructorParam.Count} != {nrArgs}");
+                Console.WriteLine($" for {Type.Name} found number of args {ConstructorParam.Count} != {nrArgs}");
             }
             System.Collections.Generic.KeyValuePair<string, object>[] arr = ConstructorParam.ToArray();
 
@@ -80,8 +80,13 @@ namespace StankinsHelperCommands
             }
             else
             {
+                try{
                 act = Activator.CreateInstance(Type) as BaseObject;
-
+                }
+                catch (Exception)
+                {
+                    act = Activator.CreateInstance(Type, new CtorDictionary()) as BaseObject;
+                }
             }
 
             return act;

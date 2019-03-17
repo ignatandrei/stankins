@@ -17,7 +17,10 @@ namespace Stankins.AzureDevOps
         {
             this.Name = nameof(SenderYamlAzurePipelineToDot);
         }
-        public SenderYamlAzurePipelineToDot() : this(null)
+        public SenderYamlAzurePipelineToDot(string inputTemplate=null) : this(new CtorDictionary() {
+                { nameof(InputTemplate), inputTemplate}
+
+            })
         {
         }
         //StringBuilder sb;

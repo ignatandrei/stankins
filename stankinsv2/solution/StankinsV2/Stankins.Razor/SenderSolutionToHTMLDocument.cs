@@ -8,9 +8,12 @@ namespace Stankins.Razor
 {
     public class SenderSolutionToHTMLDocument : SenderToRazor, ISenderToOutput
     {
-        public SenderSolutionToHTMLDocument(string inputContents = null) : base(inputContents)
+        public SenderSolutionToHTMLDocument(string inputTemplate = null) : this(new CtorDictionary() {
+                { nameof(InputTemplate), inputTemplate}
+
+            })
         {
-            this.Name = nameof(SenderDBDiagramHTMLDocument);
+            
         }
 
         public SenderSolutionToHTMLDocument(CtorDictionary dataNeeded) : base(dataNeeded)

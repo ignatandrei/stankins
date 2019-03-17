@@ -5,7 +5,13 @@ namespace Stankins.Razor
 {
     public class SenderDBDiagramHTMLDocument : SenderToRazor, ISenderToOutput
     {
-        public SenderDBDiagramHTMLDocument(string inputContents=null) : base(inputContents)
+        public SenderDBDiagramHTMLDocument(string inputTemplate=null) : 
+            this(new CtorDictionary() {
+                { nameof(inputTemplate), inputTemplate}
+
+            }
+        )
+        
         {
             this.Name = nameof(SenderDBDiagramHTMLDocument);
         }

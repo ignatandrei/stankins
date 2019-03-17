@@ -10,7 +10,10 @@ namespace Stankins.Razor
     public class SenderDBDiagramToDot : SenderToRazor, ISenderToOutput
     {
 
-        public SenderDBDiagramToDot(string inputContents=null) : base(inputContents)
+        public SenderDBDiagramToDot(string inputTemplate=null) : this(new CtorDictionary() {
+                { nameof(InputTemplate), inputTemplate}
+
+            })
         {
             this.Name = nameof(SenderDBDiagramToDot);
         }
