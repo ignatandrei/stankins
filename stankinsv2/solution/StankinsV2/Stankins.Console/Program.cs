@@ -9,6 +9,7 @@ using StankinsHelperCommands;
 using StankinsObjects;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -72,7 +73,8 @@ namespace Stankins.Console
 
             Action<ResultTypeStankins> createItem = (t) =>
             {
-                if (commands.ContainsKey(t.Name)){
+                if (commands.ContainsKey(t.Name))
+                {
                     System.Console.WriteLine($"key exists : {t.Name}");
                 }
                 else
@@ -187,7 +189,32 @@ namespace Stankins.Console
 
             });
 
+            app.Command("files", (command) =>
+            {
+                command.Description = "Execute file ";
+                command.HelpOption("-?|-h|--help");
+                CommandOption opt = command.Option("-f", "execute file ", CommandOptionType.MultipleValue);
+                command.OnExecute(async () =>
+                {
+                    if (!opt.HasValue())
+                    {
+                        System.Console.WriteLine("please add -f fileName");
+                        return 0;
+                    }
+                    int lenValuesCount = opt.Values.Count;
+                    for (int i = 0; i < lenValuesCount; i++)
+                    {
+                        string fileName = opt.Values[i];
+                        System.Console.WriteLine($"executing {fileName}");
+                        string text = await File.ReadAllTextAsync(fileName);
+                        var r = new RecipeFromString(text);
+                        await r.TransformData(null);
+                    }
+                    return 0;
+                });
 
+
+            });
             app.Command("execute", (command) =>
                 {
                     command.Description = "Execute multiple ";
