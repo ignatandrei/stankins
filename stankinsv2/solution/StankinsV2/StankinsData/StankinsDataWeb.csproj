@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Interpreter\Stankins.Interpreter.csproj" />
+    <ProjectReference Include="..\StankinsCronFiles\StankinsCronFiles.csproj" />
     <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
   </ItemGroup>
 

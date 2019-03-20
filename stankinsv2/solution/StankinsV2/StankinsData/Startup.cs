@@ -10,8 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Polly;
-using StankinsDataWeb.classesToBeMoved;
-using static StankinsDataWeb.classesToBeMoved.CronExecution;
+using StankinsCronFiles;
 
 namespace StankinsDataWeb
 {

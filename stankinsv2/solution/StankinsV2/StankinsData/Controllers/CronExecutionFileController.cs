@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using static StankinsDataWeb.classesToBeMoved.CronExecution;
+using static StankinsCronFiles.CronExecution;
 
 namespace StankinsDataWeb.Controllers
 {

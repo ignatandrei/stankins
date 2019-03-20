@@ -1,31 +1,39 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using static StankinsDataWeb.classesToBeMoved.CronExecution;
+using Microsoft.Extensions.Hosting;
+using static StankinsCronFiles.CronExecution;
 
-namespace StankinsDataWeb.classesToBeMoved
+namespace StankinsCronFiles
 {
 
     public class RunCRONFiles : BackgroundService
     {
-        private readonly CronExecutionFile[] files;
+        private CronExecutionFile[] files;
 
         public RunCRONFiles(IHostingEnvironment hosting)
         {
             System.Console.WriteLine("starting cron files");
             string dirPath = hosting.ContentRootPath;
             dirPath = Path.Combine(dirPath, "cronItems", "v1");
-            files = Directory.GetFiles(dirPath)
+            ReadingFiles(dirPath);
+
+        }
+        public RunCRONFiles(string path)
+        {
+            ReadingFiles(path);
+        }
+        private void ReadingFiles(string dirPath)
+        {
+             files = Directory.GetFiles(dirPath)
                 //.Select(it => new { name = Path.GetFileNameWithoutExtension(it), content = File.ReadAllText(it) })
                 .Select(it => new CronExecutionFile(it))
                 .ToArray();
-
         }
-        
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             var executing = new HashSet<string>();

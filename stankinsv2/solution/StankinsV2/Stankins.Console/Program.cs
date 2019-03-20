@@ -5,6 +5,7 @@ using Stankins.Interfaces;
 using Stankins.Interpreter;
 using Stankins.SimpleRecipes;
 using StankinsCommon;
+using StankinsCronFiles;
 using StankinsHelperCommands;
 using StankinsObjects;
 using System;
@@ -13,6 +14,8 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Stankins.Console
 {
@@ -210,6 +213,34 @@ namespace Stankins.Console
                         var r = new RecipeFromString(text);
                         await r.TransformData(null);
                     }
+                    return 0;
+                });
+
+
+            });
+            app.Command("cron", (command) =>
+            {
+                command.Description = "Execute CRON file uninterrupted ";
+                command.HelpOption("-?|-h|--help");
+                CommandOption opt = command.Option("-d", "directory with cron files", CommandOptionType.SingleValue);
+                command.OnExecute(async () =>
+                {
+                    if (!opt.HasValue())
+                    {
+                        System.Console.WriteLine("please add -d directoryname");
+                        return 0;
+                    }
+                    var dir = opt.Value();
+                    var r = new RunCRONFiles(dir);
+                    var ct = new CancellationTokenSource();
+                    var token = ct.Token;
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    r.StartAsync(token);
+#pragma warning restore CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
+                    System.Console.WriteLine("press any key to shutdown");
+                    var s = System.Console.ReadKey();
+                    ct.Cancel();
+                    await Task.Delay(3000);
                     return 0;
                 });
 
