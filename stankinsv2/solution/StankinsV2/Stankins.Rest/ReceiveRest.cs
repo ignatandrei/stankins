@@ -86,7 +86,15 @@ namespace Stankins.Rest
                 foreach (KeyValuePair<string, string> item in relCols.Distinct())
                 {
                     DataColumn colRel = tables.Tables[item.Key].Columns[item.Value];
-                    tables.Relations.Add("FK_ID_" + item.Key + "_" + item.Value, ret.Columns["ID"], colRel);
+                    try
+                    {
+                        tables.Relations.Add("FK_ID_" + item.Key + "_" + item.Value, ret.Columns["ID"], colRel);
+                    }
+                    catch(Exception ex)
+                    {
+                        //TODO: find why is here an error
+                        Console.WriteLine(ex.Message);
+                    }
                 }
             }
             return tables;
