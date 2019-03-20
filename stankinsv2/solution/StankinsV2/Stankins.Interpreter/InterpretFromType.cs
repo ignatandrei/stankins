@@ -30,9 +30,9 @@ namespace Stankins.Interpreter
             for(int i = 0; i < res.Length; i++)
             {
                 string item=res[i];
-                if (res[i].Contains("\""))
+                if (res[i].Contains("\"") && (i+1<res.Length))
                 {
-                    while (!res[i+1].EndsWith("\""))
+                    while((i+1<res.Length)&& (!res[i+1].EndsWith("\"")))
                     {
                         item += ' '+res[i+1]; 
                         i++;

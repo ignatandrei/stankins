@@ -16,7 +16,7 @@ namespace StankinsTestXUnit
     {
         [Scenario]
         [Trait("ReceiveQueryFromDatabaseSql", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "select 234", 1)]
+        [Example("Server=(local);Database=msdb;User Id=SA;Password=<YourStrong!Passw0rd>;", "select 234", 1)]
         public void SelectFromDb(string connectionString, string select, int nrRows)
         {
             IReceive status = null;

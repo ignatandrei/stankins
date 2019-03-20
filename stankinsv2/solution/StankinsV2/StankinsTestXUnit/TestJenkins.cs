@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Stankins.Alive;
 using Stankins.Interfaces;
+using Stankins.Interpreter;
 using Stankins.Jenkins;
 using System;
 using System.Collections.Generic;
@@ -60,8 +61,23 @@ namespace StankinsTestXUnit
             });
 
         }
+        [Scenario]
+        [Example("http://localhost:8080")]
+        public void TestRecipeWithJenkins(string url)
+        {
+            var rec = @"Stankins.Alive.ReceiverJenkins url=""http://localhost:8080/""
+StankinsObjects.FilterTablesWithColumn namecolumntokeep=Process
+StankinsObjects.ChangeColumnName oldname=To newname=JenkinsTo
+StankinsObjects.FilterRemoveColumn namecolumn=To
+StankinsObjects.AddColumnRegex columnname=JenkinsTo expression=(?:http://)((?<Domain>.+):)
+StankinsObjects.ChangeColumnName oldname=Domain newname=To
+StankinsObjects.FilterRemoveColumnDataLessThan nameColumn=Duration value=10";
+            RecipeFromString r=null;
+            $"when I create a recipe with jenkins".w(() => r = new RecipeFromString(rec));
+            $"and I transform".w(async () => await r.TransformData(null));
 
-         [Scenario]
+        }
+        [Scenario]
         [Example("http://localhost:8080", "newmyjob",1)]
         public void TestAliveJob(string url,string job, int numberTables)
         {

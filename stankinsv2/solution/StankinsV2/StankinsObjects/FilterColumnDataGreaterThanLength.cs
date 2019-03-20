@@ -19,9 +19,9 @@ namespace StankinsObjects
         }
        
         public FilterRemoveColumnDataLessThan(CtorDictionary dataNeeded) : base(
-            new CtorDictionary(dataNeeded) {
-            { nameof(Expression), $"{dataNeeded[nameof(nameColumn)]}<{dataNeeded[nameof(value)]}"}
-            }
+            new CtorDictionary(dataNeeded).AddMyValue(
+             nameof(Expression), $"{dataNeeded[nameof(nameColumn)]}<{dataNeeded[nameof(value)]}")
+            
            )
             
         {
