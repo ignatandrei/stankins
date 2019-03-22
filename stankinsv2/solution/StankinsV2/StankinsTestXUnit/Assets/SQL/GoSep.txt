@@ -1,0 +1,5 @@
+﻿select 1
+GO
+select 2
+GO
+select 3
