@@ -2,10 +2,12 @@
 using StankinsCommon;
 using StankinsObjects;
 using System;
+using System.Diagnostics;
 using System.Linq;
 
 namespace StankinsHelperCommands
 {
+    [DebuggerDisplay("{Name}")]
     public class ResultTypeStankins
     {
         public ResultTypeStankins(Type type, CtorDictionary constructorParam)
