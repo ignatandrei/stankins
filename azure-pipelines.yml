@@ -93,7 +93,7 @@ jobs:
         echo 'create jenkins job'
         docker exec docker_jenkins_1 bash -c "cat /var/jenkins_home/jenkinsjob.xml | java -jar /var/jenkins_home/war/WEB-INF/jenkins-cli.jar -s http://localhost:8080 create-job newmyjob"
         echo 'start regular test'
-        
+        sleep 120
         dotnet build -c $(buildConfiguration) stankinsv2/solution/StankinsV2/StankinsV2.sln 
         
         dotnet test stankinsv2/solution/StankinsV2/StankinsTestXUnit/StankinsTestXUnit.csproj --logger trx  --logger "console;verbosity=normal" --collect "Code coverage"

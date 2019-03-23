@@ -9,7 +9,7 @@ using StankinsObjects;
 
 namespace Stankins.SqlServer
 {
-    public class ReceiveQueryFromFileSql : BaseObjectInSerial<ReceiverReadFileText, TransformerOneTableToMulti< ReceiveQueryFromDatabaseSql>>, IReceive
+    public class ReceiveQueryFromFileSql : BaseObjectInSerial<ReceiverReadFileText,TransformSplitColumnAddRow,  TransformerOneTableToMulti< ReceiveQueryFromDatabaseSql>>, IReceive
     {
         public ReceiveQueryFromFileSql(CtorDictionary dataNeeded) : base(dataNeeded)
         {
@@ -20,6 +20,9 @@ namespace Stankins.SqlServer
         {
             {nameof(fileName), fileName},
             {nameof(connectionString),connectionString },
+            { "nameTable", "FileContents" },
+            {"nameColumn",  "FileContents"},
+            {"separators",new string[]{"\r\nGO\r\n","\nGO\n","\r\nGO \r\n","\nGO \n" } },
             {"receiverProperty","sql" },
             {"columnNameWithData","FileContents" },
             {"connectionType",typeof(SqlConnection).AssemblyQualifiedName }

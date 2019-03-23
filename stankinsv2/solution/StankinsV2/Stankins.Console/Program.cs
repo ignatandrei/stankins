@@ -321,7 +321,8 @@ namespace Stankins.Console
                         ISenderToOutput output = last as ISenderToOutput;
                         if (output != null)
                         {
-                            System.Console.WriteLine("exporting default output");
+                            System.Console.WriteLine("exporting default output ?");
+                            //TODO: add option for this
                             SenderOutputToFolder sender = new SenderOutputToFolder("", true);
                             data = await sender.TransformData(data);
 
@@ -329,8 +330,9 @@ namespace Stankins.Console
                         else
                         {
 
-                            System.Console.WriteLine("exporting all tables to csv");
-                            await new SenderAllTablesToFileCSV("").TransformData(data);
+                            System.Console.WriteLine("exporting all tables to csv ? ");
+                            //TODO: add option for this
+                            //await new SenderAllTablesToFileCSV("").TransformData(data);
 
                         }
 

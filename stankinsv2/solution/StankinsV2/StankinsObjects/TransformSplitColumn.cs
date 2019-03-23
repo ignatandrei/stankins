@@ -13,20 +13,30 @@ namespace StankinsObjects
     {
         private readonly string nameTable;
         private readonly string nameColumn;
-        private readonly string separator;
+        private readonly string[] separators;
         public TransformSplitColumnAddRow(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.nameTable = base.GetMyDataOrThrow<string>(nameof(nameTable));
             this.nameColumn = base.GetMyDataOrThrow<string>(nameof(nameColumn));
-            this.separator = base.GetMyDataOrThrow<string>(nameof(separator));
+            this.separators = base.GetMyDataOrThrow<string[]>(nameof(separators));
             Name = nameof(TransformSplitColumn);
         }
+         public TransformSplitColumnAddRow(string nameTable, string nameColumn, string[] separators)
+            : this(new CtorDictionary()
+                  .AddMyValue(nameof(nameTable),nameTable )
+            .AddMyValue( nameof(nameColumn),nameColumn )
+            .AddMyValue( nameof(separators), separators )
 
+        )
+
+        {
+            
+        }
         public TransformSplitColumnAddRow(string nameTable, string nameColumn, string separator)
             : this(new CtorDictionary()
                   .AddMyValue(nameof(nameTable),nameTable )
             .AddMyValue( nameof(nameColumn),nameColumn )
-            .AddMyValue( nameof(separator),separator )
+            .AddMyValue( nameof(separators),new string[1] { separator })
 
         )
 
@@ -57,7 +67,7 @@ namespace StankinsObjects
                 var val = dr[nameColumn]?.ToString();
                 if ((val?.Length ?? 0) == 0)
                     continue;
-                var arr = val.Split(new string[1]{ separator},StringSplitOptions.RemoveEmptyEntries);
+                var arr = val.Split(separators,StringSplitOptions.RemoveEmptyEntries);
                 if (arr.Length == 1)
                     continue;
                 dr[nameColumn] = arr[0];
