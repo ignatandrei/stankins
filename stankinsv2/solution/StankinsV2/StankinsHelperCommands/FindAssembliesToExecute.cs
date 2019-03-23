@@ -191,7 +191,8 @@ namespace StankinsHelperCommands
             {
                 try
                 {
-                    object res = Activator.CreateInstance(t, c);
+                    var c1 = new CtorDictionary(c);
+                    object res = Activator.CreateInstance(t, c1);
                     if (c.Count() == 0)
                     {
                         //we need to add the arguments of a ctor 

@@ -30,17 +30,24 @@ namespace Stankins.Interpreter
             for(int i = 0; i < res.Length; i++)
             {
                 string item=res[i];
-                if (res[i].Contains("\"") && (i+1<res.Length))
+                if (item.Replace("\"","").Length == item.Length-2)
                 {
-                    while((i+1<res.Length)&& (!res[i+1].EndsWith("\"")))
+                    item = item.Replace("\"","");
+                }
+                else
+                {
+                    if (res[i].Contains("\"") && (i + 1 < res.Length))
                     {
-                        item += ' '+res[i+1]; 
+                        while ((i + 1 < res.Length) && (!res[i + 1].EndsWith("\"")))
+                        {
+                            item += ' ' + res[i + 1];
+                            i++;
+                        }
+                        item += res[i + 1];
                         i++;
-                    }
-                    item += res[i+1]; 
-                    i++;
-                    item=item.Replace("\"","");
+                        item = item.Replace("\"", "");
 
+                    }
                 }
                 result.Add(item);
             }

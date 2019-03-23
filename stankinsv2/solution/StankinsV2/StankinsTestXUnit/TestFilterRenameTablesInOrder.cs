@@ -36,8 +36,8 @@ namespace StankinsTestXUnit
                 data.DataToBeSentFurther.Should().NotBeNull();
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-            $"and applying {nameof(FilterRenameTablesInOrder)} with {nrStart} and {format}".w(async () =>
-                data = await new FilterRenameTablesInOrder(nrStart, format).TransformData(data));
+            $"and applying {nameof(TransformerRenameTablesInOrder)} with {nrStart} and {format}".w(async () =>
+                data = await new TransformerRenameTablesInOrder(nrStart, format).TransformData(data));
 
             $"the name of the table should be {nrStart.ToString(format)}".w(() =>
                 data.DataToBeSentFurther[0].TableName.Should().Be(nrStart.ToString(format)));
