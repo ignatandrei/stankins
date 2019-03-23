@@ -12,5 +12,6 @@ namespace Stankins.Interfaces
         int AddTable(DataTable dt, int id);
         void AssignNewId(ITable table, int newId);
         void RemoveTable(ITable table);
+        
     }
 }

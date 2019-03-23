@@ -1,8 +1,5 @@
-﻿#exchange rates nbr
-#cursuri valutare BNR
-ReceiverXML file=https://www.bnr.ro/nbrfxrates.xml xpath=//*[name()='Rate']
-TransformerXMLToColumn columnName=OuterXML xPath=//@currency newColumnName=currency
-FilterRemoveColumn nameColumn=OuterXML
-FilterRemoveColumn nameColumn=Name
-SenderOutputExcel fileName=a.xlsx
-SenderOutputToFolder folderToSave=exports addKey=false
+﻿#BrentOzar 
+ReceiveQueryFromFileSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True" fileName=https://raw.githubusercontent.com/BrentOzarULTD/SQL-Server-First-Responder-Kit/dev/Install-All-Scripts.sql 
+TransformClearTables
+#SenderOutputExcel fileName=a.xlsx
+#SenderOutputToFolder folderToSave=exports addKey=false
