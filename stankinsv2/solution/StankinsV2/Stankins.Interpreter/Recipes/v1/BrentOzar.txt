@@ -1,5 +1,0 @@
-﻿#BrentOzar 
-ReceiveQueryFromFileSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True" fileName=https://raw.githubusercontent.com/BrentOzarULTD/SQL-Server-First-Responder-Kit/dev/Install-All-Scripts.sql 
-TransformClearTables
-#SenderOutputExcel fileName=a.xlsx
-#SenderOutputToFolder folderToSave=exports addKey=false

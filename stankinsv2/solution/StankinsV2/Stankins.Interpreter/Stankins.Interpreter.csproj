@@ -5,8 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Recipes\v1\blitz.txt" />
     <None Remove="Recipes\v1\BNR.txt" />
-    <None Remove="Recipes\v1\BrentOzar.txt" />
     <None Remove="Recipes\v1\ExportAzurePipelinesToDot.txt" />
     <None Remove="Recipes\v1\ExportDBDiagramHtmlAndDot.txt" />
     <None Remove="Recipes\v1\ExportSolutionToHtmlAndDot.txt" />
@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Recipes\v1\BrentOzar.txt">
+    <Content Include="Recipes\v1\blitz.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Recipes\v1\ExportDBDiagramHtmlAndDot.txt">

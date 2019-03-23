@@ -1,0 +1,11 @@
+﻿#BrentOzar 
+ReceiveQueryFromFileSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True" fileName=https://raw.githubusercontent.com/BrentOzarULTD/SQL-Server-First-Responder-Kit/dev/Install-All-Scripts.sql 
+TransformClearTables
+ReceiveQueryFromDatabaseSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True"  sql="exec [sp_Blitz]"
+TransformerRenameLastTable newNameTable=sp_Blitz
+ReceiveQueryFromDatabaseSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True"  sql="exec [sp_BlitzIndex]"
+TransformerRenameLastTable newNameTable=sp_BlitzIndex	
+SenderAllTablesToFileCSV folderToSave=data
+SenderExcel fileName="data\brentOzar.xlsx"
+#SenderOutputExcel fileName=a.xlsx
+#SenderOutputToFolder folderToSave=exports addKey=false
