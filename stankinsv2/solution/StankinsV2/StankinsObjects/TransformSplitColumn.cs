@@ -13,16 +13,16 @@ namespace StankinsObjects
     {
         private readonly string nameTable;
         private readonly string nameColumn;
-        private readonly char separator;
+        private readonly string separator;
         public TransformSplitColumnAddRow(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             this.nameTable = base.GetMyDataOrThrow<string>(nameof(nameTable));
             this.nameColumn = base.GetMyDataOrThrow<string>(nameof(nameColumn));
-            this.separator = base.GetMyDataOrThrow<char>(nameof(separator));
+            this.separator = base.GetMyDataOrThrow<string>(nameof(separator));
             Name = nameof(TransformSplitColumn);
         }
 
-        public TransformSplitColumnAddRow(string nameTable, string nameColumn, char separator)
+        public TransformSplitColumnAddRow(string nameTable, string nameColumn, string separator)
             : this(new CtorDictionary()
                   .AddMyValue(nameof(nameTable),nameTable )
             .AddMyValue( nameof(nameColumn),nameColumn )
@@ -57,15 +57,16 @@ namespace StankinsObjects
                 var val = dr[nameColumn]?.ToString();
                 if ((val?.Length ?? 0) == 0)
                     continue;
-                var arr = val.Split(separator);
+                var arr = val.Split(new string[1]{ separator},StringSplitOptions.RemoveEmptyEntries);
                 if (arr.Length == 1)
                     continue;
                 dr[nameColumn] = arr[0];
-                
-                foreach(var item in arr)
+                // first item already put in previous line
+                for (int i = 1; i < arr.Length; i++)
                 {
+
                     var arrVal = dr.ItemArray;
-                    arrVal[pos] = item;
+                    arrVal[pos] = arr[i];
                     listNewValues.Add(arrVal);
                 }
 

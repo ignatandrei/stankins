@@ -33,6 +33,7 @@
     <None Remove="Assets\JSON\trello.txt" />
     <None Remove="Assets\JSON\trelloAlphabet.txt" />
     <None Remove="Assets\otherbooksmarks.html" />
+    <None Remove="Assets\SQL\GoSep.txt" />
     <None Remove="Assets\XML\nbrfxrates.xml" />
     <None Remove="Assets\yaml\myp.myml" />
     <None Remove="Assets\dll\Stankins.File.dll" />
@@ -63,6 +64,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\JSON\json1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\SQL\GoSep.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\XML\nbrfxrates.xml">
