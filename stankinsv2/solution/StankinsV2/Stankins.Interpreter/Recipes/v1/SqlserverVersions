@@ -1,0 +1,9 @@
+﻿#BrentOzar 
+ReceiveQueryFromFileSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True" fileName=https://raw.githubusercontent.com/BrentOzarULTD/SQL-Server-First-Responder-Kit/dev/SqlServerVersions.sql
+TransformClearTables
+ReceiveQueryFromDatabaseSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True"  sql="select * from SqlServerVersions"
+TransformerRenameLastTable newNameTable=SqlServerVersions
+#SenderAllTablesToFileCSV folderToSave=data
+#SenderExcel fileName="data\serverVersions.xlsx"
+#SenderOutputExcel fileName=a.xlsx
+#SenderOutputToFolder folderToSave=exports addKey=false
