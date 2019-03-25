@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:2.2
+ENV NODE_ROOT usr/app/
+WORKDIR $NODE_ROOT
+
+COPY solution/StankinsV2 .
+CMD tail -f /dev/null
+
+#EXPOSE 5000 
+#EXPOSE 49153
