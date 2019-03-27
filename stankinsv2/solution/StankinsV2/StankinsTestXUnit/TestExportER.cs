@@ -19,9 +19,17 @@ namespace StankinsTestXUnit
     [Trait("ExternalDependency","SqlServer")]
     public class TestExportER
     {
+        public static IEnumerable<object[]> TestExportDBDiagramHtmlAndDotData()
+        {
+
+            return new List<object[]>
+            {
+                new object[] { TestReceiveDatabasesSql.SqlConnection, "a.html" }
+            };
+        }
         [Scenario]
         [Trait("ExportDBDiagramHtmlAndDot", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "a.html")]
+        [MemberData(nameof(TestExportDBDiagramHtmlAndDotData))]
         public void TestExportDBDiagramHtmlAndDot(string connectionString, string fileName)
         {
             IBaseObject status = null;
@@ -50,7 +58,7 @@ namespace StankinsTestXUnit
         }
         [Scenario]
         [Trait("SenderToDot", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;")]
+        [MemberData(nameof(TestReceiveDatabasesSql.SqlServerConnection), MemberType = typeof(TestReceiveDatabasesSql))]
         public void SenderToDot(string connectionString)
         {
             IReceive status = null;
@@ -87,7 +95,7 @@ namespace StankinsTestXUnit
         }
         [Scenario]
         [Trait("SenderDBDiagramHTMLDocument", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;")]
+        [MemberData(nameof(TestReceiveDatabasesSql.SqlServerConnection), MemberType = typeof(TestReceiveDatabasesSql))]
         public void SenderToHTML(string connectionString)
         {
             IReceive status = null;

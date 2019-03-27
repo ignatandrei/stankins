@@ -1,5 +1,6 @@
 $watcher = New-Object System.IO.FileSystemWatcher
-$watcher.Path = "."
+$pathSolution = "solution/StankinsV2/"
+$watcher.Path = $pathSolution
 $watcher.IncludeSubdirectories = $true
 $watcher.EnableRaisingEvents = $false
 $watcher.NotifyFilter = [System.IO.NotifyFilters]::LastWrite -bor [System.IO.NotifyFilters]::FileName
@@ -9,27 +10,22 @@ while($TRUE){
 	if($result.TimedOut){
 		continue;
 	}
-	$cmd = "docker cp  solution/StankinsV2/. stankins_test_container:/usr/app/"
-    Write-Host $cmd
-    Invoke-Expression -Command $cmd
-            
-    switch($result.ChangeType){
-        Changed{
-        #TODO: see if folder or file
-            $fullName = [System.IO.Path]::Combine($watcher.Path ,$result.Name) 
-			$pathOnDocker= $result.Name.Replace("\","/").Replace("solution/StankinsV2/","")
-			$fullName = [System.IO.Path]::GetDirectoryName($fullName)
-			$pathOnDocker= [System.IO.Path]::GetDirectoryName($pathOnDocker)
-            $cmd= "docker cp $fullName stankins_test_container:/usr/app/"+$pathOnDocker
-			
-
-        }
-        default{
-        	write-host "not handled " $result.ChangeType + " Change in "  + $result.Name
-			write-host " end"
-	   }
-    }
-
-    
+	# $cmd = "docker cp " + $pathSolution + ". stankins_test_container:/usr/app/"
+    #Write-Host $cmd
 	
+    #Invoke-Expression -Command $cmd
+	
+	Write-Host " start from " $result.Name
+	
+	$relativeNameIndex = $result.Name.LastIndexOf("\")
+	$relativeName = $result.Name.substring(0,$relativeNameIndex+1)
+	$relativeName = $relativeName.replace("\","/")
+	$cmd = "docker cp " + $pathSolution + $relativeName + ". stankins_test_container:/usr/app/"+ $relativeName
+	Write-Host $cmd
+	Invoke-Expression -Command $cmd
+	#Write-Host $relativeName
+	#Write-Host $cmd
+	
+	
+    
 }

@@ -16,17 +16,39 @@ using Xunit;
 namespace StankinsTestXUnit
 {
     [Trait("ReceiveDatabasesSql", "")]
-    [Trait("ExternalDependency","SqlServer")]
+    [Trait("ExternalDependency", "SqlServer")]
     public class TestReceiveDatabasesSql
     {
+        static TestReceiveDatabasesSql()
+        {
+            SqlConnection = Environment.GetEnvironmentVariable("sqlserver");
+            if (string.IsNullOrWhiteSpace(SqlConnection))
+            {
+                SqlConnection = "(local)";
+            }
+            SqlConnection = "Server=" + SqlConnection + "; Database = master; User Id = SA; Password =<YourStrong!Passw0rd>; ";
+
+        }
+        public static string SqlConnection;
+        
+        public static IEnumerable<object[]> SqlServerConnection()
+        {
+            
+            return new List<object[]>
+            {
+                new object[] {SqlConnection}
+            };
+        }
+
         [Scenario]
-        [Example("Server=(local);Database=master;User Id=SA;Password = <YourStrong!Passw0rd>;")]
+        [MemberData(nameof(SqlServerConnection))]
         public void SenderToDot(string connectionString)
         {
             IReceive status = null;
-        
+
             IDataToSent data = null;
-            $"Assume Sql Server instance {connectionString} exists , if not see docker folder".w(() => {
+            $"Assume Sql Server instance {connectionString} exists , if not see docker folder".w(() =>
+            {
 
             });
             $"When I create the ReceiverDBServer ".w(() => status = new ReceiveDatabasesSql(connectionString));
@@ -38,7 +60,7 @@ namespace StankinsTestXUnit
             {
                 data.DataToBeSentFurther.Count.Should().Be(1);
             });
-           
+
             $"should be some content".w(() =>
             {
                 data.DataToBeSentFurther[0].Rows.Count.Should().BeGreaterOrEqualTo(4);//master,msdb,tempdb,model 

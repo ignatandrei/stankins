@@ -16,7 +16,7 @@ namespace StankinsTestXUnit
     public class TestReceiverSqlServer
     {
         [Scenario]
-        [Example("Server=(local);Database=master;User Id=SA;Password = <YourStrong!Passw0rd>;")]
+        [MemberData(nameof(TestReceiveDatabasesSql.SqlServerConnection), MemberType = typeof(TestReceiveDatabasesSql))]
         public void TestReceiverDBServer(string connectionString)
         {
             IReceive status = null;

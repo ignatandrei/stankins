@@ -8,15 +8,34 @@ using Stankins.SqlServer;
 using StankinsReceiverDB;
 using Xbehave;
 using Xunit;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StankinsTestXUnit
 {
     [Trait("ExternalDependency", "SqlServer")]
     public class TestQuerySql
     {
+        public static IEnumerable<object[]> ExportTableToExcelSqlData()
+        {
+
+            return new List<object[]>
+            {
+                new object[] { TestReceiveDatabasesSql.SqlConnection, "sys.tables", "a.xlsx" }
+            };
+        }
+        
+        public static IEnumerable<object[]> SelectFromDbData()
+        {
+
+            return new List<object[]>
+            {
+                new object[] { TestReceiveDatabasesSql.SqlConnection, "select 234", 1 }
+            };
+        }
         [Scenario]
         [Trait("ReceiveQueryFromDatabaseSql", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password=<YourStrong!Passw0rd>;", "select 234", 1)]
+        [MemberData(nameof(SelectFromDbData))]
         public void SelectFromDb(string connectionString, string select, int nrRows)
         {
             IReceive status = null;
@@ -43,7 +62,8 @@ namespace StankinsTestXUnit
         }
          [Scenario]
         [Trait("DBReceiverStatement", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "select 234", 1)]
+        //[Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "select 234", 1)]
+        [MemberData(nameof(SelectFromDbData))]
         public void SelectFromDbReceiver(string connectionString, string select, int nrRows)
         {
             IReceive status = null;
@@ -72,7 +92,8 @@ namespace StankinsTestXUnit
 
         [Scenario]
         [Trait("ExportTableToExcelSql", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "sys.tables", "a.xlsx")]
+        [MemberData(nameof(ExportTableToExcelSqlData))]
+        //[Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;", "sys.tables", "a.xlsx")]
         public void ExportTableToExcelSql(string connectionString, string tableName, string fileName)
         {
             IReceive status = null;

@@ -19,10 +19,18 @@ namespace StankinsTestXUnit
     [Trait("ExternalDependency","SqlServer")]
     public class TestReceiveQueryFromFileSql
     {
-       
+        public static IEnumerable<object[]> SelectFromDbData()
+        {
+
+            return new List<object[]>
+            {
+                new object[] { TestReceiveDatabasesSql.SqlConnection,  "select 234 as val", 1, "234" }
+            };
+        }
         [Scenario]
         [Trait("ReceiveQueryFromFileSql", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;","select 234 as val", 1, "234")]
+        [MemberData(nameof(SelectFromDbData))]
+
         public void SelectFromDb(string connectionString, string select, int nrRows, string result)
         {
             var fileName = Path.Combine(Environment.CurrentDirectory, Guid.NewGuid().ToString("N"));
@@ -51,7 +59,7 @@ namespace StankinsTestXUnit
         }
         [Scenario]
         [Trait("SenderToDot", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;")]
+        [MemberData(nameof(TestReceiveDatabasesSql.SqlServerConnection), MemberType = typeof(TestReceiveDatabasesSql))]
         public void SenderToDot(string connectionString)
         {
             IReceive status = null;
@@ -88,7 +96,7 @@ namespace StankinsTestXUnit
         }
         [Scenario]
         [Trait("SenderDBDiagramHTMLDocument", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;")]
+        [MemberData(nameof(TestReceiveDatabasesSql.SqlServerConnection), MemberType = typeof(TestReceiveDatabasesSql))]
         public void SenderToHTML(string connectionString)
         {
             IReceive status = null;

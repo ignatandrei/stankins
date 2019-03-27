@@ -14,10 +14,18 @@ namespace StankinsTestXUnit
     [Trait("ExternalDependency", "SqlServer")]
     public  class TestReceiveSqlFromFolder
     {
+        public static IEnumerable<object[]> SelectFromDbData()
+        {
+
+            return new List<object[]>
+            {
+                new object[] { TestReceiveDatabasesSql.SqlConnection, 3, 1, "select 234 as val",
+            "234", "select 1000 as val", "1000" }
+            };
+        }
         [Scenario]
         [Trait("ReceiveQueryFromFolderSql", "")]
-        [Example("Server=(local);Database=msdb;User Id=SA;Password = <YourStrong!Passw0rd>;",3, 1, "select 234 as val",
-            "234", "select 1000 as val", "1000")]
+        [MemberData(nameof(SelectFromDbData))]
         public void SelectFromDb(string connectionString,int nrTables, int nrRows, string select1, string val1, string select2,
             string val2)
         {
