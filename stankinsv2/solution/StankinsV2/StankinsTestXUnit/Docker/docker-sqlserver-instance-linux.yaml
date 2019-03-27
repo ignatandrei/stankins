@@ -22,6 +22,8 @@ services:
       dockerfile: jenkins.docker
     ports:
       - "8080:8080"
+    
+    restart: always
       
     environment:
       JENKINS_OPTS: "--argumentsRealm.passwd.admin=andrei --argumentsRealm.roles.user=admin --argumentsRealm.roles.admin=admin"
