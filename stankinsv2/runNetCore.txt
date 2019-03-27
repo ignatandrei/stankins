@@ -1,0 +1,7 @@
+FROM mcr.microsoft.com/dotnet/core/sdk
+ENV NODE_ROOT usr/app/
+WORKDIR $NODE_ROOT
+CMD tail -f /dev/null
+
+EXPOSE 5000 
+#EXPOSE 49153

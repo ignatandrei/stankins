@@ -111,13 +111,13 @@ namespace Stankins.Cachet
 
 
             }
-            return receiveData;
+            return await Task.FromResult(receiveData);
 
         }
 
        
 
-        public override async Task<IMetadata> TryLoadMetadata()
+        public override Task<IMetadata> TryLoadMetadata()
         {
             throw new NotImplementedException();
         }

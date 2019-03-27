@@ -48,7 +48,7 @@ namespace StankinsDataWeb
             services.AddSwaggerDocument(c=>
             {
                 c.Title = "Stankins Data Web";
-                c.Description=" A generic ETL site; see https://github.com/ignatandrei/stankins";
+               c.Description=" A generic ETssL site; see https://github.com/ignatandrei/stankins";
                 
             });
             services.AddScoped<IAsyncPolicy>((s)=> Define());

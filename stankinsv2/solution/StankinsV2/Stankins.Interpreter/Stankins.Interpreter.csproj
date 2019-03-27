@@ -11,10 +11,14 @@
     <None Remove="Recipes\v1\ExportDBDiagramHtmlAndDot.txt" />
     <None Remove="Recipes\v1\ExportSolutionToHtmlAndDot.txt" />
     <None Remove="Recipes\v1\ExportTableToExcelSql.txt" />
+    <None Remove="Recipes\v1\PacktFreeBooks.txt" />
      <None Remove="Recipes\v1\SqlserverVersions.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Recipes\v1\PacktFreeBooks.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recipes\v1\blitz.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

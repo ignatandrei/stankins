@@ -1,0 +1,5 @@
+﻿ReceiverHtmlSelector file="https://www.packtpub.com/packt/offers/free-learning" xpathexpression=//a[contains(@title,'ree')]
+TransformerHTMLAttribute columnname=item_html attributename=title newcolumnname=title
+TransformerHTMLAttribute columnname=item_html attributename=href newcolumnname=href
+FilterRemoveColumn nameColumn=item_html
+FilterRemoveColumn nameColumn=item
