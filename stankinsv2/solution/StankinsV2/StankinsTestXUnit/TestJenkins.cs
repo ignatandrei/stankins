@@ -15,8 +15,27 @@ namespace StankinsTestXUnit
     [Trait("ExternalDependency", "Jenkins")]
     public class TestJenkins
     {
+        static TestJenkins()
+        {
+            JenkinsConnection = Environment.GetEnvironmentVariable("jenkins");
+            if (string.IsNullOrWhiteSpace(JenkinsConnection))
+            {
+                JenkinsConnection = "localhost";
+            }
+            JenkinsConnection = "http://"+ JenkinsConnection+":8080";
+
+        }
+        public static IEnumerable<object[]> TestSimpleJSONData()
+        {
+
+            return new List<object[]>
+            {
+                new object[] { JenkinsConnection ,1 }
+            };
+        }
+        public static string JenkinsConnection;
         [Scenario]
-        [Example("http://localhost:8080", 3)]
+        [MemberData(nameof(TestSimpleJSONData))]
         public void TestSimpleJSON(string url, int numberTables)
         {
             IReceive receiver = null;
@@ -35,8 +54,17 @@ namespace StankinsTestXUnit
 
         }
 
+        public static IEnumerable<object[]> TestAliveData()
+        {
+
+            return new List<object[]>
+            {
+                new object[] { JenkinsConnection ,3 }
+            };
+        }
+        
         [Scenario]
-        [Example("http://localhost:8080", 1)]
+        [MemberData(nameof(TestAliveData))]
         public void TestAlive(string url, int numberTables)
         {
             IReceive receiver = null;
@@ -61,11 +89,20 @@ namespace StankinsTestXUnit
             });
 
         }
-        [Scenario]
-        [Example("http://localhost:8080")]
-        public void TestRecipeWithJenkins(string url)
+        public static IEnumerable<object[]> TestRecipeWithJenkinsDataData()
         {
-            var rec = @"Stankins.Alive.ReceiverJenkins url=""http://localhost:8080/""
+
+            return new List<object[]>
+            {
+                new object[] { JenkinsConnection }
+            };
+        }
+        
+        [Scenario]
+        [MemberData(nameof(TestRecipeWithJenkinsDataData))]
+        public void TestRecipeWithJenkinsData(string url)
+        {
+            var rec = @"Stankins.Alive.ReceiverJenkins url=""" + TestJenkins.JenkinsConnection + @"""
 StankinsObjects.FilterTablesWithColumn namecolumntokeep=Process
 StankinsObjects.ChangeColumnName oldname=To newname=JenkinsTo
 StankinsObjects.FilterRemoveColumn namecolumn=To
@@ -77,8 +114,16 @@ StankinsObjects.FilterRemoveColumnDataLessThan nameColumn=Duration value=10";
             $"and I transform".w(async () => await r.TransformData(null));
 
         }
+        public static IEnumerable<object[]> TestLastBuildJobData()
+        {
+
+            return new List<object[]>
+            {
+                new object[] { JenkinsConnection, "newmyjob", 1 }
+            };
+        }
         [Scenario]
-        [Example("http://localhost:8080", "newmyjob",1)]
+        [MemberData(nameof(TestLastBuildJobData))]
         public void TestLastBuildJob(string url,string job, int numberTables)
         {
 
@@ -109,9 +154,16 @@ StankinsObjects.FilterRemoveColumnDataLessThan nameColumn=Duration value=10";
 
         }
 
+        public static IEnumerable<object[]> TestAliveJobData()
+        {
 
+            return new List<object[]>
+            {
+                new object[] { JenkinsConnection, "newmyjob", 1 }
+            };
+        }
         [Scenario]
-        [Example("http://localhost:8080", "newmyjob",1)]
+        [MemberData(nameof(TestAliveJobData))]        
         public void TestAliveJob(string url,string job, int numberTables)
         {
 

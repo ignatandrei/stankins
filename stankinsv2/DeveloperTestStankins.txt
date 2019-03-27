@@ -2,6 +2,8 @@ FROM mcr.microsoft.com/dotnet/core/sdk:2.2
 ENV NODE_ROOT usr/app/
 WORKDIR $NODE_ROOT
 ENV sqlserver=db
+ENV jenkins=jenkins
+ENV cachet=cachet
 COPY solution/StankinsV2 .
 #CMD tail -f /dev/null
 CMD dotnet watch   -p StankinsTestXUnit/StankinsTestXUnit.csproj test -c release -v n

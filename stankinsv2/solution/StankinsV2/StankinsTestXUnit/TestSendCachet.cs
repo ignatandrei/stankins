@@ -23,6 +23,13 @@ namespace StankinsTestXUnit
         [Example("Assets/JSON/CachetV1Simple.txt", 3)]
         public void TestSimpleJSON(string fileName,int NumberRows)
         {
+            string urlCachet = Environment.GetEnvironmentVariable("cachet");
+            if (string.IsNullOrWhiteSpace(urlCachet))
+            {
+                urlCachet = "localhost";
+            }
+            urlCachet = "http://" + urlCachet + ":8000";
+
             IReceive receiver = null;
            
             IDataToSent data=null;
@@ -41,7 +48,7 @@ namespace StankinsTestXUnit
             });
             $"The number of rows should be {NumberRows}".w(() => data.DataToBeSentFurther[0].Rows.Count.Should().Be(NumberRows));
             $"and now I transform with {nameof(SenderCachet)}".w(async ()=>
-                data=await new SenderCachet("http://localhost:8000","5DiHQgKbsJqck4TWhMVO").TransformData(data)
+                data=await new SenderCachet(urlCachet, "5DiHQgKbsJqck4TWhMVO").TransformData(data)
             );
 
         } 
