@@ -14,8 +14,17 @@ namespace StankinsTestXUnit
     [Trait("ExternalDependency", "0")]
     public class FilterRemoveColumnTest
     {
+        public static IEnumerable<object[]> DataTestSimpleCSV =>
+        new List<object[]>
+        {
+            new object[] {
+                "Car, Year{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003{NewLine}Mercedes, 2003",
+                //(Environment.GetEnvironmentVariable("D")==null)? 3:2,
+                2,
+                1 },
+        };
         [Scenario]
-        [Example("Car, Year{NewLine}Ford, 2000{NewLine}Rolls Royce, 2003{NewLine}Mercedes, 2003", 2,1)]
+        [MemberData(nameof(DataTestSimpleCSV))]
         public void TestSimpleCSV(string fileContents, int NumberColumns, int NumberColumnsAfterFilter)
         {
             IReceive receiver = null;
