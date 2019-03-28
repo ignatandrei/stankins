@@ -1,0 +1,9 @@
+FROM node
+ENV NODE_ROOT usr/app/
+RUN npm install -g @angular/cli
+RUN mkdir -p $NODE_ROOT
+WORKDIR $NODE_ROOT
+CMD tail -f /dev/null
+EXPOSE 4200 
+EXPOSE 49153
+EXPOSE 9876
