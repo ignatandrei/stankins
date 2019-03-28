@@ -7,8 +7,7 @@ using StankinsObjects;
 namespace Stankins.Interpreter
 {
     public interface IInterpreter:IValidatableObject
-    {
-        
+    {        
         bool CanInterpretString(string data);
         ResultTypeStankins ObjectType { get; }
         

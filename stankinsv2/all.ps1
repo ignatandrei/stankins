@@ -1,7 +1,7 @@
 $watcher = New-Object System.IO.FileSystemWatcher
 $pathSolution = "solution/StankinsV2/"
 $watcher.Path = $pathSolution
-#$watcher.Filter = "*.cs"
+#$watcher.Filter = "*.cs*"
 $watcher.IncludeSubdirectories = $true
 $watcher.EnableRaisingEvents = $false
 $watcher.NotifyFilter = [System.IO.NotifyFilters]::LastWrite -bor [System.IO.NotifyFilters]::FileName

@@ -48,7 +48,7 @@ namespace StankinsCommon
         {
             if (this.ContainsKey(key))
             {
-                Console.WriteLine($"key exists {key} with {val}");
+                //TODO : put in some warning table Console.WriteLine($"key exists {key} with {val}");
                 this.Remove(key);
             }
             this.Add(key,val);

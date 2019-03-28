@@ -10,11 +10,12 @@ using Xunit;
 namespace StankinsTestXUnit
 {
     [Trait("RecipeFromString", "")]
-    [Trait("ExternalDependency", "0")]
+    
     public class TestRecipeFromString
     {
         [Scenario]
         [Example("Assets/XML/nbrfxrates.xml", 32)]
+        [Trait("ExternalDependency", "0")]
         public void SimpleXMLFromString(string fileName, int NumberRows)
         {
             string s = $"ReceiverXML file={fileName} xpath=//*[name()='Rate']";
@@ -40,6 +41,7 @@ namespace StankinsTestXUnit
         }
         [Scenario]
         [Example("Assets/XML/nbrfxrates.xml", 32, "currency", "Value", "4.7383")]
+        [Trait("ExternalDependency", "0")]
         public void ObtainExchangeRates(string fileName, int NumberRows, string currencyName, string ValueName, string valueEur)
         {
             string s = $"ReceiverXML file={fileName} xpath=//*[name()='Rate']";
@@ -90,6 +92,8 @@ namespace StankinsTestXUnit
         }
         [Scenario]
         [Example("BNR")]
+        [Example("ChuckNorris")]        
+        [Trait("ExternalDependency", "Internet")]
         public void TestRecipeFind(string nameRecipe)
         {
             $"trying to find {nameRecipe}".w(() =>
@@ -98,7 +102,7 @@ namespace StankinsTestXUnit
                 r.Should().NotBeNull();
             });
         }
-
+        
 
     }
 }
