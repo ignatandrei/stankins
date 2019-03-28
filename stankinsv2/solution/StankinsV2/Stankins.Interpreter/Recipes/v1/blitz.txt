@@ -1,4 +1,4 @@
-﻿#BrentOzar 
+﻿#BrentOzar sqlblitz
 ReceiveQueryFromFileSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True" fileName=https://raw.githubusercontent.com/BrentOzarULTD/SQL-Server-First-Responder-Kit/dev/Install-All-Scripts.sql 
 TransformClearTables
 ReceiveQueryFromDatabaseSql connectionString="Server=.;Database=TestDB;Trusted_Connection=True"  sql="exec [sp_Blitz]"

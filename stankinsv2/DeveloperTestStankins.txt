@@ -6,6 +6,6 @@ ENV jenkins=jenkins
 ENV cachet=cachet
 COPY solution/StankinsV2 .
 #CMD tail -f /dev/null
-CMD dotnet watch   -p StankinsTestXUnit/StankinsTestXUnit.csproj test -c release -v n
+CMD dotnet watch   -p StankinsTestXUnit/StankinsTestXUnit.csproj test -c release -v m
 #EXPOSE 5000 
 #EXPOSE 49153

@@ -1,0 +1,2 @@
+﻿#chuck norris jokes
+Stankins.Rest.ReceiveRestFromFile adress=http://api.icndb.com/jokes/random/10
