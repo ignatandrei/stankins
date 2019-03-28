@@ -53,7 +53,7 @@ namespace Stankins.Process
         }
         void Process_Exited(object sender, EventArgs e)
         {
-            Console.WriteLine(string.Format("process exited with code {0}\n", process.ExitCode.ToString()));
+            //Console.WriteLine(string.Format("process exited with code {0}\n", process.ExitCode.ToString()));
         }
 
         void Process_ErrorDataReceived(object sender, dia.DataReceivedEventArgs e)

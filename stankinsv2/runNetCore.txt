@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk
 ENV NODE_ROOT usr/app/
+ENV ASPNETCORE_URLS=http://0.0.0.0:5000
 WORKDIR $NODE_ROOT
 CMD tail -f /dev/null
 

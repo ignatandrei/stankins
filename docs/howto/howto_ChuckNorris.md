@@ -1,0 +1,1 @@
+For ChuckNorris see please see https://azurestankins.azurewebsites.net/recipe/ChuckNorris

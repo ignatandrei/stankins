@@ -46,7 +46,7 @@ namespace Stankins.Alive
                 process = new ProcessIntercept(FileName, Arguments);
                 process.OutputDataReceived += new dia.DataReceivedEventHandler(Process_OutputDataReceived);
                 process.ErrorDataReceived += new dia.DataReceivedEventHandler(Process_ErrorDataReceived);
-                process.Exited += new System.EventHandler(Process_Exited);
+                //process.Exited += new System.EventHandler(Process_Exited);
                 process.StartProcessAndWait();
 
             }
@@ -74,9 +74,6 @@ namespace Stankins.Alive
 
             results.Rows.Add("process", Arguments, FileName + Arguments, true, e.Data, sw.ElapsedMilliseconds, e.Data, null, StartedDate);
         }
-        void Process_Exited(object sender, EventArgs e)
-        {
-            Console.WriteLine(string.Format("process exited with code {0}\n", process.ExitCode.ToString()));
-        }
+        
     }
 }

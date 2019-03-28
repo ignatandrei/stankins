@@ -13,7 +13,7 @@ namespace StankinsDataWeb.Controllers
     public class ReceiveDataController : ControllerBase
     {
         [HttpPost]
-        public async Task<bool> ReceiveData(dynamic data)
+        public bool ReceiveData(dynamic data)
         {
             System.Console.WriteLine("receiving at "+ DateTime.Now.ToString("yyyyMMddHHmmss.fff"));
             var str=Convert.ToString(data);

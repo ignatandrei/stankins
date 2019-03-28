@@ -42,7 +42,7 @@ namespace StankinsCommon
         }
         public CtorDictionary(IDictionary<string,object> data):base(data)
         {
-
+             
         }
         public CtorDictionary  AddMyValue(string key, object val)
         {
