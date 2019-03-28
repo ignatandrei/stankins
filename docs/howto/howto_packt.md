@@ -1,0 +1,1 @@
+For Packt free books please see https://azurestankins.azurewebsites.net/recipe/PacktFreeBooks
