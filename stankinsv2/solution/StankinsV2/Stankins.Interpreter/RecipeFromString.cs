@@ -7,9 +7,34 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
-
+using Stankins.FileOps;
 namespace Stankins.Interpreter
 {
+    public class RecipeFromFilePath : BaseObjectInSerial<ReceiverReadFileText,  TransformerOneTableToMulti<RecipeFromString>>, IReceive
+    {
+        private readonly string fileName;
+        public RecipeFromFilePath(CtorDictionary dataNeeded) : base(dataNeeded
+            .AddMyValue("nameTable", "FileContents")
+            .AddMyValue("nameColumn", "FileContents")            
+            .AddMyValue("receiverProperty", "content")
+            .AddMyValue("columnNameWithData", "FileContents")            
+            )
+        {
+            Name = nameof(RecipeFromFilePath);
+            this.fileName = GetMyDataOrThrow<string>(nameof(fileName));
+            
+        }
+
+        public RecipeFromFilePath(string fileName) : this(new CtorDictionary()
+        {
+            {nameof(fileName), fileName},
+            
+
+        })
+        {
+
+        }
+    }
     public class RecipeFromString : BaseObjectInSerial, IReceive
     {
         private static readonly object lockMe = new object();
