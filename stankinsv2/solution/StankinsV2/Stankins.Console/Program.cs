@@ -120,9 +120,9 @@ namespace Stankins.Console
             //        return 0;
             //    });
 
-            //});  
+            //}); 
             app.Command("recipes", (command) =>
-            {
+            { 
                 command.Description = "execute/list recipes already in system";
                 CommandOption list = command.Option("-l|--list", "list recipes", CommandOptionType.NoValue);
                 CommandOption execute = command.Option("-e|--execute", "execute recipe", CommandOptionType.SingleValue);
