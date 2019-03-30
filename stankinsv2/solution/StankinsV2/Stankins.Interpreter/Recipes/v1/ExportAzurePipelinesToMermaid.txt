@@ -1,0 +1,5 @@
+﻿#azure pipelines to html
+YamlReader fileNameYaml=https://raw.githubusercontent.com/ignatandrei/stankins/master/azure-pipelines.yml 
+SenderYamlAzurePipelineMermaid
+TransformerConcatenateOutputString newTotalNameOutput=mermaid.html
+SenderOutputToFolder folderToSave=exports addKey=false

@@ -53,7 +53,7 @@ namespace Stankins.Console
         {
             foreach (ResultTypeStankins it in b)
             {
-                Type t = it.Type;
+                Type t = it.Type; 
                 System.Console.WriteLine("");
                 System.Console.Write($"stankins.console execute -o {t.Name}");
 
@@ -108,7 +108,7 @@ namespace Stankins.Console
             //app.Command("list", (command) =>
             //{
             //    command.Description = "List all supported objects";
-            //    command.HelpOption("-?|-h|--help");
+            //    command.HelpOption("-?|- h|--help");
 
 
             //    command.OnExecute(() =>
@@ -120,7 +120,7 @@ namespace Stankins.Console
             //        return 0;
             //    });
 
-            //});
+            //});  
             app.Command("recipes", (command) =>
             {
                 command.Description = "execute/list recipes already in system";

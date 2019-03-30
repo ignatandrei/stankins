@@ -21,7 +21,7 @@ namespace Stankins.Interpreter
             Recipe recipe = RecipesFromFolder().FirstOrDefault(it=>find(it,name));
             if (recipe == null)
             {
-                recipe= recipesFromBaseObjects.FirstOrDefault(it=>find(it,name));
+                recipe= RecipesFromBaseObjects().FirstOrDefault(it=>find(it,name));
                 if (recipe == null)
                 {
             

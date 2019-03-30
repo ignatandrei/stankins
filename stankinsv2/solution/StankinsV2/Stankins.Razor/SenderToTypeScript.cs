@@ -24,7 +24,7 @@ namespace Stankins.Razor
 
         public SenderToTypeScript(CtorDictionary dataNeeded) : base(dataNeeded)
         {
-            this.Name = nameof(SenderTrelloTo);
+            this.Name = nameof(SenderToTypeScript);
             
         }
 

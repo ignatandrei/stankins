@@ -14,6 +14,7 @@
     <None Remove="SenderToTypeScript.cshtml" />
     <None Remove="SenderTrelloToJson.cshtml" />
     <None Remove="SenderTrelloToMarkdown.cshtml" />
+    <None Remove="SenderYamlAzurePipelineMermaid.cshtml" />
     <None Remove="SenderYamlAzurePipelineToDot.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -27,6 +28,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SenderTrelloToMarkdown.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SenderYamlAzurePipelineMermaid.cshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SenderYamlAzurePipelineToDot.cshtml">

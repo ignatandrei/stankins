@@ -11,16 +11,20 @@ while($TRUE){
 	if($result.TimedOut){
 		continue;
 	}
-	# $cmd = "docker cp " + $pathSolution + ". stankins_test_container:/usr/app/"
-    #Write-Host $cmd
-	
+	#$cmd = " To reset"
+	#$cmd = "docker exec stankins_test_container:/usr/app/ rm -R /usr/app/"
+	#Write-Host $cmd
+	#$cmd = "docker cp " + $pathSolution + ". stankins_test_container:/usr/app/"
+	#Write-Host $cmd
     #Invoke-Expression -Command $cmd
 	 switch($result.ChangeType){
         Deleted{
 			Write-Host " not handling delete for " $result.Name
+			
 		}
 		Renamed{
 			Write-Host " not handling rename for  " $result.Name
+			
 		}
 		default{
 			
@@ -36,7 +40,8 @@ while($TRUE){
 				Write-Host " start from " $result.Name 
 				Write-Host $i
 				$cmd = "docker cp " + $pathSolution + $relativeName + ". stankins_test_container:/usr/app/"+ $relativeName
-				Write-Host $cmd
+				$date = Get-Date -format "yyyyMMdd:HHmmss"
+				Write-Host $date $cmd
 				Invoke-Expression -Command $cmd
 				
 		}
