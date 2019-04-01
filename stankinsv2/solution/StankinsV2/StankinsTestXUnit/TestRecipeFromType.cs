@@ -45,7 +45,7 @@ namespace StankinsTestXUnit
             ResultTypeStankins[] rs=null;
             RecipeFromType[] rec=null;
             $"when finding all references".w(()=>{
-            rs=FindAssembliesToExecute.AddReferences();
+            rs=FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath)));
 
                 });
             $"then it should construct RecipeFromType".w(() =>

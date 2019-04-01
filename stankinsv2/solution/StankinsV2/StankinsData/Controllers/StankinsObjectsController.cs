@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Stankins.Interpreter;
 using StankinsHelperCommands;
 
 namespace StankinsDataWeb.Controllers
@@ -16,14 +17,14 @@ namespace StankinsDataWeb.Controllers
         [HttpGet]
         public ActionResult<ResultTypeStankins[]> Get()
         {
-            return FindAssembliesToExecute.AddReferences();
+            return FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath)));
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
         public ActionResult<ResultTypeStankins> Get(string id)
         {
-            var ret=  FindAssembliesToExecute.AddReferences().FirstOrDefault(it=>string.Equals(it.Name,id));
+            var ret=  FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath))).FirstOrDefault(it=>string.Equals(it.Name,id));
             if(ret == null)
             {
                 return NotFound("could not find " + id);

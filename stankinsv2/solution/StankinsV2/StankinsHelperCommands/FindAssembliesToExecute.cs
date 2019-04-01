@@ -30,7 +30,7 @@ namespace StankinsHelperCommands
 
         private static ResultTypeStankins[] refs;
         private static readonly object lockObj = new object();
-        public static ResultTypeStankins[] AddReferences()
+        public static ResultTypeStankins[] AddReferences(ResultTypeStankins moreResult)
         {
             if (refs != null)
             {
@@ -45,7 +45,8 @@ namespace StankinsHelperCommands
                 }
 
                 var allTypes = new List<ResultTypeStankins>();
-
+                if (moreResult != null)
+                    allTypes.Add(moreResult);
                 
                 FindAssembliesToExecute f = null;
                 
@@ -129,8 +130,21 @@ namespace StankinsHelperCommands
         private readonly Assembly a;
 
         public FindAssembliesToExecute(Assembly a)
-        {
+        { 
             this.a = a;
+        }
+        public ResultTypeStankins FromType(Type type)
+        {
+            CtorDictionary ctor = TryToConstruct(type);
+            if (ctor == null)
+            {
+                return null;
+            }
+
+
+
+            return (new ResultTypeStankins(type, ctor));
+
         }
         public ResultTypeStankins[] FindTypes()
         {
@@ -139,15 +153,11 @@ namespace StankinsHelperCommands
 
             foreach (Type type in types)
             {
-                CtorDictionary ctor = TryToConstruct(type);
-                if (ctor == null)
-                {
+                var f = FromType(type);
+                if (f == null)
                     continue;
-                }
 
-
-
-                ret.Add(new ResultTypeStankins(type, ctor));
+                ret.Add(f);
 
             }
             return ret.ToArray();

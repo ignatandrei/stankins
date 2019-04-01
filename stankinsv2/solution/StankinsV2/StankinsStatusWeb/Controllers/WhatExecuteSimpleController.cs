@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Stankins.Interpreter;
 using StankinsHelperCommands;
 
 namespace StankinsAliveMonitor.Controllers
@@ -24,7 +25,7 @@ namespace StankinsAliveMonitor.Controllers
                     if (results != null)
                         return results;
 
-                    results = FindAssembliesToExecute.AddReferences();
+                    results = FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath)));
                 }
             }
             

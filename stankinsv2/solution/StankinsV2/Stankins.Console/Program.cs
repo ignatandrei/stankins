@@ -70,7 +70,7 @@ namespace Stankins.Console
         private static void Main(string[] args)
         {
 
-            ResultTypeStankins[] refs = FindAssembliesToExecute.AddReferences();
+            ResultTypeStankins[] refs = FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath)));
 
             CtorDictionaryGeneric<ResultTypeStankins> commands = new CtorDictionaryGeneric<ResultTypeStankins>();
 

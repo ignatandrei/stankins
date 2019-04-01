@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
+using Stankins.Interpreter;
 using StankinsCommon;
 using StankinsHelperCommands;
 using System;
@@ -58,7 +59,7 @@ namespace StankinsDataWeb
             MetadataReference NetStandard = MetadataReference.CreateFromFile(Assembly.Load("netstandard").Location);
             refs.Add(NetStandard);
             refs.Add(MetadataReference.CreateFromFile(typeof(object).GetTypeInfo().Assembly.Location) ); 
-            var refs1= FindAssembliesToExecute.AddReferences()
+            var refs1= FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath)))
                 .Select(it=>it.Type.Assembly.Location)
                 .Distinct()
                 .Select(it=>MetadataReference.CreateFromFile(it));

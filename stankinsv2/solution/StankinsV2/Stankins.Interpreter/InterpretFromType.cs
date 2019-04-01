@@ -55,7 +55,7 @@ namespace Stankins.Interpreter
         }
         public bool CanInterpretString(string data)
         {
-            var all = FindAssembliesToExecute.AddReferences();
+            var all = FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath)));
             var instr = SplitString(data);
             var name = instr[0];
             ObjectType = all.FirstOrDefault(it => 

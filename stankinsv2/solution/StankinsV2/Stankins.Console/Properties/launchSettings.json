@@ -2,7 +2,7 @@
   "profiles": {
     "Stankins.Console": {
       "commandName": "Project",
-      "commandLineArgs": "recipes -e BrentOzar"
+      "commandLineArgs": "execute -o RecipeFromFilePath -a andrei.txt"
     }
   }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using FluentAssertions;
 using Stankins.AzureDevOps;
 using Stankins.FileOps;
+using Stankins.Interpreter;
 using Stankins.SimpleRecipes;
 using StankinsHelperCommands;
 using StankinsObjects;
@@ -63,8 +64,8 @@ namespace StankinsTestXUnit
             ResultTypeStankins[] r = null;
             $"when find types in the assembly ".w(() =>
             {
-                r = FindAssembliesToExecute.AddReferences();
-            });
+                r = FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath)));
+            }); 
             $"can find data".w(() =>
             {
                 r.Should().NotBeNull();

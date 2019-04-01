@@ -70,7 +70,7 @@ namespace Stankins.Interpreter
                 {
                     return recipesFromBaseObjects;
                 }
-                recipesFromBaseObjects = FindAssembliesToExecute.AddReferences().Select(it => new RecipeFromType(it)).ToArray();
+                recipesFromBaseObjects = FindAssembliesToExecute.AddReferences(new FindAssembliesToExecute(null).FromType(typeof(RecipeFromFilePath))).Select(it => new RecipeFromType(it)).ToArray();
                 return recipesFromBaseObjects;
             }
         }

@@ -22,6 +22,8 @@ namespace StankinsObjects
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             var data = new DataToSentTable();
+            if (receiveData == null)
+                return null;
             var tablesMetadata = receiveData.Metadata.Tables.Select(it => it.Name).ToList();
             if(tablesMetadata.Count != receiveData.DataToBeSentFurther.Count)
             {
