@@ -91,15 +91,30 @@ namespace StankinsObjects
                         };
                         dataTable.Value.Columns.Add(dc);
                         var idTable = receiveData.AddNewTable(dataTable.Value);
+                        
                         var meta = dataToBeSent.Metadata.Tables.FirstOrDefault(it => it.Id == dataTable.Key);
-                        meta.Name = dataTable.Value.TableName;
-                        meta.Id = idTable;
-                        receiveData.Metadata.Tables.Add(meta);
-                        foreach (var c in dataToBeSent.Metadata.Columns)
+                        //TODO: make a metadata table constructor
+                        var newMeta = new Table();
+                        newMeta.Name = dataTable.Value.TableName;
+                        newMeta.Id = idTable;
+                        
+                        receiveData.Metadata.Tables.Add(newMeta);
+                        var cols = dataToBeSent.Metadata.Columns.Where(it => it.IDTable == dataTable.Key);
+                        foreach(var c in cols)
                         {
-                            c.IDTable = idTable;
-                            receiveData.Metadata.Columns.Add(c);
+                            //TODO: copy constructor for column
+                            var newC = new Column();
+                            newC.IDTable = idTable;
+                            newC.Name = c.Name;
+                            
+                            receiveData.Metadata.Columns.Add(newC);
                         }
+                        //foreach (var c in dataToBeSent.Metadata.Columns)
+                        //{
+                        //    c.IDTable = idTable;
+                        //    receiveData.Metadata.Columns.Add(c);
+                        //}
+
                         receiveData.Metadata.Columns.Add(new Column()
                         {
                             Name = column.Name + "_origin",

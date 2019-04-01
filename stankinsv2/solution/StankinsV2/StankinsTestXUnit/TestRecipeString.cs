@@ -133,7 +133,7 @@ namespace StankinsTestXUnit
 
             $"and the data should contain for EUR {nameof(valueEur)}".w(() =>
             {
-                DataView dv = new DataView(data.DataToBeSentFurther[0])
+                DataView dv = new DataView(data.DataToBeSentFurther[1])
                 {
                     RowFilter = $"{currencyName}='EUR'"
                 };
