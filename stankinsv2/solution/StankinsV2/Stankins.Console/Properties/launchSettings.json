@@ -2,7 +2,7 @@
   "profiles": {
     "Stankins.Console": {
       "commandName": "Project",
-      "commandLineArgs": "execute -o RecipeFromFilePath -a andrei.txt"
+      "commandLineArgs": "execute -o YamlReader -a https://raw.githubusercontent.com/ignatandrei/netCoreAlphabet/master/azure-pipelines.yml -o SenderYamlAzurePipelineMermaid -a \"\" -o TransformerConcatenateOutputString -a mermaid.html -o SenderOutputToFolder -a data -a false"
     }
   }
 }
