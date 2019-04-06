@@ -5,9 +5,42 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace StankinsObjects 
+namespace StankinsObjects
 {
-    //TODO: make remove more columns at once
+    public class FilterRemoveColumns : BaseObject, IFilter
+    {
+        public string NameColumns { get; }
+        public string Separator { get; set; }
+        public FilterRemoveColumns(string nameColumns, string separator) : this(new CtorDictionary() {
+            { nameof(nameColumns), nameColumns },
+            {nameof(separator),separator }
+            }
+        )
+        {
+
+        }
+        public FilterRemoveColumns(CtorDictionary dataNeeded) : base(dataNeeded)
+        {
+            this.NameColumns = base.GetMyDataOrThrow<string>(nameof(NameColumns));
+            this.Separator = base.GetMyDataOrThrow<string>(nameof(Separator));
+            this.Name = nameof(FilterRemoveColumns);
+        }
+        public async override Task<IDataToSent> TransformData(IDataToSent receiveData)
+        {
+            var cols = NameColumns.Split(new string[] { Separator },StringSplitOptions.RemoveEmptyEntries);
+            foreach(var item in cols)
+            {
+                receiveData = await new FilterRemoveColumn(item).TransformData(receiveData);
+            }
+            return receiveData;
+        }
+        public override Task<IMetadata> TryLoadMetadata()
+        {
+            throw new NotImplementedException();
+        }
+
+    }
+    
     public class FilterRemoveColumn : BaseObject, IFilter
     {
         public string NameColumn { get; }
@@ -40,7 +73,7 @@ namespace StankinsObjects
                 cols.RemoveAt(i);
 
             }
-            return await Task.FromResult(receiveData) ;
+            return await Task.FromResult(receiveData);
 
 
         }
