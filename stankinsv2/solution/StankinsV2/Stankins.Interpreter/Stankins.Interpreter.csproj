@@ -14,10 +14,14 @@
     <None Remove="Recipes\v1\ExportSolutionToHtmlAndDot.txt" />
     <None Remove="Recipes\v1\ExportTableToExcelSql.txt" />
     <None Remove="Recipes\v1\PacktFreeBooks.txt" />
-     <None Remove="Recipes\v1\SqlserverVersions.txt" />
+    <None Remove="Recipes\v1\SqlserverVersions.txt" />
+    <None Remove="Recipes\v1\youtubeplaylist.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Recipes\v1\youtubeplaylist.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Recipes\v1\ChuckNorris.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
