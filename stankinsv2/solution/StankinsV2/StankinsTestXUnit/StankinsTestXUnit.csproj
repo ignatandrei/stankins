@@ -33,6 +33,7 @@
     <None Remove="Assets\JSON\trello.txt" />
     <None Remove="Assets\JSON\trelloAlphabet.txt" />
     <None Remove="Assets\otherbooksmarks.html" />
+    <None Remove="Assets\recipes\youtubeplaylist.txt" />
     <None Remove="Assets\SQL\GoSep.txt" />
     <None Remove="Assets\XML\nbrfxrates.xml" />
     <None Remove="Assets\yaml\myp.myml" />
@@ -134,5 +135,10 @@
     <ProjectReference Include="..\Stankins.SqlServer\Stankins.SqlServer.csproj" />
     <ProjectReference Include="..\Stankins.Trello\Stankins.Trello.csproj" />
     <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\recipes\youtubeplaylist.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </Project>

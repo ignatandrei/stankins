@@ -1,0 +1,2 @@
+﻿Stankins.HTML.ReceiverHtmlAHref file=https://www.youtube.com/playlist?list=PL4aSKgR4yk4OnmJW6PlBuDOXdYk6zTGps
+StankinsObjects.FilterRetainColumnDataContains namecolumn=href stringToHave=PL4aSKgR4yk4OnmJW6PlBuDOXdYk6zTGps
