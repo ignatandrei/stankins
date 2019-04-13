@@ -1,10 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
-using StankinsCommon;
-
+﻿using StankinsCommon;
 namespace StankinsObjects
 {
     public class FilterRetainColumnDataContains: FilterColumnData
-    {
+    { 
         private readonly string nameColumn;
         private readonly string stringToHave;
 
@@ -13,7 +11,7 @@ namespace StankinsObjects
             { nameof(stringToHave), stringToHave }
             }
           )
-        {
+        { 
             this.nameColumn = nameColumn;
             this.stringToHave = stringToHave;
             

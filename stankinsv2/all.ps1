@@ -29,21 +29,34 @@ while($TRUE){
 		default{
 			
 			
-			$relativeNameIndex = $result.Name.LastIndexOf("\")
-			$relativeName = $result.Name.substring(0,$relativeNameIndex+1)
-			$relativeName = $relativeName.replace("\","/")
-			$i = $relativeName.LastIndexOf("/bin/") + $relativeName.LastIndexOf("/debug/") + $relativeName.LastIndexOf("/obj/")
-			if($i -gt 0){
-				continue;
-			}	
+			$fullName = [System.IO.Path]::Combine($watcher.Path ,$result.Name)          
 			
-				Write-Host " start from " $result.Name 
-				Write-Host $i
-				$cmd = "docker cp " + $pathSolution + $relativeName + ". stankins_test_container:/usr/app/"+ $relativeName
-				$date = Get-Date -format "yyyyMMdd:HHmmss"
-				Write-Host $date $cmd
-				Invoke-Expression -Command $cmd
+			$doNotCopy = $result.Name.Contains(".vs") -Or $result.Name.Contains("/obj/")
+			$doNotCopy = $doNotCopy -Or $result.Name.Contains("/bin/")
+			if($doNotCopy){
+				#Write-Host " except " +  $result.Name
+				continue;
+			}
+			Write-Host "sleep"
+			Start-Sleep 1
+			$exists = Test-Path -Path $fullName -PathType Any
+			$containerPath = $result.Name.Replace("\","/")
+			Write-Host " exists : " $exists
+			if(-Not $exists){
+				$fullName = Split-Path -parent $fullName 
+				$containerPath = Split-Path -parent $containerPath
 				
+			}
+			
+			$isFolder= (Get-Item  $fullName ) -is [System.IO.DirectoryInfo]
+			if($isFolder){
+				$fullName= $fullName + "/." #https://docs.docker.com/engine/reference/commandline/cp/
+			}
+            $cmd= "docker cp $fullName stankins_test_container:/usr/app/"+$containerPath.Replace("\","/")
+            $date = Get-Date -format "yyyyMMdd:HHmmss"
+			Write-Host $date $cmd
+            Invoke-Expression -Command $cmd
+						
 		}
 	}
 	#Write-Host $relativeName
