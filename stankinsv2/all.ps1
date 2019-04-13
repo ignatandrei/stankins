@@ -11,24 +11,12 @@ while($TRUE){
 	if($result.TimedOut){
 		continue;
 	}
-	#$cmd = " To reset"
-	#$cmd = "docker exec stankins_test_container:/usr/app/ rm -R /usr/app/"
-	#Write-Host $cmd
-	#$cmd = "docker cp " + $pathSolution + ". stankins_test_container:/usr/app/"
-	#Write-Host $cmd
-    #Invoke-Expression -Command $cmd
-	 switch($result.ChangeType){
-        Deleted{
-			Write-Host " not handling delete for " $result.Name
-			
-		}
-		Renamed{
-			Write-Host " not handling rename for  " $result.Name
-			
-		}
-		default{
-			
-			
+	$res=$result.ChangeType.ToString().ToLower();
+	
+	 switch($res){
+		
+		{($_.Contains("change")  -or $_.Contains("create") )}{
+        
 			$fullName = [System.IO.Path]::Combine($watcher.Path ,$result.Name)          
 			
 			$doNotCopy = $result.Name.Contains(".vs") -Or $result.Name.Contains("/obj/")
@@ -56,9 +44,14 @@ while($TRUE){
             $date = Get-Date -format "yyyyMMdd:HHmmss"
 			Write-Host $date $cmd
             Invoke-Expression -Command $cmd
-						
-		}
-	}
+            
+
+        }
+        default{
+        	write-host "not handled " $result.ChangeType + " Change in "  + $result.Name
+        }
+    }
+
 	#Write-Host $relativeName
 	#Write-Host $cmd
 	
