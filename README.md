@@ -1,4 +1,11 @@
 # stankins
+## Version 2 
+
+# Continous Integration / Deploy
+
+[![Continous Delivery](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master)](https://dev.azure.com/ignatandrei0674/stankinsv2/_build/latest?definitionId=1?branchName=master)  [![codecov](https://codecov.io/gh/ignatandrei/stankins/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/stankins) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ignatandrei_stankins&metric=alert_status)](https://sonarcloud.io/dashboard?id=ignatandrei_stankins)  <img src='https://img.shields.io/azure-devops/tests/ignatandrei0674/stankinsv2/1.svg'></a>[![CodeCoverage, Sonar, Tests](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master&jobName=FullTestOnLinux&label=FullTest)](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master&jobName=FullTestOnLinux&label=FullTest)
+![Docker](https://img.shields.io/docker/pulls/ignatandrei/stankins_linux.svg?maxAge=604800) [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/ignatandrei/stankins)
+![](https://img.shields.io/github/last-commit/ignatandrei/stankins.svg?style=flat)
 
 Stankins want to be the general data query / transformation / export tool. 
 
@@ -19,13 +26,6 @@ You can with Stankins:
 - and many, many more. It will have already predefined way to do stuff , but you can define your own
 
 
-## Version 2 
-
-# Continous Integration / Deploy
-
-[![Continous Delivery](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master)](https://dev.azure.com/ignatandrei0674/stankinsv2/_build/latest?definitionId=1?branchName=master)  [![codecov](https://codecov.io/gh/ignatandrei/stankins/branch/master/graph/badge.svg)](https://codecov.io/gh/ignatandrei/stankins) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=ignatandrei_stankins&metric=alert_status)](https://sonarcloud.io/dashboard?id=ignatandrei_stankins)  <img src='https://img.shields.io/azure-devops/tests/ignatandrei0674/stankinsv2/1.svg'></a>[![CodeCoverage, Sonar, Tests](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master&jobName=FullTestOnLinux&label=FullTest)](https://dev.azure.com/ignatandrei0674/stankinsv2/_apis/build/status/ignatandrei.stankins?branchName=master&jobName=FullTestOnLinux&label=FullTest)
-![Docker](https://img.shields.io/docker/pulls/ignatandrei/stankins_linux.svg?maxAge=604800) [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/ignatandrei/stankins)
-![](https://img.shields.io/github/last-commit/ignatandrei/stankins.svg?style=flat)
 
 
 # Demo
