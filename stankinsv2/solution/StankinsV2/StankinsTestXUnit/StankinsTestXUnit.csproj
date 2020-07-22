@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <PreserveCompilationContext>true</PreserveCompilationContext>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <IsPackable>false</IsPackable>
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
@@ -23,6 +23,7 @@
     <None Remove="Assets\bg.html" />
     <None Remove="Assets\bookmarks_11_17_17.html" />
     <None Remove="Assets\bookmarks_11_17_17N.html" />
+    <None Remove="Assets\Excel\ProgrammingTools2018.xlsx" />
     <None Remove="Assets\HTML\AmazonCopyStackOverflow.html" />
     <None Remove="Assets\JSON\CachetV1Simple.txt" />
     <None Remove="Assets\JSON\json1.txt" />
@@ -40,6 +41,9 @@
     <None Remove="Assets\dll\Stankins.File.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Excel\ProgrammingTools2018.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\HTML\AmazonCopyStackOverflow.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -124,6 +128,7 @@
     <ProjectReference Include="..\Stankins.AnalyzeSolution\Stankins.AnalyzeSolution.csproj" />
     <ProjectReference Include="..\Stankins.AzureDevOps\Stankins.AzureDevOps.csproj" />
     <ProjectReference Include="..\Stankins.Cachet\Stankins.Cachet.csproj" />
+    <ProjectReference Include="..\Stankins.Excel\Stankins.Excel.csproj" />
     <ProjectReference Include="..\Stankins.File\Stankins.FileOps.csproj" />
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />
     <ProjectReference Include="..\Stankins.Interpreter\Stankins.Interpreter.csproj" />

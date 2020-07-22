@@ -12,9 +12,9 @@ variables:
     month: $(Date:MM)
     day: $(Date:dd)
     uk: $(Date:yyyyMMdd)
-    deployWindows: 1
-    deployLinux: 1
-    startDeploy : 1
+    deployWindows: 0
+    deployLinux: 0
+    startDeploy : 0
     numberBuilds: $[counter('versioncounter', 466)]
     messagePush: $(Build.SourceVersionMessage)
 

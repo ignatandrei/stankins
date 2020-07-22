@@ -41,7 +41,9 @@ namespace StankinsReceiverDB
                 await cn.OpenAsync();
                 using (var cmd = cn.CreateCommand())
                 {
+#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
                     cmd.CommandText = stmtSql;
+#pragma warning restore CA2100 // Review SQL queries for security vulnerabilities
                     cmd.CommandType = CommandType.Text;
                     using (var ir = await cmd.ExecuteReaderAsync())
                     {
@@ -68,7 +70,9 @@ namespace StankinsReceiverDB
                 await cn.OpenAsync();
                 using (var cmd = cn.CreateCommand())
                 {
+#pragma warning disable CA2100 // Review SQL queries for security vulnerabilities
                     cmd.CommandText = stmtSql;
+#pragma warning restore CA2100 // Review SQL queries for security vulnerabilities
                     cmd.CommandType = CommandType.Text;
                     using (var ir = await cmd.ExecuteReaderAsync())
                     {
