@@ -35,9 +35,9 @@ namespace StankinsTestXUnit
                 firstTable.Rows.Count.Should().Be(8);
 
                 firstTable.Rows[0].ItemArray[0].Should().Be("Browsers");
-                firstTable.Rows[0].ItemArray[7].Should().Be("1");
+                firstTable.Rows[0].ItemArray[7].Should().Be(1);
                 firstTable.Rows[7].ItemArray[0].Should().Be("Communications");
-                firstTable.Rows[7].ItemArray[7].Should().Be("5");
+                firstTable.Rows[7].ItemArray[7].Should().Be(5);
 
             });
 

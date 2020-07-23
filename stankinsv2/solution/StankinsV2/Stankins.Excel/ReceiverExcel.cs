@@ -56,20 +56,68 @@ namespace Stankins.Excel
                 sheetsTable.Add(dtSheet);
                 dtSheet.TableName = sheet.SheetName;
                 var lastRow = sheet.LastRowNum+1;
-                
+                if (lastRow < 1)
+                    continue;
+
                 //header
-                var row = sheet.GetRow(0);
-
-                foreach(var item in row.Cells)
+                var rowHeader = sheet.GetRow(0);
+                if (lastRow == 1)
                 {
-                    dtSheet.Columns.Add(item.StringCellValue, typeof(string));
+                    //just the header, no data
+                    foreach (var item in rowHeader.Cells)
+                    {
+                        dtSheet.Columns.Add(item.StringCellValue, typeof(string));
 
+                    }
+
+                }
+                else//it has another row, let's see
+                {
+                    var secondRow = sheet.GetRow(1);
+                    var maxCels = secondRow.LastCellNum;
+                    for(var i = 0; i < maxCels; i++)
+                    {
+                        var cell = secondRow.GetCell(i);
+                        switch (cell.CellType)
+                        {
+                            case CellType.Blank:
+                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
+                                break;
+                            case CellType.Boolean:
+                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(Boolean));
+                                break;
+                            case CellType.Error:
+                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
+                                break;
+                            case CellType.Formula:
+                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
+                                break;
+                            case CellType.Numeric:
+                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(decimal));
+
+                                break;
+                            case CellType.String:
+                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
+
+                                break;
+                            case CellType.Unknown:
+                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
+
+                                break;
+
+                        }
+                    }
+                    while (dtSheet.Columns.Count < rowHeader.LastCellNum)
+                    {
+                        dtSheet.Columns.Add(rowHeader.GetCell(dtSheet.Columns.Count).StringCellValue, typeof(string));
+
+                    }
                 }
 
                 for (int iRow = 1; iRow < lastRow; iRow++)
                 {
-                    row = sheet.GetRow(iRow);
-                    var values = row.Cells.Select(it => it.ToString()).ToList();
+                    rowHeader = sheet.GetRow(iRow);
+                    var values = rowHeader.Cells.Select(it => it.ToString()).ToList();
                     var cellMissed = dtSheet.Columns.Count - values.Count();
                     if (cellMissed>0)
                     {
