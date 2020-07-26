@@ -23,6 +23,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using YamlDotNet.RepresentationModel;
 using Stankins.Razor;
+using Stankins.Excel;
 
 namespace StankinsVariousConsole
 {
@@ -71,8 +72,10 @@ namespace StankinsVariousConsole
         }
         static async Task<bool> GenerateApp()
         {
+            var recExcel = new ReceiverExcel(@"TestExportExcel.xlsx");
+            var data = await recExcel.TransformData(null);
             var rec = new ReceiverFilesInFolder(@"C:\Users\Surface1\source\repos\TestWebAPI","*.*",SearchOption.AllDirectories);
-            var data = await rec.TransformData(null);
+            data = await rec.TransformData(data);
             var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName", new CtorDictionary());
             data = await t.TransformData(data);
             //SenderToRazorFromFile

@@ -49,7 +49,9 @@ namespace Stankins.Razor
             var engine = new RazorLightEngineBuilder()
                 .UseMemoryCachingProvider()
                 .Build();
+
             var key = Guid.NewGuid().ToString();
+
             var found = await engine.CompileRenderAsync<IDataToSent>(key, InputTemplate, receiveData);
 
             base.CreateOutputIfNotExists(receiveData);
