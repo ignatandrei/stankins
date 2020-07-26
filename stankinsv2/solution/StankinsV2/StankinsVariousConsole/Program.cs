@@ -73,10 +73,12 @@ namespace StankinsVariousConsole
         static async Task<bool> GenerateApp()
         {
             var recExcel = new ReceiverExcel(@"TestExportExcel.xlsx");
+            
             var data = await recExcel.TransformData(null);
+            var nameTable = data.Metadata.Tables.First().Name;
             var rec = new ReceiverFilesInFolder(@"C:\Users\Surface1\source\repos\TestWebAPI","*.*",SearchOption.AllDirectories);
             data = await rec.TransformData(data);
-            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName", new CtorDictionary());
+            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName",nameTable, new CtorDictionary());
             data = await t.TransformData(data);
             //SenderToRazorFromFile
             return true;

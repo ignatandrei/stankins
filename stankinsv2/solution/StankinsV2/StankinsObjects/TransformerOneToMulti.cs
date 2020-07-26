@@ -16,11 +16,12 @@ namespace StankinsObjects
         
         private readonly string ReceiverProperty;
         protected readonly string ColumnNameWithData;
-        
+        protected readonly string TableWithModel;
         public TransformerOneTableToMulti(CtorDictionary data):base(data)
         {
             ReceiverProperty = GetMyDataOrThrow<string>(nameof(ReceiverProperty));
             ColumnNameWithData = GetMyDataOrThrow<string>(nameof(ColumnNameWithData));
+            TableWithModel = GetMyDataOrDefault<string>(nameof(TableWithModel),null);
 
         }
         public TransformerOneTableToMulti(string receiverProperty, string columnNameWithData , CtorDictionary dataNeeded):
@@ -33,7 +34,20 @@ namespace StankinsObjects
             
             
         }
-        
+        public TransformerOneTableToMulti(string receiverProperty,
+            string columnNameWithData, 
+            string tableWithModel,
+            CtorDictionary dataNeeded) :
+            this(new CtorDictionary(dataNeeded)
+            {
+                { nameof(receiverProperty),receiverProperty },
+                {nameof(columnNameWithData),columnNameWithData },
+                {nameof(tableWithModel),tableWithModel }
+            })
+        {
+
+
+        }
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             string colName = ColumnNameWithData;
@@ -65,6 +79,14 @@ namespace StankinsObjects
 
             }
             var table = receiveData.DataToBeSentFurther[column.IDTable];
+
+            DataTable model = null;
+            if (!string.IsNullOrWhiteSpace(this.TableWithModel))
+            {
+                var tableModel = receiveData.Metadata.Tables.FirstOrDefault(it => it.Name == TableWithModel);
+                if(tableModel != null)
+                model = receiveData.DataToBeSentFurther[tableModel.Id];
+            }
             //TODO: verify null
             foreach (DataRow item in table.Rows)
             {
@@ -79,9 +101,30 @@ namespace StankinsObjects
                     var r = Activator.CreateInstance(typeof(T), d) as BaseObject;
                     r.Name = data.ToString();
                     //TODO : load this async all
-                    var dataToBeSent = await r.TransformData(null);
+                    DataToSentTable modelData = null;
+                    int? idExistingTable = null;
+                    if (model != null)
+                    {
+                        modelData = new DataToSentTable();
+                        idExistingTable =modelData.AddNewTable(model);
+                        modelData.Metadata.AddTable(model, idExistingTable.Value);
+                        await v.TransformData(modelData);
+
+                    }
+                    
+                    var dataToBeSent = await r.TransformData(modelData);
+                    
                     //TODO : remove from release builds
                     await v.TransformData(dataToBeSent);
+                    if (model != null)
+                    {
+                        var iTable = dataToBeSent.Metadata.Tables.First(it => it.Id == idExistingTable.Value);
+                        dataToBeSent.Metadata.RemoveTable(iTable);
+                        dataToBeSent.DataToBeSentFurther.Remove(idExistingTable.Value);
+
+                    }
+                    await v.TransformData(dataToBeSent);
+
                     foreach (var dataTable in dataToBeSent.DataToBeSentFurther)
                     {
                         dataTable.Value.TableName += data.ToString();
