@@ -68,8 +68,18 @@ namespace StankinsVariousConsole
 
 
         }
+        static async Task<bool> GenerateApp()
+        {
+            var rec = new ReceiverFilesInFolder(@"C:\Users\Surface1\source\repos\TestWebAPI","*.*",SearchOption.AllDirectories);
+            var data = await rec.TransformData(null);
+
+            //SenderToRazorFromFile
+            return true;
+        }
         static async Task Main(string[] args)
         {
+            await GenerateApp();
+            return;
             string json = @"[{""Name"":""AAA"",""Age"":""22"",""Job"":""PPP""},"
                                 + @"{""Name"":""BBB"",""Age"":""25"",""Job"":""QQQ""},"
                                 + @"{""Name"":""CCC"",""Age"":""38"",""Job"":""RRR""}]";

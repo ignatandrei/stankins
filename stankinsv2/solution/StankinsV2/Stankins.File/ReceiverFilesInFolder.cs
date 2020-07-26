@@ -18,13 +18,25 @@ namespace Stankins.FileOps
             this.Name = nameof(ReceiverFilesInFolder);
             PathFolder = GetMyDataOrThrow<string>(nameof(PathFolder));
             Filter = GetMyDataOrDefault<string>(nameof(Filter), "*.*");
-
+            SearchOption = GetMyDataOrThrow<SearchOption>(nameof(SearchOption));
 
         }
         public ReceiverFilesInFolder(string pathFolder, string filter) : this(new CtorDictionary()
             {
                 {nameof(pathFolder),pathFolder},
                 {nameof(filter),filter},
+                {nameof(SearchOption),SearchOption.TopDirectoryOnly }
+
+            })
+        {
+            Filter = filter;
+        }
+
+        public ReceiverFilesInFolder(string pathFolder, string filter, SearchOption searchOption) : this(new CtorDictionary()
+            {
+                {nameof(pathFolder),pathFolder},
+                {nameof(filter),filter},
+            {nameof(searchOption),searchOption }
 
             })
         {
@@ -34,6 +46,7 @@ namespace Stankins.FileOps
         public string PathFolder { get; }
         public string Filter { get; }
 
+        public SearchOption SearchOption;
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
             if(receiveData == null)
@@ -44,7 +57,7 @@ namespace Stankins.FileOps
             };
             dt.Columns.Add(new DataColumn("FileName", typeof(string)));
             dt.Columns.Add(new DataColumn("FullFileName", typeof(string)));
-            foreach (var item in Directory.GetFiles(PathFolder, Filter, SearchOption.TopDirectoryOnly))
+            foreach (var item in Directory.GetFiles(PathFolder, Filter, this.SearchOption))
             {
                 dt.Rows.Add(new[] { Path.GetFileName(item), item });
             }
