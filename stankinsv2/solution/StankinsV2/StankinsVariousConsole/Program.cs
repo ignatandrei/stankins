@@ -90,10 +90,16 @@ namespace StankinsVariousConsole
             data = await one.TransformData(data);
             //Transformer
             //var outFile = new SenderOutputToFolder(@"C:\test\", false);
-            Console.WriteLine("after one table:"+data.DataToBeSentFurther.Count);
+            Console.WriteLine("after one table string:"+data.DataToBeSentFurther.Count);
+
+            one = new TransformerToOneTable("it=>it.StartsWith(\"OutputByte\")");
+            data = await one.TransformData(data);
+            Console.WriteLine("after one table byte:" + data.DataToBeSentFurther.Count);
+
             //SenderOutputToFolder
             //await outFile.TransformData(data);
             //SenderToRazorFromFile
+            var x = data.DataToBeSentFurther;
             return true;
         }
         static async Task Main(string[] args)
