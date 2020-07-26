@@ -75,13 +75,22 @@ namespace StankinsVariousConsole
             var recExcel = new ReceiverExcel(@"TestExportExcel.xlsx");
             
             var data = await recExcel.TransformData(null);
-            var nameTable = data.Metadata.Tables.First().Name;
+            Console.WriteLine("in excel:"+data.DataToBeSentFurther.Count);
+
+            var tableData = data.Metadata.Tables.First();
             var rec = new ReceiverFilesInFolder(@"C:\Users\Surface1\source\repos\TestWebAPI","*.*",SearchOption.AllDirectories);
             data = await rec.TransformData(data);
-            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName",nameTable, new CtorDictionary());
+            Console.WriteLine("after files:"+data.DataToBeSentFurther.Count);
+
+            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName",tableData.Name, new CtorDictionary());
             data = await t.TransformData(data);
+            Console.WriteLine("after razor:"+data.DataToBeSentFurther.Count);
+
+            var one = new TransformerToOneTable("it=>it.StartsWith(\"OutputString\")");
+            data = await one.TransformData(data);
+            //Transformer
             //var outFile = new SenderOutputToFolder(@"C:\test\", false);
-            Console.WriteLine(data.DataToBeSentFurther.Count);
+            Console.WriteLine("after one table:"+data.DataToBeSentFurther.Count);
             //SenderOutputToFolder
             //await outFile.TransformData(data);
             //SenderToRazorFromFile
