@@ -80,6 +80,10 @@ namespace StankinsVariousConsole
             data = await rec.TransformData(data);
             var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName",nameTable, new CtorDictionary());
             data = await t.TransformData(data);
+            //var outFile = new SenderOutputToFolder(@"C:\test\", false);
+            Console.WriteLine(data.DataToBeSentFurther.Count);
+            //SenderOutputToFolder
+            //await outFile.TransformData(data);
             //SenderToRazorFromFile
             return true;
         }
