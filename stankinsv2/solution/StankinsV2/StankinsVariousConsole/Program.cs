@@ -22,6 +22,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using YamlDotNet.RepresentationModel;
+using Stankins.Razor;
 
 namespace StankinsVariousConsole
 {
@@ -72,7 +73,8 @@ namespace StankinsVariousConsole
         {
             var rec = new ReceiverFilesInFolder(@"C:\Users\Surface1\source\repos\TestWebAPI","*.*",SearchOption.AllDirectories);
             var data = await rec.TransformData(null);
-
+            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName", new CtorDictionary());
+            data = await t.TransformData(data);
             //SenderToRazorFromFile
             return true;
         }

@@ -44,6 +44,8 @@ namespace Stankins.Razor
         public abstract string DefaultText();
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
+            //receiveData =receiveData?? new DataToSentTable();
+
             var engine = new RazorLightEngineBuilder()
                 .UseMemoryCachingProvider()
                 .Build();
