@@ -72,13 +72,16 @@ namespace StankinsVariousConsole
         }
         static async Task<bool> GenerateApp()
         {
+            var templateFolder = @"C:\Users\Surface1\source\repos\TestWebAPI";
+            var lenTemplateFolder = templateFolder.Length;
+            var outputFolder = @"C:\test";
             var recExcel = new ReceiverExcel(@"TestExportExcel.xlsx");
             
             var data = await recExcel.TransformData(null);
             Console.WriteLine("in excel:"+data.DataToBeSentFurther.Count);
 
             var tableData = data.Metadata.Tables.First();
-            var rec = new ReceiverFilesInFolder(@"C:\Users\Surface1\source\repos\TestWebAPI","*.*",SearchOption.AllDirectories);
+            var rec = new ReceiverFilesInFolder(templateFolder,"*.*",SearchOption.AllDirectories);
             data = await rec.TransformData(data);
             Console.WriteLine("after files:"+data.DataToBeSentFurther.Count);
 
@@ -97,8 +100,9 @@ namespace StankinsVariousConsole
             Console.WriteLine("after one table byte:" + data.DataToBeSentFurther.Count);
 
             //SenderOutputToFolder
-            //await outFile.TransformData(data);
-            //SenderToRazorFromFile
+            //TransformerUpdateColumn
+            var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
+            data = await up.TransformData(data);
             var x = data.DataToBeSentFurther;
             return true;
         }
