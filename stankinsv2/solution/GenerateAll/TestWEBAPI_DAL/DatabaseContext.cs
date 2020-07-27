@@ -32,6 +32,11 @@ namespace TestWEBAPI_DAL
             {
                 //entity.Property(e => e.Name).IsUnicode(false);
             });
+            
+            modelBuilder.Entity<Post>().HasData(
+                new { BlogId = 1, PostId = 2, Title = "Second post", Content = "Test 2" });
+
+
             OnModelCreatingPartial(modelBuilder);
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
