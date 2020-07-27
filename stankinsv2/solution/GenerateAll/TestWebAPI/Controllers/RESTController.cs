@@ -21,7 +21,7 @@ namespace TestWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class @(dt.TableName)Controller : ControllerBase
+    public class @(dt.TableName)RESTController : ControllerBase
     {
         private readonly IRepository<@(dt.TableName)> _repository;
 
