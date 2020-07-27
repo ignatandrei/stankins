@@ -23,7 +23,7 @@ namespace TestWebAPI_DAL
         {
             this.databaseContext = databaseContext;
         }
-        public Task<@(dt.TableName)[]> GetAll_@dt.TableName ()
+        public Task<@(dt.TableName)[]> GetAll_@(dt.TableName)()
         {
             return databaseContext.@(dt.TableName).ToArrayAsync();
         }

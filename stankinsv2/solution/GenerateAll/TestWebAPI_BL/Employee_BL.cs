@@ -10,15 +10,17 @@ namespace TestWebAPI_BL
 {
     public partial class @dt.TableName
     {
-
+        #region partial functions
         partial void OnConstructor();
         partial void OnCopyConstructor(@dt.TableName other, bool withID);
+        #endregion
+
         #region constructors
         public @dt.TableName (){
             OnConstructor();
         }
         
-        public @dt.TableName  (  @dt.TableName other):base(){ 
+        public @(dt.TableName)(@dt.TableName other):base(){ 
 
             OnCopyConstructor(other:other,withID: false);
                 
@@ -41,6 +43,7 @@ namespace TestWebAPI_BL
         }
 
         #endregion
+        
         #region Properties
         public long ID{get;set;}
             
