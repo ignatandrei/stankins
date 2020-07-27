@@ -1,4 +1,12 @@
-﻿using System;
+﻿@model Stankins.Interfaces.IDataToSent
+@{
+
+    var dt= Model.DataToBeSentFurther[0];
+    string repo= @dt.TableName  + "_Repository";
+
+}
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,104 +15,82 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestWEBAPI_DAL;
 using TestWebAPI_BL;
+using TestWEBAPI_DAL;
 
 namespace TestWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PeopleController : ControllerBase
+    public class @(dt.TableName)Controller : ControllerBase
     {
-        private readonly DatabaseContext _context;
+        private readonly IRepository<@(dt.TableName)> _repository;
 
-        public PeopleController(DatabaseContext context)
+        public @(dt.TableName)Controller(IRepository<@(dt.TableName)> repository)
         {
-            _context = context;
+            _repository = repository;
         }
 
-        // GET: api/People
+        // GET: api/@(dt.TableName)
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<People>>> GetPeople()
+        public async Task<ActionResult<IEnumerable<@(dt.TableName)>>> Get@(dt.TableName)()
         {
-            return await _context.People.ToListAsync();
+            return await _repository.GetAll();
         }
 
-        // GET: api/People/5
+        // GET: api/@(dt.TableName)/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<People>> GetPeople(long id)
+        public async Task<ActionResult<@(dt.TableName)>> Get@(dt.TableName)(long id)
         {
-            var people = await _context.People.FindAsync(id);
+            var record = await _repository.FindAfterId(id);
 
-            if (people == null)
+            if (record == null)
             {
-                return NotFound();
+                return NotFound($"cannot find record with id = {id}");
             }
 
-            return people;
+            return record;
         }
 
-        // PUT: api/People/5
+        // PUT: api/@(dt.TableName)/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPeople(long id, People people)
+        public async Task<IActionResult> Put@(dt.TableName)(long id, @(dt.TableName) record)
         {
-            if (id != people.ID)
+            if (id != record.ID)
             {
                 return BadRequest();
             }
-
-            _context.Entry(people).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PeopleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            
+             _repository.Update(record);
+            
             return NoContent();
         }
 
-        // POST: api/People
+        // POST: api/@(dt.TableName)
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<People>> PostPeople(People people)
+        public async Task<ActionResult<@(dt.TableName)>> Post@(dt.TableName)(@(dt.TableName) record)
         {
-            _context.People.Add(people);
-            await _context.SaveChangesAsync();
+            await _repository.Update(record);
 
-            return CreatedAtAction("GetPeople", new { id = people.ID }, people);
+            return CreatedAtAction("Get@(dt.TableName)", new { id = record.ID }, record);
         }
 
-        // DELETE: api/People/5
+        // DELETE: api/@(dt.TableName)/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<People>> DeletePeople(long id)
+        public async Task<long> Delete@(dt.TableName)(long id)
         {
-            var people = await _context.People.FindAsync(id);
-            if (people == null)
-            {
-                return NotFound();
-            }
+            
+            await _repository.Delete( new @(dt.TableName)(){
+                ID=id
+            });
 
-            _context.People.Remove(people);
-            await _context.SaveChangesAsync();
 
-            return people;
+            return id;
         }
 
-        private bool PeopleExists(long id)
-        {
-            return _context.People.Any(e => e.ID == id);
-        }
+       
     }
 }

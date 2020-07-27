@@ -13,9 +13,9 @@ using Microsoft.EntityFrameworkCore;
 using TestWEBAPI_DAL;
 using TestWebAPI_BL;
 
-namespace TestWebAPI_DAL
+namespace TestWEBAPI_DAL
 {
-    public partial class @repo
+    public partial class @repo : IRepository<@(dt.TableName)>
     {
         private readonly DatabaseContext databaseContext;
 
@@ -23,7 +23,7 @@ namespace TestWebAPI_DAL
         {
             this.databaseContext = databaseContext;
         }
-        public Task<@(dt.TableName)[]> GetAll_@(dt.TableName)()
+        public Task<@(dt.TableName)[]> GetAll()
         {
             return databaseContext.@(dt.TableName).ToArrayAsync();
         }
@@ -51,6 +51,10 @@ namespace TestWebAPI_DAL
         public async Task<@dt.TableName> Update(@dt.TableName p)
         {
             var original = await FindAfterId(p.ID);
+            if(original == null)
+            {
+                throw new ArgumentException("cannot found @dt.TableName  with id = {p.ID} ", nameof(p.ID));
+            }
             original.CopyPropertiesFrom(other: p, withID: true);                        
             await databaseContext.SaveChangesAsync();
             return p;

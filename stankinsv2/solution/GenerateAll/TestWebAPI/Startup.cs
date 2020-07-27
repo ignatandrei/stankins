@@ -1,3 +1,11 @@
+@model Stankins.Interfaces.IDataToSent
+@{
+
+    var dt= Model.DataToBeSentFurther[0];
+    string repo= @dt.TableName  + "_Repository";
+
+}
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +19,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using TestWebAPI_BL;
 using TestWEBAPI_DAL;
 
 namespace TestWebAPI
@@ -30,6 +39,8 @@ namespace TestWebAPI
             services.AddControllers();
             services.AddDbContext<DatabaseContext>(options => options
                 .UseInMemoryDatabase(databaseName: "MyDB"));
+
+            services.AddTransient<IRepository<@(dt.TableName)>, @repo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
