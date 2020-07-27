@@ -15,17 +15,24 @@ namespace StankinsObjects
     {
         private readonly bool addKey;
         public string FolderToSave { get; }
-        public SenderOutputToFolder(string folderToSave,bool addKey) : this(new CtorDictionary()
+        public string NameTableOutput { get; set; }
+        public SenderOutputToFolder(string folderToSave,bool addKey,string nameTableOutput) : this(new CtorDictionary()
         {
             { nameof(folderToSave), folderToSave },
-            {nameof(addKey),addKey }
+            {nameof(addKey),addKey },
+            {nameof(nameTableOutput),nameTableOutput }
         })
         {
             
         }
+        public SenderOutputToFolder(string folderToSave, bool addKey) :
+            this(folderToSave,addKey,"OutputString")        
+        { 
+        }
         public SenderOutputToFolder(CtorDictionary dataNeeded) : base(dataNeeded)
         {
             FolderToSave = GetMyDataOrDefault<string>(nameof(FolderToSave), Environment.CurrentDirectory);
+            NameTableOutput = GetMyDataOrThrow<string>(nameof(NameTableOutput));
             addKey = GetMyDataOrDefault<bool>(nameof(addKey), true);
             Name = nameof(SenderOutputToFolder);
         }
@@ -41,7 +48,7 @@ namespace StankinsObjects
             DataTable output=null;
             try
             {
-                output = receiveData.FindAfterName("OutputString").Value;
+                output = receiveData.FindAfterName(NameTableOutput).Value;
             }
             catch
             {
@@ -60,9 +67,11 @@ namespace StankinsObjects
                     {
                         nameFile= $"{outputRow["ID"]}_" + nameFile;
                     }
-                    nameFile = illegalInFileName.Replace(nameFile, "_");
+                    //nameFile = illegalInFileName.Replace(nameFile, "_");
                     nameFile = Path.Combine(FolderToSave, nameFile);
-                    
+
+                    var file = new System.IO.FileInfo(nameFile);
+                    file.Directory.Create();
                     File.WriteAllText(nameFile, outputRow["Contents"]?.ToString());
                 }
             }

@@ -75,9 +75,11 @@ namespace StankinsVariousConsole
             var templateFolder = @"C:\Users\Surface1\source\repos\TestWebAPI";
             var lenTemplateFolder = templateFolder.Length;
             var outputFolder = @"C:\test";
+            IDataToSent data;
+
             var recExcel = new ReceiverExcel(@"TestExportExcel.xlsx");
             
-            var data = await recExcel.TransformData(null);
+            data = await recExcel.TransformData(null);
             Console.WriteLine("in excel:"+data.DataToBeSentFurther.Count);
 
             var tableData = data.Metadata.Tables.First();
@@ -101,9 +103,17 @@ namespace StankinsVariousConsole
 
             //SenderOutputToFolder
             //TransformerUpdateColumn
-            var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
+            //var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
+            var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
             data = await up.TransformData(data);
             var x = data.DataToBeSentFurther;
+            var name = new ChangeColumnName("Name", "Key");
+            data = await name.TransformData(data);
+            name = new ChangeColumnName("FullFileName_origin", "Name");
+            data = await name.TransformData(data);
+
+            var save = new SenderOutputToFolder(outputFolder, false, data.DataToBeSentFurther[2].TableName);
+            data = await save.TransformData(data);
             return true;
         }
         static async Task Main(string[] args)
