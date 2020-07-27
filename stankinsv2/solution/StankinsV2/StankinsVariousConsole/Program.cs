@@ -72,7 +72,7 @@ namespace StankinsVariousConsole
         }
         static async Task<bool> GenerateApp()
         {
-            var templateFolder = @"C:\Users\Surface1\source\repos\TestWebAPI";
+            var templateFolder = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll";
             var lenTemplateFolder = templateFolder.Length;
             var outputFolder = @"C:\test";
             IDataToSent data;
@@ -121,7 +121,20 @@ namespace StankinsVariousConsole
         }
         static async Task Main(string[] args)
         {
-            await GenerateApp();
+            while (true)
+            {
+                try
+                {
+                    
+                    await GenerateApp();
+                    Console.WriteLine("done");
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine("!!!! error" + ex.Message);
+                }
+                Console.ReadLine();
+            }
             return;
             string json = @"[{""Name"":""AAA"",""Age"":""22"",""Job"":""PPP""},"
                                 + @"{""Name"":""BBB"",""Age"":""25"",""Job"":""QQQ""},"
