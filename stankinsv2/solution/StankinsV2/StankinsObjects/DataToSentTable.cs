@@ -38,6 +38,11 @@ namespace StankinsObjects
             }
             if (t.Value == null)
             {
+                t = this.DataToBeSentFurther.FirstOrDefault(it => it.Value.TableName.Contains( nameTable) );
+            }
+
+            if (t.Value == null)
+            {
                 throw new ArgumentException($"cannot find {nameTable}");
             }
             return t;

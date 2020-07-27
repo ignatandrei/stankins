@@ -111,6 +111,9 @@ namespace StankinsVariousConsole
             data = await name.TransformData(data);
             name = new ChangeColumnName("FullFileName_origin", "Name");
             data = await name.TransformData(data);
+            
+            var remByte = new FilterRemoveTable("OutputByte");
+            data = await remByte.TransformData(data);
 
             var save = new SenderOutputToFolder(outputFolder, false, data.DataToBeSentFurther[2].TableName);
             data = await save.TransformData(data);

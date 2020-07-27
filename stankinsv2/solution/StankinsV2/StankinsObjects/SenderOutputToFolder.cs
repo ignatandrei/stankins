@@ -77,6 +77,7 @@ namespace StankinsObjects
             }
             try
             {
+                output = null;
                 output = receiveData.FindAfterName("OutputByte").Value;
             }
             catch
@@ -93,7 +94,7 @@ namespace StankinsObjects
                     {
                         nameFile = $"{outputRow["ID"]}_" + nameFile;
                     }
-                    nameFile = illegalInFileName.Replace(nameFile, "_");
+                    //nameFile = illegalInFileName.Replace(nameFile, "_");
                     nameFile = Path.Combine(FolderToSave, nameFile);
                     File.WriteAllBytes(nameFile,(byte[]) outputRow["Contents"]);
                 }
