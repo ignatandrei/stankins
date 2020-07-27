@@ -4,8 +4,4 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\TestWEBAPI_DAL\TestWEBAPI_DAL.csproj" />
-  </ItemGroup>
-
 </Project>
