@@ -2,6 +2,7 @@
 @{
 
     var dt= Model.DataToBeSentFurther[0];
+    var nrCols =dt.Columns.Count;
 }
 using System;
 
@@ -11,10 +12,7 @@ namespace TestWebAPI_BL
     {
 
         partial void OnConstructor();
-        @{
-            var nrCols =dt.Columns.Count;
 
-        }
         #region constructors
         public @dt.TableName (){
             OnConstructor();
