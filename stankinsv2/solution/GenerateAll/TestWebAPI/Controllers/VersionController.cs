@@ -19,5 +19,11 @@ namespace TestWebAPI.Controllers
         public string VersionGenerator(){
             return "1.2020.107.28";
         }
+        public string NetCoreVersion(){
+            return "3.1";
+        }
+        public string AngularVersion(){
+            return "10.1";
+        }
     }
 }
