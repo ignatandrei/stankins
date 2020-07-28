@@ -36,6 +36,9 @@ namespace TestWebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            // add swagger
+            // add blockly
             services.AddControllers();
             services.AddDbContext<DatabaseContext>(options => options
                 .UseInMemoryDatabase(databaseName: "MyDB"));
@@ -61,7 +64,10 @@ namespace TestWebAPI
             {
                 endpoints.MapControllers();
             });
-
+            CreateDatabase(app);
+            
+        }
+        private void CreateDatabase(IApplicationBuilder app){
             using var scope = app.ApplicationServices.CreateScope();
             using var context = scope.ServiceProvider.GetService<DatabaseContext>();
             context.Database.EnsureCreated();

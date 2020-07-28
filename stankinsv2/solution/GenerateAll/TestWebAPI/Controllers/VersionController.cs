@@ -16,7 +16,7 @@ namespace TestWebAPI.Controllers
     public class VersionController : ControllerBase
     {
 
-        public string VersionStankinsGenerator(){
+        public string VersionGenerator(){
             return "1.2020.107.28";
         }
     }
