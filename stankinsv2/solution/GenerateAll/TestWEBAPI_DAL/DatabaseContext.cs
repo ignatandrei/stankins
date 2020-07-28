@@ -2,6 +2,8 @@
 @{
 
     var dt= Model.DataToBeSentFurther[0];
+    var nrRows=dt.Rows.Count;
+    var nrColumns = dt.Columns.Count;
 }
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,9 +34,27 @@ namespace TestWEBAPI_DAL
             {
                 //entity.Property(e => e.Name).IsUnicode(false);
             });
-            
-            modelBuilder.Entity<Post>().HasData(
-                new { BlogId = 1, PostId = 2, Title = "Second post", Content = "Test 2" });
+
+            @for(var iRow=0;iRow<nrRows;iRow++){
+                string text="";
+                for(var iCol=0;iCol<nrColumns;iCol++){
+                    var column=dt.Columns[iCol];
+                    string nameColumn = column.ColumnName;
+                    switch(column.DataType.Name.ToLower()){
+                        case "string":
+                            text+=", "+  nameColumn +" = " + "\"" + dt.Rows[iRow][iCol] + "\"" ;
+                            break;
+                        default:
+                            text+=", "+ column.DataType.Name +"???"+ nameColumn +" = "+ dt.Rows[iRow][iCol];  
+                            break;  
+                    };
+                    
+                }
+                <text>
+                modelBuilder.Entity<@(dt.TableName)>().HasData(
+                    new { ID = @(iRow+1) @Raw(text) });
+                </text>
+            }
 
 
             OnModelCreatingPartial(modelBuilder);

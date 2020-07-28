@@ -25,7 +25,7 @@ namespace TestWebAPI.Controllers
     {
         private readonly IRepository<@(dt.TableName)> _repository;
 
-        public @(dt.TableName)Controller(IRepository<@(dt.TableName)> repository)
+        public @(dt.TableName)RESTController(IRepository<@(dt.TableName)> repository)
         {
             _repository = repository;
         }
