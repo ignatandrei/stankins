@@ -76,12 +76,14 @@ namespace StankinsVariousConsole
             var lenTemplateFolder = templateFolder.Length;
             var outputFolder = @"C:\test";
             IDataToSent data;
-            string excel = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\ExcelTests\TestExportExcel.xlsx";
+            string excel = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\ExcelTests\";
+            excel += "TestExportExcel.xlsx";
+            //excel += "ProgrammingTools.xlsx";
             var recExcel = new ReceiverExcel(excel);
-            
+                        
             data = await recExcel.TransformData(null);
             Console.WriteLine("in excel:"+data.DataToBeSentFurther.Count);
-
+            var nrTablesExcel = data.DataToBeSentFurther.Count;
             var tableData = data.Metadata.Tables.First();
             var rec = new ReceiverFilesInFolder(templateFolder,"*.*",SearchOption.AllDirectories);
             data = await rec.TransformData(data);
@@ -104,7 +106,8 @@ namespace StankinsVariousConsole
             //SenderOutputToFolder
             //TransformerUpdateColumn
             //var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
-            var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
+            Console.WriteLine(data.DataToBeSentFurther[3].TableName);
+            var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[3].TableName, $"SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
             data = await up.TransformData(data);
             var x = data.DataToBeSentFurther;
             var name = new ChangeColumnName("Name", "Key");
@@ -115,7 +118,7 @@ namespace StankinsVariousConsole
             var remByte = new FilterRemoveTable("OutputByte");
             data = await remByte.TransformData(data);
 
-            var save = new SenderOutputToFolder(outputFolder, false, data.DataToBeSentFurther[2].TableName);
+            var save = new SenderOutputToFolder(outputFolder, false, data.DataToBeSentFurther[3].TableName);
             data = await save.TransformData(data);
             return true;
         }

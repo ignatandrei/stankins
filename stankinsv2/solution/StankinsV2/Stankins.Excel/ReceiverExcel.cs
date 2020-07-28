@@ -42,6 +42,10 @@ namespace Stankins.Excel
             receiveData ??= new DataToSentTable();
             var dtExcel= new DataTable();
             dtExcel.TableName = Path.GetFileName(fileName);
+            dtExcel.Columns.Add("Number", typeof(int));
+            dtExcel.Columns.Add("SheetName", typeof(string));
+
+            FastAddTable(receiveData, dtExcel);
             IWorkbook wb;
             using (var file = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
@@ -55,6 +59,9 @@ namespace Stankins.Excel
                 var dtSheet = new DataTable();
                 sheetsTable.Add(dtSheet);
                 dtSheet.TableName = sheet.SheetName;
+
+                dtExcel.Rows.Add(new object[2] { indexSheet, sheet.SheetName });
+
                 var lastRow = sheet.LastRowNum+1;
                 if (lastRow < 1)
                     continue;
