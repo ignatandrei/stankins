@@ -72,12 +72,12 @@ namespace StankinsVariousConsole
         }
         static async Task<bool> GenerateApp()
         {
-            var templateFolder = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll";
+            var templateFolder = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\Backend\NETCore3.1";
             var lenTemplateFolder = templateFolder.Length;
             var outputFolder = @"C:\test";
             IDataToSent data;
-
-            var recExcel = new ReceiverExcel(@"TestExportExcel.xlsx");
+            string excel = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\ExcelTests\TestExportExcel.xlsx";
+            var recExcel = new ReceiverExcel(excel);
             
             data = await recExcel.TransformData(null);
             Console.WriteLine("in excel:"+data.DataToBeSentFurther.Count);
