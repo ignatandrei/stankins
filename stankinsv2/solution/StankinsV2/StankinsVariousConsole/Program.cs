@@ -103,6 +103,8 @@ namespace StankinsVariousConsole
             data = await one.TransformData(data);
             Console.WriteLine("after one table byte:" + data.DataToBeSentFurther.Count);
 
+            var ren = new TransformerRenameTable("it=>it.StartsWith(\"OutputString\")", "OutputString");
+            data = await ren.TransformData(data);
             //SenderOutputToFolder
             //TransformerUpdateColumn
             //var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
