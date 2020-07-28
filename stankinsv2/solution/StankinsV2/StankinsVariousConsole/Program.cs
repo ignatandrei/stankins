@@ -84,10 +84,24 @@ namespace StankinsVariousConsole
             data = await recExcel.TransformData(null);
 
             var renameExcel = new TransformerRenameTable("it=>it.Contains(\".xls\")", "DataSource");
-            data = await renameExcel.TransformData(null);
-            var renameCol = new ChangeColumnName("SheetName", "Tables");
-            data = await renameExcel.TransformData(null);
 
+            data = await renameExcel.TransformData(data);
+            
+            var renameCol = new ChangeColumnName("SheetName", "TableName");
+            data = await renameCol.TransformData(data);
+            
+            IDataToSent Model = data;
+            var ds = Model.FindAfterName("DataSource").Value;
+            var nrRowsDS = ds.Rows.Count;
+            for (int iRowDS = 0; iRowDS < nrRowsDS; iRowDS++)
+            {
+                var nameTable  = ds.Rows[iRowDS]["TableName"].ToString();
+                var dt = Model.FindAfterName(nameTable).Value;
+                Console.WriteLine(dt.TableName);
+            }
+            return false;
+                
+            
 
 
             Console.WriteLine("in excel:"+data.DataToBeSentFurther.Count);
