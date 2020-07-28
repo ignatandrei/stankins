@@ -61,6 +61,10 @@ namespace TestWebAPI
             {
                 endpoints.MapControllers();
             });
+
+            using var scope = app.ApplicationServices.CreateScope();
+            using var context = scope.ServiceProvider.GetService<DatabaseContext>();
+            context.Database.EnsureCreated();
         }
     }
 }

@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TestWEBAPI_DAL;
 using TestWebAPI_BL;
-using TestWEBAPI_DAL;
 
 namespace TestWebAPI.Controllers
 {
@@ -62,7 +61,7 @@ namespace TestWebAPI.Controllers
                 return BadRequest();
             }
             
-             _repository.Update(record);
+            await _repository.Update(record);
             
             return NoContent();
         }

@@ -35,6 +35,12 @@ namespace TestWEBAPI_DAL
                 //entity.Property(e => e.Name).IsUnicode(false);
             });
 
+            
+
+            OnModelCreatingPartial(modelBuilder);
+            Seed(modelBuilder);
+        }
+        void Seed(ModelBuilder modelBuilder){
             @for(var iRow=0;iRow<nrRows;iRow++){
                 string text="";
                 for(var iCol=0;iCol<nrColumns;iCol++){
@@ -52,13 +58,15 @@ namespace TestWEBAPI_DAL
                 }
                 <text>
                 modelBuilder.Entity<@(dt.TableName)>().HasData(
-                    new { ID = @(iRow+1) @Raw(text) });
+                    new @(dt.TableName)(){ ID = @(iRow+1) @Raw(text) });
                 </text>
             }
 
+            OnSeed(modelBuilder);
 
-            OnModelCreatingPartial(modelBuilder);
+
         }
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+        partial void OnSeed(ModelBuilder modelBuilder);       
     }
 }
