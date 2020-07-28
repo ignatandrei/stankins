@@ -82,6 +82,14 @@ namespace StankinsVariousConsole
             var recExcel = new ReceiverExcel(excel);
                         
             data = await recExcel.TransformData(null);
+
+            var renameExcel = new TransformerRenameTable("it=>it.Contains(\".xls\")", "DataSource");
+            data = await renameExcel.TransformData(null);
+            var renameCol = new ChangeColumnName("SheetName", "Tables");
+            data = await renameExcel.TransformData(null);
+
+
+
             Console.WriteLine("in excel:"+data.DataToBeSentFurther.Count);
             var nrTablesExcel = data.DataToBeSentFurther.Count;
             var tableData = data.Metadata.Tables.First();
@@ -109,7 +117,7 @@ namespace StankinsVariousConsole
             //TransformerUpdateColumn
             //var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
             Console.WriteLine(data.DataToBeSentFurther[3].TableName);
-            var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[3].TableName, $"SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
+            var up = new TransformerUpdateColumn("FullFileName_origin", "OutputString", $"SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
             data = await up.TransformData(data);
             var x = data.DataToBeSentFurther;
             var name = new ChangeColumnName("Name", "Key");
@@ -120,7 +128,7 @@ namespace StankinsVariousConsole
             var remByte = new FilterRemoveTable("OutputByte");
             data = await remByte.TransformData(data);
 
-            var save = new SenderOutputToFolder(outputFolder, false, data.DataToBeSentFurther[3].TableName);
+            var save = new SenderOutputToFolder(outputFolder, false, "OutputString");
             data = await save.TransformData(data);
             return true;
         }
