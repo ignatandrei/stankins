@@ -19,13 +19,13 @@ using TestWEBAPI_DAL;
 
 namespace TestWebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
-    public class REST_@(dt.TableName)Controller : ControllerBase
+    public class @(dt.TableName)Controller : ControllerBase
     {
         private readonly IRepository<@(dt.TableName)> _repository;
 
-        public REST_@(dt.TableName)Controller(IRepository<@(dt.TableName)> repository)
+        public @(dt.TableName)Controller(IRepository<@(dt.TableName)> repository)
         {
             _repository = repository;
         }
@@ -39,7 +39,7 @@ namespace TestWebAPI.Controllers
 
         // GET: api/@(dt.TableName)/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<@(dt.TableName)>> FindAfterId(long id)
+        public async Task<ActionResult<@(dt.TableName)>> Get(long id)
         {
             var record = await _repository.FindAfterId(id);
 
@@ -55,7 +55,7 @@ namespace TestWebAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(long id, @(dt.TableName) record)
+        public async Task<IActionResult> Put(long id, @(dt.TableName) record)
         {
             if (id != record.ID)
             {
@@ -71,7 +71,7 @@ namespace TestWebAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<@(dt.TableName)>> Post(@(dt.TableName) record)
+        public async Task<ActionResult<@(dt.TableName)>> Insert(@(dt.TableName) record)
         {
             await _repository.Insert(record);
 
