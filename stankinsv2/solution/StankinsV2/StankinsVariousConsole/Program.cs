@@ -103,8 +103,8 @@ namespace StankinsVariousConsole
 
             var backendFolder = @"NETCore3.1";
             var frontendFolder = @"Angular10.0";
-            var backend = stData.backend.Where(it => it.folder == backendFolder);
-            var frontEndFolder= stData.frontend.Where(it => it.folder == frontendFolder);
+            var backend = stData.backend.First(it => it.folder == backendFolder);
+            var frontEndFolder= stData.frontend.First(it => it.folder == frontendFolder);
 
             var outputFolder = @"C:\test";
             IDataToSent data;
@@ -136,9 +136,24 @@ namespace StankinsVariousConsole
             var f = Path.Combine(outputFolder, g);
             Directory.CreateDirectory(f);
             File.Copy(generator, Path.Combine(outputFolder, "describe.txt"),true);
-            DirectoryCopy(Path.Combine(folderGenerator,"backend", backendFolder), Path.Combine(f,"backend", backendFolder),true);
+            var pathBackend = Path.Combine(f, "backend", backendFolder);
+            DirectoryCopy(Path.Combine(folderGenerator,"backend", backendFolder), pathBackend,true);
             DirectoryCopy(Path.Combine(folderGenerator, "frontend",frontendFolder), Path.Combine(f,"frontend", frontendFolder), true);
             
+            foreach(var fileToCopy in backend.copyTableFiles)
+            {
+                var pathFile = Path.Combine(pathBackend, fileToCopy);
+                string content = await File.ReadAllTextAsync(pathFile);
+                foreach (DataRow item in ds.Rows)
+                {
+                    var nameTable = item["TableName"].ToString();
+                    
+                    var newFileName = pathFile.Replace("@Name@", nameTable,StringComparison.InvariantCultureIgnoreCase);
+                    var newContent = content.Replace("@Name@", nameTable, StringComparison.InvariantCultureIgnoreCase);
+                    await File.WriteAllTextAsync(newFileName, newContent);
+
+                }
+            }
             //var backendCopy = 
             
             return false;

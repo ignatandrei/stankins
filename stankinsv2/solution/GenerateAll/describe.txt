@@ -7,10 +7,10 @@
 				"Angular10.0"
 			],
 			copyTableFiles:[
-				"TestWEBAPI_DAL\EmployeeRepository.cs",
-				"TestWebAPI_BL\Employee_BL.cs",
-				"TestWebAPI\Controllers\ActionController.cs",
-				"TestWebAPI\Controllers\RESTController.cs"				
+				"TestWEBAPI_DAL/@Name@Repository.cs",
+				"TestWebAPI_BL/@Name@BL.cs",
+				"TestWebAPI//Controllers/@Name@ActionController.cs",
+				"TestWebAPI/Controllers/@Name@RESTController.cs"				
 			]
 		}
 	],
