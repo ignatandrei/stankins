@@ -98,11 +98,13 @@ namespace StankinsVariousConsole
         {
             string folderGenerator = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\";
             string generator =folderGenerator+ "describe.txt";
-            var st = JsonConvert.DeserializeObject<StankinsGenerator>(File.ReadAllText( generator));
+            var stData = JsonConvert.DeserializeObject<StankinsGenerator>(File.ReadAllText( generator));
 
 
-            var backend = @"NETCore3.1";
-            var frontend = @"Angular10.0";
+            var backendFolder = @"NETCore3.1";
+            var frontendFolder = @"Angular10.0";
+            var backend = stData.backend.Where(it => it.folder == backendFolder);
+            var frontEndFolder= stData.frontend.Where(it => it.folder == frontendFolder);
 
             var outputFolder = @"C:\test";
             IDataToSent data;
@@ -134,8 +136,11 @@ namespace StankinsVariousConsole
             var f = Path.Combine(outputFolder, g);
             Directory.CreateDirectory(f);
             File.Copy(generator, Path.Combine(outputFolder, "describe.txt"),true);
-            DirectoryCopy(Path.Combine(folderGenerator,"backend", backend), Path.Combine(f,"backend", backend),true);
-            DirectoryCopy(Path.Combine(folderGenerator, "frontend",frontend), Path.Combine(f,"frontend", frontend), true);
+            DirectoryCopy(Path.Combine(folderGenerator,"backend", backendFolder), Path.Combine(f,"backend", backendFolder),true);
+            DirectoryCopy(Path.Combine(folderGenerator, "frontend",frontendFolder), Path.Combine(f,"frontend", frontendFolder), true);
+            
+            //var backendCopy = 
+            
             return false;
 
 
@@ -146,7 +151,7 @@ namespace StankinsVariousConsole
             
             
             var tableData = data.Metadata.Tables.First();
-            var rec = new ReceiverFilesInFolder(backend, "*.*", SearchOption.AllDirectories);
+            var rec = new ReceiverFilesInFolder(backendFolder, "*.*", SearchOption.AllDirectories);
             data = await rec.TransformData(data);
             Console.WriteLine("after files:" + data.DataToBeSentFurther.Count);
 

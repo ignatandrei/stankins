@@ -7,8 +7,10 @@
 				"Angular10.0"
 			],
 			copyTableFiles:[
-				"asda",
-				"asdasd"
+				"TestWEBAPI_DAL\EmployeeRepository.cs",
+				"TestWebAPI_BL\Employee_BL.cs",
+				"TestWebAPI\Controllers\ActionController.cs",
+				"TestWebAPI\Controllers\RESTController.cs"				
 			]
 		}
 	],
