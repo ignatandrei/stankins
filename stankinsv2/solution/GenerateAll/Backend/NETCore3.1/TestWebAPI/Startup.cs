@@ -1,9 +1,19 @@
 @model Stankins.Interfaces.IDataToSent
 @{
 
-    var dt= Model.DataToBeSentFurther[0];
-    string repo= @dt.TableName  + "_Repository";
-
+var ds= Model.FindAfterName("DataSource").Value;
+    
+    var nrRowsDS=ds.Rows.Count;
+    
+    var nameTablesToRender = new string[nrRowsDS];
+    var tables=new System.Data.DataTable[nrRowsDS];
+    for (int iRowDS = 0; iRowDS < nrRowsDS; iRowDS++)
+    {
+        var nameTable = ds.Rows[iRowDS]["TableName"].ToString();
+        var renderTable = Model.FindAfterName(nameTable).Value;
+        nameTablesToRender[iRowDS] = nameTable;
+        tables[iRowDS]=renderTable;
+    }
 }
 
 using System;
@@ -43,8 +53,14 @@ namespace TestWebAPI
             services.AddDbContext<DatabaseContext>(options => options
                 .UseInMemoryDatabase(databaseName: "MyDB"));
 
-            services.AddTransient<IRepository<@(dt.TableName)>, @repo>();
+       @foreach(var nameTable in nameTablesToRender){
+            
+            <text>
+            services.AddTransient<IRepository<@nameTable>, @(nameTable)_Repository>();
+            </text>
         }
+ 
+         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
