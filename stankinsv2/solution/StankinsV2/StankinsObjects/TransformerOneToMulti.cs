@@ -16,12 +16,12 @@ namespace StankinsObjects
         
         private readonly string ReceiverProperty;
         protected readonly string ColumnNameWithData;
-        protected readonly string TableWithModel;
+        protected readonly string[] TableWithModel;
         public TransformerOneTableToMulti(CtorDictionary data):base(data)
         {
             ReceiverProperty = GetMyDataOrThrow<string>(nameof(ReceiverProperty));
             ColumnNameWithData = GetMyDataOrThrow<string>(nameof(ColumnNameWithData));
-            TableWithModel = GetMyDataOrDefault<string>(nameof(TableWithModel),null);
+            TableWithModel = GetMyDataOrDefault<string[]>(nameof(TableWithModel),null);
 
         }
         public TransformerOneTableToMulti(string receiverProperty, string columnNameWithData , CtorDictionary dataNeeded):
@@ -36,7 +36,7 @@ namespace StankinsObjects
         }
         public TransformerOneTableToMulti(string receiverProperty,
             string columnNameWithData, 
-            string tableWithModel,
+            string[] tableWithModel,
             CtorDictionary dataNeeded) :
             this(new CtorDictionary(dataNeeded)
             {
@@ -80,13 +80,13 @@ namespace StankinsObjects
             }
             var table = receiveData.DataToBeSentFurther[column.IDTable];
 
-            DataTable model = null;
-            if (!string.IsNullOrWhiteSpace(this.TableWithModel))
-            {
-                var tableModel = receiveData.Metadata.Tables.FirstOrDefault(it => it.Name == TableWithModel);
-                if(tableModel != null)
-                model = receiveData.DataToBeSentFurther[tableModel.Id];
-            }
+            DataToSentTable modelData = null;
+            ITable[] tableModel = null;
+            
+
+            
+
+
             //TODO: verify null
             foreach (DataRow item in table.Rows)
             {
@@ -100,27 +100,36 @@ namespace StankinsObjects
                 };
                     var r = Activator.CreateInstance(typeof(T), d) as BaseObject;
                     r.Name = data.ToString();
-                    //TODO : load this async all
-                    DataToSentTable modelData = null;
-                    int? idExistingTable = null;
-                    if (model != null)
+                    //create model to be sent
+                    if (this.TableWithModel?.Length > 0)
                     {
+                        tableModel = receiveData.Metadata.Tables.Where(it => TableWithModel.Contains(it.Name)).ToArray();
                         modelData = new DataToSentTable();
-                        idExistingTable =modelData.AddNewTable(model);
-                        modelData.Metadata.AddTable(model, idExistingTable.Value);
-                        await v.TransformData(modelData);
+                        foreach (var iTable in tableModel)
+                        {
+                            var model = receiveData.DataToBeSentFurther[iTable.Id];
+                            var idExistingTable = modelData.AddNewTable(model);
+                            modelData.Metadata.AddTable(model, idExistingTable);
 
+                        }
+                        await v.TransformData(modelData);
                     }
-                    
-                    var dataToBeSent = await r.TransformData(modelData);
-                    
+                    await v.TransformData(modelData);
+                    var dataToBeSent = await r.TransformData(modelData);                    
                     //TODO : remove from release builds
                     await v.TransformData(dataToBeSent);
-                    if (model != null)
+                    if (modelData != null)
                     {
-                        var iTable = dataToBeSent.Metadata.Tables.First(it => it.Id == idExistingTable.Value);
-                        dataToBeSent.Metadata.RemoveTable(iTable);
-                        dataToBeSent.DataToBeSentFurther.Remove(idExistingTable.Value);
+                        foreach(var tbl in tableModel)
+                        {
+                            var iTable = dataToBeSent.Metadata.Tables.First(it => it.Id == tbl.Id);
+                            dataToBeSent.Metadata.RemoveTable(iTable);
+                            dataToBeSent.DataToBeSentFurther.Remove(tbl.Id);
+
+                        }
+                        //var iTable = dataToBeSent.Metadata.Tables.First(it => it.Id == idExistingTable.Value);
+                        //dataToBeSent.Metadata.RemoveTable(iTable);
+                        //dataToBeSent.DataToBeSentFurther.Remove(idExistingTable.Value);
 
                     }
                     await v.TransformData(dataToBeSent);

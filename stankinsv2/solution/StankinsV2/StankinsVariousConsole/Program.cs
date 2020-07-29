@@ -101,10 +101,10 @@ namespace StankinsVariousConsole
             var stData = JsonConvert.DeserializeObject<StankinsGenerator>(File.ReadAllText( generator));
 
 
-            var backendFolder = @"NETCore3.1";
-            var frontendFolder = @"Angular10.0";
-            var backend = stData.backend.First(it => it.folder == backendFolder);
-            var frontEndFolder= stData.frontend.First(it => it.folder == frontendFolder);
+            var backendFolderName = @"NETCore3.1";
+            var frontendFolderName = @"Angular10.0";
+            var backend = stData.backend.First(it => it.folder == backendFolderName);
+            var frontEndFolder= stData.frontend.First(it => it.folder == frontendFolderName);
 
             var outputFolder = @"C:\test";
             IDataToSent data;
@@ -125,42 +125,40 @@ namespace StankinsVariousConsole
             IDataToSent Model = data;
             var ds = Model.FindAfterName("DataSource").Value;
             var nrRowsDS = ds.Rows.Count;
+            var nameTablesToRender = new string[nrRowsDS];
             for (int iRowDS = 0; iRowDS < nrRowsDS; iRowDS++)
             {
                 var nameTable = ds.Rows[iRowDS]["TableName"].ToString();
                 var dt = Model.FindAfterName(nameTable).Value;
                 Console.WriteLine(dt.TableName);
+                nameTablesToRender[iRowDS] = dt.TableName;
             }
 
             var g = Guid.NewGuid().ToString("N");
             var f = Path.Combine(outputFolder, g);
             Directory.CreateDirectory(f);
             File.Copy(generator, Path.Combine(outputFolder, "describe.txt"),true);
-            var pathBackend = Path.Combine(f, "backend", backendFolder);
-            DirectoryCopy(Path.Combine(folderGenerator,"backend", backendFolder), pathBackend,true);
-            DirectoryCopy(Path.Combine(folderGenerator, "frontend",frontendFolder), Path.Combine(f,"frontend", frontendFolder), true);
+            var backendFolder = Path.Combine(f, "backend", backendFolderName);
+            DirectoryCopy(Path.Combine(folderGenerator,"backend", backendFolderName), backendFolder,true);
+            DirectoryCopy(Path.Combine(folderGenerator, "frontend",frontendFolderName), Path.Combine(f,"frontend", frontendFolderName), true);
             
             foreach(var fileToCopy in backend.copyTableFiles)
             {
-                var pathFile = Path.Combine(pathBackend, fileToCopy);
+                var pathFile = Path.Combine(backendFolder, fileToCopy);
                 string content = await File.ReadAllTextAsync(pathFile);
                 foreach (DataRow item in ds.Rows)
                 {
                     var nameTable = item["TableName"].ToString();
-                    
+                    var data1 = Model.FindAfterName(nameTable).Value;
+
                     var newFileName = pathFile.Replace("@Name@", nameTable,StringComparison.InvariantCultureIgnoreCase);
                     var newContent = content.Replace("@Name@", nameTable, StringComparison.InvariantCultureIgnoreCase);
                     await File.WriteAllTextAsync(newFileName, newContent);
 
                 }
+                File.Delete(pathFile);
             }
-            //var backendCopy = 
             
-            return false;
-
-
-            
-
             Console.WriteLine("in excel:" + data.DataToBeSentFurther.Count);
             var nrTablesExcel = data.DataToBeSentFurther.Count;
             
@@ -169,8 +167,8 @@ namespace StankinsVariousConsole
             var rec = new ReceiverFilesInFolder(backendFolder, "*.*", SearchOption.AllDirectories);
             data = await rec.TransformData(data);
             Console.WriteLine("after files:" + data.DataToBeSentFurther.Count);
-
-            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName", tableData.Name, new CtorDictionary());
+            var razorTables = nameTablesToRender.Union(new[] { "DataSource" }).ToArray();
+            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName", razorTables, new CtorDictionary());
             data = await t.TransformData(data);
             Console.WriteLine("after razor:" + data.DataToBeSentFurther.Count);
 
@@ -190,7 +188,7 @@ namespace StankinsVariousConsole
             //TransformerUpdateColumn
             //var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
             Console.WriteLine(data.DataToBeSentFurther[3].TableName);
-            var lenTemplateFolder = outputFolder.Length;
+            var lenTemplateFolder = backendFolder.Length;
 
             var up = new TransformerUpdateColumn("FullFileName_origin", "OutputString", $"SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
             data = await up.TransformData(data);
@@ -259,6 +257,7 @@ namespace StankinsVariousConsole
                 catch (Exception ex)
                 {
                     Console.WriteLine("!!!! error" + ex.Message);
+                    Console.WriteLine(ex.StackTrace);
                 }
                 Console.ReadLine();
             }

@@ -50,6 +50,10 @@ namespace TestWEBAPI_DAL
                         case "string":
                             text+=", "+  nameColumn +" = " + "\"" + dt.Rows[iRow][iCol] + "\"" ;
                             break;
+                        case "int32":
+                            text+=", "+  nameColumn +" = " +  dt.Rows[iRow][iCol]  ;
+                            break;
+                        
                         default:
                             text+=", "+ column.DataType.Name +"???"+ nameColumn +" = "+ dt.Rows[iRow][iCol];  
                             break;  
