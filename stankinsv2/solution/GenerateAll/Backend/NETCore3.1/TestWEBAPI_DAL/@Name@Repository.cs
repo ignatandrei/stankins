@@ -1,7 +1,7 @@
 ﻿@model Stankins.Interfaces.IDataToSent
 @{
 
-    var dt= Model.DataToBeSentFurther[0];
+    var dt= Model.FindAfterName("@Name@").Value;
     string repo= @dt.TableName  + "_Repository";
 }
 using System;

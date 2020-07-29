@@ -1,7 +1,7 @@
 ﻿@model Stankins.Interfaces.IDataToSent
 @{
 
-    var dt= Model.DataToBeSentFurther[0];
+    var dt= Model.FindAfterName("@Name@").Value;
     var nrCols =dt.Columns.Count;
 }
 using System;
