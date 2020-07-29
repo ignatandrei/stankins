@@ -27,6 +27,28 @@ using Stankins.Excel;
 
 namespace StankinsVariousConsole
 {
+    public class StankinsGenerator
+    {
+        public Backend[] backend { get; set; }
+        public Frontend[] frontend { get; set; }
+    }
+
+    public class Backend
+    {
+        public string folder { get; set; }
+        public string name { get; set; }
+        public string[] worksWithFrontEnd { get; set; }
+        public string[] copyTableFiles { get; set; }
+    }
+
+    public class Frontend
+    {
+        public string folder { get; set; }
+        public string[] worksWithBackEnd { get; set; }
+        public string name { get; set; }
+        public string[] copyTableFiles { get; set; }
+    }
+
     class Program
     {
         //taken from https://stackoverflow.com/questions/11981282/convert-json-to-datatable/11982180#11982180
@@ -56,70 +78,87 @@ namespace StankinsVariousConsole
         }
         static DataTable FromJSon(string json)
         {
-            var token=JToken.Parse(json);
+            var token = JToken.Parse(json);
             if (!(token is JArray))
             {
                 json = "[" + json + "]";
-                token=JToken.Parse(json);
-                
+                token = JToken.Parse(json);
+
             }
-            JArray tok=token as JArray;
-         
+            JArray tok = token as JArray;
+
             return token.ToObject<DataTable>();
-           
+
 
 
         }
+
+
         static async Task<bool> GenerateApp()
         {
-            var templateFolder = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\Backend\NETCore3.1";
-            var lenTemplateFolder = templateFolder.Length;
+            string folderGenerator = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\";
+            string generator =folderGenerator+ "describe.txt";
+            var st = JsonConvert.DeserializeObject<StankinsGenerator>(File.ReadAllText( generator));
+
+
+            var backend = @"NETCore3.1";
+            var frontend = @"Angular10.0";
+
             var outputFolder = @"C:\test";
             IDataToSent data;
             string excel = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\ExcelTests\";
             excel += "TestExportExcel.xlsx";
             //excel += "ProgrammingTools.xlsx";
             var recExcel = new ReceiverExcel(excel);
-                        
+
             data = await recExcel.TransformData(null);
 
             var renameExcel = new TransformerRenameTable("it=>it.Contains(\".xls\")", "DataSource");
 
             data = await renameExcel.TransformData(data);
-            
+
             var renameCol = new ChangeColumnName("SheetName", "TableName");
             data = await renameCol.TransformData(data);
-            
+
             IDataToSent Model = data;
             var ds = Model.FindAfterName("DataSource").Value;
             var nrRowsDS = ds.Rows.Count;
             for (int iRowDS = 0; iRowDS < nrRowsDS; iRowDS++)
             {
-                var nameTable  = ds.Rows[iRowDS]["TableName"].ToString();
+                var nameTable = ds.Rows[iRowDS]["TableName"].ToString();
                 var dt = Model.FindAfterName(nameTable).Value;
                 Console.WriteLine(dt.TableName);
             }
+
+            var g = Guid.NewGuid().ToString("N");
+            var f = Path.Combine(outputFolder, g);
+            Directory.CreateDirectory(f);
+            File.Copy(generator, Path.Combine(outputFolder, "describe.txt"),true);
+            DirectoryCopy(Path.Combine(folderGenerator,"backend", backend), Path.Combine(f,"backend", backend),true);
+            DirectoryCopy(Path.Combine(folderGenerator, "frontend",frontend), Path.Combine(f,"frontend", frontend), true);
             return false;
-                
+
+
             
 
-
-            Console.WriteLine("in excel:"+data.DataToBeSentFurther.Count);
+            Console.WriteLine("in excel:" + data.DataToBeSentFurther.Count);
             var nrTablesExcel = data.DataToBeSentFurther.Count;
+            
+            
             var tableData = data.Metadata.Tables.First();
-            var rec = new ReceiverFilesInFolder(templateFolder,"*.*",SearchOption.AllDirectories);
+            var rec = new ReceiverFilesInFolder(backend, "*.*", SearchOption.AllDirectories);
             data = await rec.TransformData(data);
-            Console.WriteLine("after files:"+data.DataToBeSentFurther.Count);
+            Console.WriteLine("after files:" + data.DataToBeSentFurther.Count);
 
-            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName",tableData.Name, new CtorDictionary());
+            var t = new TransformerOneTableToMulti<SenderToRazorFromFile>("InputTemplate", "FullFileName", tableData.Name, new CtorDictionary());
             data = await t.TransformData(data);
-            Console.WriteLine("after razor:"+data.DataToBeSentFurther.Count);
+            Console.WriteLine("after razor:" + data.DataToBeSentFurther.Count);
 
             var one = new TransformerToOneTable("it=>it.StartsWith(\"OutputString\")");
             data = await one.TransformData(data);
             //Transformer
             //var outFile = new SenderOutputToFolder(@"C:\test\", false);
-            Console.WriteLine("after one table string:"+data.DataToBeSentFurther.Count);
+            Console.WriteLine("after one table string:" + data.DataToBeSentFurther.Count);
 
             one = new TransformerToOneTable("it=>it.StartsWith(\"OutputByte\")");
             data = await one.TransformData(data);
@@ -131,6 +170,8 @@ namespace StankinsVariousConsole
             //TransformerUpdateColumn
             //var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
             Console.WriteLine(data.DataToBeSentFurther[3].TableName);
+            var lenTemplateFolder = outputFolder.Length;
+
             var up = new TransformerUpdateColumn("FullFileName_origin", "OutputString", $"SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
             data = await up.TransformData(data);
             var x = data.DataToBeSentFurther;
@@ -138,7 +179,7 @@ namespace StankinsVariousConsole
             data = await name.TransformData(data);
             name = new ChangeColumnName("FullFileName_origin", "Name");
             data = await name.TransformData(data);
-            
+
             var remByte = new FilterRemoveTable("OutputByte");
             data = await remByte.TransformData(data);
 
@@ -146,17 +187,56 @@ namespace StankinsVariousConsole
             data = await save.TransformData(data);
             return true;
         }
+
+        //https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
+        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+        {
+            // Get the subdirectories for the specified directory.
+            DirectoryInfo dir = new DirectoryInfo(sourceDirName);
+
+            if (!dir.Exists)
+            {
+                throw new DirectoryNotFoundException(
+                    "Source directory does not exist or could not be found: "
+                    + sourceDirName);
+            }
+
+            DirectoryInfo[] dirs = dir.GetDirectories();
+            // If the destination directory doesn't exist, create it.
+            if (!Directory.Exists(destDirName))
+            {
+                Directory.CreateDirectory(destDirName);
+            }
+
+            // Get the files in the directory and copy them to the new location.
+            FileInfo[] files = dir.GetFiles();
+            foreach (FileInfo file in files)
+            {
+                string temppath = Path.Combine(destDirName, file.Name);
+                file.CopyTo(temppath, false);
+            }
+
+            // If copying subdirectories, copy them and their contents to new location.
+            if (copySubDirs)
+            {
+                foreach (DirectoryInfo subdir in dirs)
+                {
+                    string temppath = Path.Combine(destDirName, subdir.Name);
+                    DirectoryCopy(subdir.FullName, temppath, copySubDirs);
+                }
+            }
+        }
         static async Task Main(string[] args)
         {
             while (true)
             {
                 try
                 {
-                    
+
                     await GenerateApp();
                     Console.WriteLine("done");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Console.WriteLine("!!!! error" + ex.Message);
                 }
@@ -167,13 +247,13 @@ namespace StankinsVariousConsole
                                 + @"{""Name"":""BBB"",""Age"":""25"",""Job"":""QQQ""},"
                                 + @"{""Name"":""CCC"",""Age"":""38"",""Job"":""RRR""}]";
             var dt = FromJSon(json);
-           
+
             //var table = JsonConvert.DeserializeObject<DataTable>(json);
-             json = @"{""Name"":""AAA"",""Age"":""22"",""Job"":""PPP""}";
-            
-            dt= FromJSon(json);
-            
-            return ;
+            json = @"{""Name"":""AAA"",""Age"":""22"",""Job"":""PPP""}";
+
+            dt = FromJSon(json);
+
+            return;
 
             await Yaml();
             return;
@@ -191,7 +271,7 @@ namespace StankinsVariousConsole
 
             //return;
             //await Bookmarks();
-            
+
             //return;
             //await ResultsDir();
             //return;
@@ -217,7 +297,7 @@ namespace StankinsVariousConsole
             var data = await File.ReadAllTextAsync("stankinsYaml.txt");
             var visit = new YamlDevOpsVisitor();
             visit.LoadFromString(data);
-            Console.Write(Newtonsoft.Json.JsonConvert.SerializeObject(visit.jobs,Newtonsoft.Json.Formatting.Indented));
+            Console.Write(Newtonsoft.Json.JsonConvert.SerializeObject(visit.jobs, Newtonsoft.Json.Formatting.Indented));
             //Console.WriteLine(rt);
             //foreach(var item in mp.Children)
             //{
@@ -245,8 +325,8 @@ namespace StankinsVariousConsole
             data = await new FilterRemoveColumn("a_text").TransformData(data);
             await v.TransformData(data);
             var firstTableName = data.Metadata.Tables[0].Name;
-            
-            data =await new TransformerOneColumnToMultiTablesByNumber(firstTableName, 15).TransformData(data);
+
+            data = await new TransformerOneColumnToMultiTablesByNumber(firstTableName, 15).TransformData(data);
             await v.TransformData(data);
 
             data = await new FilterRemoveTable(firstTableName).TransformData(data);
@@ -261,7 +341,7 @@ namespace StankinsVariousConsole
             data = await new TransformerRenameTablesInOrder(304, "Friday Links ###").TransformData(data);
             await v.TransformData(data);
 
-            data =await new SenderWindowsLiveWriter(null,"</li><li>","","<li>","").TransformData(data);
+            data = await new SenderWindowsLiveWriter(null, "</li><li>", "", "<li>", "").TransformData(data);
             await v.TransformData(data);
 
 
@@ -303,7 +383,7 @@ namespace StankinsVariousConsole
             data = await new FilterRetainColumnDataContains("li_html", "http://amzn.to").TransformData(data);
             await v.TransformData(data);
 
-            
+
 
             data = await new TransformSplitColumn(data.Metadata.Tables[0].Name, "li", ':').TransformData(data);
             string file = Path.Combine(Directory.GetCurrentDirectory(), "jordanbpeterson.xlsx");
@@ -312,9 +392,9 @@ namespace StankinsVariousConsole
             data = await v.TransformData(data);
 
 
-            
+
             Process.Start(@"C:\Program Files (x86)\Microsoft Office\root\Office16\excel.exe", file);
-            
+
 
 
 
@@ -333,7 +413,7 @@ namespace StankinsVariousConsole
             data = await new TransformerXMLToColumn("OuterXML", @"//*[name()=""content:encoded""]", "content", ",").TransformData(data);
             await v.TransformData(data);
 
-            data =await  new TransformerOneTableToMulti<TransformerHtmlAHref>("Content", "content", new CtorDictionary()).TransformData(data);
+            data = await new TransformerOneTableToMulti<TransformerHtmlAHref>("Content", "content", new CtorDictionary()).TransformData(data);
 
             await v.TransformData(data);
             data = await new FilterTablesWithColumn("href").TransformData(data);
@@ -342,11 +422,11 @@ namespace StankinsVariousConsole
             data = await new TransformerToOneTable().TransformData(data);
 
             await v.TransformData(data);
-            data = await new FilterRetainColumnDataContains("href","amazon").TransformData(data);
+            data = await new FilterRetainColumnDataContains("href", "amazon").TransformData(data);
             //await v.TransformData(data);
             //data = await new RetainColumnDataContains("a_text", "Lord of Light").TransformData(data);
             await v.TransformData(data);
-            data = await new TransformerOneTableToMulti<AmazonMeta>("file","href",new CtorDictionary()).TransformData(data);
+            data = await new TransformerOneTableToMulti<AmazonMeta>("file", "href", new CtorDictionary()).TransformData(data);
             await v.TransformData(data);
             data = await new FilterTablesWithColumn("meta_content").TransformData(data);
             await v.TransformData(data);
@@ -355,7 +435,7 @@ namespace StankinsVariousConsole
             var excel = new SenderExcel(@"andrei.xslx");
             data = await excel.TransformData(data);
             data = await v.TransformData(data);
-            
+
 
         }
 
@@ -371,7 +451,7 @@ namespace StankinsVariousConsole
             var books = new FilterRetainColumnDataContains(data.Metadata.Columns[0].Name, "ooks");
             data = await books.TransformData(data);
             await v.TransformData(data);
-            var t = new TransformerOneTableToMulti<ReceiverHtmlMeta>("file", data.Metadata.Columns[0].Name,new CtorDictionary());
+            var t = new TransformerOneTableToMulti<ReceiverHtmlMeta>("file", data.Metadata.Columns[0].Name, new CtorDictionary());
             data = await t.TransformData(data);
             await v.TransformData(data);
             data = await new FilterTablesWithColumn("meta_name").TransformData(data);
@@ -380,7 +460,7 @@ namespace StankinsVariousConsole
             await v.TransformData(data);
             data = await new TransformerToOneTable().TransformData(data);
             await v.TransformData(data);
-            books = new FilterRetainColumnDataContains("meta_name", "keywords");            
+            books = new FilterRetainColumnDataContains("meta_name", "keywords");
             data = await books.TransformData(data);
             await v.TransformData(data);
             var excel = new SenderExcel(@"bg.xslx");
@@ -416,7 +496,7 @@ namespace StankinsVariousConsole
         {
             var v = new Verifier();
 
-            var r = new ReceiverProcess("print.exe",null);
+            var r = new ReceiverProcess("print.exe", null);
             var data = await r.TransformData(null);
             await v.TransformData(data);
             return;
@@ -567,6 +647,6 @@ namespace StankinsVariousConsole
             data = await new SenderRazorTableOneByOne(content, @"D:\test\").TransformData(data);
 
         }
-       
+
     }
 }
