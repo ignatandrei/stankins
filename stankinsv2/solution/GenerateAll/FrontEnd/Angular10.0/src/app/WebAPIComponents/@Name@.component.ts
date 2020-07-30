@@ -2,10 +2,11 @@
 	var angular="@angular";
 	var Component = "@Component";
 	var dt= Model.FindAfterName("@Name@").Value;
-	
+	var nameTable =dt.TableName;
 }
 import { Component, OnInit } from '@(angular)/core';
-import{ @dt.TableName } from './../WebAPIClasses/@dt.TableName';
+import{ @nameTable } from './../WebAPIClasses/@nameTable';
+import {@(nameTable)Service} from './../services/@(nameTable).service';
 
 @(Component)({
   selector: 'app-@Name@-component',
@@ -14,9 +15,12 @@ import{ @dt.TableName } from './../WebAPIClasses/@dt.TableName';
 })
 export class @Name@Component implements OnInit {
 
-  constructor() { }
+  constructor(private mainService: @(nameTable)Service ) { }
 
   ngOnInit(): void {
+	  this.mainService.GetAll().subscribe(it=>{
+      window.alert(it.length);
+    })
   }
 
 }
