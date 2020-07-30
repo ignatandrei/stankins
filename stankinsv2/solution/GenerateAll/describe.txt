@@ -26,6 +26,7 @@
 				'src/app/WebAPIComponents/@Name@.component.css',
 				'src/app/WebAPIComponents/@Name@.component.html',
 				'src/app/WebAPIComponents/@Name@.component.spec.ts',
+				'src/app/WebAPIClasses/@Name@.ts',
 				
 			]
 		}
