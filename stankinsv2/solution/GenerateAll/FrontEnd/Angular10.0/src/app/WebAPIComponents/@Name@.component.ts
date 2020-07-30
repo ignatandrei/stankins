@@ -15,11 +15,12 @@ import {@(nameTable)Service} from './../services/@(nameTable).service';
 })
 export class @Name@Component implements OnInit {
 
+  public data:@(nameTable)[]=[];
   constructor(private mainService: @(nameTable)Service ) { }
 
   ngOnInit(): void {
 	  this.mainService.GetAll().subscribe(it=>{
-      window.alert(it.length);
+		data=it;
     })
   }
 
