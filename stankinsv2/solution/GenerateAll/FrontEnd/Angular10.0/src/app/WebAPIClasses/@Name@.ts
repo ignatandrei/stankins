@@ -3,6 +3,9 @@
 
     var dt= Model.FindAfterName("@Name@").Value;
     var nrCols =dt.Columns.Count;
+	string lowerCaseFirst(string s){
+		return char.ToLower(s[0]) + s.Substring(1);
+	}
 }
 
 
@@ -19,21 +22,21 @@ export class @dt.TableName
         }
         public CopyPropertiesFrom(other:@dt.TableName, withID: boolean):void{
             if(withID){
-                this.ID= other.ID;
+                this.id= other.id;
             }
             @for(int iCol = 0;iCol < nrCols; iCol++){
                 var col = dt.Columns[iCol];
                 var colName= col.ColumnName ;
                 
                 <text>
-            this.@colName = other.@colName;
+            this.@lowerCaseFirst(colName) = other.@lowerCaseFirst(colName);
                 </text>
 
             }
 
             
         }
-        public  ID: number;
+        public  id: number;
             
         @for(int iCol = 0;iCol < nrCols; iCol++){
             var col = dt.Columns[iCol];
@@ -50,7 +53,7 @@ export class @dt.TableName
 			}
 
             <text>
-            public @colName : @nameType;
+            public @lowerCaseFirst(colName) : @nameType;
             </text>
 
         }
