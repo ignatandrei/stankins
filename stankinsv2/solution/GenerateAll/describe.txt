@@ -22,6 +22,7 @@
 				}
 			],
 			"build":[
+				
 			]
 		}
 	],
@@ -40,6 +41,15 @@
 				'src/app/WebAPIClasses/@Name@.ts',
 				'src/app/services/@Name@.service.ts',
 				
+			],
+			"execute":[
+				{
+				name: "docker",
+				execute:[
+					"docker build -t testwebapiang -f docker.txt .",
+					"docker run -p 4200:4200 -d --name testwebapiangContainer --rm testwebapiang"
+				]
+				}
 			]
 		}
 	]
