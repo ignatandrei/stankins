@@ -11,6 +11,17 @@
 				"TestWebAPI_BL/@Name@BL.cs",
 				"TestWebAPI//Controllers/@Name@ActionController.cs",
 				"TestWebAPI/Controllers/@Name@RESTController.cs"				
+			],
+			"execute":[
+				{
+				name: "docker",
+				execute:[
+					"docker build -t testwebapi -f docker.txt .",
+					"docker run -p 5000:5000 -d --name testwebapiContainer --rm testwebapi"
+				]
+				}
+			],
+			"build":[
 			]
 		}
 	],

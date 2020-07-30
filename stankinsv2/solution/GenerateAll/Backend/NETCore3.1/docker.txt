@@ -1,0 +1,14 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1  AS build-env
+WORKDIR /app
+
+COPY . ./
+RUN cd TestWebAPI
+RUN dotnet publish -c Release -o out -r linux-x64
+ 
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+WORKDIR /app
+COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "TestWebAPI.dll","--urls=http://+:5000"]
+#CMD tail -f /dev/null
+EXPOSE 5000 
+#EXPOSE 49153
