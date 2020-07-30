@@ -105,7 +105,7 @@ namespace StankinsVariousConsole
             var frontendFolderName = @"Angular10.0";
             var backend = stData.backend.First(it => it.folder == backendFolderName);
             var frontEnd= stData.frontend.First(it => it.folder == frontendFolderName);
-            
+            //wt  new-tab -d C:\test\backend\NETCore3.1\TestWebAPI ; split-pane -d C:\test\frontend\Angular10.0
             var outputFolder = @"C:\test";
             IDataToSent data;
             string excel = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\ExcelTests\";
