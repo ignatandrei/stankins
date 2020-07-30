@@ -1,3 +1,17 @@
+@{
+  var angular="@angular";
+  var types="@types";
+  var babel="@babel";
+  var jsdevtools="@jsdevtools";
+  var ngtools="@ngtools";
+  var schematics="@schematics";
+  var yarnpkg="@yarnpkg";
+  var nodelib="@nodelib";
+  var npmcli="@npmcli";
+  var xtuc="@xtuc";
+  var webassemblyjs="@webassemblyjs";
+  var istanbuljs="@istanbuljs";
+}
 {
   "name": "test-web-api",
   "version": "0.0.0",
