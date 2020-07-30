@@ -9,10 +9,12 @@
 		return char.ToLower(s[0]) + s.Substring(1);
 	}
 }
+
+
 <table>
 	<tr>
 		<th>
-			Number
+			Number 
 		</th>
 		@for(int iCol = 0;iCol < nrCols; iCol++){
                 var col = dt.Columns[iCol];
@@ -23,6 +25,7 @@
                 </text>
 
             }
+			<td>Operations</td>
 	</tr>
 	<tr *ngFor="let row of rows;let i=index;">
 		<td>
@@ -37,5 +40,7 @@
                 </text>
 
             }
+		<td>Edit, Delete
+		</td>
 	</tr>	
 </table>

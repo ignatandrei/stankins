@@ -69,12 +69,14 @@ namespace TestWEBAPI_DAL
                         string nameColumn = column.ColumnName;
                         switch(column.DataType.Name.ToLower()){
                             case "string":
-                                text+=", "+  nameColumn +" = " + "\"" + dt.Rows[iRow][iCol] + "\"" ;
+                                text+=", "+  nameColumn +" = " + "@\"" + dt.Rows[iRow][iCol] + "\"" ;
                                 break;
                             case "int32":
                                 text+=", "+  nameColumn +" = " +  dt.Rows[iRow][iCol]  ;
                                 break;
-                            
+                            case "decimal":
+								text+=", "+  nameColumn +" = " +  dt.Rows[iRow][iCol]  ;
+                                break;
                             default:
                                 text+=", "+ column.DataType.Name +"???"+ nameColumn +" = "+ dt.Rows[iRow][iCol];  
                                 break;  

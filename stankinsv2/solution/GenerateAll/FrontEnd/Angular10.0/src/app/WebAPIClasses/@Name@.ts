@@ -47,6 +47,9 @@ export class @dt.TableName
 				case "string":
 					nameType="string";
 					break;
+				case "decimal":
+					nameType="number";
+					break;
 				default:
 					nameType="!!!!"+@colType.Name;
 					break;
