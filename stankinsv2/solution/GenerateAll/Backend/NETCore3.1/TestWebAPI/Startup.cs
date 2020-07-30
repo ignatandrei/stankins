@@ -49,6 +49,7 @@ namespace TestWebAPI
 
             // add swagger
             // add blockly
+            services.AddCors();
             services.AddControllers();
             services.AddDbContext<DatabaseContext>(options => options
                 .UseInMemoryDatabase(databaseName: "MyDB"));
@@ -69,7 +70,13 @@ namespace TestWebAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-
+//put in a json settings file
+            app
+                .UseCors(opt =>
+                {
+                    opt.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                });
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
