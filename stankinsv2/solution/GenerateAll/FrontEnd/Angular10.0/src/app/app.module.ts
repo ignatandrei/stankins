@@ -1,6 +1,23 @@
+@model Stankins.Interfaces.IDataToSent
+
 @{
   var angular="@angular";
   var NgModule="@NgModule";
+
+  var ds= Model.FindAfterName("DataSource").Value;
+    
+    var nrRowsDS=ds.Rows.Count;
+    
+    var nameTablesToRender = new string[nrRowsDS];
+    var tables=new System.Data.DataTable[nrRowsDS];
+    for (int iRowDS = 0; iRowDS < nrRowsDS; iRowDS++)
+    {
+        var nameTable = ds.Rows[iRowDS]["TableName"].ToString();
+        var renderTable = Model.FindAfterName(nameTable).Value;
+        nameTablesToRender[iRowDS] = nameTable;
+        tables[iRowDS]=renderTable;
+    }
+
 }
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -16,8 +33,22 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+@foreach(var nameTable in nameTablesToRender){
+<text>
+import { @(nameTable)Component } from './WebAPIComponents/@(nameTable).Component';
+
+</text>
+}
+
+
 @(NgModule)({
   declarations: [
+  @foreach(var nameTable in nameTablesToRender){
+		<text>
+		@(nameTable)Component,
+		</text>
+	}
     AppComponent,
     NavbarComponent,
     AboutComponent
