@@ -1,0 +1,2 @@
+https://www.todaysoftmag.ro/article/3197/realizarea-unei-aplicatii-online-folosind-nuxt-vuex-node-js-si-mongodb-i
+https://blog.soshace.com/create-simple-pos-with-react-js-node-js-and-mongodb-10-crud-supplier/
