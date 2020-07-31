@@ -36,7 +36,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @foreach(var nameTable in nameTablesToRender){
 <text>
-import { @(nameTable)Component } from './WebAPIComponents/@(nameTable).Component';
+import { @(nameTable)Component } from './WebAPIComponents/@(nameTable).component';
 
 </text>
 }

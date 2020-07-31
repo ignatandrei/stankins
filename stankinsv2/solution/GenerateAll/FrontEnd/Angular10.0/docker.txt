@@ -6,9 +6,11 @@ WORKDIR /app
 
 RUN npm install -g @angular/cli@10.0.4
 
-COPY . ./
+COPY package.json .
 
 RUN npm i
+
+COPY . ./
 
 RUN set -x \
     && node -v \
@@ -19,7 +21,7 @@ WORKDIR /app
 
 RUN ls -lh
 
-#RUN ng build  --aot=true --buildOptimizer=true --configuration=production --outputPath=out
+RUN ng build  --aot=true --buildOptimizer=true --configuration=production --outputPath=out
 
 ENTRYPOINT ["ng", "serve","--host", "0.0.0.0", "--port", "4200"]
 	

@@ -1,7 +1,23 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1  AS build-env
 WORKDIR /app
 
+COPY TestWebAPI.sln .
+RUN mkdir TestWebAPI
+COPY TestWebAPI/TestWebAPI.csproj ./TestWebAPI/TestWebAPI.csproj 
+RUN ls -lh
+RUN mkdir TestWebAPI_BL
+COPY TestWebAPI_BL/TestWebAPI_BL.csproj ./TestWebAPI_BL/TestWebAPI_BL.csproj
+RUN ls -lh
+RUN mkdir TestWEBAPI_DAL
+COPY TestWEBAPI_DAL/TestWEBAPI_DAL.csproj ./TestWEBAPI_DAL/TestWEBAPI_DAL.csproj
+RUN ls -lh
+
+RUN dotnet restore
+
 COPY . ./
+
+RUN dotnet build
+
 RUN cd TestWebAPI
 RUN dotnet publish -c Release -o out -r linux-x64
  
