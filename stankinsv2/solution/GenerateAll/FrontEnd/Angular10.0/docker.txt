@@ -19,6 +19,8 @@ WORKDIR /app
 
 RUN ls -lh
 
+#RUN ng build  --aot=true --buildOptimizer=true --configuration=production --outputPath=out
+
 ENTRYPOINT ["ng", "serve","--host", "0.0.0.0", "--port", "4200"]
 	
 EXPOSE 4200 
