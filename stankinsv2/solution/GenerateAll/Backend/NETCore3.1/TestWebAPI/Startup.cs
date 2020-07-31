@@ -48,7 +48,8 @@ namespace TestWebAPI
         {
 
             // add swagger
-            // add blockly
+            // add blockly 
+            // add logging
             services.AddCors();
             services.AddControllers();
             services.AddDbContext<DatabaseContext>(options => options

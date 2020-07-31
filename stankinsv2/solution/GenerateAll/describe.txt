@@ -1,54 +1,46 @@
 {
-	"backend":[
-		{
-			folder:"NETCore3.1",
-			name:".NET Core 3.1 WebAPI",
-			worksWithFrontEnd:[
-				"Angular10.0"
-			],
-			copyTableFiles:[
-				"TestWEBAPI_DAL/@Name@Repository.cs",
-				"TestWebAPI_BL/@Name@BL.cs",
-				"TestWebAPI//Controllers/@Name@ActionController.cs",
-				"TestWebAPI/Controllers/@Name@RESTController.cs"				
-			],
-			"execute":[
-				{
-				name: "docker",
-				execute:[
-					"docker build -t testwebapi -f docker.txt .",
-					"docker run -p 5000:5000 -d  --name testwebapiContainer --rm testwebapi"
-				]
-				}
-			]
-		}
-	],
-	"frontend":[
-		{
-			folder:"Angular10.0",
-			worksWithBackEnd:[
-				"NETCore3.1"
-			],
-			name:"Angular 10 navigation",
-			copyTableFiles:[
-				'src/app/WebAPIComponents/@Name@.component.ts',
-				'src/app/WebAPIComponents/@Name@.component.css',
-				'src/app/WebAPIComponents/@Name@.component.html',
-				'src/app/WebAPIComponents/@Name@.component.spec.ts',
-				'src/app/WebAPIClasses/@Name@.ts',
-				'src/app/services/@Name@.service.ts',
-				
-			],
-			"execute":[
-				{
-				name: "docker",
-				execute:[
-					"docker build -t testwebapiang -f docker.txt .",
-					"docker run -p 4200:4200 -d --name testwebapiangContainer --rm testwebapiang"
-				]
-				}
-			]
-		}
-	]
+    "backend": [{
+        folder: "NETCore3.1",
+        name: ".NET Core 3.1 WebAPI",
+        worksWithFrontEnd: [
+            "Angular10.0"
+        ],
+        copyTableFiles: [
+            "TestWEBAPI_DAL/@Name@Repository.cs",
+            "TestWebAPI_BL/@Name@BL.cs",
+            "TestWebAPI//Controllers/@Name@ActionController.cs",
+            "TestWebAPI/Controllers/@Name@RESTController.cs"
+        ],
+        "execute": [{
+            name: "docker",
+            execute: [
+                "docker build -t testwebapi -f docker.txt .",
+                "docker run -p 5000:5000 -d  --name testwebapiContainer --rm testwebapi"
+            ]
+        }]
+    }],
+    "frontend": [{
+        folder: "Angular10.0",
+        worksWithBackEnd: [
+            "NETCore3.1"
+        ],
+        name: "Angular 10 navigation",
+        copyTableFiles: [
+            'src/app/WebAPIComponents/@Name@.component.ts',
+            'src/app/WebAPIComponents/@Name@.component.css',
+            'src/app/WebAPIComponents/@Name@.component.html',
+            'src/app/WebAPIComponents/@Name@.component.spec.ts',
+            'src/app/WebAPIClasses/@Name@.ts',
+            'src/app/services/@Name@.service.ts',
+
+        ],
+        "execute": [{
+            name: "docker",
+            execute: [
+                "docker build -t testwebapiang -f docker.txt .",
+                "docker run -p 4200:4200 -d --name testwebapiangContainer --rm testwebapiang"
+            ]
+        }]
+    }]
 
 }
