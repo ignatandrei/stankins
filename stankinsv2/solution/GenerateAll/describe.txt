@@ -17,12 +17,9 @@
 				name: "docker",
 				execute:[
 					"docker build -t testwebapi -f docker.txt .",
-					"docker run -p 5000:5000 -d --name testwebapiContainer --rm testwebapi"
+					"docker run -p 5000:5000 -d  --name testwebapiContainer --rm testwebapi"
 				]
 				}
-			],
-			"build":[
-				
 			]
 		}
 	],

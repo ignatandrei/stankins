@@ -1,5 +1,8 @@
+@{
+	var angular= "@angular";
+}
 FROM node:12.0
-ENV NODE_ROOT usr/app/
+WORKDIR /app
 
 RUN npm install -g @angular/cli@10.0.4
 
@@ -11,6 +14,11 @@ RUN set -x \
     && node -v \
     && npm -v \
     && ng version
+
+WORKDIR /app
+
+RUN ls -lh
+
+ENTRYPOINT ["ng", "serve","--host", "0.0.0.0", "--port", "4200"]
 	
-CMD ng serve --host 0.0.0.0 --port 4200
 EXPOSE 4200 

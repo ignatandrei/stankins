@@ -109,8 +109,8 @@ namespace StankinsVariousConsole
             var outputFolder = @"C:\test";
             IDataToSent data;
             string excel = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\ExcelTests\";
-            //excel += "TestExportExcel.xlsx";
-            excel += "ProgrammingTools.xlsx";
+            excel += "TestExportExcel.xlsx";
+            //excel += "ProgrammingTools.xlsx";
             var recExcel = new ReceiverExcel(excel);
 
             data = await recExcel.TransformData(null);
