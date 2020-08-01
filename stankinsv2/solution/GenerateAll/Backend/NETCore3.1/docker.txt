@@ -9,21 +9,24 @@ COPY TestWebAPI_BL/TestWebAPI_BL.csproj ./TestWebAPI_BL/TestWebAPI_BL.csproj
 RUN mkdir TestWEBAPI_DAL
 COPY TestWEBAPI_DAL/TestWEBAPI_DAL.csproj ./TestWEBAPI_DAL/TestWEBAPI_DAL.csproj
 
-RUN dotnet restore
+RUN dotnet restore -r linux-x64
 
 COPY . ./
 
-RUN dotnet build
+RUN dotnet build -r linux-x64 -c Release --no-restore
 
 RUN cd TestWebAPI
 
-RUN dotnet publish -c Release -o out/linux-x64 -r linux-x64
-RUN dotnet publish -c Release -o out/win-x64 -r win-x64
- 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1
-WORKDIR /app
-COPY --from=build-env /app/out .
-ENTRYPOINT ["dotnet", "TestWebAPI.dll","--urls=http://+:5000"]
+RUN dotnet publish -c Release -o /app/out/linux-x64 -r linux-x64 --no-build
+# RUN dotnet publish -c Release -o /app/out/win-x64 -r win-x64
+
+RUN pwd
+RUN ls -lh /app/out/linux-x64/TestWebAPI.dll
+
+#FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+#WORKDIR /app
+#COPY --from=build-env /app/out .
+ENTRYPOINT ["dotnet", "/app/out/linux-x64/TestWebAPI.dll","--urls=http://+:5000"]
 #CMD tail -f /dev/null
 EXPOSE 5000 
 #EXPOSE 49153
