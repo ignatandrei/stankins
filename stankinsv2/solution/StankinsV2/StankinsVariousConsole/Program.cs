@@ -24,6 +24,7 @@ using Newtonsoft.Json.Linq;
 using YamlDotNet.RepresentationModel;
 using Stankins.Razor;
 using Stankins.Excel;
+using Octokit;
 
 namespace StankinsVariousConsole
 {
@@ -219,11 +220,84 @@ namespace StankinsVariousConsole
 
             var save = new SenderOutputToFolder(outputFolder, false, "OutputString");
             data = await save.TransformData(data);
+
+            var b = await CreateBranch(g);
+            var final = await CommitDir(b, outputFolder);
             return true;
         }
+        static string CredentialsToken =  "please replace ";
+        static async Task<bool> CommitDir(string headMasterRef, string folder)
+        {
+            var sep = Path.DirectorySeparatorChar;
+            var di = new DirectoryInfo(folder);
 
-        //https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
-        private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
+            var files = di.GetFiles("*", SearchOption.AllDirectories);
+            var filesWithRelative = files
+                .Select(it => new { it.FullName, Relative = it.FullName.Replace(di.FullName, "") })
+                .Select(it => new { it.FullName, Rel = it.Relative.StartsWith(sep) ? it.Relative.Substring(1) : it.Relative })
+                .Select(it => new { it.FullName, Rel = it.Rel.Replace(@"\", "/") })
+                .ToArray();
+            ;
+
+
+            var Client = new GitHubClient(new ProductHeaderValue("GithubCommitTest"));
+            Client.Credentials = new Credentials(CredentialsToken);
+            var owner = "ignatandrei";
+            var repo = "generateApp";
+            var repoId = (await Client.Repository.Get(owner, repo)).Id;
+
+            //var headMasterRef = "heads/master";
+            //headMasterRef = "refs/heads/tsf1";
+            var masterReference = await Client.Git.Reference.Get(repoId, headMasterRef); // Get reference of master branch
+            var latestCommit = await Client.Git.Commit.Get(repoId, masterReference.Object.Sha); // Get the laster commit of this branch
+            var nt = new NewTree { BaseTree = latestCommit.Tree.Sha };
+
+
+            foreach (var item in filesWithRelative)
+            {
+                Console.WriteLine($"reading {item.Rel}");
+                var contentFile = File.ReadAllText(item.FullName);
+                var textBlob = new NewBlob { Encoding = EncodingType.Utf8, Content = contentFile };
+                var textBlobRef = await Client.Git.Blob.Create(repoId, textBlob);
+                nt.Tree.Add(new NewTreeItem { Path = item.Rel, Mode = "100644", Type = TreeType.Blob, Sha = textBlobRef.Sha });
+
+            }
+            var newTree = await Client.Git.Tree.Create(repoId, nt);
+
+            // 4. Create the commit with the SHAs of the tree and the reference of master branch
+            // Create Commit
+            var newCommit = new NewCommit("Commit test with several files", newTree.Sha, masterReference.Object.Sha);
+            var commit = await Client.Git.Commit.Create(repoId, newCommit);
+
+            // 5. Update the reference of master branch with the SHA of the commit
+            // Update HEAD with the commit
+            await Client.Git.Reference.Update(repoId, headMasterRef, new ReferenceUpdate(commit.Sha));
+            return true;
+        }
+        static async Task<string> CreateBranch(string branch)
+        {
+            var github = new GitHubClient(new ProductHeaderValue("GithubCommitTest"));
+            github.Credentials = new Credentials(CredentialsToken);
+            var user = await github.User.Get("ignatandrei");
+            Console.WriteLine($"{user.Name} have {user.PublicRepos} public repos");
+            var owner = "ignatandrei";
+            var repo = "generateApp";
+            var repoId = (await github.Repository.Get(owner, repo)).Id;
+            var masterNew = await github.Git.Reference.Get(repoId, "heads/master");
+            var newBranch = await github.Git.Reference.Create(repoId, new NewReference("refs/heads/" + branch, masterNew.Object.Sha));
+            var createChangeSet = await github.Repository.Content.CreateFile(
+                                            repoId,
+                                            "readme.txt",
+                                            new CreateFileRequest("File creation",
+                                                                  "Hello World!",
+                                                                  newBranch.Ref
+                                                                  ));
+
+
+            return "refs/heads/" + branch;
+        }
+            //https://docs.microsoft.com/en-us/dotnet/standard/io/how-to-copy-directories
+            private static void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
             // Get the subdirectories for the specified directory.
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
