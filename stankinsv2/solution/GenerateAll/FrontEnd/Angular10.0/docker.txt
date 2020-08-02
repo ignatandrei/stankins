@@ -17,11 +17,8 @@ RUN set -x \
     && npm -v \
     && ng version
 
-WORKDIR /app
 
-RUN ls -lh
-
-RUN ng build  --aot=true --buildOptimizer=true --configuration=production --outputPath=out
+RUN ng build  --aot=true --buildOptimizer=true --configuration=production --outputPath=/app/out
 
 ENTRYPOINT ["ng", "serve","--host", "0.0.0.0", "--port", "4200"]
 	
