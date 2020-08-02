@@ -80,12 +80,17 @@ namespace TestWebAPI
             
             app.UseHttpsRedirection();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapFallbackToFile("/index.html");
+             
                 endpoints.MapControllers();
             });
             CreateDatabase(app);
