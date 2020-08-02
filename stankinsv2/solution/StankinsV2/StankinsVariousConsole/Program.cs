@@ -206,8 +206,8 @@ namespace StankinsVariousConsole
             //var up = new TransformerUpdateColumn("FullFileName_origin", data.DataToBeSentFurther[2].TableName, $"'{outputFolder}' + SUBSTRING(FullFileName_origin,{lenTemplateFolder+1},100)");
             Console.WriteLine(data.DataToBeSentFurther[3].TableName);
             var lenTemplateFolder = f.Length;
-
-            var up = new TransformerUpdateColumn("FullFileName_origin", "OutputString", $"SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
+            var sep = Path.DirectorySeparatorChar;
+            var up = new TransformerUpdateColumn("FullFileName_origin", "OutputString", "'Generated"+ sep+ $"'+SUBSTRING(FullFileName_origin,{lenTemplateFolder + 2},100)");
             data = await up.TransformData(data);
             var x = data.DataToBeSentFurther;
             var name = new ChangeColumnName("Name", "Key");
@@ -225,7 +225,7 @@ namespace StankinsVariousConsole
             var final = await CommitDir(b, outputFolder);
             return true;
         }
-        static string CredentialsToken =  "please replace ";
+        static string CredentialsToken = "please generate";
         static async Task<bool> CommitDir(string headMasterRef, string folder)
         {
             var sep = Path.DirectorySeparatorChar;
