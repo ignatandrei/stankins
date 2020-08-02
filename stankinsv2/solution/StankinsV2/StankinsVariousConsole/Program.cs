@@ -104,6 +104,7 @@ namespace StankinsVariousConsole
 
             var backendFolderName = @"NETCore3.1";
             var frontendFolderName = @"Angular10.0";
+            frontendFolderName = @"Angular10.0Full";
             var backend = stData.backend.First(it => it.folder == backendFolderName);
             var frontEnd= stData.frontend.First(it => it.folder == frontendFolderName);
             //wt  new-tab -d C:\test\backend\NETCore3.1\TestWebAPI ; split-pane -d C:\test\frontend\Angular10.0
@@ -221,8 +222,8 @@ namespace StankinsVariousConsole
             var save = new SenderOutputToFolder(outputFolder, false, "OutputString");
             data = await save.TransformData(data);
 
-            var b = await CreateBranch(g);
-            var final = await CommitDir(b, outputFolder);
+            //var b = await CreateBranch(g);
+            //var final = await CommitDir(b, outputFolder);
             return true;
         }
         static string CredentialsToken = "please generate";

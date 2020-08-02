@@ -1,0 +1,46 @@
+@model Stankins.Interfaces.IDataToSent
+@{
+	var angular="@angular";
+	var Injectable = "@Injectable";
+	var dt= Model.FindAfterName("@Name@").Value;
+	var nameTable =dt.TableName;
+	var nrCols= dt.Columns.Count;
+	string lowerCaseFirst(string s){
+		return char.ToLower(s[0]) + s.Substring(1);
+	}
+}
+
+
+<table>
+	<tr>
+		<th>
+			Number 
+		</th>
+		@for(int iCol = 0;iCol < nrCols; iCol++){
+                var col = dt.Columns[iCol];
+                var colName= col.ColumnName ;
+                
+                <text>
+				<th>@colName</th>
+                </text>
+
+            }
+			<td>Operations</td>
+	</tr>
+	<tr *ngFor="let row of rows;let i=index;">
+		<td>
+		{{i+1}}
+		</td>
+		@for(int iCol = 0;iCol < nrCols; iCol++){
+                var col = dt.Columns[iCol];
+                var colName= col.ColumnName ;
+                
+                <text>
+				<td>{{row.@lowerCaseFirst(colName)}}</td>
+                </text>
+
+            }
+		<td>Edit, Delete
+		</td>
+	</tr>	
+</table>

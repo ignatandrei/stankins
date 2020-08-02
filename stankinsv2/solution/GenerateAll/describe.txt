@@ -41,6 +41,29 @@
                 "docker run -p 4200:4200 -d --name testwebapiangContainer --rm testwebapiang"
             ]
         }]
-    }]
+    },
+{
+        folder: "Angular10.0Full",
+        worksWithBackEnd: [ ],
+        name: "Angular 10 read only with JSON data",
+        copyTableFiles: [
+            'src/app/WebAPIComponents/@Name@.component.ts',
+            'src/app/WebAPIComponents/@Name@.component.css',
+            'src/app/WebAPIComponents/@Name@.component.html',
+            'src/app/WebAPIComponents/@Name@.component.spec.ts',
+            'src/app/WebAPIClasses/@Name@.ts',
+            'src/app/services/@Name@.service.ts',
+
+        ],
+        "execute": [{
+            name: "docker",
+            execute: [
+                "docker build -t testwebapiang -f docker.txt .",
+                "docker run -p 4200:4200 -d --name testwebapiangContainer --rm testwebapiang"
+            ]
+        }]
+    }
+
+]
 
 }
