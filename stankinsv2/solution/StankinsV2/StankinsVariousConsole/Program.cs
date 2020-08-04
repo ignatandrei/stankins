@@ -427,11 +427,37 @@ namespace StankinsVariousConsole
             var final = await CommitDir(b, outputFolder);
 
             var ret = await waitForRuns(g);
-            Console.WriteLine(string.Join(Environment.NewLine, ret));
+            //Console.WriteLine(string.Join(Environment.NewLine, ret));
+            if (ret)
+            {
+                var assets = await FindAssetsInRelease(g);
+                //assets.First().Url;
+            }
+
             return true;
         }
+        static async Task<Release[]> FindAssetsInRelease(string name)
+        {
+            var Client = new GitHubClient(new ProductHeaderValue("GithubCommitTest"));
+            Client.Credentials = new Credentials(CredentialsToken);
+            var owner = "ignatandrei";
+            var repo = "generateApp";
+            var repoObj = await Client.Repository.Get(owner, repo);
+            var assets = await Client.Repository.Release.GetAll(repoObj.Id);
+            return assets.Where(it=>it.Name.Contains(name)).ToArray();
 
-        static async Task<string[]> waitForRuns(string g)
+            //var c = new HttpClient();
+            //c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0");
+            //var str = await c.GetStringAsync("https://api.github.com/repos/ignatandrei/generateApp/releases");
+            //var rel = JsonSerializer.Deserialize<Release[]>(str);
+            //var found = rel.FirstOrDefault(it => it.tag_name == tagName);
+            //if (found == null)
+            //    return null;
+
+            //return found.assets;
+
+        }
+        static async Task<bool> waitForRuns(string g)
         {
             var c = new HttpClient();
             c.DefaultRequestHeaders.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/47.0");
@@ -456,13 +482,16 @@ namespace StankinsVariousConsole
 
             var lastRun = runs.FirstOrDefault();//search for "commit test...
             if (lastRun == null)
-                throw new ArgumentException($"cannot find runs for {g}");
+                //throw new ArgumentException($"cannot find runs for {g}");
+                return false;
 
             if (lastRun.conclusion != "success")
             {
-                throw new ArgumentException($"the run for {g} is without success. Please contact us to find more");
+                return false;
+               // throw new ArgumentException($"the run for {g} is without success. Please contact us to find more");
             }
-            return new string[] { lastRun.html_url };
+            return true;
+            //return new string[] { lastRun.html_url };
             //var arr = lastRun.check_suite_url.Split("/");
             //string suite = arr.Last();
 
