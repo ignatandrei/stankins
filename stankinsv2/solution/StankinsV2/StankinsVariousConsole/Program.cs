@@ -26,6 +26,7 @@ using Stankins.Razor;
 using Stankins.Excel;
 using Octokit;
 using System.Net.Http;
+using System.Configuration;
 
 namespace StankinsVariousConsole
 {
@@ -308,7 +309,11 @@ namespace StankinsVariousConsole
             var backend = stData.backend.First(it => it.folder == backendFolderName);
             var frontEnd= stData.frontend.First(it => it.folder == frontendFolderName);
             //wt  new-tab -d C:\test\backend\NETCore3.1\TestWebAPI ; split-pane -d C:\test\frontend\Angular10.0
-            var outputFolder = @"C:\test";
+            var g = Guid.NewGuid().ToString("N");
+            var outputFolder = $@"C:\test\{g}";
+            if (!Directory.Exists(outputFolder))
+                Directory.CreateDirectory(outputFolder);
+
             IDataToSent data;
             string excel = @"E:\ignatandrei\stankins\stankinsv2\solution\GenerateAll\ExcelTests\";
             excel += "TestExportExcel.xlsx";
@@ -336,7 +341,6 @@ namespace StankinsVariousConsole
                 nameTablesToRender[iRowDS] = dt.TableName;
             }
 
-            var g = Guid.NewGuid().ToString("N");
             var f = Path.Combine(outputFolder, g);
             Directory.CreateDirectory(f);
             File.Copy(generator, Path.Combine(outputFolder, "describe.txt"),true);
@@ -421,7 +425,7 @@ namespace StankinsVariousConsole
 
             var save = new SenderOutputToFolder(outputFolder, false, "OutputString");
             data = await save.TransformData(data);
-
+            
             Console.WriteLine($"branch : {g} ");
             var b = await CreateBranch(g);
             var final = await CommitDir(b, outputFolder);
@@ -431,7 +435,16 @@ namespace StankinsVariousConsole
             if (ret)
             {
                 var assets = await FindAssetsInRelease(g);
-                //assets.First().Url;
+                if (assets.Length != 1)
+                    return false;
+
+                var realAssets = assets.First().Assets;
+                Console.WriteLine(string.Join(Environment.NewLine + "_____",
+
+                        realAssets.Select(it =>
+                        it.Url + Environment.NewLine +
+                    it.BrowserDownloadUrl + Environment.NewLine)));
+
             }
 
             return true;
@@ -506,7 +519,7 @@ namespace StankinsVariousConsole
 
 
         }
-        static string CredentialsToken = "please get credentials";
+        static string CredentialsToken = "please enter credentials";
         static async Task<bool> CommitDir(string headMasterRef, string folder)
         {
             var sep = Path.DirectorySeparatorChar;
