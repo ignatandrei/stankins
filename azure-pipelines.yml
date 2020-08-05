@@ -47,10 +47,12 @@ jobs:
     - checkout: self #skip checking out the default repository resource
       clean: true
   
-    - task: DotNetCoreInstaller@0
+    - task:  UseDotNet@2
       displayName: 'Use .NET Core sdk start from 2.1.503, then 2.2.100'
       inputs:
-         version: 3.1.302
+        packageType: sdk
+        version: 3.1.302
+        
   
     - task: NuGetToolInstaller@0
     
