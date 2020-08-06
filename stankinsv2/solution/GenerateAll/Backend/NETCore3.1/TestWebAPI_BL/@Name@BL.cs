@@ -8,7 +8,7 @@ using System;
 
 namespace TestWebAPI_BL
 {
-    public partial class @dt.TableName
+    public partial class @(dt.TableName)
     {
         #region partial functions
         partial void OnConstructor();
@@ -53,7 +53,7 @@ namespace TestWebAPI_BL
             var colType = col.DataType;
 
             <text>
-            public @colType.Name @colName { get; set; }
+            public @(colType.Name) @(colName) { get; set; }
             </text>
 
         }

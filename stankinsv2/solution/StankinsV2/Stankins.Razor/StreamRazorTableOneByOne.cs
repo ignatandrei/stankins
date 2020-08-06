@@ -19,30 +19,31 @@ namespace SenderInterpretedRazor
         public string Content { get; }
         IRazorLightEngine engine;
         readonly string key;
-        public async Task<bool> Initialize()
+        public Task<bool> Initialize()
         {
             engine = new RazorLightEngineBuilder()
+                .UseEmbeddedResourcesProject(this.GetType())
             .UseMemoryCachingProvider()
             .Build();
             
-            await engine.CompileRenderAsync< DataTable>(key,Content,new DataTable());
-            var found = engine.TemplateCache.RetrieveTemplate(key);
-            return found.Success;
-            //return true;
+            //await engine.CompileRenderAsync< DataTable>((key,Content,new DataTable());
+            //var found = engine.TemplateCache.RetrieveTemplate(key);
+            //return found.Success;
+            return Task.FromResult( true);
         }
 
         public  IEnumerable<string> StreamTo(IDataToSent dataToSent)
         {
             
-            var found = engine.TemplateCache.RetrieveTemplate(key);
-            if (!found.Success)
-            {
-                throw new ArgumentException(" the template was not initialized");
-            }
+            //var found = engine.TemplateCache.RetrieveTemplate(key);
+            //if (!found.Success)
+            //{
+            //    throw new ArgumentException(" the template was not initialized");
+            //}
             foreach (var item in dataToSent.DataToBeSentFurther)
             {
                 
-                var res = engine.RenderTemplateAsync(found.Template.TemplatePageFactory(), item.Value).ConfigureAwait(false).GetAwaiter().GetResult();
+                var res = engine.CompileRenderStringAsync(key,Content, item.Value).ConfigureAwait(false).GetAwaiter().GetResult();
 
                 yield return res;
             }

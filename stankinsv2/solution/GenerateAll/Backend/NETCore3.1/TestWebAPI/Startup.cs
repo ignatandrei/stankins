@@ -56,9 +56,10 @@ namespace TestWebAPI
                 .UseInMemoryDatabase(databaseName: "MyDB"));
 
        @foreach(var nameTable in nameTablesToRender){
+            string textToRender="services.AddTransient<IRepository<"+nameTable+">, "+nameTable+"_Repository>();";
             
             <text>
-            services.AddTransient<IRepository<@nameTable>, @(nameTable)_Repository>();
+			@Raw(textToRender);
             </text>
         }
  

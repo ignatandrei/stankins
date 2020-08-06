@@ -44,15 +44,17 @@ namespace Stankins.Razor
         public abstract string DefaultText();
         public override async Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
-            receiveData =receiveData?? new DataToSentTable();
+            receiveData ??=new DataToSentTable();
 
             var engine = new RazorLightEngineBuilder()
+                .UseEmbeddedResourcesProject(this.GetType())
                 .UseMemoryCachingProvider()
                 .Build();
 
+            
             var key = Guid.NewGuid().ToString();
 
-            var found = await engine.CompileRenderAsync<IDataToSent>(key, InputTemplate, receiveData);
+            var found = await engine.CompileRenderStringAsync(key, InputTemplate, receiveData);
 
             base.CreateOutputIfNotExists(receiveData);
 
