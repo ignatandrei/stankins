@@ -9,7 +9,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
-    <ProjectReference Include="..\StankinsCommon\StankinsCommon.csproj" />
+    <ProjectReference Include="..\StankinsCommon\Stankins.Common.csproj" />
   </ItemGroup>
  
 </Project>

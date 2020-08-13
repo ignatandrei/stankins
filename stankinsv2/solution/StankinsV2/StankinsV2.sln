@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30225.117
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Interfaces", "Stankins.Interfaces\Stankins.Interfaces.csproj", "{AD565CAA-69B5-468F-9BF3-B89071C99F92}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsCommon", "StankinsCommon\StankinsCommon.csproj", "{48B51AD6-DB3C-4DE8-992D-5A0C4CD68A5E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Common", "StankinsCommon\Stankins.Common.csproj", "{48B51AD6-DB3C-4DE8-992D-5A0C4CD68A5E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Objects", "StankinsObjects\Stankins.Objects.csproj", "{04A65750-0511-4B62-B5B9-AFB2974384DF}"
 EndProject

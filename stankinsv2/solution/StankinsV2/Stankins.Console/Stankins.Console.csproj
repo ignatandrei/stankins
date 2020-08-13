@@ -36,7 +36,7 @@
     <ProjectReference Include="..\Stankins.SqlServer\Stankins.SqlServer.csproj" />
     <ProjectReference Include="..\Stankins.Version\Stankins.Version.csproj" />
     <ProjectReference Include="..\Stankins.XML\Stankins.XML.csproj" />
-    <ProjectReference Include="..\StankinsCommon\StankinsCommon.csproj" />
+    <ProjectReference Include="..\StankinsCommon\Stankins.Common.csproj" />
     <ProjectReference Include="..\StankinsCronFiles\StankinsCronFiles.csproj" />
     <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
     <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" />

@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StankinsCommon\StankinsCommon.csproj" />
+    <ProjectReference Include="..\StankinsCommon\Stankins.Common.csproj" />
     <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" />
   </ItemGroup>
 
