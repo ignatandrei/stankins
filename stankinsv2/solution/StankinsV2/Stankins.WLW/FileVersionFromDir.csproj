@@ -19,6 +19,6 @@
     <PackageReference Include="OpenMcdf" Version="2.2.1.3" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" />
   </ItemGroup>
 </Project>

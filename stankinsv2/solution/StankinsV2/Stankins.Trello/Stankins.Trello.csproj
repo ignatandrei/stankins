@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Rest\Stankins.Rest.csproj" />
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" />
   </ItemGroup>
 
 </Project>

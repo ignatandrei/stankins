@@ -7,7 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
     <ProjectReference Include="..\StankinsCommon\StankinsCommon.csproj" PrivateAssets="all" />
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" PrivateAssets="all" />
   </ItemGroup>
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
     <ItemGroup>

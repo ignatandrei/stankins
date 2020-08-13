@@ -42,7 +42,7 @@
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />
     <ProjectReference Include="..\Stankins.WLW\FileVersionFromDir.csproj" />
     <ProjectReference Include="..\Stankins.XML\Stankins.XML.csproj" />
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="stankinsYaml.txt">

@@ -20,7 +20,7 @@
     <ProjectReference Include="..\Stankins.Version\Stankins.Version.csproj" />
     <ProjectReference Include="..\Stankins.XML\Stankins.XML.csproj" />
     <ProjectReference Include="..\StankinsCommon\StankinsCommon.csproj" />
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" />
   </ItemGroup>
 
 </Project>

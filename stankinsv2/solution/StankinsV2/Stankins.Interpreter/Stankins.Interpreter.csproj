@@ -56,7 +56,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" />
   </ItemGroup>
 
 </Project>

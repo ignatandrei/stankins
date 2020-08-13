@@ -5,7 +5,7 @@
     <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" PrivateAssets="all" />
   </ItemGroup>
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
     <ItemGroup>

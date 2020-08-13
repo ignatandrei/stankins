@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Interfaces", "Stan
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsCommon", "StankinsCommon\StankinsCommon.csproj", "{48B51AD6-DB3C-4DE8-992D-5A0C4CD68A5E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsObjects", "StankinsObjects\StankinsObjects.csproj", "{04A65750-0511-4B62-B5B9-AFB2974384DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Objects", "StankinsObjects\Stankins.Objects.csproj", "{04A65750-0511-4B62-B5B9-AFB2974384DF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.FileOps", "Stankins.File\Stankins.FileOps.csproj", "{FB78070A-A487-48A9-B1F5-30F1432B8F0D}"
 EndProject

@@ -9,6 +9,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
     <ProjectReference Include="..\Stankins.Jenkins\Stankins.Jenkins.csproj" />
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" />
   </ItemGroup>
 </Project>

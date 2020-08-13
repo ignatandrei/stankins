@@ -55,7 +55,7 @@
     <PackageReference Include="RazorLight" Version="2.0.0-beta9" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" PrivateAssets="all" />
+    <ProjectReference Include="..\StankinsObjects\Stankins.Objects.csproj" PrivateAssets="all" />
   </ItemGroup>
   <Target Name="CopyProjectReferencesToPackage" DependsOnTargets="ResolveReferences">
     <ItemGroup>
