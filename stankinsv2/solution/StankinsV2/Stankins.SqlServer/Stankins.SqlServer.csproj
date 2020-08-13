@@ -12,7 +12,7 @@
     <ProjectReference Include="..\Stankins.File\Stankins.FileOps.csproj" />
     <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />
-    <ProjectReference Include="..\StankinsReceiverDB\StankinsReceiverDB.csproj" />
+    <ProjectReference Include="..\StankinsReceiverDB\Stankins.ReceiverDB.csproj" />
   </ItemGroup>
 
 </Project>

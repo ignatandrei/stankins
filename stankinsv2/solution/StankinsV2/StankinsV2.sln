@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsTestXUnit", "Stanki
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.AzureDevOps", "Stankins.AzureDevOps\Stankins.AzureDevOps.csproj", "{2C41153C-B3A4-4D9B-BB6E-6C8FBB44FF17}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsReceiverDB", "StankinsReceiverDB\StankinsReceiverDB.csproj", "{BCE68B67-C1CB-4874-9895-22BA9EB83888}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.ReceiverDB", "StankinsReceiverDB\Stankins.ReceiverDB.csproj", "{BCE68B67-C1CB-4874-9895-22BA9EB83888}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.SqlServer", "Stankins.SqlServer\Stankins.SqlServer.csproj", "{7B667F9B-65F7-4D46-9F1B-EEBDA242FD8B}"
 EndProject
@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StankinsCronFiles", "Stanki
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.Excel", "Stankins.Excel\Stankins.Excel.csproj", "{5476CC4B-95A2-4085-9BFD-AE8E8A9AC8AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stankins.MariaDB", "Stankins.MariaDB\Stankins.MariaDB.csproj", "{A8EA81E1-0FC8-4751-AF6D-5E62BDFB1005}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stankins.MariaDB", "Stankins.MariaDB\Stankins.MariaDB.csproj", "{A8EA81E1-0FC8-4751-AF6D-5E62BDFB1005}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

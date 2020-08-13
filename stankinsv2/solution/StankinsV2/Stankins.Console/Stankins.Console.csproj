@@ -40,7 +40,7 @@
     <ProjectReference Include="..\StankinsCronFiles\StankinsCronFiles.csproj" />
     <ProjectReference Include="..\StankinsHelperCommands\StankinsHelperCommands.csproj" />
     <ProjectReference Include="..\StankinsObjects\StankinsObjects.csproj" />
-    <ProjectReference Include="..\StankinsReceiverDB\StankinsReceiverDB.csproj" />
+    <ProjectReference Include="..\StankinsReceiverDB\Stankins.ReceiverDB.csproj" />
   </ItemGroup>
 
 </Project>
