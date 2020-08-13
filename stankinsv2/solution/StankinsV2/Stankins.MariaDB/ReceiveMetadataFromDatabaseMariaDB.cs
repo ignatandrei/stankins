@@ -31,7 +31,7 @@ namespace Stankins.MariaDB
         {
             receiveData ??= new DataToSentTable();
             var b = new MySqlConnectionStringBuilder(base.connectionString);
-            var tablesString = $"select Concat(Table_SCHEMA,'.' ,TABLE_NAME) as id , Concat(Table_SCHEMA,'.' ,TABLE_NAME)  as name from  information_schema.TABLES where TABLE_SCHEMA='{b.Database}'";
+            var tablesString = $"select Concat(Table_SCHEMA,'.' ,TABLE_NAME) as id , TABLE_NAME  as name from  information_schema.TABLES where TABLE_SCHEMA='{b.Database}'";
             var newTables = FromSql(tablesString, "tables");
 
             var cols = $@"select Concat(Table_SCHEMA,'.' ,TABLE_NAME,'.',COLUMN_NAME) as id, 

@@ -36,6 +36,7 @@
     <ProjectReference Include="..\Stankins.File\Stankins.FileOps.csproj" />
     <ProjectReference Include="..\Stankins.HTML\Stankins.HTML.csproj" />
     <ProjectReference Include="..\Stankins.Interfaces\Stankins.Interfaces.csproj" />
+    <ProjectReference Include="..\Stankins.MariaDB\Stankins.MariaDB.csproj" />
     <ProjectReference Include="..\Stankins.Office\Stankins.Office.csproj" />
     <ProjectReference Include="..\Stankins.Process\Stankins.Process.csproj" />
     <ProjectReference Include="..\Stankins.Razor\Stankins.Razor.csproj" />

@@ -27,6 +27,7 @@ using Stankins.Excel;
 using Octokit;
 using System.Net.Http;
 using System.Configuration;
+using Stankins.MariaDB;
 
 namespace StankinsVariousConsole
 {
@@ -628,8 +629,18 @@ namespace StankinsVariousConsole
                 }
             }
         }
+        static async Task<bool> MariaDB()
+        {
+            string cn = "";
+            var r = new ReceiveMetadataFromDatabaseMariaDB(cn);
+            var data = await r.TransformData(null);
+
+            return true;
+        }
         static async Task Main(string[] args)
         {
+             await MariaDB();
+            return;
             while (true)
             {
                 try
