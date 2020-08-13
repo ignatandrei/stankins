@@ -15,8 +15,9 @@ namespace StankinsTestXUnit
     public class TestReceiverExcel
     {
         [Scenario]
-        [Example("Assets/Excel/ProgrammingTools2018.xlsx", 2)]
-        public void TestSimpleExcel(string fileName, int NumberSheets)
+        //[Example("Assets/Excel/newempty.xlsx", 2, "Sheet1", 1, 1)]
+        [Example("Assets/Excel/ProgrammingTools2018.xlsx", 2, "ProgrammingTools2018",9,8)]
+        public void TestSimpleExcel(string fileName, int NumberSheets,string verifySheet,int nrCols, int nrRows)
         {
             IReceive receiver = null;
             IDataToSent data = null;
@@ -27,17 +28,17 @@ namespace StankinsTestXUnit
             {
                 data.DataToBeSentFurther.Should().NotBeNull();                
             });
-            $"The number of sheets should be {NumberSheets}".w(() => data.DataToBeSentFurther.Count.Should().Be(NumberSheets));
+            $"The number of sheets should be {NumberSheets}".w(() => data.DataToBeSentFurther.Count.Should().Be(NumberSheets+1));
             $"and verification for first sheet ".w(() =>
             {
-                var firstTable = data.DataToBeSentFurther.First().Value;
-                firstTable.Columns.Count.Should().Be(9);
-                firstTable.Rows.Count.Should().Be(8);
+                var firstTable = data.FindAfterName(verifySheet).Value;
+                firstTable.Columns.Count.Should().Be(nrCols);
+                firstTable.Rows.Count.Should().Be(nrRows);
 
-                firstTable.Rows[0].ItemArray[0].Should().Be("Browsers");
-                firstTable.Rows[0].ItemArray[7].Should().Be(1);
-                firstTable.Rows[7].ItemArray[0].Should().Be("Communications");
-                firstTable.Rows[7].ItemArray[7].Should().Be(5);
+                //firstTable.Rows[0].ItemArray[0].Should().Be("Browsers");
+                //firstTable.Rows[0].ItemArray[7].Should().Be(1);
+                //firstTable.Rows[7].ItemArray[0].Should().Be("Communications");
+                //firstTable.Rows[7].ItemArray[7].Should().Be(5);
 
             });
 
