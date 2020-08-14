@@ -120,18 +120,31 @@ namespace Stankins.Excel
 
                     }
                 }
-
+                var nrCols = dtSheet.Columns.Count;
                 for (int iRow = 1; iRow < lastRow; iRow++)
                 {
                     rowHeader = sheet.GetRow(iRow);
                     var values = rowHeader.Cells.Select(it => it.ToString()).ToList();
-                    var cellMissed = dtSheet.Columns.Count - values.Count();
+                    var cellMissed = nrCols- values.Count();
                     if (cellMissed>0)
-                    {
+                    {//found row with less values than the header
                         values.AddRange(Enumerable.Repeat(" ", cellMissed));
                     }
-                    dtSheet.Rows.Add(values.ToArray());
-                        
+                    if (cellMissed < 0)
+                    {//found row with more values than the header
+                        while(!(values.Count == nrCols))
+                        {
+                            values.RemoveAt(values.Count - 1);
+                        }
+                    }
+                    try
+                    {
+                        dtSheet.Rows.Add(values.ToArray());
+                    }
+                    catch(Exception ex)
+                    {
+                        string s = ex.ToString();
+                    }
                 }
                 
             }
