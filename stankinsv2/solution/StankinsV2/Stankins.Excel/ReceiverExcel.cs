@@ -128,7 +128,10 @@ namespace Stankins.Excel
                     var cellMissed = nrCols- values.Count();
                     if (cellMissed>0)
                     {//found row with less values than the header
-                        values.AddRange(Enumerable.Repeat(" ", cellMissed));
+                        while(values.Count< nrCols)
+                        {
+                            values.Add(null);
+                        }
                     }
                     if (cellMissed < 0)
                     {//found row with more values than the header
@@ -137,14 +140,10 @@ namespace Stankins.Excel
                             values.RemoveAt(values.Count - 1);
                         }
                     }
-                    try
-                    {
-                        dtSheet.Rows.Add(values.ToArray());
-                    }
-                    catch(Exception ex)
-                    {
-                        string s = ex.ToString();
-                    }
+
+                    dtSheet.Rows.Add(values.ToArray());
+                   
+                    
                 }
                 
             }

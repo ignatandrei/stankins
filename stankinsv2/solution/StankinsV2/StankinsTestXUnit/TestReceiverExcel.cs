@@ -17,6 +17,7 @@ namespace StankinsTestXUnit
         [Scenario]
         [Example("Assets/Excel/neometrics.xlsx", 2, "Nodes", 3, 410)]
         [Example("Assets/Excel/newempty.xlsx", 1, "Sheet1", 1, 1)]
+        [Example("Assets/Excel/test.xlsx", 1, "Sheet1", 2, 2)]
         [Example("Assets/Excel/ProgrammingTools2018.xlsx", 2, "ProgrammingTools2018",9,8)]
         public void TestSimpleExcel(string fileName, int NumberSheets,string verifySheet,int nrCols, int nrRows)
         {
