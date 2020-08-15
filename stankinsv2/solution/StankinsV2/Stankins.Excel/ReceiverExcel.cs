@@ -143,6 +143,8 @@ namespace Stankins.Excel
 
                 //header
                 var rowHeader = sheet.GetRow(0);
+                if (rowHeader == null)
+                    continue;
                 if (lastRow == 1)
                 {
                     //just the header, no data
