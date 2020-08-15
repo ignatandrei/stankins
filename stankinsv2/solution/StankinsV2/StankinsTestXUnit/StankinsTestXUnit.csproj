@@ -23,6 +23,7 @@
     <None Remove="Assets\bg.html" />
     <None Remove="Assets\bookmarks_11_17_17.html" />
     <None Remove="Assets\bookmarks_11_17_17N.html" />
+    <None Remove="Assets\Excel\empty.xlsx" />
     <None Remove="Assets\Excel\neometrics.xlsx" />
     <None Remove="Assets\Excel\newempty.xlsx" />
     <None Remove="Assets\Excel\ProgrammingTools2018.xlsx" />
@@ -44,6 +45,9 @@
     <None Remove="Assets\dll\Stankins.File.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Excel\empty.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Excel\neometrics.xlsx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
