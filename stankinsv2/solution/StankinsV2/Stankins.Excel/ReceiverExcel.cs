@@ -13,6 +13,8 @@ using System.ComponentModel.DataAnnotations;
 using NPOI.SS.Formula.Functions;
 using System.Collections.Generic;
 using System.Reflection.Metadata.Ecma335;
+using NPOI.XSSF.UserModel;
+using NPOI.HSSF.UserModel;
 
 namespace Stankins.Excel
 {
@@ -33,6 +35,70 @@ namespace Stankins.Excel
         {
 
         }
+       public Type FromCellType(CellType type )
+        {
+            
+            switch (type)
+            {
+                case CellType.Blank:
+                    return typeof(string);
+                    
+                case CellType.Boolean:
+                    return typeof(Boolean);
+                    
+                case CellType.Error:
+                    return  typeof(string);
+                    
+                case CellType.Formula:
+                    throw new ArgumentException("need cell");
+
+                case CellType.Numeric:
+                    return  typeof(decimal);
+
+                    
+                case CellType.String:
+                    return  typeof(string);
+
+                    
+                case CellType.Unknown:
+                    return  typeof(string);
+
+                default:
+                    throw new ArgumentException($"do not understand {type}");
+            }
+        }
+        public object ValueCell(ICell cell, CellType type)
+        {
+            switch (type)
+            {
+                case CellType.Blank:
+                    return null;
+
+                case CellType.Boolean:
+                    return cell.BooleanCellValue.ToString();
+
+                case CellType.Error:
+                    return "ERROR";
+
+                case CellType.Formula:
+                    return ValueCell(cell, cell.CachedFormulaResultType);
+
+                case CellType.Numeric:
+                    return cell.NumericCellValue;
+
+
+                case CellType.String:
+                    return cell.StringCellValue;
+
+
+                case CellType.Unknown:
+                    return null;
+
+
+                default:
+                    throw new ArgumentException($"cannot find cell value for ${type}");
+            }
+        }
 
         public override Task<IDataToSent> TransformData(IDataToSent receiveData)
         {
@@ -47,9 +113,18 @@ namespace Stankins.Excel
 
             FastAddTable(receiveData, dtExcel);
             IWorkbook wb;
+
             using (var file = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             {
                 wb= WorkbookFactory.Create(file);
+            }
+            if (wb is XSSFWorkbook)
+            {
+                XSSFFormulaEvaluator.EvaluateAllFormulaCells(wb);
+            }
+            else
+            {
+                HSSFFormulaEvaluator.EvaluateAllFormulaCells(wb);
             }
             var nrSheets = wb.NumberOfSheets;
             var sheetsTable = new List<DataTable>();
@@ -82,37 +157,22 @@ namespace Stankins.Excel
                 {
                     var secondRow = sheet.GetRow(1);
                     var maxCels = secondRow.LastCellNum;
-                    for(var i = 0; i < maxCels; i++)
+                    for (var i = 0; i < maxCels; i++)
                     {
                         var cell = secondRow.GetCell(i);
+                        string name = rowHeader.GetCell(i).StringCellValue;
+                        Type t;
                         switch (cell.CellType)
                         {
-                            case CellType.Blank:
-                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
-                                break;
-                            case CellType.Boolean:
-                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(Boolean));
-                                break;
-                            case CellType.Error:
-                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
-                                break;
                             case CellType.Formula:
-                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
+                                t = FromCellType(cell.CachedFormulaResultType);
                                 break;
-                            case CellType.Numeric:
-                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(decimal));
-
+                            default:
+                                t = FromCellType(cell.CellType);
                                 break;
-                            case CellType.String:
-                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
-
-                                break;
-                            case CellType.Unknown:
-                                dtSheet.Columns.Add(rowHeader.GetCell(i).StringCellValue, typeof(string));
-
-                                break;
-
                         }
+                        dtSheet.Columns.Add(name, t);
+
                     }
                     while (dtSheet.Columns.Count < rowHeader.LastCellNum)
                     {
@@ -124,7 +184,7 @@ namespace Stankins.Excel
                 for (int iRow = 1; iRow < lastRow; iRow++)
                 {
                     rowHeader = sheet.GetRow(iRow);
-                    var values = rowHeader.Cells.Select(it => it.ToString()).ToList();
+                    var values = rowHeader.Cells.Select(it =>ValueCell( it, it.CellType)).ToList();
                     var cellMissed = nrCols- values.Count();
                     if (cellMissed>0)
                     {//found row with less values than the header
@@ -148,7 +208,7 @@ namespace Stankins.Excel
                             
                             if(! CanChangeTypeToDataColumn(values[i],dtSheet.Columns[i].DataType))
                             {
-                                Console.WriteLine($"cannot add row {iRow} because {values[i]} do not match dtSheet.Columns[i].DataType");
+                                Console.WriteLine($"cannot add row {iRow} because {values[i]} do not match {dtSheet.Columns[i].DataType}");
                                 canAdd = false;
                             }
                         }
