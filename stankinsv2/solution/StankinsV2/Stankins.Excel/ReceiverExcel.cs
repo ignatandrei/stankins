@@ -140,9 +140,26 @@ namespace Stankins.Excel
                             values.RemoveAt(values.Count - 1);
                         }
                     }
-
-                    dtSheet.Rows.Add(values.ToArray());
-                   
+                    try
+                    {
+                        bool canAdd = true;
+                        for (int i = 0; i < values.Count; i++)
+                        {
+                            
+                            if(! CanChangeTypeToDataColumn(values[i],dtSheet.Columns[i].DataType))
+                            {
+                                Console.WriteLine($"cannot add row {iRow} because {values[i]} do not match dtSheet.Columns[i].DataType");
+                                canAdd = false;
+                            }
+                        }
+                        if(canAdd)
+                        dtSheet.Rows.Add(values.ToArray());
+                    }
+                    catch(Exception ex)
+                    {
+                        string s = ex.Message;
+                        throw;
+                    }
                     
                 }
                 
@@ -150,7 +167,20 @@ namespace Stankins.Excel
             FastAddTables(receiveData, sheetsTable.ToArray());
             return Task.FromResult( receiveData);
         }
-
+        static bool CanChangeTypeToDataColumn(object value, Type toType)
+        {
+            try
+            {
+                if (value == null)
+                    return true;
+                var obj = Convert.ChangeType(value, toType);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        } 
         public override Task<IMetadata> TryLoadMetadata()
         {
             throw new NotImplementedException();

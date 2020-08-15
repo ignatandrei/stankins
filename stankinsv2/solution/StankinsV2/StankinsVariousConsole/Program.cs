@@ -637,8 +637,16 @@ namespace StankinsVariousConsole
 
             return true;
         }
+        async static Task<int> Excel()
+        {
+            var r = new ReceiverExcel(@"C:\Users\Surface1\Desktop\New folder\Neo4jmetrics.xlsx");
+            var data = await r.TransformData(null);
+            return data.DataToBeSentFurther.Count;
+        }
         static async Task Main(string[] args)
         {
+            Console.WriteLine(await Excel());
+            return;
              await MariaDB();
             return;
             while (true)
