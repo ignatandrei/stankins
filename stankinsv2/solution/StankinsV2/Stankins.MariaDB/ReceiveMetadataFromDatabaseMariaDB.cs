@@ -36,6 +36,7 @@ namespace Stankins.MariaDB
 
             var cols = $@"select Concat(Table_SCHEMA,'.' ,TABLE_NAME,'.',COLUMN_NAME) as id, 
 COLUMN_NAME as name, Concat(Table_SCHEMA, '.', TABLE_NAME) as tableId
+, COLUMN_TYPE as type
 from information_schema.COLUMNS where TABLE_SCHEMA = '{b.Database}'
 ";
 
