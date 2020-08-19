@@ -162,7 +162,9 @@ namespace Stankins.Excel
                     for (var i = 0; i < maxCels; i++)
                     {
                         var cell = secondRow.GetCell(i);
-                        string name = rowHeader.GetCell(i).StringCellValue;
+                        string name = (rowHeader.GetCell(i)?.StringCellValue)??"";
+                        if (string.IsNullOrEmpty(name))//no empty headers
+                            break;
                         Type t;
                         switch (cell.CellType)
                         {

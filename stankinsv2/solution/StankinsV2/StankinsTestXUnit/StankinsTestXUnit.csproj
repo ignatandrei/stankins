@@ -23,6 +23,8 @@
     <None Remove="Assets\bg.html" />
     <None Remove="Assets\bookmarks_11_17_17.html" />
     <None Remove="Assets\bookmarks_11_17_17N.html" />
+    <None Remove="Assets\Excel\convert.xls" />
+    <None Remove="Assets\Excel\curs.xls" />
     <None Remove="Assets\Excel\empty.xlsx" />
     <None Remove="Assets\Excel\neometrics.xlsx" />
     <None Remove="Assets\Excel\newempty.xlsx" />
@@ -45,6 +47,12 @@
     <None Remove="Assets\dll\Stankins.File.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Excel\convert.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Excel\curs.xls">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Excel\empty.xlsx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
