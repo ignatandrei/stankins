@@ -22,6 +22,7 @@ namespace StankinsTestXUnit
         [Example("Assets/Excel/empty.xlsx", 6, "Sheet1", 0, 0)]
         [Example("Assets/Excel/curs.xls", 3, "Valori", 2, 2)]
         //[Example("Assets/Excel/convert.xls", 1, "convert", 1, 1)]
+        [Example("Assets/Excel/conc.xls", 3, "Sheet1", 33, 6)]
         public void TestSimpleExcel(string fileName, int NumberSheets,string verifySheet,int nrCols, int nrRows)
         {
             IReceive receiver = null;

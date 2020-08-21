@@ -162,7 +162,7 @@ namespace Stankins.Excel
                     for (var i = 0; i < maxCels; i++)
                     {
                         var cell = secondRow.GetCell(i);
-                        string name = (rowHeader.GetCell(i)?.StringCellValue)??"";
+                        string name = (rowHeader.GetCell(i)?.ToString())??"";
                         if (string.IsNullOrEmpty(name))//no empty headers
                             break;
                         Type t;
@@ -209,11 +209,20 @@ namespace Stankins.Excel
                         bool canAdd = true;
                         for (int i = 0; i < values.Count; i++)
                         {
+                            var currentType = dtSheet.Columns[i].DataType;
                             
-                            if(! CanChangeTypeToDataColumn(values[i],dtSheet.Columns[i].DataType))
+                            if(! CanChangeTypeToDataColumn(values[i],currentType))
                             {
-                                Console.WriteLine($"cannot add row {iRow} because {values[i]} do not match {dtSheet.Columns[i].DataType}");
-                                canAdd = false;
+                                ConvertColumnType(dtSheet, dtSheet.Columns[i].ColumnName, typeof(string));
+                                
+                                currentType = dtSheet.Columns[i].DataType;
+                                if (!CanChangeTypeToDataColumn(values[i], currentType))
+                                {
+
+                                    string message = ($"cannot add row {iRow} because {values[i]} do not match {dtSheet.Columns[i].DataType}");
+                                    Console.WriteLine(message);
+                                    canAdd = false;
+                                }
                             }
                         }
                         if(canAdd)
@@ -230,6 +239,27 @@ namespace Stankins.Excel
             }
             FastAddTables(receiveData, sheetsTable.ToArray());
             return Task.FromResult( receiveData);
+        }
+
+        public static void ConvertColumnType(DataTable dt, string columnName, Type newType)
+        {
+            string newName = columnName + Guid.NewGuid().ToString("N");
+            using (DataColumn dc = new DataColumn(newName, newType))
+            {
+                int ordinal = dt.Columns[columnName].Ordinal;
+                dt.Columns.Add(dc);
+                dc.SetOrdinal(ordinal);
+                
+                foreach (DataRow dr in dt.Rows)
+                {
+                    dr[newName] =(dr[columnName] == DBNull.Value) ? DBNull.Value:  Convert.ChangeType(dr[columnName], newType);
+                }
+                // Remove the old column
+                dt.Columns.Remove(columnName);
+
+                // Give the new column the old column's name
+                dc.ColumnName = columnName;
+            }
         }
         static bool CanChangeTypeToDataColumn(object value, Type toType)
         {
