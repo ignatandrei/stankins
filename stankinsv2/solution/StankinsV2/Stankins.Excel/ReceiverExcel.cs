@@ -67,40 +67,45 @@ namespace Stankins.Excel
                     throw new ArgumentException($"do not understand {type}");
             }
         }
-        public object ValueCell(ICell cell, CellType? type)
+        public Tuple<int, object> ValueCell(ICell cell, CellType? type)
         {
-            if (type == null)
-                return null;
+            object valueCell = null;
+            var iCellNumber = cell.ColumnIndex;
 
-            switch (type.Value)
+            if (type != null)
             {
-                case CellType.Blank:
-                    return null;
 
-                case CellType.Boolean:
-                    return cell.BooleanCellValue.ToString();
+                switch (type.Value)
+                {
+                    case CellType.Blank:
+                        valueCell= null;
+                        break;
+                    case CellType.Boolean:
+                        valueCell = cell.BooleanCellValue.ToString();
+                        break;
+                    case CellType.Error:
+                        valueCell = "ERROR";
+                        break;
+                    case CellType.Formula:
+                        valueCell = ValueCell(cell, cell.CachedFormulaResultType).Item2;
+                        break;
+                    case CellType.Numeric:
+                        valueCell = cell.NumericCellValue;
+                        break;
 
-                case CellType.Error:
-                    return "ERROR";
+                    case CellType.String:
+                        valueCell = cell.StringCellValue;
+                        break;
 
-                case CellType.Formula:
-                    return ValueCell(cell, cell.CachedFormulaResultType);
+                    case CellType.Unknown:
+                        valueCell = null;
+                        break;
 
-                case CellType.Numeric:
-                    return cell.NumericCellValue;
-
-
-                case CellType.String:
-                    return cell.StringCellValue;
-
-
-                case CellType.Unknown:
-                    return null;
-
-
-                default:
-                    throw new ArgumentException($"cannot find cell value for ${type}");
+                    default:
+                        throw new ArgumentException($"cannot find cell value for ${type}");
+                }
             }
+            return new Tuple<int, object>(iCellNumber, valueCell);
         }
 
         public override Task<IDataToSent> TransformData(IDataToSent receiveData)
@@ -198,21 +203,16 @@ namespace Stankins.Excel
                     if ((rowHeader?.Cells?.Count ?? 0) < 1)
                         continue;
 
-                    var values = rowHeader.Cells.Select(it =>ValueCell( it, it?.CellType)).ToList();
-                    var cellMissed = nrCols- values.Count();
-                    if (cellMissed>0)
-                    {//found row with less values than the header
-                        while(values.Count< nrCols)
-                        {
-                            values.Add(null);
-                        }
+                    var valuesWithColumnIndex = rowHeader.Cells.Select(it =>ValueCell( it, it?.CellType)).ToList();
+                    var values = new object[nrCols];
+                    for(var nrIndex = 0; nrIndex < nrCols; nrIndex++ )
+                    {
+                        values[nrIndex] = null;
                     }
-                    if (cellMissed < 0)
-                    {//found row with more values than the header
-                        while(!(values.Count == nrCols))
-                        {
-                            values.RemoveAt(values.Count - 1);
-                        }
+                    foreach(var item in valuesWithColumnIndex)
+                    {
+                        if(item.Item1<nrCols)
+                            values[item.Item1] = item.Item2;
                     }
 
                     if (values.Count(it => (it == null || it == DBNull.Value)) == nrCols)
@@ -221,7 +221,7 @@ namespace Stankins.Excel
                     try
                     {
                         bool canAdd = true;
-                        for (int i = 0; i < values.Count; i++)
+                        for (int i = 0; i < nrCols; i++)
                         {
                             var currentType = dtSheet.Columns[i].DataType;
                             
