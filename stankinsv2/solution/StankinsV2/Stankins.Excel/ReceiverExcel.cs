@@ -67,9 +67,12 @@ namespace Stankins.Excel
                     throw new ArgumentException($"do not understand {type}");
             }
         }
-        public object ValueCell(ICell cell, CellType type)
+        public object ValueCell(ICell cell, CellType? type)
         {
-            switch (type)
+            if (type == null)
+                return null;
+
+            switch (type.Value)
             {
                 case CellType.Blank:
                     return null;
@@ -165,16 +168,20 @@ namespace Stankins.Excel
                         string name = (rowHeader.GetCell(i)?.ToString())??"";
                         if (string.IsNullOrEmpty(name))//no empty headers
                             break;
-                        Type t;
-                        switch (cell.CellType)
+                        Type t =typeof(string);
+                        if (cell != null)
                         {
-                            case CellType.Formula:
-                                t = FromCellType(cell.CachedFormulaResultType);
-                                break;
-                            default:
-                                t = FromCellType(cell.CellType);
-                                break;
+                            switch (cell.CellType)
+                            {
+                                case CellType.Formula:
+                                    t = FromCellType(cell.CachedFormulaResultType);
+                                    break;
+                                default:
+                                    t = FromCellType(cell.CellType);
+                                    break;
+                            }
                         }
+
                         dtSheet.Columns.Add(name, t);
 
                     }
@@ -188,7 +195,10 @@ namespace Stankins.Excel
                 for (int iRow = 1; iRow < lastRow; iRow++)
                 {
                     rowHeader = sheet.GetRow(iRow);
-                    var values = rowHeader.Cells.Select(it =>ValueCell( it, it.CellType)).ToList();
+                    if ((rowHeader?.Cells?.Count ?? 0) < 1)
+                        continue;
+
+                    var values = rowHeader.Cells.Select(it =>ValueCell( it, it?.CellType)).ToList();
                     var cellMissed = nrCols- values.Count();
                     if (cellMissed>0)
                     {//found row with less values than the header
@@ -204,6 +214,10 @@ namespace Stankins.Excel
                             values.RemoveAt(values.Count - 1);
                         }
                     }
+
+                    if (values.Count(it => (it == null || it == DBNull.Value)) == nrCols)
+                        continue;//do not add empty rows
+
                     try
                     {
                         bool canAdd = true;
