@@ -23,8 +23,10 @@ namespace StankinsTestXUnit
         [Example("Assets/Excel/curs.xls", 3, "Valori", 2, 2)]
         //later - cannot read [Example("Assets/Excel/convert.xls", 1, "convert", 1, 1)]
         [Example("Assets/Excel/conc.xls", 3, "Sheet1", 33, 6)]
-        
+
         [Example("Assets/Excel/colect.xlsx", 1, "CollectionProgram_list (1)", 9, 172)]
+        [Example("Assets/Excel/Daily.xlsx", 1, "Property Sheet 20.03.2020", 0, 0)]
+
         public void TestSimpleExcel(string fileName, int NumberSheets,string verifySheet,int nrCols, int nrRows)
         {
             IReceive receiver = null;
