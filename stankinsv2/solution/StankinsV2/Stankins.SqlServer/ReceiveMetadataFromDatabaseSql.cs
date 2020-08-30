@@ -42,8 +42,9 @@ namespace Stankins.SqlServer
                             inner join sys.schemas s on t.schema_id = s.schema_id order by 2 ";
             var newTables = FromSql(tablesString,"tables");
 
-            var cols = $@"select cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, c.name,c.object_id as tableId  
+            var cols = $@"select cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, c.name,c.object_id as tableId,t.name as type  
                         from sys.columns c
+                        inner join sys.types t on t.system_type_id = c.system_type_id
                         inner join sys.tables o on o.object_id = c.object_id order by 2";
             var newCols =FromSql(cols, "columns");
             var rels = $@"select 
