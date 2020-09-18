@@ -43,6 +43,10 @@ namespace Stankins.SqlServer
             var newTables = FromSql(tablesString,"tables");
 
             var cols = $@"select cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, c.name,c.object_id as tableId,t.name as type  
+                        
+,case when coalesce(c.is_nullable,0) = 1 then 1
+else 0
+end as IS_NULLABLE
                         from sys.columns c
                         inner join sys.types t on t.system_type_id = c.system_type_id
                         inner join sys.tables o on o.object_id = c.object_id order by 2";
