@@ -71,10 +71,12 @@ DISTINCT
 OBJECT_ID(Table_Schema +'.'+ Constraint_Name) as id,
 Table_Schema +'.'+ Constraint_Name AS name,
 OBJECT_ID(Table_Schema +'.'+ TABLE_NAME) as tableId,
-cast(ORDINAL_POSITION as varchar)+'_'+ cast(OBJECT_ID(Table_Schema +'.'+ TABLE_NAME) as varchar) as column_id,
+cast(c.column_id as varchar)+'_'+ cast(OBJECT_ID(Table_Schema +'.'+ TABLE_NAME) as varchar) as column_id,
 o.type_desc
 FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE
-inner join sys.objects o on o.object_id = OBJECT_ID(Table_Schema +'.'+ Constraint_Name)";
+inner join sys.objects o on o.object_id = OBJECT_ID(Table_Schema +'.'+ Constraint_Name)
+inner join sys.columns c on OBJECT_ID(Table_Schema +'.'+ TABLE_NAME) = c.object_id
+and c.name =COLUMN_NAME";
 
             var newKeys = FromSql(keySql,"keys");
             await Task.WhenAll(newTables, newCols, newRels, newKeys);
