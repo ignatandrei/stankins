@@ -120,7 +120,7 @@ inner join sys.schemas s on t.schema_id = s.schema_id and s.name = schemaCols.TA
             tablesProperties.Merge(propsNew, true, MissingSchemaAction.Add);
 
 
-            var ids=FastAddTables(receiveData, newTables.Result,newCols.Result,newRels.Result, newKeys.Result,tablesProperties);
+            var ids=FastAddTables(receiveData, newTables.Result,newCols.Result,newRels.Result, newKeys.Result,tablesProperties, newViews.Result);
             var r = new Relation();
             r.IdTableParent = ids[0];
             r.IdTableChild = ids[1];
