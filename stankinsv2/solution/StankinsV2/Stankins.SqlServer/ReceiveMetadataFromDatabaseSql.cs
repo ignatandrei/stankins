@@ -89,7 +89,7 @@ inner join sys.columns c on OBJECT_ID(Table_Schema +'.'+ TABLE_NAME) = c.object_
 and c.name =COLUMN_NAME";
 
             var newKeys = FromSql(keySql,"keys");
-            await Task.WhenAll(newTables, newCols, newRels, newKeys);
+            await Task.WhenAll(newTables, newCols, newRels, newKeys, newViews);
 
             
             
