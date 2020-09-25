@@ -42,6 +42,11 @@ namespace Stankins.SqlServer
                             inner join sys.schemas s on t.schema_id = s.schema_id order by 2 ";
             var newTables = FromSql(tablesString,"tables");
 
+
+            var viewsString = $@"select t.object_id as id, s.name +'.'+ t.name as name from sys.views t
+                            inner join sys.schemas s on t.schema_id = s.schema_id order by 2 ";
+            var newViews = FromSql(viewsString, "views");
+
             var cols = $@"select cast(c.column_id as nvarchar) +'_'+ cast(c.object_id as varchar) as id, c.name,c.object_id as tableId,t.name as type  
                         
 ,case when coalesce(c.is_nullable,0) = 1 then 1
@@ -49,7 +54,12 @@ else 0
 end as IS_NULLABLE
                         from sys.columns c
                         inner join sys.types t on t.system_type_id = c.system_type_id
-                        inner join sys.tables o on o.object_id = c.object_id order by 2";
+           left join sys.tables o on o.object_id = c.object_id
+						left join sys.views vw on vw.object_id = c.object_id
+
+where len(coalesce(cast(o.object_id as varchar),cast(vw.object_id as varchar),''))>0              
+order by 2";
+      
             var newCols =FromSql(cols, "columns");
             var rels = $@"select 
 
