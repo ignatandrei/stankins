@@ -31,7 +31,13 @@ namespace Stankins.Postgresql
         {
             receiveData ??= new DataToSentTable();
             var b = new NpgsqlConnectionStringBuilder(base.connectionString);
-            var tablesString = $"select Concat(Table_SCHEMA,'.' ,TABLE_NAME) as id , TABLE_NAME  as name from  information_schema.TABLES where TABLE_Catalog='{b.Database}'";
+            var tablesString = $@"select 
+                Concat(Table_SCHEMA,'.' ,TABLE_NAME) as id , TABLE_NAME  as name from  information_schema.TABLES 
+            where TABLE_Catalog='{b.Database}'
+AND table_schema NOT LIKE 'pg_%'
+AND 
+ table_schema NOT LIKE 'information_schema'
+";
             var newTables = FromSql(tablesString, "tables");
 
             var cols = $@"select 
@@ -66,7 +72,7 @@ FROM
 WHERE tc.constraint_type = 'FOREIGN KEY'
 
 
-and TABLE_Catalog='{b.Database}'
+and tc.TABLE_Catalog='{b.Database}'
 ";
             var newRels = FromSql(rels, "relations");
 
@@ -83,8 +89,8 @@ JOIN information_schema.constraint_column_usage AS ccu USING (constraint_schema,
 JOIN information_schema.columns AS c ON c.table_schema = tc.constraint_schema
   AND tc.table_name = c.table_name AND ccu.column_name = c.column_name "
 ;
-            keySql += $@"where TABLE_Catalog='{b.Database}'";
-            keySql += $@"and constraint_type='PRIMARY KEY'";
+            keySql += $@"where tc.TABLE_Catalog='{b.Database}'";
+            keySql += $@"and tc.constraint_type='PRIMARY KEY'";
 
             var newKeys = FromSql(keySql, "keys");
 
