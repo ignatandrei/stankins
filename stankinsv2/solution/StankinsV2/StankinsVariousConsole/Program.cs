@@ -645,6 +645,8 @@ namespace StankinsVariousConsole
         }
         static async Task Main(string[] args)
         {
+            await Bookmarks();
+            return;
             Console.WriteLine(await Excel());
             return;
              await MariaDB();
@@ -894,7 +896,7 @@ namespace StankinsVariousConsole
         {
             var v = new Verifier();
 
-            var dt = new ReceiverHtmlSelector(@"C:\Users\Surface1\Desktop\bookmarks_11_17_17.html", Encoding.UTF8, "//dt/a");
+            var dt = new ReceiverHtmlSelector(@"C:\Users\Surface1\Desktop\bookmarks.html", Encoding.UTF8, "//dt/a");
             var data = await dt.TransformData(null);
             data = await v.TransformData(data);
             //data = await new TransformerHTMLAttribute("item_html", "href").TransformData(data);
@@ -908,9 +910,14 @@ namespace StankinsVariousConsole
             data = await new TransformerOneColumnToMultiTablesByNumber(data.Metadata.Tables.First().Name, 20).TransformData(data);
             data = await v.TransformData(data);
 
+            data = await new TransformerRenameTablesInOrder(1, "Friday Links ####").TransformData(data);
+            await v.TransformData(data);
+
+            data = await new SenderWindowsLiveWriter(@"C:\wpost", "", "", "", "").TransformData(data);
+            return;
             var excel = new SenderExcel(@"text.xslx");
             data = await excel.TransformData(data);
-            data = await v.TransformData(data);
+            //data = await v.TransformData(data);
 
         }
 
