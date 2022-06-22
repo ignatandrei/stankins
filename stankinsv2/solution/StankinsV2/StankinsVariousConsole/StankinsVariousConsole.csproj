@@ -24,7 +24,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Octokit" Version="0.48.0" />
     <PackageReference Include="YamlDotNet" Version="5.4.0" />
   </ItemGroup>
